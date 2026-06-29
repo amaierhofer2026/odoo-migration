@@ -1,16 +1,16 @@
 # Odoo Migration
 
-Spiegel von `C:\Odoo-Test` – Docker-Stack mit Odoo 18 + PostgreSQL 16, Odoo-11-Quellen und migrierte Odoo-18-Addons.
+Exakter Spiegel von `C:\Odoo-Test` – Odoo 18 Docker-Stack, Odoo-11-Quellen und migrierte Addons.
 
 ## Struktur
 
 ```
 odoo-migration/
-├── addons/              → Odoo-18-Addons
+├── addons/              → Odoo-Addons
 ├── config/              → Odoo-Konfiguration
-├── odoo11 module/       → Odoo-11-Quellen (57 Module)
-├── docker-compose.yml   → Docker-Stack
-└── PROJECT_KNOWLEDGE.md → Migrations-Details
+├── odoo11 module/       → Odoo-11-Originalquellen
+├── postgres/            → PostgreSQL-Datenbank
+└── docker-compose.yml   → Docker-Stack
 ```
 
 ## Lizenz
