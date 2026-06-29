@@ -3,15 +3,22 @@
 ## Repository
 **Name:** Odoo Migration  
 **URL:** https://github.com/amaierhofer2026/odoo-migration  
-**Ziel:** Konsolidierung aller Odoo-Module aus verschiedenen Quell-Repos in einem einzigen Migrations-Repository.
+**Ziel:** Spiegel von `C:\Odoo-Test` – alle Odoo-Module & Docker-Konfiguration zentralisiert.
 
-## Struktur
+## Struktur (identisch zu C:\Odoo-Test)
 
 ```
 odoo-migration/
-├── addons/          → Fertig migrierte Odoo-18-Module
-└── odoo11-src/      → Originale Odoo-11-Quellen (zur Migration)
+├── addons/              → Odoo-18-Addons (als Docker-Volume eingebunden)
+│   └── itk_subscription/
+├── config/              → Odoo-Konfiguration
+├── odoo11 module/       → Odoo-11-Originalquellen (57 Module)
+├── docker-compose.yml   → Docker-Stack (Odoo 18 + PostgreSQL 16)
+├── PROJECT_KNOWLEDGE.md → Dieses Dokument
+└── README.md
 ```
+
+**Hinweis:** `postgres/` (DB-Daten) und `*.zip`-Archive bleiben außerhalb des Git-Repositorys.
 
 ## Module
 
@@ -21,75 +28,16 @@ odoo-migration/
 |---|---|---|
 | `itk_subscription` | ITK Abo-Management (wiederkehrende Rechnungen) | ✅ Installiert in Odoo 18 |
 
-### odoo11-src/ – Odoo-11-Originale (Migration ausstehend)
+### odoo11 module/ – Odoo-11-Originale (Migration ausstehend)
 
 **ITK-Kernmodule:**
-| Modul | Beschreibung |
-|---|---|
-| `itk_base_setup` | ITK Basis-Setup |
-| `itk_contract` | ITK Verträge |
-| `itk_crm` | ITK CRM-Erweiterungen |
-| `itk_misc` | ITK Verschiedenes |
-| `itk_multifactor` | ITK Multiplikatorfaktor |
-| `itk_product` | ITK Produkterweiterungen |
-| `itk_projectcategory` | ITK Projektkategorien |
-| `itk_reports` | ITK Berichte |
-| `itk_sale_management` | ITK Verkaufsmanagement |
-| `itk_saleorder_lines` | ITK Auftragszeilen |
-| `itk_subscription` | ITK Abo-Management |
-| `itk_support` | ITK Support |
-| `itk_third_party_setup` | ITK Drittanbieter-Setup |
-| `itk_translation` | ITK Übersetzungen |
-| `itk_valorisierung` | ITK Valorisierung |
+`itk_base_setup`, `itk_contract`, `itk_crm`, `itk_misc`, `itk_multifactor`, `itk_product`, `itk_projectcategory`, `itk_reports`, `itk_sale_management`, `itk_saleorder_lines`, `itk_subscription`, `itk_support`, `itk_third_party_setup`, `itk_translation`, `itk_valorisierung`
 
 **Import-Module:**
-| Modul | Beschreibung |
-|---|---|
-| `itk_automated_actions` | Automatisierte Aktionen |
-| `itk_data_setup` | Daten-Setup |
-| `itk_fix_import` | Fix-Import |
-| `itk_initial_abo_import` | Initialer Abo-Import |
-| `itk_initial_data_habasis_gkz_strasse_import` | Initialdaten-Import Habasis GKZ Strasse |
-| `itk_initial_data_habasis_gszk_import` | Initialdaten-Import Habasis GSZK |
-| `itk_initial_data_import` | Initialdaten-Import |
-| `itk_initial_partner_data_import` | Initialer Partnerdaten-Import |
-| `itk_initial_partner_emblem_import` | Initialer Partner-Emblem-Import |
-| `itk_initial_partner_nogkz_data_import` | Partner NOGKZ-Daten-Import |
-| `itk_initial_product_import` | Initialer Produkt-Import |
-| `itk_main_company_import` | Hauptfirmen-Import |
-| `itk_update_population` | Update Population |
+`itk_automated_actions`, `itk_data_setup`, `itk_fix_import`, `itk_initial_abo_import`, `itk_initial_data_habasis_gkz_strasse_import`, `itk_initial_data_habasis_gszk_import`, `itk_initial_data_import`, `itk_initial_partner_data_import`, `itk_initial_partner_emblem_import`, `itk_initial_partner_nogkz_data_import`, `itk_initial_product_import`, `itk_main_company_import`, `itk_update_population`
 
-**Odoo-Erweiterungen von Drittanbietern:**
-| Modul | Beschreibung |
-|---|---|
-| `account_invoice_line_number` | Rechnungszeilen-Nummerierung |
-| `account_invoice_line_report` | Rechnungszeilen-Report |
-| `bi_crm_claim` | CRM Claim |
-| `hr_employee_firstname` | Mitarbeiter Vorname |
-| `hr_holiday_exclude_special_days` | Urlaub: besondere Tage ausschließen |
-| `hr_holidays_public` | Gesetzliche Feiertage |
-| `mail_activity_board` | Mail Activity Board |
-| `mass_editing` | Massenbearbeitung |
-| `mass_email_invoice` | Massen-E-Mail Rechnung |
-| `merge_purchase_order` | Bestellungen zusammenführen |
-| `merge_sale_order` | Verkaufsaufträge zusammenführen |
-| `partner_academic_title` | Partner akademischer Titel |
-| `partner_external_map` | Partner externe Karte |
-| `partner_firstname` | Partner Vorname |
-| `purchase_order_line_number` | Bestellzeilen-Nummerierung |
-| `sale_merge_draft_invoice` | Entwurfsrechnungen zusammenführen |
-| `sale_order_line_number` | Auftragszeilen-Nummerierung |
-| `web_environment_ribbon` | Umgebungs-Badge |
-| `web_group_expand` | Group Expand |
-| `web_no_bubble` | Keine Bubble |
-| `web_responsive` | Responsive Backend |
-| `web_sheet_full_width` | Vollbreite Sheets |
-| `website_cookie_notice` | Cookie-Hinweis |
-| `website_odoo_debranding` | Odoo-Branding entfernen |
-| `website_support` | Website Support |
-| `website_support_analytic_timesheets` | Support-Zeiterfassung |
-| `website_support_billing` | Support-Abrechnung |
-| `web_tree_resize_column` | Spaltenbreite anpassen |
+**Odoo-Erweiterungen (OCA/Community):**
+`account_invoice_line_number`, `account_invoice_line_report`, `bi_crm_claim`, `hr_employee_firstname`, `hr_holiday_exclude_special_days`, `hr_holidays_public`, `mail_activity_board`, `mass_editing`, `mass_email_invoice`, `merge_purchase_order`, `merge_sale_order`, `partner_academic_title`, `partner_external_map`, `partner_firstname`, `purchase_order_line_number`, `sale_merge_draft_invoice`, `sale_order_line_number`, `web_environment_ribbon`, `web_group_expand`, `web_no_bubble`, `web_responsive`, `web_sheet_full_width`, `web_tree_resize_column`, `website_cookie_notice`, `website_odoo_debranding`, `website_support`, `website_support_analytic_timesheets`, `website_support_billing`
 
 ## itk_subscription – Migrationsdetails
 
@@ -97,39 +45,31 @@ odoo-migration/
 |---|---|
 | Technischer Name | `itk_subscription` |
 | Odoo Version | 18.0 |
-| Original-Quelle | `odoo11-src/itk_subscription` (Odoo 11) |
-| Ziel | `addons/itk_subscription` |
 | Abhängigkeiten | `sale`, `portal`, `account`, `analytic` |
 
 ### Kernfunktionen
-- Abos mit wiederkehrenden Rechnungen (täglich/wöchentlich/monatlich/jährlich)
-- Kündigungsfristen (Notice Period) und Mindestvertragslaufzeit
-- Abo-Vorlagen (subscription templates)
+- Abos mit wiederkehrenden Rechnungen
+- Kündigungsfristen und Mindestvertragslaufzeit
+- Abo-Vorlagen
 - Portal-Zugriff für Kunden
-- Verkaufaufträge erzeugen automatisch Abos
-- Automatische Rechnungserstellung per Cron-Job
-- Automatische Zahlungsabwicklung (mit Payment-Tokens)
-
-### Bekannte Einschränkungen (Odoo 18)
-- **XPath-Selektoren** in Portal-Templates (`o_portal_submenu`, `o_portal_docs`) und Settings (`//div[hasclass('settings')]`) sind noch nicht an Odoo 18 angepasst – aktuell auskommentiert
-- **Payment-View-Inheritance** (`payment.transaction_form`) benötigt korrekten Odoo-18-XML-ID
-- **Settings-View-Inheritance** braucht korrekten Odoo-18-XPath für das Settings-Layout
-- **Order-Line-Form** im Sale-Order-View nutzt tief verschachteltes XPath, das in Odoo 18 anders ist
+- Abos aus Verkaufsaufträgen
+- Automatische Rechnungen per Cron
+- Automatische Zahlungsabwicklung
 
 ### Änderungen für Odoo 18
-- `# -*- coding: utf-8 -*-` aus allen Python-Dateien entfernt
-- `__manifest__.py`: Version, `depends`, Assets über `'assets': {}`-Key
-- `<list>` statt `<tree>` (Odoo 18 hat View-Typ geändert)
-- `active_id` → `id` in Button-Kontexten (Odoo 18 validiert strenger)
-- `attrs=` → `invisible=` (ab Odoo 17 deprecated)
-- `numbercall`, `doall` aus Cron-Jobs entfernt
-- `report_template` aus Mail-Template entfernt (Odoo 18 `mail.template`)
-- Payment: `payment.acquirer` → `payment.provider`
-- Zahlung: `action_invoice_open()` → `action_post()`
+- `# -*- coding: utf-8 -*-` entfernt
+- Version, `depends`, Assets im Manifest aktualisiert
+- `<list>` statt `<tree>`
+- `active_id` → `id` in Button-Kontexten
+- `attrs=` → `invisible=`
+- `numbercall`, `doall` aus Cron entfernt
+- `report_template` aus Mail-Template entfernt
+- `payment.acquirer` → `payment.provider`
+- `action_invoice_open()` → `action_post()`
 - `size=` auf Integer-Feldern entfernt
-- LESS: Odoo-Bootstrap-Mixins durch reines CSS ersetzt
+- LESS-Mixins durch reines CSS
 
 ## Zugänge
 **Odoo 18:** http://localhost:8069  
-**Docker-Stack:** `C:\Odoo-Test\docker-compose.yml`  
-**Addons-Pfad (Host):** `C:\Odoo-Test\addons\` → Container: `/mnt/extra-addons/`
+**Docker:** `docker compose up -d` in `C:\Odoo-Test\`  
+**Addons-Pfad:** `C:\Odoo-Test\addons\` → Container `/mnt/extra-addons/`

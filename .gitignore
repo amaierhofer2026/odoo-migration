@@ -2,11 +2,10 @@
 __pycache__/
 *.pyc
 *.pyo
-*.pyc
-*.pyo
 
 # Odoo
 *.mo
+*.zip
 
 # OS files
 .DS_Store
@@ -17,3 +16,6 @@ Thumbs.db
 .vscode/
 *.swp
 *.swo
+
+# DB data (not committed)
+postgres/

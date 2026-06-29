@@ -1,23 +1,17 @@
 # Odoo Migration
 
-Konsolidiertes Repository für Odoo-Module – ursprünglich Odoo 11, Migration nach **Odoo 18**.
+Spiegel von `C:\Odoo-Test` – Docker-Stack mit Odoo 18 + PostgreSQL 16, Odoo-11-Quellen und migrierte Odoo-18-Addons.
 
 ## Struktur
 
 ```
 odoo-migration/
-├── addons/          # Fertig migrierte Odoo-18-Module
-│   └── itk_subscription/
-├── odoo11-src/      # Odoo-11-Originalquellen (57 Module)
-└── PROJECT_KNOWLEDGE.md
+├── addons/              → Odoo-18-Addons
+├── config/              → Odoo-Konfiguration
+├── odoo11 module/       → Odoo-11-Quellen (57 Module)
+├── docker-compose.yml   → Docker-Stack
+└── PROJECT_KNOWLEDGE.md → Migrations-Details
 ```
-
-## Status
-
-| Bereich | Status |
-|---|---|
-| `itk_subscription` nach Odoo 18 | ✅ Installiert & funktionsfähig |
-| Übrige 56 Module aus `odoo11-src/` | ❌ Migration ausstehend |
 
 ## Lizenz
 
