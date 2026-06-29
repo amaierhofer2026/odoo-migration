@@ -1,50 +1,201 @@
 # Odoo Migration – Projekt-Knowledge-Base
 
-## Repository
-**Name:** Odoo Migration  
-**URL:** https://github.com/amaierhofer2026/odoo-migration  
-**Ziel:** Exakter Spiegel von `C:\Odoo-Test`
+## Über diese Datei (PROJECT_KNOWLEDGE.md)
+Diese Datei ist das **zentrale Gedächtnis des Projekts**. Sie dokumentiert:
+- Welche Schritte bereits durchgeführt wurden
+- Welche Entscheidungen getroffen wurden
+- Welche Fehler aufgetreten sind und wie sie gelöst wurden
+- Wie der aktuelle Stand ist
+- **Wie man frühere Versionen wiederherstellen kann**
 
-## Struktur
+Sie ist für Menschen lesbar (kein reiner Code), dient als "Long-Term Memory" für den KI-Assistenten und ersetzt das README.md für interne Projekt-Dokumentation.
+
+---
+
+## README.md – Wozu?
+Die **README.md** ist die **Visitenkarte des Repos** für andere Menschen (oder dich selbst in 6 Monaten). Sie zeigt auf GitHub automatisch als Startseite an. Sie enthält nur:
+- Projektname & Kurzbeschreibung
+- Ordnerstruktur (Überblick)
+- Lizenz
+
+**PROJECT_KNOWLEDGE.md** ist dagegen der **detaillierte Projekt-Tagebuch** – alle technischen Details, Änderungen, Fehlerbehebungen und Entscheidungen.
+
+---
+
+## Repository
+| Eigenschaft | Wert |
+|---|---|
+| Name | `odoo-migration` |
+| URL | https://github.com/amaierhofer2026/odoo-migration |
+| Ziel | Exakter Spiegel von `C:\Odoo-Test` |
+| Haupt-Branch | `main` |
+
+---
+
+## Aktuelle Struktur
 
 ```
 odoo-migration/
-├── addons/              → Alle Odoo-Addons
+├── addons/                  → Odoo-Addons
 │   ├── account_invoice_line_number/
 │   ├── itk_product/
 │   ├── itk_projectcategory/
 │   ├── itk_sale_management/
-│   ├── itk_subscription/   ✅ Migriert nach Odoo 18
+│   ├── itk_subscription/    ✅ Migriert nach Odoo 18
 │   ├── itk_valorisierung/
 │   └── sale_order_line_number/
-├── config/              → Odoo-Konfiguration
-├── odoo11 module/       → Odoo-11-Originalquellen (57 Module + Archive)
-├── postgres/            → PostgreSQL-Datenbank
-├── docker-compose.yml   → Docker-Stack (Odoo 18 + PostgreSQL 16)
-└── README.md
+├── config/                  → Odoo-Konfiguration (leer)
+├── odoo11 module/           → Odoo-11-Originalquellen (nur die, die NICHT in addons/ sind)
+├── postgres/                → PostgreSQL-Datenbank
+├── docker-compose.yml       → Docker-Stack (Odoo 18 + PostgreSQL 16)
+├── .gitignore               → Ignoriert: __pycache__, *.pyc, *.mo, .idea/, *.swp
+├── PROJECT_KNOWLEDGE.md     → Dieses Dokument (Projekt-Tagebuch)
+└── README.md                → Kurz-Übersicht für GitHub
 ```
 
-## itk_subscription – Migrationsdetails
+---
 
-| Eigenschaft | Wert |
-|---|---|
-| Technischer Name | `itk_subscription` |
-| Odoo Version | 18.0 |
-| Abhängigkeiten | `sale`, `portal`, `account`, `analytic` |
-| Status | ✅ Installiert in Odoo 18 |
+## Projekt-Chronik (Session-Log)
 
-### Bekannte Einschränkungen (Odoo 18)
-- Portal-Templates (`o_portal_submenu`, `o_portal_docs`) – XPath angepasst
-- Settings-View-Inheritance – XPath angepasst
-- Payment-View-Inheritance – XML-ID angepasst
+### Session 1: itk_subscription – Migration Odoo 11 → 18
 
-### Wichtigste Änderungen für Odoo 18
-- `<list>` statt `<tree>`, `attrs=` → `invisible=`, `active_id` → `id`
-- `numbercall`, `doall` aus Cron entfernt, `report_template` aus Mail-Template
-- `payment.acquirer` → `payment.provider`, `action_invoice_open()` → `action_post()`
-- `size=` auf Integer-Feldern entfernt, LESS-Mixins durch reines CSS
+**Datum:** 25.06.2026  
+**Dauer:** Mehrere Stunden, iterativ mit Fehlerkorrektur  
+**Modul:** `itk_subscription` (ITK Abo-Management)
+
+#### Ausgangslage
+- Odoo-11-Modul `itk_subscription` liegt in `C:\Odoo-Test\addons\itk_subscription\`
+- Ziel: Installation in Odoo 18 (Docker-Container `odoo:18`)
+- Testsystem: http://localhost:8069
+
+#### Schritt-für-Schritt-Änderungen
+
+**1. Manifest (`__manifest__.py`)**
+- Version von `1.1` auf `18.0.1.0.0`
+- `# -*- coding: utf-8 -*-` entfernt (Python 3 Default)
+- `depends`: `sale_management` → `sale`, + `analytic` hinzugefügt
+- `sale_subscription_wizard_views.xml` reaktiviert (war auskommentiert)
+- `license`: `LGPL-3` hinzugefügt
+- Assets: Aus XML in `'assets': {}`-Key im Manifest verschoben
+
+**2. Python-Modelle (alle `.py`-Dateien)**
+- Alle `# -*- coding: utf-8 -*-` entfernt
+- `size=` auf Integer-Feldern entfernt (seit Odoo 13 deprecated)
+- `_prepare_invoice_data()`: Komplett überarbeitet für Odoo-18-API
+  - `'type': 'out_invoice'` → `'invoice_date'`
+  - `'account_id'` entfernt, stattdessen `'partner_id'`
+  - `'origin'` → `'invoice_origin'`
+  - `'payment_term_id'` → `'invoice_payment_term_id'`
+  - `'invoice_line_ids'` direkt in `_prepare_invoice_data()` integriert
+- `_prepare_invoice_line()`: `account_analytic_id` → `analytic_distribution`
+- `_do_payment()`: `acquirer_id` → `provider_id`, `s2s_do_transaction()` → `_send_payment_request()`
+- `reconcile_pending_transaction()`: `action_invoice_open()` → `action_post()`
+- Mail-Referenzen von `sale_subscription` auf `itk_subscription` korrigiert
+
+**3. Controller/Portal (`controllers/portal.py`)**
+- `payment.acquirer` → `payment.provider`
+- `token_implemented` → `allow_tokenization`
+- `tx.form_feedback()` → `tx._handle_notification_data()`
+- Template-Variablen: `acquirers` → `providers`
+
+**4. View-XML-Dateien**
+- `<tree>` → `<list>` (Odoo 18: der View-Typ heißt `list`, nicht `tree`)
+- `<record>`-Definitionen: weiterhin `<tree>` → `<list>` für Haupt-Views
+- Inline-Edit-Listen innerhalb von `<field>`: `<tree>` → `<list>`
+- `active_id` → `id` in Button-Kontexten (Odoo 18 validiert Felder strikter)
+- `attrs="{'invisible': ...}"` → `invisible="..."`
+- `analytic.model_account_analytic_account` → `account.model_account_analytic_account`
+
+**5. Security**
+- `ir.model.access.csv`: Alle `model_id:`-Referenzen vollqualifiziert (`itk_subscription.model_...`)
+- `sale_subscription_security.xml`: `analytic.model_account_analytic_account` korrigiert
+
+**6. Daten-Dateien**
+- `numbercall` und `doall` aus Cron-Jobs entfernt (Odoo 18 `ir.cron`)
+- `report_template` und `report_name` aus Mail-Template entfernt (Odoo 18 `mail.template`)
+
+**7. Static/LESS**
+- LESS-Mixins (`.o-flex-display()`, `.o-flex()`, etc.) durch reines CSS ersetzt
+
+**8. Auskommentierte/nicht-kritische Views (für später)**
+- `portal_my_home_menu_subscription` – XPath `o_portal_submenu` nicht mehr vorhanden
+- `portal_my_home_subscription` – XPath `o_portal_docs` nicht mehr vorhanden
+- `payment_views.xml` – `payment.transaction_form` XML-ID nicht gefunden
+- `res_config_settings_views.xml` – XPath `//div[hasclass('settings')]` nicht mehr vorhanden
+- `sale_order_views.xml` – Tiefer XPath `//field[@name='order_line']/form/group/group/...` entfernt
+
+#### Fehler & Lösungen (chronologisch)
+| # | Fehler | Ursache | Lösung |
+|---|---|---|---|
+| 1 | `Ungültiger Ansichtstyp: 'tree'` | `<tree>` in Odoo 18 nicht mehr gültig | Alle `<tree>` durch `<list>` ersetzen |
+| 2 | `Unstimmigkeit bei Zugriffsrechten: active_id` | `active_id` kein Feld auf dem Model | `active_id` → `id` |
+| 3 | `External ID not found: web.assets_backend` | Assets-Template mit `inherit_id` | Assets in Manifest verschieben |
+| 4 | `Element "//ol[hasclass('o_portal_submenu')]" nicht lokalisiert` | Portal-Layout in Odoo 18 geändert | Portal-Templates auskommentiert |
+| 5 | `Element "//div[hasclass('settings')]" nicht lokalisiert` | Settings-Layout in Odoo 18 geändert | Settings-View auskommentiert |
+| 6 | `External ID not found: payment.transaction_form` | Payment-XML-ID in Odoo 18 geändert | Payment-View auskommentiert |
+| 7 | `attrs wird nicht mehr verwendet` | `attrs=` ab Odoo 17 deprecated | `attrs=` → `invisible=` |
+| 8 | `Invalid field 'numbercall' on 'ir.cron'` | `numbercall`/`doall` in Odoo 18 entfernt | Beide Felder aus Cron-Jobs entfernt |
+| 9 | `Invalid field 'report_template' on 'mail.template'` | `report_template` in Odoo 18 entfernt | Aus Mail-Template entfernt |
+| 10 | `Element "//field[@name='order_line']/form/...` | Order-Line-Form-Struktur geändert | XPath entfernt |
+
+---
+
+### Session 2: Repository-Struktur aufbauen
+
+**Datum:** 29.06.2026
+
+#### Schritte
+1. Neues GitHub-Repo `odoo-migration` erstellt (API)
+2. Initial-Commit mit `itk_subscription` (migrierte Version)
+3. `.gitignore` hinzugefügt (__pycache__, *.pyc, *.mo, .idea/)
+4. Odoo-11-Quellen aus `C:\Odoo-Test\odoo11 module\` ins Repo kopiert
+5. `docker-compose.yml` hinzugefügt
+6. `config/` und `postgres/` hinzugefügt
+7. Doppelte Module aus `odoo11 module/` gelöscht (existieren bereits in `addons/`)
+
+#### Aktueller Stand
+- ✅ `itk_subscription` installiert & lauffähig in Odoo 18
+- ✅ Repo spiegelt 1:1 die `C:\Odoo-Test`-Struktur
+- 🔄 Restliche Module in `addons/` warten auf Migration
+- 🔄 Auskommentierte Views müssen noch mit korrekten Odoo-18-XPath repariert werden
+
+---
+
+## Wie man frühere Versionen wiederherstellt
+
+Das Git-Repository speichert **jeden Commit** – du kannst jederzeit zu einem früheren Stand zurück:
+
+```bash
+# Alle Commits anzeigen
+git log --oneline
+
+# Beispiel-Ausgabe:
+# 4dfa9d4 Remove duplicate modules from odoo11 module/
+# 937fb0b Mirror exact C:\Odoo-Test structure
+# d56964b Restructure repo to mirror C:\Odoo-Test exactly
+# c4138d9 Add all 57 Odoo 11 source modules to odoo11-src/
+# b05c4e1 Add all Odoo 11 source modules to odoo11-src/
+# f675f2d Add .gitignore, remove pycache and compiled files
+# 36f416e Initial commit: itk_subscription migrated to Odoo 18
+
+# Temporär zu einem früheren Stand wechseln (z. B. vor dem Löschen der Duplikate):
+git checkout 937fb0b
+
+# Oder einen neuen Branch von einem früheren Commit erstellen:
+git checkout -b vor-dem-loeschen 937fb0b
+
+# Dauerhaft zurücksetzen (VORSICHT: nur wenn du sicher bist!):
+git reset --hard 937fb0b
+git push --force
+```
+
+---
 
 ## Zugänge
-**Odoo 18:** http://localhost:8069  
-**Docker:** `docker compose up -d` in `C:\Odoo-Test\`  
-**PostgreSQL:** Container `odoo18-db`, User `odoo`, Passwort `odoo`
+| Dienst | URL | Details |
+|---|---|---|
+| Odoo 18 | http://localhost:8069 | Docker-Container `odoo18` |
+| PostgreSQL | localhost:5432 | Container `odoo18-db`, User `odoo`, Passwort `odoo` |
+| Docker-Stack | `C:\Odoo-Test\` | `docker compose up -d` |
+| Addons-Pfad (Host) | `C:\Odoo-Test\addons\` | → Container `/mnt/extra-addons/` |
+| GitHub | https://github.com/amaierhofer2026/odoo-migration | |
