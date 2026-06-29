@@ -1,0 +1,693 @@
+<odoo>
+    <data noupdate="0">
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact10617')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact10601')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact10603')]"/>
+        <!--<function id="function_to_call" model="res.partner" name="action_set_address_of_contact"-->
+        <!--eval="[ref('itk_initial_partner_data_import.contact10605')]"/>-->
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact10313')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact10318')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact10323')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact10618')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact10616')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact10301')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact10807')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact10810')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact10823')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact10506')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact10409')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact20635')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31901')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact30502')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31309')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31701')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact30501')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31101')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact30507')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact30509')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31706')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31611')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31310')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact30709')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact30515')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31911')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact30827')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31913')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact32313')]"/>
+        <!--<function id="function_to_call" model="res.partner" name="action_set_address_of_contact"-->
+        <!--eval="[ref('itk_initial_partner_data_import.contact32407')]"/>-->
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact32317')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31825')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact30631')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31837')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31229')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact32018')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31550')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31308')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31514')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31301')]"/>
+        <!--<function id="function_to_call" model="res.partner" name="action_set_address_of_contact"-->
+        <!--eval="[ref('itk_initial_partner_data_import.contact32301')]"/>-->
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact30904')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact30906')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact30512')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact32206')]"/>
+        <!--<function id="function_to_call" model="res.partner" name="action_set_address_of_contact"-->
+        <!--eval="[ref('itk_initial_partner_data_import.contact32405')]"/>-->
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact30909')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact32309')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31520')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact32319')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31929')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact32006')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31333')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact30718')]"/>
+        <!--<function id="function_to_call" model="res.partner" name="action_set_address_of_contact"-->
+        <!--eval="[ref('itk_initial_partner_data_import.contact30627')]"/>-->
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact30719')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31932')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31336')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31829')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact30629')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31338')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact32523')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact30633')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact32131')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31344')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact32142')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact30527')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact30932')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact30856')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact32219')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31844')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact32336')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact30543')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31552')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact32141')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact32120')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact30817')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact30908')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact32508')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31912')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31022')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31109')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31322')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact30925')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact30835')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31926')]"/>
+        <!--<function id="function_to_call" model="res.partner" name="action_set_address_of_contact"-->
+        <!--eval="[ref('itk_initial_partner_data_import.contact32415')]"/>-->
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31230')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact32135')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact30942')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact32530')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact41019')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact50405')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact50307')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact50410')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact50412')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact50320')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact50206')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact50611')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact50415')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact50615')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact50329')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact50330')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact50621')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact50511')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact50422')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact50626')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact50338')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact50401')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact50314')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact50411')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact50421')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact50423')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact50417')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact50205')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact50613')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact50324')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact50326')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact50619')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact50418')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact50628')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70305')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70907')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70806')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70601')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70310')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70204')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70319')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70712')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70713')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70611')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70323')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70515')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70209')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70212')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70615')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70336')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70340')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70522')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70219')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70220')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70626')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70527')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70629')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70732')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70530')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70914')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70514')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70357')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70524')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact80104')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact80210')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact80110')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact80217')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact80222')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact80225')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact80234')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact80235')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact80239')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact80405')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact80414')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact80103')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact40429')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact41404')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact41513')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact40445')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact41234')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact40446')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact41416')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact41342')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact40401')]"/>
+        <!--<function id="function_to_call" model="res.partner" name="action_set_address_of_contact"-->
+        <!--eval="[ref('itk_initial_partner_data_import.contact41303')]"/>-->
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact41018')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact41818')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact41104')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact40806')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact41743')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact41313')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact40417')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact41810')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact41747')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact41305')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact40436')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact41328')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact41307')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact40614')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact41716')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact41121')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact41627')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact40810')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact40711')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact41311')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact41318')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact41321')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact41106')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact40432')]"/>
+        <!--<function id="function_to_call" model="res.partner" name="action_set_address_of_contact"-->
+        <!--eval="[ref('itk_initial_partner_data_import.contact41330')]"/>-->
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact41325')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact41502')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact40509')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact40512')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact41231')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact40404')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact40809')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact41614')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact41120')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact40716')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact41711')]"/>
+        <!--<function id="function_to_call" model="res.partner" name="action_set_address_of_contact"-->
+        <!--eval="[ref('itk_initial_partner_data_import.contact40908')]"/>-->
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact41606')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact40902')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact40903')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact41814')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact41738')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact40507')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact40502')]"/>
+        <!--<function id="function_to_call" model="res.partner" name="action_set_address_of_contact"-->
+        <!--eval="[ref('itk_initial_partner_data_import.contact40101')]"/>-->
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact40807')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact40623')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31915')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact61204')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact61627')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact62010')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact60623')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact61021')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact61054')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact62142')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact61716')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact60666')]"/>
+        <!--<function id="function_to_call" model="res.partner" name="action_set_address_of_contact"-->
+        <!--eval="[ref('itk_initial_partner_data_import.contact61024')]"/>-->
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact62385')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact62145')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact61266')]"/>
+        <!--<function id="function_to_call" model="res.partner" name="action_set_address_of_contact"-->
+        <!--eval="[ref('itk_initial_partner_data_import.contact60347')]"/>-->
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact60654')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact62262')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact61012')]"/>
+        <!--<function id="function_to_call" model="res.partner" name="action_set_address_of_contact"-->
+        <!--eval="[ref('itk_initial_partner_data_import.contact61523')]"/>-->
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact62138')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact60345')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact61013')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact61217')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact62335')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact61615')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact60667')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact62389')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact62278')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact62139')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact62219')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact62141')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact61053')]"/>
+        <!--<function id="function_to_call" model="res.partner" name="action_set_address_of_contact"-->
+        <!--eval="[ref('itk_initial_partner_data_import.contact61438')]"/>-->
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact62047')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact10306')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact30621')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact62271')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact61106')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact62379')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact61016')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact50203')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact62040')]"/>
+        <!--<function id="function_to_call" model="res.partner" name="action_set_address_of_contact"-->
+        <!--eval="[ref('itk_initial_partner_data_import.contact61751')]"/>-->
+        <!--<function id="function_to_call" model="res.partner" name="action_set_address_of_contact"-->
+        <!--eval="[ref('itk_initial_partner_data_import.contact60351')]"/>-->
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact62275')]"/>
+        <!--<function id="function_to_call" model="res.partner" name="action_set_address_of_contact"-->
+        <!--eval="[ref('itk_initial_partner_data_import.contact0793359')]"/>-->
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact60613')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact10612')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31830')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31549')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact10511')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact50504')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact50508')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact30620')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact50319')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact10415')]"/>
+        <!--<function id="function_to_call" model="res.partner" name="action_set_address_of_contact"-->
+        <!--eval="[ref('itk_initial_partner_data_import.contact30804')]"/>-->
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31805')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact50305')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact30830')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact50501')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31713')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31515')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact62311')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31910')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31121')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact32013')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70335')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact32502')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact10307')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact41717')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact60659')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact32518')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact41816')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact60613')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact41516')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact20418')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact62143')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact41111')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact80302')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact32011')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact30734')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact41407')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70511')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact40615')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31907')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact10902')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70718')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact61763')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact50420')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact31103')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70711')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact40501')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70811')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact41114')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact10608')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70622')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70911')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70813')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact30626')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70728')]"/>
+        <!--<function id="function_to_call" model="res.partner" name="action_set_address_of_contact"-->
+        <!--eval="[ref('itk_initial_partner_data_import.contact70715')]"/>-->
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70808')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact30544')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70709')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70729')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70827')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact10718')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70314')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70343')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact10919')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact62270')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact30541')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact10922')]"/>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('itk_initial_partner_data_import.contact70502')]"/>
+        <!--<function id="function_to_call" model="res.partner" name="action_set_address_of_contact"-->
+        <!--eval="[ref('itk_initial_partner_data_import.contact61259')]"/>-->
+        <!--<function id="function_to_call" model="res.partner" name="action_set_address_of_contact"-->
+        <!--eval="[ref('itk_initial_partner_data_import.contact61631')]"/>-->
+        <!--<function id="function_to_call" model="res.partner" name="action_set_address_of_contact"-->
+        <!--eval="[ref('itk_initial_partner_data_import.contact50617')]"/>-->
+        <!--<function id="function_to_call" model="res.partner" name="action_set_address_of_contact"-->
+        <!--eval="[ref('itk_initial_partner_data_import.contact61632')]"/>-->
+        <!--<function id="function_to_call" model="res.partner" name="action_set_address_of_contact"-->
+        <!--eval="[ref('itk_initial_partner_data_import.contact40601')]"/>-->
+        <!--<function id="function_to_call" model="res.partner" name="action_set_address_of_contact"-->
+        <!--eval="[ref('itk_initial_partner_data_import.contact70703')]"/>-->
+
+    </data>
+</odoo>

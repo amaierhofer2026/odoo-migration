@@ -1,0 +1,34 @@
+<odoo>
+<data noupdate="0">
+<record model='res.partner' id ="itk_initial_data_import.gemeinde70101"><field name='status_of_partner_id' ref="itk_crm.status_of_partner_EK"/></record>
+<record model='res.partner' id ="itk_initial_data_import.gemeinde40705"><field name='status_of_partner_id' ref="itk_crm.status_of_partner_EK"/></record>
+<record model='res.partner' id ="itk_initial_data_import.gemeinde70531"><field name='status_of_partner_id' ref="itk_crm.status_of_partner_EK"/></record>
+<record model='res.partner' id ="itk_initial_data_import.gemeinde60669"><field name='status_of_partner_id' ref="itk_crm.status_of_partner_EK"/></record>
+<record model='res.partner' id ="itk_initial_data_import.gemeinde62038"><field name='status_of_partner_id' ref="itk_crm.status_of_partner_EK"/></record>
+<record model='res.partner' id ="itk_initial_data_import.gemeinde10917"><field name='status_of_partner_id' ref="itk_crm.status_of_partner_EK"/></record>
+<record model='res.partner' id ="itk_initial_data_import.gemeinde61265"><field name='status_of_partner_id' ref="itk_crm.status_of_partner_EK"/></record>
+<record model='res.partner' id ="itk_initial_data_import.gemeinde30514"><field name='status_of_partner_id' ref="itk_crm.status_of_partner_EK"/></record>
+<record model='res.partner' id ="itk_initial_data_import.gemeinde62375"><field name='status_of_partner_id' ref="itk_crm.status_of_partner_EK"/></record>
+<record model='res.partner' id ="itk_initial_data_import.gemeinde60662"><field name='status_of_partner_id' ref="itk_crm.status_of_partner_EK"/></record>
+<record model='res.partner' id ="itk_initial_data_import.gemeinde50602"><field name='status_of_partner_id' ref="itk_crm.status_of_partner_EK"/></record>
+<record model='res.partner' id ="itk_initial_data_import.gemeinde41618"><field name='status_of_partner_id' ref="itk_crm.status_of_partner_EK"/></record>
+<record model='res.partner' id ="itk_initial_data_import.gemeinde62040"><field name='status_of_partner_id' ref="itk_crm.status_of_partner_EK"/></record>
+<record model='res.partner' id ="itk_initial_data_import.gemeinde62142"><field name='status_of_partner_id' ref="itk_crm.status_of_partner_EK"/></record>
+<record model='res.partner' id ="itk_initial_data_import.gemeinde50302"><field name='status_of_partner_id' ref="itk_crm.status_of_partner_EK"/></record>
+<record model='res.partner' id ="itk_initial_data_import.gemeinde40909"><field name='status_of_partner_id' ref="itk_crm.status_of_partner_EK"/></record>
+<record model='res.partner' id ="itk_initial_data_import.gemeinde40907"><field name='status_of_partner_id' ref="itk_crm.status_of_partner_EK"/></record>
+<record model='res.partner' id ="itk_initial_data_import.gemeinde50323"><field name='status_of_partner_id' ref="itk_crm.status_of_partner_EK"/></record>
+<record model='res.partner' id ="itk_initial_data_import.gemeinde62388"><field name='status_of_partner_id' ref="itk_crm.status_of_partner_EK"/></record>
+<record model='res.partner' id ="itk_initial_data_import.gemeinde10304"><field name='status_of_partner_id' ref="itk_crm.status_of_partner_EK"/></record>
+<record model='res.partner' id ="itk_initial_data_import.gemeinde41309"><field name='status_of_partner_id' ref="itk_crm.status_of_partner_EK"/></record>
+<record model='res.partner' id ="itk_initial_data_import.gemeinde50416"><field name='status_of_partner_id' ref="itk_crm.status_of_partner_EK"/></record>
+<record model='res.partner' id ="itk_initial_data_import.gemeinde31310"><field name='status_of_partner_id' ref="itk_crm.status_of_partner_EK"/></record>
+<record model='res.partner' id ="itk_initial_data_import.gemeinde80126"><field name='status_of_partner_id' ref="itk_crm.status_of_partner_EK"/></record>
+<record model='res.partner' id ="itk_initial_data_import.gemeinde70931"><field name='status_of_partner_id' ref="itk_crm.status_of_partner_EK"/></record>
+<record model='res.partner' id ="itk_initial_data_import.gemeinde70622"><field name='status_of_partner_id' ref="itk_crm.status_of_partner_EK"/></record>
+<record model='res.partner' id ="itk_initial_data_import.gemeinde41229"><field name='status_of_partner_id' ref="itk_crm.status_of_partner_EK"/></record>
+<record model='res.partner' id ="itk_initial_data_import.gemeinde50603"><field name='status_of_partner_id' ref="itk_crm.status_of_partner_EK"/></record>
+<record model='res.partner' id ="itk_initial_data_import.gemeinde70727"><field name='status_of_partner_id' ref="itk_crm.status_of_partner_EK"/></record>
+<record model='res.partner' id ="itk_initial_data_import.gemeinde10418"><field name='status_of_partner_id' ref="itk_crm.status_of_partner_EK"/></record>
+</data>
+</odoo>

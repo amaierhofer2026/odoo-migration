@@ -1,0 +1,3280 @@
+<odoo>
+    <data noupdate="0">
+        <record model='res.partner' id="contact10617">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde10617"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'>Ing.</field>
+            <field name='function'>AR</field>
+            <field name='attention_of'>Hrn. AR Ing. Stefan Hausmann</field>
+            <field name='firstname'>Stefan</field>
+            <field name='lastname'>Hausmann</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31913">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31913"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>OS</field>
+            <field name='attention_of'>Hrn. OS Peter Leitner</field>
+            <field name='firstname'>Peter</field>
+            <field name='lastname'>Leitner</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact10601">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde10601"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>Bgm.</field>
+            <field name='attention_of'>Hrn. Bgm. Christoph Haider</field>
+            <field name='firstname'>Christoph</field>
+            <field name='lastname'>Haider</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact10603">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde10603"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Gernot Weigel</field>
+            <field name='firstname'>Gernot</field>
+            <field name='lastname'>Weigel</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact10605">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde10605"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Renate Schütz</field>
+            <field name='firstname'>Renate</field>
+            <field name='lastname'>Schütz</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact10313">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde10313"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Michael Schalling</field>
+            <field name='firstname'>Michael</field>
+            <field name='lastname'>Schalling</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact10318">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde10318"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'>Ing.</field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Ing. Michael Bauer</field>
+            <field name='firstname'>Michael</field>
+            <field name='lastname'>Bauer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact10323">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde10323"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Yvonne Zakall</field>
+            <field name='firstname'>Yvonne</field>
+            <field name='lastname'>Zakall</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact10618">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde10618"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Martina Puntigam-Komanovits</field>
+            <field name='firstname'>Martina</field>
+            <field name='lastname'>Puntigam-Komanovits</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact10616">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde10616"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Amtmann Peter Pohl</field>
+            <field name='firstname'>Peter</field>
+            <field name='lastname'>Pohl</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact10301">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde10301"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Bernd Tobler</field>
+            <field name='firstname'>Bernd</field>
+            <field name='lastname'>Tobler</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact10807">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde10807"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Patricia Steiner</field>
+            <field name='firstname'>Patricia</field>
+            <field name='lastname'>Steiner</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact10810">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde10810"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'>Ing.</field>
+            <field name='function'>OAR</field>
+            <field name='attention_of'>Hrn. OAR Ing. Karl Gansrigler</field>
+            <field name='firstname'>Karl</field>
+            <field name='lastname'>Gansrigler</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact10823">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde10823"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>AR</field>
+            <field name='attention_of'>Frau AR Andrea Bschaden</field>
+            <field name='firstname'>Andrea</field>
+            <field name='lastname'>Bschaden</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact10506">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde10506"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Gerhard Granitz</field>
+            <field name='firstname'>Gerhard</field>
+            <field name='lastname'>Granitz</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact10409">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde10409"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'>Mag.</field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Mag. Thomas Novoszel</field>
+            <field name='firstname'>Thomas</field>
+            <field name='lastname'>Novoszel</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact20635">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20635"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Ewald Lerch</field>
+            <field name='firstname'>Ewald</field>
+            <field name='lastname'>Lerch</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31901">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31901"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Christian Schmölz</field>
+            <field name='firstname'>Christian</field>
+            <field name='lastname'>Schmölz</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact30502">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30502"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Wolfgang Ruthner</field>
+            <field name='firstname'>Wolfgang</field>
+            <field name='lastname'>Ruthner</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31309">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31309"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Josef Jamöck</field>
+            <field name='firstname'>Josef</field>
+            <field name='lastname'>Jamöck</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31701">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31701"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>AL</field>
+            <field name='attention_of'>Frau AL Gertrude Weber</field>
+            <field name='firstname'>Gertrude</field>
+            <field name='lastname'>Weber</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact30501">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30501"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Jürgen Waser</field>
+            <field name='firstname'>Jürgen</field>
+            <field name='lastname'>Waser</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31101">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31101"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>AL</field>
+            <field name='attention_of'>Hrn. AL Markus Smeritschnig</field>
+            <field name='firstname'>Markus</field>
+            <field name='lastname'>Smeritschnig</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact30507">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30507"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Ingrid Gruber</field>
+            <field name='firstname'>Ingrid</field>
+            <field name='lastname'>Gruber</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact30509">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30509"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Edith Bauer</field>
+            <field name='firstname'>Edith</field>
+            <field name='lastname'>Bauer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31706">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31706"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Walter Resetarits</field>
+            <field name='firstname'>Walter</field>
+            <field name='lastname'>Resetarits</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31611">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31611"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>AL</field>
+            <field name='attention_of'>Frau AL Elfriede Egert</field>
+            <field name='firstname'>Elfriede</field>
+            <field name='lastname'>Egert</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31310">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31310"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Martin Nessl</field>
+            <field name='firstname'>Martin</field>
+            <field name='lastname'>Nessl</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact30709">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30709"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Silvia Prein</field>
+            <field name='firstname'>Silvia</field>
+            <field name='lastname'>Prein</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact30515">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30515"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'>Ing.</field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Ing. Christian Perndl</field>
+            <field name='firstname'>Christian</field>
+            <field name='lastname'>Perndl</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31911">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31911"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Manuela Damböck</field>
+            <field name='firstname'>Manuela</field>
+            <field name='lastname'>Damböck</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact30827">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30827"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Wolfgang Gaida</field>
+            <field name='firstname'>Wolfgang</field>
+            <field name='lastname'>Gaida</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31913">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31913"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>OS</field>
+            <field name='attention_of'>Hrn. OS Peter Leitner</field>
+            <field name='firstname'>Peter</field>
+            <field name='lastname'>Leitner</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact32313">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde32313"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Martina Kienbink</field>
+            <field name='firstname'>Martina</field>
+            <field name='lastname'>Kienbink</field>
+            <field name='type'>invoice</field>
+        </record>
+        <!--<record model='res.partner' id="contact32407"><field name='parent_id' ref="itk_initial_data_import.gemeinde32407"/><field name='title' ref="base.res_partner_title_mister"/><field name='title_put_in_front'></field><field name='function'></field><field name='attention_of'>Hrn.  Friedrich Ladits</field><field name='firstname'>Friedrich</field><field name='lastname'>Ladits</field><field name='type'>invoice</field></record>-->
+        <record model='res.partner' id="contact32317">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde32317"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'>Ing.</field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Ing. Günther Schuh</field>
+            <field name='firstname'>Günther</field>
+            <field name='lastname'>Schuh</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31825">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31825"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>AL</field>
+            <field name='attention_of'>Hrn. AL Andreas Weinzettl</field>
+            <field name='firstname'>Andreas</field>
+            <field name='lastname'>Weinzettl</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact30631">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30631"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Birgit Fridrich</field>
+            <field name='firstname'>Birgit</field>
+            <field name='lastname'>Fridrich</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31837">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31837"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Eva Grabner</field>
+            <field name='firstname'>Eva</field>
+            <field name='lastname'>Grabner</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31229">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31229"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Verena Ransböck-Hameter</field>
+            <field name='firstname'>Verena</field>
+            <field name='lastname'>Ransböck-Hameter</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact32018">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde32018"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>AL</field>
+            <field name='attention_of'>Hrn. AL Hermann Hinterberger</field>
+            <field name='firstname'>Hermann</field>
+            <field name='lastname'>Hinterberger</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31550">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31550"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Martin Riedl</field>
+            <field name='firstname'>Martin</field>
+            <field name='lastname'>Riedl</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31308">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31308"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>OS</field>
+            <field name='attention_of'>Hrn. OS Gerhard Blauensteiner</field>
+            <field name='firstname'>Gerhard</field>
+            <field name='lastname'>Blauensteiner</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31514">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31514"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Gerlinde Bernhuber</field>
+            <field name='firstname'>Gerlinde</field>
+            <field name='lastname'>Bernhuber</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31301">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31301"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>AL</field>
+            <field name='attention_of'>Hrn. AL Eduard Stummvoll</field>
+            <field name='firstname'>Eduard</field>
+            <field name='lastname'>Stummvoll</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact32301">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde32301"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Karen Wagner</field>
+            <field name='firstname'>Karen</field>
+            <field name='lastname'>Wagner</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact30904">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30904"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Renate Biedermann</field>
+            <field name='firstname'>Renate</field>
+            <field name='lastname'>Biedermann</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact30906">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30906"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Sabine Steiner</field>
+            <field name='firstname'>Sabine</field>
+            <field name='lastname'>Steiner</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact30512">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30512"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Reinhard Walter_</field>
+            <field name='firstname'>Reinhard</field>
+            <field name='lastname'>Walter_</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact32206">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde32206"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Andrea Hirsch</field>
+            <field name='firstname'>Andrea</field>
+            <field name='lastname'>Hirsch</field>
+            <field name='type'>invoice</field>
+        </record>
+        <!--<record model='res.partner' id="contact32405"><field name='parent_id' ref="itk_initial_data_import.gemeinde32405"/><field name='title' ref="base.res_partner_title_madam"/><field name='title_put_in_front'></field><field name='function'></field><field name='attention_of'>Frau Michaela Jansa</field><field name='firstname'>Michaela</field><field name='lastname'>Jansa</field><field name='type'>invoice</field></record>-->
+        <record model='res.partner' id="contact30909">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30909"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Willibald Eßmeister</field>
+            <field name='firstname'>Willibald</field>
+            <field name='lastname'>Eßmeister</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact32309">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde32309"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>AL</field>
+            <field name='attention_of'>Hrn. AL Franz Schabauer</field>
+            <field name='firstname'>Franz</field>
+            <field name='lastname'>Schabauer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31520">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31520"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Christian Bugl</field>
+            <field name='firstname'>Christian</field>
+            <field name='lastname'>Bugl</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact32319">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde32319"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Ulrike Schweng</field>
+            <field name='firstname'>Ulrike</field>
+            <field name='lastname'>Schweng</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31929">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31929"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Christian Datzreiter</field>
+            <field name='firstname'>Christian</field>
+            <field name='lastname'>Datzreiter</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact32006">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde32006"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Wolfgang Leichtfried</field>
+            <field name='firstname'>Wolfgang</field>
+            <field name='lastname'>Leichtfried</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31333">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31333"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Kornelia Prohaska</field>
+            <field name='firstname'>Kornelia</field>
+            <field name='lastname'>Prohaska</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact30718">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30718"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Gisela Klaffl</field>
+            <field name='firstname'>Gisela</field>
+            <field name='lastname'>Klaffl</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact30719">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30719"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Christoph Köhler</field>
+            <field name='firstname'>Christoph</field>
+            <field name='lastname'>Köhler</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31932">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31932"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Romana Wieländer</field>
+            <field name='firstname'>Romana</field>
+            <field name='lastname'>Wieländer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31336">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31336"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>AL</field>
+            <field name='attention_of'>Hrn. AL Johann Müllner</field>
+            <field name='firstname'>Johann</field>
+            <field name='lastname'>Müllner</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31829">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31829"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>AL</field>
+            <field name='attention_of'>Hrn. AL Richard Tauchner</field>
+            <field name='firstname'>Richard</field>
+            <field name='lastname'>Tauchner</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact30629">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30629"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Maria Laufer</field>
+            <field name='firstname'>Maria</field>
+            <field name='lastname'>Laufer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31338">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31338"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Alfred Danylo</field>
+            <field name='firstname'>Alfred</field>
+            <field name='lastname'>Danylo</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact32523">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde32523"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Sabine Pömmer</field>
+            <field name='firstname'>Sabine</field>
+            <field name='lastname'>Pömmer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact30633">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30633"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Elisabeth Dirnberger</field>
+            <field name='firstname'>Elisabeth</field>
+            <field name='lastname'>Dirnberger</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact32131">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde32131"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Markus Birringer</field>
+            <field name='firstname'>Markus</field>
+            <field name='lastname'>Birringer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31344">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31344"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>AL</field>
+            <field name='attention_of'>Hrn. AL Norbert Notz</field>
+            <field name='firstname'>Norbert</field>
+            <field name='lastname'>Notz</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact32142">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde32142"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Manuel Plöchl</field>
+            <field name='firstname'>Manuel</field>
+            <field name='lastname'>Plöchl</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact30527">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30527"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Reinhold Hiemetsberger</field>
+            <field name='firstname'>Reinhold</field>
+            <field name='lastname'>Hiemetsberger</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact30932">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30932"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Gerhard Pfeiffer</field>
+            <field name='firstname'>Gerhard</field>
+            <field name='lastname'>Pfeiffer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact30856">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30856"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Roland Paschinger</field>
+            <field name='firstname'>Roland</field>
+            <field name='lastname'>Paschinger</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact32219">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde32219"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Josef Binder</field>
+            <field name='firstname'>Josef</field>
+            <field name='lastname'>Binder</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31844">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31844"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>AL</field>
+            <field name='attention_of'>Frau AL Rosemarie Baumgartner</field>
+            <field name='firstname'>Rosemarie</field>
+            <field name='lastname'>Baumgartner</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact32336">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde32336"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Petra Maucha</field>
+            <field name='firstname'>Petra</field>
+            <field name='lastname'>Maucha</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact30543">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30543"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Uwe Plank</field>
+            <field name='firstname'>Uwe</field>
+            <field name='lastname'>Plank</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31552">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31552"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Alois Schauer</field>
+            <field name='firstname'>Alois</field>
+            <field name='lastname'>Schauer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact32141">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde32141"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Reinhard Kern</field>
+            <field name='firstname'>Reinhard</field>
+            <field name='lastname'>Kern</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact32120">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde32120"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Romana Nussbaumer</field>
+            <field name='firstname'>Romana</field>
+            <field name='lastname'>Nussbaumer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact30817">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30817"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Maria Kalensky</field>
+            <field name='firstname'>Maria</field>
+            <field name='lastname'>Kalensky</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact30908">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30908"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Thomas Miksch</field>
+            <field name='firstname'>Thomas</field>
+            <field name='lastname'>Miksch</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact32508">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde32508"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Peter Hiemetzberger und Rudolf Jahn</field>
+            <field name='firstname'>Rudolf</field>
+            <field name='lastname'>Jahn</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31912">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31912"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Barbara Senger</field>
+            <field name='firstname'>Barbara</field>
+            <field name='lastname'>Senger</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31022">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31022"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Viktor Altinger</field>
+            <field name='firstname'>Viktor</field>
+            <field name='lastname'>Altinger</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31109">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31109"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Friedrich Urbitsch</field>
+            <field name='firstname'>Friedrich</field>
+            <field name='lastname'>Urbitsch</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31322">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31322"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Peter Schiegl</field>
+            <field name='firstname'>Peter</field>
+            <field name='lastname'>Schiegl</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact30925">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30925"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Jürgen Uitz</field>
+            <field name='firstname'>Jürgen</field>
+            <field name='lastname'>Uitz</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact30835">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30835"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Martina Fiala</field>
+            <field name='firstname'>Martina</field>
+            <field name='lastname'>Fiala</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31926">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31926"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Ilona Muhr</field>
+            <field name='firstname'>Ilona</field>
+            <field name='lastname'>Muhr</field>
+            <field name='type'>invoice</field>
+        </record>
+        <!--<record model='res.partner' id="contact32415"><field name='parent_id' ref="itk_initial_data_import.gemeinde32415"/><field name='title' ref="base.res_partner_title_mister"/><field name='title_put_in_front'></field><field name='function'></field><field name='attention_of'>Hrn.  Ronald Roschinsky</field><field name='firstname'>Ronald</field><field name='lastname'>Roschinsky</field><field name='type'>invoice</field></record>-->
+        <record model='res.partner' id="contact31230">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31230"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Roland Schoklitsch</field>
+            <field name='firstname'>Roland</field>
+            <field name='lastname'>Schoklitsch</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact32135">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde32135"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Andreas Pimperl</field>
+            <field name='firstname'>Andreas</field>
+            <field name='lastname'>Pimperl</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact30942">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30942"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. StADir. Friedrich Winkler</field>
+            <field name='firstname'>Friedrich</field>
+            <field name='lastname'>Winkler</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact32530">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde32530"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Franz Almeder</field>
+            <field name='firstname'>Franz</field>
+            <field name='lastname'>Almeder</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact41019">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41019"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Michael Krämer</field>
+            <field name='firstname'>Michael</field>
+            <field name='lastname'>Krämer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact50602">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde50602"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Stefan Keine</field>
+            <field name='firstname'>Stefan</field>
+            <field name='lastname'>Keine</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact50405">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde50405"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Annemarie Gruber</field>
+            <field name='firstname'>Annemarie</field>
+            <field name='lastname'>Gruber</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact50307">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde50307"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Roman Höpflinger</field>
+            <field name='firstname'>Roman</field>
+            <field name='lastname'>Höpflinger</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact50410">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde50410"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Katrin Bürgler</field>
+            <field name='firstname'>Katrin</field>
+            <field name='lastname'>Bürgler</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact50412">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde50412"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>AL</field>
+            <field name='attention_of'>Hrn. AL Wilfried Moser</field>
+            <field name='firstname'>Wilfried</field>
+            <field name='lastname'>Moser</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact50320">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde50320"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>AL</field>
+            <field name='attention_of'>Hrn. AL Hubert Hinterauer</field>
+            <field name='firstname'>Hubert</field>
+            <field name='lastname'>Hinterauer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact50206">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde50206"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Wilfried Auer</field>
+            <field name='firstname'>Wilfried</field>
+            <field name='lastname'>Auer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact50611">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde50611"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>AL</field>
+            <field name='attention_of'>Hrn. AL Wilfried Bauer</field>
+            <field name='firstname'>Wilfried</field>
+            <field name='lastname'>Bauer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact50415">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde50415"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>KB</field>
+            <field name='attention_of'>Frau KB Regina Gottfried_</field>
+            <field name='firstname'>Regina</field>
+            <field name='lastname'>Gottfried_</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact50615">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde50615"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Bianca Höllwerth</field>
+            <field name='firstname'>Bianca</field>
+            <field name='lastname'>Höllwerth</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact50329">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde50329"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Kurt Bamberger</field>
+            <field name='firstname'>Kurt</field>
+            <field name='lastname'>Bamberger</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact50330">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde50330"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Andreas Jocher</field>
+            <field name='firstname'>Andreas</field>
+            <field name='lastname'>Jocher</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact50621">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde50621"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Stefanie Egger</field>
+            <field name='firstname'>Stefanie</field>
+            <field name='lastname'>Egger</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact50511">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde50511"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>AL</field>
+            <field name='attention_of'>Hrn. AL Roland Gappmaier</field>
+            <field name='firstname'>Roland</field>
+            <field name='lastname'>Gappmaier</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact50422">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde50422"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Sieglinde Thanner</field>
+            <field name='firstname'>Sieglinde</field>
+            <field name='lastname'>Thanner</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact50626">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde50626"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Bernhard Lochner</field>
+            <field name='firstname'>Bernhard</field>
+            <field name='lastname'>Lochner</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact50338">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde50338"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Gustav Berger</field>
+            <field name='firstname'>Gustav</field>
+            <field name='lastname'>Berger</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact50401">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde50401"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Manuela Mooslechner</field>
+            <field name='firstname'>Manuela</field>
+            <field name='lastname'>Mooslechner</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact50314">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde50314"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Gerhard Lenzeder</field>
+            <field name='firstname'>Gerhard</field>
+            <field name='lastname'>Lenzeder</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact50411">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde50411"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Andreas Pirchner</field>
+            <field name='firstname'>Andreas</field>
+            <field name='lastname'>Pirchner</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact50421">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde50421"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Robert Dietberger</field>
+            <field name='firstname'>Robert</field>
+            <field name='lastname'>Dietberger</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact50423">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde50423"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Peter Eschbacher</field>
+            <field name='firstname'>Peter</field>
+            <field name='lastname'>Eschbacher</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact50417">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde50417"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Alois Oppeneiger</field>
+            <field name='firstname'>Alois</field>
+            <field name='lastname'>Oppeneiger</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact50205">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde50205"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Helmut Lenz_</field>
+            <field name='firstname'>Helmut</field>
+            <field name='lastname'>Lenz_</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact50613">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde50613"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Harald Maierhofer</field>
+            <field name='firstname'>Harald</field>
+            <field name='lastname'>Maierhofer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact50324">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde50324"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Andreas Wendtner</field>
+            <field name='firstname'>Andreas</field>
+            <field name='lastname'>Wendtner</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact50326">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde50326"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Georg Engetsberger</field>
+            <field name='firstname'>Georg</field>
+            <field name='lastname'>Engetsberger</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact50619">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde50619"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Thomas Mitteregger</field>
+            <field name='firstname'>Thomas</field>
+            <field name='lastname'>Mitteregger</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact50418">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde50418"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Felix Diess</field>
+            <field name='firstname'>Felix</field>
+            <field name='lastname'>Diess</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact50628">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde50628"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Franz Hochwimmer</field>
+            <field name='firstname'>Franz</field>
+            <field name='lastname'>Hochwimmer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70305">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70305"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Christine Jenewein</field>
+            <field name='firstname'>Christine</field>
+            <field name='lastname'>Jenewein</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70907">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70907"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Doris Unger</field>
+            <field name='firstname'>Doris</field>
+            <field name='lastname'>Unger</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70806">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70806"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Karlheinz Königsrainer</field>
+            <field name='firstname'>Karlheinz</field>
+            <field name='lastname'>Königsrainer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70601">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70601"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Hilda Wille</field>
+            <field name='firstname'>Hilda</field>
+            <field name='lastname'>Wille</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70310">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70310"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Florian Stockhammer</field>
+            <field name='firstname'>Florian</field>
+            <field name='lastname'>Stockhammer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70204">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70204"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Walter Krajic</field>
+            <field name='firstname'>Walter</field>
+            <field name='lastname'>Krajic</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70319">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70319"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Josef Draxl</field>
+            <field name='firstname'>Josef</field>
+            <field name='lastname'>Draxl</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70712">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70712"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Petra Tembler</field>
+            <field name='firstname'>Petra</field>
+            <field name='lastname'>Tembler</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70713">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70713"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Anton Goller</field>
+            <field name='firstname'>Anton</field>
+            <field name='lastname'>Goller</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70611">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70611"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'>Ing.</field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Ing. Günther Zauner</field>
+            <field name='firstname'>Günther</field>
+            <field name='lastname'>Zauner</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70323">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70323"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Johanna Schweiger</field>
+            <field name='firstname'>Johanna</field>
+            <field name='lastname'>Schweiger</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70515">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70515"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>AL</field>
+            <field name='attention_of'>Hrn. AL Josef Lentner</field>
+            <field name='firstname'>Josef</field>
+            <field name='lastname'>Lentner</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70209">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70209"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Laura Wild</field>
+            <field name='firstname'>Laura</field>
+            <field name='lastname'>Wild</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70212">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70212"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>AL</field>
+            <field name='attention_of'>Hrn. AL Gerhard Spielmann</field>
+            <field name='firstname'>Gerhard</field>
+            <field name='lastname'>Spielmann</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70615">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70615"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Helmut Spöttl</field>
+            <field name='firstname'>Helmut</field>
+            <field name='lastname'>Spöttl</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70336">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70336"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Walter Penz</field>
+            <field name='firstname'>Walter</field>
+            <field name='lastname'>Penz</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70340">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70340"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Elisabeth Vogelsberger</field>
+            <field name='firstname'>Elisabeth</field>
+            <field name='lastname'>Vogelsberger</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70522">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70522"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'>Ing.</field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Ing. Berhard Astner</field>
+            <field name='firstname'></field>
+            <field name='lastname'>Astner</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70219">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70219"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Helmut Föger</field>
+            <field name='firstname'>Helmut</field>
+            <field name='lastname'>Föger</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70220">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70220"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>AL</field>
+            <field name='attention_of'>Hrn. AL Franz Schreiber</field>
+            <field name='firstname'>Franz</field>
+            <field name='lastname'>Schreiber</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70626">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70626"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Günter Zangerle</field>
+            <field name='firstname'>Günter</field>
+            <field name='lastname'>Zangerle</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70527">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70527"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Hubert Lechner</field>
+            <field name='firstname'>Hubert</field>
+            <field name='lastname'>Lechner</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70629">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70629"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Reinhard Waldhart</field>
+            <field name='firstname'>Reinhard</field>
+            <field name='lastname'>Waldhart</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70732">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70732"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Gemeindesekretär Hannes Hofer</field>
+            <field name='firstname'>Hannes</field>
+            <field name='lastname'>Hofer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70530">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70530"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Peter Weissbacher</field>
+            <field name='firstname'>Peter</field>
+            <field name='lastname'>Weissbacher</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70914">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70914"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Christian Dornauer</field>
+            <field name='firstname'>Christian</field>
+            <field name='lastname'>Dornauer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70514">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70514"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Michael Weinzierl</field>
+            <field name='firstname'>Michael</field>
+            <field name='lastname'>Weinzierl</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70357">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70357"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Berhard Stelzl</field>
+            <field name='firstname'></field>
+            <field name='lastname'>Stelzl</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70524">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70524"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Isabella Gogl</field>
+            <field name='firstname'>Isabella</field>
+            <field name='lastname'>Gogl</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact80104">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde80104"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Bettina Hartmann</field>
+            <field name='firstname'>Hartmann</field>
+            <field name='lastname'>Frau</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact80210">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde80210"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Reinhard Maier</field>
+            <field name='firstname'>Reinhard</field>
+            <field name='lastname'>Maier</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact80110">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde80110"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Andreas Millinger</field>
+            <field name='firstname'>Andreas</field>
+            <field name='lastname'>Millinger</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact80217">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde80217"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Klaus Brunner</field>
+            <field name='firstname'>Klaus</field>
+            <field name='lastname'>Brunner</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact80222">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde80222"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Bernd Natter</field>
+            <field name='firstname'>Bernd</field>
+            <field name='lastname'>Natter</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact80225">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde80225"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Carmen Steurer</field>
+            <field name='firstname'>Carmen</field>
+            <field name='lastname'>Steurer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact80234">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde80234"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Stephan Schwarzmann</field>
+            <field name='firstname'>Stephan</field>
+            <field name='lastname'>Schwarzmann</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact80235">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde80235"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Peter Pitscheider</field>
+            <field name='firstname'>Peter</field>
+            <field name='lastname'>Pitscheider</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact80239">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde80239"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Stephan Schwarzmann</field>
+            <field name='firstname'>Stephan</field>
+            <field name='lastname'>Schwarzmann</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact80405">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde80405"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Christian Neyer</field>
+            <field name='firstname'>Christian</field>
+            <field name='lastname'>Neyer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact80414">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde80414"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Hugo Bertsch</field>
+            <field name='firstname'>Hugo</field>
+            <field name='lastname'>Bertsch</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact80103">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde80103"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Willi Lorünser</field>
+            <field name='firstname'>Willi</field>
+            <field name='lastname'>Lorünser</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact40429">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde40429"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Thomas Hofbauer</field>
+            <field name='firstname'>Thomas</field>
+            <field name='lastname'>Hofbauer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact41404">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41404"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Hubert Pichler</field>
+            <field name='firstname'>Hubert</field>
+            <field name='lastname'>Pichler</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact41513">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41513"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'>Ing.</field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Ing. Ernst Riedl</field>
+            <field name='firstname'>Ernst</field>
+            <field name='lastname'>Riedl</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact40445">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde40445"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Helmut Harweck</field>
+            <field name='firstname'>Helmut</field>
+            <field name='lastname'>Harweck</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact41234">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41234"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Franz Aspöck</field>
+            <field name='firstname'>Franz</field>
+            <field name='lastname'>Aspöck</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact40446">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde40446"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Susanne Kainhofer</field>
+            <field name='firstname'>Susanne</field>
+            <field name='lastname'>Kainhofer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact41416">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41416"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Klaus Waldenberger</field>
+            <field name='firstname'>Klaus</field>
+            <field name='lastname'>Waldenberger</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact41342">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41342"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Michaela Greiner</field>
+            <field name='firstname'>Michaela</field>
+            <field name='lastname'>Greiner</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact40401">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde40401"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Martin Steinerberger</field>
+            <field name='firstname'>Martin</field>
+            <field name='lastname'>Steinerberger</field>
+            <field name='type'>invoice</field>
+        </record>
+        <!--<record model='res.partner' id="contact41303"><field name='parent_id' ref="itk_initial_data_import.gemeinde41303"/><field name='title' ref="base.res_partner_title_mister"/><field name='title_put_in_front'></field><field name='function'></field><field name='attention_of'>Hrn.  Florian Sommer</field><field name='firstname'>Florian</field><field name='lastname'>Sommer</field><field name='type'>invoice</field></record>-->
+        <record model='res.partner' id="contact41018">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41018"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Berhard Kühböck</field>
+            <field name='firstname'></field>
+            <field name='lastname'>Kühböck</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact41818">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41818"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Helmut Adelsmair</field>
+            <field name='firstname'>Helmut</field>
+            <field name='lastname'>Adelsmair</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact41104">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41104"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Johann Moser</field>
+            <field name='firstname'>Johann</field>
+            <field name='lastname'>Moser</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact40806">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde40806"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Ingrid Mittermayr</field>
+            <field name='firstname'>Ingrid</field>
+            <field name='lastname'>Mittermayr</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact41743">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41743"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Jürgen Höchtl</field>
+            <field name='firstname'>Jürgen</field>
+            <field name='lastname'>Höchtl</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact41313">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41313"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Johann Wöß</field>
+            <field name='firstname'>Johann</field>
+            <field name='lastname'>Wöß</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact40417">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde40417"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Salzlechner Franz</field>
+            <field name='firstname'>Franz</field>
+            <field name='lastname'>Salzlechner</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact41810">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41810"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>AL</field>
+            <field name='attention_of'>Hrn. AL Peter Zeilinger</field>
+            <field name='firstname'>Peter</field>
+            <field name='lastname'>Zeilinger</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact41747">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41747"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Robert Hemetsberger</field>
+            <field name='firstname'>Robert</field>
+            <field name='lastname'>Hemetsberger</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact41305">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41305"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Sabine Würfl</field>
+            <field name='firstname'>Sabine</field>
+            <field name='lastname'>Würfl</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact40436">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde40436"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Pamela Schrattenecker</field>
+            <field name='firstname'>Pamela</field>
+            <field name='lastname'>Schrattenecker</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact41328">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41328"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Franz Peer</field>
+            <field name='firstname'>Franz</field>
+            <field name='lastname'>Peer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact41307">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41307"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Maria Mitter</field>
+            <field name='firstname'>Maria</field>
+            <field name='lastname'>Mitter</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact40614">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde40614"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Klaus Pachner</field>
+            <field name='firstname'>Klaus</field>
+            <field name='lastname'>Pachner</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact41716">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41716"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Gabriele Schick</field>
+            <field name='firstname'>Gabriele</field>
+            <field name='lastname'>Schick</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact41121">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41121"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Hubert Radlmüller</field>
+            <field name='firstname'>Hubert</field>
+            <field name='lastname'>Radlmüller</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact41627">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41627"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Margit Fink</field>
+            <field name='firstname'>Margit</field>
+            <field name='lastname'>Fink</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact40810">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde40810"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Klaus Haslehner</field>
+            <field name='firstname'>Klaus</field>
+            <field name='lastname'>Haslehner</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact40711">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde40711"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Jürgen Dopf</field>
+            <field name='firstname'>Jürgen</field>
+            <field name='lastname'>Dopf</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact41311">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41311"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Günter Peherstorfer</field>
+            <field name='firstname'>Günter</field>
+            <field name='lastname'>Peherstorfer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact41318">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41318"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Günter Peherstorfer</field>
+            <field name='firstname'>Günter</field>
+            <field name='lastname'>Peherstorfer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact41321">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41321"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Thomas Walch</field>
+            <field name='firstname'>Thomas</field>
+            <field name='lastname'>Walch</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact41106">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41106"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Andreas Wahl</field>
+            <field name='firstname'>Andreas</field>
+            <field name='lastname'>Wahl</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact40432">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde40432"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Susanne Obermair</field>
+            <field name='firstname'>Susanne</field>
+            <field name='lastname'>Obermair</field>
+            <field name='type'>invoice</field>
+        </record>
+        <!--<record model='res.partner' id="contact41330"><field name='parent_id' ref="itk_initial_data_import.gemeinde41330"/><field name='title' ref="base.res_partner_title_madam"/><field name='title_put_in_front'></field><field name='function'></field><field name='attention_of'>Frau Judith Rastegar</field><field name='firstname'>Judith</field><field name='lastname'>Rastegar</field><field name='type'>invoice</field></record>-->
+        <record model='res.partner' id="contact41325">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41325"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Paul Mayrhofer</field>
+            <field name='firstname'>Paul</field>
+            <field name='lastname'>Mayrhofer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact41502">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41502"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>AL</field>
+            <field name='attention_of'>Frau AL Monika Steinmair</field>
+            <field name='firstname'>Monika</field>
+            <field name='lastname'>Steinmair</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact40509">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde40509"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>AL</field>
+            <field name='attention_of'>Hrn. AL Josef Hofinger</field>
+            <field name='firstname'>Josef</field>
+            <field name='lastname'>Hofinger</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact40512">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde40512"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Birgit Hehenberger</field>
+            <field name='firstname'>Birgit</field>
+            <field name='lastname'>Hehenberger</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact41231">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41231"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Thomas Hofinger</field>
+            <field name='firstname'>Thomas</field>
+            <field name='lastname'>Hofinger</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact40404">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde40404"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Notburga Paschinger</field>
+            <field name='firstname'>Notburga</field>
+            <field name='lastname'>Paschinger</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact40809">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde40809"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Sabrina Wiener</field>
+            <field name='firstname'>Sabrina</field>
+            <field name='lastname'>Wiener</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact41614">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41614"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Franz Silber</field>
+            <field name='firstname'>Franz</field>
+            <field name='lastname'>Silber</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact41120">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41120"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Markus Brandstetter</field>
+            <field name='firstname'>Markus</field>
+            <field name='lastname'>Brandstetter</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact40716">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde40716"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>AL</field>
+            <field name='attention_of'>Hrn. AL Klaus Schachhuber</field>
+            <field name='firstname'>Klaus</field>
+            <field name='lastname'>Schachhuber</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact41711">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41711"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Theresa Fürtner</field>
+            <field name='firstname'>Theresa</field>
+            <field name='lastname'>Fürtner</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact41606">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41606"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Johann Baumgartner</field>
+            <field name='firstname'>Johann</field>
+            <field name='lastname'>Baumgartner</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact40902">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde40902"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Daniela Wandrack BA</field>
+            <field name='firstname'>Daniela</field>
+            <field name='lastname'>BA</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact40903">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde40903"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Renate Lang</field>
+            <field name='firstname'>Renate</field>
+            <field name='lastname'>Lang</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact41814">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41814"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Rudolf Maurer</field>
+            <field name='firstname'>Rudolf</field>
+            <field name='lastname'>Maurer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact41738">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41738"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'>Mag.</field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Mag. Martin Kellermayer MPA</field>
+            <field name='firstname'>Martin</field>
+            <field name='lastname'>MPA</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact40507">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde40507"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Gerald Fuchsmayr</field>
+            <field name='firstname'>Gerald</field>
+            <field name='lastname'>Fuchsmayr</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact40502">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde40502"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Oliver Grünseis</field>
+            <field name='firstname'>Oliver</field>
+            <field name='lastname'>Grünseis</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact40807">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde40807"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Rudolf Stahrl-Thalhamer</field>
+            <field name='firstname'>Rudolf</field>
+            <field name='lastname'>Stahrl-Thalhamer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact40623">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde40623"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Friedrich Tröbinger</field>
+            <field name='firstname'>Friedrich</field>
+            <field name='lastname'>Tröbinger</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31915">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31915"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Silvia Gölß</field>
+            <field name='firstname'>Silvia</field>
+            <field name='lastname'>Gölß</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact61204">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde61204"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Andreas Langanger</field>
+            <field name='firstname'>Andreas</field>
+            <field name='lastname'>Langanger</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact61627">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde61627"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>AL</field>
+            <field name='attention_of'>Frau AL Eva Greinix</field>
+            <field name='firstname'>Eva</field>
+            <field name='lastname'>Greinix</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact62010">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde62010"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Astrid Köberl</field>
+            <field name='firstname'>Astrid</field>
+            <field name='lastname'>Köberl</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact60623">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde60623"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'>Ing.</field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Ing. Thomas Pichler</field>
+            <field name='firstname'>Thomas</field>
+            <field name='lastname'>Pichler</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact61021">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde61021"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Ernst Gutjahr</field>
+            <field name='firstname'>Ernst</field>
+            <field name='lastname'>Gutjahr</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact61054">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde61054"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>Bgm.</field>
+            <field name='attention_of'>Hrn. Bgm. Erich Plasch</field>
+            <field name='firstname'>Erich</field>
+            <field name='lastname'>Plasch</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact62142">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde62142"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Karl Schuster</field>
+            <field name='firstname'>Karl</field>
+            <field name='lastname'>Schuster</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact61716">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde61716"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'>Ing.</field>
+            <field name='function'>AL</field>
+            <field name='attention_of'>Hrn. AL Ing. Raimund Ulz</field>
+            <field name='firstname'>Raimund</field>
+            <field name='lastname'>Ulz</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact60666">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde60666"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'>Ing.</field>
+            <field name='function'>Bgm.</field>
+            <field name='attention_of'>Hrn. Bgm. Ing. Klaus Steinberger</field>
+            <field name='firstname'>Klaus</field>
+            <field name='lastname'>Steinberger</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact61024">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde61024"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Herbert Reiterer</field>
+            <field name='firstname'>Herbert</field>
+            <field name='lastname'>Reiterer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact62385">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde62385"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>AR</field>
+            <field name='attention_of'>Hrn. AR Fritz Fruhmann</field>
+            <field name='firstname'>Fritz</field>
+            <field name='lastname'>Fruhmann</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact62145">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde62145"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Martina Holzer</field>
+            <field name='firstname'>Martina</field>
+            <field name='lastname'>Holzer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact61266">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde61266"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>AL</field>
+            <field name='attention_of'>Hrn. AL Albert Holzinger</field>
+            <field name='firstname'>Albert</field>
+            <field name='lastname'>Holzinger</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact60654">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde60654"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'>Ing.</field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Ing. Christoph Malek</field>
+            <field name='firstname'>Christoph</field>
+            <field name='lastname'>Malek</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact62262">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde62262"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>AL</field>
+            <field name='attention_of'>Hrn. AL Franz Sommersguter</field>
+            <field name='firstname'>Franz</field>
+            <field name='lastname'>Sommersguter</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact61012">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde61012"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>Bgm.</field>
+            <field name='attention_of'>Hrn. Bgm. Hubert Isker</field>
+            <field name='firstname'>Hubert</field>
+            <field name='lastname'>Isker</field>
+            <field name='type'>invoice</field>
+        </record>
+        <!--<record model='res.partner' id="contact61523"><field name='parent_id' ref="itk_initial_data_import.gemeinde61523"/><field name='title' ref="base.res_partner_title_mister"/><field name='title_put_in_front'></field><field name='function'></field><field name='attention_of'>Hrn.  Dietmar Cupak</field><field name='firstname'>Dietmar</field><field name='lastname'>Cupak</field><field name='type'>invoice</field></record>-->
+        <record model='res.partner' id="contact62138">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde62138"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>AL</field>
+            <field name='attention_of'>Hrn. AL Thomas Freidinger</field>
+            <field name='firstname'>Thomas</field>
+            <field name='lastname'>Freidinger</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact60345">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde60345"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Ortsteilbgm. Christian Krottmaier</field>
+            <field name='firstname'>Christian</field>
+            <field name='lastname'>Krottmaier</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact61013">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde61013"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Renate Tscheppe</field>
+            <field name='firstname'>Renate</field>
+            <field name='lastname'>Tscheppe</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact61217">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde61217"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'>Mag.</field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Mag. Klaus Gösweiner</field>
+            <field name='firstname'>Klaus</field>
+            <field name='lastname'>Gösweiner</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact62335">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde62335"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Günther Wallner</field>
+            <field name='firstname'>Günther</field>
+            <field name='lastname'>Wallner</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact61615">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde61615"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Bgm.Engelbert Huber</field>
+            <field name='firstname'></field>
+            <field name='lastname'>Huber</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact60667">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde60667"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'>Mag.</field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Mag. Bernhard Neumayr</field>
+            <field name='firstname'>Bernhard</field>
+            <field name='lastname'>Neumayr</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact62389">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde62389"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Josef Krisper</field>
+            <field name='firstname'>Josef</field>
+            <field name='lastname'>Krisper</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact62278">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde62278"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Franz Haupt</field>
+            <field name='firstname'>Franz</field>
+            <field name='lastname'>Haupt</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact62139">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde62139"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Daniel Gestl</field>
+            <field name='firstname'>Daniel</field>
+            <field name='lastname'>Gestl</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact61760">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde61760"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Robert Cescutti</field>
+            <field name='firstname'>Robert</field>
+            <field name='lastname'>Cescutti</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact62219">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde62219"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Johann Gruber</field>
+            <field name='firstname'>Johann</field>
+            <field name='lastname'>Gruber</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact62141">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde62141"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Harald Hollerer</field>
+            <field name='firstname'>Harald</field>
+            <field name='lastname'>Hollerer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact61053">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde61053"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Manfred Magg</field>
+            <field name='firstname'>Manfred</field>
+            <field name='lastname'>Magg</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact62047">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde62047"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Manfred Liebminger</field>
+            <field name='firstname'>Manfred</field>
+            <field name='lastname'>Liebminger</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact10306">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde10306"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'>Ing.</field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Ing. Michael Bauer</field>
+            <field name='firstname'>Michael</field>
+            <field name='lastname'>Bauer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact30621">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30621"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Daniel Schmirl BSc</field>
+            <field name='firstname'>Daniel</field>
+            <field name='lastname'>BSc</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact62271">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde62271"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Birgit Brunner</field>
+            <field name='firstname'>Birgit</field>
+            <field name='lastname'>Brunner</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact61106">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde61106"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Martin Kaiser</field>
+            <field name='firstname'>Martin</field>
+            <field name='lastname'>Kaiser</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact62379">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde62379"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Jakob Pilzek</field>
+            <field name='firstname'>Jakob</field>
+            <field name='lastname'>Pilzek</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact61016">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde61016"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Johanna Hermine Bierbacher</field>
+            <field name='firstname'>Hermine</field>
+            <field name='lastname'>Bierbacher</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact50203">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde50203"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Carola Rußegger</field>
+            <field name='firstname'>Carola</field>
+            <field name='lastname'>Rußegger</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact62040">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde62040"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Manfred Hoffelner</field>
+            <field name='firstname'>Manfred</field>
+            <field name='lastname'>Hoffelner</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact62275">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde62275"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'>Mag.</field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Mag. Herbert Gamauf</field>
+            <field name='firstname'>Herbert</field>
+            <field name='lastname'>Gamauf</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact60613">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde60613"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Petra Halbedl</field>
+            <field name='firstname'>Petra</field>
+            <field name='lastname'>Halbedl</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact10612">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde10612"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Richard Grasl</field>
+            <field name='firstname'>Richard</field>
+            <field name='lastname'>Grasl</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31830">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31830"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Alfred Eckler</field>
+            <field name='firstname'>Alfred</field>
+            <field name='lastname'>Eckler</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31549">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31549"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Richard Semmelmeyer</field>
+            <field name='firstname'>Richard</field>
+            <field name='lastname'>Semmelmeyer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact10511">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde10511"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Dipl.-Ing. Dieter Wirth</field>
+            <field name='firstname'>Dieter</field>
+            <field name='lastname'>Wirth</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact50504">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde50504"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'>Mag.</field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Mag. Peter Binggl</field>
+            <field name='firstname'>Peter</field>
+            <field name='lastname'>Binggl</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact50508">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde50508"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Stefan Hofer</field>
+            <field name='firstname'>Stefan</field>
+            <field name='lastname'>Hofer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact30620">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30620"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Erika Petra Morgenbesser</field>
+            <field name='firstname'>Petra</field>
+            <field name='lastname'>Morgenbesser</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact50319">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde50319"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Barbara Kramreiter</field>
+            <field name='firstname'>Barbara</field>
+            <field name='lastname'>Kramreiter</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact10415">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde10415"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Manfred Zsifkovits</field>
+            <field name='firstname'>Manfred</field>
+            <field name='lastname'>Zsifkovits</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact30804">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30804"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'>Mag.</field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Mag. Carina Hinnerth</field>
+            <field name='firstname'>Carina</field>
+            <field name='lastname'>Hinnerth</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31805">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31805"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Anita Wodl</field>
+            <field name='firstname'>Anita</field>
+            <field name='lastname'>Wodl</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact50305">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde50305"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Renate Eder</field>
+            <field name='firstname'>Renate</field>
+            <field name='lastname'>Eder</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact30830">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30830"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Anna Keiler</field>
+            <field name='firstname'>Anna</field>
+            <field name='lastname'>Keiler</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact50501">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde50501"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Josef Schreilechner</field>
+            <field name='firstname'>Josef</field>
+            <field name='lastname'>Schreilechner</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31713">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31713"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Peter Fuchs</field>
+            <field name='firstname'>Peter</field>
+            <field name='lastname'>Fuchs</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31515">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31515"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'>Ing.</field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Ing. Ferdinand Neuhauser</field>
+            <field name='firstname'>Ferdinand</field>
+            <field name='lastname'>Neuhauser</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact62311">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde62311"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Margit Dunkl</field>
+            <field name='firstname'>Margit</field>
+            <field name='lastname'>Dunkl</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31910">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31910"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Herta Liebscher</field>
+            <field name='firstname'>Herta</field>
+            <field name='lastname'>Liebscher</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31121">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31121"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Jürgen Bauer</field>
+            <field name='firstname'>Jürgen</field>
+            <field name='lastname'>Bauer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact32013">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde32013"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Franz Muthentaler</field>
+            <field name='firstname'>Franz</field>
+            <field name='lastname'>Muthentaler</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70335">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70335"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Peter Daum</field>
+            <field name='firstname'>Peter</field>
+            <field name='lastname'>Daum</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact32502">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde32502"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Veronika Stiedl</field>
+            <field name='firstname'>Veronika</field>
+            <field name='lastname'>Stiedl</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact10307">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde10307"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Franz Schindler</field>
+            <field name='firstname'>Franz</field>
+            <field name='lastname'>Schindler</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact41717">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41717"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Rupert Schablinger</field>
+            <field name='firstname'>Rupert</field>
+            <field name='lastname'>Schablinger</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact60659">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde60659"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Iris Reiter</field>
+            <field name='firstname'>Iris</field>
+            <field name='lastname'>Reiter</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact32518">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde32518"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Jutta Sandler</field>
+            <field name='firstname'>Jutta</field>
+            <field name='lastname'>Sandler</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact41816">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41816"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Christian Mallinger</field>
+            <field name='firstname'>Christian</field>
+            <field name='lastname'>Mallinger</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact41516">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41516"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Angelika Lehner</field>
+            <field name='firstname'>Angelika</field>
+            <field name='lastname'>Lehner</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact20418">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20418"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Bettina Siegl</field>
+            <field name='firstname'>Bettina</field>
+            <field name='lastname'>Siegl</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact62143">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde62143"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Florian Graf</field>
+            <field name='firstname'>Florian</field>
+            <field name='lastname'>Graf</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact41111">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41111"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Ute Großauer</field>
+            <field name='firstname'>Ute</field>
+            <field name='lastname'>Großauer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact80302">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde80302"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Johannes Neumayer</field>
+            <field name='firstname'>Johannes</field>
+            <field name='lastname'>Neumayer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact32011">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde32011"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Susanne Moser</field>
+            <field name='firstname'>Susanne</field>
+            <field name='lastname'>Moser</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact30734">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30734"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Silvia Krispel</field>
+            <field name='firstname'>Silvia</field>
+            <field name='lastname'>Krispel</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact41407">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41407"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Reinhard Huber</field>
+            <field name='firstname'>Reinhard</field>
+            <field name='lastname'>Huber</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70511">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70511"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Reinhard Schellhorn</field>
+            <field name='firstname'>Reinhard</field>
+            <field name='lastname'>Schellhorn</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact40615">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde40615"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Gabriele Hackermüller</field>
+            <field name='firstname'>Gabriele</field>
+            <field name='lastname'>Hackermüller</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31907">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31907"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Johanna Gleiss</field>
+            <field name='firstname'>Johanna</field>
+            <field name='lastname'>Gleiss</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact10902">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde10902"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Uwe Marth</field>
+            <field name='firstname'>Uwe</field>
+            <field name='lastname'>Marth</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70718">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70718"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Bernhard Wurzer</field>
+            <field name='firstname'>Bernhard</field>
+            <field name='lastname'>Wurzer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact61763">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde61763"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Markus Fiedler</field>
+            <field name='firstname'>Markus</field>
+            <field name='lastname'>Fiedler</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact50420">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde50420"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Tanja Hölzl</field>
+            <field name='firstname'>Tanja</field>
+            <field name='lastname'>Hölzl</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact31103">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31103"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Leopold Winkelhofer</field>
+            <field name='firstname'>Leopold</field>
+            <field name='lastname'>Winkelhofer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70711">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70711"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'>Mag.</field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Mag. Carmen Grader</field>
+            <field name='firstname'>Carmen</field>
+            <field name='lastname'>Grader</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact40501">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde40501"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Gerald Mayr</field>
+            <field name='firstname'>Gerald</field>
+            <field name='lastname'>Mayr</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70811">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70811"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Evelyn Zobl</field>
+            <field name='firstname'>Evelyn</field>
+            <field name='lastname'>Zobl</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact41114">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41114"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Josef Gschwandtner</field>
+            <field name='firstname'>Josef</field>
+            <field name='lastname'>Gschwandtner</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact10608">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde10608"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Heidelinde Kurz</field>
+            <field name='firstname'>Heidelinde</field>
+            <field name='lastname'>Kurz</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70622">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70622"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Alfred Tilg</field>
+            <field name='firstname'>Alfred</field>
+            <field name='lastname'>Tilg</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70911">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70911"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Martina Wallner</field>
+            <field name='firstname'>Martina</field>
+            <field name='lastname'>Wallner</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70813">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70813"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Ingrid Schmid</field>
+            <field name='firstname'>Ingrid</field>
+            <field name='lastname'>Schmid</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact30626">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30626"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'>Ing.</field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Ing. Thomas Sabbata-Valteiner</field>
+            <field name='firstname'>Thomas</field>
+            <field name='lastname'>Sabbata-Valteiner</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70728">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70728"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Josef Walder</field>
+            <field name='firstname'>Josef</field>
+            <field name='lastname'>Walder</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70715">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70715"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Alfons Monitzer</field>
+            <field name='firstname'>Alfons</field>
+            <field name='lastname'>Monitzer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70808">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70808"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. M. Rauch</field>
+            <field name='firstname'>M.</field>
+            <field name='lastname'>Rauch</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact30544">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30544"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Anton Spreitz</field>
+            <field name='firstname'>Anton</field>
+            <field name='lastname'>Spreitz</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70709">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70709"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Helmut Veider</field>
+            <field name='firstname'>Helmut</field>
+            <field name='lastname'>Veider</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70729">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70729"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Franz Webhofer</field>
+            <field name='firstname'>Franz</field>
+            <field name='lastname'>Webhofer</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70827">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70827"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Edmund Huber</field>
+            <field name='firstname'>Edmund</field>
+            <field name='lastname'>Huber</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact10718">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde10718"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Johann Lentsch</field>
+            <field name='firstname'>Johann</field>
+            <field name='lastname'>Lentsch</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70314">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70314"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Hans Motz</field>
+            <field name='firstname'>Hans</field>
+            <field name='lastname'>Motz</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70343">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70343"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Martin Falkner</field>
+            <field name='firstname'>Martin</field>
+            <field name='lastname'>Falkner</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact10919">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde10919"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Reinhard Tangl</field>
+            <field name='firstname'>Reinhard</field>
+            <field name='lastname'>Tangl</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact62270">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde62270"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Franz Pußwald</field>
+            <field name='firstname'>Franz</field>
+            <field name='lastname'>Pußwald</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact32015">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde32015"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Christian Hofmarcher</field>
+            <field name='firstname'>Christian</field>
+            <field name='lastname'>Hofmarcher</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact30541">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30541"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Sabine Dorner</field>
+            <field name='firstname'>Sabine</field>
+            <field name='lastname'>Dorner</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact10922">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde10922"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Frau Ingeborg Resetar</field>
+            <field name='firstname'>Ingeborg</field>
+            <field name='lastname'>Resetar</field>
+            <field name='type'>invoice</field>
+        </record>
+        <record model='res.partner' id="contact70502">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70502"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Franz Haselsberger</field>
+            <field name='firstname'>Franz</field>
+            <field name='lastname'>Haselsberger</field>
+            <field name='type'>invoice</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,35 @@
+odoo Sequenzen
+
+Rechnungen:
+Implementierung:    lückenlos
+Stellenzahl:        0                   bei Stellenzahl 5 ==> R-00001 oder auch R-00455
+Schrittweite:       1
+Nächste Nummer:     111
+Regel:              R-%(y)s ==> R-19111
+Daterange:
+01.01.2019 - 31.12.2019 Nächste Nummer: 1 ==> Bewirkt Neustart der laufenden Nr. 1 am 01.01.2020    ==> R-191
+01.01.2020 - 31.12.2020 Nächste Nummer: 1 ==> Bewirkt Neustart der laufenden Nr. 1 am 01.01.2020    ==> R-201
+
+
+Angebote/Aufträge:
+Implementierung:    lückenlos
+Stellenzahl:        0
+Schrittweite:       1
+Nächste Nummer:     222
+Regel:              A-%(y)s ==> A-19222
+
+
+Angebotsanfragen/Beschaffungsaufträge:
+Implementierung:    lückenlos
+Stellenzahl:        0
+Schrittweite:       1
+Nächste Nummer:     333
+Regel:              E-%(y)s ==> E-19333
+
+
+Nutzungsvereinbarungen:
+Implementierung:    lückenlos
+Stellenzahl:        0
+Schrittweite:       1
+Nächste Nummer:     444
+Regel:              NV-%(y)s ==> NV-19444

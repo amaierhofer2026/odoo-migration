@@ -1,0 +1,1636 @@
+<odoo>
+    <data noupdate="1">
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha20512">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20512"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_20512"/>
+            <field name='sale_order_confirmation_date'>13.05.2013</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>12.05.2017</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha20512abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha20512"/>
+            <field name="name">Mach Mit!-Backend Jährliches Nutzungsentgelt 1.000 - 2.500 Einwohner</field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_230"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">240</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha60651">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde60651"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_60651"/>
+            <field name='sale_order_confirmation_date'>18.07.2013</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>17.07.2017</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha60651abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha60651"/>
+            <field name="name">Mach Mit!-Backend Jährliches Nutzungsentgelt 1.000 - 2.500 Einwohner</field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_230"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">240</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha40301">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde40301"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_40301"/>
+            <field name='sale_order_confirmation_date'>16.09.2013</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>15.09.2017</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha40301abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha40301"/>
+            <field name="name">Mach Mit!-Backend Jährliches Nutzungsentgelt 50.000 - 75.000 Einwohner</field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_235"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">2990</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha10609">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde10609"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_10609"/>
+            <field name='sale_order_confirmation_date'>30.09.2013</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>29.09.2017</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha10609abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha10609"/>
+            <field name="name">Mach Mit!-Backend Jährliches Nutzungsentgelt 2.500 - 5.000 Einwohner</field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_231"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">470</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha30201_1">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde30201"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_30201_1"/>
+            <field name='sale_order_confirmation_date'>04.10.2013</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>03.10.2017</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha30201_1abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30201_1"/>
+            <field name="name">Mach Mit!-Backend Jährliches Nutzungsentgelt 50.000 - 75.000 Einwohner</field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_235"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">2990</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha31629">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde31629"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_31629"/>
+            <field name='sale_order_confirmation_date'>02.12.2014</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>01.12.2018</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha31629abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha31629"/>
+            <field name="name">Mach Mit!-Backend Jährliches Nutzungsentgelt 5.000 - 10.000 Einwohner</field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_232"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">940</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha50401">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde50401"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_50401"/>
+            <field name='sale_order_confirmation_date'>04.03.2011</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>03.03.2013</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha50401abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha50401"/>
+            <field name="name">Amtssignatur-Service und E-Zustellung Laufende Kosten Pauschale mit jährlichem
+                Nutzungsentgelt bis 5000 Einwohner HPC-Dual
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_194"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">100</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha50405">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde50405"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_50405"/>
+            <field name='sale_order_confirmation_date'>12.04.2011</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>11.04.2013</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha50405abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha50405"/>
+            <field name="name">Amtssignatur-Service und E-Zustellung Laufende Kosten Pauschale mit jährlichem
+                Nutzungsentgelt bis 2500 Einwohner HPC-Dual
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_193"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">50</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha30517">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde30517"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_30517"/>
+            <field name='sale_order_confirmation_date'>08.04.2011</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>07.04.2013</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha30517abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30517"/>
+            <field name="name">Amtssignatur-Service und E-Zustellung Laufende Kosten Pauschale mit jährlichem
+                Nutzungsentgelt bis 2500 Einwohner HPC-Dual
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_193"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">50</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha10409">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde10409"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_10409"/>
+            <field name='sale_order_confirmation_date'>08.03.2011</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>07.03.2013</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha10409abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha10409"/>
+            <field name="name">Amtssignatur-Service und E-Zustellung Laufende Kosten Pauschale mit jährlichem
+                Nutzungsentgelt bis 2500 Einwohner HPC-Dual
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_193"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">50</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha30740">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde30740"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_30740"/>
+            <field name='sale_order_confirmation_date'>20.07.2011</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>19.07.2013</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha30740abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30740"/>
+            <field name="name">Amtssignatur-Service und E-Zustellung Laufende Kosten Pauschale mit jährlichem
+                Nutzungsentgelt bis 20000 Einwohner HPC-Dual
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_196"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">400</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha30639">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde30639"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_30639"/>
+            <field name='sale_order_confirmation_date'>05.01.2011</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>04.01.2013</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha30639abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30639"/>
+            <field name="name">Amtssignatur-Service und E-Zustellung Laufende Kosten Pauschale mit jährlichem
+                Nutzungsentgelt bis 20000 Einwohner HPC-Dual
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_196"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">400</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha20201">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20201"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_20201"/>
+            <field name='sale_order_confirmation_date'>28.12.2010</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>27.12.2012</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha20201abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha20201"/>
+            <field name="name">Amtssignatur-Service und E-Zustellung Laufende Kosten Pauschale mit jährlichem
+                Nutzungsentgelt bis 75000 Einwohner HPC-Dual
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_198"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">1500</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha61057">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde61057"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_61057"/>
+            <field name='sale_order_confirmation_date'>24.05.2011</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>23.05.2013</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha61057abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha61057"/>
+            <field name="name">Amtssignatur-Service und E-Zustellung Laufende Kosten Pauschale mit jährlichem
+                Nutzungsentgelt bis 1000 Einwohner HPC-Dual
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_192"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">20</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha31549">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde31549"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_31549"/>
+            <field name='sale_order_confirmation_date'>13.06.2011</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>12.06.2013</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha31549abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha31549"/>
+            <field name="name">Amtssignatur-Service und E-Zustellung Laufende Kosten Pauschale mit jährlichem
+                Nutzungsentgelt bis 10000 Einwohner HPC-Dual
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_195"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">200</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha30201_2">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde30201"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_30201_2"/>
+            <field name='sale_order_confirmation_date'>14.02.2011</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>13.02.2013</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha30201_2abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30201_2"/>
+            <field name="name">Amtssignatur-Service und E-Zustellung Laufende Kosten Pauschale mit jährlichem
+                Nutzungsentgelt bis 75000 Einwohner HPC-Dual
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_198"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">1500</field>
+        </record>
+        <!-- ==================================================== -->
+
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha62267_2">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde62267"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_62267_2"/>
+            <field name='sale_order_confirmation_date'>05.06.2013</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>04.06.2017</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha62267_2abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha62267_2"/>
+            <field name="name">Amtssignatur-Service und E-Zustellung Laufende Kosten Pauschale mit jährlichem
+                Nutzungsentgelt bis 10000 Einwohner
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_172"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">200</field>
+        </record>
+
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha62267_3">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde62267"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_62267_3"/>
+            <field name='sale_order_confirmation_date'>13.05.2009</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>12.05.2011</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha62267_3abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha62267_3"/>
+            <field name="name">Acta Nova Nutzungsentgelt</field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_201"/>
+            <field name="quantity">24</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">122.74</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha62267_3abo_pos_2">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha62267_3"/>
+            <field name="name">Acta Nova Nutzungsentgelt</field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_204"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">144</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha62267_3abo_pos_3">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha62267_3"/>
+            <field name="name">Acta Nova Nutzungsentgelt</field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_205"/>
+            <field name="quantity">12</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">138.0</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha62267_1">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde62267"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_62267_1"/>
+            <field name='sale_order_confirmation_date'>02.01.2012</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>01.01.2014</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha62267_1abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha62267_1"/>
+            <field name="name">Amtsweg.gv.at Bundesland STANDARD Jährliches Nutzungsentgelt 5.000 - 10.000 Einwohner
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_26"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">1674</field>
+        </record>
+
+
+        <!--<record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha62267">-->
+        <!--<field name="user_id" ref="base.user_root"/>-->
+        <!--<field name='partner_id' ref="itk_initial_data_import.gemeinde62267"/>-->
+        <!--<field name='template_id' ref="itk_subscription.subscription_template_J"/>-->
+        <!--<field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_62267"/>-->
+        <!--<field name='sale_order_confirmation_date'>05.06.2013</field>-->
+        <!--<field name='pricelist_id' ref="product.list0"/>-->
+        <!--<field name='state'>open</field>-->
+        <!--<field name='date_start'>04.06.2017</field>-->
+        <!--<field name="recurring_next_date">01.01.2020</field>-->
+        <!--</record>-->
+        <!--<record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha62267abo_pos_1">-->
+        <!--<field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha62267"/>-->
+        <!--<field name="name">Amtssignatur-Service und E-Zustellung Laufende Kosten Pauschale mit jährlichem-->
+        <!--Nutzungsentgelt bis 10000 Einwohner-->
+        <!--</field>-->
+        <!--<field name="product_id" ref="itk_initial_product_import.itk_product_172"/>-->
+        <!--<field name="quantity">1</field>-->
+        <!--<field name="uom_id" ref="product.product_uom_unit"/>-->
+        <!--<field name="price_unit">200</field>-->
+        <!--</record>-->
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha30101">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde30101"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_30101"/>
+            <field name='sale_order_confirmation_date'>31.01.2012</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>30.01.2014</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha30101abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30101"/>
+            <field name="name">Amtssignatur-Service und E-Zustellung Laufende Kosten Pauschale mit jährlichem
+                Nutzungsentgelt bis 50000 Einwohner
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_174"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">1000</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha61766">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde61766"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_61766"/>
+            <field name='sale_order_confirmation_date'>05.04.2012</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>04.04.2014</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha61766abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha61766"/>
+            <field name="name">Amtssignatur-Service und E-Zustellung Laufende Kosten Pauschale mit jährlichem
+                Nutzungsentgelt bis 10000 Einwohner
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_172"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">200</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha31725">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde31725"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_31725"/>
+            <field name='sale_order_confirmation_date'>01.07.2013</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>30.06.2017</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha31725abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha31725"/>
+            <field name="name">Amtssignatur-Service und E-Zustellung Laufende Kosten Pauschale mit jährlichem
+                Nutzungsentgelt bis 10000 Einwohner
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_172"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">200</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha10606">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde10606"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_10606"/>
+            <field name='sale_order_confirmation_date'>07.03.2014</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>06.03.2018</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha10606abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha10606"/>
+            <field name="name">Amtssignatur-Service und E-Zustellung Laufende Kosten Pauschale mit jährlichem
+                Nutzungsentgelt bis 10000 Einwohner
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_172"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">200</field>
+        </record>
+
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha62040_1">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde62040"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_62040_1"/>
+            <field name='sale_order_confirmation_date'>13.12.2012</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>12.12.2014</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha62040_1abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha62040_1"/>
+            <field name="name">Amtssignatur-Service und E-Zustellung Laufende Kosten Pauschale mit jährlichem
+                Nutzungsentgelt bis 20000 Einwohner
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_173"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">400</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha62040_2">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde62040"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_62040_2"/>
+            <field name='sale_order_confirmation_date'>02.11.2010</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>01.11.2012</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha62040abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha62040_2"/>
+            <field name="name">Acta Nova Nutzungsentgelt</field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_201"/>
+            <field name="quantity">41</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">122.74</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha62040abo_pos_2">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha62040_2"/>
+            <field name="name">Acta Nova Nutzungsentgelt</field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_203"/>
+            <field name="quantity">17</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">73.64</field>
+        </record>
+
+
+        <!--<record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha62040">-->
+        <!--<field name="user_id" ref="base.user_root"/>-->
+        <!--<field name='partner_id' ref="itk_initial_data_import.gemeinde62040"/>-->
+        <!--<field name='template_id' ref="itk_subscription.subscription_template_J"/>-->
+        <!--<field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_62040"/>-->
+        <!--<field name='sale_order_confirmation_date'>13.12.2012</field>-->
+        <!--<field name='pricelist_id' ref="product.list0"/>-->
+        <!--<field name='state'>open</field>-->
+        <!--<field name='date_start'>12.12.2014</field>-->
+        <!--<field name="recurring_next_date">01.01.2020</field>-->
+        <!--</record>-->
+        <!--<record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha62040abo_pos_1">-->
+        <!--<field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha62040"/>-->
+        <!--<field name="name">Amtssignatur-Service und E-Zustellung Laufende Kosten Pauschale mit jährlichem-->
+        <!--Nutzungsentgelt bis 20000 Einwohner-->
+        <!--</field>-->
+        <!--<field name="product_id" ref="itk_initial_product_import.itk_product_173"/>-->
+        <!--<field name="quantity">1</field>-->
+        <!--<field name="uom_id" ref="product.product_uom_unit"/>-->
+        <!--<field name="price_unit">400</field>-->
+        <!--</record>-->
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha60347">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde60347"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_60347"/>
+            <field name='sale_order_confirmation_date'>22.04.2015</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>21.04.2017</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha60347abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha60347"/>
+            <field name="name">Amtssignatur-Service und E-Zustellung Laufende Kosten Pauschale mit jährlichem
+                Nutzungsentgelt bis 5000 Einwohner
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_171"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">100</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha20635">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20635"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_20635"/>
+            <field name='sale_order_confirmation_date'>3.10.2016</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>02.10.2018</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha20635abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha20635"/>
+            <field name="name">Amtssignatur-Service und E-Zustellung Laufende Kosten Pauschale mit jährlichem
+                Nutzungsentgelt bis 20000 Einwohner
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_173"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">400</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha30201_3">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde30201"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_30201_3"/>
+            <field name='sale_order_confirmation_date'>30.09.2010</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>29.09.2012</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha30201_3abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30201_3"/>
+            <field name="name">Acta Nova Nutzungsentgelt</field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_201"/>
+            <field name="quantity">19</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">122.74</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha30401">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde30401"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_30401"/>
+            <field name='sale_order_confirmation_date'>30.09.2011</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>29.09.2013</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha30401abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30401"/>
+            <field name="name">Acta Nova Nutzungsentgelt</field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_201"/>
+            <field name="quantity">235</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">122.74</field>
+        </record>
+        <!--<record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha62040">-->
+        <!--<field name="user_id" ref="base.user_root"/>-->
+        <!--<field name='partner_id' ref="itk_initial_data_import.gemeinde62040"/>-->
+        <!--<field name='template_id' ref="itk_subscription.subscription_template_J"/>-->
+        <!--<field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_62040"/>-->
+        <!--<field name='sale_order_confirmation_date'>02.11.2010</field>-->
+        <!--<field name='pricelist_id' ref="product.list0"/>-->
+        <!--<field name='state'>open</field>-->
+        <!--<field name='date_start'>01.11.2012</field>-->
+        <!--<field name="recurring_next_date">01.01.2020</field>-->
+        <!--</record>-->
+        <!--<record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha62040abo_pos_1">-->
+        <!--<field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha62040"/>-->
+        <!--<field name="name">Acta Nova Nutzungsentgelt</field>-->
+        <!--<field name="product_id" ref="itk_initial_product_import.itk_product_201"/>-->
+        <!--<field name="quantity">41</field>-->
+        <!--<field name="uom_id" ref="product.product_uom_unit"/>-->
+        <!--<field name="price_unit">122.74</field>-->
+        <!--</record>-->
+        <!--<record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha30301">-->
+        <!--<field name="user_id" ref="base.user_root"/>-->
+        <!--<field name='partner_id' ref="itk_initial_data_import.gemeinde30301"/>-->
+        <!--<field name='template_id' ref="itk_subscription.subscription_template_J"/>-->
+        <!--<field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_30301"/>-->
+        <!--<field name='sale_order_confirmation_date'>29.12.2011</field>-->
+        <!--<field name='pricelist_id' ref="product.list0"/>-->
+        <!--<field name='state'>open</field>-->
+        <!--<field name='date_start'>28.12.2013</field>-->
+        <!--<field name="recurring_next_date">01.01.2020</field>-->
+        <!--</record>-->
+        <!--<record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha30301abo_pos_1">-->
+        <!--<field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30301"/>-->
+        <!--<field name="name">Acta Nova Nutzungsentgelt</field>-->
+        <!--<field name="product_id" ref="itk_initial_product_import.itk_product_201"/>-->
+        <!--<field name="quantity">36</field>-->
+        <!--<field name="uom_id" ref="product.product_uom_unit"/>-->
+        <!--<field name="price_unit">122.74</field>-->
+        <!--</record>-->
+        <!--<record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha62267">-->
+        <!--<field name="user_id" ref="base.user_root"/>-->
+        <!--<field name='partner_id' ref="itk_initial_data_import.gemeinde62267"/>-->
+        <!--<field name='template_id' ref="itk_subscription.subscription_template_J"/>-->
+        <!--<field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_62267"/>-->
+        <!--<field name='sale_order_confirmation_date'>13.05.2009</field>-->
+        <!--<field name='pricelist_id' ref="product.list0"/>-->
+        <!--<field name='state'>open</field>-->
+        <!--<field name='date_start'>12.05.2011</field>-->
+        <!--<field name="recurring_next_date">01.01.2020</field>-->
+        <!--</record>-->
+        <!--<record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha62267abo_pos_1">-->
+        <!--<field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha62267"/>-->
+        <!--<field name="name">Acta Nova Nutzungsentgelt</field>-->
+        <!--<field name="product_id" ref="itk_initial_product_import.itk_product_201"/>-->
+        <!--<field name="quantity">24</field>-->
+        <!--<field name="uom_id" ref="product.product_uom_unit"/>-->
+        <!--<field name="price_unit">122.74</field>-->
+        <!--</record>-->
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha31725">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde31725"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_31725"/>
+            <field name='sale_order_confirmation_date'>06.11.2013</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>05.11.2017</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha31725abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha31725"/>
+            <field name="name">Acta Nova Nutzungsentgelt</field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_205"/>
+            <field name="quantity">36</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">138.08</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nhaBIFIE">
+            <field name='partner_id' ref="itk_initial_partner_nogkz_data_import.gemeindeBIFIE"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_BIFIE"/>
+            <field name='sale_order_confirmation_date'>24.01.2014</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>23.01.2018</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nhaBIFIEabo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nhaBIFIE"/>
+            <field name="name">Acta Nova Nutzungsentgelt</field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_205"/>
+            <field name="quantity">66</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">138.08</field>
+        </record>
+
+
+        <!--<record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nhaBIEFI">-->
+            <!--<field name="user_id" ref="base.user_root"/>-->
+            <!--<field name='partner_id' ref="itk_initial_data_import.gemeindeBIEFI"/>-->
+            <!--<field name='template_id' ref="itk_subscription.subscription_template_J"/>-->
+            <!--<field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_BIEFI"/>-->
+            <!--<field name='sale_order_confirmation_date'>24.01.2014</field>-->
+            <!--<field name='pricelist_id' ref="product.list0"/>-->
+            <!--<field name='state'>open</field>-->
+            <!--<field name='date_start'>23.01.2018</field>-->
+            <!--<field name="recurring_next_date">01.01.2020</field>-->
+        <!--</record>-->
+        <!--<record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nhaBIEFIabo_pos_1">-->
+            <!--<field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nhaBIEFI"/>-->
+            <!--<field name="name">Acta Nova Nutzungsentgelt</field>-->
+            <!--<field name="product_id" ref="itk_initial_product_import.itk_product_205"/>-->
+            <!--<field name="quantity">66</field>-->
+            <!--<field name="uom_id" ref="product.product_uom_unit"/>-->
+            <!--<field name="price_unit">138.08</field>-->
+        <!--</record>-->
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha31516">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde31516"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_31516"/>
+            <field name='sale_order_confirmation_date'>27.08.2014</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>26.08.2018</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha31516abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha31516"/>
+            <field name="name">Elak-Mikado Nutzungsgebühr pro Monat</field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_237"/>
+            <field name="quantity">24</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">30.48</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha30935">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde30935"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_30935"/>
+            <field name='sale_order_confirmation_date'>21.10.2013</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>20.10.2017</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha30935abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30935"/>
+            <field name="name">Elak-Mikado Nutzungsgebühr pro Monat</field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_237"/>
+            <field name="quantity">36</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">30.48</field>
+        </record>
+
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nhaFHCW_1">
+            <field name='partner_id' ref="itk_initial_partner_nogkz_data_import.gemeindeFHCW"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_FHCW_1"/>
+            <field name='sale_order_confirmation_date'>21.10.2013</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>20.10.2017</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nhaFHCW_1abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nhaFHCW_1"/>
+            <field name="name">Elak-Mikado Nutzungsgebühr pro Monat</field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_238"/>
+            <field name="quantity">15</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">20.32</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nhaFHCW_2">
+            <field name='partner_id' ref="itk_initial_partner_nogkz_data_import.gemeindeFHCW"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_FHCW_2"/>
+            <field name='sale_order_confirmation_date'>07.01.2014</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>06.01.2018</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nhaFHCW_2abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nhaFHCW_2"/>
+            <field name="name">Puma-Plattform Betrieb sowie Betriebsführung und Support der Betriebsplattform pro
+                Monat
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_241"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">250</field>
+        </record>
+
+        <!--<record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nhaFHCW">-->
+            <!--<field name="user_id" ref="base.user_root"/>-->
+            <!--<field name='partner_id' ref="itk_initial_data_import.gemeindeFHCW"/>-->
+            <!--<field name='template_id' ref="itk_subscription.subscription_template_J"/>-->
+            <!--<field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_FHCW"/>-->
+            <!--<field name='sale_order_confirmation_date'>21.10.2013</field>-->
+            <!--<field name='pricelist_id' ref="product.list0"/>-->
+            <!--<field name='state'>open</field>-->
+            <!--<field name='date_start'>20.10.2017</field>-->
+            <!--<field name="recurring_next_date">01.01.2020</field>-->
+        <!--</record>-->
+        <!--<record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nhaFHCWabo_pos_1">-->
+            <!--<field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nhaFHCW"/>-->
+            <!--<field name="name">Elak-Mikado Nutzungsgebühr pro Monat</field>-->
+            <!--<field name="product_id" ref="itk_initial_product_import.itk_product_238"/>-->
+            <!--<field name="quantity">15</field>-->
+            <!--<field name="uom_id" ref="product.product_uom_unit"/>-->
+            <!--<field name="price_unit">20.32</field>-->
+        <!--</record>-->
+        <!--<record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nhaFHCW">-->
+            <!--<field name="user_id" ref="base.user_root"/>-->
+            <!--<field name='partner_id' ref="itk_initial_data_import.gemeindeFHCW"/>-->
+            <!--<field name='template_id' ref="itk_subscription.subscription_template_J"/>-->
+            <!--<field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_FHCW"/>-->
+            <!--<field name='sale_order_confirmation_date'>07.01.2014</field>-->
+            <!--<field name='pricelist_id' ref="product.list0"/>-->
+            <!--<field name='state'>open</field>-->
+            <!--<field name='date_start'>06.01.2018</field>-->
+            <!--<field name="recurring_next_date">01.01.2020</field>-->
+        <!--</record>-->
+        <!--<record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nhaFHCWabo_pos_1">-->
+            <!--<field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nhaFHCW"/>-->
+            <!--<field name="name">Puma-Plattform Betrieb sowie Betriebsführung und Support der Betriebsplattform pro-->
+                <!--Monat-->
+            <!--</field>-->
+            <!--<field name="product_id" ref="itk_initial_product_import.itk_product_241"/>-->
+            <!--<field name="quantity">1</field>-->
+            <!--<field name="uom_id" ref="product.product_uom_unit"/>-->
+            <!--<field name="price_unit">250</field>-->
+        <!--</record>-->
+
+
+
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nhaBST">
+            <field name='partner_id' ref="itk_initial_partner_nogkz_data_import.gemeindeBST"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_BST"/>
+            <field name='sale_order_confirmation_date'>11.11.2011</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>10.11.2013</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nhaBSTabo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nhaBST"/>
+            <field name="name">Aufbau einer Plattform für interkommunalen Wissens- und Erfahrungsaustausch</field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_240"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">1500</field>
+        </record>
+
+        <!--<record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nhaBST">-->
+            <!--<field name="user_id" ref="base.user_root"/>-->
+            <!--<field name='partner_id' ref="itk_initial_data_import.gemeindeBST"/>-->
+            <!--<field name='template_id' ref="itk_subscription.subscription_template_J"/>-->
+            <!--<field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_BST"/>-->
+            <!--<field name='sale_order_confirmation_date'>11.11.2011</field>-->
+            <!--<field name='pricelist_id' ref="product.list0"/>-->
+            <!--<field name='state'>open</field>-->
+            <!--<field name='date_start'>10.11.2013</field>-->
+            <!--<field name="recurring_next_date">01.01.2020</field>-->
+        <!--</record>-->
+        <!--<record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nhaBSTabo_pos_1">-->
+            <!--<field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nhaBST"/>-->
+            <!--<field name="name">Aufbau einer Plattform für interkommunalen Wissens- und Erfahrungsaustausch</field>-->
+            <!--<field name="product_id" ref="itk_initial_product_import.itk_product_240"/>-->
+            <!--<field name="quantity">1</field>-->
+            <!--<field name="uom_id" ref="product.product_uom_unit"/>-->
+            <!--<field name="price_unit">1500</field>-->
+        <!--</record>-->
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha31309">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde31309"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_31309"/>
+            <field name='sale_order_confirmation_date'>19.01.2016</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>18.01.2018</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha31309abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha31309"/>
+            <field name="name">Amtsweg.gv.at Bundesland STANDARD Jährliches Nutzungsentgelt 2.500 - 5.000 Einwohner
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_25"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">780</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha30201_4">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde30201"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_30201_4"/>
+            <field name='sale_order_confirmation_date'>10.04.2008</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>09.04.2010</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha30201_4abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30201_4"/>
+            <field name="name">Amtsweg.gv.at Premium STANDARD Jährliches Nutzungsentgelt 50.000 - 75.000 Einwohner
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_65"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">15803</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha30604">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde30604"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_30604"/>
+            <field name='sale_order_confirmation_date'>03.03.2008</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>02.03.2010</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha30604abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30604"/>
+            <field name="name">Amtsweg.gv.at Premium STANDARD Jährliches Nutzungsentgelt 20.000 - 50.000 Einwohner
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_64"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">9880</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha30101">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde30101"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_30101"/>
+            <field name='sale_order_confirmation_date'>07.05.2008</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>06.05.2010</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha30101abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30101"/>
+            <field name="name">Amtsweg.gv.at Premium STANDARD Jährliches Nutzungsentgelt 20.000 - 50.000 Einwohner
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_64"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">9880</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha30401">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde30401"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_30401"/>
+            <field name='sale_order_confirmation_date'>25.04.2008</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>24.04.2010</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha30401abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30401"/>
+            <field name="name">Amtsweg.gv.at Premium STANDARD Jährliches Nutzungsentgelt 20.000 - 50.000 Einwohner
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_64"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">9880</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha70716">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde70716"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_70716"/>
+            <field name='sale_order_confirmation_date'>04.04.2008</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>03.04.2010</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha70716abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha70716"/>
+            <field name="name">Amtsweg.gv.at Premium STANDARD Jährliches Nutzungsentgelt 10.000 - 20.0000Einwohner
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_63"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">6381</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha30740">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde30740"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_30740"/>
+            <field name='sale_order_confirmation_date'>25.04.2008</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>24.04.2010</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha30740abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30740"/>
+            <field name="name">Amtsweg.gv.at Bundesland STANDARD Jährliches Nutzungsentgelt 10.000 - 20.000 Einwohner
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_27"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">2834</field>
+        </record>
+
+
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha30301_1">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde30301"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_30301_1"/>
+            <field name='sale_order_confirmation_date'>29.12.2011</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>28.12.2013</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha30301_1abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30301_1"/>
+            <field name="name">Acta Nova Nutzungsentgelt</field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_201"/>
+            <field name="quantity">36</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">122.74</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha30301_1abo_pos_2">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30301_1"/>
+            <field name="name">Acta Nova Nutzungsentgelt</field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_204"/>
+            <field name="quantity">7</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">144</field>
+        </record>
+
+
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha30301_2">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde30301"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_30301_2"/>
+            <field name='sale_order_confirmation_date'>16.04.2008</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>15.04.2010</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha30301_2abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30301_2"/>
+            <field name="name">Amtsweg.gv.at Premium STANDARD Jährliches Nutzungsentgelt 10.000 - 20.0000Einwohner
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_63"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">6381</field>
+        </record>
+
+
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha30301_3">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde30301"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_30301_3"/>
+            <field name='sale_order_confirmation_date'>16.04.2008</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>15.04.2010</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha30301_3abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30301_3"/>
+            <field name="name">Mach Mit!-Backend Jährliches Nutzungsentgelt 10.000 - 20.000 Einwohner
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_233"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">1490</field>
+        </record>
+
+
+        <!--<record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha30301">-->
+        <!--<field name="user_id" ref="base.user_root"/>-->
+        <!--<field name='partner_id' ref="itk_initial_data_import.gemeinde30301"/>-->
+        <!--<field name='template_id' ref="itk_subscription.subscription_template_J"/>-->
+        <!--<field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_30301"/>-->
+        <!--<field name='sale_order_confirmation_date'>16.04.2008</field>-->
+        <!--<field name='pricelist_id' ref="product.list0"/>-->
+        <!--<field name='state'>open</field>-->
+        <!--<field name='date_start'>15.04.2010</field>-->
+        <!--<field name="recurring_next_date">01.01.2020</field>-->
+        <!--</record>-->
+        <!--<record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha30301abo_pos_1">-->
+        <!--<field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30301"/>-->
+        <!--<field name="name">Amtsweg.gv.at Premium STANDARD Jährliches Nutzungsentgelt 10.000 - 20.0000Einwohner-->
+        <!--</field>-->
+        <!--<field name="product_id" ref="itk_initial_product_import.itk_product_63"/>-->
+        <!--<field name="quantity">1</field>-->
+        <!--<field name="uom_id" ref="product.product_uom_unit"/>-->
+        <!--<field name="price_unit">6381</field>-->
+        <!--</record>-->
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha31213">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde31213"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_31213"/>
+            <field name='sale_order_confirmation_date'>15.01.2010</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>14.01.2012</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha31213abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha31213"/>
+            <field name="name">Amtsweg.gv.at Premium STANDARD Jährliches Nutzungsentgelt 10.000 - 20.0000Einwohner
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_63"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">6381</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha31818">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde31818"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_31818"/>
+            <field name='sale_order_confirmation_date'>18.10.2010</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>17.10.2012</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha31818abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha31818"/>
+            <field name="name">Amtsweg.gv.at Premium STANDARD Jährliches Nutzungsentgelt 10.000 - 20.0000Einwohner
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_63"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">6381</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha30531">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde30531"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_30531"/>
+            <field name='sale_order_confirmation_date'>16.04.2008</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>15.04.2010</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha30531abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30531"/>
+            <field name="name">Amtsweg.gv.at Premium STANDARD Jährliches Nutzungsentgelt 5.000 - 10.000 Einwohner
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_62"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">4067</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha32016">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde32016"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_32016"/>
+            <field name='sale_order_confirmation_date'>29.05.2008</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>28.05.2010</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha32016abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha32016"/>
+            <field name="name">Amtsweg.gv.at Premium STANDARD Jährliches Nutzungsentgelt 2.500 - 5.000 Einwohner</field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_61"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">2957</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha31413">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde31413"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_31413"/>
+            <field name='sale_order_confirmation_date'>09.12.2009</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>08.12.2011</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha31413abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha31413"/>
+            <field name="name">Amtsweg.gv.at Premium STANDARD Jährliches Nutzungsentgelt 2.500 - 5.000 Einwohner</field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_61"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">2957</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha60665">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde60665"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_60665"/>
+            <field name='sale_order_confirmation_date'>24.03.2013</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>23.03.2017</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha60665abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha60665"/>
+            <field name="name">Amtsweg.gv.at Premium STANDARD Jährliches Nutzungsentgelt 5.000 - 10.000 Einwohner
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_62"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">4067</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha32144">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde32144"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_32144"/>
+            <field name='sale_order_confirmation_date'>27.08.2013</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>26.08.2017</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha32144abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha32144"/>
+            <field name="name">Amtsweg.gv.at Bundesland STANDARD Jährliches Nutzungsentgelt 20.000 - 50.000 Einwohner
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_64"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">9880</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha10101">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde10101"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_10101"/>
+            <field name='sale_order_confirmation_date'>17.03.2014</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>16.03.2018</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha10101abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha10101"/>
+            <field name="name">Amtsweg.gv.at Premium STANDARD Jährliches Nutzungsentgelt 10.000 - 20.0000Einwohner
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_63"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">6381</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha41605">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde41605"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_41605"/>
+            <field name='sale_order_confirmation_date'>04.02.2011</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>03.02.2013</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha41605abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha41605"/>
+            <field name="name">Amtsweg.gv.at Bundesland STANDARD Jährliches Nutzungsentgelt 5.000 - 10.000 Einwohner
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_26"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">1674</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha31633">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde31633"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_31633"/>
+            <field name='sale_order_confirmation_date'>14.03.2012</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>13.03.2014</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha31633abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha31633"/>
+            <field name="name">Amtsweg.gv.at Bundesland STANDARD Jährliches Nutzungsentgelt 10.000 - 20.000 Einwohner
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_27"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">2834</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha41012">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde41012"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_41012"/>
+            <field name='sale_order_confirmation_date'>22.05.2012</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>21.05.2014</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha41012abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha41012"/>
+            <field name="name">Amtsweg.gv.at Bundesland STANDARD Jährliches Nutzungsentgelt 20.000 - 50.000 Einwohner
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_28"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">4918</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha31725">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde31725"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_31725"/>
+            <field name='sale_order_confirmation_date'>18.06.2013</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>17.06.2017</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha31725abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha31725"/>
+            <field name="name">Amtsweg.gv.at Bundesland STANDARD Jährliches Nutzungsentgelt 5.000 - 10.000 Einwohner
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_26"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">1674</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha61108">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde61108"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_61108"/>
+            <field name='sale_order_confirmation_date'>16.11.2008</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>15.11.2010</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha61108abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha61108"/>
+            <field name="name">Amtsweg.gv.at Premium STANDARD Jährliches Nutzungsentgelt 20.000 - 50.000 Einwohner
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_64"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">9880</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha62041">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde62041"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_62041"/>
+            <field name='sale_order_confirmation_date'>04.01.2018</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>03.01.2020</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha62041abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha62041"/>
+            <field name="name">Amtsweg.gv.at Premium STANDARD Jährliches Nutzungsentgelt 10.000 - 20.0000Einwohner
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_63"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">6381</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha61766">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde61766"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_61766"/>
+            <field name='sale_order_confirmation_date'>16.07.2010</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>15.07.2012</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha61766abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha61766"/>
+            <field name="name">Amtsweg.gv.at Bundesland STANDARD Jährliches Nutzungsentgelt 10.000 - 20.000 Einwohner
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_27"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">2834</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha61120">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde61120"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_61120"/>
+            <field name='sale_order_confirmation_date'>23.07.2010</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>22.07.2012</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha61120abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha61120"/>
+            <field name="name">Amtsweg.gv.at Bundesland STANDARD Jährliches Nutzungsentgelt 10.000 - 20.000 Einwohner
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_27"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">2834</field>
+        </record>
+        <!--<record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha62267">-->
+        <!--<field name="user_id" ref="base.user_root"/>-->
+        <!--<field name='partner_id' ref="itk_initial_data_import.gemeinde62267"/>-->
+        <!--<field name='template_id' ref="itk_subscription.subscription_template_J"/>-->
+        <!--<field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_62267"/>-->
+        <!--<field name='sale_order_confirmation_date'>02.01.2012</field>-->
+        <!--<field name='pricelist_id' ref="product.list0"/>-->
+        <!--<field name='state'>open</field>-->
+        <!--<field name='date_start'>01.01.2014</field>-->
+        <!--<field name="recurring_next_date">01.01.2020</field>-->
+        <!--</record>-->
+        <!--<record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha62267abo_pos_1">-->
+        <!--<field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha62267"/>-->
+        <!--<field name="name">Amtsweg.gv.at Bundesland STANDARD Jährliches Nutzungsentgelt 5.000 - 10.000 Einwohner-->
+        <!--</field>-->
+        <!--<field name="product_id" ref="itk_initial_product_import.itk_product_26"/>-->
+        <!--<field name="quantity">1</field>-->
+        <!--<field name="uom_id" ref="product.product_uom_unit"/>-->
+        <!--<field name="price_unit">1674</field>-->
+        <!--</record>-->
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha61057">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde61057"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_61057"/>
+            <field name='sale_order_confirmation_date'>03.06.2011</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>02.06.2013</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha61057abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha61057"/>
+            <field name="name">Amtsweg.gv.at Bundesland STANDARD Jährliches Nutzungsentgelt 1.000 - 2.500 Einwohner
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_24"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">425</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha61446">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde61446"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_61446"/>
+            <field name='sale_order_confirmation_date'>25.05.2011</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>24.05.2013</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha61446abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha61446"/>
+            <field name="name">Amtsweg.gv.at Bundesland STANDARD Jährliches Nutzungsentgelt 1.000 - 2.500 Einwohner
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_24"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">425</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha31714">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde31714"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_31714"/>
+            <field name='sale_order_confirmation_date'>03.06.2015</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>02.06.2017</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha31714abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha31714"/>
+            <field name="name">Amtsweg.gv.at Premium STANDARD Jährliches Nutzungsentgelt 1.000 - 2.500 Einwohner</field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_60"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">1900</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha41021">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde41021"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_41021"/>
+            <field name='sale_order_confirmation_date'>10.12.2014</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>09.12.2018</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha41021abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha41021"/>
+            <field name="name">Amtsweg.gv.at Bundesland STANDARD Jährliches Nutzungsentgelt 20.000 - 50.000 Einwohner
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_28"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">4918</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha70721">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde70721"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_70721"/>
+            <field name='sale_order_confirmation_date'>30.08.2017</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>29.08.2019</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha70721abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha70721"/>
+            <field name="name">Amtsweg.gv.at Bundesland STANDARD Jährliches Nutzungsentgelt 1 - 1.000 Einwohner</field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_23"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">220</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_gemeinde_nha41007">
+            <field name="user_id" ref="base.user_root"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde41007"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_gemeinde_nha_41007"/>
+            <field name='sale_order_confirmation_date'>26.09.2017</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>25.09.2019</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_gemeinde_nha41007abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha41007"/>
+            <field name="name">Amtsweg.gv.at Bundesland STANDARD Jährliches Nutzungsentgelt 5.000 - 10.000 Einwohner
+            </field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_26"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">1674</field>
+        </record>
+    </data>
+</odoo>

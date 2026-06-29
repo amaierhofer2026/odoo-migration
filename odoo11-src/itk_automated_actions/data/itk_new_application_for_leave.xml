@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+            <!-- MAIL-TEMPLATE  for a mail to manager if a new application for leave was created. -->
+                <record id="itk_holidays_new_application_for_leave" model="mail.template">
+            <field name="name">AV ITK - Neuer Urlaubsantrag eingereicht</field>
+            <field name="model_id" ref="hr_holidays.model_hr_holidays"/>
+            <field name="email_from"><![CDATA[office@it-kommunal.at <ITK-Office>]]></field>
+            <field name="email_to">ronald.sallmann@it-kommunal.at</field>
+            <field name="subject">ITK - Neuer Urlaubsantrag eingereicht</field>
+            <field name="auto_delete" eval="True"/>
+            <field name="built_in" eval="True"/>
+            <field name="body_html"><![CDATA[
+               <p>Ein neuer Urlaubsantrag wurde von <b>${object.user_id.firstname} ${object.user_id.lastname}</b> eingereicht.
+               </p>
+               <p>Abwesenheitstyp: &nbsp;&nbsp;&nbsp;&nbsp;${object.holiday_status_id.name}<br>
+               </p>
+               <p>Zeitraum: &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; von ${object.date_from} bis ${object.date_to}<br>
+               </p>
+               <p>Beantragte Tage:&nbsp;&nbsp; &nbsp;&nbsp; ${object.number_of_days_temp}<br>
+               </p>
+
+            ]]>
+            </field>
+        </record>
+
+        <!-- Automated action, called on on_create event when a new application for leave was created. -->
+        <record id="itk_holidays_new_application_for_leave_base_automation" model="base.automation">
+            <field name="name">AV ITK - Neuer Urlaubsantrag eingereicht</field>
+            <field name="model_id" ref="hr_holidays.model_hr_holidays"/>
+
+            <field name="state">email</field>
+
+            <field name="template_id" ref="itk_holidays_new_application_for_leave"/>
+
+            <field name="trigger">on_create</field>
+
+            <field name="filter_domain">[]</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,585 @@
+<odoo>
+    <data noupdate="1">
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41501">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde40801">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41101">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41402">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41702">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41704">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41706">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41805">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41408">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41708">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde40408">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde40410">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41507">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde40602">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde40412">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41006">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde40506">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41612">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41008">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41209">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde40415">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde40710">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41508">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41319">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41510">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde40816">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41218">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde40427">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41016">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41017">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41815">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41511">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde40714">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde40433">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41727">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde40915">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41736">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41819">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde40918">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde40824">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41418">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41333">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde40438">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41419">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde40919">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41822">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde40443">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde40620">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde40718">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41744">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde40622">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41233">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41518">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde40834">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41602">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde40402">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41203">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41804">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41506">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde40813">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde40608">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41011">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41215">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41219">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41615">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde40428">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41115">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41817">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde40827">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41739">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41013">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41119">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41734">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41334">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41820">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41821">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41426">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41517">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde40831">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41626">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde40832">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41022">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde40626">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde40503">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde40819">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41225">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41422">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41005">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41105">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41003">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde40811">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41312">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde40430">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde40504">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde40704">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="sale.order" id="itk_initial_abo_import.abo_order_helpamtsweg_gemeinde41407">
+            <field name="user_id" ref="__export__.itk_user_goo"/>
+        </record>
+
+
+        <!--äääääää-->
+
+
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41501">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde40801">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41101">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41402">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41702">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41704">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41706">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41805">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41408">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41708">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde40408">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde40410">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41507">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde40602">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde40412">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41006">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde40506">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41612">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41008">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41209">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde40415">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde40710">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41508">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41319">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41510">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde40816">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41218">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde40427">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41016">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41017">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41815">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41511">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde40714">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde40433">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41727">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde40915">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41736">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41819">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde40918">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde40824">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41418">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41333">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde40438">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41419">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde40919">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41822">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde40443">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde40620">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde40718">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41744">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde40622">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41233">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41518">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde40834">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41602">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde40402">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41203">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41804">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41506">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde40813">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde40608">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41011">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41215">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41219">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41615">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde40428">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41115">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41817">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde40827">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41739">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41013">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41119">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41734">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41334">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41820">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41821">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41426">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41517">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde40831">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41626">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde40832">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41022">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde40626">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde40503">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde40819">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41225">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41422">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41005">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41105">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41003">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde40811">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41312">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde40430">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde40504">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde40704">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+        <!--<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41407">-->
+            <!--<field name="user_id" ref="__export__.itk_user_goo"/>-->
+        <!--</record>-->
+    </data>
+</odoo>

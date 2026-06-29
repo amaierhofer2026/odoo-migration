@@ -1,0 +1,293 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_holiday_exclude_special_days
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0-20181014\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-08-07 16:40+0000\n"
+"PO-Revision-Date: 2019-08-07 19:03+0200\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de_DE\n"
+"X-Generator: Poedit 2.0.6\n"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.ui.view,arch_db:hr_holiday_exclude_special_days.view_holiday_config_settings
+msgid "(*) This configuration is related to the company you're logged into."
+msgstr "(*) Diese Konfiguration ist auf die Firma bezogen unter der Sie eingeloggt sind."
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.ui.view,arch_db:hr_holiday_exclude_special_days.view_holiday_config_settings
+msgid "Apply"
+msgstr "Anwenden"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.ui.view,arch_db:hr_holiday_exclude_special_days.view_generate_holiday_wizard
+#: model:ir.ui.view,arch_db:hr_holiday_exclude_special_days.view_holiday_config_settings
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.model,name:hr_holiday_exclude_special_days.model_res_company
+#: model:ir.model.fields,field_description:hr_holiday_exclude_special_days.field_hr_public_holiday_company_ids
+msgid "Companies"
+msgstr "Unternehmen"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.model.fields,field_description:hr_holiday_exclude_special_days.field_holiday_config_settings_company_id
+msgid "Company"
+msgstr "Unternehmen"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.actions.act_window,name:hr_holiday_exclude_special_days.action_holiday_config
+#: model:ir.ui.view,arch_db:hr_holiday_exclude_special_days.view_holiday_config_settings
+msgid "Configure Holidays"
+msgstr "Feiertage konfigurieren"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.ui.view,arch_db:hr_holiday_exclude_special_days.view_generate_holiday_wizard
+msgid "Create Leave for Selected Employees"
+msgstr "Abwesenheitseintrag für die ausgewählten Mitarbeiter anlegen"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.ui.view,arch_db:hr_holiday_exclude_special_days.view_public_holiday
+msgid "Create a Public Holiday"
+msgstr "Gesetzlichen Feiertag anlegen"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.model.fields,field_description:hr_holiday_exclude_special_days.field_holiday_config_settings_create_uid
+#: model:ir.model.fields,field_description:hr_holiday_exclude_special_days.field_hr_holiday_generate_holiday_wizard_create_uid
+#: model:ir.model.fields,field_description:hr_holiday_exclude_special_days.field_hr_public_holiday_create_uid
+msgid "Created by"
+msgstr "Erstellt von"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.model.fields,field_description:hr_holiday_exclude_special_days.field_holiday_config_settings_create_date
+#: model:ir.model.fields,field_description:hr_holiday_exclude_special_days.field_hr_holiday_generate_holiday_wizard_create_date
+#: model:ir.model.fields,field_description:hr_holiday_exclude_special_days.field_hr_public_holiday_create_date
+msgid "Created on"
+msgstr "Erstellt am"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.model.fields,field_description:hr_holiday_exclude_special_days.field_res_company_deduct_saturday_in_leave
+msgid "Deduct Saturdays"
+msgstr "Samstage abziehen"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.model.fields,field_description:hr_holiday_exclude_special_days.field_holiday_config_settings_deduct_saturday
+msgid "Deduct Saturdays *"
+msgstr "Samstage abziehen *"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.model.fields,field_description:hr_holiday_exclude_special_days.field_res_company_deduct_sunday_in_leave
+msgid "Deduct Sundays"
+msgstr "Sonntage abziehen"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.model.fields,field_description:hr_holiday_exclude_special_days.field_holiday_config_settings_deduct_sunday
+msgid "Deduct Sundays *"
+msgstr "Sonntage abziehen *"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.model.fields,field_description:hr_holiday_exclude_special_days.field_holiday_config_settings_display_name
+#: model:ir.model.fields,field_description:hr_holiday_exclude_special_days.field_hr_holiday_generate_holiday_wizard_display_name
+#: model:ir.model.fields,field_description:hr_holiday_exclude_special_days.field_hr_public_holiday_display_name
+msgid "Display Name"
+msgstr "Anzeigename"
+
+#. module: hr_holiday_exclude_special_days
+#: selection:hr.public_holiday,state:0
+msgid "Done"
+msgstr "Erledigt"
+
+#. module: hr_holiday_exclude_special_days
+#: selection:hr.public_holiday,state:0
+msgid "Draft"
+msgstr "Entwurf"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.ui.view,arch_db:hr_holiday_exclude_special_days.view_public_holiday
+msgid "Generate Leave Entries"
+msgstr "Erzeuge Abwesenheitseinträge"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.ui.view,arch_db:hr_holiday_exclude_special_days.view_generate_holiday_wizard
+msgid "Generate Public Leave"
+msgstr "Öffentlichen Urlaub generieren"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.ui.view,arch_db:hr_holiday_exclude_special_days.view_public_holiday
+msgid "Generate for New Employees"
+msgstr "Für neue Mitarbeiter generieren"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.ui.view,arch_db:hr_holiday_exclude_special_days.view_public_holiday
+msgid "Generate leave entries for selected employees"
+msgstr "Urlaubsanträge für ausgewählte Mitarbeiter generieren"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.ui.view,arch_db:hr_holiday_exclude_special_days.view_public_holiday
+msgid "Generate this leave for new employees"
+msgstr "Generieren Sie diesen Urlaub für neue Mitarbeiter"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.model.fields,field_description:hr_holiday_exclude_special_days.field_hr_public_holiday_name
+msgid "Holiday Name"
+msgstr "Feiertagsname"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.model.fields,field_description:hr_holiday_exclude_special_days.field_holiday_config_settings_id
+#: model:ir.model.fields,field_description:hr_holiday_exclude_special_days.field_hr_holiday_generate_holiday_wizard_id
+#: model:ir.model.fields,field_description:hr_holiday_exclude_special_days.field_hr_public_holiday_id
+msgid "ID"
+msgstr "ID"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.model.fields,field_description:hr_holiday_exclude_special_days.field_hr_holiday_generate_holiday_wizard_employee_ids
+#: model:ir.model.fields,field_description:hr_holiday_exclude_special_days.field_hr_public_holiday_employee_ids
+msgid "Impacted Employees"
+msgstr "Betroffene Mitarbeiter"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.model.fields,field_description:hr_holiday_exclude_special_days.field_hr_holidays_is_batch
+msgid "Is Batch"
+msgstr "Is Batch"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.model.fields,field_description:hr_holiday_exclude_special_days.field_holiday_config_settings___last_update
+#: model:ir.model.fields,field_description:hr_holiday_exclude_special_days.field_hr_holiday_generate_holiday_wizard___last_update
+#: model:ir.model.fields,field_description:hr_holiday_exclude_special_days.field_hr_public_holiday___last_update
+msgid "Last Modified on"
+msgstr "Zuletzt geändert am"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.model.fields,field_description:hr_holiday_exclude_special_days.field_holiday_config_settings_write_uid
+#: model:ir.model.fields,field_description:hr_holiday_exclude_special_days.field_hr_holiday_generate_holiday_wizard_write_uid
+#: model:ir.model.fields,field_description:hr_holiday_exclude_special_days.field_hr_public_holiday_write_uid
+msgid "Last Updated by"
+msgstr "Zuletzt aktualisiert durch"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.model.fields,field_description:hr_holiday_exclude_special_days.field_holiday_config_settings_write_date
+#: model:ir.model.fields,field_description:hr_holiday_exclude_special_days.field_hr_holiday_generate_holiday_wizard_write_date
+#: model:ir.model.fields,field_description:hr_holiday_exclude_special_days.field_hr_public_holiday_write_date
+msgid "Last Updated on"
+msgstr "Zuletzt aktualisiert am"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.model,name:hr_holiday_exclude_special_days.model_hr_holidays
+msgid "Leave"
+msgstr "Urlaub"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.model,name:hr_holiday_exclude_special_days.model_hr_holidays_status
+#: model:ir.model.fields,field_description:hr_holiday_exclude_special_days.field_hr_public_holiday_holiday_status_id
+msgid "Leave Type"
+msgstr "Abwesenheitstyp"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.ui.menu,name:hr_holiday_exclude_special_days.menu_hr_holidays_leave_types
+msgid "Leave Types"
+msgstr "Abwesenheitstypen"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.ui.view,arch_db:hr_holiday_exclude_special_days.view_holiday_config_settings
+msgid "Leave days calculation"
+msgstr "Berechnung der Abwesenheitstage"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.model.fields,field_description:hr_holiday_exclude_special_days.field_hr_holidays_status_is_public_holiday
+msgid "Public Holiday"
+msgstr "Gesetzlicher Feiertag"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.model.fields,field_description:hr_holiday_exclude_special_days.field_hr_public_holiday_date
+msgid "Public Holiday Date"
+msgstr "Datum des gesetzlichen Feiertags"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.actions.act_window,name:hr_holiday_exclude_special_days.public_holiday_action
+#: model:ir.ui.menu,name:hr_holiday_exclude_special_days.public_holiday_config
+#: model:ir.ui.view,arch_db:hr_holiday_exclude_special_days.view_public_holiday_tree
+msgid "Public Holidays"
+msgstr "Feiertage"
+
+#. module: hr_holiday_exclude_special_days
+#: model:hr.holidays.status,name:hr_holiday_exclude_special_days.holiday_status_public
+msgid "Public Holidays 2019"
+msgstr "Feiertage 2019"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.ui.view,arch_db:hr_holiday_exclude_special_days.view_public_holiday
+msgid "Remove Leave Entries"
+msgstr "Abwesenheitseinträge entfernen"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.ui.view,arch_db:hr_holiday_exclude_special_days.view_public_holiday
+msgid "Remove the leave entries from selected employees"
+msgstr "Entfernen Sie die Urlaubseinträge der ausgewählten Mitarbeitern"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.ui.view,arch_db:hr_holiday_exclude_special_days.view_generate_holiday_wizard
+msgid "Search Missing Employees"
+msgstr "Suche fehlende Mitarbeiter"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.ui.view,arch_db:hr_holiday_exclude_special_days.view_generate_holiday_wizard
+msgid "Search for employees that don't have the public holiday"
+msgstr "Suchen Sie nach Mitarbeitern, die keinen Feiertag haben"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.ui.menu,name:hr_holiday_exclude_special_days.menu_hr_holidays_settings
+msgid "Settings"
+msgstr "Einstellungen"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.model.fields,field_description:hr_holiday_exclude_special_days.field_hr_public_holiday_state
+msgid "State"
+msgstr "Bundesland"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.model.fields,field_description:hr_holiday_exclude_special_days.field_hr_public_holiday_tag_ids
+msgid "Tags"
+msgstr "Stichwörter"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.ui.view,arch_db:hr_holiday_exclude_special_days.edit_holiday_status_form_inherit
+msgid "Use this leave type for Public Holidays"
+msgstr "Verwenden Sie diesen Urlaubstyp für Feiertage"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.model.fields,field_description:hr_holiday_exclude_special_days.field_holiday_config_settings_hours_per_day
+msgid "Work Hours per Day *"
+msgstr "Arbeitsstunden pro Tag *"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.model.fields,field_description:hr_holiday_exclude_special_days.field_res_company_hours_per_day
+msgid "Work hours per day"
+msgstr "Arbeitsstunden pro Tag"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.ui.view,arch_db:hr_holiday_exclude_special_days.view_holiday_config_settings
+msgid "Working time"
+msgstr "Arbeitszeit"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.model,name:hr_holiday_exclude_special_days.model_holiday_config_settings
+msgid "holiday.config.settings"
+msgstr "holiday.config.settings"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.model,name:hr_holiday_exclude_special_days.model_hr_public_holiday
+msgid "hr.public_holiday"
+msgstr "hr.public_holiday"
+
+#. module: hr_holiday_exclude_special_days
+#: model:ir.model,name:hr_holiday_exclude_special_days.model_hr_holiday_generate_holiday_wizard
+msgid "hr_holiday.generate_holiday_wizard"
+msgstr "hr_holiday.generate_holiday_wizard"

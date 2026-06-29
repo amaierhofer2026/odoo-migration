@@ -1,0 +1,201 @@
+<odoo>
+    <data noupdate="1">
+        <!-- Generiert aus xml_import_gemeinden_itk_asset_partners.ods, Daten stammen aus Modified_Testdaten_Väthröder.xlsx -->
+        <record model='res.partner' id='gemeinde30201'>
+            <field name='ref'>30201</field>
+            <field name='community_salutation'>Magistrat der Stadt St. Pölten</field>
+            <field name='attention_of'>Hr. Gerald Schindler</field>
+            <field name='street'>Prandtauerstraße 2</field>
+            <field name='zip'>3100</field>
+            <field name='name'>St. Pölten</field>
+            <field name='city'>St. Pölten</field>
+            <field name='asset_partner'>True</field>
+            <field name='email'>rosa.gressenbauer@st-poelten.gv.at</field>
+            <field name='official_email'>rathaus@st-poelten.gv.at</field>
+            <field name='asset_partner'>True</field>
+            <field name='is_company'>True</field>
+            <field name='vat'></field>
+        </record>
+        <record model='res.partner' id='gemeinde50401'>
+            <field name='ref'>50401</field>
+            <field name='community_salutation'>Marktgemeinde Altenmarkt im Pongau</field>
+            <field name='attention_of'>Hr. Dr. Felix Pichler</field>
+            <field name='street'>Schwimmbadgasse 299</field>
+            <field name='zip'>5541</field>
+            <field name='name'>Altenmarkt im Pongau</field>
+            <field name='city'>Altenmarkt im Pongau</field>
+            <field name='asset_partner'>True</field>
+            <field name='email'>manuela.mooslechner@altenmarkt.at</field>
+            <field name='official_email'>gemeinde@altenmarkt.at</field>
+            <field name='asset_partner'>True</field>
+            <field name='is_company'>True</field>
+            <field name='vat'></field>
+        </record>
+        <record model='res.partner' id='gemeinde50405'>
+            <field name='ref'>50405</field>
+            <field name='community_salutation'>Gemeinde Dorfgastein</field>
+            <field name='attention_of'>Hr. Bgm. Rudolf Trauner</field>
+            <field name='street'>Dorfstraße 35</field>
+            <field name='zip'>5632</field>
+            <field name='name'>Dorfgastein</field>
+            <field name='city'>Dorfgastein</field>
+            <field name='asset_partner'>True</field>
+            <field name='email'>gemeinde@dorfgastein.at</field>
+            <field name='official_email'>gemeinde@dorfgastein.at</field>
+            <field name='asset_partner'>True</field>
+            <field name='is_company'>True</field>
+            <field name='vat'>ATU58500045</field>
+        </record>
+        <record model='res.partner' id='gemeinde30517'>
+            <field name='ref'>30517</field>
+            <field name='community_salutation'>Marktgemeinde Kematen an der Ybbs</field>
+            <field name='attention_of'>Fr. Bgm. Juliana Günther</field>
+            <field name='street'>1. Straße 31</field>
+            <field name='zip'>3331</field>
+            <field name='name'>Kematen an der Ybbs</field>
+            <field name='city'>Kematen an der Ybbs</field>
+            <field name='asset_partner'>True</field>
+            <field name='email'>amtsleitung@kematen-ybbs.at</field>
+            <field name='official_email'>marktgemeinde@kematen-ybbs.at</field>
+            <field name='asset_partner'>True</field>
+            <field name='is_company'>True</field>
+            <field name='vat'>ATU16215209</field>
+        </record>
+        <record model='res.partner' id='gemeinde10409'>
+            <field name='ref'>10409</field>
+            <field name='community_salutation'>Gemeinde Neuberg im Burgenland</field>
+            <field name='attention_of'>Hr. Bgm. Daniel Neubauer</field>
+            <field name='street'>Hauptplatz 1</field>
+            <field name='zip'>7535</field>
+            <field name='name'>Neuberg im Burgenland</field>
+            <field name='city'>Neuberg im Burgenland</field>
+            <field name='asset_partner'>True</field>
+            <field name='email'>post@neuberg.bgld.gv.at</field>
+            <field name='official_email'>post@neuberg.bgld.gv.at</field>
+            <field name='asset_partner'>True</field>
+            <field name='is_company'>True</field>
+            <field name='vat'></field>
+        </record>
+        <record model='res.partner' id='gemeinde32419'>
+            <field name='ref'>32419</field>
+            <field name='community_salutation'>Stadtgemeinde Schwechat</field>
+            <field name='attention_of'>Hr. Gerhard Szikora</field>
+            <field name='street'>Rathausplatz 9</field>
+            <field name='zip'>2320</field>
+            <field name='name'>Schwechat</field>
+            <field name='city'>Schwechat</field>
+            <field name='asset_partner'>True</field>
+            <field name='email'>g.szikora@schwechat.gv.at</field>
+            <field name='official_email'>stadtgemeinde@schwechat.gv.at</field>
+            <field name='asset_partner'>True</field>
+            <field name='is_company'>True</field>
+            <field name='vat'>ATU36802206</field>
+        </record>
+        <record model='res.partner' id='gemeinde30639'>
+            <field name='ref'>30639</field>
+            <field name='community_salutation'>Stadtgemeinde Traiskirchen</field>
+            <field name='attention_of'>Hr. Mag. Dr. Alfons Klebl</field>
+            <field name='street'>Hauptplatz 13</field>
+            <field name='zip'>2514</field>
+            <field name='name'>Traiskirchen</field>
+            <field name='city'>Traiskirchen</field>
+            <field name='asset_partner'>True</field>
+            <field name='email'>alfons.klebl@traiskirchen.gv.at</field>
+            <field name='official_email'>office@traiskirchen.gv.at</field>
+            <field name='asset_partner'>True</field>
+            <field name='is_company'>True</field>
+            <field name='vat'>ATU16216100</field>
+        </record>
+        <record model='res.partner' id='gemeinde30401'>
+            <field name='ref'>30401</field>
+            <field name='community_salutation'>Magistrat Wiener Neustadt</field>
+            <field name='attention_of'>Hr. Franz Horvath</field>
+            <field name='street'>Am Kanal 1-3</field>
+            <field name='zip'>2700</field>
+            <field name='name'>Wiener Neustadt</field>
+            <field name='city'>Wiener Neustadt</field>
+            <field name='asset_partner'>True</field>
+            <field name='email'></field>
+            <field name='official_email'>praesidialangelegenheiten@wiener-neustadt.at</field>
+            <field name='asset_partner'>True</field>
+            <field name='is_company'>True</field>
+            <field name='vat'></field>
+        </record>
+        <record model='res.partner' id='gemeinde62040'>
+            <field name='ref'>62040</field>
+            <field name='community_salutation'>Stadtgemeinde Judenburg</field>
+            <field name='attention_of'>Fr. Fattinger, Finanzverwaltung</field>
+            <field name='street'>Hauptplatz 1</field>
+            <field name='zip'>8750</field>
+            <field name='name'>Judenburg</field>
+            <field name='city'>Judenburg</field>
+            <field name='asset_partner'>True</field>
+            <field name='email'></field>
+            <field name='official_email'>gde@judenburg.gv.at</field>
+            <field name='asset_partner'>True</field>
+            <field name='is_company'>True</field>
+            <field name='vat'></field>
+        </record>
+        <record model='res.partner' id='gemeinde20512'>
+            <field name='ref'>20512</field>
+            <field name='community_salutation'>Gemeinde Kappel am Krappfeld</field>
+            <field name='attention_of'>Hr. Bgm. Martin Gruber</field>
+            <field name='street'>Bahnstraße 43</field>
+            <field name='zip'>9321</field>
+            <field name='name'>Kappel am Krappfeld</field>
+            <field name='city'>Kappel am Krappfeld</field>
+            <field name='asset_partner'>True</field>
+            <field name='email'>werner.glanzer@ktn.gde.at</field>
+            <field name='official_email'>kappel-kr@ktn.gde.at</field>
+            <field name='asset_partner'>True</field>
+            <field name='is_company'>True</field>
+            <field name='vat'></field>
+        </record>
+        <record model='res.partner' id='gemeinde60651'>
+            <field name='ref'>60651</field>
+            <field name='community_salutation'>Marktgemeinde Übelbach</field>
+            <field name='attention_of'>Hr. Bgm. Ing. Markus Windisch</field>
+            <field name='street'>Alter Markt 64</field>
+            <field name='zip'>8124</field>
+            <field name='name'>Übelbach</field>
+            <field name='city'>Übelbach</field>
+            <field name='asset_partner'>True</field>
+            <field name='email'>j.jauschnig@uebelbach.gv.at</field>
+            <field name='official_email'>gde@uebelbach.gv.at</field>
+            <field name='asset_partner'>True</field>
+            <field name='is_company'>True</field>
+            <field name='vat'></field>
+        </record>
+        <record model='res.partner' id='gemeinde40301'>
+            <field name='ref'>40301</field>
+            <field name='community_salutation'>Stadt Wels</field>
+            <field name='attention_of'></field>
+            <field name='street'>Stadtplatz 1</field>
+            <field name='zip'>4600</field>
+            <field name='name'>Wels</field>
+            <field name='city'>Wels</field>
+            <field name='asset_partner'>True</field>
+            <field name='email'>bc@wels.gv.at</field>
+            <field name='official_email'>post.magistrat@wels.gv.at</field>
+            <field name='asset_partner'>True</field>
+            <field name='is_company'>True</field>
+            <field name='vat'>ATU23478804</field>
+        </record>
+        <record model='res.partner' id='gemeinde10609'>
+            <field name='ref'>10609</field>
+            <field name='community_salutation'>Marktgemeinde Pöttsching</field>
+            <field name='attention_of'></field>
+            <field name='street'>Amtsgebäude 1</field>
+            <field name='zip'>7033</field>
+            <field name='name'>Pöttsching</field>
+            <field name='city'>Pöttsching</field>
+            <field name='asset_partner'>True</field>
+            <field name='email'>post@poettsching.bgld.gv.at</field>
+            <field name='official_email'>post@poettsching.bgld.gv.at</field>
+            <field name='asset_partner'>True</field>
+            <field name='is_company'>True</field>
+            <field name='vat'></field>
+        </record>
+
+    </data>
+</odoo>

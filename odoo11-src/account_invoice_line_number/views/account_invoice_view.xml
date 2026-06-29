@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-<!-- Customer Invoice -->
+    <!-- Customer Invoice -->
     <record id="invoice_form" model="ir.ui.view">
-        <field name="name">account.move.form.line.number</field>
-        <field name="model">account.move</field>
-        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="name">account.invoice.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='invoice_line_ids']/list/field[@name='sequence']" position="after">
-                <field name="number" string="Line NO."/>
-            </xpath>
+            <field name="sequence" position="after">
+                <field name="number" string="Line No."/>
+            </field>
         </field>
     </record>
 </odoo>

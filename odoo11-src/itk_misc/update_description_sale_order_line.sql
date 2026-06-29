@@ -1,0 +1,2 @@
+﻿select * from sale_order_line where product_id::text = name
+update sale_order_line set name = (select name from public.product_template where id = sale_order_line.product_id) where name = product_id::text

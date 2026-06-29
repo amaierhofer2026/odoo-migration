@@ -10,7 +10,7 @@ class SaleOrderLine(models.Model):
 
     number = fields.Integer(compute='_compute_number', store=True)
 
-    @api.depends('sequence', 'order_id.order_line')
+    @api.depends('sequence', 'order_id')
     def _compute_number(self):
         for order in self.mapped('order_id'):
             number = 1

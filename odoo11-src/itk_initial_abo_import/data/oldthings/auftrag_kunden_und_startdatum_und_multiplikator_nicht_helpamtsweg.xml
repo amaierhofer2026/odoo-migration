@@ -1,0 +1,1013 @@
+<odoo>
+    <data noupdate="0">
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_20512">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20512"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20512"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20512"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_20512_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_20512"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_230"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_230"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_60651">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde60651"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde60651"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde60651"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_60651_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_60651"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_230"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_230"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_40301">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde40301"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde40301"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde40301"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_40301_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_40301"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_235"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_235"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_10609">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde10609"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde10609"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde10609"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_10609_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_10609"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_231"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_231"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_30201">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde30201"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde30201"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde30201"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_30201_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_30201"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_235"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_235"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_31629">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde31629"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde31629"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde31629"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_31629_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_31629"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_232"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_232"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_50401">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde50401"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde50401"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde50401"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_50401_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_50401"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_194"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_194"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_50405">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde50405"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde50405"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde50405"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_50405_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_50405"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_193"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_193"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_30517">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde30517"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde30517"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde30517"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_30517_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_30517"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_193"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_193"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_10409">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde10409"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde10409"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde10409"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_10409_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_10409"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_193"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_193"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_30740">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde30740"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde30740"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde30740"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_30740_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_30740"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_196"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_196"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_30639">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde30639"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde30639"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde30639"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_30639_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_30639"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_196"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_196"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_20201">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20201"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20201"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20201"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_20201_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_20201"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_198"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_198"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_61057">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde61057"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde61057"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde61057"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_61057_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_61057"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_192"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_192"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_31549">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde31549"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde31549"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde31549"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_31549_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_31549"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_195"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_195"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_30201">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde30201"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde30201"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde30201"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_30201_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_30201"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_198"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_198"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_62267">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde62267"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde62267"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde62267"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_62267_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_62267"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_172"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_172"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_30101">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde30101"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde30101"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde30101"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_30101_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_30101"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_174"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_174"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_61766">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde61766"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde61766"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde61766"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_61766_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_61766"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_172"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_172"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_31725">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde31725"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde31725"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde31725"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_31725_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_31725"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_172"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_172"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_10606">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde10606"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde10606"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde10606"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_10606_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_10606"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_172"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_172"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_62040">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde62040"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde62040"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde62040"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_62040_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_62040"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_173"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_173"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_60347">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde60347"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde60347"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde60347"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_60347_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_60347"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_171"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_171"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_20635">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20635"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20635"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20635"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_20635_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_20635"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_173"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_173"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_30201">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde30201"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde30201"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde30201"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_30201_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_30201"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_201"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_201"/>
+            <field name="product_uom_qty">19</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_30401">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde30401"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde30401"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde30401"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_30401_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_30401"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_201"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_201"/>
+            <field name="product_uom_qty">235</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_62040">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde62040"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde62040"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde62040"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_62040_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_62040"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_201"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_201"/>
+            <field name="product_uom_qty">41</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_30301">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde30301"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde30301"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde30301"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_30301_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_30301"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_201"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_201"/>
+            <field name="product_uom_qty">36</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_62267">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde62267"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde62267"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde62267"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_62267_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_62267"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_201"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_201"/>
+            <field name="product_uom_qty">24</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_31725">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde31725"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde31725"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde31725"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_31725_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_31725"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_205"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_205"/>
+            <field name="product_uom_qty">36</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_BIFIE">
+            <field name='partner_id' ref="itk_initial_partner_nogkz_data_import.gemeindeBIFIE"/>
+            <field name='partner_invoice_id' ref="itk_initial_partner_nogkz_data_import.gemeindeBIFIE"/>
+            <field name='partner_shipping_id' ref="itk_initial_partner_nogkz_data_import.gemeindeBIFIE"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_BIFIE_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_BIFIE"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_205"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_205"/>
+            <field name="product_uom_qty">66</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_31516">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde31516"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde31516"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde31516"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_31516_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_31516"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_237"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_237"/>
+            <field name="product_uom_qty">24</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_30935">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde30935"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde30935"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde30935"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_30935_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_30935"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_237"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_237"/>
+            <field name="product_uom_qty">36</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+
+
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_FHCW1">
+            <field name='partner_id' ref="itk_initial_partner_nogkz_data_import.gemeindeFHCW"/>
+            <field name='partner_invoice_id' ref="itk_initial_partner_nogkz_data_import.gemeindeFHCW"/>
+            <field name='partner_shipping_id' ref="itk_initial_partner_nogkz_data_import.gemeindeFHCW"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_FHCW _so_lineA" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_FHCW1"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_238"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_238"/>
+            <field name="product_uom_qty">15</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+
+
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_FHCW2">
+            <field name='partner_id' ref="itk_initial_partner_nogkz_data_import.gemeindeFHCW"/>
+            <field name='partner_invoice_id' ref="itk_initial_partner_nogkz_data_import.gemeindeFHCW"/>
+            <field name='partner_shipping_id' ref="itk_initial_partner_nogkz_data_import.gemeindeFHCW"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_FHCW _so_lineB" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_FHCW2"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_241"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_241"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_BST">
+            <field name='partner_id' ref="itk_initial_partner_nogkz_data_import.gemeindeBST"/>
+            <field name='partner_invoice_id' ref="itk_initial_partner_nogkz_data_import.gemeindeBST"/>
+            <field name='partner_shipping_id' ref="itk_initial_partner_nogkz_data_import.gemeindeBST"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_BST_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_BST"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_240"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_240"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_31309">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde31309"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde31309"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde31309"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_31309_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_31309"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_25"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_25"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_30201">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde30201"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde30201"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde30201"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_30201_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_30201"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_65"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_65"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_30604">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde30604"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde30604"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde30604"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_30604_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_30604"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_64"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_64"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_30101">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde30101"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde30101"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde30101"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_30101_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_30101"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_64"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_64"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_30401">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde30401"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde30401"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde30401"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_30401_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_30401"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_64"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_64"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_70716">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde70716"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde70716"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde70716"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_70716_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_70716"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_63"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_63"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_30740">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde30740"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde30740"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde30740"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_30740_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_30740"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_27"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_27"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_30301">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde30301"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde30301"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde30301"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_30301_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_30301"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_63"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_63"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_31213">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde31213"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde31213"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde31213"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_31213_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_31213"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_63"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_63"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_31818">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde31818"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde31818"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde31818"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_31818_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_31818"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_63"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_63"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_30531">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde30531"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde30531"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde30531"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_30531_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_30531"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_62"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_62"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_32016">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde32016"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde32016"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde32016"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_32016_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_32016"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_61"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_61"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_31413">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde31413"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde31413"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde31413"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_31413_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_31413"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_61"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_61"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_60665">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde60665"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde60665"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde60665"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_60665_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_60665"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_62"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_62"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_32144">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde32144"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde32144"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde32144"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_32144_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_32144"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_28"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_28"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_10101">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde10101"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde10101"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde10101"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_10101_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_10101"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_63"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_63"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_41605">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde41605"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde41605"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde41605"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_41605_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_41605"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_26"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_26"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_31633">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde31633"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde31633"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde31633"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_31633_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_31633"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_27"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_27"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_41012">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde41012"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde41012"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde41012"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_41012_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_41012"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_28"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_28"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_31725">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde31725"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde31725"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde31725"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_31725_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_31725"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_26"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_26"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_61108">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde61108"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde61108"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde61108"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_61108_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_61108"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_64"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_64"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_62041">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde62041"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde62041"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde62041"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_62041_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_62041"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_63"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_63"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_61766">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde61766"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde61766"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde61766"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_61766_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_61766"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_27"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_27"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_61120">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde61120"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde61120"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde61120"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_61120_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_61120"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_27"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_27"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_62267">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde62267"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde62267"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde62267"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_62267_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_62267"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_26"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_26"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_61057">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde61057"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde61057"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde61057"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_61057_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_61057"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_24"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_24"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_61446">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde61446"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde61446"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde61446"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_61446_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_61446"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_24"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_24"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_31714">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde31714"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde31714"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde31714"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_31714_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_31714"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_60"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_60"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_41021">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde41021"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde41021"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde41021"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_41021_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_41021"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_28"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_28"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_70721">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde70721"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde70721"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde70721"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_70721_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_70721"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_23"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_23"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_nha_41007">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde41007"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde41007"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde41007"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='date_order'>11.11.2017</field>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_41007_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_nha_41007"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_26"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_26"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+    </data>
+</odoo>

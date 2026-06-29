@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record model='itk_product.product_type' id='product_type_onlineservice'>
+            <field name='name'>Onlineservice</field>
+            <field name='code'>OS</field>
+            <field name="seq">100</field>
+        </record>
+        <record model='itk_product.product_type' id='product_type_sw'>
+            <field name='name'>Software-Lösung</field>
+            <field name='code'>SW</field>
+            <field name="seq">100</field>
+        </record>
+        <record model='itk_product.product_type' id='product_type_consulting'>
+            <field name='name'>Consulting</field>
+            <field name='code'>C</field>
+            <field name="seq">100</field>
+        </record>
+        <record model='itk_product.product_type' id='product_type_platform'>
+            <field name='name'>Plattform</field>
+            <field name='code'>P</field>
+            <field name="seq">100</field>
+        </record>
+        <record model='itk_product.product_type' id='product_type_hw'>
+            <field name='name'>Hardware</field>
+            <field name='code'>HW</field>
+            <field name="seq">100</field>
+        </record>
+        <record model='itk_product.product_type' id='product_type_project'>
+            <field name='name'>Förderprojekt</field>
+            <field name='code'>FP</field>
+            <field name="seq">100</field>
+        </record>
+    </data>
+</odoo>

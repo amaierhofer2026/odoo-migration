@@ -1,0 +1,270 @@
+<odoo>
+    <data noupdate="1">
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_31825">
+            <field name="user_id" ref="__export__.itk_user_gno"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde31825"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_blfs_no_gemeinde_31825"/>
+            <field name='sale_order_confirmation_date'>01.02.2018</field>
+            <field name='pricelist_id' ref="__export__.product_pricelist_goo"/>
+            <field name='state'>open</field>
+            <field name='date_start'>31.01.2020</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_31825abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_31825"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_274"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_274"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">225</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_31901">
+            <field name="user_id" ref="__export__.itk_user_gno"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde31901"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_blfs_no_gemeinde_31901"/>
+            <field name='sale_order_confirmation_date'>01.04.2018</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>31.03.2020</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_31901abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_31901"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_276"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_276"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">797</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_30646">
+            <field name="user_id" ref="__export__.itk_user_gno"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde30646"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_blfs_no_gemeinde_30646"/>
+            <field name='sale_order_confirmation_date'>01.05.2018</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>30.04.2020</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_30646abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_30646"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_275"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_275"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">435</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_31206">
+            <field name="user_id" ref="__export__.itk_user_gno"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde31206"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_blfs_no_gemeinde_31206"/>
+            <field name='sale_order_confirmation_date'>01.05.2018</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>30.04.2020</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_31206abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_31206"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_275"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_275"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">435</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_32107">
+            <field name="user_id" ref="__export__.itk_user_gno"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde32107"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_blfs_no_gemeinde_32107"/>
+            <field name='sale_order_confirmation_date'>01.05.2018</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>30.04.2020</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_32107abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_32107"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_276"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_276"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">797</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_30915">
+            <field name="user_id" ref="__export__.itk_user_gno"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde30915"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_blfs_no_gemeinde_30915"/>
+            <field name='sale_order_confirmation_date'>01.05.2018</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>30.04.2020</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_30915abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_30915"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_274"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_274"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">225</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_30607">
+            <field name="user_id" ref="__export__.itk_user_gno"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde30607"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_blfs_no_gemeinde_30607"/>
+            <field name='sale_order_confirmation_date'>01.05.2018</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>30.04.2020</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_30607abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_30607"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_278"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_278"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">2896</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_32530">
+            <field name="user_id" ref="__export__.itk_user_gno"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde32530"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_blfs_no_gemeinde_32530"/>
+            <field name='sale_order_confirmation_date'>01.06.2018</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>31.05.2020</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_32530abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_32530"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_278"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_278"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">2896</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_31229">
+            <field name="user_id" ref="__export__.itk_user_gno"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde31229"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_blfs_no_gemeinde_31229"/>
+            <field name='sale_order_confirmation_date'>01.05.2018</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>30.04.2020</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_31229abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_31229"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_275"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_275"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">435</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_31008">
+            <field name="user_id" ref="__export__.itk_user_gno"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde31008"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_blfs_no_gemeinde_31008"/>
+            <field name='sale_order_confirmation_date'>01.05.2018</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>30.04.2020</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_31008abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_31008"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_276"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_276"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">797</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_31718">
+            <field name="user_id" ref="__export__.itk_user_gno"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde31718"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_blfs_no_gemeinde_31718"/>
+            <field name='sale_order_confirmation_date'>01.07.2018</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>30.06.2020</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_31718abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_31718"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_276"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_276"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">797</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_31533">
+            <field name="user_id" ref="__export__.itk_user_gno"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde31533"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_blfs_no_gemeinde_31533"/>
+            <field name='sale_order_confirmation_date'>01.10.2018</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>30.09.2020</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_31533abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_31533"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_276"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_276"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">797</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_31948">
+            <field name="user_id" ref="__export__.itk_user_gno"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde31948"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_blfs_no_gemeinde_31948"/>
+            <field name='sale_order_confirmation_date'>01.03.2018</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>29.02.2020</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_31948abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_31948"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_275"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_275"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">435</field>
+        </record>
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_31207">
+            <field name="user_id" ref="__export__.itk_user_gno"/>
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde31207"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name='sale_order_id' ref="itk_initial_abo_import.abo_order_blfs_no_gemeinde_31207"/>
+            <field name='sale_order_confirmation_date'>01.05.2018</field>
+            <field name='pricelist_id' ref="product.list0"/>
+            <field name='state'>open</field>
+            <field name='date_start'>30.04.2020</field>
+            <field name="recurring_next_date">01.01.2020</field>
+        </record>
+        <record model='sale.subscription.line' id="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_31207abo_pos_1">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_contract_blfs_no_gemeinde_31207"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_276"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_276"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">797</field>
+        </record>
+    </data>
+</odoo>

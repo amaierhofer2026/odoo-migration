@@ -1,0 +1,281 @@
+<odoo>
+    <data noupdate="1">
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_20512_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha20512"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_60651_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha60651"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_40301_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha40301"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_10609_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha10609"/>
+        </record>
+
+
+
+
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_30201_1_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30201_1"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_30201_2_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30201_2"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_30201_3_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30201_3"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_30201_4_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30201_4"/>
+        </record>
+
+
+
+
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_31629_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha31629"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_50401_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha50401"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_50405_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha50405"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_30517_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30517"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_10409_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha10409"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_30740_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30740"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_30639_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30639"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_20201_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha20201"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_61057_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha61057"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_31549_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha31549"/>
+        </record>
+        <!--<record id="itk_initial_abo_import.abo_order_gemeinde_nha_30201_so_line" model="sale.order.line">-->
+            <!--<field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30201"/>-->
+        <!--</record>-->
+
+
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_62267_so_line_1_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha62267_1"/>
+        </record>
+
+
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_62267_so_line_2_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha62267_2"/>
+        </record>
+
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_62267_so_line_3_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha62267_3"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_62267_so_line_3_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha62267_3"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_62267_so_line_3_3" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha62267_3"/>
+        </record>
+
+
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_30101_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30101"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_61766_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha61766"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_31725_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha31725"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_10606_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha10606"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_62040_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha62040_1"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_60347_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha60347"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_20635_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha20635"/>
+        </record>
+        <!--<record id="itk_initial_abo_import.abo_order_gemeinde_nha_30201_so_line" model="sale.order.line">-->
+            <!--<field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30201"/>-->
+        <!--</record>-->
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_30401_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30401"/>
+        </record>
+
+
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_62040_2_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha62040_2"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_62040_2_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha62040_2"/>
+        </record>
+
+
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_30301_1_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30301_1"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_30301_1_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30301_1"/>
+        </record>
+
+
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_30301_2_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30301_2"/>
+        </record>
+
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_30301_3_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30301_3"/>
+        </record>
+
+
+        <!--<record id="itk_initial_abo_import.abo_order_gemeinde_nha_62267_so_line" model="sale.order.line">-->
+            <!--<field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha62267"/>-->
+        <!--</record>-->
+
+
+
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_31725_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha31725"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_BIFIE_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nhaBIFIE"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_31516_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha31516"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_30935_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30935"/>
+        </record>
+
+
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_FHCW_1_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nhaFHCW_1"/>
+        </record>
+
+
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_FHCW_2_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nhaFHCW_2"/>
+        </record>
+
+
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_BST_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nhaBST"/>
+        </record>
+
+
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_31309_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha31309"/>
+        </record>
+        <!--<record id="itk_initial_abo_import.abo_order_gemeinde_nha_30201_so_line" model="sale.order.line">-->
+            <!--<field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30201"/>-->
+        <!--</record>-->
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_30604_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30604"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_30101_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30101"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_30401_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30401"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_70716_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha70716"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_30740_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30740"/>
+        </record>
+
+
+        <!--<record id="itk_initial_abo_import.abo_order_gemeinde_nha_30301_so_line" model="sale.order.line">-->
+            <!--<field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30301"/>-->
+        <!--</record>-->
+
+
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_31213_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha31213"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_31818_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha31818"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_30531_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha30531"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_32016_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha32016"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_31413_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha31413"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_60665_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha60665"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_32144_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha32144"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_10101_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha10101"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_41605_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha41605"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_31633_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha31633"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_41012_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha41012"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_31725_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha31725"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_61108_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha61108"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_62041_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha62041"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_61766_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha61766"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_61120_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha61120"/>
+        </record>
+
+
+        <!--<record id="itk_initial_abo_import.abo_order_gemeinde_nha_62267_so_line" model="sale.order.line">-->
+            <!--<field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha62267"/>-->
+        <!--</record>-->
+
+
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_61057_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha61057"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_61446_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha61446"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_31714_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha31714"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_41021_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha41021"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_70721_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha70721"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_nha_41007_so_line" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_contract_gemeinde_nha41007"/>
+        </record>
+    </data>
+</odoo>

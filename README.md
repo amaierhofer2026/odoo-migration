@@ -1,23 +1,23 @@
 # Odoo Migration
 
-Konsolidiertes Repository für Odoo-Module – von Odoo 11 nach **Odoo 18**.
+Konsolidiertes Repository für Odoo-Module – ursprünglich Odoo 11, Migration nach **Odoo 18**.
 
 ## Struktur
 
 ```
 odoo-migration/
-├── addons/          # Fertig migrierte Odoo-18-Module (als Addons-Pfad nutzbar)
+├── addons/          # Fertig migrierte Odoo-18-Module
 │   └── itk_subscription/
-├── odoo11-src/      # Originale Odoo-11-Quellen (Migration ausstehend)
-│   ├── account_invoice_line_number/
-│   ├── itk_product/
-│   ├── itk_projectcategory/
-│   ├── itk_sale_management/
-│   ├── itk_valorisierung/
-│   └── sale_order_line_number/
-├── PROJECT_KNOWLEDGE.md   # Migrations-Details & Known Issues
-└── README.md
+├── odoo11-src/      # Odoo-11-Originalquellen (57 Module)
+└── PROJECT_KNOWLEDGE.md
 ```
+
+## Status
+
+| Bereich | Status |
+|---|---|
+| `itk_subscription` nach Odoo 18 | ✅ Installiert & funktionsfähig |
+| Übrige 56 Module aus `odoo11-src/` | ❌ Migration ausstehend |
 
 ## Lizenz
 

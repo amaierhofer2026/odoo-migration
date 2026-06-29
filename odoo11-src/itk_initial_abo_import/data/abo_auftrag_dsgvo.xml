@@ -1,0 +1,582 @@
+<odoo>
+    <data noupdate="1">
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_50330">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde50330"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde50330"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde50330"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='confirmation_date'>22.02.2018</field>
+            <field name="state">sale</field>
+            <field name="pricelist_id" ref="product.list0"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_50330_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_dsgvo_50330"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_uom_qty">4</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">10.22</field>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_40806">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde40806"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde40806"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde40806"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='confirmation_date'>22.02.2018</field>
+            <field name="state">sale</field>
+            <field name="pricelist_id" ref="product.list0"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_40806_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_dsgvo_40806"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_uom_qty">4</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">10.22</field>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_50415">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde50415"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde50415"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde50415"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='confirmation_date'>26.02.2018</field>
+            <field name="state">sale</field>
+            <field name="pricelist_id" ref="product.list0"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_50415_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_dsgvo_50415"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_uom_qty">2</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">10.22</field>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_70712">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde70712"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde70712"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde70712"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='confirmation_date'>28.02.2018</field>
+            <field name="state">sale</field>
+            <field name="pricelist_id" ref="product.list0"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_70712_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_dsgvo_70712"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_uom_qty">2</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">10.22</field>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_30942">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde30942"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde30942"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde30942"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='confirmation_date'>28.02.2018</field>
+            <field name="state">sale</field>
+            <field name="pricelist_id" ref="product.list0"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_30942_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_dsgvo_30942"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_uom_qty">3</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">10.22</field>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_31830">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde31830"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde31830"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde31830"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='confirmation_date'>21.02.2018</field>
+            <field name="state">sale</field>
+            <field name="pricelist_id" ref="product.list0"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_31830_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_dsgvo_31830"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">10.22</field>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_10605">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde10605"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde10605"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde10605"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='confirmation_date'>07.03.2018</field>
+            <field name="state">sale</field>
+            <field name="pricelist_id" ref="product.list0"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_10605_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_dsgvo_10605"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_uom_qty">3</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">10.22</field>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_50324">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde50324"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde50324"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde50324"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='confirmation_date'>09.03.2018</field>
+            <field name="state">sale</field>
+            <field name="pricelist_id" ref="product.list0"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_50324_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_dsgvo_50324"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_uom_qty">7</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">10.22</field>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_41706">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde41706"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde41706"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde41706"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='confirmation_date'>13.03.2018</field>
+            <field name="state">sale</field>
+            <field name="pricelist_id" ref="product.list0"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_41706_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_dsgvo_41706"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_uom_qty">2</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">10.22</field>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_31333">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde31333"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde31333"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde31333"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='confirmation_date'>14.03.2018</field>
+            <field name="state">sale</field>
+            <field name="pricelist_id" ref="product.list0"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_31333_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_dsgvo_31333"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_uom_qty">3</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">10.22</field>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_31230">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde31230"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde31230"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde31230"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='confirmation_date'>20.03.2018</field>
+            <field name="state">sale</field>
+            <field name="pricelist_id" ref="product.list0"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_31230_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_dsgvo_31230"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_uom_qty">17</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">10.22</field>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_50511">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde50511"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde50511"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde50511"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='confirmation_date'>22.03.2018</field>
+            <field name="state">sale</field>
+            <field name="pricelist_id" ref="product.list0"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_50511_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_dsgvo_50511"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">10.22</field>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_32508">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde32508"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde32508"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde32508"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='confirmation_date'>27.03.2018</field>
+            <field name="state">sale</field>
+            <field name="pricelist_id" ref="product.list0"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_32508_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_dsgvo_32508"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_uom_qty">5</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">10.22</field>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_31109">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde31109"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde31109"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde31109"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='confirmation_date'>04.04.2018</field>
+            <field name="state">sale</field>
+            <field name="pricelist_id" ref="product.list0"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_31109_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_dsgvo_31109"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_uom_qty">7</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">10.22</field>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_62379">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde62379"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde62379"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde62379"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='confirmation_date'>18.04.2018</field>
+            <field name="state">sale</field>
+            <field name="pricelist_id" ref="product.list0"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_62379_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_dsgvo_62379"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_uom_qty">14</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">10.22</field>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_61438">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde61438"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde61438"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde61438"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='confirmation_date'>19.04.2018</field>
+            <field name="state">sale</field>
+            <field name="pricelist_id" ref="product.list0"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_61438_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_dsgvo_61438"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_uom_qty">4</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">10.22</field>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_61629">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde61629"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde61629"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde61629"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='confirmation_date'>23.04.2018</field>
+            <field name="state">sale</field>
+            <field name="pricelist_id" ref="product.list0"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_61629_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_dsgvo_61629"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_uom_qty">12.5</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">10.22</field>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_62139">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde62139"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde62139"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde62139"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='confirmation_date'>18.04.2018</field>
+            <field name="state">sale</field>
+            <field name="pricelist_id" ref="product.list0"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_62139_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_dsgvo_62139"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_uom_qty">16</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">10.22</field>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_62040">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde62040"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde62040"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde62040"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='confirmation_date'>24.04.2018</field>
+            <field name="state">sale</field>
+            <field name="pricelist_id" ref="product.list0"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_62040_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_dsgvo_62040"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_uom_qty">10</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">10.22</field>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_70728">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde70728"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde70728"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde70728"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='confirmation_date'>13.04.2018</field>
+            <field name="state">sale</field>
+            <field name="pricelist_id" ref="product.list0"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_70728_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_dsgvo_70728"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_uom_qty">3</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">10.22</field>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_32141">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde32141"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde32141"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde32141"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='confirmation_date'>03.05.2018</field>
+            <field name="state">sale</field>
+            <field name="pricelist_id" ref="product.list0"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_32141_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_dsgvo_32141"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_uom_qty">4</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">10.22</field>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_31022">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde31022"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde31022"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde31022"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='confirmation_date'>03.05.2018</field>
+            <field name="state">sale</field>
+            <field name="pricelist_id" ref="product.list0"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_31022_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_dsgvo_31022"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_uom_qty">12</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">10.22</field>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_61625">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde61625"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde61625"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde61625"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='confirmation_date'>07.05.2018</field>
+            <field name="state">sale</field>
+            <field name="pricelist_id" ref="product.list0"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_61625_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_dsgvo_61625"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_uom_qty">16.5</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">10.22</field>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_70336">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde70336"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde70336"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde70336"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='confirmation_date'>14.05.2018</field>
+            <field name="state">sale</field>
+            <field name="pricelist_id" ref="product.list0"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_70336_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_dsgvo_70336"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">10.22</field>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_41344">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde41344"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde41344"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde41344"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='confirmation_date'>14.05.2018</field>
+            <field name="state">sale</field>
+            <field name="pricelist_id" ref="product.list0"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_41344_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_dsgvo_41344"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_uom_qty">6</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">10.22</field>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_61013">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde61013"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde61013"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde61013"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='confirmation_date'>17.05.2018</field>
+            <field name="state">sale</field>
+            <field name="pricelist_id" ref="product.list0"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_61013_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_dsgvo_61013"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_uom_qty">3</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">10.22</field>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_70715">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde70715"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde70715"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde70715"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='confirmation_date'>17.05.2018</field>
+            <field name="state">sale</field>
+            <field name="pricelist_id" ref="product.list0"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_70715_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_dsgvo_70715"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">10.22</field>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_31912">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde31912"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde31912"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde31912"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='confirmation_date'>23.05.2018</field>
+            <field name="state">sale</field>
+            <field name="pricelist_id" ref="product.list0"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_31912_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_dsgvo_31912"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_uom_qty">8</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">10.22</field>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_61259">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde61259"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde61259"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde61259"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='confirmation_date'>10.04.2018</field>
+            <field name="state">sale</field>
+            <field name="pricelist_id" ref="product.list0"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_61259_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_dsgvo_61259"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_uom_qty">9</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">10.22</field>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_61631">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde61631"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde61631"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde61631"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='confirmation_date'>20.04.2018</field>
+            <field name="state">sale</field>
+            <field name="pricelist_id" ref="product.list0"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_61631_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_dsgvo_61631"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_uom_qty">10</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">10.22</field>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_50617">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde50617"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde50617"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde50617"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='confirmation_date'>02.05.2018</field>
+            <field name="state">sale</field>
+            <field name="pricelist_id" ref="product.list0"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_50617_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_dsgvo_50617"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_uom_qty">4</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">10.22</field>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_61632">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde61632"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde61632"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde61632"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='confirmation_date'>03.05.2018</field>
+            <field name="state">sale</field>
+            <field name="pricelist_id" ref="product.list0"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_61632_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_dsgvo_61632"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_uom_qty">8</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">10.22</field>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_40601">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde40601"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde40601"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde40601"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='confirmation_date'>18.05.2018</field>
+            <field name="state">sale</field>
+            <field name="pricelist_id" ref="product.list0"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_40601_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_dsgvo_40601"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_uom_qty">8</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">10.22</field>
+        </record>
+        <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_70703">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde70703"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde70703"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde70703"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='confirmation_date'>20.06.2018</field>
+            <field name="state">sale</field>
+            <field name="pricelist_id" ref="product.list0"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde_dsgvo_70703_so_line" model="sale.order.line">
+            <field name="order_id" ref="itk_initial_abo_import.abo_order_gemeinde_dsgvo_70703"/>
+            <field name="name" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_257"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+            <field name="price_unit">10.22</field>
+        </record>
+    </data>
+</odoo>

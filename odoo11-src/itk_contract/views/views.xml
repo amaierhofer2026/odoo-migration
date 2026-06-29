@@ -1,0 +1,14 @@
+<odoo>
+
+    <record id="view_contract_form_itk" model="ir.ui.view">
+        <field name="name">account analytic account (itk)</field>
+        <field name="model">account.analytic.account</field>
+        <field name="inherit_id" ref="contract.account_analytic_account_recurring_form_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='pricelist_id']" position="after">
+                <field name="minimum_contract_period"/>
+            </xpath>
+        </field>
+        <!--contract.account_analytic_account_recurring_form_form-->
+    </record>
+</odoo>

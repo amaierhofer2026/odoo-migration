@@ -1,0 +1,10 @@
+<odoo>
+    <data noupdate="1">
+        <record id="sale_layout_cat_3" model="sale.layout_category">
+            <field name="name">Abonnement</field>
+            <field name="subtotal" eval="True"></field>
+            <field name="pagebreak" eval="False"></field>
+            <field name="sequence">10</field>
+        </record>
+    </data>
+</odoo>

@@ -41,7 +41,7 @@
             <field name="inherit_id" ref="product.product_template_tree_view"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='type']" position="replace">
-                    <field name="type" invisible="1"/>
+                    <field name="type" attrs="{'invisible': [True]}"/>
                 </xpath>
                 <xpath expr="//field[@name='categ_id']" position="before">
                     <field name="product_type_id" string="Status"/>
@@ -55,7 +55,7 @@
             <field name="inherit_id" ref="product.product_template_only_form_view"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='type']" position="replace">
-                    <field name="type" invisible="1"/>
+                    <field name="type" attrs="{'invisible': [True]}"/>
                 </xpath>
                 <xpath expr="//field[@name='categ_id']" position="before">
                     <field name="product_type_id"/>

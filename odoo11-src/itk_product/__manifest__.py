@@ -26,9 +26,9 @@
 
     # always loaded
     'data': [
-        'security/ir.model.access.csv',
         'views/itk_product.xml',
 
+        # 'security/ir.model.access.csv',
     ],
     # only loaded in demonstration mode
     'demo': [

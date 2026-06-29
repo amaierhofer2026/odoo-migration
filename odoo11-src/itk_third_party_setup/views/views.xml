@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="itk_third_party_setup.list">
+      <field name="name">itk_third_party_setup list</field>
+      <field name="model">itk_third_party_setup.itk_third_party_setup</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="itk_third_party_setup.action_window">
+      <field name="name">itk_third_party_setup window</field>
+      <field name="res_model">itk_third_party_setup.itk_third_party_setup</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="itk_third_party_setup.action_server">
+      <field name="name">itk_third_party_setup server</field>
+      <field name="model_id" ref="model_itk_third_party_setup_itk_third_party_setup"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="itk_third_party_setup" id="itk_third_party_setup.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="itk_third_party_setup.menu_1" parent="itk_third_party_setup.menu_root"/>
+    <menuitem name="Menu 2" id="itk_third_party_setup.menu_2" parent="itk_third_party_setup.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="itk_third_party_setup.menu_1_list" parent="itk_third_party_setup.menu_1"
+              action="itk_third_party_setup.action_window"/>
+    <menuitem name="Server to list" id="itk_third_party_setup" parent="itk_third_party_setup.menu_2"
+              action="itk_third_party_setup.action_server"/>
+    -->
+  </data>
+</odoo>

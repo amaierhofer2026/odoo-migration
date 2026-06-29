@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<openerp>
+    <!--1. Define an action to be executed:-->
+    <act_window id="action_all_customers"
+                name="All customers"
+                res_model="res.partner"
+                view_id="view_partner_form_itk"
+                view_mode="tree,kanban,form"
+                domain="[('customer', '=', True)]"
+                context="{'default_customer': True}"
+                limit="80"/>
+
+    <act_window id="action_all_actual_customers"
+                name="Actual customers"
+                res_model="res.partner"
+                view_mode="tree,kanban,form"
+                domain="[('customer', '=', True), ('status_of_partner_id', '=', 'Bestandskunde')]"
+                context="{'default_customer': True}"
+                limit="80"/>
+
+    <act_window id="action_all_former_customers"
+                name="Former Customers"
+                res_model="res.partner"
+                view_mode="tree,kanban,form"
+                domain="[('customer', '=', True), ('status_of_partner_id', '=', 'Ehemaliger Kunde')]"
+                context="{'default_customer': True}"
+                limit="80"/>
+
+    <act_window id="action_all_target_customers"
+                name="Target Customers"
+                res_model="res.partner"
+                view_mode="tree,kanban,form"
+                domain="[('customer', '=', True), ('status_of_partner_id', '=', 'Kein Kunde')]"
+                context="{'default_customer': True}"
+                limit="80"/>
+
+    <act_window id="action_all_resellers"
+                name="All Resellers"
+                res_model="res.partner"
+                view_mode="tree,kanban,form"
+                domain="[('reseller', '=', True)]"
+                context="{'default_customer': True}"
+                limit="80"/>
+
+
+    <act_window id="action_all_magnitudes"
+                name="All Magnitudes"
+                res_model="itk_crm.communitymagnitude"
+                view_mode="tree,kanban,form"
+                domain="[]"
+                context="{}"
+                limit="80"/>
+
+    <!--2. Create the menu structure:-->
+    <menuitem id="menu_itk_toplevel"
+              name="ITK-Menu"/>
+
+    <menuitem id="menu_itk_partner"
+              parent="menu_itk_toplevel"
+              name="Partner"/>
+
+    <menuitem id="menu_itk_reseller"
+              parent="menu_itk_toplevel"
+              name="Reseller"/>
+
+    <!--3. Refer to our action in menu:-->
+    <!--<menuitem id="menu_all_customers"-->
+    <!--parent="menu_itk_partner"-->
+    <!--sequence="10"-->
+    <!--groups=""/>-->
+
+    <menuitem id="menu_all_customers"
+              parent="menu_itk_partner"
+              action="action_all_customers"
+              sequence="20"
+              groups=""/>
+
+    <menuitem id="menu_all_actual_customers"
+              parent="menu_itk_partner"
+              action="action_all_actual_customers"
+              sequence="10"
+              groups=""/>
+
+    <menuitem id="menu_all_former_customers"
+              parent="menu_itk_partner"
+              action="action_all_former_customers"
+              sequence="10"
+              groups=""/>
+
+    <menuitem id="menu_all_target_customers"
+              parent="menu_itk_partner"
+              action="action_all_target_customers"
+              sequence="10"
+              groups=""/>
+
+    <menuitem id="menu_all_resellers"
+              parent="menu_itk_reseller"
+              action="action_all_resellers"
+              sequence="10"
+              groups=""/>
+
+    <menuitem id="menu_all_magnitudes"
+              parent="menu_itk_reseller"
+              action="action_all_magnitudes"
+              sequence="10"
+              groups=""/>
+
+</openerp>

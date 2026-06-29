@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="False">
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41501">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40801">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41101">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41402">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41702">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41704">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41706">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41805">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41408">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41708">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40408">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40410">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41507">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40602">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40412">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41006">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40506">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41612">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41008">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41209">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40415">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40710">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41508">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41319">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41510">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40816">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41218">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40427">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41016">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41017">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41815">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41511">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40714">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40433">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41727">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40915">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41736">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41819">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40918">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40824">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41418">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41333">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40438">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41419">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40919">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41822">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40443">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40620">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40718">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41744">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40622">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41233">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41518">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40834">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41602">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40402">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41203">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41804">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41506">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40813">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40608">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41011">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41215">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41219">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41615">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40428">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41115">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41817">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40827">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41739">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41013">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41119">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41734">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41334">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41820">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41821">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41426">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41517">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40831">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41626">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40832">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41022">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40626">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40503">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40819">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41225">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41422">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41005">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41105">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41003">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40811">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41312">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40430">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40504">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40704">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41407">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41703">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41323">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40921">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40907">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41418">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41517">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41003">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41329">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40811">
+            <field name='user_id' ref="__export__.itk_user_goo"/>
+        </record>
+        <!-- Gemdat Niederösterreichen / Gemdat NÖ -->
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31825">
+            <field name='user_id' ref="__export__.itk_user_gno"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31901">
+            <field name='user_id' ref="__export__.itk_user_gno"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30646">
+            <field name='user_id' ref="__export__.itk_user_gno"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31206">
+            <field name='user_id' ref="__export__.itk_user_gno"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde32107">
+            <field name='user_id' ref="__export__.itk_user_gno"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30915">
+            <field name='user_id' ref="__export__.itk_user_gno"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30607">
+            <field name='user_id' ref="__export__.itk_user_gno"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde32530">
+            <field name='user_id' ref="__export__.itk_user_gno"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31229">
+            <field name='user_id' ref="__export__.itk_user_gno"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31008">
+            <field name='user_id' ref="__export__.itk_user_gno"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31718">
+            <field name='user_id' ref="__export__.itk_user_gno"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31533">
+            <field name='user_id' ref="__export__.itk_user_gno"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31948">
+            <field name='user_id' ref="__export__.itk_user_gno"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31207">
+            <field name='user_id' ref="__export__.itk_user_gno"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31230">
+            <field name='user_id' ref="__export__.itk_user_gno"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31327">
+            <field name='user_id' ref="__export__.itk_user_gno"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31351">
+            <field name='user_id' ref="__export__.itk_user_gno"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31333">
+            <field name='user_id' ref="__export__.itk_user_gno"/>
+        </record>
+    </data>
+</odoo>

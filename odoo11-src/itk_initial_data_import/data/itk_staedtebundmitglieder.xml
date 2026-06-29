@@ -1,0 +1,792 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record model="res.partner" id="itk_initial_data_import.gemeinde80414">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde80408">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde80404">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde80303">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde80302">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde80301">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde80224">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde80215">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde80207">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde80103">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde70926">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde70917">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde70828">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde70716">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde70614">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde70531">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde70513">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde70411">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde70367">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde70357">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde70354">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde70346">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde70203">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde70101">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde62383">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde62379">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde62378">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde62376">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde62274">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde62267">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde62219">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde62147">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde62143">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde62142">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde62141">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde62140">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde62116">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde62047">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde62043">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde62041">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde62040">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde62038">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde62007">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde61766">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde61760">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde61632">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde61631">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde61626">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde61625">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde61440">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde61438">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde61265">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde61263">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde61259">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde61247">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde61243">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde61213">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde61207">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde61120">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde61110">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde61108">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde61101">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde61053">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde61045">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde60669">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde60667">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde60663">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde60629">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde60617">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde60613">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde60344">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde60318">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde60101">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde50628">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde50619">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde50613">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde50510">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde50424">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde50404">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde50402">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde50339">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde50338">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde50326">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde50324">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde50314">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde50205">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde50101">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41812">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41746">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41713">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41709">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41703">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41618">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41607">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41605">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41603">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41422">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41116">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41022">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41021">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41017">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41014">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41012">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41007">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41005">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41003">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41002">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40907">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <!--<record model="res.partner" id="itk_initial_data_import.gemeinde40835">-->
+            <!--<field name="member_of_city_alliance">True</field>-->
+        <!--</record>-->
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40808">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40711">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40705">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40704">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40703">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40614">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40601">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40506">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40503">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40421">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40404">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40301">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40201">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40101">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde32508">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde32304">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde32220">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde32216">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde32207">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde32144">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde32141">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde32135">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde32120">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde32107">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde32013">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31952">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31951">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31947">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31943">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31929">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31926">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31912">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31839">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31838">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31829">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31826">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31821">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31818">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31810">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31725">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31723">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31719">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31717">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31704">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31629">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31549">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31533">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31524">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31520">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31413">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31412">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31411">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31404">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31403">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31322">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31235">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31230">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31214">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31213">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31109">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31106">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31105">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31037">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31022">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30942">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30935">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30925">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30916">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30908">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30856">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30835">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30821">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30817">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30808">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30740">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30739">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30732">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30731">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30730">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30716">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30710">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30641">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30639">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30631">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30620">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30615">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30608">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30607">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30605">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30603">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30531">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30514">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30502">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30401">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30301">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30201">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30101">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde21002">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20923">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20913">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20817">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20803">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20727">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20720">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20702">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20635">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20630">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20527">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20505">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20421">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20415">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20405">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20402">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20201">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20101">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde10923">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde10918">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde10917">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde10816">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde10713">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde10705">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde10703">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde10701">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde10607">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde10606">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde10504">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde10405">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde10309">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde10201">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde10101">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20305">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20725">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40702">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde41606">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde40905">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30604">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30903">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30704">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31710">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30706">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde30827">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31655">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde62105">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde62139">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde62145">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde62244">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde61113">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde61425">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31327">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde31633">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde32530">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde50418">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20501">
+            <field name="member_of_city_alliance">True</field>
+        </record>
+
+    </data>
+</odoo>

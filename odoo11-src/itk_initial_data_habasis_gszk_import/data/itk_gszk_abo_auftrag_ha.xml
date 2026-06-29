@@ -1,0 +1,2023 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20701">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20701"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20701"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20701"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>19.11.2008</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20701_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20701"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde21001">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde21001"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde21001"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde21001"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>01.04.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde21001_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde21001"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20501">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20501"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20501"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20501"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>16.04.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20501_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20501"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20702">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20702"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20702"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20702"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>26.05.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20702_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20702"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20703">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20703"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20703"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20703"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>17.06.2011</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20703_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20703"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20705">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20705"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20705"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20705"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>28.04.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20705_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20705"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20601">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20601"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20601"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20601"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>26.07.2011</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20601_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20601"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20901">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20901"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20901"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20901"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>23.06.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20901_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20901"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20602">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20602"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20602"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20602"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>10.06.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20602_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20602"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20603">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20603"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20603"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20603"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>03.06.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20603_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20603"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20801">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20801"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20801"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20801"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>26.06.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20801_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20801"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20502">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20502"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20502"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20502"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>23.06.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20502_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20502"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20302">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20302"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20302"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20302"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>12.02.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20302_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20302"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20604">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20604"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20604"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20604"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>20.11.2008</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20604_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20604"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20503">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20503"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20503"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20503"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>21.07.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20503_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20503"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20802">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20802"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20802"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20802"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>17.04.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20802_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20802"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20402">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20402"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20402"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20402"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>22.09.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20402_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20402"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20803">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20803"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20803"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20803"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>20.11.2008</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20803_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20803"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20504">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20504"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20504"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20504"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>05.05.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20504_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20504"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20804">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20804"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20804"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20804"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>06.03.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20804_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20804"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20707">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20707"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20707"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20707"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>04.12.2008</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20707_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20707"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20403">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20403"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20403"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20403"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>17.01.2011</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20403_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20403"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20805">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20805"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20805"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20805"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>10.03.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20805_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20805"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20708">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20708"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20708"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20708"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>09.05.2011</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20708_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20708"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde21002">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde21002"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde21002"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde21002"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>20.11.2008</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde21002_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde21002"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20710">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20710"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20710"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20710"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>21.09.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20710_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20710"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20711">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20711"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20711"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20711"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>08.07.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20711_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20711"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20905">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20905"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20905"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20905"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>06.03.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20905_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20905"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20534">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20534"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20534"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20534"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>25.11.2008</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20534_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20534"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20712">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20712"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20712"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20712"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>16.06.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20712_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20712"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20505">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20505"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20505"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20505"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>02.04.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20505_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20505"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20806">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20806"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20806"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20806"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>13.01.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20806_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20806"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20320">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20320"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20320"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20320"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>29.01.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20320_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20320"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde21003">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde21003"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde21003"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde21003"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>20.04.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde21003_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde21003"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20608">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20608"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20608"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20608"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>20.01.2011</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20608_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20608"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde21004">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde21004"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde21004"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde21004"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>24.11.2008</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde21004_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde21004"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20409">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20409"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20409"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20409"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>19.11.2008</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20409_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20409"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20609">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20609"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20609"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20609"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>19.11.2008</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20609_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20609"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20808">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20808"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20808"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20808"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>18.12.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20808_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20808"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20508">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20508"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20508"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20508"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>24.03.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20508_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20508"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20509">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20509"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20509"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20509"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>25.05.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20509_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20509"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20610">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20610"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20610"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20610"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>01.09.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20610_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20610"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20305">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20305"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20305"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20305"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>17.12.2008</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20305_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20305"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde21005">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde21005"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde21005"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde21005"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>08.04.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde21005_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde21005"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20713">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20713"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20713"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20713"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>20.11.2008</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20713_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20713"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20511">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20511"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20511"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20511"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>27.03.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20511_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20511"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20611">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20611"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20611"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20611"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>28.07.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20611_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20611"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20512">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20512"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20512"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20512"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>20.03.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20512_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20512"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20306">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20306"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20306"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20306"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>05.02.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20306_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20306"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20613">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20613"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20613"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20613"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>16.04.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20613_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20613"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20513">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20513"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20513"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20513"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>18.11.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20513_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20513"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20307">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20307"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20307"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20307"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>18.02.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20307_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20307"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20642">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20642"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20642"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20642"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>23.09.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20642_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20642"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20415">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20415"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20415"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20415"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>06.07.2010</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20415_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20415"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20616">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20616"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20616"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20616"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>23.07.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20616_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20616"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20321">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20321"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20321"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20321"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>17.02.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20321_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20321"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20416">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20416"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20416"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20416"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>09.10.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20416_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20416"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20643">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20643"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20643"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20643"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>20.07.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20643_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20643"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20442">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20442"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20442"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20442"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>11.08.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20442_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20442"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20618">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20618"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20618"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20618"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>23.07.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20618_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20618"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20619">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20619"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20619"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20619"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>06.06.2018</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20619_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20619"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20417">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20417"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20417"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20417"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>20.07.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20417_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20417"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20518">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20518"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20518"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20518"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>08.05.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20518_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20518"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20519">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20519"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20519"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20519"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>15.01.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20519_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20519"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20620">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20620"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20620"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20620"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>26.01.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20620_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20620"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20520">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20520"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20520"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20520"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>16.04.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20520_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20520"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20622">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20622"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20622"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20622"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>02.07.2010</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20622_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20622"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20810">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20810"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20810"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20810"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>24.11.2008</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20810_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20810"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20719">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20719"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20719"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20719"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>13.10.2011</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20719_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20719"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20625">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20625"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20625"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20625"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>16.09.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20625_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20625"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20627">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20627"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20627"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20627"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>15.07.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20627_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20627"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde21006">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde21006"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde21006"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde21006"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>08.04.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde21006_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde21006"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20720">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20720"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20720"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20720"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>25.08.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20720_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20720"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20425">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20425"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20425"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20425"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>01.01.2011</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20425_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20425"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20424">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20424"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20424"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20424"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>20.02.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20424_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20424"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20911">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20911"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20911"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20911"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>05.05.2011</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20911_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20911"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20630">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20630"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20630"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20630"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>10.12.2008</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20630_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20630"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde21007">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde21007"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde21007"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde21007"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>25.11.2008</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde21007_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde21007"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20912">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20912"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20912"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20912"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>18.06.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20912_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20912"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20644">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20644"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20644"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20644"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>16.06.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20644_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20644"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20632">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20632"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20632"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20632"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>18.08.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20632_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20632"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20721">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20721"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20721"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20721"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>20.11.2008</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20721_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20721"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20812">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20812"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20812"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20812"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>26.03.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20812_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20812"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20633">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20633"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20633"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20633"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>18.09.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20633_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20633"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20432">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20432"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20432"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20432"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>28.05.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20432_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20432"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20815">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20815"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20815"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20815"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>30.12.2008</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20815_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20815"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20913">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20913"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20913"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20913"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>22.03.2012</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20913_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20913"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20523">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20523"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20523"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20523"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>14.07.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20523_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20523"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20914">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20914"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20914"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20914"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>14.05.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20914_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20914"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20722">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20722"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20722"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20722"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>18.01.2011</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20722_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20722"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20813">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20813"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20813"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20813"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>15.09.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20813_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20813"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20428">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20428"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20428"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20428"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>05.05.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20428_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20428"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20918">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20918"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20918"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20918"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>28.05.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20918_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20918"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20316">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20316"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20316"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20316"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>05.02.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20316_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20316"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde21008">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde21008"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde21008"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde21008"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>02.04.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde21008_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde21008"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20527">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20527"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20527"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20527"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>27.01.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20527_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20527"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde21009">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde21009"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde21009"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde21009"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>08.04.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde21009_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde21009"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20637">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20637"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20637"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20637"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>06.05.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20637_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20637"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde21010">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde21010"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde21010"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde21010"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>03.04.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde21010_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde21010"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20723">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20723"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20723"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20723"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>13.01.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20723_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20723"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20530">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20530"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20530"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20530"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>15.09.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20530_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20530"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20435">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20435"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20435"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20435"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>13.02.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20435_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20435"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20638">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20638"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20638"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20638"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>03.07.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20638_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20638"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20724">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20724"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20724"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20724"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>15.12.2010</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20724_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20724"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20725">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20725"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20725"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20725"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>09.12.2008</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20725_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20725"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20817">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20817"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20817"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20817"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>30.04.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20817_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20817"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20639">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20639"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20639"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20639"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>19.12.2008</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20639_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20639"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20726">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20726"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20726"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20726"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>16.12.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20726_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20726"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20531">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20531"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20531"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20531"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>21.07.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20531_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20531"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20640">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20640"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20640"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20640"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>20.11.2008</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20640_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20640"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20923">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20923"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20923"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20923"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>05.02.2009</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20923_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20923"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+        <record model='sale.order' id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20441">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde20441"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde20441"/>
+            <field name='partner_shipping_id' ref="itk_initial_data_import.gemeinde20441"/>
+            <field name='team_id' ref="sales_team.team_sales_department"/>
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='confirmation_date'>01.01.2011</field>
+            <field name="pricelist_id" ref="__export__.product_pricelist_gszk"/>
+            <field name="state">sale</field>
+        </record>
+        <record id="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20441_so_line_1"
+                model="sale.order.line">
+            <field name="order_id" ref="itk_initial_data_habasis_gszk_import.abo_order_gszk_gemeinde20441"/>
+            <field name="name">GSZK-amtsweg</field>
+            <field name="product_id" ref="itk_initial_data_habasis_gszk_import.itk_gszk_product_1"/>
+            <field name="product_uom_qty">1</field>
+            <field name="product_uom" ref="product.product_uom_unit"/>
+        </record>
+
+    </data>
+</odoo>
+

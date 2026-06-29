@@ -2,6 +2,7 @@
     <data>
         <!-- Quotation Search-View -->
         <record id="quotation_searchview_customization_itk" model="ir.ui.view">
+            <field name="field_parent" eval="False"/>
             <field name="groups_id" eval="[(6, 0, [])]"/>
             <field name="inherit_id" ref="sale.sale_order_view_search_inherit_quotation"/>
             <field name="mode">extension</field>
@@ -29,9 +30,9 @@
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale.view_quotation_tree"/>
             <field name="arch" type="xml">
-                <!--<xpath expr="//field[@name='date_order']" position="attributes">
-                    <attribute name="widget">date</attribute> 
-                </xpath> -->
+                <xpath expr="//field[@name='date_order']" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </xpath>
                 <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="partner_invoice_id"/>
                     <field name="sale_contact_id"/>
@@ -53,6 +54,7 @@
 
         <!-- SaleOrder Search-View -->
         <record id="saleorder_searchview_customization_itk" model="ir.ui.view">
+            <field name="field_parent" eval="False"/>
             <field name="groups_id" eval="[(6, 0, [])]"/>
             <field name="inherit_id" ref="sale.sale_order_view_search_inherit_sale"/>
             <field name="mode">extension</field>
@@ -80,9 +82,9 @@
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale.view_order_tree"/>
             <field name="arch" type="xml">
-                <!-- <xpath expr="//field[@name='date_order']" position="attributes">
+                <xpath expr="//field[@name='confirmation_date']" position="attributes">
                     <attribute name="widget">date</attribute>
-                </xpath> -->
+                </xpath>
                 <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="partner_invoice_id"/>
                     <field name="sale_contact_id"/>
@@ -108,7 +110,7 @@
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='partner_id']" position="replace">
-                    <field name="partner_id"/>
+                    <field name="partner_id" on_change="_partner_id_changed(partner_id)"/>
                     <field name="sale_contact_id" domain="[('parent_id','=', partner_id)]"/>
                     <field name="administrative_contact_id" domain="[('parent_id','=', partner_id)]"/>
                     <field name="technical_contact_id" domain="[('parent_id','=', partner_id)]"/>
@@ -117,7 +119,7 @@
 
 
                 </xpath>
-                <xpath expr="//field[@name='date_order']" position="before">
+                <xpath expr="//field[@name='confirmation_date']" position="before">
                     <field name="user_id"/>
                 </xpath>
 

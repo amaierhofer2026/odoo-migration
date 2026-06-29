@@ -6,14 +6,14 @@ from odoo import models, fields, api
 
 
 class AccountInvoiceLine(models.Model):
-    _inherit = 'account.move.line'
+    _inherit = 'account.invoice.line'
 
     number = fields.Integer(compute='_compute_number', store=True)
 
-    @api.depends('sequence', 'move_id.invoice_line_ids')
+    @api.depends('sequence', 'invoice_id')
     def _compute_number(self):
-        for move in self.mapped('move_id'):
+        for invoice in self.mapped('invoice_id'):
             number = 1
-            for line in move.invoice_line_ids:
+            for line in invoice.invoice_line_ids:
                 line.number = number
                 number += 1

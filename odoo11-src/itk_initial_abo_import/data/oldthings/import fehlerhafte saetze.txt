@@ -1,0 +1,82 @@
+32407
+32405
+32415
+41018
+41303
+41330
+61523
+62040       ==> Ursprüngllich kein Datum enthalten. Ersetzt mit 01.01.2019
+
+odoo.tools.convert.ParseError: "External ID not found in the system: itk_initial_data_import.gemeinde32407" while parsing /home/andreas/PycharmProjects/as_itk/itk_initial_abo_import/data/abo_kunden_und_startdatum_und_multiplikator.xml:762, near
+<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde32407">
+            <field name="partner_id" ref="itk_initial_data_import.gemeinde32407"/>
+            <field name="partner_invoice_id" ref="itk_initial_data_import.gemeinde32407"/>
+            <field name="&quot;partner_shipping_id" ref="itk_initial_data_import.gemeinde32407"/>
+            <field name="&quot;team_id" ref="sales_team.team_sales_department"/>
+            <field name="date_order">23.08.2013</field>
+        </record>
+
+
+        odoo.tools.convert.ParseError: "External ID not found in the system: itk_initial_data_import.gemeinde32405" while parsing /home/andreas/PycharmProjects/as_itk/itk_initial_abo_import/data/abo_kunden_und_startdatum_und_multiplikator.xml:1130, near
+<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde32405">
+            <field name="partner_id" ref="itk_initial_data_import.gemeinde32405"/>
+            <field name="partner_invoice_id" ref="itk_initial_data_import.gemeinde32405"/>
+            <field name="&quot;partner_shipping_id" ref="itk_initial_data_import.gemeinde32405"/>
+            <field name="&quot;team_id" ref="sales_team.team_sales_department"/>
+            <field name="date_order">17.12.2013</field>
+        </record>
+
+
+        <!--<record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde32415">-->
+            <!--<field name='partner_id' ref="itk_initial_data_import.gemeinde32415"/>-->
+            <!--<field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde32415"/>-->
+            <!--<field name='"partner_shipping_id' ref="itk_initial_data_import.gemeinde32415"/>-->
+            <!--<field name='"team_id' ref="sales_team.team_sales_department"/>-->
+            <!--<field name="date_order">16.04.2014</field>-->
+
+
+
+
+            41303
+
+
+            odoo.tools.convert.ParseError: "sale.order" while parsing /home/andreas/PycharmProjects/as_itk/itk_initial_abo_import/data/abo_kunden_und_startdatum_und_multiplikator2von2.xml:4, near
+<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41018">
+            <field name="partner_id" ref="itk_initial_data_import.gemeinde41018"/>
+            <field name="partner_invoice_id" ref="itk_initial_data_import.gemeinde41018"/>
+            <field name="&quot;partner_shipping_id" ref="itk_initial_data_import.gemeinde41018"/>
+            <field name="&quot;team_id" ref="sales_team.team_sales_department"/>
+            <field name="date_order">08.08.2013</field>
+        </record>
+
+
+
+        odoo.tools.convert.ParseError: "External ID not found in the system: itk_initial_data_import.gemeinde41330" while parsing /home/andreas/PycharmProjects/as_itk/itk_initial_abo_import/data/abo_kunden_und_startdatum_und_multiplikator2von2.xml:556, near
+<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde41330">
+            <field name="partner_id" ref="itk_initial_data_import.gemeinde41330"/>
+            <field name="partner_invoice_id" ref="itk_initial_data_import.gemeinde41330"/>
+            <field name="&quot;partner_shipping_id" ref="itk_initial_data_import.gemeinde41330"/>
+            <field name="&quot;team_id" ref="sales_team.team_sales_department"/>
+            <field name="date_order">23.10.2013</field>
+        </record>
+
+
+        odoo.tools.convert.ParseError: "External ID not found in the system: itk_initial_data_import.gemeinde61523" while parsing /home/andreas/PycharmProjects/as_itk/itk_initial_abo_import/data/abo_kunden_und_startdatum_und_multiplikator2von2.xml:1499, near
+<record model="sale.order" id="itk_initial_abo_import.abo_order_gemeinde61523">
+            <field name="partner_id" ref="itk_initial_data_import.gemeinde61523"/>
+            <field name="partner_invoice_id" ref="itk_initial_data_import.gemeinde61523"/>
+            <field name="&quot;partner_shipping_id" ref="itk_initial_data_import.gemeinde61523"/>
+            <field name="&quot;team_id" ref="sales_team.team_sales_department"/>
+            <field name="date_order">18.07.2013</field>
+        </record>
+
+
+
+          <record model='sale.order' id="itk_initial_abo_import.abo_order_gemeinde62040">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde62040"/>
+            <field name='partner_invoice_id' ref="itk_initial_data_import.gemeinde62040"/>
+            <field name='"partner_shipping_id' ref="itk_initial_data_import.gemeinde62040"/>
+            <field name='"team_id' ref="sales_team.team_sales_department"/>
+            <field name="date_order">01.01.2019</field>
+        </record>
+        ==> Ursprüngllich kein Datum enthalten. Ersetzt mit 01.01.2019

@@ -1,0 +1,235 @@
+<odoo>
+    <data noupdate="0">
+        <record id="base.main_company" model="res.company">
+            <field name="name">IT-Kommunal GmbH</field>
+            <field name="vat">ATU63541411</field>
+            <field name="street">Pius-Parsch-Platz 9/14</field>
+            <field name="country_id" ref="base.at"/>
+            <field name='state_id' ref="itk_data_setup.Wien"/>
+            <field name='zip'>A-1210</field>
+            <field name='city'>Wien</field>
+            <field name='website'>http://www.it-kommunal.at</field>
+            <field name='phone'>+43 (1) 89 00 919</field>
+            <field name='email'>office@it-kommunal.at</field>
+            <field name='company_registry'>FN 295183 v HG Wien</field>
+            <field name='currency_id' ref="base.EUR"/>
+            <field name='report_header'></field>
+            <field name='report_footer'></field>
+            <field name='social_twitter'>@IT_Kommunal</field>
+            <field name='social_facebook'></field>
+            <field name='social_github'></field>
+            <field name='social_linkedin'></field>
+            <field name='social_youtube'></field>
+            <field name='social_googleplus'></field>
+            <field name='logo' type="base64" file='itk_main_company_import/data/itk_logo.png'/>
+        </record>
+
+
+
+
+
+        <!--<record id="waiss_marting" model="res.partner">-->
+        <!--<field name="name">Waiss Martina</field>-->
+        <!--<field name="company_id" ref="base.main_company"/>-->
+        <!--<field name="parent_id" ref="base.main_company"/>-->
+        <!--<field name="customer" eval="False"/>-->
+        <!--<field name="country_id" ref="base.at"/>-->
+        <!--</record>-->
+        <!--<record id="user_1" model="res.users">-->
+        <!--<field name="partner_id" ref="waiss_marting"/>-->
+        <!--<field name="login">mwaiss</field>-->
+        <!--<field name="password">mwaiss</field>-->
+        <!--<field name="name">Martina Waiss</field>-->
+        <!--<field name="signature">Martina Waiss</field>-->
+        <!--<field name="company_id" ref="base.main_company"/>-->
+        <!--<field name="groups_id" eval="[(4,ref('itk_crm.itk_group_manager'))]"/>-->
+        <!--&lt;!&ndash;<field name="groups_id" eval="[(4,ref('account.group_account_invoice'))]"/>&ndash;&gt;-->
+        <!--</record>-->
+        <!--<record id="partner_2" model="res.partner">-->
+        <!--<field name="name">Partner 2</field>-->
+        <!--<field name="company_id" ref="base.main_company"/>-->
+        <!--<field name="parent_id" ref="base.main_company"/>-->
+        <!--<field name="customer" eval="False"/>-->
+        <!--<field name="country_id" ref="base.fr"/>-->
+        <!--</record>-->
+        <!--<record id="user_2" model="res.users">-->
+        <!--<field name="partner_id" ref="partner_2"/>-->
+        <!--<field name="login">partner2</field>-->
+        <!--<field name="password">IzWJt4nu</field>-->
+        <!--<field name="name">Partner 2</field>-->
+        <!--<field name="signature">Partner 2</field>-->
+        <!--<field name="company_id" ref="base.main_company"/>-->
+        <!--<field name="groups_id" eval="[(4,ref('account.group_account_user'))]"/>-->
+        <!--</record>-->
+
+
+    </data>
+</odoo>
+
+
+        <!--<record id="myuser" model="res.users">-->
+
+        <!--<field name="name">ava</field>-->
+
+        <!--<field name="login">ava</field>-->
+
+        <!--<field name="partner_id"-->
+        <!--eval="ref('base.main_partner')"/> &lt;!&ndash; base.main_partner is the external id of a res_partner &ndash;&gt;-->
+
+        <!--<field name="comment">User for my website interface</field>-->
+
+        <!--<field name="groups_id"-->
+        <!--eval="[(4, ref('mymodule.mypublicgroup')) ]"/> &lt;!&ndash; mymodule.mypublicgroup is the external id of a res_group to give some rights to my new user &ndash;&gt;-->
+
+        <!--</record>-->
+
+
+        <!--<?xml version="1.0" encoding="utf-8"?>-->
+        <!--<odoo>-->
+        <!--<data noupdate="1">-->
+        <!--&lt;!&ndash; khmer language has the wrong code in res.lang.csv-->
+        <!--We put the good one here to have the noupdate tag and avoid-->
+        <!--the error (this fix will be obsolete from SaaS 11.2) &ndash;&gt;-->
+        <!--<record id="lang_km" model="res.lang">-->
+        <!--<field name="name">Khmer / ភាសាខ្មែរ</field>-->
+        <!--<field name="code">km_KH</field>-->
+        <!--<field name="iso_code">km</field>-->
+        <!--<field name="direction">ltr</field>-->
+        <!--<field name="translatable">1</field>-->
+        <!--<field name="grouping">[3,0]</field>-->
+        <!--<field name="date_format">%d %B %y</field>-->
+        <!--<field name="time_format">%H:%M:%S</field>-->
+        <!--</record>-->
+
+        <!--<record id="view_menu" model="ir.ui.view">-->
+        <!--<field name="name">ir.ui.menu.tree</field>-->
+        <!--<field name="model">ir.ui.menu</field>-->
+        <!--<field name="arch" type="xml">-->
+        <!--<tree string="Menu" toolbar="1">-->
+        <!--<field icon="icon" name="name"/>-->
+        <!--</tree>-->
+        <!--</field>-->
+        <!--<field name="field_parent">child_id</field>-->
+        <!--</record>-->
+
+        <!--<function name="install_lang" model="res.lang"/>-->
+
+        <!--<record id="main_partner" model="res.partner" context="{'default_is_company': True}">-->
+        <!--<field name="name">My Company</field>-->
+        <!--<field name="company_id" eval="None"/>-->
+        <!--<field name="customer" eval="False"/>-->
+        <!--<field name="is_company" eval="True"/>-->
+        <!--<field name="street"></field>-->
+        <!--<field name="city"></field>-->
+        <!--<field name="zip"></field>-->
+        <!--<field name="phone"></field>-->
+        <!--<field name="email">info@yourcompany.com</field>-->
+        <!--<field name="website">www.yourcompany.com</field>-->
+        <!--</record>-->
+
+        <!--&lt;!&ndash; Basic Company  &ndash;&gt;-->
+        <!--<record id="main_company" model="res.company">-->
+        <!--<field name="name">My Company</field>-->
+        <!--<field name="partner_id" ref="main_partner"/>-->
+        <!--<field name="currency_id" ref="base.EUR"/>-->
+        <!--</record>-->
+
+        <!--<record model="res.partner" id="base.partner_root">-->
+        <!--<field name="name">Administrator</field>-->
+        <!--<field name="company_id" ref="main_company"/>-->
+        <!--<field name="customer" eval="False"/>-->
+        <!--<field name="email">admin@example.com</field>-->
+        <!--</record>-->
+
+        <!--<record model="res.users" id="base.user_root">-->
+        <!--<field name="partner_id" ref="base.partner_root"/>-->
+        <!--<field name="company_id" ref="main_company"/>-->
+        <!--<field name="company_ids" eval="[(4, ref('main_company'))]"/>-->
+        <!--<field name="signature"><![CDATA[<span>&#45;&#45; <br/>-->
+        <!--Administrator</span>]]></field>-->
+        <!--</record>-->
+
+        <!--&lt;!&ndash; Default user with full access rights for newly created users &ndash;&gt;-->
+        <!--<record id="default_user" model="res.users">-->
+        <!--<field name="name">Default User Template</field>-->
+        <!--<field name="login">default</field>-->
+        <!--<field name="active" eval="False"/>-->
+        <!--</record>-->
+
+        <!--<record id="main_partner" model="res.partner">-->
+        <!--<field name="company_id" ref="main_company"/>-->
+        <!--</record>-->
+
+        <!--<record id="ir_mail_server_localhost0" model="ir.mail_server" forcecreate="0">-->
+        <!--<field name="name">localhost</field>-->
+        <!--<field name="smtp_host">localhost</field>-->
+        <!--<field eval="25" name="smtp_port"/>-->
+        <!--<field eval="10" name="sequence"/>-->
+        <!--</record>-->
+
+        <!--<record id="public_partner" model="res.partner">-->
+        <!--<field name="name">Public user</field>-->
+        <!--<field name="active" eval="False"/>-->
+        <!--</record>-->
+        <!---->
+        <!--<record id="public_user" model="res.users">-->
+        <!--<field name="name">Public user</field>-->
+        <!--<field name="login">public</field>-->
+        <!--<field name="password"></field>-->
+        <!--&lt;!&ndash; Avoid auto-including this demo user in any default group &ndash;&gt;-->
+        <!--<field name="groups_id" eval="[(6,0,[])]"/>-->
+        <!--<field name="image" type="base64" file="base/static/img/public_user-image.png"/>-->
+        <!--<field name="partner_id" ref="public_partner"/>-->
+        <!--<field name="active" eval="False"/>-->
+        <!--</record>-->
+
+        <!--<record id="paperformat_euro" model="report.paperformat">-->
+        <!--<field name="name">European A4</field>-->
+        <!--<field name="default" eval="True" />-->
+        <!--<field name="format">A4</field>-->
+        <!--<field name="page_height">0</field>-->
+        <!--<field name="page_width">0</field>-->
+        <!--<field name="orientation">Portrait</field>-->
+        <!--<field name="margin_top">40</field>-->
+        <!--<field name="margin_bottom">28</field>-->
+        <!--<field name="margin_left">7</field>-->
+        <!--<field name="margin_right">7</field>-->
+        <!--<field name="header_line" eval="False" />-->
+        <!--<field name="header_spacing">35</field>-->
+        <!--<field name="dpi">90</field>-->
+        <!--</record>-->
+
+        <!--<record id="paperformat_us" model="report.paperformat">-->
+        <!--<field name="name">US Letter</field>-->
+        <!--<field name="default" eval="True" />-->
+        <!--<field name="format">Letter</field>-->
+        <!--<field name="page_height">0</field>-->
+        <!--<field name="page_width">0</field>-->
+        <!--<field name="orientation">Portrait</field>-->
+        <!--<field name="margin_top">40</field>-->
+        <!--<field name="margin_bottom">25</field>-->
+        <!--<field name="margin_left">7</field>-->
+        <!--<field name="margin_right">7</field>-->
+        <!--<field name="header_line" eval="False" />-->
+        <!--<field name="header_spacing">35</field>-->
+        <!--<field name="dpi">90</field>-->
+        <!--</record>-->
+
+        <!--<record id="paperformat_batch_deposit" model="report.paperformat">-->
+        <!--<field name="name">US Batch Deposit</field>-->
+        <!--<field name="default" eval="False" />-->
+        <!--<field name="format">Letter</field>-->
+        <!--<field name="page_height">0</field>-->
+        <!--<field name="page_width">0</field>-->
+        <!--<field name="orientation">Portrait</field>-->
+        <!--<field name="margin_top">15</field>-->
+        <!--<field name="margin_bottom">10</field>-->
+        <!--<field name="margin_left">10</field>-->
+        <!--<field name="margin_right">10</field>-->
+        <!--<field name="header_line" eval="False" />-->
+        <!--<field name="header_spacing">0</field>-->
+        <!--<field name="dpi">90</field>-->
+        <!--</record>-->
+
+        <!--</data>-->
+        <!--</odoo>-->

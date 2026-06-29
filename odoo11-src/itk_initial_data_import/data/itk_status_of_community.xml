@@ -1,0 +1,35 @@
+<odoo>
+    <data>
+        <record model='itk_crm.statusofcommunity' id='status_of_community_ST'>
+            <field name='code'>ST</field>
+            <field name='name'>Stadtgemeinde</field>
+            <field name='seq'>0</field>
+        </record>
+        <record model='itk_crm.statusofcommunity' id='status_of_community_SR'>
+            <field name='code'>SR</field>
+            <field name='name'>Statutarstadt</field>
+            <field name='seq'>0</field>
+        </record>
+        <record model='itk_crm.statusofcommunity' id='status_of_community_M'>
+            <field name='code'>M</field>
+            <field name='name'>Marktgemeinde</field>
+            <field name='seq'>0</field>
+        </record>
+        <record model='itk_crm.statusofcommunity' id='status_of_community_G'>
+            <field name='code'>G</field>
+            <field name='name'>Gemeinde</field>
+            <field name='seq'>0</field>
+        </record>
+        <record model='itk_crm.statusofcommunity' id='status_of_community_'>
+            <field name='code'>-</field>
+            <field name='name'>-</field>
+            <field name='seq'>0</field>
+        </record>
+
+            <record model='itk_crm.statusofcommunity' id='status_of_community_MAG'>
+            <field name='code'>MAG</field>
+            <field name='name'>Magistrat der Stadt</field>
+            <field name='seq'>0</field>
+        </record>
+    </data>
+</odoo>

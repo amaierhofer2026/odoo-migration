@@ -1,0 +1,888 @@
+<odoo>
+    <data noupdate="0">
+        <record model='res.partner' id="contact20512">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20512"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>Bgm.</field>
+            <field name='attention_of'>Hr. Bgm. Martin Gruber</field>
+            <field name='firstname'>Martin</field>
+            <field name='lastname'>Gruber</field>
+            <field name='email'>werner.glanzer@ktn.gde.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact20512')]"/>
+        <record model='res.partner' id="contact60651">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde60651"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'>Ing.</field>
+            <field name='function'>Bgm.</field>
+            <field name='attention_of'>Hr. Bgm. Ing. Markus Windisch</field>
+            <field name='firstname'>Markus</field>
+            <field name='lastname'>Windisch</field>
+            <field name='email'>j.jauschnig@uebelbach.gv.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact60651')]"/>
+        <record model='res.partner' id="contact30201">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30201"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Fr. Rosa Gressenbauer</field>
+            <field name='firstname'>Rosa</field>
+            <field name='lastname'>Gressenbauer</field>
+            <field name='email'>Rosa.Gressenbauer@st-poelten.gv.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact30201')]"/>
+        <record model='res.partner' id="contact31629">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31629"/>
+            <field name='title' ref=""/>
+            <field name='title_put_in_front'>Mag.</field>
+            <field name='function'></field>
+            <field name='attention_of'>Mag. Reinhold Russ</field>
+            <field name='firstname'>Reinhold</field>
+            <field name='lastname'>Russ</field>
+            <field name='email'>r.russ@laa.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact31629')]"/>
+        <record model='res.partner' id="contact30301">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30301"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. Josef Kerschbaumer</field>
+            <field name='firstname'>Josef</field>
+            <field name='lastname'>Kerschbaumer</field>
+            <field name='email'>josef.kerschbaumer@waidhofen.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact30301')]"/>
+        <record model='res.partner' id="contact50401">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde50401"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. Dr. Felix Pichler</field>
+            <field name='firstname'>Felix</field>
+            <field name='lastname'>Pichler</field>
+            <field name='email'>manuela.mooslechner@altenmarkt.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact50401')]"/>
+        <record model='res.partner' id="contact50405">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde50405"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>Bgm.</field>
+            <field name='attention_of'>Hr. Bgm. Rudolf Trauner</field>
+            <field name='firstname'>Rudolf</field>
+            <field name='lastname'>Trauner</field>
+            <field name='email'>gemeinde@dorfgastein.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact50405')]"/>
+        <record model='res.partner' id="contact30517">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30517"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>Bgm.</field>
+            <field name='attention_of'>Fr. Bgm. Juliana Günther</field>
+            <field name='firstname'>Günther</field>
+            <field name='lastname'>Bgm.</field>
+            <field name='email'>amtsleitung@kematen-ybbs.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact30517')]"/>
+        <record model='res.partner' id="contact30740">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30740"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. Gerhard Szikora</field>
+            <field name='firstname'>Gerhard</field>
+            <field name='lastname'>Szikora</field>
+            <field name='email'>g.szikora@schwechat.gv.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact30740')]"/>
+        <record model='res.partner' id="contact30639">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30639"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'>Mag.</field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. Mag. Dr. Alfons Klebl</field>
+            <field name='firstname'>Alfons</field>
+            <field name='lastname'>Klebl</field>
+            <field name='email'>alfons.klebl@traiskirchen.gv.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact30639')]"/>
+        <record model='res.partner' id="contact20201">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20201"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. DI Manfred Wundara</field>
+            <field name='firstname'>Manfred</field>
+            <field name='lastname'>Wundara</field>
+            <field name='email'>erechnung@villach.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact20201')]"/>
+        <record model='res.partner' id="contact61057">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde61057"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'>Ing.</field>
+            <field name='function'>AL</field>
+            <field name='attention_of'>Hr. AL Ing. Josef Schweigler</field>
+            <field name='firstname'>Josef</field>
+            <field name='lastname'>Schweigler</field>
+            <field name='email'>gde@schwarzautal.gv.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact61057')]"/>
+        <record model='res.partner' id="contact31549">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31549"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. Richard Semmelmeyer</field>
+            <field name='firstname'>Richard</field>
+            <field name='lastname'>Semmelmeyer</field>
+            <field name='email'>edv@ybbs.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact31549')]"/>
+        <record model='res.partner' id="contact30201">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30201"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Fr. Rosa Gressenbauer</field>
+            <field name='firstname'>Rosa</field>
+            <field name='lastname'>Gressenbauer</field>
+            <field name='email'>Rosa.Gressenbauer@st-poelten.gv.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact30201')]"/>
+        <record model='res.partner' id="contact62267">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde62267"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. Michael Trummer</field>
+            <field name='firstname'>Michael</field>
+            <field name='lastname'>Trummer</field>
+            <field name='email'>michael.trummer@fuerstenfeld.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact62267')]"/>
+        <record model='res.partner' id="contact30101">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30101"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. Josef Informationstechnologie</field>
+            <field name='firstname'>Josef</field>
+            <field name='lastname'>Informationstechnologie</field>
+            <field name='email'>edv@krems.gv.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact30101')]"/>
+        <record model='res.partner' id="contact61766">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde61766"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>Bgm.</field>
+            <field name='attention_of'>Hr. Bgm. Erwin Eggenreich</field>
+            <field name='firstname'>Erwin</field>
+            <field name='lastname'>Eggenreich</field>
+            <field name='email'>stadtgemeinde@weiz.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact61766')]"/>
+        <record model='res.partner' id="contact31725">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31725"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. _ Mazuheli MBA MPA</field>
+            <field name='firstname'></field>
+            <field name='lastname'>MPA</field>
+            <field name='email'>gemeinde@wiener-neudorf.gv.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact31725')]"/>
+        <record model='res.partner' id="contact10606">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde10606"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. Ernst Kampitsch</field>
+            <field name='firstname'>Ernst</field>
+            <field name='lastname'>Kampitsch</field>
+            <field name='email'>e.kampitsch@oberwart.bgld.gv.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact10606')]"/>
+        <record model='res.partner' id="contact62040">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde62040"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. Manfred Hoffelner</field>
+            <field name='firstname'>Manfred</field>
+            <field name='lastname'>Hoffelner</field>
+            <field name='email'>m.hoffelner@judenburg.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact62040')]"/>
+        <record model='res.partner' id="contact60347">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde60347"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>Bgm.</field>
+            <field name='attention_of'>Hr. Bgm. Franz Silly</field>
+            <field name='firstname'>Franz</field>
+            <field name='lastname'>Silly</field>
+            <field name='email'>thomas.feldhofer@st-martin-sulmtal.gv.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact60347')]"/>
+        <record model='res.partner' id="contact20635">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20635"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. Thomas Riebler</field>
+            <field name='firstname'>Thomas</field>
+            <field name='lastname'>Riebler</field>
+            <field name='email'>riebler@spittal-drau.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact20635')]"/>
+        <record model='res.partner' id="contact31309">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31309"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. Josef Jamök</field>
+            <field name='firstname'>Josef</field>
+            <field name='lastname'>Jamök</field>
+            <field name='email'>gemeinde@furth.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact31309')]"/>
+        <record model='res.partner' id="contact30201">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30201"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. Gerald Schindler</field>
+            <field name='firstname'>Gerald</field>
+            <field name='lastname'>Schindler</field>
+            <field name='email'>rosa.gressenbauer@st-poelten.gv.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact30201')]"/>
+        <record model='res.partner' id="contact30604">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30604"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'>Ing.</field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. Ing. Markus Aumann</field>
+            <field name='firstname'>Markus</field>
+            <field name='lastname'>Aumann</field>
+            <field name='email'>stadtamt@baden.gv.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact30604')]"/>
+        <record model='res.partner' id="contact30101">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30101"/>
+            <field name='title' ref=""/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Informationstechnologie</field>
+            <field name='firstname'></field>
+            <field name='lastname'>Informationstechnologie</field>
+            <field name='email'>post@krems.gv.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact30101')]"/>
+        <record model='res.partner' id="contact30401">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30401"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. Franz Horvath</field>
+            <field name='firstname'>Franz</field>
+            <field name='lastname'>Horvath</field>
+            <field name='email'>franz.horvath@wiener-neustadt.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact30401')]"/>
+        <record model='res.partner' id="contact70716">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70716"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. Fercher</field>
+            <field name='firstname'></field>
+            <field name='lastname'>Fercher</field>
+            <field name='email'>rathaus@stadt-lienz.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact70716')]"/>
+        <record model='res.partner' id="contact30740">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30740"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. Gerhard Szikora</field>
+            <field name='firstname'>Gerhard</field>
+            <field name='lastname'>Szikora</field>
+            <field name='email'>g.szikora@schwechat.gv.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact30740')]"/>
+        <record model='res.partner' id="contact30301">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30301"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. Josef Kerschbaumer</field>
+            <field name='firstname'>Josef</field>
+            <field name='lastname'>Kerschbaumer</field>
+            <field name='email'>post.it@magistrat.waidhofen.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact30301')]"/>
+        <record model='res.partner' id="contact31213">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31213"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. Christian Gepp</field>
+            <field name='firstname'>Christian</field>
+            <field name='lastname'>Gepp</field>
+            <field name='email'>stadtamt@korneuburg.gv.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact31213')]"/>
+        <record model='res.partner' id="contact31818">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31818"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'>Ing.</field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. Ing. Walter Schwingersbauer</field>
+            <field name='firstname'>Walter</field>
+            <field name='lastname'>Schwingersbauer</field>
+            <field name='email'>walter.schwingersbauer@neunkirchen.gv.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact31818')]"/>
+        <record model='res.partner' id="contact30531">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30531"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. Ernst Himsl</field>
+            <field name='firstname'>Ernst</field>
+            <field name='lastname'>Himsl</field>
+            <field name='email'>rathaus@st-valentin.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact30531')]"/>
+        <record model='res.partner' id="contact32016">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde32016"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'>Mag.</field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. Mag. Franz Willatschek</field>
+            <field name='firstname'>Franz</field>
+            <field name='lastname'>Willatschek</field>
+            <field name='email'>k.schalkhaas@wieselburg.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact32016')]"/>
+        <record model='res.partner' id="contact31413">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31413"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. Thomas Hochebner</field>
+            <field name='firstname'>Thomas</field>
+            <field name='lastname'>Hochebner</field>
+            <field name='email'>gemeinde@traisen.com</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact31413')]"/>
+        <record model='res.partner' id="contact20101">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20101"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. Josef Informationstechnologie</field>
+            <field name='firstname'>Josef</field>
+            <field name='lastname'>Informationstechnologie</field>
+            <field name='email'>magistratsdirektion@klagenfurt.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact20101')]"/>
+        <record model='res.partner' id="contact60665">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde60665"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>AL</field>
+            <field name='attention_of'>Hr. AL Werner Eibinger</field>
+            <field name='firstname'>Werner</field>
+            <field name='lastname'>Eibinger</field>
+            <field name='email'>werner.eibinger@hitzendorf.gv.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact60665')]"/>
+        <record model='res.partner' id="contact32144">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde32144"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'>Ing.</field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. Ing. Christian Paschinger</field>
+            <field name='firstname'>Christian</field>
+            <field name='lastname'>Paschinger</field>
+            <field name='email'>paschinger@klosterneuburg.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact32144')]"/>
+        <record model='res.partner' id="contact10101">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde10101"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. Franz Hahnekamp</field>
+            <field name='firstname'>Franz</field>
+            <field name='lastname'>Hahnekamp</field>
+            <field name='email'>rathaus@eisenstadt.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact10101')]"/>
+        <record model='res.partner' id="contactGSZK">
+            <field name='parent_id' ref="itk_initial_partner_nogkz_data_import.gemeindeGSZK"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. DI Manfred Wundara</field>
+            <field name='firstname'>Manfred</field>
+            <field name='lastname'>Wundara</field>
+            <field name='email'>clarissa.melischnig@giz-k.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contactGSZK')]"/>
+        <record model='res.partner' id="contact41605">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41605"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Fr. Regina Schuhmayer</field>
+            <field name='firstname'>Regina</field>
+            <field name='lastname'>Schuhmayer</field>
+            <field name='email'>gemeinde@engerwitzdorf.gv.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact41605')]"/>
+        <record model='res.partner' id="contact31633">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31633"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. Heinz Lukes</field>
+            <field name='firstname'>Heinz</field>
+            <field name='lastname'>Lukes</field>
+            <field name='email'>amt@mistelbach.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact31633')]"/>
+        <record model='res.partner' id="contact41012">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41012"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'>Mag.</field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. Mag. Walter Brunner</field>
+            <field name='firstname'>Walter</field>
+            <field name='lastname'>Brunner</field>
+            <field name='email'>rechnungen@leonding.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact41012')]"/>
+        <record model='res.partner' id="contact31725">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31725"/>
+            <field name='title' ref=""/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>"Hr. Mazuheli</field>
+            <field name='firstname'></field>
+            <field name='lastname'>Mazuheli</field>
+            <field name='email'>MBA MPA"</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact31725')]"/>
+        <record model='res.partner' id="contact40502">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde40502"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>AL</field>
+            <field name='attention_of'>Fr. AL Monika Steinmair</field>
+            <field name='firstname'>Monika</field>
+            <field name='lastname'>Steinmair</field>
+            <field name='email'>gemeinde@aschach-steyr.ooe.gv.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact40502')]"/>
+        <record model='res.partner' id="contact61108">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde61108"/>
+            <field name='title' ref=""/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Referat EDV</field>
+            <field name='firstname'></field>
+            <field name='lastname'>EDV</field>
+            <field name='email'>stadtgemeinde@leoben.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact61108')]"/>
+        <record model='res.partner' id="contact62041">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde62041"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'>Ing.</field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. Ing. Harald Kordik</field>
+            <field name='firstname'>Harald</field>
+            <field name='lastname'>Kordik</field>
+            <field name='email'>harald.kordik@knittelfeld.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact62041')]"/>
+        <record model='res.partner' id="contact61766">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde61766"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Fr. Dr. Susanne Kropac</field>
+            <field name='firstname'>Susanne</field>
+            <field name='lastname'>Kropac</field>
+            <field name='email'>gde@weiz.gv.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact61766')]"/>
+        <record model='res.partner' id="contact61120">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde61120"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. Achim Maugert</field>
+            <field name='firstname'>Achim</field>
+            <field name='lastname'>Maugert</field>
+            <field name='email'>gemeinde@trofaiach.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact61120')]"/>
+        <record model='res.partner' id="contact62267">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde62267"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. Michael Trummer</field>
+            <field name='firstname'>Michael</field>
+            <field name='lastname'>Trummer</field>
+            <field name='email'>michael.trummer@fuerstenfeld.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact62267')]"/>
+        <record model='res.partner' id="contact61057">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde61057"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'>Ing.</field>
+            <field name='function'>AL</field>
+            <field name='attention_of'>Hr. AL Ing. Josef Schweigler</field>
+            <field name='firstname'>Josef</field>
+            <field name='lastname'>Schweigler</field>
+            <field name='email'>gde@schwarzautal.gv.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact61057')]"/>
+        <record model='res.partner' id="contact61446">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde61446"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Fr. Barbara Pichler</field>
+            <field name='firstname'>Barbara</field>
+            <field name='lastname'>Pichler</field>
+            <field name='email'>gde@teufenbach-katsch.gv.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact61446')]"/>
+        <record model='res.partner' id="contact31714">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31714"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>Bgm.</field>
+            <field name='attention_of'>Hr. Bgm. Dr. Peter Klar</field>
+            <field name='firstname'>Peter</field>
+            <field name='lastname'>Klar</field>
+            <field name='email'>gemeinde@laab-walde.gv.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact31714')]"/>
+        <record model='res.partner' id="contact41021">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41021"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. Alfred Macher</field>
+            <field name='firstname'>Alfred</field>
+            <field name='lastname'>Macher</field>
+            <field name='email'>buergerservice@traun.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact41021')]"/>
+        <record model='res.partner' id="contact70721">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde70721"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. Matthias Scherer</field>
+            <field name='firstname'>Matthias</field>
+            <field name='lastname'>Scherer</field>
+            <field name='email'>gemeinde@obertilliach.gv.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact70721')]"/>
+        <record model='res.partner' id="contact41007">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde41007"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. Gunter Kastler</field>
+            <field name='firstname'>Gunter</field>
+            <field name='lastname'>Kastler</field>
+            <field name='email'>gemeindeamt@hoersching.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact41007')]"/>
+        <record model='res.partner' id="contact10606">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde10606"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'>AL</field>
+            <field name='attention_of'>Hr. AL Karl Aufner</field>
+            <field name='firstname'>Karl</field>
+            <field name='lastname'>Aufner</field>
+            <field name='email'>ingrid.salamon@mattersburg.bgld.gv.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact10606')]"/>
+        <record model='res.partner' id="contactRIS">
+            <field name='parent_id' ref="itk_initial_partner_nogkz_data_import.gemeindeRIS"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'>Ing.</field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. Ing. Mag (FH) Michael Kölbl</field>
+            <field name='firstname'>Michael</field>
+            <field name='lastname'>Kölbl</field>
+            <field name='email'>koelbl@ris.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contactRIS')]"/>
+        <record model='res.partner' id="contact61105">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde61105"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hrn. Mario Angerer</field>
+            <field name='firstname'>Mario</field>
+            <field name='lastname'>Angerer</field>
+            <field name='email'>gde@kalwang.gv.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact61105')]"/>
+        <record model='res.partner' id="contact30935">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30935"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Fr. StA.Dir. Claudia Trinko</field>
+            <field name='firstname'>Claudia</field>
+            <field name='lastname'>Trinko</field>
+            <field name='email'>gemeinde@schrems.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact30935')]"/>
+        <record model='res.partner' id="contactFHCW">
+            <field name='parent_id' ref="itk_initial_partner_nogkz_data_import.gemeindeFHCW"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Fr. Veronika Groyer</field>
+            <field name='firstname'>Veronika</field>
+            <field name='lastname'>Groyer</field>
+            <field name='email'>veronika.groyer@fh-campuswien.ac.at</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contactFHCW')]"/>
+        <record model='res.partner' id="contactBST2">
+            <field name='parent_id' ref="itk_initial_partner_nogkz_data_import.gemeindeBST"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. Johann Kronauer</field>
+            <field name='firstname'>Johann</field>
+            <field name='lastname'>Kronauer</field>
+            <field name='email'>'johann.kronauer@bay-staedtetag.de'</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contactBST2')]"/>
+        <record model='res.partner' id="contact30201">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30201"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Fr. Rosa Gressenbauer</field>
+            <field name='firstname'>Rosa</field>
+            <field name='lastname'>Gressenbauer</field>
+            <field name='email'></field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact30201')]"/>
+        <record model='res.partner' id="contact30401">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30401"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. Franz Horvath</field>
+            <field name='firstname'>Franz</field>
+            <field name='lastname'>Horvath</field>
+            <field name='email'></field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact30401')]"/>
+        <record model='res.partner' id="contact62040">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde62040"/>
+            <field name='title' ref=""/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>"Fr. Fattinger</field>
+            <field name='firstname'></field>
+            <field name='lastname'>Fattinger</field>
+            <field name='email'>Finanzverwaltung"</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact62040')]"/>
+        <record model='res.partner' id="contact30301">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde30301"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. Josef Kerschbaumer</field>
+            <field name='firstname'>Josef</field>
+            <field name='lastname'>Kerschbaumer</field>
+            <field name='email'></field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact30301')]"/>
+        <record model='res.partner' id="contact62267">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde62267"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>Hr. Michael Trummer</field>
+            <field name='firstname'>Michael</field>
+            <field name='lastname'>Trummer</field>
+            <field name='email'></field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact62267')]"/>
+        <record model='res.partner' id="contact31725">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde31725"/>
+            <field name='title' ref=""/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='attention_of'>"Hr. Mazuheli</field>
+            <field name='firstname'></field>
+            <field name='lastname'>Mazuheli</field>
+            <field name='email'>MBA MPA"</field>
+            <field name='type'>invoice</field>
+        </record>
+        <function id="function_to_call" model="res.partner" name="action_set_address_of_contact"
+                  eval="[ref('contact31725')]"/>
+    </data>
+</odoo>

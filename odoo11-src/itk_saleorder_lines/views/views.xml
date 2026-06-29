@@ -1,0 +1,52 @@
+<odoo>
+
+    <data>
+# TODO
+    <!--<record id="sale_order_lines_action_res_partner" model="ir.actions.act_window">-->
+        <!--<field name="context">{'search_default_partner_id': [active_id], 'default_partner_id': active_id, 'group_by':'order_id'}</field>-->
+        <!--<field name="name">Saleorders</field>-->
+        <!--<field name="res_model">sale.order.line</field>-->
+        <!--<field name="view_type">form</field>-->
+        <!--<field name="view_mode">tree,form</field>-->
+    <!--</record>-->
+
+    <!--<record model="ir.ui.view" id="res_partner_view_inherit_sale_order">-->
+        <!--<field name="name">partner.view.button.sale_order_count</field>-->
+        <!--<field name="model">res.partner</field>-->
+        <!--<field name="inherit_id" ref="base.view_partner_form"/>-->
+        <!--<field name="priority" eval="22"/>-->
+        <!--&lt;!&ndash;<field name="groups_id" eval="[(4, ref('itk_subscription.group_sale_subscription_view'))]"/>&ndash;&gt;-->
+        <!--<field name="arch" type="xml">-->
+            <!--<xpath expr="//button[@name='toggle_active']" position="before">-->
+                <!--<button class="oe_stat_button" type="action"-->
+                        <!--name="%(itk_saleorder_lines.sale_order_lines_action_res_partner)d"-->
+                        <!--icon="fa-book">-->
+                    <!--<field string="SaXXles" name="sale_order_count" widget="statinfo"/>-->
+                <!--</button>-->
+            <!--</xpath>-->
+        <!--</field>-->
+    <!--</record>-->
+
+# TODO
+
+
+
+
+        <record id="action_all_order_lines_tree" model="ir.actions.act_window">
+            <field name="name">Order Lines</field>
+            <field name="res_model">sale.order.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <!--<field name="search_view_id" ref="sale_subscription_line_search"/>-->
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create an Orderline.
+                </p>
+            </field>
+        </record>
+        <menuitem name="All Order Lines"
+                  id="menu_sale_order_lines" sequence="8"
+                  parent="sale.sale_order_menu"
+                  action="action_all_order_lines_tree"/>
+    </data>
+</odoo>

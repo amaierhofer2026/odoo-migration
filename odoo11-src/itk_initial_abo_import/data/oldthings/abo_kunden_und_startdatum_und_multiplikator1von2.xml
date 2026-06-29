@@ -1,0 +1,31 @@
+<odoo>
+    <data noupdate="0">
+        <record model='sale.subscription' id="itk_initial_abo_import.abo_helpamtsweg_gemeinde10617">
+            <field name='partner_id' ref="itk_initial_data_import.gemeinde10617"/>
+            <field name='template_id' ref="itk_subscription.subscription_template_J"/>
+            <field name="date_start">11.11.2011</field>
+            <field name="recurring_next_date">11.11.2019</field>
+            <field name='pricelist_id' ref="product.list0"/>
+        </record>
+
+        <record id="itk_initial_abo_import.abo_gemeinde10617_abo_line_1" model="sale.subscription.line">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10617"/>
+            <field name="order_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10617"/>
+            <field name="name">Amtsweg.gv.at HELP - Basispaket Sockelbetrag</field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_2"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">65.00</field>
+        </record>
+
+        <record id="itk_initial_abo_import.abo_gemeinde10617_abo_line_2" model="sale.subscription.line">
+            <field name="analytic_account_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10617"/>
+            <field name="order_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10617"/>
+            <field name="name">Amtsweg.gv.at HELP-Basispaket Preis pro angefangene 1.000 Einwohner</field>
+            <field name="product_id" ref="itk_initial_product_import.itk_product_1"/>
+            <field name="quantity">1</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+            <field name="price_unit">10.00</field>
+        </record>
+    </data>
+</odoo>

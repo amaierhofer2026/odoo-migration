@@ -1,0 +1,2629 @@
+<odoo>
+    <data noupdate="1">
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41501">
+            <field name='street'>Kirchenplatz 5</field>
+            <field name='website'>www.adlwang.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Adlwang</field>
+            <field name='latitude'>47°59′N</field>
+            <field name='longitude'>14°13′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40801">
+            <field name='street'>Aistersheim 5</field>
+            <field name='website'>www.aistersheim.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Aistersheim</field>
+            <field name='latitude'>48°11′N</field>
+            <field name='longitude'>13°45′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41343">
+            <field name='street'>Marktplatz 17</field>
+            <field name='website'>www.aigen-schlaegl.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Aigen-Schlägl</field>
+            <field name='latitude'>48°38′N</field>
+            <field name='longitude'>13°58′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41801">
+            <field name='street'>Aichkirchen 26</field>
+            <field name='website'>www.aichkirchen.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Aichkirchen</field>
+            <field name='latitude'>48°7′N</field>
+            <field name='longitude'>13°48′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41302">
+            <field name='street'>Leonfeldnerstraße 15</field>
+            <field name='website'>www.ahorn.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Ahorn_%28Ober%C3%B6sterreich%29
+            </field>
+            <field name='latitude'>48°31′N</field>
+            <field name='longitude'>14°11′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40501">
+            <field name='street'>Alte Hauptstraße 40</field>
+            <field name='website'>www.alkoven.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Alkoven_%28Ober%C3%B6sterreich%29
+            </field>
+            <field name='latitude'>48°17′N</field>
+            <field name='longitude'>14°6′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41101">
+            <field name='street'>Allerheiligen i.M. 2</field>
+            <field name='website'>www.allerheiligen.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Allerheiligen_im_M%C3%BChlkreis
+            </field>
+            <field name='latitude'>48°18′N</field>
+            <field name='longitude'>14°39′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41001">
+            <field name='street'>Allhaming 46</field>
+            <field name='website'>www.allhaming.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Allhaming</field>
+            <field name='latitude'>48°9′N</field>
+            <field name='longitude'>14°10′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41602">
+            <field name='street'>Reichenauer Straße 4</field>
+            <field name='website'>www.altenberg.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Altenberg_bei_Linz</field>
+            <field name='latitude'>48°22′N</field>
+            <field name='longitude'>14°21′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41304">
+            <field name='street'>Veldenstraße 3</field>
+            <field name='website'>www.altenfelden.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Altenfelden</field>
+            <field name='latitude'>48°29′N</field>
+            <field name='longitude'>13°58′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40701">
+            <field name='street'>Marktstraße 21</field>
+            <field name='website'>www.altmuenster.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Altm%C3%BCnster</field>
+            <field name='latitude'>47°54′N</field>
+            <field name='longitude'>13°45′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41401">
+            <field name='street'>Altschwendt 9</field>
+            <field name='website'>www.altschwendt.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Altschwendt</field>
+            <field name='latitude'>48°19′N</field>
+            <field name='longitude'>13°41′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41701">
+            <field name='street'>Hausruckstraße 12</field>
+            <field name='website'>www.ampflwang.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Ampflwang_im_Hausruckwald</field>
+            <field name='latitude'>48°6′N</field>
+            <field name='longitude'>13°34′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41402">
+            <field name='street'>Hauptstraße 32</field>
+            <field name='website'>www.andorf.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Andorf</field>
+            <field name='latitude'>48°22′N</field>
+            <field name='longitude'>13°35′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41201">
+            <field name='street'>Andrichsfurt 40</field>
+            <field name='website'>www.andrichsfurt.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Andrichsfurt</field>
+            <field name='latitude'>48°16′N</field>
+            <field name='longitude'>13°31′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41202">
+            <field name='street'>Ortsplatz 1</field>
+            <field name='website'>www.antiesenhofen.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Antiesenhofen</field>
+            <field name='latitude'>48°21′N</field>
+            <field name='longitude'>13°24′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41002">
+            <field name='street'>Hauptplatz 41</field>
+            <field name='website'>www.ansfelden.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Ansfelden</field>
+            <field name='latitude'>48°12′N</field>
+            <field name='longitude'>14°17′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41102">
+            <field name='street'>Hauptstraße 39</field>
+            <field name='website'>www.arbing.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Arbing_%28Ober%C3%B6sterreich%29</field>
+            <field name='latitude'>48°14′N</field>
+            <field name='longitude'>14°42′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41305">
+            <field name='street'>Arnreit 13</field>
+            <field name='website'>www.arnreit.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Arnreit</field>
+            <field name='latitude'>48°32′N</field>
+            <field name='longitude'>14°0′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40502">
+            <field name='street'>Abelstraße 44</field>
+            <field name='website'>aschachdonau.net</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Aschach_an_der_Donau</field>
+            <field name='latitude'>48°22′N</field>
+            <field name='longitude'>14°1′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41502">
+            <field name='street'>Hauptstraße 27</field>
+            <field name='website'>www.aschach-steyr.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Aschach_an_der_Steyr</field>
+            <field name='latitude'>48°1′N</field>
+            <field name='longitude'>14°20′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41003">
+            <field name='street'>Marktplatz 2</field>
+            <field name='website'>http://www.asten.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Asten</field>
+            <field name='latitude'>48°13′N</field>
+            <field name='longitude'>14°25′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41702">
+            <field name='street'>Nußdorferstraße 15</field>
+            <field name='website'>www.attersee.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Attersee_am_Attersee</field>
+            <field name='latitude'>47°55′N</field>
+            <field name='longitude'>13°32′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41704">
+            <field name='street'>Am Ortsplatz 3/1</field>
+            <field name='website'>www.atzbach.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Atzbach_%28Ober%C3%B6sterreich%29
+            </field>
+            <field name='latitude'>48°5′N</field>
+            <field name='longitude'>13°42′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41307">
+            <field name='street'>Hollerberg 9</field>
+            <field name='website'>www.auberg.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Auberg</field>
+            <field name='latitude'>48°33′N</field>
+            <field name='longitude'>14°3′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41705">
+            <field name='street'>Aurach a.H. 2</field>
+            <field name='website'>www.aurach.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Aurach_am_Hongar</field>
+            <field name='latitude'>47°57′N</field>
+            <field name='longitude'>13°40′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41203">
+            <field name='street'>Schlossstraße 1</field>
+            <field name='website'>www.aurolzmuenster.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Aurolzm%C3%BCnster</field>
+            <field name='latitude'>48°15′N</field>
+            <field name='longitude'>13°27′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41802">
+            <field name='street'>Gemeinde BachmanningDorfplatz 5</field>
+            <field name='website'>www.bachmanning.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Bachmanning</field>
+            <field name='latitude'>48°8′N</field>
+            <field name='longitude'>13°48′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41503">
+            <field name='street'>Hauptplatz 5</field>
+            <field name='website'>www.bad-hall.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Bad_Hall</field>
+            <field name='latitude'>48°2′N</field>
+            <field name='longitude'>14°12′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40703">
+            <field name='street'>Pfarrgasse 11</field>
+            <field name='website'>www.bad-ischl.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Bad_Ischl</field>
+            <field name='latitude'>47°43′N</field>
+            <field name='longitude'>13°38′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41108">
+            <field name='street'>Bad Kreuzen 20a</field>
+            <field name='website'>www.bad-kreuzen.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Bad_Kreuzen</field>
+            <field name='latitude'>48°16′N</field>
+            <field name='longitude'>14°48′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40802">
+            <field name='street'>Rathausplatz 1</field>
+            <field name='website'>www.bad-schallerbach.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Bad_Schallerbach</field>
+            <field name='latitude'>48°14′N</field>
+            <field name='longitude'>13°56′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41603">
+            <field name='street'>Hauptplatz 1</field>
+            <field name='website'>www.bad-leonfelden.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Bad_Leonfelden</field>
+            <field name='latitude'>48°32′N</field>
+            <field name='longitude'>14°18′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40627">
+            <field name='street'>Marktplatz 8</field>
+            <field name='website'>www.badzell.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Bad_Zell</field>
+            <field name='latitude'>48°21′N</field>
+            <field name='longitude'>14°40′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41103">
+            <field name='street'>Baumgartenberg 85</field>
+            <field name='website'>www.baumgartenberg.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Baumgartenberg</field>
+            <field name='latitude'>48°13′N</field>
+            <field name='longitude'>14°45′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41706">
+            <field name='street'>Attergaustr. 36</field>
+            <field name='website'>www.berg-attergau.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Berg_im_Attergau</field>
+            <field name='latitude'>47°57′N</field>
+            <field name='longitude'>13°32′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40404">
+            <field name='street'>Stadtplatz 38</field>
+            <field name='website'>www.braunau.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Braunau_am_Inn</field>
+            <field name='latitude'>48°15′N</field>
+            <field name='longitude'>13°2′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41804">
+            <field name='street'>Marktgemeinde BuchkirchenHauptstraße 7</field>
+            <field name='website'>www.buchkirchen.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Buchkirchen</field>
+            <field name='latitude'>48°13′N</field>
+            <field name='longitude'>14°1′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40405">
+            <field name='street'>Gemeinde BurgkirchenKirchenplatz 1</field>
+            <field name='website'>www.burgkirchen.ooe.gv.at</field>
+            <field name='austria_wiki_url'>
+                https://austria-forum.org/af/AustriaWiki/Burgkirchen_%28Ober%C3%B6sterreich%29
+            </field>
+            <field name='latitude'>48°12′N</field>
+            <field name='longitude'>13°6′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41707">
+            <field name='street'>Desselbrunn 37</field>
+            <field name='website'>www.desselbrunn.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Desselbrunn</field>
+            <field name='latitude'>48°1′N</field>
+            <field name='longitude'>13°46′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41504">
+            <field name='street'>Kirchenplatz 6</field>
+            <field name='website'>www.dietach.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Dietach</field>
+            <field name='latitude'>48°6′N</field>
+            <field name='longitude'>14°25′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41104">
+            <field name='street'>Dimbach 2</field>
+            <field name='website'>www.dimbach.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Dimbach_%28Ober%C3%B6sterreich%29
+            </field>
+            <field name='latitude'>48°18′N</field>
+            <field name='longitude'>14°55′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41204">
+            <field name='street'>Eberschwang 93</field>
+            <field name='website'>www.eberschwang.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Eberschwang</field>
+            <field name='latitude'>48°9′N</field>
+            <field name='longitude'>13°34′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41805">
+            <field name='street'>Hauptstraße 15</field>
+            <field name='website'>www.eberstalzell.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Eberstalzell</field>
+            <field name='latitude'>48°3′N</field>
+            <field name='longitude'>13°59′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40901">
+            <field name='street'>Edlbach 80</field>
+            <field name='website'>www.edlbach.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Edlbach</field>
+            <field name='latitude'>47°43′N</field>
+            <field name='longitude'>14°22′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40503">
+            <field name='street'>Stadtplatz 31</field>
+            <field name='website'>www.eferding.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Eferding</field>
+            <field name='latitude'>48°19′N</field>
+            <field name='longitude'>14°2′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40406">
+            <field name='street'>Marktplatz 13</field>
+            <field name='website'>www.eggelsberg.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Eggelsberg</field>
+            <field name='latitude'>48°5′N</field>
+            <field name='longitude'>13°0′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41004">
+            <field name='street'>Obere Dorfstraße 4</field>
+            <field name='website'>www.eggendorf.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Eggendorf_im_Traunkreis</field>
+            <field name='latitude'>48°8′N</field>
+            <field name='longitude'>14°9′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41406">
+            <field name='street'>Eggerding 42</field>
+            <field name='website'>nicht bekannt</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Eggerding</field>
+            <field name='latitude'>48°21′N</field>
+            <field name='longitude'>13°29′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41604">
+            <field name='street'>Stiftsstraße 2</field>
+            <field name='website'>www.eidenberg.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Eidenberg</field>
+            <field name='latitude'>48°24′N</field>
+            <field name='longitude'>14°14′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41407">
+            <field name='street'>Marktplatz 61</field>
+            <field name='website'>www.engelhartszell.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Engelhartszell</field>
+            <field name='latitude'>48°30′N</field>
+            <field name='longitude'>13°44′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41005">
+            <field name='street'>Hauptplatz 11</field>
+            <field name='website'>www.enns.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Enns</field>
+            <field name='latitude'>48°13′N</field>
+            <field name='longitude'>14°29′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41408">
+            <field name='street'>Enzenkirchen 111</field>
+            <field name='website'>www.enzenkirchen.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Enzenkirchen</field>
+            <field name='latitude'>48°23′N</field>
+            <field name='longitude'>13°39′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40804">
+            <field name='street'>Hasledt 10</field>
+            <field name='website'>www.eschenau.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Eschenau_im_Hausruckkreis</field>
+            <field name='latitude'>48°23′N</field>
+            <field name='longitude'>13°49′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40407">
+            <field name='street'>Feldkirchen 45</field>
+            <field name='website'>www.feldkirchen-mattighofen.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Feldkirchen_bei_Mattighofen</field>
+            <field name='latitude'>48°4′N</field>
+            <field name='longitude'>13°3′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41409">
+            <field name='street'>Hauptstraße 33</field>
+            <field name='website'>www.esternberg.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Esternberg</field>
+            <field name='latitude'>48°33′N</field>
+            <field name='longitude'>13°34′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41606">
+            <field name='street'>Hauptstraße 1</field>
+            <field name='website'>www.feldkirchen-donau.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Feldkirchen_an_der_Donau</field>
+            <field name='latitude'>48°21′N</field>
+            <field name='longitude'>14°3′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41807">
+            <field name='street'>Gemeinde FischlhamThalheimerstraße 5</field>
+            <field name='website'>www.fischlham.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Fischlham</field>
+            <field name='latitude'>48°5′N</field>
+            <field name='longitude'>13°57′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41708">
+            <field name='street'>Fornach 2</field>
+            <field name='website'>www.fornach.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Fornach</field>
+            <field name='latitude'>48°1′N</field>
+            <field name='longitude'>13°26′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41709">
+            <field name='street'>Marktplatz 4</field>
+            <field name='website'>www.frankenburg.info</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Frankenburg_am_Hausruck</field>
+            <field name='latitude'>48°4′N</field>
+            <field name='longitude'>13°30′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40504">
+            <field name='street'>Planbachstraße 2</field>
+            <field name='website'>www.fraham.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Fraham</field>
+            <field name='latitude'>48°17′N</field>
+            <field name='longitude'>14°2′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41710">
+            <field name='street'>Hauptstraße 85</field>
+            <field name='website'>www.frankenmarkt.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Frankenmarkt</field>
+            <field name='latitude'>47°59′N</field>
+            <field name='longitude'>13°25′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41410">
+            <field name='street'>Freinberg 4</field>
+            <field name='website'>www.freinberg.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Freinberg</field>
+            <field name='latitude'>48°34′N</field>
+            <field name='longitude'>13°31′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41505">
+            <field name='street'>Markt 46</field>
+            <field name='website'>www.gaflenz.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Gaflenz</field>
+            <field name='latitude'>47°54′N</field>
+            <field name='longitude'>14°44′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40408">
+            <field name='street'>Franking Nr. 26</field>
+            <field name='website'>www.franking.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Franking</field>
+            <field name='latitude'>48°3′N</field>
+            <field name='longitude'>12°55′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41607">
+            <field name='street'>Reichenauerstraße 1</field>
+            <field name='website'>www.gallneukirchen.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Gallneukirchen</field>
+            <field name='latitude'>48°21′N</field>
+            <field name='longitude'>14°25′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40805">
+            <field name='street'>Hauptplatz 8-9</field>
+            <field name='website'>www.gallspach.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Gallspach</field>
+            <field name='latitude'>48°12′N</field>
+            <field name='longitude'>13°49′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40601">
+            <field name='street'>Hauptplatz 1</field>
+            <field name='website'>www.freistadt.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Freistadt</field>
+            <field name='latitude'>48°31′N</field>
+            <field name='longitude'>14°30′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41711">
+            <field name='street'>Hauptstraße 14</field>
+            <field name='website'>www.gampern.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Gampern</field>
+            <field name='latitude'>47°59′N</field>
+            <field name='longitude'>13°33′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41506">
+            <field name='street'>Am Platzl 9</field>
+            <field name='website'>www.garsten.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Garsten</field>
+            <field name='latitude'>48°1′N</field>
+            <field name='longitude'>14°25′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40807">
+            <field name='street'>Feld 10</field>
+            <field name='website'>www.geboltskirchen.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Geboltskirchen</field>
+            <field name='latitude'>48°9′N</field>
+            <field name='longitude'>13°38′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41206">
+            <field name='street'>Geiersberg 23</field>
+            <field name='website'>www.oberoesterreich.at/geiersberg</field>
+            <field name='austria_wiki_url'>
+                https://austria-forum.org/af/AustriaWiki/Geiersberg_%28Ober%C3%B6sterreich%29
+            </field>
+            <field name='latitude'>48°12′N</field>
+            <field name='longitude'>13°35′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41207">
+            <field name='street'>Dorfstraße 9</field>
+            <field name='website'>www.geinberg.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Geinberg</field>
+            <field name='latitude'>48°16′N</field>
+            <field name='longitude'>13°18′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40409">
+            <field name='street'>Geretsberg 21</field>
+            <field name='website'>www.geretsberg.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Geretsberg</field>
+            <field name='latitude'>48°5′N</field>
+            <field name='longitude'>12°56′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40410">
+            <field name='street'>Gilgenberg 15</field>
+            <field name='website'>www.gilgenberg.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Gilgenberg_am_Weilhart</field>
+            <field name='latitude'>48°8′N</field>
+            <field name='longitude'>12°56′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41608">
+            <field name='street'>Schulstraße 1</field>
+            <field name='website'>www.goldwoerth.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Goldw%C3%B6rth</field>
+            <field name='latitude'>48°21′N</field>
+            <field name='longitude'>14°6′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40705">
+            <field name='street'>Rathausplatz 1</field>
+            <field name='website'>www.gmunden.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Gmunden</field>
+            <field name='latitude'>47°55′N</field>
+            <field name='longitude'>13°48′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40706">
+            <field name='street'>Gosau 444</field>
+            <field name='website'>www.gosau.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Gosau</field>
+            <field name='latitude'>47°35′N</field>
+            <field name='longitude'>13°32′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41609">
+            <field name='street'>Marktstraße 17</field>
+            <field name='website'>www.gramastetten.ooe.gv.at/</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Gramastetten</field>
+            <field name='latitude'>48°23′N</field>
+            <field name='longitude'>14°11′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41507">
+            <field name='street'>Kirchenplatz 1</field>
+            <field name='website'>www.grossraming.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Gro%C3%9Framing</field>
+            <field name='latitude'>47°53′N</field>
+            <field name='longitude'>14°33′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41105">
+            <field name='street'>Rathausgasse 1</field>
+            <field name='website'>www.grein.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Grein</field>
+            <field name='latitude'>48°14′N</field>
+            <field name='longitude'>14°51′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40808">
+            <field name='street'>Stadtplatz 9</field>
+            <field name='website'>www.grieskirchen.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Grieskirchen</field>
+            <field name='latitude'>48°14′N</field>
+            <field name='longitude'>13°50′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40707">
+            <field name='street'>Im Dorf 17</field>
+            <field name='website'>www.gruenau.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Gr%C3%BCnau_im_Almtal</field>
+            <field name='latitude'>47°51′N</field>
+            <field name='longitude'>13°57′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40602">
+            <field name='street'>Marktplatz 1</field>
+            <field name='website'>www.gruenbach.at</field>
+            <field name='austria_wiki_url'>
+                https://austria-forum.org/af/AustriaWiki/Gr%C3%BCnbach_%28Ober%C3%B6sterreich%29
+            </field>
+            <field name='latitude'>48°32′N</field>
+            <field name='longitude'>14°32′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40708">
+            <field name='street'>Hauptstraße 2</field>
+            <field name='website'>http://www.gschwandt.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Gschwandt_%28bei_Gmunden%29</field>
+            <field name='latitude'>47°56′N</field>
+            <field name='longitude'>13°51′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41808">
+            <field name='street'>Marktgemeinde GunskirchenMarktplatz 1</field>
+            <field name='website'>www.gunskirchen.com</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Gunskirchen</field>
+            <field name='latitude'>48°8′N</field>
+            <field name='longitude'>13°57′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40603">
+            <field name='street'>Oswalder Straße 2</field>
+            <field name='website'>www.gutau.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Gutau</field>
+            <field name='latitude'>48°25′N</field>
+            <field name='longitude'>14°36′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40809">
+            <field name='street'>Marktplatz 23</field>
+            <field name='website'>www.haag-hausruck.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Haag_am_Hausruck</field>
+            <field name='latitude'>48°11′N</field>
+            <field name='longitude'>13°39′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40604">
+            <field name='street'>Kirchenplatz 5</field>
+            <field name='website'>www.hagenberg.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Hagenberg_im_M%C3%BChlkreis</field>
+            <field name='latitude'>48°22′N</field>
+            <field name='longitude'>14°31′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40505">
+            <field name='street'>Kirchenplatz 4</field>
+            <field name='website'>www.haibach-donau.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Haibach_ob_der_Donau</field>
+            <field name='latitude'>48°25′N</field>
+            <field name='longitude'>13°55′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40411">
+            <field name='street'>Haigermoos 23</field>
+            <field name='website'>www.haigermoos.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Haigermoos</field>
+            <field name='latitude'>48°3′N</field>
+            <field name='longitude'>12°53′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40709">
+            <field name='street'>Seestraße 158</field>
+            <field name='website'>www.hallstatt.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Hallstatt</field>
+            <field name='latitude'>47°34′N</field>
+            <field name='longitude'>13°39′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40412">
+            <field name='street'>Handenberg 11</field>
+            <field name='website'>www.handenberg.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Handenberg</field>
+            <field name='latitude'>48°8′N</field>
+            <field name='longitude'>13°0′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41006">
+            <field name='street'>Hargelsberg 39</field>
+            <field name='website'>www.hargelsberg.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Hargelsberg</field>
+            <field name='latitude'>48°9′N</field>
+            <field name='longitude'>14°26′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40506">
+            <field name='street'>Kirchenplatz 1</field>
+            <field name='website'>www.hartkirchen.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Hartkirchen</field>
+            <field name='latitude'>48°22′N</field>
+            <field name='longitude'>14°0′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41309">
+            <field name='street'>Marktplatz 45</field>
+            <field name='website'>www.haslach.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Haslach_an_der_M%C3%BChl</field>
+            <field name='latitude'>48°35′N</field>
+            <field name='longitude'>14°2′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40810">
+            <field name='street'>Kirchenplatz 7</field>
+            <field name='website'>www.heiligenberg.ooe.gv.at</field>
+            <field name='austria_wiki_url'>
+                https://austria-forum.org/af/AustriaWiki/Heiligenberg_%28Ober%C3%B6sterreich%29
+            </field>
+            <field name='latitude'>48°21′N</field>
+            <field name='longitude'>13°49′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41612">
+            <field name='street'>Kirchenplatz 10</field>
+            <field name='website'>www.herzogsdorf.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Herzogsdorf</field>
+            <field name='latitude'>48°26′N</field>
+            <field name='longitude'>14°7′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41310">
+            <field name='street'>Leonfeldner Straße 15</field>
+            <field name='website'>www.helfenberg.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Helfenberg</field>
+            <field name='latitude'>48°33′N</field>
+            <field name='longitude'>14°9′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41611">
+            <field name='street'>Marktplatz 1</field>
+            <field name='website'>www.hellmonsoedt.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Hellmons%C3%B6dt</field>
+            <field name='latitude'>48°26′N</field>
+            <field name='longitude'>14°18′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40507">
+            <field name='street'>Chr.-Zeller-Weg 1</field>
+            <field name='website'>www.hinzenbach.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Hinzenbach</field>
+            <field name='latitude'>48°18′N</field>
+            <field name='longitude'>14°0′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40605">
+            <field name='street'>Museumsweg 5</field>
+            <field name='website'>www.hirschbach.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Hirschbach_im_M%C3%BChlkreis</field>
+            <field name='latitude'>48°29′N</field>
+            <field name='longitude'>14°25′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40811">
+            <field name='street'>Hauptstraße 30</field>
+            <field name='website'>www.hofkirchen-trattnach.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Hofkirchen_an_der_Trattnach</field>
+            <field name='latitude'>48°13′N</field>
+            <field name='longitude'>13°44′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41312">
+            <field name='street'>Markt 8</field>
+            <field name='website'>www.hofkirchen.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Hofkirchen_im_M%C3%BChlkreis</field>
+            <field name='latitude'>48°29′N</field>
+            <field name='longitude'>13°49′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41209">
+            <field name='street'>Hofmark 11</field>
+            <field name='website'>www.hohenzell.at</field>
+            <field name='austria_wiki_url'>
+                https://austria-forum.org/af/AustriaWiki/Hohenzell_%28Ober%C3%B6sterreich%29
+            </field>
+            <field name='latitude'>48°12′N</field>
+            <field name='longitude'>13°33′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41008">
+            <field name='street'>Dorfplatz 1</field>
+            <field name='website'>www.hofkirchen.info</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Hofkirchen_im_Traunkreis</field>
+            <field name='latitude'>48°9′N</field>
+            <field name='longitude'>14°23′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41809">
+            <field name='street'>Gemeinde HolzhausenLandstraße 2</field>
+            <field name='website'>www.gemeinde-holzhausen.at</field>
+            <field name='austria_wiki_url'>
+                https://austria-forum.org/af/AustriaWiki/Holzhausen_%28Ober%C3%B6sterreich%29
+            </field>
+            <field name='latitude'>48°13′N</field>
+            <field name='longitude'>14°6′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40415">
+            <field name='street'>Höhnhart 60</field>
+            <field name='website'>www.hoehnhart.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/H%C3%B6hnhart</field>
+            <field name='latitude'>48°10′N</field>
+            <field name='longitude'>13°16′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41311">
+            <field name='street'>Schulstraße 2</field>
+            <field name='website'>www.hoerbich.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/H%C3%B6rbich</field>
+            <field name='latitude'>48°31′N</field>
+            <field name='longitude'>13°55′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40904">
+            <field name='street'>Dorfplatz 2</field>
+            <field name='website'>www.inzersdorf.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Inzersdorf_im_Kremstal</field>
+            <field name='latitude'>47°56′N</field>
+            <field name='longitude'>14°0′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41007">
+            <field name='street'>Neubauer Straße 26</field>
+            <field name='website'>www.hoersching.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/H%C3%B6rsching</field>
+            <field name='latitude'>48°14′N</field>
+            <field name='longitude'>14°11′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41712">
+            <field name='street'>Wredeplatz 2</field>
+            <field name='website'>www.innerschwand.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Innerschwand_am_Mondsee</field>
+            <field name='latitude'>47°50′N</field>
+            <field name='longitude'>13°24′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40416">
+            <field name='street'>Jeging 1</field>
+            <field name='website'>www.jeging.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Jeging</field>
+            <field name='latitude'>48°3′N</field>
+            <field name='longitude'>13°9′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41313">
+            <field name='street'>Schulstraße 4</field>
+            <field name='website'>www.julbach.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Julbach_%28Ober%C3%B6sterreich%29
+            </field>
+            <field name='latitude'>48°40′N</field>
+            <field name='longitude'>13°52′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40812">
+            <field name='street'>Kallham 51</field>
+            <field name='website'>www.kallham.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Kallham</field>
+            <field name='latitude'>48°17′N</field>
+            <field name='longitude'>13°43′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40606">
+            <field name='street'>Kaltenberg Nr. 2</field>
+            <field name='website'>www.kaltenberg.at</field>
+            <field name='austria_wiki_url'>
+                https://austria-forum.org/af/AustriaWiki/Kaltenberg_%28Ober%C3%B6sterreich%29
+            </field>
+            <field name='latitude'>48°27′N</field>
+            <field name='longitude'>14°46′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41106">
+            <field name='street'>Gemeindeplatz 1</field>
+            <field name='website'>www.katsdorf.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Katsdorf</field>
+            <field name='latitude'>48°19′N</field>
+            <field name='longitude'>14°28′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40607">
+            <field name='street'>Oberer Markt 15</field>
+            <field name='website'>www.kefermarkt.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Kefermarkt</field>
+            <field name='latitude'>48°27′N</field>
+            <field name='longitude'>14°32′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41009">
+            <field name='street'>Linzer Straße 30</field>
+            <field name='website'>www.kematen.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Kematen_an_der_Krems</field>
+            <field name='latitude'>48°7′N</field>
+            <field name='longitude'>14°12′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40813">
+            <field name='street'>Innbachtalstraße 45</field>
+            <field name='website'>kematen-innbach.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Kematen_am_Innbach</field>
+            <field name='latitude'>48°11′N</field>
+            <field name='longitude'>13°52′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40417">
+            <field name='street'>Kirchberg 27</field>
+            <field name='website'>www.kirchberg-mattighofen.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Kirchberg_bei_Mattighofen</field>
+            <field name='latitude'>48°2′N</field>
+            <field name='longitude'>13°6′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41314">
+            <field name='street'>Kirchberg o.d.D. 5</field>
+            <field name='website'>www.kirchberg-donau.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Kirchberg_ob_der_Donau</field>
+            <field name='latitude'>48°27′N</field>
+            <field name='longitude'>13°56′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40710">
+            <field name='street'>Kirchham 32</field>
+            <field name='website'>www.kirchham.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Kirchham_%28Ober%C3%B6sterreich%29
+            </field>
+            <field name='latitude'>47°58′N</field>
+            <field name='longitude'>13°54′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41210">
+            <field name='street'>Kirchdorf a.I. 9</field>
+            <field name='website'>www.kirchdorfaminn.at</field>
+            <field name='austria_wiki_url'>
+                https://austria-forum.org/af/AustriaWiki/Kirchdorf_am_Inn_%28Ober%C3%B6sterreich%29
+            </field>
+            <field name='latitude'>48°18′N</field>
+            <field name='longitude'>13°17′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40905">
+            <field name='street'>Rathausplatz 1</field>
+            <field name='website'>www.kirchdorf.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Kirchdorf_an_der_Krems</field>
+            <field name='latitude'>47°54′N</field>
+            <field name='longitude'>14°7′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41211">
+            <field name='street'>Dorfstraße 12</field>
+            <field name='website'>www.kirchheim.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Kirchheim_im_Innkreis</field>
+            <field name='latitude'>48°13′N</field>
+            <field name='longitude'>13°22′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41613">
+            <field name='street'>Kirchschlag 44</field>
+            <field name='website'>www.kirchschlag.net</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Kirchschlag_bei_Linz</field>
+            <field name='latitude'>48°25′N</field>
+            <field name='longitude'>14°17′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41107">
+            <field name='street'>Klam 43</field>
+            <field name='website'>www.klam.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Klam</field>
+            <field name='latitude'>48°13′N</field>
+            <field name='longitude'>14°47′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40906">
+            <field name='street'>Klaus a.d.P. 100</field>
+            <field name='website'>www.gemeinde-klaus.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Klaus_an_der_Pyhrnbahn</field>
+            <field name='latitude'>47°50′N</field>
+            <field name='longitude'>14°9′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41316">
+            <field name='street'>Kleinzell i.M. 13</field>
+            <field name='website'>www.kleinzell.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Kleinzell_im_M%C3%BChlkreis</field>
+            <field name='latitude'>48°27′N</field>
+            <field name='longitude'>14°0′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41317">
+            <field name='street'>Markt 14</field>
+            <field name='website'>www.kollerschlag.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Kollerschlag</field>
+            <field name='latitude'>48°36′N</field>
+            <field name='longitude'>13°51′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41411">
+            <field name='street'>Hauptstraße 95</field>
+            <field name='website'>www.kopfing.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Kopfing_im_Innkreis</field>
+            <field name='latitude'>48°26′N</field>
+            <field name='longitude'>13°39′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40907">
+            <field name='street'>Rathausplatz 1</field>
+            <field name='website'>www.kremsmuenster.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Kremsm%C3%BCnster</field>
+            <field name='latitude'>48°3′N</field>
+            <field name='longitude'>14°8′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40608">
+            <field name='street'>Markt 2</field>
+            <field name='website'>www.koenigswiesen.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/K%C3%B6nigswiesen</field>
+            <field name='latitude'>48°24′N</field>
+            <field name='longitude'>14°50′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40711">
+            <field name='street'>Rathausplatz 1</field>
+            <field name='website'>www.laakirchen.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Laakirchen</field>
+            <field name='latitude'>47°59′N</field>
+            <field name='longitude'>13°49′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41810">
+            <field name='street'>Gemeinde KrenglbachKrenglbacher Straße 9</field>
+            <field name='website'>www.krenglbach.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Krenglbach</field>
+            <field name='latitude'>48°12′N</field>
+            <field name='longitude'>13°57′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41011">
+            <field name='street'>Brucknerplatz 1</field>
+            <field name='website'>www.kronstorf.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Kronstorf</field>
+            <field name='latitude'>48°9′N</field>
+            <field name='longitude'>14°28′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41811">
+            <field name='street'>Marktgemeinde LambachMarktplatz 8</field>
+            <field name='website'>www.lambach.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Lambach</field>
+            <field name='latitude'>48°6′N</field>
+            <field name='longitude'>13°53′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41212">
+            <field name='street'>Lambrechten 70</field>
+            <field name='website'>www.lambrechten.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Lambrechten</field>
+            <field name='latitude'>48°19′N</field>
+            <field name='longitude'>13°31′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40609">
+            <field name='street'>Markt 7</field>
+            <field name='website'>www.lasberg.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Lasberg</field>
+            <field name='latitude'>48°28′N</field>
+            <field name='longitude'>14°33′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41508">
+            <field name='street'>Kirchenplatz 1</field>
+            <field name='website'>www.laussa.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Laussa</field>
+            <field name='latitude'>47°57′N</field>
+            <field name='longitude'>14°27′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41318">
+            <field name='street'>Schulstraße 2</field>
+            <field name='website'>www.gemeinde-lembach.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Lembach_im_M%C3%BChlkreis</field>
+            <field name='latitude'>48°30′N</field>
+            <field name='longitude'>13°54′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41713">
+            <field name='street'>Hauptplatz 4</field>
+            <field name='website'>www.lenzing.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Lenzing</field>
+            <field name='latitude'>47°59′N</field>
+            <field name='longitude'>13°37′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41012">
+            <field name='street'>Stadtplatz 1</field>
+            <field name='website'>www.leonding.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Leonding</field>
+            <field name='latitude'>48°17′N</field>
+            <field name='longitude'>14°15′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41319">
+            <field name='street'>18</field>
+            <field name='website'>nicht bekannt</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Lichtenau_im_M%C3%BChlkreis</field>
+            <field name='latitude'>48°36′N</field>
+            <field name='longitude'>14°2′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40611">
+            <field name='street'>Liebenau 41</field>
+            <field name='website'>www.liebenau.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Liebenau_%28Ober%C3%B6sterreich%29
+            </field>
+            <field name='latitude'>48°32′N</field>
+            <field name='longitude'>14°48′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40101">
+            <field name='street'>auptstraße</field>
+            <field name='website'>www.linz.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Linz</field>
+            <field name='latitude'>48°18′N</field>
+            <field name='longitude'>14°17′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41213">
+            <field name='street'>Marktplatz 11</field>
+            <field name='website'>www.lohnsburg.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Lohnsburg_am_Kobernau%C3%9Ferwald
+            </field>
+            <field name='latitude'>48°9′N</field>
+            <field name='longitude'>13°24′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41509">
+            <field name='street'>Eisenstraße 45</field>
+            <field name='website'>www.losenstein.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Losenstein</field>
+            <field name='latitude'>47°56′N</field>
+            <field name='longitude'>14°26′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40421">
+            <field name='street'>Stadtplatz 1</field>
+            <field name='website'>www.mattighofen.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Mattighofen</field>
+            <field name='latitude'>48°6′N</field>
+            <field name='longitude'>13°9′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41714">
+            <field name='street'>Manning 31</field>
+            <field name='website'>www.manning.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Manning_%28Ober%C3%B6sterreich%29
+            </field>
+            <field name='latitude'>48°5′N</field>
+            <field name='longitude'>13°40′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41812">
+            <field name='street'>Linzer Straße 21</field>
+            <field name='website'>www.marchtrenk.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Marchtrenk</field>
+            <field name='latitude'>48°12′N</field>
+            <field name='longitude'>14°7′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41510">
+            <field name='street'>Neustift 1</field>
+            <field name='website'>www.maria-neustift.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Maria_Neustift</field>
+            <field name='latitude'>47°56′N</field>
+            <field name='longitude'>14°36′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40420">
+            <field name='street'>Maria Schmolln 64</field>
+            <field name='website'>www.maria-schmolln.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Maria_Schmolln</field>
+            <field name='latitude'>48°8′N</field>
+            <field name='longitude'>13°13′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41111">
+            <field name='street'>Marktplatz 7</field>
+            <field name='website'>www.mauthausen.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Mauthausen</field>
+            <field name='latitude'>48°15′N</field>
+            <field name='longitude'>14°31′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40422">
+            <field name='street'>Obermarkt 19</field>
+            <field name='website'>www.mauerkirchen.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Mauerkirchen</field>
+            <field name='latitude'>48°11′N</field>
+            <field name='longitude'>13°8′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41412">
+            <field name='street'>Mayrhof 14</field>
+            <field name='website'>www.mayrhof.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Mayrhof</field>
+            <field name='latitude'>48°21′N</field>
+            <field name='longitude'>13°30′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41214">
+            <field name='street'>Mehrnbach 80</field>
+            <field name='website'>www.mehrnbach.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Mehrnbach</field>
+            <field name='latitude'>48°12′N</field>
+            <field name='longitude'>13°26′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41215">
+            <field name='street'>Marktplatz 1</field>
+            <field name='website'>mettmach.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Mettmach</field>
+            <field name='latitude'>48°10′N</field>
+            <field name='longitude'>13°21′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40814">
+            <field name='street'>Am Dorfplatz 1</field>
+            <field name='website'>www.meggenhofen.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Meggenhofen</field>
+            <field name='latitude'>48°11′N</field>
+            <field name='longitude'>13°48′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40815">
+            <field name='street'>Grieskirchner Str. 4</field>
+            <field name='website'>www.michaelnbach.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Michaelnbach</field>
+            <field name='latitude'>48°17′N</field>
+            <field name='longitude'>13°50′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40908">
+            <field name='street'>Rathausplatz 1</field>
+            <field name='website'>www.micheldorf.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Micheldorf_in_Ober%C3%B6sterreich
+            </field>
+            <field name='latitude'>47°53′N</field>
+            <field name='longitude'>14°8′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40423">
+            <field name='street'>Hofmark 19</field>
+            <field name='website'>www.mining.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Mining</field>
+            <field name='latitude'>48°17′N</field>
+            <field name='longitude'>13°10′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41112">
+            <field name='street'>Mitterkirchen i.M. 50</field>
+            <field name='website'>www.mitterkirchen.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Mitterkirchen_im_Machland</field>
+            <field name='latitude'>48°11′N</field>
+            <field name='longitude'>14°43′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41715">
+            <field name='street'>Marktplatz 14</field>
+            <field name='website'>www.gemeinde-mondsee.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Mondsee</field>
+            <field name='latitude'>47°51′N</field>
+            <field name='longitude'>13°21′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40909">
+            <field name='street'>Marktstraße 1</field>
+            <field name='website'>www.molln.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Molln</field>
+            <field name='latitude'>47°53′N</field>
+            <field name='longitude'>14°16′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40425">
+            <field name='street'>Friedensplatz 1</field>
+            <field name='website'>www.moosdorf.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Moosdorf</field>
+            <field name='latitude'>48°3′N</field>
+            <field name='longitude'>12°59′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41113">
+            <field name='street'>Arbinger Straße 7</field>
+            <field name='website'>www.muenzbach.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/M%C3%BCnzbach</field>
+            <field name='latitude'>48°16′N</field>
+            <field name='longitude'>14°43′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41413">
+            <field name='street'>Schärdinger Straße 1</field>
+            <field name='website'>www.muenzkirchen.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/M%C3%BCnzkirchen</field>
+            <field name='latitude'>48°29′N</field>
+            <field name='longitude'>13°34′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41114">
+            <field name='street'>Perger Straße 2</field>
+            <field name='website'>www.naarn.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Naarn_im_Machlande</field>
+            <field name='latitude'>48°14′N</field>
+            <field name='longitude'>14°37′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40816">
+            <field name='street'>Kirchenplatz 6</field>
+            <field name='website'>www.natternbach.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Natternbach</field>
+            <field name='latitude'>48°24′N</field>
+            <field name='longitude'>13°45′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40427">
+            <field name='street'>Dorfplatz 1</field>
+            <field name='website'>www.neukirchen.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Neukirchen_an_der_Enknach</field>
+            <field name='latitude'>48°11′N</field>
+            <field name='longitude'>13°3′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41321">
+            <field name='street'>Markt 22</field>
+            <field name='website'>www.neufelden.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Neufelden</field>
+            <field name='latitude'>48°29′N</field>
+            <field name='longitude'>14°0′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41014">
+            <field name='street'>Kirchenplatz 3</field>
+            <field name='website'>www.neuhofen-krems.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Neuhofen_an_der_Krems</field>
+            <field name='latitude'>48°8′N</field>
+            <field name='longitude'>14°14′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41218">
+            <field name='street'>Hauptstraße 3</field>
+            <field name='website'>www.neuhofen-innkreis.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Neuhofen_im_Innkreis</field>
+            <field name='latitude'>48°11′N</field>
+            <field name='longitude'>13°28′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40817">
+            <field name='street'>Marktplatz 20</field>
+            <field name='website'>www.neukirchen-walde.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Neukirchen_am_Walde</field>
+            <field name='latitude'>48°24′N</field>
+            <field name='longitude'>13°47′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41329">
+            <field name='street'>Neustift i.M. 1</field>
+            <field name='website'>www.neustift-muehlviertel.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Neustift_im_M%C3%BChlkreis</field>
+            <field name='latitude'>48°32′N</field>
+            <field name='longitude'>13°45′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41716">
+            <field name='street'>Kirchenplatz 4</field>
+            <field name='website'>www.neukirchen-voeckla.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Neukirchen_an_der_V%C3%B6ckla
+            </field>
+            <field name='latitude'>48°2′N</field>
+            <field name='longitude'>13°32′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40818">
+            <field name='street'>Marktplatz 30</field>
+            <field name='website'>www.neumarkt-hausruckkreis.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Neumarkt_im_Hausruckkreis</field>
+            <field name='latitude'>48°16′N</field>
+            <field name='longitude'>13°44′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40612">
+            <field name='street'>Marktplatz 1</field>
+            <field name='website'>www.neumarkt-muehlkreis.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Neumarkt_im_M%C3%BChlkreis</field>
+            <field name='latitude'>48°26′N</field>
+            <field name='longitude'>14°29′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41813">
+            <field name='street'>Gemeinde Neukirchen bei LambachNeukirchen b.L. 8</field>
+            <field name='website'>www.gemeindeneukirchen.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Neukirchen_bei_Lambach</field>
+            <field name='latitude'>48°6′N</field>
+            <field name='longitude'>13°49′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41322">
+            <field name='street'>Niederkappel 48</field>
+            <field name='website'>www.niederkappel.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Niederkappel</field>
+            <field name='latitude'>48°28′N</field>
+            <field name='longitude'>13°53′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41015">
+            <field name='street'>Dorfplatz 1</field>
+            <field name='website'>www.niederneukirchen.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Niederneukirchen</field>
+            <field name='latitude'>48°10′N</field>
+            <field name='longitude'>14°20′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41717">
+            <field name='street'>Hauptstraße 42</field>
+            <field name='website'>www.niederthalheim.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Niederthalheim</field>
+            <field name='latitude'>48°6′N</field>
+            <field name='longitude'>13°46′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41323">
+            <field name='street'>Markt 22</field>
+            <field name='website'>www.niederwaldkirchen.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Niederwaldkirchen</field>
+            <field name='latitude'>48°27′N</field>
+            <field name='longitude'>14°5′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40910">
+            <field name='street'>Kirchenplatz 2</field>
+            <field name='website'>gemeinde-nussbach.at</field>
+            <field name='austria_wiki_url'>
+                https://austria-forum.org/af/AustriaWiki/Nu%C3%9Fbach_%28Ober%C3%B6sterreich%29
+            </field>
+            <field name='latitude'>47°58′N</field>
+            <field name='longitude'>14°10′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41718">
+            <field name='street'>Dorfstraße 33</field>
+            <field name='website'>www.nussdorf.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Nu%C3%9Fdorf_am_Attersee</field>
+            <field name='latitude'>47°53′N</field>
+            <field name='longitude'>13°31′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41219">
+            <field name='street'>Marktplatz 1</field>
+            <field name='website'>www.obernberg.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Obernberg_am_Inn</field>
+            <field name='latitude'>48°19′N</field>
+            <field name='longitude'>13°20′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40712">
+            <field name='street'>Obertraun 180</field>
+            <field name='website'>www.obertraun.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Obertraun</field>
+            <field name='latitude'>47°34′N</field>
+            <field name='longitude'>13°41′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41720">
+            <field name='street'>Atzbacher Straße 20</field>
+            <field name='website'>www.oberndorf.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Oberndorf_bei_Schwanenstadt</field>
+            <field name='latitude'>48°3′N</field>
+            <field name='longitude'>13°46′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41615">
+            <field name='street'>Ledererstraße 1</field>
+            <field name='website'>www.oberneukirchen.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Oberneukirchen</field>
+            <field name='latitude'>48°28′N</field>
+            <field name='longitude'>14°14′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40911">
+            <field name='street'>Oberschlierbach 1</field>
+            <field name='website'>www.gemeinde-oberschlierbach.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Oberschlierbach</field>
+            <field name='latitude'>47°56′N</field>
+            <field name='longitude'>14°11′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41721">
+            <field name='street'>Oberwang 90</field>
+            <field name='website'>www.oberwang.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Oberwang</field>
+            <field name='latitude'>47°52′N</field>
+            <field name='longitude'>13°26′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41325">
+            <field name='street'>Kapellenstraße 2</field>
+            <field name='website'>www.oepping.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Oepping</field>
+            <field name='latitude'>48°36′N</field>
+            <field name='longitude'>13°57′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41814">
+            <field name='street'>Marktgemeinde OffenhausenGemeindeplatz 1</field>
+            <field name='website'>www.offenhausen.at</field>
+            <field name='austria_wiki_url'>
+                https://austria-forum.org/af/AustriaWiki/Offenhausen_%28Ober%C3%B6sterreich%29
+            </field>
+            <field name='latitude'>48°9′N</field>
+            <field name='longitude'>13°50′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40713">
+            <field name='street'>Wöhrerstraße 2</field>
+            <field name='website'>www.ohlsdorf.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Ohlsdorf_%28Ober%C3%B6sterreich%29
+            </field>
+            <field name='latitude'>47°58′N</field>
+            <field name='longitude'>13°48′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41016">
+            <field name='street'>Ofteringer Straße 1</field>
+            <field name='website'>www.oftering.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Oftering</field>
+            <field name='latitude'>48°14′N</field>
+            <field name='longitude'>14°8′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40428">
+            <field name='street'>Bergstraße 45</field>
+            <field name='website'>www.ostermiething.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Ostermiething</field>
+            <field name='latitude'>48°3′N</field>
+            <field name='longitude'>12°50′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41220">
+            <field name='street'>Ort i.I.</field>
+            <field name='website'>www.ort.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Ort_im_Innkreis</field>
+            <field name='latitude'>48°19′N</field>
+            <field name='longitude'>13°26′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41616">
+            <field name='street'>Marktplatz 2</field>
+            <field name='website'>www.ottenschlag.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Ottenschlag_im_M%C3%BChlkreis
+            </field>
+            <field name='latitude'>48°28′N</field>
+            <field name='longitude'>14°23′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41617">
+            <field name='street'>Marktplatz 9</field>
+            <field name='website'>www.ottensheim.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Ottensheim</field>
+            <field name='latitude'>48°20′N</field>
+            <field name='longitude'>14°11′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41115">
+            <field name='street'>Markt 16</field>
+            <field name='website'>www.pabneukirchen.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Pabneukirchen</field>
+            <field name='latitude'>48°19′N</field>
+            <field name='longitude'>14°49′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41017">
+            <field name='street'>Leondinger Straße 10</field>
+            <field name='website'>www.pasching.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Pasching</field>
+            <field name='latitude'>48°16′N</field>
+            <field name='longitude'>14°12′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41221">
+            <field name='street'>Hauptstraße 10</field>
+            <field name='website'>www.pattigham.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Pattigham</field>
+            <field name='latitude'>48°9′N</field>
+            <field name='longitude'>13°29′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41326">
+            <field name='street'>Markt 7</field>
+            <field name='website'>www.peilstein.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Peilstein_im_M%C3%BChlviertel
+            </field>
+            <field name='latitude'>48°37′N</field>
+            <field name='longitude'>13°54′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41815">
+            <field name='street'>Gemeinde PennewangPennewang 17</field>
+            <field name='website'>www.pennewang.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Pennewang</field>
+            <field name='latitude'>48°8′N</field>
+            <field name='longitude'>13°51′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41116">
+            <field name='street'>Hauptplatz 4</field>
+            <field name='website'>www.perg.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Perg</field>
+            <field name='latitude'>48°15′N</field>
+            <field name='longitude'>14°38′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40430">
+            <field name='street'>Hauptstraße 16</field>
+            <field name='website'>www.perwang.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Perwang_am_Grabensee</field>
+            <field name='latitude'>48°0′N</field>
+            <field name='longitude'>13°5′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41222">
+            <field name='street'>Peterskirchen 25</field>
+            <field name='website'>www.peterskirchen.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Peterskirchen</field>
+            <field name='latitude'>48°14′N</field>
+            <field name='longitude'>13°33′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40912">
+            <field name='street'>Kirchenplatz 3</field>
+            <field name='website'>pettenbach.at</field>
+            <field name='austria_wiki_url'>
+                https://austria-forum.org/af/AustriaWiki/Pettenbach_%28Ober%C3%B6sterreich%29
+            </field>
+            <field name='latitude'>47°58′N</field>
+            <field name='longitude'>14°1′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41723">
+            <field name='street'>Pfaffing 2</field>
+            <field name='website'>www.pfaffing.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Pfaffing_%28Ober%C3%B6sterreich%29
+            </field>
+            <field name='latitude'>48°1′N</field>
+            <field name='longitude'>13°29′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41511">
+            <field name='street'>Möderndorferstraße 1</field>
+            <field name='website'>www.pfarrkirchen-badhall.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Pfarrkirchen_bei_Bad_Hall</field>
+            <field name='latitude'>48°2′N</field>
+            <field name='longitude'>14°12′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40431">
+            <field name='street'>Kirchenplatz 1</field>
+            <field name='website'>www.pfaffstaett.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Pfaffst%C3%A4tt</field>
+            <field name='latitude'>48°5′N</field>
+            <field name='longitude'>13°9′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40714">
+            <field name='street'>Moosweg 3</field>
+            <field name='website'>www.pinsdorf.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Pinsdorf</field>
+            <field name='latitude'>47°56′N</field>
+            <field name='longitude'>13°46′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41018">
+            <field name='street'>Dorfplatz 1</field>
+            <field name='website'>www.piberbach.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Piberbach</field>
+            <field name='latitude'>48°7′N</field>
+            <field name='longitude'>14°14′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41327">
+            <field name='street'>Pfarrkirchen i.M. 13</field>
+            <field name='website'>www.pfarrkirchen.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Pfarrkirchen_im_M%C3%BChlkreis
+            </field>
+            <field name='latitude'>48°30′N</field>
+            <field name='longitude'>13°50′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41816">
+            <field name='street'>Gemeinde Pichl bei WelsGemeindeplatz 7</field>
+            <field name='website'>www.pichl.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Pichl_bei_Wels</field>
+            <field name='latitude'>48°11′N</field>
+            <field name='longitude'>13°54′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41725">
+            <field name='street'>Atzbacher Straße 23</field>
+            <field name='website'>www.pitzenberg.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Pitzenberg</field>
+            <field name='latitude'>48°4′N</field>
+            <field name='longitude'>13°44′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40432">
+            <field name='street'>Pischelsdorf 5</field>
+            <field name='website'>www.pischelsdorf.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Pischelsdorf_am_Engelbach</field>
+            <field name='latitude'>48°8′N</field>
+            <field name='longitude'>13°5′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40433">
+            <field name='street'>Waghamerstraße 3</field>
+            <field name='website'>www.polling-innkreis.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Polling_im_Innkreis</field>
+            <field name='latitude'>48°14′N</field>
+            <field name='longitude'>13°17′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40821">
+            <field name='street'>Pollham 31</field>
+            <field name='website'>www.pollham.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Pollham</field>
+            <field name='latitude'>48°16′N</field>
+            <field name='longitude'>13°51′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40820">
+            <field name='street'>Pötting 55</field>
+            <field name='website'>www.poetting.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/P%C3%B6tting</field>
+            <field name='latitude'>48°17′N</field>
+            <field name='longitude'>13°46′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40822">
+            <field name='street'>Marktstraße 1</field>
+            <field name='website'>www.pram.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Pram_%28Ober%C3%B6sterreich%29
+            </field>
+            <field name='latitude'>48°14′N</field>
+            <field name='longitude'>13°36′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40508">
+            <field name='street'>Prof.-Anton-Lutz-Weg 1</field>
+            <field name='website'>www.prambachkirchen.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Prambachkirchen</field>
+            <field name='latitude'>48°19′N</field>
+            <field name='longitude'>13°54′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41727">
+            <field name='street'>Puchkirchen 3</field>
+            <field name='website'>www.puchkirchen.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Puchkirchen_am_Trattberg</field>
+            <field name='latitude'>48°4′N</field>
+            <field name='longitude'>13°34′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41618">
+            <field name='street'>Kirchenstraße 1</field>
+            <field name='website'>www.puchenau.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Puchenau</field>
+            <field name='latitude'>48°19′N</field>
+            <field name='longitude'>14°14′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40614">
+            <field name='street'>Stadtplatz 12</field>
+            <field name='website'>www.pregarten.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Pregarten</field>
+            <field name='latitude'>48°21′N</field>
+            <field name='longitude'>14°32′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41019">
+            <field name='street'>Puckinger Straße 5</field>
+            <field name='website'>www.pucking.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Pucking</field>
+            <field name='latitude'>48°11′N</field>
+            <field name='longitude'>14°11′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41328">
+            <field name='street'>Markt 7</field>
+            <field name='website'>www.putzleinsdorf.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Putzleinsdorf</field>
+            <field name='latitude'>48°31′N</field>
+            <field name='longitude'>13°52′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41414">
+            <field name='street'>Marktstraße 101</field>
+            <field name='website'>www.raab.eu</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Raab_%28Ober%C3%B6sterreich%29
+            </field>
+            <field name='latitude'>48°21′N</field>
+            <field name='longitude'>13°39′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41415">
+            <field name='street'>Rainbach im Innkreis 50</field>
+            <field name='website'>www.rainbach-innkreis.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Rainbach_im_Innkreis</field>
+            <field name='latitude'>48°27′N</field>
+            <field name='longitude'>13°32′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40615">
+            <field name='street'>Pragerstraße 5</field>
+            <field name='website'>www.rainbach-mkr.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Rainbach_im_M%C3%BChlkreis</field>
+            <field name='latitude'>48°34′N</field>
+            <field name='longitude'>14°29′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41117">
+            <field name='street'>Rechberg 9</field>
+            <field name='website'>www.rechberg.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Rechberg_%28Ober%C3%B6sterreich%29
+            </field>
+            <field name='latitude'>48°19′N</field>
+            <field name='longitude'>14°43′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41224">
+            <field name='street'>Reichersberg 35</field>
+            <field name='website'>www.reichersberg.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Reichersberg</field>
+            <field name='latitude'>48°20′N</field>
+            <field name='longitude'>13°22′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41730">
+            <field name='street'>Redlham 1</field>
+            <field name='website'>www.redlham.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Redlham</field>
+            <field name='latitude'>48°1′N</field>
+            <field name='longitude'>13°45′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41731">
+            <field name='street'>Regau 9</field>
+            <field name='website'>www.regau.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Regau</field>
+            <field name='latitude'>48°0′N</field>
+            <field name='longitude'>13°41′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41620">
+            <field name='street'>Oberer Markt 11</field>
+            <field name='website'>www.reichenthal.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Reichenthal</field>
+            <field name='latitude'>48°33′N</field>
+            <field name='longitude'>14°23′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41619">
+            <field name='street'>Marktplatz 2</field>
+            <field name='website'>www.reichenau-ooe.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Reichenau_im_M%C3%BChlkreis</field>
+            <field name='latitude'>48°27′N</field>
+            <field name='longitude'>14°21′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41512">
+            <field name='street'>Reichraming 1</field>
+            <field name='website'>www.reichraming.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Reichraming</field>
+            <field name='latitude'>47°53′N</field>
+            <field name='longitude'>14°28′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41416">
+            <field name='street'>Marktplatz 32/33</field>
+            <field name='website'>www.riedau.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Riedau</field>
+            <field name='latitude'>48°18′N</field>
+            <field name='longitude'>13°38′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40913">
+            <field name='street'>Hauptstraße 27</field>
+            <field name='website'>www.ried-traunkreis.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Ried_im_Traunkreis</field>
+            <field name='latitude'>48°2′N</field>
+            <field name='longitude'>14°4′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41225">
+            <field name='street'>Hauptplatz 12</field>
+            <field name='website'>ried.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Ried_im_Innkreis</field>
+            <field name='latitude'>48°13′N</field>
+            <field name='longitude'>13°29′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41118">
+            <field name='street'>Marktplatz 2</field>
+            <field name='website'>www.ried-riedmark.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Ried_in_der_Riedmark</field>
+            <field name='latitude'>48°16′N</field>
+            <field name='longitude'>14°33′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41513">
+            <field name='street'>Ortsplatz 1</field>
+            <field name='website'>www.rohr.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Rohr_im_Kremstal</field>
+            <field name='latitude'>48°4′N</field>
+            <field name='longitude'>14°11′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40914">
+            <field name='street'>Rosenau am Hengstpaß 120</field>
+            <field name='website'>www.rosenau.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Rosenau_am_Hengstpa%C3%9F</field>
+            <field name='latitude'>47°43′N</field>
+            <field name='longitude'>14°24′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41732">
+            <field name='street'>Rüstorf 1</field>
+            <field name='website'>www.ruestorf.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/R%C3%BCstorf</field>
+            <field name='latitude'>48°3′N</field>
+            <field name='longitude'>13°48′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40823">
+            <field name='street'>Rottenbach 12</field>
+            <field name='website'>www.rottenbach.gv.at</field>
+            <field name='austria_wiki_url'>
+                https://austria-forum.org/af/AustriaWiki/Rottenbach_%28Ober%C3%B6sterreich%29
+            </field>
+            <field name='latitude'>48°12′N</field>
+            <field name='longitude'>13°41′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40616">
+            <field name='street'>Sandl 24</field>
+            <field name='website'>www.sandl.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Sandl</field>
+            <field name='latitude'>48°34′N</field>
+            <field name='longitude'>14°39′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41417">
+            <field name='street'>St. Aegidi 10</field>
+            <field name='website'>www.st-aegidi.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Sankt_Aegidi</field>
+            <field name='latitude'>48°29′N</field>
+            <field name='longitude'>13°44′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40824">
+            <field name='street'>Kirchenplatz 1</field>
+            <field name='website'>www.st-agatha.at</field>
+            <field name='austria_wiki_url'>
+                https://austria-forum.org/af/AustriaWiki/St._Agatha_%28Ober%C3%B6sterreich%29
+            </field>
+            <field name='latitude'>48°23′N</field>
+            <field name='longitude'>13°53′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40435">
+            <field name='street'>St. Georgen 29</field>
+            <field name='website'>www.handenberg.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/St._Georgen_am_Fillmannsbach</field>
+            <field name='latitude'>48°8′N</field>
+            <field name='longitude'>13°1′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41013">
+            <field name='street'>Leopold Kotzmann-Str. 1</field>
+            <field name='website'>www.st-florian.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/St._Florian_%28Linz-Land%29</field>
+            <field name='latitude'>48°13′N</field>
+            <field name='longitude'>14°23′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41418">
+            <field name='street'>St. Florian 11</field>
+            <field name='website'>www.st-florian-inn.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/St._Florian_am_Inn</field>
+            <field name='latitude'>48°26′N</field>
+            <field name='longitude'>13°26′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41119">
+            <field name='street'>Markt 9</field>
+            <field name='website'>www.st.georgen.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/St._Georgen_am_Walde</field>
+            <field name='latitude'>48°22′N</field>
+            <field name='longitude'>14°54′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41226">
+            <field name='street'>St. Georgen b.O.a.I. 18</field>
+            <field name='website'>www.st-georgen-bei-obernberg.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/St._Georgen_bei_Obernberg_am_Inn
+            </field>
+            <field name='latitude'>48°18′N</field>
+            <field name='longitude'>13°20′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40825">
+            <field name='street'>St. Georgen 34</field>
+            <field name='website'>www.st.georgen.co.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/St._Georgen_bei_Grieskirchen</field>
+            <field name='latitude'>48°13′N</field>
+            <field name='longitude'>13°47′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41734">
+            <field name='street'>Attergaustraße 21</field>
+            <field name='website'>www.st-georgen-attergau.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/St._Georgen_im_Attergau</field>
+            <field name='latitude'>47°56′N</field>
+            <field name='longitude'>13°30′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40436">
+            <field name='street'>St. Johann Nr. 8</field>
+            <field name='website'>www.saigahans.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/St._Johann_am_Walde</field>
+            <field name='latitude'>48°7′N</field>
+            <field name='longitude'>13°17′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41331">
+            <field name='street'>St. Johann 10</field>
+            <field name='website'>www.stjohannamwimberg.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/St._Johann_am_Wimberg</field>
+            <field name='latitude'>48°29′N</field>
+            <field name='longitude'>14°8′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40716">
+            <field name='street'>Ort 10</field>
+            <field name='website'>www.st-konrad.at</field>
+            <field name='austria_wiki_url'>
+                https://austria-forum.org/af/AustriaWiki/St._Konrad_%28Ober%C3%B6sterreich%29
+            </field>
+            <field name='latitude'>47°55′N</field>
+            <field name='longitude'>13°53′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40617">
+            <field name='street'>Hauptstraße 9</field>
+            <field name='website'>www.stleonhard.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/St._Leonhard_bei_Freistadt</field>
+            <field name='latitude'>48°27′N</field>
+            <field name='longitude'>14°41′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41735">
+            <field name='street'>Wredeplatz 2</field>
+            <field name='website'>www.stlorenz.at</field>
+            <field name='austria_wiki_url'>
+                https://austria-forum.org/af/AustriaWiki/St._Lorenz_%28Ober%C3%B6sterreich%29
+            </field>
+            <field name='latitude'>47°49′N</field>
+            <field name='longitude'>13°21′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41020">
+            <field name='street'>St. Marien 1</field>
+            <field name='website'>www.st-marien.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/St._Marien</field>
+            <field name='latitude'>48°9′N</field>
+            <field name='longitude'>14°17′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41227">
+            <field name='street'>St. Marienkirchen a.H. 11</field>
+            <field name='website'>www.st-marienkirchen-hausruck.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/St._Marienkirchen_am_Hausruck
+            </field>
+            <field name='latitude'>48°11′N</field>
+            <field name='longitude'>13°35′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41419">
+            <field name='street'>Schärdingerstraße 1</field>
+            <field name='website'>www.st-marienkirchen.at</field>
+            <field name='austria_wiki_url'>
+                https://austria-forum.org/af/AustriaWiki/St._Marienkirchen_bei_Sch%C3%A4rding
+            </field>
+            <field name='latitude'>48°23′N</field>
+            <field name='longitude'>13°27′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41332">
+            <field name='street'>Markt 2</field>
+            <field name='website'>www.sankt-martin.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/St._Martin_im_M%C3%BChlkreis</field>
+            <field name='latitude'>48°25′N</field>
+            <field name='longitude'>14°2′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41121">
+            <field name='street'>St. Nikola 16</field>
+            <field name='website'>st-nikola.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/St._Nikola_an_der_Donau</field>
+            <field name='latitude'>48°14′N</field>
+            <field name='longitude'>14°54′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41333">
+            <field name='street'>St. Oswald 18</field>
+            <field name='website'>www.st-oswald-haslach.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/St._Oswald_bei_Haslach</field>
+            <field name='latitude'>48°37′N</field>
+            <field name='longitude'>14°2′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40618">
+            <field name='street'>Markt 80</field>
+            <field name='website'>www.stoswald.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/St._Oswald_bei_Freistadt</field>
+            <field name='latitude'>48°30′N</field>
+            <field name='longitude'>14°35′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40916">
+            <field name='street'>St. Pankraz 1</field>
+            <field name='website'>www.st-pankraz.at</field>
+            <field name='austria_wiki_url'>
+                https://austria-forum.org/af/AustriaWiki/St._Pankraz_%28Ober%C3%B6sterreich%29
+            </field>
+            <field name='latitude'>47°46′N</field>
+            <field name='longitude'>14°13′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40438">
+            <field name='street'>St. Peter 39</field>
+            <field name='website'>www.st-peter-hart.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/St._Peter_am_Hart</field>
+            <field name='latitude'>48°15′N</field>
+            <field name='longitude'>13°6′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41334">
+            <field name='street'>Markt 2</field>
+            <field name='website'>www.st-peter-wimberg.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/St._Peter_am_Wimberg</field>
+            <field name='latitude'>48°30′N</field>
+            <field name='longitude'>14°5′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41335">
+            <field name='street'>St. Stefan a.W. 65</field>
+            <field name='website'>www.st-stefan.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/St._Stefan_am_Walde</field>
+            <field name='latitude'>48°34′N</field>
+            <field name='longitude'>14°6′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40826">
+            <field name='street'>St. Thomas 100</field>
+            <field name='website'>www.sankt-thomas.at</field>
+            <field name='austria_wiki_url'>
+                https://austria-forum.org/af/AustriaWiki/St._Thomas_%28Ober%C3%B6sterreich%29
+            </field>
+            <field name='latitude'>48°17′N</field>
+            <field name='longitude'>13°53′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41122">
+            <field name='street'>Markt 7</field>
+            <field name='website'>www.st-thomas.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/St._Thomas_am_Blasenstein</field>
+            <field name='latitude'>48°19′N</field>
+            <field name='longitude'>14°46′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41336">
+            <field name='street'>Ulrichstraße 4</field>
+            <field name='website'>www.st-ulrich.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/St._Ulrich_im_M%C3%BChlkreis</field>
+            <field name='latitude'>48°28′N</field>
+            <field name='longitude'>14°3′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41514">
+            <field name='street'>Pfarrplatz 7</field>
+            <field name='website'>www.st-ulrich-steyr.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/St._Ulrich_bei_Steyr</field>
+            <field name='latitude'>48°1′N</field>
+            <field name='longitude'>14°25′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41337">
+            <field name='street'>St. Veit i.M. 3</field>
+            <field name='website'>www.st-veit.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/St._Veit_im_M%C3%BChlkreis</field>
+            <field name='latitude'>48°28′N</field>
+            <field name='longitude'>14°10′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41421">
+            <field name='street'>St. Willibald 21</field>
+            <field name='website'>www.sankt-willibald.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/St._Willibald</field>
+            <field name='latitude'>48°22′N</field>
+            <field name='longitude'>13°41′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41123">
+            <field name='street'>Saxen 77</field>
+            <field name='website'>www.saxen.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Saxen</field>
+            <field name='latitude'>48°12′N</field>
+            <field name='longitude'>14°47′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41338">
+            <field name='street'>Marktplatz 4</field>
+            <field name='website'>www.sarleinsbach.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Sarleinsbach</field>
+            <field name='latitude'>48°33′N</field>
+            <field name='longitude'>13°54′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41817">
+            <field name='street'>Marktgemeinde SattledtMarktplatz 1</field>
+            <field name='website'>www.sattledt.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Sattledt</field>
+            <field name='latitude'>48°4′N</field>
+            <field name='longitude'>14°3′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41423">
+            <field name='street'>Schärdinger Straße 4</field>
+            <field name='website'>www.schardenberg.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Schardenberg</field>
+            <field name='latitude'>48°31′N</field>
+            <field name='longitude'>13°30′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40719">
+            <field name='street'>Hauptstraße 13</field>
+            <field name='website'>www.scharnstein.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Scharnstein</field>
+            <field name='latitude'>47°54′N</field>
+            <field name='longitude'>13°58′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40511">
+            <field name='street'>Scharten 60</field>
+            <field name='website'>www.scharten.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Scharten</field>
+            <field name='latitude'>48°15′N</field>
+            <field name='longitude'>14°2′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41515">
+            <field name='street'>Gemeindeplatz 1</field>
+            <field name='website'>www.schiedlberg.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Schiedlberg</field>
+            <field name='latitude'>48°6′N</field>
+            <field name='longitude'>14°16′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41736">
+            <field name='street'>Stadtplatz 22</field>
+            <field name='website'>www.schlatt.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Schlatt_%28Ober%C3%B6sterreich%29
+            </field>
+            <field name='latitude'>48°4′N</field>
+            <field name='longitude'>13°47′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41818">
+            <field name='street'>Gemeinde SchleißheimDorfstraße 14</field>
+            <field name='website'>www.schleissheim.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Schlei%C3%9Fheim</field>
+            <field name='latitude'>48°10′N</field>
+            <field name='longitude'>14°6′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40917">
+            <field name='street'>Stiftsstraße 1</field>
+            <field name='website'>www.schlierbach.at</field>
+            <field name='austria_wiki_url'>
+                https://austria-forum.org/af/AustriaWiki/Schlierbach_%28Ober%C3%B6sterreich%29
+            </field>
+            <field name='latitude'>47°56′N</field>
+            <field name='longitude'>14°8′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41341">
+            <field name='street'>Schwarzenberg am Bw. 185</field>
+            <field name='website'>www.schwarzenberg.co.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Schwarzenberg_am_B%C3%B6hmerwald
+            </field>
+            <field name='latitude'>48°44′N</field>
+            <field name='longitude'>13°50′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40827">
+            <field name='street'>Marktplatz 1</field>
+            <field name='website'>www.schluesslberg.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Schl%C3%BC%C3%9Flberg</field>
+            <field name='latitude'>48°13′N</field>
+            <field name='longitude'>13°52′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41737">
+            <field name='street'>Marktplatz 32</field>
+            <field name='website'>www.schörfling.eu</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Sch%C3%B6rfling_am_Attersee</field>
+            <field name='latitude'>47°57′N</field>
+            <field name='longitude'>13°36′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40619">
+            <field name='street'>Schönau 2</field>
+            <field name='website'>www.schoenau-im.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Sch%C3%B6nau_im_M%C3%BChlkreis
+            </field>
+            <field name='latitude'>48°24′N</field>
+            <field name='longitude'>14°44′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41738">
+            <field name='street'>Stadtplatz 54</field>
+            <field name='website'>www.schwanenstadt.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Schwanenstadt</field>
+            <field name='latitude'>48°3′N</field>
+            <field name='longitude'>13°47′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41124">
+            <field name='street'>Schacherbergstraße 3</field>
+            <field name='website'>www.schwertberg.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Schwertberg</field>
+            <field name='latitude'>48°16′N</field>
+            <field name='longitude'>14°35′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41739">
+            <field name='street'>Rathausplatz 1</field>
+            <field name='website'>www.seewalchen.eu</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Seewalchen_am_Attersee</field>
+            <field name='latitude'>47°57′N</field>
+            <field name='longitude'>13°35′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41424">
+            <field name='street'>Hofmark 5</field>
+            <field name='website'>www.sigharting.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Sigharting</field>
+            <field name='latitude'>48°24′N</field>
+            <field name='longitude'>13°36′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41819">
+            <field name='street'>Gemeinde SipbachzellHauptstraße 29</field>
+            <field name='website'>www.sipbachzell.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Sipbachzell</field>
+            <field name='latitude'>48°6′N</field>
+            <field name='longitude'>14°7′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41623">
+            <field name='street'>Sonnberg 70</field>
+            <field name='website'>www.sonnberg.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Sonnberg_im_M%C3%BChlkreis</field>
+            <field name='latitude'>48°28′N</field>
+            <field name='longitude'>14°17′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40918">
+            <field name='street'>Spital a.P. 350</field>
+            <field name='website'>www.spital-pyhrn.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Spital_am_Pyhrn</field>
+            <field name='latitude'>47°40′N</field>
+            <field name='longitude'>14°20′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40828">
+            <field name='street'>Badergasse 5</field>
+            <field name='website'>www.steegen.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Steegen</field>
+            <field name='latitude'>48°20′N</field>
+            <field name='longitude'>13°46′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41740">
+            <field name='street'>Steinbach 5</field>
+            <field name='website'>www.steinbach-attersee.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Steinbach_am_Attersee</field>
+            <field name='latitude'>47°50′N</field>
+            <field name='longitude'>13°33′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40920">
+            <field name='street'>Ortsplatz 4</field>
+            <field name='website'>www.steinbachsteyr.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Steinbach_an_der_Steyr</field>
+            <field name='latitude'>47°58′N</field>
+            <field name='longitude'>14°16′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41822">
+            <field name='street'>Gemeindeplatz 2</field>
+            <field name='website'>www.steinhaus.ooe.gv.at</field>
+            <field name='austria_wiki_url'>
+                https://austria-forum.org/af/AustriaWiki/Steinhaus_%28Ober%C3%B6sterreich%29
+            </field>
+            <field name='latitude'>48°7′N</field>
+            <field name='longitude'>14°1′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41821">
+            <field name='street'>Marktgemeinde Steinerkirchen an der TraunLandstraße 7</field>
+            <field name='website'>www.steinerkirchen.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Steinerkirchen_an_der_Traun</field>
+            <field name='latitude'>48°5′N</field>
+            <field name='longitude'>13°57′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40512">
+            <field name='street'>Stroheim 30</field>
+            <field name='website'>www.stroheim.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Stroheim</field>
+            <field name='latitude'>48°20′N</field>
+            <field name='longitude'>13°57′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41624">
+            <field name='street'>Weissenwolffstraße 3</field>
+            <field name='website'>www.steyregg.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Steyregg</field>
+            <field name='latitude'>48°17′N</field>
+            <field name='longitude'>14°22′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41741">
+            <field name='street'>Straß i.A. 30</field>
+            <field name='website'>www.strassimattergau.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Stra%C3%9F_im_Attergau</field>
+            <field name='latitude'>47°55′N</field>
+            <field name='longitude'>13°27′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40201">
+            <field name='street'>Stadtplatz 27</field>
+            <field name='website'>www.steyr.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Steyr</field>
+            <field name='latitude'>48°2′N</field>
+            <field name='longitude'>14°25′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41231">
+            <field name='street'>Hofmarkt 29</field>
+            <field name='website'>www.taiskirchen.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Taiskirchen_im_Innkreis</field>
+            <field name='latitude'>48°16′N</field>
+            <field name='longitude'>13°34′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41425">
+            <field name='street'>Suben 50</field>
+            <field name='website'>www.suben.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Suben</field>
+            <field name='latitude'>48°25′N</field>
+            <field name='longitude'>13°26′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40443">
+            <field name='street'>Tarsdorf 16</field>
+            <field name='website'>www.tarsdorf.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Tarsdorf</field>
+            <field name='latitude'>48°5′N</field>
+            <field name='longitude'>12°50′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41426">
+            <field name='street'>Schärdinger Straße 1</field>
+            <field name='website'>www.taufkirchen-pram.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Taufkirchen_an_der_Pram</field>
+            <field name='latitude'>48°25′N</field>
+            <field name='longitude'>13°32′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41517">
+            <field name='street'>Kirchenplatz 12</field>
+            <field name='website'>www.ternberg.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Ternberg</field>
+            <field name='latitude'>47°57′N</field>
+            <field name='longitude'>14°21′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40829">
+            <field name='street'>Taufkirchen 105</field>
+            <field name='website'>www.taufkirchen.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Taufkirchen_an_der_Trattnach</field>
+            <field name='latitude'>48°15′N</field>
+            <field name='longitude'>13°45′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41823">
+            <field name='street'>Marktgemeinde Thalheim bei WelsGemeindeplatz 1</field>
+            <field name='website'>www.thalheim.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Thalheim_bei_Wels</field>
+            <field name='latitude'>48°9′N</field>
+            <field name='longitude'>14°2′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41742">
+            <field name='street'>Wredeplatz 2</field>
+            <field name='website'>www.tiefgraben.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Tiefgraben</field>
+            <field name='latitude'>47°52′N</field>
+            <field name='longitude'>13°22′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41743">
+            <field name='street'>Pollheimerstraße 5</field>
+            <field name='website'>www.timelkam.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Timelkam</field>
+            <field name='latitude'>48°0′N</field>
+            <field name='longitude'>13°37′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40830">
+            <field name='street'>Tollet 1</field>
+            <field name='website'>www.tollet.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Tollet</field>
+            <field name='latitude'>48°15′N</field>
+            <field name='longitude'>13°48′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40620">
+            <field name='street'>Markt 33</field>
+            <field name='website'>www.tragwein.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Tragwein</field>
+            <field name='latitude'>48°20′N</field>
+            <field name='longitude'>14°37′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41021">
+            <field name='street'>Hauptplatz 1</field>
+            <field name='website'>www.traun.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Traun_%28Stadt%29</field>
+            <field name='latitude'>48°13′N</field>
+            <field name='longitude'>14°14′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40718">
+            <field name='street'>Ortsplatz 1</field>
+            <field name='website'>www.traunkirchen.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Traunkirchen</field>
+            <field name='latitude'>47°51′N</field>
+            <field name='longitude'>13°48′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41342">
+            <field name='street'>Markt 20</field>
+            <field name='website'>www.ulrichsberg.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Ulrichsberg</field>
+            <field name='latitude'>48°41′N</field>
+            <field name='longitude'>13°55′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41232">
+            <field name='street'>Hofmark 9</field>
+            <field name='website'>www.tumeltsham.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Tumeltsham</field>
+            <field name='latitude'>48°14′N</field>
+            <field name='longitude'>13°30′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40445">
+            <field name='street'>Kreuzlinden 11</field>
+            <field name='website'>www.ueberackern.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/%C3%9Cberackern</field>
+            <field name='latitude'>48°12′N</field>
+            <field name='longitude'>12°53′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41744">
+            <field name='street'>Ungenach 33</field>
+            <field name='website'>www.ungenach.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Ungenach</field>
+            <field name='latitude'>48°3′N</field>
+            <field name='longitude'>13°37′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41745">
+            <field name='street'>Hauptstraße 9</field>
+            <field name='website'>www.unterach-attersee.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Unterach_am_Attersee</field>
+            <field name='latitude'>47°48′N</field>
+            <field name='longitude'>13°30′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40621">
+            <field name='street'>Markt 21</field>
+            <field name='website'>www.unterweissenbach.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Unterwei%C3%9Fenbach</field>
+            <field name='latitude'>48°26′N</field>
+            <field name='longitude'>14°47′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40622">
+            <field name='street'>Gusentalstraße 1a</field>
+            <field name='website'>www.unterweitersdorf.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Unterweitersdorf</field>
+            <field name='latitude'>48°22′N</field>
+            <field name='longitude'>14°28′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41233">
+            <field name='street'>Hofmark 3</field>
+            <field name='website'>www.utzenaich.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Utzenaich</field>
+            <field name='latitude'>48°17′N</field>
+            <field name='longitude'>13°28′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41427">
+            <field name='street'>Vichtenstein 70</field>
+            <field name='website'>www.vichtenstein.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Vichtenstein</field>
+            <field name='latitude'>48°32′N</field>
+            <field name='longitude'>13°39′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40720">
+            <field name='street'>Schloßplatz 7</field>
+            <field name='website'>www.vorchdorf.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Vorchdorf</field>
+            <field name='latitude'>48°0′N</field>
+            <field name='longitude'>13°55′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40921">
+            <field name='street'>Vorderstoder 66</field>
+            <field name='website'>www.vorderstoder.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Vorderstoder</field>
+            <field name='latitude'>47°43′N</field>
+            <field name='longitude'>14°14′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41628">
+            <field name='street'>Hauptstraße 4a</field>
+            <field name='website'>www.vorderweissenbach.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Vorderwei%C3%9Fenbach</field>
+            <field name='latitude'>48°33′N</field>
+            <field name='longitude'>14°13′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41747">
+            <field name='street'>Dr.-Scheiber-Straße 8</field>
+            <field name='website'>www.voecklamarkt.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/V%C3%B6cklamarkt</field>
+            <field name='latitude'>48°0′N</field>
+            <field name='longitude'>13°29′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41746">
+            <field name='street'>Klosterstraße 9</field>
+            <field name='website'>www.voecklabruck.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/V%C3%B6cklabruck</field>
+            <field name='latitude'>48°1′N</field>
+            <field name='longitude'>13°39′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40831">
+            <field name='street'>Marktplatz 3</field>
+            <field name='website'>www.waizenkirchen.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Waizenkirchen</field>
+            <field name='latitude'>48°20′N</field>
+            <field name='longitude'>13°51′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41428">
+            <field name='street'>Waldkirchen am Wesen 61</field>
+            <field name='website'>www.waldkirchen.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Waldkirchen_am_Wesen</field>
+            <field name='latitude'>48°27′N</field>
+            <field name='longitude'>13°49′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40623">
+            <field name='street'>Waldburg 38</field>
+            <field name='website'>www.waldburg.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Waldburg_%28Ober%C3%B6sterreich%29
+            </field>
+            <field name='latitude'>48°30′N</field>
+            <field name='longitude'>14°26′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41125">
+            <field name='street'>Markt 14</field>
+            <field name='website'>www.waldhausen.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Waldhausen_im_Strudengau</field>
+            <field name='latitude'>48°17′N</field>
+            <field name='longitude'>14°57′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41626">
+            <field name='street'>Hauptstraße 19</field>
+            <field name='website'>www.walding.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Walding</field>
+            <field name='latitude'>48°21′N</field>
+            <field name='longitude'>14°10′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41518">
+            <field name='street'>Dorfplatz 1</field>
+            <field name='website'>www.waldneukirchen.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Waldneukirchen</field>
+            <field name='latitude'>48°0′N</field>
+            <field name='longitude'>14°16′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41234">
+            <field name='street'>Hofmark 1</field>
+            <field name='website'>www.waldzell.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Waldzell</field>
+            <field name='latitude'>48°8′N</field>
+            <field name='longitude'>13°26′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40832">
+            <field name='street'>Marktplatz 1</field>
+            <field name='website'>www.wallern.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Wallern_an_der_Trattnach</field>
+            <field name='latitude'>48°14′N</field>
+            <field name='longitude'>13°57′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40922">
+            <field name='street'>Hauptstraße 21</field>
+            <field name='website'>www.wartberg.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Wartberg_an_der_Krems</field>
+            <field name='latitude'>47°59′N</field>
+            <field name='longitude'>14°7′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40624">
+            <field name='street'>Hauptstraße 5</field>
+            <field name='website'>www.wartberg-aist.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Wartberg_ob_der_Aist</field>
+            <field name='latitude'>48°21′N</field>
+            <field name='longitude'>14°30′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40833">
+            <field name='street'>Hauptstraße 5</field>
+            <field name='website'>www.weibern.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Weibern_%28Ober%C3%B6sterreich%29
+            </field>
+            <field name='latitude'>48°11′N</field>
+            <field name='longitude'>13°42′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40625">
+            <field name='street'>Weitersfelden 11</field>
+            <field name='website'>www.weitersfelden.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Weitersfelden</field>
+            <field name='latitude'>48°29′N</field>
+            <field name='longitude'>14°44′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41824">
+            <field name='street'>Gemeindeplatz 1</field>
+            <field name='website'>www.weisskirchen.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Wei%C3%9Fkirchen_an_der_Traun
+            </field>
+            <field name='latitude'>48°10′N</field>
+            <field name='longitude'>14°8′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41235">
+            <field name='street'>Weilbach 34</field>
+            <field name='website'>www.weilbach.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Weilbach_%28Ober%C3%B6sterreich%29
+            </field>
+            <field name='latitude'>48°17′N</field>
+            <field name='longitude'>13°22′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40301">
+            <field name='street'>Stadtplatz 1</field>
+            <field name='website'>www.wels.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Wels_%28Stadt%29</field>
+            <field name='latitude'>48°9′N</field>
+            <field name='longitude'>14°2′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41522">
+            <field name='street'>Marktplatz 8</field>
+            <field name='website'>www.weyer.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Weyer_%28Ober%C3%B6sterreich%29
+            </field>
+            <field name='latitude'>47°51′N</field>
+            <field name='longitude'>14°40′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41429">
+            <field name='street'>Innstraße 1</field>
+            <field name='website'>www.wernstein.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Wernstein_am_Inn</field>
+            <field name='latitude'>48°31′N</field>
+            <field name='longitude'>13°28′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40834">
+            <field name='street'>Wendling 14</field>
+            <field name='website'>www.wendling.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Wendling</field>
+            <field name='latitude'>48°14′N</field>
+            <field name='longitude'>13°40′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41749">
+            <field name='street'>Weyregger Str. 69</field>
+            <field name='website'>www.weyregg.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Weyregg_am_Attersee</field>
+            <field name='latitude'>47°54′N</field>
+            <field name='longitude'>13°34′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41022">
+            <field name='street'>Linzer Straße 14</field>
+            <field name='website'>www.wilhering.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Wilhering</field>
+            <field name='latitude'>48°19′N</field>
+            <field name='longitude'>14°11′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40626">
+            <field name='street'>Markt 1</field>
+            <field name='website'>www.windhaag.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Windhaag_bei_Freistadt</field>
+            <field name='latitude'>48°35′N</field>
+            <field name='longitude'>14°34′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41126">
+            <field name='street'>Enzmilnerplatz 3</field>
+            <field name='website'>www.windhaag-perg.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Windhaag_bei_Perg</field>
+            <field name='latitude'>48°17′N</field>
+            <field name='longitude'>14°41′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde40923">
+            <field name='street'>Hauptstraße 5</field>
+            <field name='website'>www.windischgarsten.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Windischgarsten</field>
+            <field name='latitude'>47°43′N</field>
+            <field name='longitude'>14°20′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41236">
+            <field name='street'>Wippenham 37</field>
+            <field name='website'>www.wippenham.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Wippenham</field>
+            <field name='latitude'>48°13′N</field>
+            <field name='longitude'>13°23′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41627">
+            <field name='street'>Marktplatz 2</field>
+            <field name='website'>www.zwettl-rodl.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Zwettl_an_der_Rodl</field>
+            <field name='latitude'>48°28′N</field>
+            <field name='longitude'>14°16′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41750">
+            <field name='street'>Schulstraße 22</field>
+            <field name='website'>www.wolfsegg.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Wolfsegg_am_Hausruck</field>
+            <field name='latitude'>48°6′N</field>
+            <field name='longitude'>13°40′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41521">
+            <field name='street'>Kirchenplatz 5</field>
+            <field name='website'>www.wolfern.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Wolfern</field>
+            <field name='latitude'>48°5′N</field>
+            <field name='longitude'>14°22′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41752">
+            <field name='street'>Zell a.P. 32</field>
+            <field name='website'>zell-pettenfirst.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Zell_am_Pettenfirst</field>
+            <field name='latitude'>48°5′N</field>
+            <field name='longitude'>13°36′O</field>
+        </record>
+        <record model='res.partner' id="itk_initial_data_import.gemeinde41430">
+            <field name='street'>Hofmark 1</field>
+            <field name='website'>www.zell-pram.ooe.gv.at</field>
+            <field name='austria_wiki_url'>https://austria-forum.org/af/AustriaWiki/Zell_an_der_Pram</field>
+            <field name='latitude'>48°19′N</field>
+            <field name='longitude'>13°38′O</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,16 @@
+<odoo>
+    <data>
+        <!-- Form-View -->
+        <record id="view_partner_form_multifactor_itk" model="ir.ui.view">
+            <field name="name">res.partner.form.itk_multifactor</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='ref']" position="after">
+                     <field name="multi_factor"
+                                attrs="{'invisible': [('is_company', '=', False)]}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

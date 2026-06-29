@@ -1,0 +1,410 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* itk_crm
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0-20181014\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-08-05 08:36+0000\n"
+"PO-Revision-Date: 2019-08-05 08:36+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+
+#. module: base
+#: model:ir.model.fields,field_description:base.field_res_company_vat
+#: model:ir.model.fields,field_description:base.field_res_partner_vat
+#: model:ir.model.fields,field_description:base.field_res_users_vat
+msgid "TIN"
+msgstr "UID"
+
+#. module: itk_crm
+#: model:ir.model.fields,field_description:itk_crm.field_res_partner_sales_as_final_customer_count
+#: model:ir.model.fields,field_description:itk_crm.field_res_users_sales_as_final_customer_count
+msgid "# of Sales as Final Customer"
+msgstr "# Verkauf Endkunde"
+
+#. module: itk_crm
+#: model:ir.ui.view,arch_db:itk_crm.view_partner_form_itk
+msgid "&amp;nbsp;"
+msgstr "&amp;nbsp;"
+
+#. module: itk_crm
+#: model:ir.ui.view,arch_db:itk_crm.view_partner_form_itk
+msgid "(edit)"
+msgstr "(bearbeiten)"
+
+#. module: itk_crm
+#: model:ir.ui.view,arch_db:itk_crm.view_partner_form_itk
+msgid "Address"
+msgstr "Adresse"
+
+#. module: itk_crm
+#: model:ir.model.fields,field_description:itk_crm.field_res_partner_asset_partner
+#: model:ir.model.fields,field_description:itk_crm.field_res_users_asset_partner
+msgid "Asset Partner"
+msgstr "Bestandskunde"
+
+#. module: itk_crm
+#: model:ir.model.fields,field_description:itk_crm.field_res_partner_austria_wiki_url
+#: model:ir.model.fields,field_description:itk_crm.field_res_users_austria_wiki_url
+msgid "Austria Wiki URL"
+msgstr "Austria Wiki URL"
+
+#. module: itk_crm
+#: model:ir.ui.view,arch_db:itk_crm.view_partner_form_itk
+msgid "Characteristics"
+msgstr "Kenndaten"
+
+#. module: itk_crm
+#: model:ir.ui.view,arch_db:itk_crm.view_partner_form_itk
+msgid "City"
+msgstr "Stadt"
+
+#. module: itk_crm
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_communitycode_code
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_communitymagnitude_code
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_statusofcommunity_code
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_statusofpartner_code
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_titleputinback_code
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_titleputinfront_code
+msgid "Code"
+msgstr "Code"
+
+#. module: itk_crm
+#: model:ir.model,name:itk_crm.model_itk_crm_communitycode
+#: model:ir.ui.view,arch_db:itk_crm.res_partner_searchview_customization_itk
+msgid "Community Code"
+msgstr "Gemeindekennzahl"
+
+#. module: itk_crm
+#: model:ir.ui.view,arch_db:itk_crm.view_partner_form_itk
+msgid "Community Information"
+msgstr "Gemeinde-Information"
+
+#. module: itk_crm
+#: model:ir.model,name:itk_crm.model_itk_crm_communitymagnitude
+#: model:ir.model.fields,field_description:itk_crm.field_res_partner_community_magnitude_id
+#: model:ir.model.fields,field_description:itk_crm.field_res_users_community_magnitude_id
+msgid "Community Magnitude"
+msgstr "Größenklasse"
+
+#. module: itk_crm
+#: model:ir.model,name:itk_crm.model_res_partner
+msgid "Contact"
+msgstr "Kontakt"
+
+#. module: itk_crm
+#: model:ir.ui.view,arch_db:itk_crm.view_partner_form_itk
+msgid "Country"
+msgstr "Land"
+
+#. module: itk_crm
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_communitycode_create_uid
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_communitymagnitude_create_uid
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_statusofcommunity_create_uid
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_statusofpartner_create_uid
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_titleputinback_create_uid
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_titleputinfront_create_uid
+msgid "Created by"
+msgstr "Erstellt von"
+
+#. module: itk_crm
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_communitycode_create_date
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_communitymagnitude_create_date
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_statusofcommunity_create_date
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_statusofpartner_create_date
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_titleputinback_create_date
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_titleputinfront_create_date
+msgid "Created on"
+msgstr "Erstellt am"
+
+#. module: itk_crm
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_communitymagnitude_description
+msgid "Description"
+msgstr "Beschreibung"
+
+#. module: itk_crm
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_communitycode_display_name
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_communitymagnitude_display_name
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_statusofcommunity_display_name
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_statusofpartner_display_name
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_titleputinback_display_name
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_titleputinfront_display_name
+msgid "Display Name"
+msgstr "Anzeigename"
+
+#. module: itk_crm
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_statusofcommunity_display_name_new
+msgid "Display Name New"
+msgstr "Anzeigename"
+
+#. module: itk_crm
+#: model:ir.model.fields,field_description:itk_crm.field_res_partner_attention_of
+#: model:ir.model.fields,field_description:itk_crm.field_res_users_attention_of
+msgid "For the Attention of"
+msgstr "zu Handen"
+
+#. module: itk_crm
+#: model:ir.ui.view,arch_db:itk_crm.view_partner_form_itk
+#: model:ir.ui.view,arch_db:itk_crm.view_partner_itk_tree
+msgid "GKZ"
+msgstr "GKZ"
+
+#. module: itk_crm
+#: model:ir.module.category,description:itk_crm.module_itk_category
+msgid "Helps you manage operations for managing ITK."
+msgstr "Helps you manage operations for managing ITK."
+
+#. module: itk_crm
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_communitycode_id
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_communitymagnitude_id
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_statusofcommunity_id
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_statusofpartner_id
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_titleputinback_id
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_titleputinfront_id
+msgid "ID"
+msgstr "ID"
+
+#. module: itk_crm
+#: model:ir.module.category,name:itk_crm.module_itk_category
+msgid "ITK"
+msgstr "ITK"
+
+#. module: itk_crm
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_communitycode___last_update
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_communitymagnitude___last_update
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_statusofcommunity___last_update
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_statusofpartner___last_update
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_titleputinback___last_update
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_titleputinfront___last_update
+msgid "Last Modified on"
+msgstr "Zuletzt geändert am"
+
+#. module: itk_crm
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_communitycode_write_uid
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_communitymagnitude_write_uid
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_statusofcommunity_write_uid
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_statusofpartner_write_uid
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_titleputinback_write_uid
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_titleputinfront_write_uid
+msgid "Last Updated by"
+msgstr "Zuletzt aktualisiert durch"
+
+#. module: itk_crm
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_communitycode_write_date
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_communitymagnitude_write_date
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_statusofcommunity_write_date
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_statusofpartner_write_date
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_titleputinback_write_date
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_titleputinfront_write_date
+msgid "Last Updated on"
+msgstr "Zuletzt aktualisiert am"
+
+#. module: itk_crm
+#: model:ir.model.fields,field_description:itk_crm.field_res_partner_latitude
+#: model:ir.model.fields,field_description:itk_crm.field_res_users_latitude
+msgid "Latitude"
+msgstr "Breitengrad"
+
+#. module: itk_crm
+#: model:ir.model.fields,field_description:itk_crm.field_res_partner_longitude
+#: model:ir.model.fields,field_description:itk_crm.field_res_users_longitude
+msgid "Longitude"
+msgstr "Längengrad"
+
+#. module: itk_crm
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_communitymagnitude_lower_limit
+msgid "Lower Limit"
+msgstr "Untergrenze"
+
+#. module: itk_crm
+#: model:ir.model.fields,field_description:itk_crm.field_res_partner_community_magnitude
+#: model:ir.model.fields,field_description:itk_crm.field_res_users_community_magnitude
+msgid "Magnitude"
+msgstr "Größenklasse"
+
+#. module: itk_crm
+#: model:res.groups,name:itk_crm.itk_group_manager
+msgid "Manager (edit)"
+msgstr "Manager (edit)"
+
+#. module: itk_crm
+#: model:ir.model.fields,field_description:itk_crm.field_res_partner_member_of_city_alliance
+#: model:ir.model.fields,field_description:itk_crm.field_res_users_member_of_city_alliance
+msgid "Member of City Alliance"
+msgstr "Städtebund-Mitglied"
+
+#. module: itk_crm
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_communitycode_name
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_communitymagnitude_name
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_statusofcommunity_name
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_statusofpartner_name
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_titleputinback_name
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_titleputinfront_name
+msgid "Name"
+msgstr "Name"
+
+#. module: itk_crm
+#: model:ir.model.fields,field_description:itk_crm.field_res_partner_official_email
+#: model:ir.model.fields,field_description:itk_crm.field_res_users_official_email
+msgid "Official Email"
+msgstr "Email offiziell"
+
+#. module: itk_crm
+#: model:ir.ui.view,arch_db:itk_crm.view_partner_form_itk
+msgid "Other"
+msgstr "Andere"
+
+#. module: itk_crm
+#: model:ir.ui.view,arch_db:itk_crm.view_partner_form_itk
+msgid "Population"
+msgstr "Einwohnerzahl"
+
+#. module: itk_crm
+#: model:ir.model.fields,field_description:itk_crm.field_res_partner_population_update
+#: model:ir.model.fields,field_description:itk_crm.field_res_users_population_update
+msgid "Population Update"
+msgstr "Stand vom"
+
+#. module: itk_crm
+#: model:ir.model.fields,field_description:itk_crm.field_res_partner_reseller
+#: model:ir.model.fields,field_description:itk_crm.field_res_users_reseller
+msgid "Reseller"
+msgstr "Vertriebspartner"
+
+#. module: itk_crm
+#: model:ir.ui.view,arch_db:itk_crm.view_partner_itk_tree
+msgid "Salesperson"
+msgstr "Verkäufer"
+
+#. module: itk_crm
+#: model:ir.model.fields,field_description:itk_crm.field_res_partner_salutation
+#: model:ir.model.fields,field_description:itk_crm.field_res_users_salutation
+msgid "Salutation"
+msgstr "Anrede"
+
+#. module: itk_crm
+#: model:ir.model.fields,field_description:itk_crm.field_res_partner_community_salutation
+#: model:ir.model.fields,field_description:itk_crm.field_res_users_community_salutation
+msgid "Salutation of Community"
+msgstr "Organisationsbezeichnung"
+
+#. module: itk_crm
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_communitycode_seq
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_communitymagnitude_seq
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_statusofcommunity_seq
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_statusofpartner_seq
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_titleputinback_seq
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_titleputinfront_seq
+msgid "Sequence"
+msgstr "Nummernfolge"
+
+#. module: itk_crm
+#: model:ir.model.fields,field_description:itk_crm.field_res_partner_population
+#: model:ir.model.fields,field_description:itk_crm.field_res_users_population
+msgid "Size of Population"
+msgstr "Einwohnerzahl"
+
+#. module: itk_crm
+#: model:ir.ui.view,arch_db:itk_crm.view_partner_form_itk
+msgid "State"
+msgstr "Bundesland"
+
+#. module: itk_crm
+#: model:ir.ui.view,arch_db:itk_crm.res_partner_searchview_customization_itk
+#: model:ir.ui.view,arch_db:itk_crm.view_partner_itk_tree
+msgid "Status"
+msgstr "Status"
+
+#. module: itk_crm
+#: model:ir.model,name:itk_crm.model_itk_crm_statusofcommunity
+#: model:ir.model.fields,field_description:itk_crm.field_res_partner_status_of_community
+#: model:ir.model.fields,field_description:itk_crm.field_res_users_status_of_community
+msgid "Status of Community"
+msgstr "Organisationstyp"
+
+#. module: itk_crm
+#: model:ir.model,name:itk_crm.model_itk_crm_statusofpartner
+#: model:ir.model.fields,field_description:itk_crm.field_res_partner_status_of_partner_id
+#: model:ir.model.fields,field_description:itk_crm.field_res_users_status_of_partner_id
+msgid "Status of Partner"
+msgstr "Status"
+
+#. module: itk_crm
+#: model:ir.ui.view,arch_db:itk_crm.view_partner_form_itk
+msgid "Street 2..."
+msgstr "Straße2..."
+
+#. module: itk_crm
+#: model:ir.ui.view,arch_db:itk_crm.view_partner_form_itk
+msgid "Street..."
+msgstr "Straße..."
+
+#. module: itk_crm
+#: model:ir.ui.view,arch_db:itk_crm.view_partner_form_itk
+msgid "Tags..."
+msgstr "Tags..."
+
+#. module: itk_crm
+#: sql_constraint:res.partner:0
+msgid "The internal Reference has to be unique!"
+msgstr "Die Interne Referenz/Gemeindekennzahl muss eindeutig sein!"
+
+#. module: itk_crm
+#: model:ir.model.fields,field_description:itk_crm.field_res_partner_title_put_in_back
+#: model:ir.model.fields,field_description:itk_crm.field_res_users_title_put_in_back
+msgid "Title in Back"
+msgstr "Titel nachgestellt"
+
+#. module: itk_crm
+#: model:ir.model.fields,field_description:itk_crm.field_res_partner_title_put_in_front
+#: model:ir.model.fields,field_description:itk_crm.field_res_users_title_put_in_front
+msgid "Title in Front"
+msgstr "Titel vorangestellt"
+
+#. module: itk_crm
+#: model:ir.model,name:itk_crm.model_itk_crm_titleputinback
+msgid "Title put in Back"
+msgstr "Titel nachgestellt"
+
+#. module: itk_crm
+#: model:ir.model,name:itk_crm.model_itk_crm_titleputinfront
+msgid "Title put in Front"
+msgstr "Titel vorangestellt"
+
+#. module: itk_crm
+#: model:ir.model.fields,field_description:itk_crm.field_itk_crm_communitymagnitude_upper_limit
+msgid "Upper Limit"
+msgstr "Obergrenze"
+
+#. module: itk_crm
+#: model:res.groups,name:itk_crm.itk_group_user
+msgid "User (read only)"
+msgstr "User (read only)"
+
+#. module: itk_crm
+#: model:ir.ui.view,arch_db:itk_crm.view_partner_form_itk
+msgid "ZIP"
+msgstr "PLZ"
+
+#. module: itk_crm
+#: model:ir.ui.view,arch_db:itk_crm.view_partner_form_itk
+msgid "e.g. BE0477472701"
+msgstr "z.B.  BE0477472701"
+
+#. module: itk_crm
+#: model:ir.ui.view,arch_db:itk_crm.view_partner_form_itk
+msgid "e.g. Sales Director"
+msgstr "z.B. Verkaufsleiter"
+
+#. module: itk_crm
+#: model:ir.ui.view,arch_db:itk_crm.view_partner_form_itk
+msgid "e.g. www.odoo.com"
+msgstr "z.B. www.odoo.com"
+

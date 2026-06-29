@@ -1,0 +1,3 @@
+/usr/bin/odoo scaffold itk_product /home/andreas/PycharmProjects/as_itk
+
+/usr/bin/odoo scaffold <module name> <path, where to put it>

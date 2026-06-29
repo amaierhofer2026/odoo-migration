@@ -1,0 +1,119 @@
+Alle Anpassungen erfolgen mit Entwicklertest (Unit-test) und GUI-Test (User Acceptance Test durch Developer)
+ bdddAAAAA
+itk_1 installierte odoo-Standard-Module:
+1. Kundenverwaltung         crm
+Erweiterung um itk-spezifische Felder/Attribute
+    Partnerstammdaten (Unternehmen/Gemeinden)
+        Kontakt-Anrede (Anrede/"Gemeindeart"
+        für Gemeinde z.B: Stadtgemeinde,
+        Marktgemeinde) (Vorschlag AV)           ==> kind_of_community
+            Einwohnerzahl                       ==> population
+            Datum der EwZ-Aktualisierung        ==> population_update
+            Städtebundmitglied (Bool)           ==> city_alliance
+        Bestandskunde-Flag (wird durch Flag
+         "Ist ein Kunde" abgedeckt)             ==> asset_partner
+         (Vorschlag AV)
+            Interne Referenz Ablösung durch GKZ ==> community_code
+        implementierung als many2one (Pflegbare
+        Systemtabelle für GKZ) (Vorschlag AV)
+
+        Gemeindestatus implementierung
+        als many2one (Pflegbare
+        Systemtabelle für GKZ) (Vorschlag AV)   ==> community_status
+,,
+
+    Anpassung des Partner-Form-Views (Unternehmen/Gemeinden)
+        Ergänzung der neuen Felder
+        Ausblenden evtl. überflüssiger Felder
+        GKZ vor Partnername einblenden (AC1)
+
+    Anpassung des Partner-List-Views (Unternehmen/Gemeinden)
+        GKZ vor Partnername einblenden (AC1)
+
+
+    Partnerstammdaten (Personen)
+        Trennung von Vor- und Nachname
+        Anrede Freitextfeld (Das Feld "Titel" entspricht dem Feld der "Anrede"
+        Feld "zu Handen" als Freitextfeld
+        Feld "Titel vorangestellt"  als many2one (Pflegbare Systemtabelle für "Titel vorangestellt") (Vorschlag AV)
+        Feld "Titel nachgestellt"  als many2one (Pflegbare Systemtabelle für "Titel nachgestellt") (Vorschlag AV)
+
+
+
+2. Verkaufsmanagement       sale_management     depends on: sale, account_invoicing
+    Anpassung der Berichte gemäß Vorgaben ITK (inhaltlich und Design):
+        Angebot
+        Auftrag
+        Rechnung
+        Erweiterung der Reports durch - noch festzulegende - neue Partner-Attribute ("Titel vorangestellt"!)
+
+    Erweiterungsfelder zur Zuordnung von:
+        "administrativer Ansprechpartner"
+        "technischer Ansprechpartner"
+        "Endkunde"
+        "Produktart" als many2one (Pflegbare Systemtabelle für Produkt "Produktart")
+
+    Anpassung Menustruktur "Konfiguration" --> "Produktart"
+
+    Anpassung der Form-Views von Angebot Auftrag etc.
+        Anzeigeformat bei der Partnerauswahl/-zuordnung: [<interne Referenz>] <Name>
+
+    Anpassung der List-Views von Angebot Auftrag etc.
+        Spalte "Produktart"
+        Spalte "Endkunde"
+
+
+    Anpassung Default-Suche in Listenansichten
+        Anzeige des Attributs "interne Referenz"
+        Suche über das Feld "interne Referenz"
+        Suche über das Feld "Endkunde"
+
+    Produktstammdaten
+        "(Produkt-)Vertragsbindung" als Freitextfeld
+        "Produkt Kündigungsfrist" als SelectList (fixe Werte: 1 Monat .... 12 Monate)
+        "Produkt Kündigungszeitpunkt" als many2one (Pflegbare Systemtabelle für Produkt Kündigungsfrist) (Vorschlag AV)
+
+    Konzept zur Abbildung der ITK-Produkte in
+        Produkt
+        Produkt aus Produkten
+        Produktvarianten
+
+    Konzept zur Abbildung der ITK-Produkt-Preise
+
+
+    Rechnungsmerge: Das Modul account invoice merge ist aktuell für odoo 10 verfügbar. Portierung muss noch geschätzt werden
+
+
+Abo-Verwaltung
+    Erzeugung eines Vertrages aus einem Auftrag
+
+
+4. Beschaffung              purchase            depends on: stock_account
+
+3. Mitarbeiterverzeichnis   hr                  depends on: base_setup, mail, resource, web
+
+4. Anwesenheitszeiten       hr_attendance       depends on: barcodes
+
+5. Zeiterfassung            hr_timesheet        depends on: project
+
+6. E-Mail-Marketing         mass_mailing        depends on: link_tracker
+
+7. Umfrage                  survey              depends on: website
+
+
+itk_1 installierte odoo-Module aus odoo-Store
+Contracts Management - Recurring                    contract                                                        Von OpenERP SA, Tecnativa, LasLabs, Odoo Community Association (OCA)
+
+
+
+
+
+Account Invoice Line Number                         account_invoice_line_number                                     by ADHOC SA
+Show sheets with full width web_sheet_full_width    web_sheet_full_width
+HR Employee First Name, Last Name                   hr_employee_firstname           depends on: partner_firstname   Von Savoir-faire Linux, Fekete Mihai (Forest and Biomass Services Romania), Odoo Community Association (OCA)
+Partner Academic Title      partner_academic_title by ACSONE SA/NV, Odoo Community Association (OCA) aktuell für odoo 10 verfügbar. Migration --> 11
+
+Website_slides
+
+Festlegung der zu verwendenden E-Mail-Templates
+Anpassung der E-Mail-Templates /Integration der entsprechenden Variablen

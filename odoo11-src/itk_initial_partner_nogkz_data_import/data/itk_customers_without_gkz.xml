@@ -1,0 +1,450 @@
+<odoo>
+    <data noupdate="0">
+        <!--GEMDAT OO-->
+        <record model='res.partner' id='gemeindeGDOO'>
+            <field name='ref'>GDOO</field>
+            <field name='name'>GEMDAT OÖ Gemeinde-Datenservice GmbH + Co KG</field>
+            <field name='street'>Schiffmannstraße 4</field>
+            <field name='city'>Linz</field>
+            <field name='zip'>4020</field>
+            <field name='website'>https://www.gemdat.at/</field>
+            <field name='state_id' ref="itk_data_setup.Oberösterreich"/>
+            <field name='is_company'>True</field>
+            <field name='country_id' ref="base.de"/>
+            <field name='customer'>True</field>
+            <field name='vat'>ATU23096600</field>
+        </record>
+
+
+        <record model='res.partner' id="nogkz_contact_gemeindeGDOO">
+            <field name='parent_id' ref="gemeindeGDOO"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='function'>Ing. Mag. (FH)</field>
+            <field name='firstname'>Daniel</field>
+            <field name='lastname'>Holzer</field>
+            <field name='is_company'>False</field>
+            <field name='customer'>True</field>
+        </record>
+
+        <!--GEMDAT NO-->
+        <record model='res.partner' id='gemeindeGDNO'>
+            <field name='ref'>GDNO</field>
+            <field name='name'>Gemdat Niederösterreichische Gemeinde-Datenservice GmbH</field>
+            <field name='street'>Girakstraße 7</field>
+            <field name='city'>Korneuburg</field>
+            <field name='zip'>2100</field>
+            <field name='website'>https://www.gemdatnoe.at</field>
+            <field name='state_id' ref="itk_data_setup.Niederösterreich"/>
+            <field name='is_company'>True</field>
+            <field name='country_id' ref="base.de"/>
+            <field name='customer'>True</field>
+            <field name='vat'>ATU16081406</field>
+        </record>
+        <!--<record model='res.partner' id="nogkz_contact_gemeindeGDNO">-->
+        <!--<field name='parent_id' ref="gemeindeGDNO"/>-->
+        <!--<field name='title' ref="base.res_partner_title_madam"/>-->
+        <!--<field name='function'>Ing. Mag. (FH)</field>-->
+        <!--<field name='firstname'>Daniel</field>-->
+        <!--<field name='lastname'>Holzer</field>-->
+        <!--<field name='is_company'>False</field>-->
+        <!--<field name='customer'>True</field>-->
+        <!--</record>-->
+
+        <!--UNTERNEHMEN-->
+        <record model='res.partner' id='gemeindeBIFIE'>
+            <field name='ref'>BIFIE</field>
+            <field name='name'>Bundesinstitut bifie</field>
+            <field name='street'>Alpenstraße 121</field>
+            <field name='city'>Salzburg</field>
+            <field name='zip'>5020</field>
+            <field name='website'>https://www.bifie.at</field>
+            <field name='state_id' ref="itk_data_setup.Salzburg"/>
+            <field name='is_company'>True</field>
+            <field name='country_id' ref="base.at"/>
+            <field name='customer'>True</field>
+        </record>
+        <record model='res.partner' id='gemeindeBST'>
+            <field name='ref'>BST</field>
+            <field name='name'>Bayrischer Städtetag KdöR</field>
+            <field name='street'>Prannerstraße 7</field>
+            <field name='city'>München</field>
+            <field name='zip'>80333</field>
+            <field name='website'>https://www.bay-staedtetag.de/</field>
+            <!--<field name='state_id' ref="itk_data_setup.Salzburg"/>-->
+            <field name='is_company'>True</field>
+            <field name='country_id' ref="base.de"/>
+            <field name='customer'>True</field>
+        </record>
+
+
+        <record model='res.partner' id="nogkz_contact_gemeindeBST">
+            <field name='parent_id' ref="gemeindeBST"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='function'></field>
+            <field name='firstname'>Sabine</field>
+            <field name='lastname'>Dobner</field>
+            <field name='is_company'>False</field>
+            <field name='customer'>True</field>
+        </record>
+
+
+        <record model='res.partner' id='gemeindeRIS'>
+            <field name='ref'>RIS</field>
+            <field name='name'>RIS GmbH</field>
+            <field name='street'>Ing. Kaplangasse 1</field>
+            <field name='city'>Steyr</field>
+            <field name='zip'>4400</field>
+            <field name='website'>https://www.ris.at/</field>
+            <field name='state_id' ref="itk_data_setup.Oberösterreich"/>
+            <field name='is_company'>True</field>
+            <field name='country_id' ref="base.at"/>
+            <field name='customer'>True</field>
+        </record>
+
+        <record model='res.partner' id="nogkz_contact_gemeindeRIS">
+            <field name='parent_id' ref="gemeindeRIS"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'>Ing. Mag (FH)</field>
+            <field name='function'></field>
+            <field name='firstname'>Michael</field>
+            <field name='lastname'>Kölbel</field>
+            <field name='is_company'>False</field>
+            <field name='invoice_warn'>no-message</field>
+
+        </record>
+
+
+        <record model='res.partner' id='gemeindeWLVNB'>
+            <field name='ref'>WLVNB</field>
+            <field name='name'>Wasserleitungsverband Nördl. Burgenland</field>
+            <field name='street'>Ruster Str. 74</field>
+            <field name='city'>Eisenstadt</field>
+            <field name='zip'>7000</field>
+            <field name='website'>https://www.wasserleitungsverband.at/</field>
+            <field name='state_id' ref="itk_data_setup.Burgenland"/>
+            <field name='is_company'>True</field>
+            <field name='country_id' ref="base.at"/>
+            <field name='customer'>True</field>
+        </record>
+
+        <record model='res.partner' id='gemeindeSAVZ'>
+            <field name='ref'>SAVZ</field>
+            <field name='name'>Standesamtsverband Zwettl</field>
+            <field name='street'>Gartenstraße 3</field>
+            <field name='city'>Zwettl</field>
+            <field name='zip'>3910</field>
+            <field name='website'>http://www.zwettl.gv.at</field>
+            <field name='state_id' ref="itk_data_setup.Niederösterreich"/>
+            <field name='is_company'>True</field>
+            <field name='country_id' ref="base.at"/>
+            <field name='customer'>True</field>
+        </record>
+
+        <record model='res.partner' id="nogkz_contact_gemeindegemeindeSAVZ">
+            <field name='parent_id' ref="gemeindeSAVZ"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='firstname'>Franz</field>
+            <field name='lastname'>Almeder</field>
+            <field name='is_company'>False</field>
+            <field name='invoice_warn'>no-message</field>
+
+        </record>
+
+
+        <record model='res.partner' id='gemeindeGSZK'>
+            <field name='ref'>GSZK</field>
+            <field name='name'>Gemeinde-Servicezentrum/Abt. Informations- und Kommunikationstechnologie</field>
+            <field name='street'>Gabelsbergerstraße 5/3</field>
+            <field name='city'>Klagenfurt</field>
+            <field name='zip'>9020</field>
+            <field name='website'>http://www.gemeinde-servicezentrum.at/gsz/</field>
+            <field name='state_id' ref="itk_data_setup.Kärnten"/>
+            <field name='is_company'>True</field>
+            <field name='country_id' ref="base.at"/>
+            <field name='customer'>True</field>
+        </record>
+
+        <record model='res.partner' id="nogkz_contact_gemeindeGSZK">
+            <field name='parent_id' ref="gemeindeGSZK"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'>DI</field>
+            <field name='function'></field>
+            <field name='firstname'>Manfred</field>
+            <field name='lastname'>Wundara</field>
+            <field name='is_company'>False</field>
+            <field name='invoice_warn'>no-message</field>
+
+        </record>
+
+
+        <record model='res.partner' id='gemeindeSEFKO'>
+            <field name='ref'>SEFKO</field>
+            <field name='name'>Stadtentwicklungsfonds Korneuburg</field>
+            <field name='street'>Hauptplatz 39</field>
+            <field name='city'>Kornburg</field>
+            <field name='zip'>2100</field>
+            <field name='website'>http://www.sefko.at</field>
+            <field name='state_id' ref="itk_data_setup.Niederösterreich"/>
+            <field name='is_company'>True</field>
+            <field name='country_id' ref="base.at"/>
+            <field name='customer'>True</field>
+        </record>
+        <record model='res.partner' id='gemeindeOSB'>
+            <field name='ref'>OSB</field>
+            <field name='name'>Österreichischer Städtebund</field>
+            <field name='street'>Rathaus</field>
+            <field name='city'>Wien</field>
+            <field name='zip'>1082</field>
+            <field name='website'>https://www.staedtebund.gv.at/</field>
+            <field name='state_id' ref="itk_data_setup.Wien"/>
+            <field name='is_company'>True</field>
+            <field name='country_id' ref="base.at"/>
+            <field name='customer'>True</field>
+        </record>
+
+        <record model='res.partner' id="nogkz_contact_gemeindeOSB">
+            <field name='parent_id' ref="gemeindeOSB"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='firstname'>Oliver</field>
+            <field name='lastname'>Puchner</field>
+            <field name='is_company'>False</field>
+            <field name='invoice_warn'>no-message</field>
+
+        </record>
+
+
+        <record model='res.partner' id='gemeindeKDG'>
+            <field name='ref'>KDG</field>
+            <field name='name'>KD-Kommunale Datenschutz GmbH</field>
+            <field name='street'>Stadionplatz 2</field>
+            <field name='city'>Graz</field>
+            <field name='zip'>8041</field>
+            <field name='website'>https://www.gemeindebund.steiermark.at/datenschutz/</field>
+            <field name='state_id' ref="itk_data_setup.Steiermark"/>
+            <field name='is_company'>True</field>
+            <field name='country_id' ref="base.at"/>
+            <field name='customer'>True</field>
+        </record>
+
+        <record model='res.partner' id="nogkz_contact_gemeindeKDG">
+            <field name='parent_id' ref="gemeindeKDG"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'>Dir. Dr.</field>
+            <field name='function'></field>
+            <field name='firstname'>Martin</field>
+            <field name='lastname'>Ozimic</field>
+            <field name='is_company'>False</field>
+            <field name='invoice_warn'>no-message</field>
+
+        </record>
+
+
+        <record model='res.partner' id='gemeindeKIG'>
+            <field name='ref'>KIG</field>
+            <field name='name'>Kommunale Immobilien Liegenschaftsverwaltungs- und Verwertungsgesellschaft m.b.H.
+                Stockerau
+            </field>
+            <field name='street'>Alpenstraße 121</field>
+            <field name='city'>Salzburg</field>
+            <field name='zip'>5020</field>
+            <field name='website'>
+                http://www.stockerau.at/Kommunale_Immobilien_Liegenschaftsverwaltungs-_und_Verwertungsgesellschaft_m_b_H_Stockerau
+            </field>
+            <field name='state_id' ref="itk_data_setup.Salzburg"/>
+            <field name='is_company'>True</field>
+            <field name='country_id' ref="base.at"/>
+            <field name='customer'>True</field>
+            <field name='invoice_warn'>no-message</field>
+
+        </record>
+        <record model='res.partner' id='gemeindeWUA'>
+            <field name='ref'>WUA</field>
+            <field name='name'>Wiener Umweltanwaltschaft WUA/BA 15</field>
+            <field name='street'>Postfach 588</field>
+            <field name='city'>Wien</field>
+            <field name='zip'>1000</field>
+            <field name='website'>http://wua-wien.at</field>
+            <field name='state_id' ref="itk_data_setup.Wien"/>
+            <field name='is_company'>True</field>
+            <field name='country_id' ref="base.at"/>
+            <field name='customer'>True</field>
+            <field name='vat'>ATU36801500</field>
+        </record>
+
+        <record model='res.partner' id="nogkz_contact_gemeindeWUA">
+            <field name='parent_id' ref="gemeindeWUA"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='firstname'></field>
+            <field name='lastname'>Gnasmüller</field>
+            <field name='is_company'>False</field>
+            <field name='invoice_warn'>no-message</field>
+
+        </record>
+
+
+        <record model='res.partner' id='gemeindeRUB'>
+            <field name='ref'>RUB</field>
+            <field name='name'>RUBICON IT GmbH</field>
+            <field name='street'>Werdertorgasse 14</field>
+            <field name='city'>Wien</field>
+            <field name='zip'>1010</field>
+            <field name='website'>https://www.rubicon.eu</field>
+            <field name='state_id' ref="itk_data_setup.Wien"/>
+            <field name='is_company'>True</field>
+            <field name='country_id' ref="base.at"/>
+            <field name='customer'>True</field>
+            <field name='vat'>ATU36832905</field>
+        </record>
+
+        <record model='res.partner' id="nogkz_contact_gemeindeRUB">
+            <field name='parent_id' ref="gemeindeRUB"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='firstname'>Hans-Peter</field>
+            <field name='lastname'>Kager</field>
+            <field name='is_company'>False</field>
+            <field name='invoice_warn'>no-message</field>
+
+        </record>
+
+
+        <record model='res.partner' id='gemeindeSHOPD'>
+            <field name='ref'>SHOPD</field>
+            <field name='name'>sendhybrid ÖPBD GmbH</field>
+            <field name='street'>Business Center 620</field>
+            <field name='city'>Wals</field>
+            <field name='zip'>5000</field>
+            <field name='website'>https://www.sendhybrid.com</field>
+            <field name='state_id' ref="itk_data_setup.Steiermark"/>
+            <field name='is_company'>True</field>
+            <field name='country_id' ref="base.at"/>
+            <field name='customer'>True</field>
+        </record>
+
+        <record model='res.partner' id="nogkz_contact_gemeindeSHOPD">
+            <field name='parent_id' ref="gemeindeSHOPD"/>
+            <!--<field name='title' ref="base.res_partner_title_mister"/>-->
+            <field name='title_put_in_front'></field>
+            <field name='function'>_</field>
+            <field name='firstname'></field>
+            <field name='lastname'>Rechnungseingansstelle</field>
+            <field name='is_company'>False</field>
+            <field name='invoice_warn'>no-message</field>
+
+        </record>
+
+
+        <record model='res.partner' id='gemeindeAFORMS'>
+            <field name='ref'>AFORMS</field>
+            <field name='name'>aforms2web solutions + services GmbH</field>
+            <field name='street'>Theresianumgasse 11</field>
+            <field name='city'>Wien</field>
+            <field name='zip'>1040</field>
+            <field name='website'>https://www.aforms2web.com</field>
+            <field name='state_id' ref="itk_data_setup.Wien"/>
+            <field name='is_company'>True</field>
+            <field name='country_id' ref="base.at"/>
+            <field name='customer'>True</field>
+            <field name='vat'>ATU63541411</field>
+        </record>
+
+        <record model='res.partner' id="nogkz_contact_gemeindeAFORMS">
+            <field name='parent_id' ref="gemeindeAFORMS"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='firstname'>Kurt</field>
+            <field name='lastname'>Waldherr</field>
+            <field name='is_company'>False</field>
+            <field name='invoice_warn'>no-message</field>
+
+        </record>
+
+
+        <record model='res.partner' id='gemeindeOESTBLB'>
+            <field name='ref'>OESTBLB</field>
+            <field name='name'>ÖStB - Landesgruppe Burgenland
+                c/o Stadtgemeinde Mattersburg
+            </field>
+            <field name='street'>Mühlgasse 8
+            </field>
+            <field name='city'>Mattersburg</field>
+            <field name='zip'>7210</field>
+            <field name='website'>https://www.staedtebund.gv.at/landesgruppen/burgenland/home</field>
+            <field name='state_id' ref="itk_data_setup.Burgenland"/>
+            <field name='is_company'>True</field>
+            <field name='country_id' ref="base.at"/>
+            <field name='customer'>True</field>
+            <field name='vat'></field>
+        </record>
+
+        <record model='res.partner' id="nogkz_contact_gemeindeOESTBLB">
+            <field name='parent_id' ref="gemeindeOESTBLB"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'>AL</field>
+            <field name='function'></field>
+            <field name='firstname'>Karls</field>
+            <field name='lastname'>Aufner</field>
+            <field name='is_company'>False</field>
+            <field name='invoice_warn'>no-message</field>
+
+        </record>
+
+
+        <record model='res.partner' id='gemeindeFHCW'>
+            <field name='ref'>FHCW</field>
+            <field name='name'>FH Campus Wien</field>
+            <field name='street'>Favoritenstraße 226</field>
+            <field name='city'>Wien</field>
+            <field name='zip'>1000</field>
+            <field name='website'>https://www.fh-campuswien.ac.at/</field>
+            <field name='state_id' ref="itk_data_setup.Wien"/>
+            <field name='is_company'>True</field>
+            <field name='country_id' ref="base.at"/>
+            <field name='customer'>True</field>
+            <field name='vat'></field>
+        </record>
+
+        <record model='res.partner' id="nogkz_contact_gemeindeFHCW">
+            <field name='parent_id' ref="gemeindeFHCW"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='title_put_in_front'></field>
+            <field name='function'></field>
+            <field name='firstname'>.</field>
+            <field name='lastname'>Public Management</field>
+            <field name='is_company'>False</field>
+            <field name='invoice_warn'>no-message</field>
+
+        </record>
+
+        <!--KONTAKTE-->
+        <record model='res.partner' id="nogkz_contact">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde32313"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='function'>Bürgermeisterin</field>
+            <field name='firstname'>Hannelore</field>
+            <field name='lastname'>Handler-Woltran</field>
+            <field name='is_company'>False</field>
+        </record>
+        <record model='res.partner' id="bgm32307">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde32307"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Walter</field>
+            <field name='lastname'>Kahrer</field>
+            <field name='is_company'>False</field>
+            <field name='invoice_warn'>no-message</field>
+
+
+        </record>
+
+
+    </data>
+</odoo>

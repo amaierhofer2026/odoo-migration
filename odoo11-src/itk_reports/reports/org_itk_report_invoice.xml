@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="account.report_itk_invoice_document">
+            <t t-call="web.external_layout">
+                <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>
+
+
+                <div class="page">
+                    <form>
+                        <div class="container" style="line-height: 50%;padding-bottom:3em;padding-top:5em">
+
+                            <div class="row" style="padding-bottom:1em; font-size:15px;padding-top:4em;">
+                                <div class="col-xs-10 small first-page text-left" name="company_address">
+                                    <u>
+                                        <span t-field="o.company_id.partner_id.name"/>
+                                        <font color="#000000">,</font>
+                                        <span t-field="o.company_id.partner_id.zip"/>
+                                        <span t-field="o.company_id.partner_id.city"/>
+                                        <font color="#000000">,</font>
+                                        <span t-field="o.company_id.partner_id.street"/>
+                                    </u>
+                                </div>
+                            </div>
+
+
+                            <div class="row" style="padding-bottom:1em;padding-top:1em;">
+                                <div class="col-xs-9 text-left">
+                                    <table style="text-align: left; width: 60%; height: 36px; font-size: 16px;"
+                                           border="1"
+                                           cellpadding="2"
+                                           cellspacing="2">
+                                        <tbody>
+                                            <tr>
+                                                <td style="vertical-align: top;">
+                                                    <t t-esc="o.partner_id.parent_id.name"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="vertical-align: top;">
+                                                    <t t-esc="o.partner_id.community_salutation"/>
+                                                </td>
+                                            </tr>
+                                            <!--<tr>-->
+                                            <!--<td style="vertical-align: top;">-->
+                                            <!--<t t-esc="o.partner_id.name"/>-->
+                                            <!--</td>-->
+                                            <!--</tr>-->
+                                            <tr>
+                                                <td style="vertical-align: top;">
+                                                    <t t-esc="o.partner_id.attention_of"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="vertical-align: top;">
+                                                    <t t-esc="o.partner_id.street"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="vertical-align: top;">
+                                                    <t t-esc="o.partner_id.street2"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="vertical-align: top;">
+                                                    <t t-esc="o.partner_id.zip"/>
+                                                    <t t-esc="o.partner_id.city"/>
+                                                </td>
+                                            </tr>
+                                            <!--<tr>-->
+                                            <!--<td style="vertical-align: top;">-->
+                                            <!--<t t-esc="o.partner_id.country_id.name"/>-->
+                                            <!--</td>-->
+                                            <!--</tr>-->
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!--<div class="col-xs-3 pull-right text-left">-->
+                                <!--<p>itk GmbH</p>-->
+                                <!--<p>Kurfürstenstr. 9</p>-->
+                                <!--<p>DE-14467 Potsdam</p>-->
+                                <!--<div style="padding-bottom:1em"/>-->
+                                <!--<p>T +49 (0) 331 201 653 50</p>-->
+                                <!--<p>F +49 (0) 331 201 653 57</p>-->
+                                <!--<div style="padding-bottom:1em"/>-->
+                                <!--<p>Mail: info@itk.de</p>-->
+                                <!--<p>Web: www.itk.de</p>-->
+                                <!--</div>-->
+                                <div class="row mt8">
+                                    <div class="col-xs-9 text-left"/>
+                                    <div class="col-xs-1">
+                                        <ul class="list-inline pagenumber pull-right text-right">
+                                            <li>
+                                                <strong>
+                                                    <span class="page"/>
+                                                </strong>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="container" style="line-height: 50%;padding-bottom:1em;padding-top:1em">
+                        <div class="row mt8">
+                            <div class="col-xs-6 text-left"/>
+                            <div class="col-xs-6 pull-right text-right">
+                                <div style=" font-size: 16px;">
+                                    <strong>
+                                        <!--<span t-if="o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')">-->
+                                        <!--Rechnungsdatum-->
+                                        <!--</span>-->
+                                        <!--<span t-if="o.type == 'out_invoice' and o.state == 'cancel'">-->
+                                        <!--Stornodatum-->
+                                        <!--</span>-->
+                                        <!--<span t-if="o.type == 'out_refund'">Gutschriftendatum</span>-->
+                                        <!--<span t-if="o.type == 'in_refund'">Gutschriftendatum</span>-->
+                                        <!--<span t-if="o.type == 'in_invoice'">Rechnungsdatum</span>-->
+                                        <span t-field="o.date_invoice"
+                                              t-field-options='{"format": "dd.MM.YYYY"}'/>
+                                    </strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt8">
+                            <div class="col-xs-9 text-left"/>
+                            <div class="col-xs-1">
+                                <ul class="list-inline pagenumber pull-right text-right">
+                                    <li>
+                                        <strong>
+                                            <span class="page"/>
+                                        </strong>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div style=" font-size: 16px;">
+                            <strong>
+                                <span t-if="o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')">
+                                    Rechnung
+                                </span>
+                                <span t-if="o.type == 'out_invoice' and o.state == 'draft'">
+                                    Rechnungsentwurf
+                                </span>
+                                <span t-if="o.type == 'out_invoice' and o.state == 'cancel'">Storno
+                                    Rechnung
+                                </span>
+                                <span t-if="o.type == 'out_refund'">Gutschrift</span>
+                                <span t-if="o.type == 'in_refund'">Lieferanten Gutschrift</span>
+                                <span t-if="o.type == 'in_invoice'">Eingangsrechnung</span>
+                                <span t-field="o.number"/>
+                            </strong>
+                        </div>
+                        <div style="padding-bottom:3em"/>
+                        <table width="100%" style="font-size: 16px;">
+                            <tr>
+                                <td style="text-align: left; width: 12%">Nutzungsvereinbarung:</td>
+                                <!--<td width="50%">-->
+                                <td style="padding-left: 10px; text-align: left; width: 46%">
+                                    <span t-field="o.sale_order_confirmation_date"
+                                          t-field-options='{"format": "dd.MM.YYYY"}'/>
+                                </td>
+                                <td style="text-align: right; width: 10%">Zahlung:</td>
+                                <td style="padding-left: 10px; text-align: left; width: 46%">
+                                    <t t-esc="o.payment_term_id.name"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left; width: 12%">Projekt:</td>
+                                <td style="padding-left: 10px; text-align: left; width: 46%">
+                                <!--<td width="50%">-->
+                                    <t t-esc="o.projectcategory_id.name"/>
+                                </td>
+                                <td style="text-align: right; width: 10%">Bearbeiter/in:</td>
+                                <td style="padding-left: 10px; text-align: left; width: 46%">
+                                    <t t-esc="o.user_id.name"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left; width: 12%">Leistungszeitraum:</td>
+                                <td style="padding-left: 10px; text-align: left; width: 46%">
+                                <!--<td width="50%">-->
+                                    <span t-field="o.sale_order_benefit_period"
+                                          t-field-options='{"format": "YYYY"}'/>
+                                </td>
+                                <td style="text-align: right; width: 10%">Währung:</td>
+                                <td style="padding-left: 10px; text-align: left; width: 46%">
+                                    <t t-esc="o.currency_id.name"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left; width: 12%"></td>
+                                <td width="46%"></td>
+                                <td style="text-align: right; width: 10%">Ihre UID-Nr.:</td>
+                                <td style="padding-left: 210px; text-align: left; width: 30%">
+                                    <t t-esc="o.partner_id.vat"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <!--<p t-if="o.comment">-->
+                        <!--<span t-field="o.comment"/>-->
+                        <!--</p>-->
+
+                        <!--<div class="text-left">-->
+                        <!--<span t-if="o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')">-->
+                        <!--Bezugnehmend auf Ihre Beauftragung erlauben wir uns die erbrachte-->
+                        <!--Projektleistung gem. Anlage wie folgt in-->
+                        <!--Rechnung zu stellen:-->
+                        <!--</span>-->
+                        <!--<span t-if="o.type == 'out_invoice' and o.state == 'draft'">-->
+                        <!--Dieses Dokument ist ein Rechnungsentwurf und keine gültige Rechnung.-->
+                        <!--</span>-->
+                        <!--<span t-if="o.type == 'out_invoice' and o.state == 'cancel'">-->
+                        <!--Rechnungsabbruch-->
+                        <!--</span>-->
+                        <!--<span t-if="o.type == 'out_refund'">Gutschrift für Storno der-->
+                        <!--Rechnung-->
+                        <!--<span t-field="o.origin"/>-->
+                        <!--</span>-->
+                        <!--<span t-if="o.type == 'in_refund'"></span>-->
+                        <!--<span t-if="o.type == 'in_invoice'"></span>-->
+                        <!--</div>-->
+                        <div style="padding-bottom:1em"/>
+                    </div>
+                    <t t-set="display_discount" t-value="any([l.discount for l in o.invoice_line_ids])"/>
+                    <table name="invoice_line_table" width="100%" style="font-size: 16px;">
+                        <thead>
+                            <tr>
+                                <th style="font-weight: bold; border-bottom: 1px solid black;padding-bottom:0,5em; background-color:#bbbbbb;">
+                                    Pos
+                                </th>
+                                <th style="font-weight: bold; border-bottom: 1px solid black;padding-bottom:0,5em; background-color:#bbbbbb;">
+                                    Leistungsgegenstand
+                                </th>
+                                <th class="hidden">Source Document</th>
+                                <th class="text-right"
+                                    style="font-weight: bold; border-bottom: 1px solid black;padding-bottom:0,5em;background-color:#bbbbbb;">
+                                    Menge
+                                </th>
+                                <th class="text-right"
+                                    style="font-weight: bold; border-bottom: 1px solid black;padding-bottom:0,5em; background-color:#bbbbbb;">
+                                    Einzelpreis
+                                </th>
+                                <!--<th t-if="display_discount" class="text-right"-->
+                                <!--style="font-weight: bold; border-bottom: 1px solid black;padding-bottom:0,5em;">-->
+                                <!--Rabatt-->
+                                <!--</th>-->
+                                <!--<th class="text-right"-->
+                                <!--style="font-weight: bold; border-bottom: 1px solid black;padding-bottom:0,5em; background-color:#bbbbbb;">-->
+                                <!--Steuern-->
+                                <!--</th>-->
+                                <th class="text-right"
+                                    style="font-weight: bold; border-bottom: 1px solid black;padding-bottom:0,5em;  background-color:#bbbbbb;">
+                                    Gesamtpreis
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="invoice_tbody">
+                            <tr t-foreach="o.invoice_line_ids" t-as="l" style="border-bottom:1em solid #ffffff; border-top:1em solid #ffffff;" >
+                                <td>
+                                    <!--<span>Position</span>-->
+                                    <span t-field="l.number"/>
+                                </td>
+                                <td>
+                                    <span t-field="l.name"/>
+                                </td>
+                                <td class="hidden">
+                                    <span t-field="l.origin"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="l.quantity"/>
+                                    <!--<span t-field="l.uom_id" groups="product.group_uom"/>-->
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="l.price_unit"/>
+                                </td>
+                                <!--<td t-if="display_discount" class="text-right"-->
+                                <!--groups="sale.group_discount_per_so_line">-->
+                                <!--<span t-field="l.discount"/>-->
+                                <!--<span>%</span>-->
+                                <!--</td>-->
+                                <!--<td class="text-right">-->
+                                <!--<span t-esc="', '.join(map(lambda x: (x.description or x.name), l.invoice_line_tax_ids))"/>-->
+                                <!--</td>-->
+                                <td class="text-right" id="subtotal">
+                                    <span t-field="l.price_subtotal"
+                                          t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                </td>
+                                <!--<tr>-->
+                                <!--<td colspan="7" width="100%" valign="top"-->
+                                <!--style="padding-bottom:1em;border-bottom: 1px solid darkgrey;">-->
+                                <!--<span t-field="l.name"/>-->
+                                <!--</td>-->
+                                <!--</tr>-->
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="clearfix">
+                        <div id="total" class="row">
+                            <div class="col-xs-4 pull-right">
+                                <table class="table table-condensed"
+                                       style="min-width: 250px;max-width: 400px; font-size: 16px;">
+                                    <tr class="border-black" style="border-bottom:1px solid #dddddd;">
+                                        <td>
+                                            Nettosumme
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="o.amount_untaxed"
+                                                  t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                        </td>
+                                    </tr>
+                                    <t t-foreach="o._get_tax_amount_by_group()" t-as="amount_by_group">
+                                        <tr style="border-bottom:1px solid #dddddd;">
+                                            <t t-if="len(o.tax_line_ids) == 1 and o.amount_untaxed == amount_by_group[2]">
+                                                <td>
+                                                    <span t-esc="amount_by_group[0]"/>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-esc="amount_by_group[3]"/>
+                                                </td>
+                                            </t>
+                                            <t t-else="">
+                                                <td>
+                                                    <span t-esc="amount_by_group[0]"/>
+                                                    <span>&amp;nbsp;
+                                                        <span>auf</span>
+                                                        <t t-esc="amount_by_group[4]"/>
+                                                    </span>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-esc="amount_by_group[3]"/>
+                                                </td>
+                                            </t>
+                                        </tr>
+                                    </t>
+                                    <tr class="border-black">
+                                        <td>
+                                            <strong>Gesamtsumme</strong>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="o.amount_total"
+                                                  t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="font-size: 16px;">
+                        <span t-if="o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')">
+                            Wir danken für Ihr Vertrauen und ersuchen um Überweisung des ausgewiesenen Rechnungsbetrages
+                            innerhalb der oben angegebenen Zahlungsfrist auf nachstehend angeführtes Konto:
+                        </span>
+                        <span t-if="o.type == 'out_invoice' and o.state == 'draft'">
+                        </span>
+                        <span t-if="o.type == 'out_invoice' and o.state == 'cancel'">
+                        </span>
+                        <span t-if="o.type == 'out_refund'">
+                        </span>
+                        <span t-if="o.type == 'in_refund'">---</span>
+                        <span t-if="o.type == 'in_invoice'">---</span>
+                    </div>
+                    <div style="padding-top:2em"/>
+                    <table width="50%" style="font-size: 16px;">
+                        <tr>
+                            <td width="15%">
+                                Bankinstitut
+                            </td>
+                            <td width="5%">:</td>
+                            <td width="55%">
+                                <span t-field="o.company_id.bank_journal_ids.bank_id.name"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                IBAN
+                            </td>
+                            <td>:</td>
+                            <td>
+                                <span t-field="o.company_id.bank_journal_ids.bank_acc_number"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                BIC
+                            </td>
+                            <td>:</td>
+                            <td>
+                                <span t-field="o.company_id.bank_journal_ids.bank_id.bic"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <div style="padding-top:3em;font-size: 16px;"/>
+                    <div style="font-size: 16px;">
+                        <p t-if="o.comment">
+                            <span t-field="o.comment"/>
+                        </p>
+                        <p t-if="o.valorisierung_id">
+                            <span t-field="o.valorisierung_id.description"/>
+                        </p>
+                        <p t-if="o.notice">
+                            <span t-field="o.notice"/>
+                        </p>
+                        <!--<p t-if="o.payment_term_id">-->
+                            <!--<span t-field="o.payment_term_id.note"/>-->
+                        <!--</p>-->
+                        <p t-if="o.fiscal_position_id.note">
+                            <strong>Steuerzuordnungshinweis:</strong>
+                            <span t-field="o.fiscal_position_id.note"/>
+                        </p>
+                        <div style="visibility: hidden; display:inline;" name="invoice_address"
+                             class="col-xs-5 col-xs-offset-7">
+                            <address t-field="o.partner_id"
+                                     t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"/>
+                            <div t-if="o.partner_id.vat" class="mt16"><t
+                                    t-esc="o.company_id.country_id.vat_label or 'TIN'"/>:
+                                <span t-field="o.partner_id.vat"/>
+                            </div>
+                        </div>
+                        <div style="padding-top:3em"/>
+                        <div>
+                            <span>
+                                Ihr Team der IT-Kommunal GmbH
+                                <br/>
+                                <br/>
+                                www.it-kommunal.at
+                            </span>
+                            <!--</div>-->
+                        </div>
+                    </div>
+                    <div class="oe_structure"/>
+                </div>
+            </t>
+        </template>
+
+        <template id="report_itk_invoice">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="account.report_itk_invoice_document" t-lang="o.partner_id.lang"/>
+                </t>
+            </t>
+        </template>
+
+
+        <template id="report_itk_invoice_with_payments">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="account.report_itk_invoice_document_with_payments" t-lang="o.partner_id.lang"/>
+                </t>
+            </t>
+        </template>
+
+        <template id="account.report_itk_invoice_document_with_payments"
+                  inherit_id="account.report_itk_invoice_document" primary="True">
+            <xpath expr="//div[@id='total']/div/table" position="inside">
+                <t t-set="payments_vals" t-value="o._get_payments_vals()"/>
+                <t t-foreach="payments_vals" t-as="payment_vals">
+                    <tr>
+                        <td>
+                            <i class="oe_form_field text-right oe_payment_label">Bezahlt am
+                                <t t-esc="payment_vals['date']"/>
+                            </i>
+                        </td>
+                        <td class="text-right">
+                            <span t-esc="payment_vals['amount']"
+                                  t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                        </td>
+                    </tr>
+                </t>
+                <t t-if="len(payments_vals) > 0">
+                    <tr class="border-b
+                    #-66lack">
+                        <td>
+                            <strong>Offener Betrag</strong>
+                        </td>
+                        <td class="text-right">
+                            <span t-field="o.residual"
+                                  t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                        </td>
+                    </tr>
+                </t>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

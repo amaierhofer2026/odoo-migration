@@ -1,0 +1,50 @@
+<odoo>
+    <data noupdate="1">
+        <record model='res.country.state' id='Burgenland'>
+            <field name='name'>Burgenland</field>
+            <field name='code'>Bgld.</field>
+            <field search="[('code','=','AT')]" model='res.country' name='country_id'/>
+        </record>
+
+        <record model='res.country.state' id='Kärnten'>
+            <field name='name'>Kärnten</field>
+            <field name='code'>Ktn.</field>
+            <field search="[('code','=','AT')]" model='res.country' name='country_id'/>
+        </record>
+        <record model='res.country.state' id='Niederösterreich'>
+            <field name='name'>Niederösterreich</field>
+            <field name='code'>NÖ</field>
+            <field search="[('code','=','AT')]" model='res.country' name='country_id'/>
+        </record>
+        <record model='res.country.state' id='Oberösterreich'>
+            <field name='name'>Oberösterreich</field>
+            <field name='code'>OÖ</field>
+            <field search="[('code','=','AT')]" model='res.country' name='country_id'/>
+        </record>
+        <record model='res.country.state' id='Salzburg'>
+            <field name='name'>Salzburg</field>
+            <field name='code'>Sbg.</field>
+            <field search="[('code','=','AT')]" model='res.country' name='country_id'/>
+        </record>
+        <record model='res.country.state' id='Steiermark'>
+            <field name='name'>Steiermark</field>
+            <field name='code'>Stmk.</field>
+            <field search="[('code','=','AT')]" model='res.country' name='country_id'/>
+        </record>
+        <record model='res.country.state' id='Tirol'>
+            <field name='name'>Tirol</field>
+            <field name='code'>T</field>
+            <field search="[('code','=','AT')]" model='res.country' name='country_id'/>
+        </record>
+        <record model='res.country.state' id='Vorarlberg'>
+            <field name='name'>Vorarlberg</field>
+            <field name='code'>Vbg.</field>
+            <field search="[('code','=','AT')]" model='res.country' name='country_id'/>
+        </record>
+                <record model='res.country.state' id='Wien'>
+            <field name='name'>Wien</field>
+            <field name='code'>W</field>
+            <field search="[('code','=','AT')]" model='res.country' name='country_id'/>
+        </record>
+    </data>
+</odoo>

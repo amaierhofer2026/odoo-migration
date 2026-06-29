@@ -1,0 +1,2054 @@
+<odoo>
+    <data noupdate="1">
+        <record id="itk_initial_abo_import.abo_order_gemeinde10617_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10617"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10617_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10617"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10601_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10601"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10601_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10601"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10603_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10603"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10603_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10603"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10605_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10605"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10605_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10605"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10313_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10313"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10313_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10313"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10318_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10318"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10318_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10318"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10323_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10323"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10323_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10323"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10618_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10618"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10618_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10618"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10616_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10616"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10616_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10616"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10301_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10301"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10301_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10301"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10807_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10807"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10807_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10807"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10810_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10810"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10810_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10810"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10823_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10823"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10823_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10823"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10506_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10506"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10506_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10506"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10409_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10409"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10409_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10409"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde20635_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde20635"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde20635_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde20635"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31901_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31901"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31901_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31901"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30502_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30502"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30502_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30502"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31309_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31309"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31309_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31309"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31701_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31701"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31701_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31701"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30501_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30501"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30501_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30501"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31101_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31101"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31101_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31101"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30507_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30507"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30507_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30507"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30509_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30509"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30509_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30509"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31706_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31706"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31706_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31706"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31611_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31611"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31611_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31611"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31310_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31310"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31310_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31310"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30709_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30709"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30709_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30709"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30515_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30515"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30515_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30515"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31911_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31911"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31911_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31911"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30827_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30827"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30827_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30827"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31913_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31913"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31913_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31913"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32313_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32313"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32313_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32313"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30740_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30740"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30740_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30740"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32317_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32317"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32317_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32317"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31825_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31825"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31825_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31825"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30631_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30631"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30631_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30631"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31837_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31837"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31837_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31837"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31229_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31229"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31229_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31229"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32018_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32018"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32018_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32018"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31550_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31550"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31550_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31550"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31308_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31308"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31308_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31308"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31514_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31514"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31514_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31514"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31301_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31301"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31301_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31301"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32301_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32301"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32301_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32301"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30904_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30904"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30904_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30904"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30906_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30906"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30906_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30906"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30512_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30512"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30512_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30512"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32206_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32206"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32206_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32206"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30731_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30731"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30731_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30731"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30909_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30909"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30909_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30909"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32309_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32309"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32309_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32309"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31520_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31520"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31520_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31520"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32319_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32319"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32319_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32319"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31929_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31929"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31929_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31929"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32006_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32006"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32006_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32006"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31333_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31333"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31333_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31333"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30718_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30718"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30718_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30718"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30627_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30627"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30627_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30627"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30719_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30719"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30719_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30719"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31932_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31932"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31932_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31932"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31336_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31336"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31336_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31336"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31829_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31829"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31829_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31829"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30629_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30629"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30629_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30629"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31338_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31338"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31338_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31338"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32523_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32523"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32523_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32523"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30633_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30633"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30633_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30633"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32131_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32131"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32131_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32131"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31344_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31344"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31344_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31344"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32142_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32142"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32142_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32142"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30527_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30527"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30527_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30527"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30932_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30932"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30932_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30932"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30856_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30856"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30856_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30856"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32219_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32219"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32219_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32219"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31844_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31844"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31844_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31844"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32336_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32336"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32336_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32336"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30543_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30543"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30543_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30543"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31552_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31552"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31552_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31552"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32141_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32141"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32141_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32141"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32120_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32120"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32120_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32120"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30817_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30817"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30817_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30817"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30908_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30908"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30908_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30908"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32508_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32508"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32508_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32508"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31912_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31912"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31912_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31912"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31022_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31022"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31022_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31022"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31109_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31109"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31109_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31109"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31322_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31322"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31322_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31322"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30925_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30925"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30925_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30925"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30835_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30835"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30835_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30835"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31926_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31926"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31926_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31926"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31951_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31951"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31951_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31951"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31230_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31230"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31230_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31230"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32135_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32135"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32135_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32135"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30942_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30942"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30942_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30942"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32530_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32530"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32530_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32530"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41019_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41019"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41019_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41019"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50405_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50405"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50405_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50405"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50307_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50307"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50307_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50307"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50410_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50410"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50410_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50410"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50412_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50412"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50412_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50412"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50320_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50320"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50320_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50320"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50206_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50206"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50206_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50206"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50611_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50611"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50611_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50611"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50415_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50415"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50415_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50415"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50615_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50615"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50615_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50615"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50329_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50329"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50329_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50329"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50330_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50330"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50330_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50330"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50621_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50621"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50621_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50621"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50511_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50511"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50511_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50511"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50422_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50422"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50422_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50422"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50626_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50626"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50626_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50626"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50338_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50338"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50338_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50338"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50401_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50401"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50401_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50401"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50314_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50314"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50314_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50314"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50411_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50411"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50411_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50411"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50421_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50421"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50421_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50421"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50423_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50423"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50423_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50423"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50417_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50417"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50417_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50417"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50205_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50205"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50205_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50205"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50613_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50613"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50613_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50613"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50324_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50324"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50324_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50324"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50326_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50326"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50326_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50326"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50619_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50619"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50619_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50619"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50418_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50418"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50418_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50418"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50628_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50628"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50628_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50628"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70305_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70305"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70305_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70305"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70907_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70907"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70907_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70907"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70806_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70806"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70806_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70806"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70601_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70601"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70601_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70601"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70310_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70310"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70310_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70310"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70204_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70204"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70204_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70204"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70319_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70319"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70319_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70319"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70712_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70712"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70712_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70712"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70713_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70713"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70713_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70713"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70611_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70611"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70611_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70611"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70323_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70323"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70323_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70323"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70515_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70515"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70515_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70515"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70209_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70209"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70209_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70209"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70212_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70212"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70212_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70212"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70615_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70615"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70615_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70615"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70336_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70336"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70336_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70336"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70340_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70340"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70340_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70340"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70522_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70522"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70522_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70522"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70219_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70219"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70219_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70219"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70220_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70220"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70220_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70220"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70626_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70626"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70626_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70626"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70527_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70527"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70527_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70527"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70629_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70629"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70629_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70629"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70732_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70732"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70732_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70732"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70530_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70530"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70530_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70530"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70914_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70914"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70914_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70914"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70514_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70514"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70514_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70514"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70357_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70357"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70357_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70357"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70524_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70524"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70524_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70524"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde80104_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde80104"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde80104_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde80104"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde80210_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde80210"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde80210_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde80210"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde80110_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde80110"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde80110_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde80110"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde80217_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde80217"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde80217_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde80217"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde80222_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde80222"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde80222_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde80222"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde80225_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde80225"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde80225_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde80225"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde80234_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde80234"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde80234_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde80234"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde80235_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde80235"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde80235_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde80235"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde80239_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde80239"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde80239_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde80239"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde80405_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde80405"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde80405_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde80405"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde80414_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde80414"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde80414_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde80414"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde80103_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde80103"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde80103_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde80103"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40429_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40429"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40429_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40429"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41404_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41404"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41404_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41404"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41513_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41513"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41513_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41513"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40445_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40445"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40445_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40445"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41234_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41234"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41234_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41234"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40446_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40446"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40446_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40446"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41416_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41416"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41416_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41416"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41342_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41342"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41342_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41342"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40401_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40401"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40401_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40401"/>
+        </record>
+        <!--<record id = "itk_initial_abo_import.abo_order_gemeinde41303_so_line_1" model = "sale.order.line"><field name = "subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41303"/></record>-->
+        <!--<record id = "itk_initial_abo_import.abo_order_gemeinde41303_so_line_2" model = "sale.order.line"><field name = "subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41303"/></record>-->
+        <record id="itk_initial_abo_import.abo_order_gemeinde41018_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41018"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41018_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41018"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41818_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41818"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41818_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41818"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41104_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41104"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41104_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41104"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40806_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40806"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40806_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40806"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41743_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41743"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41743_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41743"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41313_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41313"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41313_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41313"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40417_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40417"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40417_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40417"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41810_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41810"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41810_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41810"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41747_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41747"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41747_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41747"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41305_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41305"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41305_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41305"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40436_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40436"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40436_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40436"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41328_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41328"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41328_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41328"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41307_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41307"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41307_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41307"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40614_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40614"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40614_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40614"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41716_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41716"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41716_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41716"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41121_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41121"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41121_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41121"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41627_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41627"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41627_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41627"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40810_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40810"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40810_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40810"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40711_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40711"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40711_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40711"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41311_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41311"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41311_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41311"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41318_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41318"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41318_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41318"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41321_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41321"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41321_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41321"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41106_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41106"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41106_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41106"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40432_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40432"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40432_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40432"/>
+        </record>
+        <!--<record id = "itk_initial_abo_import.abo_order_gemeinde41330_so_line_1" model = "sale.order.line"><field name = "subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41330"/></record>-->
+        <!--<record id = "itk_initial_abo_import.abo_order_gemeinde41330_so_line_2" model = "sale.order.line"><field name = "subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41330"/></record>-->
+        <record id="itk_initial_abo_import.abo_order_gemeinde41325_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41325"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41325_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41325"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41502_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41502"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41502_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41502"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40509_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40509"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40509_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40509"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40512_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40512"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40512_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40512"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41231_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41231"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41231_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41231"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40404_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40404"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40404_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40404"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40809_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40809"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40809_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40809"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41614_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41614"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41614_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41614"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41120_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41120"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41120_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41120"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40716_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40716"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40716_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40716"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41711_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41711"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41711_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41711"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40908_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40908"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40908_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40908"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41606_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41606"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41606_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41606"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40902_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40902"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40902_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40902"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40903_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40903"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40903_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40903"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41814_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41814"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41814_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41814"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41738_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41738"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41738_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41738"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40507_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40507"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40507_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40507"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40502_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40502"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40502_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40502"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40101_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40101"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40101_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40101"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40807_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40807"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40807_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40807"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40623_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40623"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40623_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40623"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31915_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31915"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31915_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31915"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61204_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61204"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61204_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61204"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61627_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61627"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61627_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61627"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde62010_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde62010"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde62010_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde62010"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde60623_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde60623"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde60623_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde60623"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61021_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61021"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61021_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61021"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61054_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61054"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61054_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61054"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde62142_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde62142"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde62142_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde62142"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61716_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61716"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61716_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61716"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde60666_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde60666"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde60666_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde60666"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61024_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61024"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61024_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61024"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde62385_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde62385"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde62385_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde62385"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde62145_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde62145"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde62145_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde62145"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61266_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61266"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61266_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61266"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde60347_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde60347"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde60347_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde60347"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde60654_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde60654"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde60654_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde60654"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde62262_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde62262"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde62262_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde62262"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61012_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61012"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61012_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61012"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61253_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61253"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61253_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61253"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde62138_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde62138"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde62138_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde62138"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde60345_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde60345"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde60345_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde60345"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61013_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61013"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61013_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61013"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61217_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61217"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61217_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61217"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde62335_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde62335"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde62335_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde62335"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61615_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61615"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61615_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61615"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde60667_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde60667"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde60667_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde60667"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde62389_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde62389"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde62389_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde62389"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde62278_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde62278"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde62278_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde62278"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde62139_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde62139"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde62139_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde62139"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde62219_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde62219"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde62219_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde62219"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde62141_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde62141"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde62141_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde62141"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61053_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61053"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61053_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61053"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61438_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61438"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61438_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61438"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde62047_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde62047"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde62047_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde62047"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10306_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10306"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10306_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10306"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30621_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30621"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30621_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30621"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde62271_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde62271"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde62271_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde62271"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61106_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61106"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61106_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61106"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde62379_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde62379"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde62379_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde62379"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61016_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61016"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61016_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61016"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50203_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50203"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50203_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50203"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde62040_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde62040"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde62040_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde62040"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61751_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61751"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61751_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61751"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde60351_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde60351"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde60351_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde60351"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde62275_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde62275"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde62275_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde62275"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde60613_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde60613"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde60613_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde60613"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10612_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10612"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10612_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10612"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31830_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31830"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31830_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31830"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31549_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31549"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31549_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31549"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10511_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10511"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10511_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10511"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50504_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50504"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50504_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50504"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50508_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50508"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50508_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50508"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30620_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30620"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30620_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30620"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50319_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50319"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50319_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50319"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10415_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10415"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10415_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10415"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30804_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30804"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30804_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30804"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31805_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31805"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31805_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31805"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50305_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50305"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50305_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50305"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30830_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30830"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30830_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30830"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50501_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50501"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50501_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50501"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31713_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31713"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31713_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31713"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31515_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31515"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31515_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31515"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde62311_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde62311"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde62311_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde62311"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31910_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31910"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31910_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31910"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31121_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31121"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31121_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31121"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32013_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32013"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32013_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32013"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70335_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70335"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70335_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70335"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32502_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32502"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32502_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32502"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10307_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10307"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10307_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10307"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41717_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41717"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41717_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41717"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde60659_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde60659"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde60659_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde60659"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32518_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32518"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32518_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32518"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41816_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41816"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41816_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41816"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde60613_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde60613"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde60613_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde60613"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41516_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41516"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41516_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41516"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde20418_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde20418"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde20418_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde20418"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde62143_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde62143"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde62143_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde62143"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41111_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41111"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41111_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41111"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde80302_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde80302"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde80302_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde80302"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32011_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32011"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde32011_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde32011"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30734_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30734"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30734_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30734"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41407_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41407"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41407_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41407"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70511_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70511"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70511_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70511"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40615_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40615"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40615_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40615"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31907_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31907"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31907_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31907"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10902_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10902"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10902_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10902"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70718_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70718"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70718_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70718"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61763_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61763"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61763_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61763"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50420_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50420"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50420_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50420"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31103_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31103"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde31103_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde31103"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70711_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70711"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70711_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70711"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40501_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40501"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40501_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40501"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70811_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70811"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70811_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70811"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41114_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41114"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde41114_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde41114"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10608_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10608"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10608_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10608"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70622_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70622"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70622_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70622"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70911_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70911"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70911_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70911"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70813_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70813"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70813_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70813"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30626_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30626"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30626_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30626"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70728_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70728"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70728_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70728"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70715_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70715"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70715_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70715"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70808_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70808"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70808_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70808"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30544_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30544"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30544_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30544"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70709_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70709"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70709_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70709"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70729_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70729"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70729_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70729"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70827_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70827"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70827_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70827"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10718_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10718"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10718_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10718"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70314_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70314"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70314_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70314"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70343_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70343"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70343_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70343"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10919_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10919"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10919_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10919"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde62270_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde62270"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde62270_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde62270"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30541_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30541"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde30541_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde30541"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10922_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10922"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde10922_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde10922"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70502_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70502"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70502_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70502"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61259_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61259"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61259_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61259"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61631_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61631"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61631_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61631"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50617_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50617"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde50617_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde50617"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61632_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61632"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde61632_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde61632"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40601_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40601"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde40601_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde40601"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70703_so_line_1" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70703"/>
+        </record>
+        <record id="itk_initial_abo_import.abo_order_gemeinde70703_so_line_2" model="sale.order.line">
+            <field name="subscription_id" ref="itk_initial_abo_import.abo_helpamtsweg_gemeinde70703"/>
+        </record>
+    </data>
+</odoo>

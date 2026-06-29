@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+                string="ITK-Bestellanfrage"
+                id="action_report_itk_purchasequotations"
+                model="purchase.order"
+                report_type="qweb-pdf"
+                name="purchase.report_itk_purchasequotation"
+                file="purchase.report_itk_purchasequotation"
+                print_report_name="'Bestellanfrage - %s - %s' % (object.partner_id.name or '', object.name)"
+        />
+        <report
+                string="ITK-Bestellung"
+                id="action_report_itk_purchaseorders"
+                model="purchase.order"
+                report_type="qweb-pdf"
+                name="purchase.report_itk_purchaseorder"
+                file="purchase.report_itk_purchaseorder"
+                print_report_name="'Bestellung - %s - %s' % (object.partner_id.name or '', object.name)"
+        />
+        <!--<report-->
+                <!--string="ITK-Rechnung"-->
+                <!--id="action_report_itk_invoices"-->
+                <!--model="account.invoice"-->
+                <!--report_type="qweb-pdf"-->
+                <!--name="account.report_itk_invoice"-->
+                <!--file="account.report_itk_invoice"-->
+                <!--print_report_name="'Rechnung - %s - %s' % (object.partner_id.name or '', object.name)"-->
+        <!--/>-->
+                <!--<report-->
+                <!--string="ITK-Rechnung mit Anzahlungen"-->
+                <!--id="action_report_itk_invoices_with_payments"-->
+                <!--model="itk_reports.invoice"-->
+                <!--report_type="qweb-pdf"-->
+                <!--name="itk_reports.report_itk_invoice_with_payments"-->
+                <!--file="itk_reports.report_itk_invoice_with_payments"-->
+                <!--print_report_name="'Rechnung mit Anzahlungen - %s - %s' % (object.partner_id.name or '', object.name)"-->
+                <!--/>&ndash;&gt;-->
+        <report
+                string="ITK-Angebot/Auftrag"
+                id="action_report_itk_saleorders"
+                model="sale.order"
+                report_type="qweb-pdf"
+                name="sale.report_itk_saleorder"
+                file="sale.report_itk_saleorder"
+                print_report_name="'Angebot - %s - %s' % (object.partner_id.name or '', object.name)"
+        />
+        <!--<report-->
+        <!--string="ITK-Proforma"-->
+        <!--id="action_report_itk_saleorders"-->
+        <!--model="sale.order"-->
+        <!--report_type="qweb-pdf"-->
+        <!--name="sale.report_itk_saleorder"-->
+        <!--file="sale.report_itk_saleorder"-->
+        <!--print_report_name="'Proforma-Rechnung - %s - %s' % (object.partner_id.name or '', object.name)"-->
+        <!--/>-->
+    </data>
+</odoo>

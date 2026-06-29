@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20701">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde21001">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20501">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20702">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20703">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20705">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20601">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20901">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20602">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20603">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20801">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20502">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20302">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20604">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20503">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20802">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20402">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20803">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20504">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20804">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20707">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20403">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20805">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20708">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde21002">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20710">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20711">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20905">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20534">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20712">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20505">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20806">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20320">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde21003">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20608">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde21004">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20409">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20609">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20808">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20508">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20509">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20610">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20305">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde21005">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20713">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20511">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20611">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20512">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20306">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20613">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20513">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20307">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20642">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20415">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20616">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20321">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20416">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20643">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20442">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20618">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20619">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20417">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20518">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20519">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20620">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20520">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20622">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20810">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20719">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20625">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20627">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde21006">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20720">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20425">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20424">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20911">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20630">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde21007">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20912">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20644">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20632">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20721">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20812">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20633">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20432">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20815">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20913">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20523">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20914">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20722">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20813">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20428">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20918">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20316">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde21008">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20527">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde21009">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20637">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde21010">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20723">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20530">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20435">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20638">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20724">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20725">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20817">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20639">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20726">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20531">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20640">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20923">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+        <record model="res.partner" id="itk_initial_data_import.gemeinde20441">
+            <field name='user_id' ref="__export__.itk_user_gszk"/>
+            <field name='property_product_pricelist' ref="__export__.product_pricelist_gszk"/>
+        </record>
+    </data>
+</odoo>

@@ -23,4 +23,6 @@ class SaleOrder(models.Model):
 
     @api.onchange('pricelist_id')
     def onchange_pricelist_id(self):
-        return
+        for line in self.mapped('order_line'):
+            line.product_uom_change() # Calls routine for new calculation of the price of this order.line with newly selected pricelist
+        # return True

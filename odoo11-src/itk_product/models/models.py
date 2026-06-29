@@ -19,7 +19,7 @@ class ProductTemplate(models.Model):
 
 
     product_type_id = fields.Many2one('itk_product.product_type', string='Product-Type')
-    to_multiply_by_factor = fields.Boolean(string="To multiply by Factor(thsd)", default=False)
+    # is_multi_factor_product = fields.Boolean(string="To multiply by Factor(thsd)", default=False)
 
 
 class ProductType(models.Model):

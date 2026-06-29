@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data noupdate="0">
+        <record id="itk_gszk_product_1" model="product.product">
+            <field name="name">GSZK-amtsweg</field>
+            <field name="recurring_invoice">True</field>
+            <field name="subscription_template_id" ref="itk_subscription.subscription_template_J"/>
+            <field name="list_price">268.486</field>
+            <field name="type">general</field>
+            <field name="product_type_id" ref="itk_initial_product_import.product_type_onlineservice"/>
+            <field name="categ_id" ref="itk_initial_product_import.product_category_nutzungsentgelt"/>
+            <field name="uom_id" ref="itk_initial_product_import.product_uom_unit"/>
+            <field name="uom_po_id" ref="itk_initial_product_import.product_uom_unit"/>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">True</field>
+        </record>
+        <!--<record id="itk_gszk_product_2" model="product.product">-->
+            <!--<field name="name">GSZK PRODUCT 2</field>-->
+            <!--<field name="recurring_invoice">True</field>-->
+            <!--<field name="subscription_template_id" ref="itk_subscription.subscription_template_J"/>-->
+            <!--<field name="list_price">0.0</field>-->
+            <!--<field name="type">general</field>-->
+            <!--<field name="product_type_id" ref="itk_initial_product_import.product_type_onlineservice"/>-->
+            <!--<field name="categ_id" ref="itk_initial_product_import.product_category_nutzungsentgelt"/>-->
+            <!--<field name="uom_id" ref="itk_initial_product_import.product_uom_unit"/>-->
+            <!--<field name="uom_po_id" ref="itk_initial_product_import.product_uom_unit"/>-->
+            <!--<field name="sale_ok">True</field>-->
+            <!--<field name="purchase_ok">True</field>-->
+        <!--</record>-->
+    </data>
+</odoo>

@@ -19,7 +19,7 @@
 ##############################################################################
 {
     'name': 'Sale Order Line Number',
-    'version': '18.0.1.0.0',
+    'version': '11.0.1.0.0',
     'category': 'Sales',
     'sequence': 14,
     'author': 'Alvarium Services',

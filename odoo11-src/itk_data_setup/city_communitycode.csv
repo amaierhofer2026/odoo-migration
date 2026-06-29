@@ -1,0 +1,2099 @@
+communitycode, city
+10101        , Eisenstadt
+10201        , Rust
+10301        , Breitenbrunn am Neusiedler See
+10302        , Donnerskirchen
+10303        , Großhöflein
+10304        , Hornstein
+10305        , Klingenbach
+10306        , Leithaprodersdorf
+10307        , Mörbisch am See
+10308        , Müllendorf
+10309        , Neufeld an der Leitha
+10310        , Oggau am Neusiedler See
+10311        , Oslip
+10312        , Purbach am Neusiedler See
+10313        , Sankt Margarethen im Burgenland
+10314        , Schützen am Gebirge
+10315        , Siegendorf
+10316        , Steinbrunn
+10317        , Trausdorf an der Wulka
+10318        , Wimpassing an der Leitha
+10319        , Wulkaprodersdorf
+10320        , Loretto
+10321        , Stotzing
+10322        , Zillingtal
+10323        , Zagersdorf
+10401        , Bocksdorf
+10402        , Burgauberg-Neudauberg
+10403        , Eberau
+10404        , Gerersdorf-Sulz
+10405        , Güssing
+10406        , Güttenbach
+10407        , Heiligenbrunn
+10408        , Kukmirn
+10409        , Neuberg im Burgenland
+10410        , Neustift bei Güssing
+10411        , Olbendorf
+10412        , Ollersdorf im Burgenland
+10413        , Sankt Michael im Burgenland
+10414        , Stegersbach
+10415        , Stinatz
+10416        , Strem
+10417        , Tobaj
+10418        , Hackerberg
+10419        , Wörterberg
+10420        , Großmürbisch
+10421        , Inzenhof
+10422        , Kleinmürbisch
+10423        , Tschanigraben
+10424        , Heugraben
+10425        , Rohr im Burgenland
+10426        , Bildein
+10427        , Rauchwart
+10428        , Moschendorf
+10501        , Deutsch Kaltenbrunn
+10502        , Eltendorf
+10503        , Heiligenkreuz im Lafnitztal
+10504        , Jennersdorf
+10505        , Minihof-Liebau
+10506        , Mogersdorf
+10507        , Neuhaus am Klausenbach
+10508        , Rudersdorf
+10509        , Sankt Martin an der Raab
+10510        , Weichselbaum
+10511        , Königsdorf
+10512        , Mühlgraben
+10601        , Draßburg
+10602        , Forchtenstein
+10603        , Hirm
+10604        , Loipersbach im Burgenland
+10605        , Marz
+10606        , Mattersburg
+10607        , Neudörfl
+10608        , Pöttelsdorf
+10609        , Pöttsching
+10610        , Rohrbach bei Mattersburg
+10611        , Bad Sauerbrunn
+10612        , Schattendorf
+10613        , Sieggraben
+10614        , Sigleß
+10615        , Wiesen
+10616        , Antau
+10617        , Baumgarten
+10618        , Zemendorf-Stöttera
+10619        , Krensdorf
+10701        , Andau
+10702        , Apetlon
+10703        , Bruckneudorf
+10704        , Deutsch Jahrndorf
+10705        , Frauenkirchen
+10706        , Gattendorf
+10707        , Gols
+10708        , Halbturn
+10709        , Illmitz
+10710        , Jois
+10711        , Kittsee
+10712        , Mönchhof
+10713        , Neusiedl am See
+10714        , Nickelsdorf
+10715        , Pama
+10716        , Pamhagen
+10717        , Parndorf
+10718        , Podersdorf am See
+10719        , Sankt Andrä am Zicksee
+10720        , Tadten
+10721        , Wallern im Burgenland
+10722        , Weiden am See
+10723        , Winden am See
+10724        , Zurndorf
+10725        , Neudorf
+10726        , Potzneusiedl
+10727        , Edelstal
+10801        , Deutschkreutz
+10802        , Draßmarkt
+10803        , Frankenau-Unterpullendorf
+10804        , Großwarasdorf
+10805        , Horitschon
+10806        , Kaisersdorf
+10807        , Kobersdorf
+10808        , Lackenbach
+10809        , Lockenhaus
+10810        , Lutzmannsburg
+10811        , Mannersdorf an der Rabnitz
+10812        , Markt Sankt Martin
+10813        , Neckenmarkt
+10814        , Neutal
+10815        , Nikitsch
+10816        , Oberpullendorf
+10817        , Pilgersdorf
+10818        , Piringsdorf
+10819        , Raiding
+10820        , Ritzing
+10821        , Steinberg-Dörfl
+10822        , Stoob
+10823        , Weppersdorf
+10824        , Lackendorf
+10825        , Unterfrauenhaid
+10826        , Unterrabnitz-Schwendgraben
+10827        , Weingraben
+10828        , Oberloisdorf
+10901        , Bad Tatzmannsdorf
+10902        , Bernstein
+10903        , Deutsch Schützen-Eisenberg
+10904        , Grafenschachen
+10905        , Großpetersdorf
+10906        , Hannersdorf
+10907        , Kemeten
+10908        , Kohfidisch
+10909        , Litzelsdorf
+10910        , Loipersdorf-Kitzladen
+10911        , Mariasdorf
+10912        , Markt Allhau
+10913        , Markt Neuhodis
+10914        , Mischendorf
+10915        , Oberdorf im Burgenland
+10916        , Oberschützen
+10917        , Oberwart
+10918        , Pinkafeld
+10919        , Rechnitz
+10920        , Riedlingsdorf
+10921        , Rotenturm an der Pinka
+10922        , Schachendorf
+10923        , Stadtschlaining
+10924        , Unterkohlstätten
+10925        , Unterwart
+10926        , Weiden bei Rechnitz
+10927        , Wiesfleck
+10928        , Wolfau
+10929        , Neustift an der Lafnitz
+10930        , Jabing
+10931        , Badersdorf
+10932        , Schandorf
+20101        , Klagenfurt am Wörthersee
+20201        , Villach
+20302        , Dellach
+20305        , Hermagor-Pressegger See
+20306        , Kirchbach
+20307        , Kötschach-Mauthen
+20316        , St. Stefan im Gailtal
+20320        , Gitschtal
+20321        , Lesachtal
+20402        , Ebenthal in Kärnten
+20403        , Feistritz im Rosental
+20405        , Ferlach
+20409        , Grafenstein
+20412        , Keutschach am See
+20414        , Köttmannsdorf
+20415        , Krumpendorf am Wörthersee
+20416        , Ludmannsdorf
+20417        , Maria Rain
+20418        , Maria Saal
+20419        , Maria Wörth
+20421        , Moosburg
+20424        , Pörtschach am Wörther See
+20425        , Poggersdorf
+20428        , St. Margareten im Rosental
+20432        , Schiefling am Wörthersee
+20435        , Techelsberg am Wörther See
+20441        , Zell
+20442        , Magdalensberg
+20501        , Althofen
+20502        , Brückl
+20503        , Deutsch-Griffen
+20504        , Eberstein
+20505        , Friesach
+20506        , Glödnitz
+20508        , Gurk
+20509        , Guttaring
+20511        , Hüttenberg
+20512        , Kappel am Krappfeld
+20513        , Klein St. Paul
+20515        , Liebenfels
+20518        , Metnitz
+20519        , Micheldorf
+20520        , Mölbling
+20523        , St. Georgen am Längsee
+20527        , St. Veit an der Glan
+20530        , Straßburg
+20531        , Weitensfeld im Gurktal
+20534        , Frauenstein
+20601        , Bad Kleinkirchheim
+20602        , Baldramsdorf
+20603        , Berg im Drautal
+20604        , Dellach im Drautal
+20605        , Großkirchheim
+20607        , Flattach
+20608        , Gmünd in Kärnten
+20609        , Greifenburg
+20610        , Heiligenblut am Großglockner
+20611        , Irschen
+20613        , Kleblach-Lind
+20616        , Lendorf
+20618        , Mallnitz
+20619        , Malta
+20620        , Millstatt am See
+20622        , Mörtschach
+20624        , Mühldorf
+20625        , Oberdrauburg
+20627        , Obervellach
+20630        , Radenthein
+20631        , Rangersdorf
+20632        , Rennweg am Katschberg
+20633        , Sachsenburg
+20634        , Seeboden am Millstätter See
+20635        , Spittal an der Drau
+20636        , Stall
+20637        , Steinfeld
+20638        , Trebesing
+20639        , Weißensee
+20640        , Winklern
+20642        , Krems in Kärnten
+20643        , Lurnfeld
+20644        , Reißeck
+20701        , Afritz am See
+20702        , Arnoldstein
+20703        , Arriach
+20705        , Bad Bleiberg
+20707        , Feistritz an der Gail
+20708        , Feld am See
+20710        , Ferndorf
+20711        , Finkenstein am Faaker See
+20712        , Fresach
+20713        , Hohenthurn
+20719        , Nötsch im Gailtal
+20720        , Paternion
+20721        , Rosegg
+20722        , St. Jakob im Rosental
+20723        , Stockenboi
+20724        , Treffen am Ossiacher See
+20725        , Velden am Wörther See
+20726        , Weißenstein
+20727        , Wernberg
+20801        , Bleiburg
+20802        , Diex
+20803        , Eberndorf
+20804        , Eisenkappel-Vellach
+20805        , Feistritz ob Bleiburg
+20806        , Gallizien
+20807        , Globasnitz
+20808        , Griffen
+20810        , Neuhaus
+20812        , Ruden
+20813        , St. Kanzian am Klopeiner See
+20815        , Sittersdorf
+20817        , Völkermarkt
+20901        , Bad St. Leonhard im Lavanttal
+20905        , Frantschach-St. Gertraud
+20909        , Lavamünd
+20911        , Preitenegg
+20912        , Reichenfels
+20913        , St. Andrä
+20914        , St. Georgen im Lavanttal
+20918        , St. Paul im Lavanttal
+20923        , Wolfsberg
+21001        , Albeck
+21002        , Feldkirchen in Kärnten
+21003        , Glanegg
+21004        , Gnesau
+21005        , Himmelberg
+21006        , Ossiach
+21007        , Reichenau
+21008        , St. Urban
+21009        , Steindorf am Ossiacher See
+21010        , Steuerberg
+30101        , Krems an der Donau
+30201        , St. Pölten
+30301        , Waidhofen an der Ybbs
+30401        , Wiener Neustadt
+30501        , Allhartsberg
+30502        , Amstetten
+30503        , Ardagger
+30504        , Aschbach-Markt
+30506        , Behamberg
+30507        , Biberbach
+30508        , Ennsdorf
+30509        , Ernsthofen
+30510        , Ertl
+30511        , Euratsfeld
+30512        , Ferschnitz
+30514        , Haag
+30515        , Haidershofen
+30516        , Hollenstein an der Ybbs
+30517        , Kematen an der Ybbs
+30520        , Neuhofen an der Ybbs
+30521        , Neustadtl an der Donau
+30522        , Oed-Oehling
+30524        , Opponitz
+30526        , St. Georgen am Reith
+30527        , St. Georgen am Ybbsfelde
+30529        , St. Pantaleon-Erla
+30530        , St. Peter in der Au
+30531        , St. Valentin
+30532        , Seitenstetten
+30533        , Sonntagberg
+30534        , Strengberg
+30536        , Viehdorf
+30538        , Wallsee-Sindelburg
+30539        , Weistrach
+30541        , Winklarn
+30542        , Wolfsbach
+30543        , Ybbsitz
+30544        , Zeillern
+30601        , Alland
+30602        , Altenmarkt an der Triesting
+30603        , Bad Vöslau
+30604        , Baden
+30605        , Berndorf
+30607        , Ebreichsdorf
+30608        , Enzesfeld-Lindabrunn
+30609        , Furth an der Triesting
+30612        , Günselsdorf
+30613        , Heiligenkreuz
+30614        , Hernstein
+30615        , Hirtenberg
+30616        , Klausen-Leopoldsdorf
+30618        , Kottingbrunn
+30620        , Leobersdorf
+30621        , Mitterndorf an der Fischa
+30623        , Oberwaltersdorf
+30625        , Pfaffstätten
+30626        , Pottendorf
+30627        , Pottenstein
+30629        , Reisenberg
+30631        , Schönau an der Triesting
+30633        , Seibersdorf
+30635        , Sooß
+30636        , Tattendorf
+30637        , Teesdorf
+30639        , Traiskirchen
+30641        , Trumau
+30645        , Weissenbach an der Triesting
+30646        , Blumau-Neurißhof
+30701        , Au am Leithaberge
+30702        , Bad Deutsch-Altenburg
+30703        , Berg
+30704        , Bruck an der Leitha
+30706        , Enzersdorf an der Fischa
+30708        , Göttlesbrunn-Arbesthal
+30709        , Götzendorf an der Leitha
+30710        , Hainburg a.d. Donau
+30711        , Haslau-Maria Ellend
+30712        , Höflein
+30713        , Hof am Leithaberge
+30715        , Hundsheim
+30716        , Mannersdorf am Leithagebirge
+30718        , Petronell-Carnuntum
+30719        , Prellenkirchen
+30721        , Rohrau
+30722        , Scharndorf
+30724        , Sommerein
+30726        , Trautmannsdorf an der Leitha
+30728        , Wolfsthal
+30729        , Ebergassing
+30730        , Fischamend
+30731        , Gramatneusiedl
+30732        , Himberg
+30733        , Klein-Neusiedl
+30734        , Lanzendorf
+30735        , Leopoldsdorf
+30736        , Maria-Lanzendorf
+30737        , Moosbrunn
+30738        , Rauchenwarth
+30739        , Schwadorf
+30740        , Schwechat
+30741        , Zwölfaxing
+30801        , Aderklaa
+30802        , Andlersdorf
+30803        , Angern an der March
+30804        , Auersthal
+30805        , Bad Pirawarth
+30808        , Deutsch-Wagram
+30810        , Drösing
+30811        , Dürnkrut
+30812        , Ebenthal
+30813        , Eckartsau
+30814        , Engelhartstetten
+30817        , Gänserndorf
+30819        , Glinzendorf
+30821        , Groß-Enzersdorf
+30822        , Großhofen
+30824        , Groß-Schweinbarth
+30825        , Haringsee
+30826        , Hauskirchen
+30827        , Hohenau an der March
+30828        , Hohenruppersdorf
+30829        , Jedenspeigen
+30830        , Lassee
+30831        , Leopoldsdorf im Marchfelde
+30834        , Mannsdorf an der Donau
+30835        , Marchegg
+30836        , Markgrafneusiedl
+30838        , Matzen-Raggendorf
+30841        , Neusiedl an der Zaya
+30842        , Obersiebenbrunn
+30844        , Orth an der Donau
+30845        , Palterndorf-Dobermannsdorf
+30846        , Parbasdorf
+30848        , Prottes
+30849        , Raasdorf
+30850        , Ringelsdorf-Niederabsdorf
+30852        , Schönkirchen-Reyersdorf
+30854        , Spannberg
+30856        , Strasshof an der Nordbahn
+30857        , Sulz im Weinviertel
+30858        , Untersiebenbrunn
+30859        , Velm-Götzendorf
+30860        , Weikendorf
+30863        , Zistersdorf
+30865        , Weiden an der March
+30902        , Amaliendorf-Aalfang
+30903        , Brand-Nagelberg
+30904        , Eggern
+30906        , Eisgarn
+30908        , Gmünd
+30909        , Großdietmanns
+30910        , Bad Großpertholz
+30912        , Großschönau
+30913        , Moorbad Harbach
+30915        , Haugschlag
+30916        , Heidenreichstein
+30917        , Hirschbach
+30920        , Hoheneich
+30921        , Kirchberg am Walde
+30925        , Litschau
+30929        , Reingers
+30932        , St. Martin
+30935        , Schrems
+30939        , Unserfrau-Altweitra
+30940        , Waldenstein
+30942        , Weitra
+31001        , Alberndorf im Pulkautal
+31008        , Göllersdorf
+31009        , Grabern
+31014        , Guntersdorf
+31015        , Hadres
+31016        , Hardegg
+31018        , Haugsdorf
+31019        , Heldenberg
+31021        , Hohenwarth-Mühlbach a.M.
+31022        , Hollabrunn
+31025        , Mailberg
+31026        , Maissau
+31028        , Nappersdorf-Kammersdorf
+31033        , Pernersdorf
+31035        , Pulkau
+31036        , Ravelsbach
+31037        , Retz
+31038        , Retzbach
+31041        , Schrattenthal
+31042        , Seefeld-Kadolz
+31043        , Sitzendorf an der Schmida
+31051        , Wullersdorf
+31052        , Zellerndorf
+31053        , Ziersdorf
+31101        , Altenburg
+31102        , Brunn an der Wild
+31103        , Burgschleinitz-Kühnring
+31104        , Drosendorf-Zissersdorf
+31105        , Eggenburg
+31106        , Gars am Kamp
+31107        , Geras
+31109        , Horn
+31110        , Irnfritz-Messern
+31111        , Japons
+31113        , Langau
+31114        , Meiseldorf
+31117        , Pernegg
+31119        , Röhrenbach
+31120        , Röschitz
+31121        , Rosenburg-Mold
+31123        , St. Bernhard-Frauenhofen
+31124        , Sigmundsherberg
+31129        , Weitersfeld
+31130        , Straning-Grafenberg
+31201        , Bisamberg
+31202        , Enzersfeld im Weinviertel
+31203        , Ernstbrunn
+31204        , Großmugl
+31205        , Großrußbach
+31206        , Hagenbrunn
+31207        , Harmannsdorf
+31208        , Hausleiten
+31213        , Korneuburg
+31214        , Langenzersdorf
+31215        , Leitzersdorf
+31216        , Leobendorf
+31224        , Rußbach
+31226        , Sierndorf
+31227        , Spillern
+31228        , Stetteldorf am Wagram
+31229        , Stetten
+31230        , Stockerau
+31234        , Niederhollabrunn
+31235        , Gerasdorf bei Wien
+31301        , Aggsbach
+31302        , Albrechtsberg an der Großen Krems
+31303        , Bergern im Dunkelsteinerwald
+31304        , Dürnstein
+31308        , Grafenegg
+31309        , Furth bei Göttweig
+31310        , Gedersdorf
+31311        , Gföhl
+31315        , Hadersdorf-Kammern
+31319        , Jaidhof
+31321        , Krumau am Kamp
+31322        , Langenlois
+31323        , Lengenfeld
+31324        , Lichtenau im Waldviertel
+31326        , Maria Laach am Jauerling
+31327        , Mautern an der Donau
+31330        , Mühldorf
+31333        , Paudorf
+31336        , Rastenfeld
+31337        , Rohrendorf bei Krems
+31338        , Rossatz-Arnsdorf
+31340        , St. Leonhard am Hornerwald
+31343        , Senftenberg
+31344        , Spitz
+31346        , Straß im Straßertale
+31347        , Stratzing
+31350        , Weinzierl am Walde
+31351        , Weißenkirchen in der Wachau
+31355        , Schönberg am Kamp
+31356        , Droß
+31401        , Annaberg
+31402        , Eschenau
+31403        , Hainfeld
+31404        , Hohenberg
+31405        , Kaumberg
+31406        , Kleinzell
+31407        , Lilienfeld
+31408        , Mitterbach am Erlaufsee
+31409        , Ramsau
+31410        , Rohrbach an der Gölsen
+31411        , St. Aegyd am Neuwalde
+31412        , St. Veit an der Gölsen
+31413        , Traisen
+31414        , Türnitz
+31502        , Artstetten-Pöbring
+31503        , Bergland
+31504        , Bischofstetten
+31505        , Blindenmarkt
+31506        , Dorfstetten
+31507        , Dunkelsteinerwald
+31508        , Erlauf
+31509        , Golling an der Erlauf
+31511        , Hofamt Priel
+31513        , Hürm
+31514        , Kilb
+31515        , Kirnberg an der Mank
+31516        , Klein-Pöchlarn
+31517        , Krummnußbaum
+31519        , Leiben
+31520        , Loosdorf
+31521        , Mank
+31522        , Marbach an der Donau
+31523        , Maria Taferl
+31524        , Melk
+31525        , Münichreith-Laimbach
+31527        , Neumarkt an der Ybbs
+31528        , Nöchling
+31530        , Persenbeug-Gottsdorf
+31531        , Petzenkirchen
+31533        , Pöchlarn
+31534        , Pöggstall
+31535        , Raxendorf
+31537        , Ruprechtshofen
+31539        , St. Leonhard am Forst
+31540        , St. Martin-Karlsbach
+31541        , St. Oswald
+31542        , Schönbühel-Aggsbach
+31543        , Schollach
+31546        , Weiten
+31549        , Ybbs an der Donau
+31550        , Zelking-Matzleinsdorf
+31551        , Texingtal
+31552        , Yspertal
+31553        , Emmersdorf an der Donau
+31601        , Altlichtenwarth
+31603        , Asparn an der Zaya
+31604        , Bernhardsthal
+31605        , Bockfließ
+31606        , Drasenhofen
+31608        , Falkenstein
+31609        , Fallbach
+31611        , Gaubitsch
+31612        , Gaweinstal
+31613        , Gnadendorf
+31614        , Großebersdorf
+31615        , Großengersdorf
+31616        , Großharras
+31617        , Großkrut
+31620        , Hausbrunn
+31621        , Herrnbaumgarten
+31622        , Hochleithen
+31627        , Kreuttal
+31628        , Kreuzstetten
+31629        , Laa an der Thaya
+31630        , Ladendorf
+31633        , Mistelbach
+31634        , Neudorf bei Staatz
+31636        , Niederleis
+31642        , Pillichsdorf
+31644        , Poysdorf
+31645        , Rabensburg
+31646        , Schrattenberg
+31649        , Staatz
+31650        , Stronsdorf
+31651        , Ulrichskirchen-Schleinbach
+31652        , Unterstinkenbrunn
+31653        , Wildendürnbach
+31654        , Wilfersdorf
+31655        , Wolkersdorf im Weinviertel
+31658        , Ottenthal
+31701        , Achau
+31702        , Biedermannsdorf
+31703        , Breitenfurt bei Wien
+31704        , Brunn am Gebirge
+31706        , Gaaden
+31707        , Gießhübl
+31709        , Gumpoldskirchen
+31710        , Guntramsdorf
+31711        , Hennersdorf
+31712        , Hinterbrühl
+31713        , Kaltenleutgeben
+31714        , Laab im Walde
+31715        , Laxenburg
+31716        , Maria Enzersdorf
+31717        , Mödling
+31718        , Münchendorf
+31719        , Perchtoldsdorf
+31723        , Vösendorf
+31725        , Wiener Neudorf
+31726        , Wienerwald
+31801        , Altendorf
+31802        , Aspang-Markt
+31803        , Aspangberg-St. Peter
+31804        , Breitenau
+31805        , Breitenstein
+31806        , Buchbach
+31807        , Edlitz
+31808        , Enzenreith
+31809        , Feistritz am Wechsel
+31810        , Gloggnitz
+31811        , Grafenbach-St. Valentin
+31812        , Grimmenstein
+31813        , Grünbach am Schneeberg
+31814        , Kirchberg am Wechsel
+31815        , Mönichkirchen
+31817        , Natschbach-Loipersbach
+31818        , Neunkirchen
+31820        , Otterthal
+31821        , Payerbach
+31823        , Pitten
+31825        , Prigglitz
+31826        , Puchberg am Schneeberg
+31827        , Raach am Hochgebirge
+31829        , Reichenau an der Rax
+31830        , St. Corona am Wechsel
+31831        , St. Egyden am Steinfeld
+31832        , Scheiblingkirchen-Thernberg
+31833        , Schottwien
+31834        , Schrattenbach
+31835        , Schwarzau am Steinfeld
+31836        , Schwarzau im Gebirge
+31837        , Seebenstein
+31838        , Semmering
+31839        , Ternitz
+31840        , Thomasberg
+31841        , Trattenbach
+31842        , Bürg-Vöstenhof
+31843        , Warth
+31844        , Wartmannstetten
+31845        , Willendorf
+31846        , Wimpassing im Schwarzatale
+31847        , Würflach
+31848        , Zöbern
+31849        , Höflein an der Hohen Wand
+31901        , Altlengbach
+31902        , Asperhofen
+31903        , Böheimkirchen
+31904        , Brand-Laaben
+31905        , Eichgraben
+31906        , Frankenfels
+31907        , Gerersdorf
+31909        , Hofstetten-Grünau
+31910        , Hafnerbach
+31911        , Haunoldstein
+31912        , Herzogenburg
+31913        , Inzersdorf-Getzersdorf
+31915        , Kapelln
+31916        , Karlstetten
+31917        , Kasten bei Böheimkirchen
+31918        , Kirchberg an der Pielach
+31919        , Kirchstetten
+31920        , Loich
+31921        , Maria-Anzbach
+31922        , Markersdorf-Haindorf
+31923        , Michelbach
+31925        , Neidling
+31926        , Neulengbach
+31927        , Neustift-Innermanzing
+31928        , Nußdorf ob der Traisen
+31929        , Ober-Grafendorf
+31930        , Obritzberg-Rust
+31932        , Prinzersdorf
+31934        , Pyhra
+31935        , Rabenstein an der Pielach
+31938        , St. Margarethen an der Sierning
+31939        , Schwarzenbach an der Pielach
+31940        , Statzendorf
+31941        , Stössing
+31943        , Traismauer
+31945        , Weinburg
+31946        , Perschling
+31947        , Wilhelmsburg
+31948        , Wölbling
+31949        , Gablitz
+31950        , Mauerbach
+31951        , Pressbaum
+31952        , Purkersdorf
+31953        , Tullnerbach
+31954        , Wolfsgraben
+32001        , Gaming
+32002        , Göstling an der Ybbs
+32003        , Gresten
+32004        , Gresten-Land
+32005        , Lunz am See
+32006        , Oberndorf an der Melk
+32007        , Puchenstuben
+32008        , Purgstall an der Erlauf
+32009        , Randegg
+32010        , Reinsberg
+32011        , St. Anton an der Jeßnitz
+32012        , St. Georgen an der Leys
+32013        , Scheibbs
+32014        , Steinakirchen am Forst
+32015        , Wang
+32016        , Wieselburg
+32017        , Wieselburg-Land
+32018        , Wolfpassing
+32101        , Absdorf
+32104        , Atzenbrugg
+32106        , Fels am Wagram
+32107        , Grafenwörth
+32109        , Großriedenthal
+32110        , Großweikersdorf
+32112        , Judenau-Baumgarten
+32114        , Kirchberg am Wagram
+32115        , Königsbrunn am Wagram
+32116        , Königstetten
+32119        , Langenrohr
+32120        , Michelhausen
+32131        , Sieghartskirchen
+32132        , Sitzenberg-Reidling
+32134        , Tulbing
+32135        , Tulln an der Donau
+32139        , Würmla
+32140        , Zeiselmauer-Wolfpassing
+32141        , Zwentendorf an der Donau
+32142        , St. Andrä-Wördern
+32143        , Muckendorf-Wipfing
+32144        , Klosterneuburg
+32202        , Dietmanns
+32203        , Dobersberg
+32206        , Gastern
+32207        , Groß-Siegharts
+32209        , Karlstein an der Thaya
+32210        , Kautzen
+32212        , Ludweis-Aigen
+32214        , Pfaffenschlag bei Waidhofen a.d.Thaya
+32216        , Raabs an der Thaya
+32217        , Thaya
+32219        , Vitis
+32220        , Waidhofen an der Thaya
+32221        , Waidhofen an der Thaya-Land
+32222        , Waldkirchen an der Thaya
+32223        , Windigsteig
+32301        , Bad Fischau-Brunn
+32302        , Bad Schönau
+32304        , Ebenfurth
+32305        , Eggendorf
+32306        , Bad Erlach
+32307        , Felixdorf
+32308        , Gutenstein
+32309        , Hochneukirchen-Gschaidt
+32310        , Hochwolkersdorf
+32311        , Hohe Wand
+32312        , Hollenthon
+32313        , Katzelsdorf
+32314        , Kirchschlag in der Buckligen Welt
+32315        , Krumbach
+32316        , Lanzenkirchen
+32317        , Lichtenegg
+32318        , Lichtenwörth
+32319        , Markt Piesting
+32320        , Matzendorf-Hölles
+32321        , Miesenbach
+32322        , Muggendorf
+32323        , Pernitz
+32324        , Rohr im Gebirge
+32325        , Bromberg
+32326        , Schwarzenbach
+32327        , Sollenau
+32330        , Theresienfeld
+32331        , Waidmannsfeld
+32332        , Waldegg
+32333        , Walpersbach
+32334        , Weikersdorf am Steinfelde
+32335        , Wiesmath
+32336        , Winzendorf-Muthmannsdorf
+32337        , Wöllersdorf-Steinabrückl
+32338        , Zillingdorf
+32501        , Allentsteig
+32502        , Arbesbach
+32503        , Bärnkopf
+32504        , Echsenbach
+32505        , Göpfritz an der Wild
+32506        , Grafenschlag
+32508        , Groß Gerungs
+32509        , Großgöttfritz
+32511        , Gutenbrunn
+32514        , Kirchschlag
+32515        , Kottes-Purk
+32516        , Langschlag
+32517        , Martinsberg
+32518        , Ottenschlag
+32519        , Altmelon
+32520        , Pölla
+32521        , Rappottenstein
+32522        , Sallingberg
+32523        , Schönbach
+32524        , Schwarzenau
+32525        , Schweiggers
+32528        , Bad Traunstein
+32529        , Waldhausen
+32530        , Zwettl-Niederösterreich
+40101        , Linz
+40201        , Steyr
+40301        , Wels
+40401        , Altheim
+40402        , Aspach
+40403        , Auerbach
+40404        , Braunau am Inn
+40405        , Burgkirchen
+40406        , Eggelsberg
+40407        , Feldkirchen bei Mattighofen
+40408        , Franking
+40409        , Geretsberg
+40410        , Gilgenberg am Weilhart
+40411        , Haigermoos
+40412        , Handenberg
+40413        , Helpfau-Uttendorf
+40414        , Hochburg-Ach
+40415        , Höhnhart
+40416        , Jeging
+40417        , Kirchberg bei Mattighofen
+40418        , Lengau
+40419        , Lochen am See
+40420        , Maria Schmolln
+40421        , Mattighofen
+40422        , Mauerkirchen
+40423        , Mining
+40424        , Moosbach
+40425        , Moosdorf
+40426        , Munderfing
+40427        , Neukirchen an der Enknach
+40428        , Ostermiething
+40429        , Palting
+40430        , Perwang am Grabensee
+40431        , Pfaffstätt
+40432        , Pischelsdorf am Engelbach
+40433        , Polling im Innkreis
+40434        , Roßbach
+40435        , St. Georgen am Fillmannsbach
+40436        , St. Johann am Walde
+40437        , St. Pantaleon
+40438        , St. Peter am Hart
+40439        , St. Radegund
+40440        , St. Veit im Innkreis
+40441        , Schalchen
+40442        , Schwand im Innkreis
+40443        , Tarsdorf
+40444        , Treubach
+40445        , Überackern
+40446        , Weng im Innkreis
+40501        , Alkoven
+40502        , Aschach an der Donau
+40503        , Eferding
+40504        , Fraham
+40505        , Haibach ob der Donau
+40506        , Hartkirchen
+40507        , Hinzenbach
+40508        , Prambachkirchen
+40509        , Pupping
+40510        , St. Marienkirchen an der Polsenz
+40511        , Scharten
+40512        , Stroheim
+40601        , Freistadt
+40602        , Grünbach
+40603        , Gutau
+40604        , Hagenberg im Mühlkreis
+40605        , Hirschbach im Mühlkreis
+40606        , Kaltenberg
+40607        , Kefermarkt
+40608        , Königswiesen
+40609        , Lasberg
+40610        , Leopoldschlag
+40611        , Liebenau
+40612        , Neumarkt im Mühlkreis
+40613        , Pierbach
+40614        , Pregarten
+40615        , Rainbach im Mühlkreis
+40616        , Sandl
+40617        , St. Leonhard bei Freistadt
+40618        , St. Oswald bei Freistadt
+40619        , Schönau im Mühlkreis
+40620        , Tragwein
+40621        , Unterweißenbach
+40622        , Unterweitersdorf
+40623        , Waldburg
+40624        , Wartberg ob der Aist
+40625        , Weitersfelden
+40626        , Windhaag bei Freistadt
+40627        , Bad Zell
+40701        , Altmünster
+40702        , Bad Goisern am Hallstättersee
+40703        , Bad Ischl
+40704        , Ebensee am Traunsee
+40705        , Gmunden
+40706        , Gosau
+40707        , Grünau im Almtal
+40708        , Gschwandt
+40709        , Hallstatt
+40710        , Kirchham
+40711        , Laakirchen
+40712        , Obertraun
+40713        , Ohlsdorf
+40714        , Pinsdorf
+40715        , Roitham am Traunfall
+40716        , St. Konrad
+40717        , St. Wolfgang im Salzkammergut
+40718        , Traunkirchen
+40719        , Scharnstein
+40720        , Vorchdorf
+40801        , Aistersheim
+40802        , Bad Schallerbach
+40804        , Eschenau im Hausruckkreis
+40805        , Gallspach
+40806        , Gaspoltshofen
+40807        , Geboltskirchen
+40808        , Grieskirchen
+40809        , Haag am Hausruck
+40810        , Heiligenberg
+40811        , Hofkirchen an der Trattnach
+40812        , Kallham
+40813        , Kematen am Innbach
+40814        , Meggenhofen
+40815        , Michaelnbach
+40816        , Natternbach
+40817        , Neukirchen am Walde
+40818        , Neumarkt im Hausruckkreis
+40820        , Pötting
+40821        , Pollham
+40822        , Pram
+40823        , Rottenbach
+40824        , St. Agatha
+40825        , St. Georgen bei Grieskirchen
+40826        , St. Thomas
+40827        , Schlüßlberg
+40828        , Steegen
+40829        , Taufkirchen an der Trattnach
+40830        , Tollet
+40831        , Waizenkirchen
+40832        , Wallern an der Trattnach
+40833        , Weibern
+40834        , Wendling
+40835        , Peuerbach
+40901        , Edlbach
+40902        , Grünburg
+40903        , Hinterstoder
+40904        , Inzersdorf im Kremstal
+40905        , Kirchdorf an der Krems
+40906        , Klaus an der Pyhrnbahn
+40907        , Kremsmünster
+40908        , Micheldorf in Oberösterreich
+40909        , Molln
+40910        , Nußbach
+40911        , Oberschlierbach
+40912        , Pettenbach
+40913        , Ried im Traunkreis
+40914        , Rosenau am Hengstpaß
+40915        , Roßleithen
+40916        , St. Pankraz
+40917        , Schlierbach
+40918        , Spital am Pyhrn
+40919        , Steinbach am Ziehberg
+40920        , Steinbach an der Steyr
+40921        , Vorderstoder
+40922        , Wartberg an der Krems
+40923        , Windischgarsten
+41001        , Allhaming
+41002        , Ansfelden
+41003        , Asten
+41004        , Eggendorf im Traunkreis
+41005        , Enns
+41006        , Hargelsberg
+41007        , Hörsching
+41008        , Hofkirchen im Traunkreis
+41009        , Kematen an der Krems
+41010        , Kirchberg-Thening
+41011        , Kronstorf
+41012        , Leonding
+41013        , St. Florian
+41014        , Neuhofen an der Krems
+41015        , Niederneukirchen
+41016        , Oftering
+41017        , Pasching
+41018        , Piberbach
+41019        , Pucking
+41020        , St. Marien
+41021        , Traun
+41022        , Wilhering
+41101        , Allerheiligen im Mühlkreis
+41102        , Arbing
+41103        , Baumgartenberg
+41104        , Dimbach
+41105        , Grein
+41106        , Katsdorf
+41107        , Klam
+41108        , Bad Kreuzen
+41109        , Langenstein
+41110        , Luftenberg an der Donau
+41111        , Mauthausen
+41112        , Mitterkirchen im Machland
+41113        , Münzbach
+41114        , Naarn im Machlande
+41115        , Pabneukirchen
+41116        , Perg
+41117        , Rechberg
+41118        , Ried in der Riedmark
+41119        , St. Georgen am Walde
+41120        , St. Georgen an der Gusen
+41121        , St. Nikola an der Donau
+41122        , St. Thomas am Blasenstein
+41123        , Saxen
+41124        , Schwertberg
+41125        , Waldhausen im Strudengau
+41126        , Windhaag bei Perg
+41201        , Andrichsfurt
+41202        , Antiesenhofen
+41203        , Aurolzmünster
+41204        , Eberschwang
+41205        , Eitzing
+41206        , Geiersberg
+41207        , Geinberg
+41208        , Gurten
+41209        , Hohenzell
+41210        , Kirchdorf am Inn
+41211        , Kirchheim im Innkreis
+41212        , Lambrechten
+41213        , Lohnsburg am Kobernaußerwald
+41214        , Mehrnbach
+41215        , Mettmach
+41216        , Mörschwang
+41217        , Mühlheim am Inn
+41218        , Neuhofen im Innkreis
+41219        , Obernberg am Inn
+41220        , Ort im Innkreis
+41221        , Pattigham
+41222        , Peterskirchen
+41223        , Pramet
+41224        , Reichersberg
+41225        , Ried im Innkreis
+41226        , St. Georgen bei Obernberg am Inn
+41227        , St. Marienkirchen am Hausruck
+41228        , St. Martin im Innkreis
+41229        , Schildorn
+41230        , Senftenbach
+41231        , Taiskirchen im Innkreis
+41232        , Tumeltsham
+41233        , Utzenaich
+41234        , Waldzell
+41235        , Weilbach
+41236        , Wippenham
+41301        , Afiesl
+41302        , Ahorn
+41304        , Altenfelden
+41305        , Arnreit
+41306        , Atzesberg
+41307        , Auberg
+41309        , Haslach an der Mühl
+41310        , Helfenberg
+41311        , Hörbich
+41312        , Hofkirchen im Mühlkreis
+41313        , Julbach
+41314        , Kirchberg ob der Donau
+41315        , Klaffer am Hochficht
+41316        , Kleinzell im Mühlkreis
+41317        , Kollerschlag
+41318        , Lembach im Mühlkreis
+41319        , Lichtenau im Mühlkreis
+41320        , Nebelberg
+41321        , Neufelden
+41322        , Niederkappel
+41323        , Niederwaldkirchen
+41324        , Oberkappel
+41325        , Oepping
+41326        , Peilstein im Mühlviertel
+41327        , Pfarrkirchen im Mühlkreis
+41328        , Putzleinsdorf
+41329        , Neustift im Mühlkreis
+41331        , St. Johann am Wimberg
+41332        , St. Martin im Mühlkreis
+41333        , St. Oswald bei Haslach
+41334        , St. Peter am Wimberg
+41335        , St. Stefan am Walde
+41336        , St. Ulrich im Mühlkreis
+41337        , St. Veit im Mühlkreis
+41338        , Sarleinsbach
+41341        , Schwarzenberg am Böhmerwald
+41342        , Ulrichsberg
+41343        , Aigen-Schlägl
+41344        , Rohrbach-Berg
+41401        , Altschwendt
+41402        , Andorf
+41403        , Brunnenthal
+41404        , Diersbach
+41405        , Dorf an der Pram
+41406        , Eggerding
+41407        , Engelhartszell
+41408        , Enzenkirchen
+41409        , Esternberg
+41410        , Freinberg
+41411        , Kopfing im Innkreis
+41412        , Mayrhof
+41413        , Münzkirchen
+41414        , Raab
+41415        , Rainbach im Innkreis
+41416        , Riedau
+41417        , St. Aegidi
+41418        , St. Florian am Inn
+41419        , St. Marienkirchen bei Schärding
+41420        , St. Roman
+41421        , St. Willibald
+41422        , Schärding
+41423        , Schardenberg
+41424        , Sigharting
+41425        , Suben
+41426        , Taufkirchen an der Pram
+41427        , Vichtenstein
+41428        , Waldkirchen am Wesen
+41429        , Wernstein am Inn
+41430        , Zell an der Pram
+41501        , Adlwang
+41502        , Aschach an der Steyr
+41503        , Bad Hall
+41504        , Dietach
+41505        , Gaflenz
+41506        , Garsten
+41507        , Großraming
+41508        , Laussa
+41509        , Losenstein
+41510        , Maria Neustift
+41511        , Pfarrkirchen bei Bad Hall
+41512        , Reichraming
+41513        , Rohr im Kremstal
+41514        , St. Ulrich bei Steyr
+41515        , Schiedlberg
+41516        , Sierning
+41517        , Ternberg
+41518        , Waldneukirchen
+41521        , Wolfern
+41522        , Weyer
+41601        , Alberndorf in der Riedmark
+41602        , Altenberg bei Linz
+41603        , Bad Leonfelden
+41604        , Eidenberg
+41605        , Engerwitzdorf
+41606        , Feldkirchen an der Donau
+41607        , Gallneukirchen
+41608        , Goldwörth
+41609        , Gramastetten
+41610        , Haibach im Mühlkreis
+41611        , Hellmonsödt
+41612        , Herzogsdorf
+41613        , Kirchschlag bei Linz
+41614        , Lichtenberg
+41615        , Oberneukirchen
+41616        , Ottenschlag im Mühlkreis
+41617        , Ottensheim
+41618        , Puchenau
+41619        , Reichenau im Mühlkreis
+41620        , Reichenthal
+41621        , St. Gotthard im Mühlkreis
+41622        , Schenkenfelden
+41623        , Sonnberg im Mühlkreis
+41624        , Steyregg
+41626        , Walding
+41627        , Zwettl an der Rodl
+41628        , Vorderweißenbach
+41701        , Ampflwang im Hausruckwald
+41702        , Attersee am Attersee
+41703        , Attnang-Puchheim
+41704        , Atzbach
+41705        , Aurach am Hongar
+41706        , Berg im Attergau
+41707        , Desselbrunn
+41708        , Fornach
+41709        , Frankenburg am Hausruck
+41710        , Frankenmarkt
+41711        , Gampern
+41712        , Innerschwand am Mondsee
+41713        , Lenzing
+41714        , Manning
+41715        , Mondsee
+41716        , Neukirchen an der Vöckla
+41717        , Niederthalheim
+41718        , Nußdorf am Attersee
+41719        , Oberhofen am Irrsee
+41720        , Oberndorf bei Schwanenstadt
+41721        , Oberwang
+41722        , Ottnang am Hausruck
+41723        , Pfaffing
+41724        , Pilsbach
+41725        , Pitzenberg
+41726        , Pöndorf
+41727        , Puchkirchen am Trattberg
+41728        , Pühret
+41729        , Redleiten
+41730        , Redlham
+41731        , Regau
+41732        , Rüstorf
+41733        , Rutzenham
+41734        , St. Georgen im Attergau
+41735        , St. Lorenz
+41736        , Schlatt
+41737        , Schörfling am Attersee
+41738        , Schwanenstadt
+41739        , Seewalchen am Attersee
+41740        , Steinbach am Attersee
+41741        , Straß im Attergau
+41742        , Tiefgraben
+41743        , Timelkam
+41744        , Ungenach
+41745        , Unterach am Attersee
+41746        , Vöcklabruck
+41747        , Vöcklamarkt
+41748        , Weißenkirchen im Attergau
+41749        , Weyregg am Attersee
+41750        , Wolfsegg am Hausruck
+41751        , Zell am Moos
+41752        , Zell am Pettenfirst
+41801        , Aichkirchen
+41802        , Bachmanning
+41803        , Bad Wimsbach-Neydharting
+41804        , Buchkirchen
+41805        , Eberstalzell
+41806        , Edt bei Lambach
+41807        , Fischlham
+41808        , Gunskirchen
+41809        , Holzhausen
+41810        , Krenglbach
+41811        , Lambach
+41812        , Marchtrenk
+41813        , Neukirchen bei Lambach
+41814        , Offenhausen
+41815        , Pennewang
+41816        , Pichl bei Wels
+41817        , Sattledt
+41818        , Schleißheim
+41819        , Sipbachzell
+41820        , Stadl-Paura
+41821        , Steinerkirchen an der Traun
+41822        , Steinhaus
+41823        , Thalheim bei Wels
+41824        , Weißkirchen an der Traun
+50101        , Salzburg
+50201        , Abtenau
+50202        , Adnet
+50203        , Annaberg-Lungötz
+50204        , Golling an der Salzach
+50205        , Hallein
+50206        , Krispl
+50207        , Kuchl
+50208        , Oberalm
+50209        , Puch bei Hallein
+50210        , Rußbach am Paß Gschütt
+50211        , Sankt Koloman
+50212        , Scheffau am Tennengebirge
+50213        , Bad Vigaun
+50301        , Anif
+50302        , Anthering
+50303        , Bergheim
+50304        , Berndorf bei Salzburg
+50305        , Bürmoos
+50306        , Dorfbeuern
+50307        , Ebenau
+50308        , Elixhausen
+50309        , Elsbethen
+50310        , Eugendorf
+50311        , Faistenau
+50312        , Fuschl am See
+50313        , Göming
+50314        , Grödig
+50315        , Großgmain
+50316        , Hallwang
+50317        , Henndorf am Wallersee
+50318        , Hintersee
+50319        , Hof bei Salzburg
+50320        , Köstendorf
+50321        , Koppl
+50322        , Lamprechtshausen
+50323        , Mattsee
+50324        , Neumarkt am Wallersee
+50325        , Nußdorf am Haunsberg
+50326        , Oberndorf bei Salzburg
+50327        , Obertrum am See
+50328        , Plainfeld
+50329        , Sankt Georgen bei Salzburg
+50330        , Sankt Gilgen
+50331        , Schleedorf
+50332        , Seeham
+50335        , Straßwalchen
+50336        , Strobl
+50337        , Thalgau
+50338        , Wals-Siezenheim
+50339        , Seekirchen am Wallersee
+50401        , Altenmarkt im Pongau
+50402        , Bad Hofgastein
+50403        , Bad Gastein
+50404        , Bischofshofen
+50405        , Dorfgastein
+50406        , Eben im Pongau
+50407        , Filzmoos
+50408        , Flachau
+50409        , Forstau
+50410        , Goldegg
+50411        , Großarl
+50412        , Hüttau
+50413        , Hüttschlag
+50414        , Kleinarl
+50415        , Mühlbach am Hochkönig
+50416        , Pfarrwerfen
+50417        , Radstadt
+50418        , Sankt Johann im Pongau
+50419        , Sankt Martin am Tennengebirge
+50420        , Sankt Veit im Pongau
+50421        , Schwarzach im Pongau
+50422        , Untertauern
+50423        , Wagrain
+50424        , Werfen
+50425        , Werfenweng
+50501        , Göriach
+50502        , Lessach
+50503        , Mariapfarr
+50504        , Mauterndorf
+50505        , Muhr
+50506        , Ramingstein
+50507        , Sankt Andrä im Lungau
+50508        , Sankt Margarethen im Lungau
+50509        , Sankt Michael im Lungau
+50510        , Tamsweg
+50511        , Thomatal
+50512        , Tweng
+50513        , Unternberg
+50514        , Weißpriach
+50515        , Zederhaus
+50601        , Bramberg am Wildkogel
+50602        , Bruck an der Großglocknerstraße
+50603        , Dienten am Hochkönig
+50604        , Fusch an der Großglocknerstraße
+50605        , Hollersbach im Pinzgau
+50606        , Kaprun
+50607        , Krimml
+50608        , Lend
+50609        , Leogang
+50610        , Lofer
+50611        , Maishofen
+50612        , Maria Alm am Steinernen Meer
+50613        , Mittersill
+50614        , Neukirchen am Großvenediger
+50615        , Niedernsill
+50616        , Piesendorf
+50617        , Rauris
+50618        , Saalbach-Hinterglemm
+50619        , Saalfelden am Steinernen Meer
+50620        , Sankt Martin bei Lofer
+50621        , Stuhlfelden
+50622        , Taxenbach
+50623        , Unken
+50624        , Uttendorf
+50625        , Viehhofen
+50626        , Wald im Pinzgau
+50627        , Weißbach bei Lofer
+50628        , Zell am See
+60101        , Graz
+60305        , Frauental an der Laßnitz
+60318        , Lannach
+60323        , Pölfing-Brunn
+60324        , Preding
+60326        , Sankt Josef (Weststeiermark)
+60329        , Sankt Peter im Sulmtal
+60341        , Wettmannstätten
+60344        , Deutschlandsberg
+60345        , Eibiswald
+60346        , Groß Sankt Florian
+60347        , Sankt Martin im Sulmtal
+60348        , Sankt Stefan ob Stainz
+60349        , Schwanberg
+60350        , Stainz
+60351        , Wies
+60608        , Feldkirchen bei Graz
+60611        , Gössendorf
+60613        , Gratkorn
+60617        , Hart bei Graz
+60618        , Haselsdorf-Tobelbad
+60619        , Hausmannstätten
+60623        , Kainbach bei Graz
+60624        , Kalsdorf bei Graz
+60626        , Kumberg
+60628        , Laßnitzhöhe
+60629        , Lieboch
+60632        , Peggau
+60639        , Sankt Bartholomä
+60641        , Sankt Oswald bei Plankenwarth
+60642        , Sankt Radegund bei Graz
+60645        , Semriach
+60646        , Stattegg
+60647        , Stiwoll
+60648        , Thal
+60651        , Übelbach
+60653        , Vasoldsberg
+60654        , Weinitzen
+60655        , Werndorf
+60656        , Wundschuh
+60659        , Deutschfeistritz
+60660        , Dobl-Zwaring
+60661        , Eggersdorf bei Graz
+60662        , Fernitz-Mellach
+60663        , Frohnleiten
+60664        , Gratwein-Straßengel
+60665        , Hitzendorf
+60666        , Nestelbach bei Graz
+60667        , Raaba-Grambach
+60668        , Sankt Marein bei Graz
+60669        , Seiersberg-Pirka
+60670        , Premstätten
+61001        , Allerheiligen bei Wildon
+61002        , Arnfels
+61007        , Empersdorf
+61008        , Gabersdorf
+61012        , Gralla
+61013        , Großklein
+61016        , Heimschuh
+61017        , Hengsberg
+61019        , Kitzeck im Sausal
+61020        , Lang
+61021        , Lebring-Sankt Margarethen
+61024        , Oberhaag
+61027        , Ragnitz
+61030        , Sankt Andrä-Höch
+61032        , Sankt Johann im Saggautal
+61033        , Sankt Nikolai im Sausal
+61043        , Tillmitsch
+61045        , Wagna
+61049        , Ehrenhausen an der Weinstraße
+61050        , Gamlitz
+61051        , Gleinstätten
+61052        , Heiligenkreuz am Waasen
+61053        , Leibnitz
+61054        , Leutschach an der Weinstraße
+61055        , Sankt Georgen an der Stiefing
+61056        , Sankt Veit in der Südsteiermark
+61057        , Schwarzautal
+61058        , Straß in Steiermark
+61059        , Wildon
+61101        , Eisenerz
+61105        , Kalwang
+61106        , Kammern im Liesingtal
+61107        , Kraubath an der Mur
+61108        , Leoben
+61109        , Mautern in Steiermark
+61110        , Niklasdorf
+61111        , Proleb
+61112        , Radmer
+61113        , Sankt Michael in Obersteiermark
+61114        , Sankt Peter-Freienstein
+61115        , Sankt Stefan ob Leoben
+61116        , Traboch
+61118        , Vordernberg
+61119        , Wald am Schoberpaß
+61120        , Trofaiach
+61203        , Aigen im Ennstal
+61204        , Altaussee
+61205        , Altenmarkt bei Sankt Gallen
+61206        , Ardning
+61207        , Bad Aussee
+61213        , Gröbming
+61215        , Grundlsee
+61217        , Haus
+61222        , Lassing
+61236        , Ramsau am Dachstein
+61243        , Selzthal
+61247        , Trieben
+61251        , Wildalpen
+61252        , Wörschach
+61253        , Admont
+61254        , Aich
+61255        , Bad Mitterndorf
+61256        , Gaishorn am See
+61257        , Irdning-Donnersbachtal
+61258        , Landl
+61259        , Liezen
+61260        , Michaelerberg-Pruggern
+61261        , Mitterberg-Sankt Martin
+61262        , Öblarn
+61263        , Rottenmann
+61264        , Sankt Gallen
+61265        , Schladming
+61266        , Sölk
+61267        , Stainach-Pürgg
+61410        , Mühlen
+61413        , Niederwölz
+61425        , St. Peter am Kammersberg
+61428        , Schöder
+61437        , Krakau
+61438        , Murau
+61439        , Neumarkt in der Steiermark
+61440        , Oberwölz
+61441        , Ranten
+61442        , Sankt Georgen am Kreischberg
+61443        , Sankt Lambrecht
+61444        , Scheifling
+61445        , Stadl-Predlitz
+61446        , Teufenbach-Katsch
+61611        , Krottendorf-Gaisfeld
+61612        , Ligist
+61615        , Mooskirchen
+61618        , Rosental an der Kainach
+61621        , Sankt Martin am Wöllmißberg
+61624        , Stallhofen
+61625        , Voitsberg
+61626        , Bärnbach
+61627        , Edelschrott
+61628        , Geistthal-Södingberg
+61629        , Hirschegg-Pack
+61630        , Kainach bei Voitsberg
+61631        , Köflach
+61632        , Maria Lankowitz
+61633        , Söding-Sankt Johann
+61701        , Albersdorf-Prebuch
+61708        , Fischbach
+61710        , Floing
+61711        , Gasen
+61716        , Markt Hartmannsdorf
+61719        , Hofstätten an der Raab
+61727        , Ludersdorf-Wilfersdorf
+61728        , Miesenbach bei Birkfeld
+61729        , Mitterdorf an der Raab
+61730        , Mortantsch
+61731        , Naas
+61740        , Puch bei Weiz
+61741        , Ratten
+61743        , Rettenegg
+61744        , St. Kathrein am Hauenstein
+61745        , Sankt Kathrein am Offenegg
+61746        , St. Margarethen an der Raab
+61748        , Sinabelkirchen
+61750        , Strallegg
+61751        , Thannhausen
+61756        , Anger
+61757        , Birkfeld
+61758        , Fladnitz an der Teichalm
+61759        , Gersdorf an der Feistritz
+61760        , Gleisdorf
+61761        , Gutenberg-Stenzengreith
+61762        , Ilztal
+61763        , Passail
+61764        , Pischelsdorf am Kulm
+61765        , Sankt Ruprecht an der Raab
+61766        , Weiz
+62007        , Fohnsdorf
+62008        , Gaal
+62010        , Hohentauern
+62014        , Kobenz
+62021        , Pusterwald
+62026        , Sankt Georgen ob Judenburg
+62032        , Sankt Peter ob Judenburg
+62034        , Seckau
+62036        , Unzmarkt-Frauenburg
+62038        , Zeltweg
+62039        , Lobmingtal
+62040        , Judenburg
+62041        , Knittelfeld
+62042        , Obdach
+62043        , Pöls-Oberkurzheim
+62044        , Pölstal
+62045        , Sankt Marein-Feistritz
+62046        , Sankt Margarethen bei Knittelfeld
+62047        , Spielberg
+62048        , Weißkirchen in Steiermark
+62105        , Breitenau am Hochlantsch
+62115        , Krieglach
+62116        , Langenwang
+62125        , Pernegg an der Mur
+62128        , Sankt Lorenzen im Mürztal
+62131        , Spital am Semmering
+62132        , Stanz im Mürztal
+62135        , Turnau
+62138        , Aflenz
+62139        , Bruck an der Mur
+62140        , Kapfenberg
+62141        , Kindberg
+62142        , Mariazell
+62143        , Mürzzuschlag
+62144        , Neuberg an der Mürz
+62145        , Sankt Barbara im Mürztal
+62146        , Sankt Marein im Mürztal
+62147        , Thörl
+62148        , Tragöß-Sankt Katharein
+62202        , Bad Blumau
+62205        , Buch-St. Magdalena
+62206        , Burgau
+62209        , Ebersdorf
+62211        , Friedberg
+62214        , Greinbach
+62216        , Großsteinbach
+62219        , Hartberg
+62220        , Hartberg Umgebung
+62226        , Lafnitz
+62232        , Ottendorf an der Rittschein
+62233        , Pinggau
+62235        , Pöllauberg
+62242        , Sankt Jakob im Walde
+62244        , Sankt Johann in der Haide
+62245        , Sankt Lorenzen am Wechsel
+62247        , Schäffern
+62252        , Söchau
+62256        , Stubenberg
+62262        , Wenigzell
+62264        , Bad Waltersdorf
+62265        , Dechantskirchen
+62266        , Feistritztal
+62267        , Fürstenfeld
+62268        , Grafendorf bei Hartberg
+62269        , Großwilfersdorf
+62270        , Hartl
+62271        , Ilz
+62272        , Kaindorf
+62273        , Loipersdorf bei Fürstenfeld
+62274        , Neudau
+62275        , Pöllau
+62276        , Rohr bei Hartberg
+62277        , Rohrbach an der Lafnitz
+62278        , Vorau
+62279        , Waldbach-Mönichwald
+62311        , Edelsbach bei Feldbach
+62314        , Eichkögl
+62326        , Halbenrain
+62330        , Jagerberg
+62332        , Kapfenstein
+62335        , Klöch
+62343        , Mettersdorf am Saßbach
+62347        , Murfeld
+62368        , Tieschen
+62372        , Unterlamm
+62375        , Bad Gleichenberg
+62376        , Bad Radkersburg
+62377        , Deutsch Goritz
+62378        , Fehring
+62379        , Feldbach
+62380        , Gnas
+62381        , Kirchbach-Zerlach
+62382        , Kirchberg an der Raab
+62383        , Mureck
+62384        , Paldau
+62385        , Pirching am Traubenberg
+62386        , Riegersburg
+62387        , Sankt Anna am Aigen
+62388        , Sankt Peter am Ottersbach
+62389        , Sankt Stefan im Rosental
+62390        , Straden
+70101        , Innsbruck
+70201        , Arzl im Pitztal
+70202        , Haiming
+70203        , Imst
+70204        , Imsterberg
+70205        , Jerzens
+70206        , Karres
+70207        , Karrösten
+70208        , Längenfeld
+70209        , Mieming
+70210        , Mils bei Imst
+70211        , Mötz
+70212        , Nassereith
+70213        , Obsteig
+70214        , Oetz
+70215        , Rietz
+70216        , Roppen
+70217        , St. Leonhard im Pitztal
+70218        , Sautens
+70219        , Silz
+70220        , Sölden
+70221        , Stams
+70222        , Tarrenz
+70223        , Umhausen
+70224        , Wenns
+70301        , Absam
+70302        , Aldrans
+70303        , Ampass
+70304        , Axams
+70305        , Baumkirchen
+70306        , Birgitz
+70307        , Ellbögen
+70308        , Flaurling
+70309        , Fritzens
+70310        , Fulpmes
+70311        , Gnadenwald
+70312        , Götzens
+70313        , Gries am Brenner
+70314        , Gries im Sellrain
+70315        , Grinzens
+70317        , Gschnitz
+70318        , Hatting
+70319        , Inzing
+70320        , Kematen in Tirol
+70322        , Kolsass
+70323        , Kolsassberg
+70325        , Lans
+70326        , Leutasch
+70327        , Matrei am Brenner
+70328        , Mieders
+70329        , Mils
+70330        , Mühlbachl
+70331        , Mutters
+70332        , Natters
+70333        , Navis
+70334        , Neustift im Stubaital
+70335        , Oberhofen im Inntal
+70336        , Obernberg am Brenner
+70337        , Oberperfuss
+70338        , Patsch
+70339        , Pettnau
+70340        , Pfaffenhofen
+70341        , Pfons
+70342        , Polling in Tirol
+70343        , Ranggen
+70344        , Reith bei Seefeld
+70345        , Rinn
+70346        , Rum
+70347        , St. Sigmund im Sellrain
+70348        , Scharnitz
+70349        , Schmirn
+70350        , Schönberg im Stubaital
+70351        , Seefeld in Tirol
+70352        , Sellrain
+70353        , Sistrans
+70354        , Hall in Tirol
+70355        , Steinach am Brenner
+70356        , Telfes im Stubai
+70357        , Telfs
+70358        , Thaur
+70359        , Trins
+70360        , Tulfes
+70361        , Unterperfuss
+70362        , Vals
+70364        , Völs
+70365        , Volders
+70366        , Wattenberg
+70367        , Wattens
+70368        , Wildermieming
+70369        , Zirl
+70401        , Aurach bei Kitzbühel
+70402        , Brixen im Thale
+70403        , Fieberbrunn
+70404        , Going am Wilden Kaiser
+70405        , Hochfilzen
+70406        , Hopfgarten im Brixental
+70407        , Itter
+70408        , Jochberg
+70409        , Kirchberg in Tirol
+70410        , Kirchdorf in Tirol
+70411        , Kitzbühel
+70412        , Kössen
+70413        , Oberndorf in Tirol
+70414        , Reith bei Kitzbühel
+70415        , St. Jakob in Haus
+70416        , St. Johann in Tirol
+70417        , St. Ulrich am Pillersee
+70418        , Schwendt
+70419        , Waidring
+70420        , Westendorf
+70501        , Alpbach
+70502        , Angath
+70503        , Bad Häring
+70504        , Brandenberg
+70505        , Breitenbach am Inn
+70506        , Brixlegg
+70508        , Ebbs
+70509        , Ellmau
+70510        , Erl
+70511        , Kirchbichl
+70512        , Kramsach
+70513        , Kufstein
+70514        , Kundl
+70515        , Langkampfen
+70516        , Mariastein
+70517        , Münster
+70518        , Niederndorf
+70519        , Niederndorferberg
+70520        , Radfeld
+70521        , Rattenberg
+70522        , Reith im Alpbachtal
+70523        , Rettenschöss
+70524        , Scheffau am Wilden Kaiser
+70525        , Schwoich
+70526        , Söll
+70527        , Thiersee
+70528        , Angerberg
+70529        , Walchsee
+70530        , Wildschönau
+70531        , Wörgl
+70601        , Faggen
+70602        , Fendels
+70603        , Fiss
+70604        , Fließ
+70605        , Flirsch
+70606        , Galtür
+70607        , Grins
+70608        , Ischgl
+70609        , Kappl
+70610        , Kaunerberg
+70611        , Kaunertal
+70612        , Kauns
+70613        , Ladis
+70614        , Landeck
+70615        , Nauders
+70616        , Pettneu am Arlberg
+70617        , Pfunds
+70618        , Pians
+70619        , Prutz
+70620        , Ried im Oberinntal
+70621        , St. Anton am Arlberg
+70622        , Schönwies
+70623        , See
+70624        , Serfaus
+70625        , Spiss
+70626        , Stanz bei Landeck
+70627        , Strengen
+70628        , Tobadill
+70629        , Tösens
+70630        , Zams
+70701        , Abfaltersbach
+70702        , Ainet
+70703        , Amlach
+70704        , Anras
+70705        , Assling
+70706        , Außervillgraten
+70707        , Dölsach
+70708        , Gaimberg
+70709        , Hopfgarten in Defereggen
+70710        , Innervillgraten
+70711        , Iselsberg-Stronach
+70712        , Kals am Großglockner
+70713        , Kartitsch
+70714        , Lavant
+70715        , Leisach
+70716        , Lienz
+70717        , Matrei in Osttirol
+70718        , Nikolsdorf
+70719        , Nußdorf-Debant
+70720        , Oberlienz
+70721        , Obertilliach
+70723        , Prägraten am Großvenediger
+70724        , St. Jakob in Defereggen
+70725        , St. Johann im Walde
+70726        , St. Veit in Defereggen
+70727        , Schlaiten
+70728        , Sillian
+70729        , Strassen
+70731        , Thurn
+70732        , Tristach
+70733        , Untertilliach
+70734        , Virgen
+70735        , Heinfels
+70801        , Bach
+70802        , Berwang
+70803        , Biberwier
+70804        , Bichlbach
+70805        , Breitenwang
+70806        , Ehenbichl
+70807        , Ehrwald
+70808        , Elbigenalp
+70809        , Elmen
+70810        , Forchach
+70811        , Grän
+70812        , Gramais
+70813        , Häselgehr
+70814        , Heiterwang
+70815        , Hinterhornbach
+70816        , Höfen
+70817        , Holzgau
+70818        , Jungholz
+70819        , Kaisers
+70820        , Lechaschau
+70821        , Lermoos
+70822        , Musau
+70823        , Namlos
+70824        , Nesselwängle
+70825        , Pfafflar
+70826        , Pflach
+70827        , Pinswang
+70828        , Reutte
+70829        , Schattwald
+70830        , Stanzach
+70831        , Steeg
+70832        , Tannheim
+70833        , Vils
+70834        , Vorderhornbach
+70835        , Wängle
+70836        , Weißenbach am Lech
+70837        , Zöblen
+70901        , Achenkirch
+70902        , Aschau im Zillertal
+70903        , Brandberg
+70904        , Bruck am Ziller
+70905        , Buch in Tirol
+70907        , Eben am Achensee
+70908        , Finkenberg
+70909        , Fügen
+70910        , Fügenberg
+70911        , Gallzein
+70912        , Gerlos
+70913        , Gerlosberg
+70914        , Hainzenberg
+70915        , Hart im Zillertal
+70916        , Hippach
+70917        , Jenbach
+70918        , Kaltenbach
+70920        , Mayrhofen
+70921        , Pill
+70922        , Ramsau im Zillertal
+70923        , Ried im Zillertal
+70924        , Rohrberg
+70925        , Schlitters
+70926        , Schwaz
+70927        , Schwendau
+70928        , Stans
+70929        , Steinberg am Rofan
+70930        , Strass im Zillertal
+70931        , Stumm
+70932        , Stummerberg
+70933        , Terfens
+70934        , Tux
+70935        , Uderns
+70936        , Vomp
+70937        , Weer
+70938        , Weerberg
+70939        , Wiesing
+70940        , Zell am Ziller
+70941        , Zellberg
+80101        , Bartholomäberg
+80102        , Blons
+80103        , Bludenz
+80104        , Bludesch
+80105        , Brand
+80106        , Bürs
+80107        , Bürserberg
+80108        , Dalaas
+80109        , Fontanella
+80110        , Gaschurn
+80111        , Innerbraz
+80112        , Klösterle
+80113        , Lech
+80114        , Lorüns
+80115        , Ludesch
+80116        , Nenzing
+80117        , Nüziders
+80118        , Raggal
+80119        , St. Anton im Montafon
+80120        , St. Gallenkirch
+80121        , St. Gerold
+80122        , Schruns
+80123        , Silbertal
+80124        , Sonntag
+80125        , Stallehr
+80126        , Thüringen
+80127        , Thüringerberg
+80128        , Tschagguns
+80129        , Vandans
+80201        , Alberschwende
+80202        , Andelsbuch
+80203        , Au
+80204        , Bezau
+80205        , Bildstein
+80206        , Bizau
+80207        , Bregenz
+80208        , Buch
+80209        , Damüls
+80210        , Doren
+80211        , Egg
+80212        , Eichenberg
+80213        , Fußach
+80214        , Gaißau
+80215        , Hard
+80216        , Hittisau
+80217        , Höchst
+80218        , Hörbranz
+80219        , Hohenweiler
+80220        , Kennelbach
+80221        , Krumbach
+80222        , Langen bei Bregenz
+80223        , Langenegg
+80224        , Lauterach
+80225        , Lingenau
+80226        , Lochau
+80227        , Mellau
+80228        , Mittelberg
+80229        , Möggers
+80230        , Reuthe
+80231        , Riefensberg
+80232        , Schnepfau
+80233        , Schoppernau
+80234        , Schröcken
+80235        , Schwarzach
+80236        , Schwarzenberg
+80237        , Sibratsgfäll
+80238        , Sulzberg
+80239        , Warth
+80240        , Wolfurt
+80301        , Dornbirn
+80302        , Hohenems
+80303        , Lustenau
+80401        , Altach
+80402        , Düns
+80403        , Dünserberg
+80404        , Feldkirch
+80405        , Frastanz
+80406        , Fraxern
+80407        , Göfis
+80408        , Götzis
+80409        , Klaus
+80410        , Koblach
+80411        , Laterns
+80412        , Mäder
+80413        , Meiningen
+80414        , Rankweil
+80415        , Röns
+80416        , Röthis
+80417        , Satteins
+80418        , Schlins
+80419        , Schnifis
+80420        , Sulz
+80421        , Übersaxen
+80422        , Viktorsberg
+80423        , Weiler
+80424        , Zwischenwasser
+90001        , Wien

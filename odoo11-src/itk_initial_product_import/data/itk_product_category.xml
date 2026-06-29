@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record model="product.category" id="product_category_nutzungsentgelt">
+            <field name="name">Nutzungsentgelt</field>
+        </record>
+        <record model="product.category" id="product_category_transaktion">
+            <field name="name">Transaktionen</field>
+        </record>
+        <record model="product.category" id="product_category_nameduserlicense">
+            <field name="name">Named-user Lizenz</field>
+        </record>
+        <record model="product.category" id="product_category_dienstleistungspauschale">
+            <field name="name">Dienstleistungspauschale</field>
+        </record>
+        <record model="product.category" id="product_category_dl_tm">
+            <field name="name">Dienstleistung auf Basis Time and Material</field>
+        </record>
+        <record model="product.category" id="product_category_concurrentuserlicense">
+            <field name="name">Concurrent-User Lizenz</field>
+        </record>
+        <record model="product.category" id="product_category_betriebskostenpauschale">
+            <field name="name">Betriebskostenpauschale</field>
+        </record>
+        <record model="product.category" id="product_category_corplicense">
+            <field name="name">Corporate-Lizenz</field>
+        </record>
+        <record model="product.category" id="product_category_artikel">
+            <field name="name">Artikel</field>
+        </record>
+        <record model="product.category" id="product_category_foerderprojekt">
+            <field name="name">Förderprojekt</field>
+        </record>
+    </data>
+</odoo>

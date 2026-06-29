@@ -1,0 +1,753 @@
+<odoo>
+    <data noupdate="1">
+        <record model='res.partner' id="bgm20701">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20701"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Maximilian</field>
+            <field name='lastname'>Linder</field>
+        </record>
+        <record model='res.partner' id="bgm20702">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20702"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Erich</field>
+            <field name='lastname'>Kessler</field>
+        </record>
+        <record model='res.partner' id="bgm20703">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20703"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Gerald</field>
+            <field name='lastname'>Ebner</field>
+        </record>
+        <record model='res.partner' id="bgm20601">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20601"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Matthias</field>
+            <field name='lastname'>Krenn</field>
+        </record>
+        <record model='res.partner' id="bgm20501">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20501"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Alexander</field>
+            <field name='lastname'>Benedikt</field>
+        </record>
+        <record model='res.partner' id="bgm20705">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20705"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Christian</field>
+            <field name='lastname'>Hecher</field>
+        </record>
+        <record model='res.partner' id="bgm20901">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20901"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Simon</field>
+            <field name='lastname'>Maier</field>
+        </record>
+        <record model='res.partner' id="bgm20602">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20602"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Heinrich</field>
+            <field name='lastname'>Gerber</field>
+        </record>
+        <record model='res.partner' id="bgm20603">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20603"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='function'>Bürgermeisterin</field>
+            <field name='firstname'>im</field>
+            <field name='lastname'>Drautal</field>
+        </record>
+        <record model='res.partner' id="bgm20801">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20801"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Stefan</field>
+            <field name='lastname'>Johann</field>
+        </record>
+        <record model='res.partner' id="bgm20502">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20502"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Burkhard</field>
+            <field name='lastname'>Trummer</field>
+        </record>
+        <record model='res.partner' id="bgm20302">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20302"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Johannes</field>
+            <field name='lastname'>Lenzhofer</field>
+        </record>
+        <record model='res.partner' id="bgm20604">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20604"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Johannes</field>
+            <field name='lastname'>Pirker</field>
+        </record>
+        <record model='res.partner' id="bgm20503">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20503"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Michael</field>
+            <field name='lastname'>Reiner</field>
+        </record>
+        <record model='res.partner' id="bgm20802">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20802"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Anton</field>
+            <field name='lastname'>Napetschnig</field>
+        </record>
+        <record model='res.partner' id="bgm20402">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20402"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Franz</field>
+            <field name='lastname'>Felsberger</field>
+        </record>
+        <record model='res.partner' id="bgm20803">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20803"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Gottfried</field>
+            <field name='lastname'>Wedenig</field>
+        </record>
+        <record model='res.partner' id="bgm20504">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20504"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Andreas</field>
+            <field name='lastname'>Grabuschnig</field>
+        </record>
+        <record model='res.partner' id="bgm20707">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20707"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Dieter</field>
+            <field name='lastname'>Mörtl</field>
+        </record>
+        <record model='res.partner' id="bgm20403">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20403"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='function'>Bürgermeisterin</field>
+            <field name='firstname'>Sonya</field>
+            <field name='lastname'>Feinig</field>
+        </record>
+        <record model='res.partner' id="bgm20805">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20805"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Hermann</field>
+            <field name='lastname'>Srienz</field>
+        </record>
+        <record model='res.partner' id="bgm20708">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20708"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Erhard</field>
+            <field name='lastname'>Veiter</field>
+        </record>
+        <record model='res.partner' id="bgm21002">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde21002"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Martin</field>
+            <field name='lastname'>Treffner</field>
+        </record>
+        <record model='res.partner' id="bgm20405">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20405"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Ingo</field>
+            <field name='lastname'>Appé</field>
+        </record>
+        <record model='res.partner' id="bgm20711">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20711"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Christian</field>
+            <field name='lastname'>Poglitsch</field>
+        </record>
+        <record model='res.partner' id="bgm20710">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20710"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Josef</field>
+            <field name='lastname'>Haller</field>
+        </record>
+        <record model='res.partner' id="bgm20607">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20607"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Kurt</field>
+            <field name='lastname'>Schober</field>
+        </record>
+        <record model='res.partner' id="bgm20712">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20712"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Gerhard</field>
+            <field name='lastname'>Altziebler</field>
+        </record>
+        <record model='res.partner' id="bgm20505">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20505"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Josef</field>
+            <field name='lastname'>Kronlechner</field>
+        </record>
+        <record model='res.partner' id="bgm20806">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20806"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Hannes</field>
+            <field name='lastname'>Mak</field>
+        </record>
+        <record model='res.partner' id="bgm21003">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde21003"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Guntram</field>
+            <field name='lastname'>Samitz</field>
+        </record>
+        <record model='res.partner' id="bgm20608">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20608"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Josef</field>
+            <field name='lastname'>Jury</field>
+        </record>
+        <record model='res.partner' id="bgm20807">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20807"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Bernhard</field>
+            <field name='lastname'>Sadovnik</field>
+        </record>
+        <record model='res.partner' id="bgm20506">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20506"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Johann</field>
+            <field name='lastname'>Fugger</field>
+        </record>
+        <record model='res.partner' id="bgm21004">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde21004"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Erich</field>
+            <field name='lastname'>Stampfer</field>
+        </record>
+        <record model='res.partner' id="bgm20409">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20409"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Stefan</field>
+            <field name='lastname'>Deutschmann</field>
+        </record>
+        <record model='res.partner' id="bgm20609">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20609"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Josef</field>
+            <field name='lastname'>Brandner</field>
+        </record>
+        <record model='res.partner' id="bgm20808">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20808"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Josef</field>
+            <field name='lastname'>Müller</field>
+        </record>
+        <record model='res.partner' id="bgm20508">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20508"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Siegfried</field>
+            <field name='lastname'>Kampl</field>
+        </record>
+        <record model='res.partner' id="bgm20509">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20509"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Herbert</field>
+            <field name='lastname'>Kuss</field>
+        </record>
+        <record model='res.partner' id="bgm20713">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20713"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Florian</field>
+            <field name='lastname'>Tschinderle</field>
+        </record>
+        <record model='res.partner' id="bgm20611">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20611"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Gottfried</field>
+            <field name='lastname'>Mandler</field>
+        </record>
+        <record model='res.partner' id="bgm21005">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde21005"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Heimo</field>
+            <field name='lastname'>Rinösl</field>
+        </record>
+        <record model='res.partner' id="bgm20511">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20511"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Josef</field>
+            <field name='lastname'>Ofner</field>
+        </record>
+        <record model='res.partner' id="bgm20412">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20412"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Karl</field>
+            <field name='lastname'>Dovjak</field>
+        </record>
+        <record model='res.partner' id="bgm20306">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20306"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Hermann</field>
+            <field name='lastname'>Jantschgi</field>
+        </record>
+        <record model='res.partner' id="bgm20101">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20101"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='function'>Bürgermeisterin</field>
+            <field name='firstname'>Maria-Luise</field>
+            <field name='lastname'>Mathiaschitz</field>
+        </record>
+        <record model='res.partner' id="bgm20513">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20513"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='function'>Bürgermeisterin</field>
+            <field name='firstname'>Gabriele</field>
+            <field name='lastname'>Dörflinger</field>
+        </record>
+        <record model='res.partner' id="bgm20414">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20414"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Josef</field>
+            <field name='lastname'>Liendl</field>
+        </record>
+        <record model='res.partner' id="bgm20415">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20415"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='function'>Bürgermeisterin</field>
+            <field name='firstname'>Hilde</field>
+            <field name='lastname'>Gaggl</field>
+        </record>
+        <record model='res.partner' id="bgm20909">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20909"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Josef</field>
+            <field name='lastname'>Ruthardt</field>
+        </record>
+        <record model='res.partner' id="bgm20515">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20515"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Klaus</field>
+            <field name='lastname'>Köchl</field>
+        </record>
+        <record model='res.partner' id="bgm20416">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20416"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Manfred</field>
+            <field name='lastname'>Maierhofer</field>
+        </record>
+        <record model='res.partner' id="bgm20618">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20618"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Günther</field>
+            <field name='lastname'>Novak</field>
+        </record>
+        <record model='res.partner' id="bgm20442">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20442"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Andreas</field>
+            <field name='lastname'>Scherwitzl</field>
+        </record>
+        <record model='res.partner' id="bgm20619">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20619"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Klaus</field>
+            <field name='lastname'>Rüscher</field>
+        </record>
+        <record model='res.partner' id="bgm20417">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20417"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Franz</field>
+            <field name='lastname'>Ragger</field>
+        </record>
+        <record model='res.partner' id="bgm20418">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20418"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Anton</field>
+            <field name='lastname'>Schmidt</field>
+        </record>
+        <record model='res.partner' id="bgm20518">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20518"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Anton</field>
+            <field name='lastname'>Engl-Wurzer</field>
+        </record>
+        <record model='res.partner' id="bgm20519">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20519"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Josef</field>
+            <field name='lastname'>Wuttei</field>
+        </record>
+        <record model='res.partner' id="bgm20620">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20620"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Johann</field>
+            <field name='lastname'>Schuster</field>
+        </record>
+        <record model='res.partner' id="bgm20624">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20624"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Erwin</field>
+            <field name='lastname'>Angerer</field>
+        </record>
+        <record model='res.partner' id="bgm20520">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20520"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Bernd</field>
+            <field name='lastname'>Krassnig</field>
+        </record>
+        <record model='res.partner' id="bgm20421">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20421"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Herbert</field>
+            <field name='lastname'>Gaggl</field>
+        </record>
+        <record model='res.partner' id="bgm20622">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20622"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Richard</field>
+            <field name='lastname'>Unterreiner</field>
+        </record>
+        <record model='res.partner' id="bgm20810">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20810"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Gerhard</field>
+            <field name='lastname'>Visotschnig</field>
+        </record>
+        <record model='res.partner' id="bgm20719">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20719"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Alfred</field>
+            <field name='lastname'>Altersberger</field>
+        </record>
+        <record model='res.partner' id="bgm20625">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20625"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Stefan</field>
+            <field name='lastname'>Brandstätter</field>
+        </record>
+        <record model='res.partner' id="bgm20627">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20627"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Anita</field>
+            <field name='lastname'>Gössnitzer</field>
+        </record>
+        <record model='res.partner' id="bgm21006">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde21006"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Johann</field>
+            <field name='lastname'>Huber</field>
+        </record>
+        <record model='res.partner' id="bgm20720">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20720"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Alfons</field>
+            <field name='lastname'>Arnold</field>
+        </record>
+        <record model='res.partner' id="bgm20425">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20425"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Arnold</field>
+            <field name='lastname'>Marbek</field>
+        </record>
+        <record model='res.partner' id="bgm20424">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20424"/>
+            <field name='title' ref="base.res_partner_title_madam"/>
+            <field name='function'>Bürgermeisterin</field>
+            <field name='firstname'>Silvia</field>
+            <field name='lastname'>Häusl-Benz</field>
+        </record>
+        <record model='res.partner' id="bgm20911">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20911"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Franz</field>
+            <field name='lastname'>Kogler</field>
+        </record>
+        <record model='res.partner' id="bgm20630">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20630"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Michael</field>
+            <field name='lastname'>Maier</field>
+        </record>
+        <record model='res.partner' id="bgm20631">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20631"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Franz</field>
+            <field name='lastname'>Zlöbl</field>
+        </record>
+        <record model='res.partner' id="bgm21007">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde21007"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Karl</field>
+            <field name='lastname'>Lessiak</field>
+        </record>
+        <record model='res.partner' id="bgm20912">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20912"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Manfred</field>
+            <field name='lastname'>Führer</field>
+        </record>
+        <record model='res.partner' id="bgm20632">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20632"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Franz</field>
+            <field name='lastname'>Eder</field>
+        </record>
+        <record model='res.partner' id="bgm20721">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20721"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Franz</field>
+            <field name='lastname'>Werner</field>
+        </record>
+        <record model='res.partner' id="bgm20812">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20812"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Rudolf</field>
+            <field name='lastname'>Skorjanz</field>
+        </record>
+        <record model='res.partner' id="bgm20432">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20432"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Valentin</field>
+            <field name='lastname'>Andreas</field>
+        </record>
+        <record model='res.partner' id="bgm20633">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20633"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Wilfried</field>
+            <field name='lastname'>Pichler</field>
+        </record>
+        <record model='res.partner' id="bgm20634">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20634"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Wolfgang</field>
+            <field name='lastname'>Klinar</field>
+        </record>
+        <record model='res.partner' id="bgm20635">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20635"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Gerhard</field>
+            <field name='lastname'>Pirih</field>
+        </record>
+        <record model='res.partner' id="bgm20913">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20913"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Peter</field>
+            <field name='lastname'>Stauber</field>
+        </record>
+        <record model='res.partner' id="bgm20914">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20914"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Karl</field>
+            <field name='lastname'>Markut</field>
+        </record>
+        <record model='res.partner' id="bgm20722">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20722"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Heinrich</field>
+            <field name='lastname'>Kattnig</field>
+        </record>
+        <record model='res.partner' id="bgm20813">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20813"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Thomas</field>
+            <field name='lastname'>Krainz</field>
+        </record>
+        <record model='res.partner' id="bgm20428">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20428"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Lukas</field>
+            <field name='lastname'>Wolte</field>
+        </record>
+        <record model='res.partner' id="bgm20918">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20918"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Hermann</field>
+            <field name='lastname'>Primus</field>
+        </record>
+        <record model='res.partner' id="bgm20316">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20316"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>[Ronny</field>
+            <field name='lastname'>Rull]</field>
+        </record>
+        <record model='res.partner' id="bgm21008">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde21008"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Dietmar</field>
+            <field name='lastname'>Rauter</field>
+        </record>
+        <record model='res.partner' id="bgm20527">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20527"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Gerhard</field>
+            <field name='lastname'>Mock</field>
+        </record>
+        <record model='res.partner' id="bgm20723">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20723"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Hans-Jörg</field>
+            <field name='lastname'>Kerschbaumer</field>
+        </record>
+        <record model='res.partner' id="bgm21010">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde21010"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Karl</field>
+            <field name='lastname'>Petritz</field>
+        </record>
+        <record model='res.partner' id="bgm20637">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20637"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Ewald</field>
+            <field name='lastname'>Tschabitscher</field>
+        </record>
+        <record model='res.partner' id="bgm20636">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20636"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Peter</field>
+            <field name='lastname'>Ebner</field>
+        </record>
+        <record model='res.partner' id="bgm20638">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20638"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Christian</field>
+            <field name='lastname'>Genshofer</field>
+        </record>
+        <record model='res.partner' id="bgm20724">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20724"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Klaus</field>
+            <field name='lastname'>Glanznig</field>
+        </record>
+        <record model='res.partner' id="bgm20725">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20725"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Ferdinand</field>
+            <field name='lastname'>Vouk</field>
+        </record>
+        <record model='res.partner' id="bgm20817">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20817"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Valentin</field>
+            <field name='lastname'>Blaschitz</field>
+        </record>
+        <record model='res.partner' id="bgm20726">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20726"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Hermann</field>
+            <field name='lastname'>Moser</field>
+        </record>
+        <record model='res.partner' id="bgm20531">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20531"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Franz</field>
+            <field name='lastname'>Sabitzer</field>
+        </record>
+        <record model='res.partner' id="bgm20727">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20727"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Franz</field>
+            <field name='lastname'>Zwölbar</field>
+        </record>
+        <record model='res.partner' id="bgm20640">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20640"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Johann</field>
+            <field name='lastname'>Thaler</field>
+        </record>
+        <record model='res.partner' id="bgm20923">
+            <field name='parent_id' ref="itk_initial_data_import.gemeinde20923"/>
+            <field name='title' ref="base.res_partner_title_mister"/>
+            <field name='function'>Bürgermeister</field>
+            <field name='firstname'>Hans-Peter</field>
+            <field name='lastname'>Schlagholz</field>
+        </record>
+    </data>
+</odoo>

@@ -26,10 +26,9 @@
     # always loaded
     'data': [
         # 'views/valorisierung_views.xml',
-        'security/ir.model.access.csv',
         'views/account_invoice_views.xml',
         'data/itk_projectcategory.xml',
-        
+
     ],
     # only loaded in demonstration mode
     # 'demo': [
