@@ -7,7 +7,23 @@
 
 ## Module
 
-### itk_subscription – ITK Abo-Management
+### addons/ – Migriert nach Odoo 18
+
+| Modul | Beschreibung | Status |
+|---|---|---|
+| `itk_subscription` | ITK Abo-Management (wiederkehrende Rechnungen) | ✅ Installiert in Odoo 18 |
+
+### odoo11-src/ – Originale Odoo-11-Quellen (Migration ausstehend)
+
+| Modul | Beschreibung | Status |
+|---|---|---|
+| `account_invoice_line_number` | Rechnungszeilen-Nummerierung | ❌ |
+| `itk_product` | ITK Produkterweiterungen | ❌ |
+| `itk_projectcategory` | ITK Projektkategorien | ❌ |
+| `itk_sale_management` | ITK Verkaufsmanagement | ❌ |
+| `itk_subscription` | ITK Abo-Management | ✅ Bereits migriert |
+| `itk_valorisierung` | ITK Valorisierung | ❌ |
+| `sale_order_line_number` | Auftragszeilen-Nummerierung | ❌ |
 | Eigenschaft | Wert |
 |---|---|
 | Technischer Name | `itk_subscription` |

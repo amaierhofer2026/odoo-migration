@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_itk_sale_management_itk_sale_management,itk_sale_management.itk_sale_management,model_itk_sale_management_itk_sale_management,,1,0,0,0
