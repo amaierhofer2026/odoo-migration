@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+    NOTE: Payment transaction view inheritance temporarily removed.
+    Odoo 18 renamed 'payment.transaction_form' to something else.
+    The 'invoice_id' field is added via the model inheritance instead.
+    TODO: Restore with correct Odoo 18 view reference when identified.
+    -->
+</odoo>

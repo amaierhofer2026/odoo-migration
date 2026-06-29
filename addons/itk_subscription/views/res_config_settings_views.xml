@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+    NOTE: Settings view inheritance temporarily removed for Odoo 18.
+    The XPath selector '//div[hasclass("settings")]' no longer matches
+    the Odoo 18 res.config.settings view structure.
+    TODO: Restore with correct Odoo 18 XPath once the settings form structure is confirmed.
+    -->
+</odoo>

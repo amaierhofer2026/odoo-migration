@@ -1,0 +1,69 @@
+.o_kanban_view.o_kanban_dashboard.o_subscription_kanban {
+
+    .o_kanban_record {
+        display: flex;
+        position: relative;
+    }
+
+    .o_subscription_kanban_main {
+        flex: 0 0 auto;
+        padding: 16px;
+        width: 70%;
+
+        margin-bottom: 27px;
+
+        .o_kanban_card_content {
+            font-size: 12px;
+            .o_primary {
+                font-size: larger;
+            }
+        }
+
+        .o_subscription_kanban_manage {
+            .o_kanban_manage_toggle_button {
+                font-size: 18px;
+                padding: 8px 16px;
+            }
+        }
+        .o_kanban_card_manage_pane .o_kanban_card_manage_title {
+            margin: 0;
+        }
+    }
+
+    .o_subscription_kanban_boxes {
+        width: 30%;
+        flex: 0 0 auto;
+        display: flex;
+        flex-flow: column nowrap;
+
+        > a:hover {
+            text-decoration: none;
+        }
+
+        .o_value {
+            font-size: x-large;
+            color: white;
+            display: block;
+        }
+        .o_label {
+            color: white;
+        }
+
+        .o_subscription_kanban_box {
+            position: relative;
+            text-align: center;
+            padding: 15px 0 15px 0;
+            flex: 1 1 auto;
+            display: flex;
+            align-items: center;
+            flex-flow: column nowrap;
+            justify-content: center;
+        }
+        .o_subscription_kanban_box:nth-child(even) {
+            background-color: grey;
+        }
+        .o_subscription_kanban_box:nth-child(odd) {
+            background-color: #7c7bad;
+        }
+    }
+}
