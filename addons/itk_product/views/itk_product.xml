@@ -57,10 +57,16 @@
                 <xpath expr="//field[@name='type']" position="replace">
                     <field name="type" invisible="1"/>
                 </xpath>
-                <xpath expr="//field[@name='categ_id']" position="before">
-                    <field name="product_type_id"/>
+                <xpath expr="//group[@name='group_general']/field[last()]" position="after">
+                    <field name="product_type_id" string="Product-Typ"/>
+                    <group name="subscription" string="Subscription">
+                        <group>
+                            <field name="recurring_invoice"/>
+                            <field name="subscription_template_id" invisible="not recurring_invoice"/>
+                        </group>
+                    </group>
                 </xpath>
-                <xpath expr="//field[@name='categ_id']" position="after">
+                <xpath expr="//group[@name='group_standard_price']/field[last()]" position="after">
                     <field name="to_multiply_by_factor"/>
                 </xpath>
             </field>
