@@ -60,6 +60,14 @@
                 <xpath expr="//field[@name='categ_id']" position="before">
                     <field name="product_type_id"/>
                 </xpath>
+                <xpath expr="//field[@name='product_type_id']" position="after">
+                    <group name="subscription" string="Subscription" invisible="not (type == 'service')">
+                        <group>
+                            <field name="recurring_invoice"/>
+                            <field name="subscription_template_id" invisible="not recurring_invoice"/>
+                        </group>
+                    </group>
+                </xpath>
                 <xpath expr="//field[@name='categ_id']" position="after">
                     <field name="to_multiply_by_factor"/>
                 </xpath>
