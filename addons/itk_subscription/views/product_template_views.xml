@@ -19,7 +19,7 @@
         <field name="inherit_id" ref="product.product_template_form_view"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='type']" position="after">
-                <group name="subscription" string="Subscription" invisible="type != 'service'">
+                <group name="subscription" string="Subscription" invisible="not (type == 'service')">
                     <group>
                         <field name="recurring_invoice"/>
                         <field name="subscription_template_id" invisible="not recurring_invoice"/>
