@@ -21,6 +21,7 @@
 
     # any module necessary for this one to work correctly
     'depends': ['base', 'product',
+                'itk_subscription',
                 # 'itk_initial_product_import',
                 ],
 
