@@ -24,7 +24,7 @@ Features:
         'security/ir.model.access.csv',
         'wizard/sale_subscription_close_reason_wizard_views.xml',
         'wizard/sale_subscription_wizard_views.xml',
-        'views/product_template_views.xml',
+        # 'views/product_template_views.xml',
         'views/res_partner_views.xml',
         'views/account_analytic_account_views.xml',
         'views/sale_subscription_views.xml',
