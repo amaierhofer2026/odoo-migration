@@ -59,8 +59,6 @@
                 </xpath>
                 <xpath expr="//group[@name='group_general']/field[last()]" position="after">
                     <field name="product_type_id"/>
-                </xpath>
-                <xpath expr="//field[@name='product_type_id']" position="after">
                     <group name="subscription" string="Subscription" invisible="not (type == 'service')">
                         <group>
                             <field name="recurring_invoice"/>
