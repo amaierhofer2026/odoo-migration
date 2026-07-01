@@ -7,8 +7,7 @@
     <record model="ir.actions.act_window" id="menu_finance_configuration_projectcategory_action">
         <field name="name">Project Category</field>
         <field name="res_model">itk_projectcategory.projectcategory</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="oe_view_nocontent_create">Create the first Project Category
             </p>
@@ -27,11 +26,11 @@
             <field name="name">itk_projectcategory.projectcategory.tree</field>
             <field name="model">itk_projectcategory.projectcategory</field>
             <field name="arch" type="xml">
-                <tree string="Fields of Law">
+                <list string="Fields of Law">
                     <field name="name"/>
                     <field name="code"/>
                     <field name ="seq"/>
-                </tree>
+                </list>
             </field>
         </record>
 
