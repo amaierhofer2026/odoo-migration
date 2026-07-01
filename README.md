@@ -18,7 +18,7 @@ Migration aller Odoo-Module von **Version 11 nach Version 18** für ITK (IT Komm
 | `account_invoice_line_number` | ✅ In Odoo 18 integriert | 18.0.1.0.0 |
 | `itk_product` | ✅ Migriert, installiert | 18.0.1.0.0 |
 | `itk_projectcategory` | ✅ Migriert, installiert | 18.0.1.0.0 |
-| `itk_sale_management` | ⬜ Ausstehend | — |
+| `itk_sale_management` | ✅ Migriert, installiert | 18.0.1.0.0 |
 | `itk_valorisierung` | ⬜ Ausstehend | — |
 | `sale_order_line_number` | ⬜ Ausstehend | — |
 
