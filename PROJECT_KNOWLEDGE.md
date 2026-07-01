@@ -325,3 +325,19 @@ Keine Migration nötig.
 - View: keine Duplikate (subscription: 1x, recurring_invoice: 1x, product_type_id: 1x)
 - Testprodukt mit allen Feldern (product_type_id, to_multiply_by_factor, recurring_invoice) erfolgreich
 - Alle Felder schreibbar und funktionsfähig
+
+### Session 7: itk_projectcategory migriert nach Odoo 18
+
+**Datum:** 01.07.2026
+
+#### Migration
+- Manifest: version 0.1 → 18.0.1.0.0, `# -*- coding: utf-8 -*-` entfernt, license/installable hinzugefügt
+- Python: coding header aus account_invoice.py und itk_lookups.py entfernt
+- Views: `<tree>` → `<list>`, `view_type` entfernt, `tree` → `list` in view_mode
+
+#### Verifikation
+- ✅ Modul installiert (v18.0.1.0.0)
+- ✅ `projectcategory_id` (Many2one) auf `account.move` vorhanden
+- ✅ View: Feld erscheint nach `invoice_date` im Rechnungsformular
+- ✅ 26 Project Categories in DB (aus data/itk_projectcategory.xml geladen)
+- ✅ Alle Felder schreibbar (can_create=True, can_write=True)
