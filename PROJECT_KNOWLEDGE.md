@@ -539,4 +539,31 @@ Der alte Code rief `datetime.datetime.strptime(date_feld, "%Y-%m-%d")` auf — d
 2. Falls nicht → `ir.attachment` Assets löschen
 3. Seite neu laden
 
-Nächster Schritt: Weitere ~49 Module aus `odoo11 module/` migrieren.
+### Session 13: itk_saleorder_lines migriert nach Odoo 18
+
+**Datum:** 01.07.2026
+
+#### Migration
+- Manifest: Version v0.4 → 18.0.1.0.0, coding header entfernt, license/installable hinzugefügt
+- Python: coding header aus allen .py-Dateien entfernt
+- Views: `<tree>`→`<list>` in view_mode, `view_type`-Attribut entfernt
+- Keine security-Datei nötig (sale.order.line hat bereits ACLs vom sale-Modul)
+
+#### Modulinhalt
+Erweitert `sale.order.line` um 2 Felder:
+- `partner_id` (Many2one zu res.partner)
+- `salesperson_id` (Many2one zu res.users)
+
+Fügt Menüeintrag "All Order Lines" unter Sales/Orders hinzu.
+
+#### Verifikation
+- ✅ Modul installiert (v18.0.1.0.0)
+- ✅ Felder partner_id und salesperson_id auf sale.order.line vorhanden
+- ✅ Menü "All Order Lines" unter Sales/Orders erstellt
+- ✅ Funktionstest: Sale Order erstellt, partner_id und salesperson_id korrekt gesetzt
+
+#### Abhängigkeiten für nächste Module
+Dieses Modul ist Voraussetzung für `itk_multifactor` — nächster Migrationskandidat.
+- ✅ itk_saleorder_lines → hängt ab von: base, sale → alle verfügbar
+
+Nächster Schritt: Weitere ~48 Module aus `odoo11 module/` migrieren.
