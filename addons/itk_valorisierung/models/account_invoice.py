@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 
 from odoo import fields, models
 
 
-class AccountInvoice(models.Model):
-    _inherit = "account.invoice"
+class AccountMove(models.Model):
+    _inherit = "account.move"
 
     valorisierung_id = fields.Many2one('itk_valorisierung.valorisierung', string="Valorisation Text")

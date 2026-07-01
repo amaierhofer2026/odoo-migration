@@ -7,8 +7,7 @@
     <record model="ir.actions.act_window" id="menu_finance_configuration_valorisierung_action">
         <field name="name">Valorisation Text</field>
         <field name="res_model">itk_valorisierung.valorisierung</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="oe_view_nocontent_create">Create the first Valorisation Text
             </p>
@@ -20,18 +19,16 @@
               action="menu_finance_configuration_valorisierung_action"/>
     <!--END Action and Menuentry-->
 
-
-
        <!--START Treeview and Formview -->
         <record model="ir.ui.view" id="tree_view_valorisierung">
             <field name="name">itk_valorisierung.valorisierung.tree</field>
             <field name="model">itk_valorisierung.valorisierung</field>
             <field name="arch" type="xml">
-                <tree string="Valorisation Texts">
+                <list string="Valorisation Texts">
                     <field name="name"/>
                     <field name="description"/>
                     <field name ="seq"/>
-                </tree>
+                </list>
             </field>
         </record>
 
@@ -51,7 +48,5 @@
             </field>
         </record>
         <!--END Treeview and Formview -->
-
-
 
 </odoo>
