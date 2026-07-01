@@ -458,3 +458,63 @@ Alle 7 Module in `addons/` sind jetzt fertig migriert und getestet:
 
 Alle Felder in allen Views sichtbar und funktionsfähig.
 Nächster Schritt: Weitere ~49 Module aus `odoo11 module/` migrieren.
+
+### Session 12: strptime TypeError behoben + Docker-Neustart
+
+**Datum:** 01.07.2026 (Session nach docker compose down/up)
+
+#### Problem
+Beim Klick auf "Neu" unter Abonnements: `RPC_ERROR` — `TypeError: strptime() argument 1 must be str, not datetime.date`
+
+#### Ursache (Root Cause)
+In Odoo 18 liefern `fields.Date`-Felder `datetime.date`-Objekte (keine Strings mehr wie in Odoo 11).
+Der alte Code rief `datetime.datetime.strptime(date_feld, "%Y-%m-%d")` auf — das crasht bei date-Objekten.
+
+#### Fix (5 Stellen in `sale_subscription.py`)
+- `_compute_end_date` (line 141): `isinstance`-Check — `datetime.date` → `datetime.combine()`, String → `strptime()`
+- 4 weitere `strptime(subscription.recurring_next_date, ...)` → gleicher `isinstance`-Schutz
+  - `_recurring_create_invoice` (line 651)
+  - `send_success_mail` (line 678)
+  - `partial_recurring_invoice_ratio` (line 714)
+  - `_prepare_invoice_data` (line 735)
+
+#### Docker-Neustart
+- `docker compose down` + `docker compose up -d` (Container komplett entfernt und neu erstellt)
+- Grund: `.pyc`-Cache im Docker-Container überlebt `docker restart` und `button_immediate_upgrade` nicht
+- Nur ein komplettes Container-Recycling zwingt Odoo zur Neu-Kompilierung des Python-Codes
+- **Dies ist die zuverlässigste Methode nach Python-Code-Änderungen im Docker-Setup**
+
+#### Verifikation
+- ✅ Abo-Erstellung per JSON-RPC: erfolgreich (ID 172)
+- ✅ Kein TypeError mehr — alle 5 `isinstance`-Checks aktiv
+- ✅ Modul itk_subscription v18.0.1.0.0 läuft fehlerfrei
+- ✅ Alle 7 Module weiterhin installiert und funktionsfähig
+
+#### Gesamt-Verifikation (01.07.2026)
+| # | Modul | Status | Version |
+|---|---|---|---|
+| 1 | itk_subscription | ✅ Fertig (strptime fix) | 18.0.1.0.0 |
+| 2 | account_invoice_line_number | ✅ Fertig | 18.0.1.0.0 |
+| 3 | itk_product | ✅ Fertig | 18.0.1.0.0 |
+| 4 | itk_projectcategory | ✅ Fertig | 18.0.0.1 |
+| 5 | itk_sale_management | ✅ Fertig | 18.0.1.0.0 |
+| 6 | itk_valorisierung | ✅ Fertig | 18.0.1.0.0 |
+| 7 | sale_order_line_number | ✅ Fertig | 18.0.1.0.0 |
+
+**Lookup-Daten:**
+| Modell | Datensätze |
+|---|---|
+| itk_product.product_type | 6 |
+| itk_subscription.noticeperiod | 3 |
+| sale.subscription.template | 2 |
+| itk_projectcategory.projectcategory | 26 |
+| itk_valorisierung.valorisierung | 1 |
+
+**Feld-Check (alle im View):**
+- product.template: recurring_invoice ✓, subscription_template_id ✓, product_type_id ✓
+- sale.order: subscription_count ✓, subscription_management ✓, alle 5 itk_sale_management Felder ✓
+- account.move: sale_order_confirmation_date ✓, sale_order_benefit_period ✓, notice ✓, projectcategory_id ✓, valorisierung_id ✓
+- sale.order.line: number ✓ (automatisch berechnet)
+- account.move.line: number ✓ (automatisch berechnet)
+
+Nächster Schritt: Weitere ~49 Module aus `odoo11 module/` migrieren.
