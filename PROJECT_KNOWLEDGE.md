@@ -388,3 +388,73 @@ Erweitert `sale.order` um 5 Felder:
 - Valorisierung-Einträge konnten nicht erstellt werden (AccessError)
 - Fix: `security/ir.model.access.csv` erstellt + in Manifest registriert
 - Alle CRUD-Operationen jetzt: Create, Read, Write, Unlink ✓
+
+### Session 10: itk_subscription Bugfixes & sale_order_line_number verifiziert
+
+**Datum:** 01.07.2026
+
+#### Ausgangslage
+- itk_subscription lief in Odoo 18, aber es gab 3 versteckte Probleme
+- sale_order_line_number war als "ausstehend" markiert
+
+#### Fix 1: noticeperiod Zugriffsrechte fehlten
+- Problem: `itk_subscription.noticeperiod` Modell hatte KEINE Zugriffsrechte in `ir.model.access.csv`
+- Folge: Kein User (auch nicht Administrator) konnte die Notice-Period-Datensätze lesen
+- Symptom: `search_count()` lieferte 0, obwohl die Daten in der DB existierten (Subscription Templates referenzierten sie korrekt)
+- Fix: 3 neue Zeilen in `ir.model.access.csv` hinzugefügt:
+  - `access_noticeperiod_manager` — Manager: CRUD 1,1,1,1
+  - `access_noticeperiod_view` — View: Read-only 1,0,0,0
+  - `access_noticeperiod_public` — Public: Read-only 1,0,0,0
+- Ergebnis: 3 Notice Periods jetzt lesbar (zm — zum Monatsende, zq — zum Quartalsende, zl — zum Laufzeitende)
+
+#### Fix 2: sale_order_confirmation_date fehlte in Rechnungsansicht
+- Problem: Feld `sale_order_confirmation_date` existierte auf `account.move` aber war NICHT in der Form-View
+- Fix: Feld zu `account_invoice_views.xml` hinzugefügt (nach `invoice_date`, vor `sale_order_benefit_period`)
+- Ergebnis: Feld jetzt sichtbar im Rechnungsformular
+
+#### Fix 3: subscription_management fehlte in Sale-Order-Ansicht
+- Problem: Feld `subscription_management` (Selection: create/renew/upsell) existierte auf `sale.order` aber war NICHT in der Form-View
+- Fix: Feld zu `sale_order_views.xml` hinzugefügt (XPath: `//group[@name='sale_header']/group[1]`)
+- Ergebnis: Feld jetzt sichtbar im Verkaufsauftrag-Formular
+
+#### Verifikation (JSON-RPC)
+- ✅ sale.order.subscription_management — in rendered view
+- ✅ sale.order.subscription_count — in rendered view
+- ✅ account.move.sale_order_confirmation_date — in rendered view
+- ✅ account.move.sale_order_benefit_period — in rendered view
+- ✅ account.move.notice — in rendered view
+- ✅ product.template.recurring_invoice — in rendered view
+- ✅ product.template.subscription_template_id — in rendered view
+- ✅ noticeperiod check_access_rights('read'): True (vorher False!)
+- ✅ noticeperiod records: 3 (vorher 0)
+- ✅ Modul-Upgrade erfolgreich
+
+### Session 11: sale_order_line_number verifiziert
+
+**Datum:** 01.07.2026
+
+#### Ergebnis
+Modul `sale_order_line_number` ist in Odoo 18 bereits vollständig integriert und funktionsfähig.
+Keine Migration nötig — das Modul war bereits installiert und lief.
+
+#### Verifikation
+- Modul: installed, v18.0.1.0.0
+- Feld `number` (Integer, store=True, readonly=True) auf `sale.order.line` vorhanden
+- View: `<field name="number" string="Line NO."/>` erscheint nach `sequence` in der order_line-Liste im Verkaufsauftrag
+- Live-Test: Sale Order mit 3 Positionen erstellt → Nummern 1, 2, 3 korrekt berechnet
+- Keine Fehler, keine Warnungen
+
+#### Aktueller Gesamtstand
+Alle 7 Module in `addons/` sind jetzt fertig migriert und getestet:
+| # | Modul | Status |
+|---|---|---|
+| 1 | itk_subscription | ✅ Fertig getestet |
+| 2 | account_invoice_line_number | ✅ Fertig |
+| 3 | itk_product | ✅ Fertig |
+| 4 | itk_projectcategory | ✅ Fertig |
+| 5 | itk_sale_management | ✅ Fertig |
+| 6 | itk_valorisierung | ✅ Fertig |
+| 7 | sale_order_line_number | ✅ Fertig |
+
+Alle Felder in allen Views sichtbar und funktionsfähig.
+Nächster Schritt: Weitere ~49 Module aus `odoo11 module/` migrieren.

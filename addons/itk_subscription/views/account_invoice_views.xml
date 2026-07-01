@@ -6,6 +6,7 @@
         <field name="inherit_id" ref="account.view_move_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='invoice_date']" position="after">
+                <field name="sale_order_confirmation_date"/>
                 <field name="sale_order_benefit_period"/>
                 <field name="notice"/>
             </xpath>

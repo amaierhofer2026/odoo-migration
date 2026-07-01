@@ -10,6 +10,9 @@
                     <field name="subscription_count" widget="statinfo" string="Subscriptions"/>
                 </button>
             </xpath>
+            <xpath expr="//group[@name='sale_header']/group[1]" position="inside">
+                <field name="subscription_management"/>
+            </xpath>
          </field>
      </record>
 </odoo>
