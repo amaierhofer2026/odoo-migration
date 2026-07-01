@@ -300,3 +300,28 @@ Keine Migration nötig.
 - View: `<field name="number" string="Line NO."/>` korrekt nach `sequence` im Rechnungsformular
 - Live-Test an Rechnung RE/2026/0001: 3 Zeilen mit Nummern 1, 2, 3 — korrekt berechnet
 - Keine Fehler, keine Warnungen
+
+### Session 6: itk_product verifiziert & repariert
+
+**Datum:** 01.07.2026
+
+#### Initialer Status
+- Modul war installiert (v18.0.1.0.0), aber mit zwei Problemen
+
+#### Fix 1: Duplikate entfernt
+- `recurring_invoice` und `subscription_template_id` erschienen 2× im Produktformular
+- Ursache: itk_subscription UND itk_product fügten beide dieselben Felder hinzu
+- Fix: Subscription-Gruppe aus `itk_product/views/itk_product.xml` entfernt
+
+#### Fix 2: Product Types angelegt
+- Tabelle `itk_product.product_type` war leer (0 Einträge)
+- Ursache: Product Types werden von `itk_initial_product_import` definiert (nicht migriert)
+- Fix: 6 Product Types direkt in Odoo 18 erstellt:
+  - OS — Onlineservice, SW — Software-Lösung, C — Consulting
+  - P — Plattform, HW — Hardware, FP — Förderprojekt
+
+#### Verifikation
+- Modul-Upgrade erfolgreich
+- View: keine Duplikate (subscription: 1x, recurring_invoice: 1x, product_type_id: 1x)
+- Testprodukt mit allen Feldern (product_type_id, to_multiply_by_factor, recurring_invoice) erfolgreich
+- Alle Felder schreibbar und funktionsfähig
