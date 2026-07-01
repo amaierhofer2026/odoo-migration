@@ -517,4 +517,26 @@ Der alte Code rief `datetime.datetime.strptime(date_feld, "%Y-%m-%d")` auf — d
 - sale.order.line: number ✓ (automatisch berechnet)
 - account.move.line: number ✓ (automatisch berechnet)
 
+#### Nachtrag: Asset-Cache nach docker compose down/up
+
+**Problem:** Login-Seite komplett ungestylt — nur rohes HTML, keine CSS, kein Odoo-Design. "Your logo"-Platzhalter statt Logo, blaue Standard-Links, kein Layout.
+
+**Ursache:** Nach `docker compose down` + `up -d` wurde der Container neu erstellt. Die Container-internen CSS/JS-Bundles sind frisch, aber in der Datenbank (`ir.attachment`) liegen noch 11 alte Asset-Bundles mit URLs `/web/assets/*`. Diese referenzieren veraltete Datei-Hashes → Browser lädt kaputte oder leere CSS-Dateien.
+
+**Fix:**
+1. Asset-Bundles per API löschen:
+   ```
+   ir.attachment.search([('url', 'like', '/web/assets/%')]) → 11 IDs
+   ir.attachment.unlink([...]) → True
+   ```
+2. Seite neu laden → Odoo regeneriert CSS/JS-Bundles frisch
+3. Login-Seite sofort wieder korrekt gestylt (lila Design, zentriert, Logo)
+
+**Wichtig:** Das passiert bei JEDEM `docker compose down` + `up -d`. Immer danach prüfen ob die Assets noch laden. Falls nicht: Asset-Cache wie oben leeren.
+
+**⚠️ Merkregel: Nach jedem Container-Neubau:**
+1. Prüfen ob Login-Seite CSS hat
+2. Falls nicht → `ir.attachment` Assets löschen
+3. Seite neu laden
+
 Nächster Schritt: Weitere ~49 Module aus `odoo11 module/` migrieren.
