@@ -2,14 +2,10 @@
     <data>
         <!-- Quotation Search-View -->
         <record id="quotation_searchview_customization_itk" model="ir.ui.view">
-            <field name="groups_id" eval="[(6, 0, [])]"/>
             <field name="inherit_id" ref="sale.sale_order_view_search_inherit_quotation"/>
-            <field name="mode">extension</field>
             <field name="model">sale.order</field>
             <field name="name">ITK: sale.quotation.select customization</field>
             <field name="priority">99</field>
-            <field name="type">search</field>
-            <field name="active" eval="True"/>
             <field name="arch" type="xml">
                 <data>
                     <xpath expr="//search[1]/field[@name='name']" position="after">
@@ -53,14 +49,10 @@
 
         <!-- SaleOrder Search-View -->
         <record id="saleorder_searchview_customization_itk" model="ir.ui.view">
-            <field name="groups_id" eval="[(6, 0, [])]"/>
             <field name="inherit_id" ref="sale.sale_order_view_search_inherit_sale"/>
-            <field name="mode">extension</field>
             <field name="model">sale.order</field>
             <field name="name">ITK: sale.order.select customization</field>
             <field name="priority">99</field>
-            <field name="type">search</field>
-            <field name="active" eval="True"/>
             <field name="arch" type="xml">
                 <data>
                     <xpath expr="//search[1]/field[@name='name']" position="after">

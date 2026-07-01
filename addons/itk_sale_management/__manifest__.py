@@ -1,37 +1,22 @@
-# -*- coding: utf-8 -*-
 {
     'name': "itk_sale_management",
-
-    'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
-
-    'description': """
-        Long description of 
-    """,
-
+    'summary': "ITK Sale Management extensions",
+    'description': "Adds administrative/technical contacts, product category, and final customer to sale orders.",
     'author': "Alvarium Services, Andreas Väthröder, Fabian Väthröder",
     'website': "http://www.alvarium-services.de",
-
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
-    # for the full list
     'category': 'ITK - Specific Industry Applications',
     'version': '18.0.1.0.0',
-
-    # any module necessary for this one to work correctly
-    'depends': ['base', 'sale', #'sale_order_price_recalculation'
-             ],
-
-    # always loaded
+    'depends': ['base', 'sale'],
     'data': [
-        # 'security/ir.model.access.csv',
-        'views/views.xml' ,
+        'views/views.xml',
         'views/templates.xml',
         'views/sale_order.xml',
     ],
-    # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',
     ],
+    'license': 'LGPL-3',
+    'installable': True,
+    'application': False,
+    'auto_install': False,
 }
