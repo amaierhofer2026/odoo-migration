@@ -247,26 +247,41 @@ git push --force
 - Odoo 18 Payment: XML-IDs verwenden `payment.payment_transaction_form` (nicht `payment.transaction_form`)
 - Odoo 18 Portal Home: `portal.portal_docs_entry` Template mit `#portal_client_category` / `#portal_alert_category`
 
-### Session 4: Fehlende Produkt-Form-View wiederhergestellt
+### Session 4: Produkt-Form-View nach versehentlicher Löschung wiederhergestellt
 
 **Datum:** 01.07.2026
 
 #### Problem
 User meldete: "Feld Subscription" nicht sichtbar beim Produkt-Neuanlegen (Verkauf → Produkte → Neu).
 
-#### Ursache
-Die Odoo-11-Form-View `product_template_view_form_recurring` wurde bei der Migration **komplett vergessen**. 
-Die Felder `recurring_invoice` und `subscription_template_id` existieren im Python-Modell, 
-hatten aber keine View, die sie im Produktformular anzeigt.
+#### Ursache (Root Cause)
+Die Form-View `product_template_view_form_recurring` EXISTIERTE korrekt in der DB (seit 29.06.).
+Am 30.06. wurde sie jedoch durch Commit `85aa8831` ("restore product_template_views with actions only")
+aus der XML-Datei GELÖSCHT. Die View blieb im laufenden Odoo erhalten, weil das Modul nicht
+upgegradet wurde. Erst als heute (01.07.) die Modul-Upgrades für die Session-3-Fixes liefen,
+wurde die gelöschte View aktiv → Felder verschwanden aus dem Formular.
 
 #### Fix
-- `product_template_views.xml`: Form-View aus Odoo 11 migriert:
+- `product_template_views.xml`: Form-View wiederhergestellt mit Odoo-18-Verbesserungen:
   - `attrs` → `invisible` (Odoo 18)
-  - Abo-Felder auf **General Information** Tab platziert (Sales-Page kann in Odoo 18 Community unsichtbar sein)
-  - XPath: `//group[@name='group_general']/field[last()]` position="after"
-  - `<group string="Subscription">` mit `recurring_invoice` + `subscription_template_id`
-  - Sales-Page-Sichtbarkeit: `invisible="(not sale_ok) and (not recurring_invoice)"` (auch ohne sale_ok wenn Abo)
+  - XPath: `//group[@name='group_general']/field[last()]` position="after" (innerhalb group_general)
+  - Einfaches `<group>` (kein doppelt-genestetes — Pitfall #18: many2one width collapse)
+  - `invisible="not (type == 'service')"` auf Gruppe ENTFERNT (Pitfall #19: type-Feld invisible-Trap)
+  - Stattdessen nur `subscription_template_id invisible="not recurring_invoice"`
+  - Sales-Page-Sichtbarkeit: `invisible="(not sale_ok) and (not recurring_invoice)"` 
+    (Sales-Tab sichtbar auch ohne sale_ok, wenn Abo-Produkt)
 
 #### Verifikation
 - `get_view()` zeigt Subscription-Group mit beiden Feldern im gerenderten Form-View
+- `fields_get()` bestätigt: beide Felder `readonly=False`, Zugriff OK
+- Testprodukt mit `recurring_invoice=True` erfolgreich erstellt
+- 2 Subscription-Templates in DB vorhanden (Jahresabrechnung, Monatsabrechnung)
 - Modul-Upgrade erfolgreich
+
+#### Verbesserungen gegenüber dem Original (3ecfbb6c)
+| Aspekt | Original | Fix |
+|---|---|---|
+| Group-Verschachtelung | `<group><group>` → many2one 20px | `<group>` einfach → volle Breite |
+| Sichtbarkeit Gruppe | `invisible="not (type == 'service')"` | Immer sichtbar |
+| Template-Dropdown | `invisible="not recurring_invoice"` | unverändert |
+| Sales-Tab | keine Anpassung | Sichtbar wenn `recurring_invoice` |
