@@ -246,3 +246,27 @@ git push --force
 - Odoo 18 Portal: `portal.portal_breadcrumbs` enthält das Breadcrumb-OL (nicht `portal.portal_layout`)
 - Odoo 18 Payment: XML-IDs verwenden `payment.payment_transaction_form` (nicht `payment.transaction_form`)
 - Odoo 18 Portal Home: `portal.portal_docs_entry` Template mit `#portal_client_category` / `#portal_alert_category`
+
+### Session 4: Fehlende Produkt-Form-View wiederhergestellt
+
+**Datum:** 01.07.2026
+
+#### Problem
+User meldete: "Feld Subscription" nicht sichtbar beim Produkt-Neuanlegen (Verkauf → Produkte → Neu).
+
+#### Ursache
+Die Odoo-11-Form-View `product_template_view_form_recurring` wurde bei der Migration **komplett vergessen**. 
+Die Felder `recurring_invoice` und `subscription_template_id` existieren im Python-Modell, 
+hatten aber keine View, die sie im Produktformular anzeigt.
+
+#### Fix
+- `product_template_views.xml`: Form-View aus Odoo 11 migriert:
+  - `attrs` → `invisible` (Odoo 18)
+  - Abo-Felder auf **General Information** Tab platziert (Sales-Page kann in Odoo 18 Community unsichtbar sein)
+  - XPath: `//group[@name='group_general']/field[last()]` position="after"
+  - `<group string="Subscription">` mit `recurring_invoice` + `subscription_template_id`
+  - Sales-Page-Sichtbarkeit: `invisible="(not sale_ok) and (not recurring_invoice)"` (auch ohne sale_ok wenn Abo)
+
+#### Verifikation
+- `get_view()` zeigt Subscription-Group mit beiden Feldern im gerenderten Form-View
+- Modul-Upgrade erfolgreich
