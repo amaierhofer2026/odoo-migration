@@ -1,9 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!--
-    NOTE: Settings view inheritance temporarily removed for Odoo 18.
-    The XPath selector '//div[hasclass("settings")]' no longer matches
-    the Odoo 18 res.config.settings view structure.
-    TODO: Restore with correct Odoo 18 XPath once the settings form structure is confirmed.
-    -->
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.sale.subscription</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="15"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="Subscriptions" string="Subscriptions" name="sale_subscription" groups="itk_subscription.group_sale_subscription_manager">
+                    <block title="Reporting" name="subscription_reporting">
+                        <setting string="Dashboard" help="Analyze revenues &amp; renewals of subscriptions">
+                            <field name="module_sale_subscription_dashboard"/>
+                        </setting>
+                        <setting string="Deferred Revenue" help="Keeps track of the revenue recognition installments" invisible="not module_account_accountant">
+                            <field name="module_sale_subscription_asset"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="sale_subscription_config_settings_action" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'sale_subscription'}</field>
+    </record>
+
+    <menuitem id="sale_subscription_config_settings_menu" name="Settings" parent="itk_subscription.menu_sale_subscription_config" action="sale_subscription_config_settings_action" sequence="1"/>
 </odoo>

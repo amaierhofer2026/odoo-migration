@@ -226,25 +226,31 @@
     </template>
 
     <!-- Modify portal templates -->
-    <!-- COMMENTED OUT: XPath selectors need Odoo 18 portal layout update
-    <template id="portal_my_home_menu_subscription" name="Portal layout : subscription menu entry" inherit_id="portal.portal_layout" priority="10">
+
+    <!-- Breadcrumb entry for subscription pages -->
+    <template id="portal_my_home_menu_subscription" name="Portal layout : subscription menu entry" inherit_id="portal.portal_breadcrumbs" priority="10">
         <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
-            <li t-if="page_name == 'subscription' or account">
+            <li t-if="page_name == 'subscription' or account" class="breadcrumb-item">
                 <a t-if="account" t-attf-href="/my/subscription?{{ keep_query() }}">Subscriptions</a>
                 <t t-else="">Subscriptions</t>
             </li>
         </xpath>
     </template>
 
-    <template id="portal_my_home_subscription" name="Portal My Home : subscription entries" inherit_id="portal.portal_my_home" priority="90">
-        <xpath expr="//ul[hasclass('o_portal_docs')]" position="inside">
-            <li t-if="subscription_count" class="list-group-item">
-                <span class="badge" t-esc="subscription_count"/>
-                <a href="/my/subscription">Subscriptions</a>
-            </li>
+    <!-- Subscription entry on portal home page -->
+    <template id="portal_my_home_subscription" name="Portal My Home : subscription entries" inherit_id="portal.portal_my_home" priority="20">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="before">
+            <t t-set="portal_client_category_enable" t-value="True"/>
         </xpath>
+        <div id="portal_client_category" position="inside">
+            <t t-if="subscription_count" t-call="portal.portal_docs_entry">
+                <t t-set="title">Your Subscriptions</t>
+                <t t-set="url" t-value="'/my/subscription'"/>
+                <t t-set="placeholder_count" t-value="'subscription_count'"/>
+                <t t-set="text">View and manage your subscriptions</t>
+            </t>
+        </div>
     </template>
-    -->
 
     <template id="portal_my_subscriptions" name="My Subscriptions">
         <t t-call="portal.portal_layout">
