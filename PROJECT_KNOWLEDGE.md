@@ -365,3 +365,20 @@ Erweitert `sale.order` um 5 Felder:
 - ✅ Alle 5 Felder auf sale.order vorhanden
 - ✅ Form-View: alle Felder 1×, keine Duplikate
 - ✅ Such-Views und Baum-Views korrekt geerbt
+
+### Session 9: itk_valorisierung migriert nach Odoo 18
+
+**Datum:** 01.07.2026
+
+#### Migration
+- Manifest: v0.1 → 18.0.1.0.0, coding header, license/installable
+- **Kritisch**: `account.invoice` → `account.move` in account_invoice.py (Odoo 18 Modellumbenennung)
+- Python: coding header aus itk_lookups.py entfernt
+- Views: `<tree>`→`<list>`, `view_type` entfernt, `account.invoice`→`account.move`
+- View-Erbe von `itk_subscription.view_account_invoice_subscription_note_form` funktioniert
+
+#### Verifikation
+- ✅ Modul installiert (v18.0.1.0.0)
+- ✅ `valorisierung_id` (Many2one) auf `account.move` vorhanden
+- ✅ View: Feld nach `notice` im Rechnungsformular
+- ✅ `itk_valorisierung.valorisierung` Modell mit Tree/Form-Views
