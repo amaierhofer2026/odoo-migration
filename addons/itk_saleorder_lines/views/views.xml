@@ -1,0 +1,19 @@
+<odoo>
+    <data>
+        <record id="action_all_order_lines_tree" model="ir.actions.act_window">
+            <field name="name">Order Lines</field>
+            <field name="res_model">sale.order.line</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create an Orderline.
+                </p>
+            </field>
+        </record>
+
+        <menuitem name="All Order Lines"
+                  id="menu_sale_order_lines" sequence="8"
+                  parent="sale.sale_order_menu"
+                  action="action_all_order_lines_tree"/>
+    </data>
+</odoo>
