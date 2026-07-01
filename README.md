@@ -19,7 +19,7 @@ Migration aller Odoo-Module von **Version 11 nach Version 18** für ITK (IT Komm
 | `itk_product` | ✅ Migriert, installiert | 18.0.1.0.0 |
 | `itk_projectcategory` | ✅ Migriert, installiert | 18.0.1.0.0 |
 | `itk_sale_management` | ✅ Migriert, installiert | 18.0.1.0.0 |
-| `itk_valorisierung` | ⬜ Ausstehend | — |
+| `itk_valorisierung` | ✅ Migriert, installiert | 18.0.1.0.0 |
 | `sale_order_line_number` | ⬜ Ausstehend | — |
 
 ➕ **49 weitere Module** in `odoo11 module/` (Originalquellen) warten auf Migration.
