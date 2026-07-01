@@ -341,3 +341,27 @@ Keine Migration nötig.
 - ✅ View: Feld erscheint nach `invoice_date` im Rechnungsformular
 - ✅ 26 Project Categories in DB (aus data/itk_projectcategory.xml geladen)
 - ✅ Alle Felder schreibbar (can_create=True, can_write=True)
+
+### Session 8: itk_sale_management migriert nach Odoo 18
+
+**Datum:** 01.07.2026
+
+#### Migration
+- Manifest: coding header entfernt, license/installable hinzugefügt (Version war schon 18.0.1.0.0)
+- Python: `# -*- coding: utf-8 -*-` aus models.py und controllers.py entfernt
+- Views: Odoo-11-Attribute entfernt (mode, type, groups_id, active aus Such-Views)
+- Security: Nicht-existente model_id aus CSV entfernt
+
+#### Modulinhalt
+Erweitert `sale.order` um 5 Felder:
+- `administrative_contact_id` — Administrative Contact (res.partner)
+- `technical_contact_id` — Technical Contact (res.partner)
+- `sale_contact_id` — Sale Contact (res.partner)
+- `product_category_id` — Product Category (product.category)
+- `final_customer_id` — Final Customer (res.partner, auto-gesetzt aus partner_id)
+
+#### Verifikation
+- ✅ Modul installiert (v18.0.1.0.0)
+- ✅ Alle 5 Felder auf sale.order vorhanden
+- ✅ Form-View: alle Felder 1×, keine Duplikate
+- ✅ Such-Views und Baum-Views korrekt geerbt
