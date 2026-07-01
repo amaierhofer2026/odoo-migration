@@ -382,3 +382,9 @@ Erweitert `sale.order` um 5 Felder:
 - ✅ `valorisierung_id` (Many2one) auf `account.move` vorhanden
 - ✅ View: Feld nach `notice` im Rechnungsformular
 - ✅ `itk_valorisierung.valorisierung` Modell mit Tree/Form-Views
+
+#### Nachtrag: Fehlende Zugriffsrechte
+- Modul hatte **kein `ir.model.access.csv`** — `create: False`
+- Valorisierung-Einträge konnten nicht erstellt werden (AccessError)
+- Fix: `security/ir.model.access.csv` erstellt + in Manifest registriert
+- Alle CRUD-Operationen jetzt: Create, Read, Write, Unlink ✓
