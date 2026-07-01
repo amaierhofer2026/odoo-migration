@@ -199,3 +199,50 @@ git push --force
 | Docker-Stack | `C:\Odoo-Test\` | `docker compose up -d` |
 | Addons-Pfad (Host) | `C:\Odoo-Test\addons\` | → Container `/mnt/extra-addons/` |
 | GitHub | https://github.com/amaierhofer2026/odoo-migration | |
+
+### Session 3: Auskommentierte Views reparieren (Settings, Payment, Portal)
+
+**Datum:** 01.07.2026
+
+#### Ausgangslage
+- itk_subscription läuft in Odoo 18, aber 3 View-Dateien waren deaktiviert:
+  - `res_config_settings_views.xml` - komplett leer (Settings-Layout Odoo 18 geändert)
+  - `payment_views.xml` - komplett leer (payment.transaction_form XML-ID nicht gefunden)
+  - `subscription_portal_templates.xml` - Portal-Menü-Einträge auskommentiert
+
+#### Fixes
+
+**1. payment_views.xml**
+- Ursprünglicher Inhalt: `invoice_id` Feld nach `reference` in `payment.transaction` Form
+- Problem: XML-ID `payment.transaction_form` existiert nicht in Odoo 18
+- Lösung: Korrekte XML-ID ist `payment.payment_transaction_form` (Odoo 18 fügt Präfix hinzu)
+- View komplett wiederhergestellt
+
+**2. res_config_settings_views.xml**
+- Ursprünglicher Inhalt: Settings-Block mit Dashboard- und Deferred-Revenue-Toggles
+- Problem: `//div[hasclass('settings')]` existiert nicht mehr in Odoo 18
+- Lösung: Odoo 18 verwendet `<app>`/`<block>`/`<setting>` Struktur.
+  - inherit_id von `account.res_config_settings_view_form` → `base.res_config_settings_view_form`
+  - Neuer `<app data-string="Subscriptions">` Block mit `<setting>` Elementen
+
+**3. subscription_portal_templates.xml**
+- Portal-Menü-Einträge waren auskommentiert
+- Problem 1: XPath `//ol[hasclass('o_portal_submenu')]` in `portal.portal_layout` nicht auflösbar
+  → `portal_breadcrumbs` ist in Odoo 18 ein separates Template
+- Lösung 1: inherit_id von `portal.portal_layout` → `portal.portal_breadcrumbs`
+- Problem 2: `//ul[hasclass('o_portal_docs')]` in Odoo 18 → `<div>` statt `<ul>`
+- Lösung 2: Odoo-18-Portal-Muster mit `portal.portal_docs_entry` verwendet
+  - Kategorien über `t-set` Variablen aktivieren (`portal_client_category_enable`)
+  - Subscription-Karte in `#portal_client_category` einfügen
+
+#### Ergebnis
+- ✅ Modul-Upgrade erfolgreich (button_immediate_upgrade)
+- ✅ itk_subscription v18.0.1.0.0 → installed
+- ✅ Alle 3 Views aktiv und fehlerfrei
+- ✅ Keine Parse-Fehler beim Modul-Upgrade
+
+#### Technische Notizen
+- Odoo 18 Settings: `base.res_config_settings_view_form` mit `<app>`/`<block>`/`<setting>` Struktur
+- Odoo 18 Portal: `portal.portal_breadcrumbs` enthält das Breadcrumb-OL (nicht `portal.portal_layout`)
+- Odoo 18 Payment: XML-IDs verwenden `payment.payment_transaction_form` (nicht `payment.transaction_form`)
+- Odoo 18 Portal Home: `portal.portal_docs_entry` Template mit `#portal_client_category` / `#portal_alert_category`
