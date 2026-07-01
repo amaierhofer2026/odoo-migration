@@ -61,10 +61,6 @@
                     <group string="Product-Typ" name="product_type">
                         <field name="product_type_id"/>
                     </group>
-                    <group name="subscription" string="Subscription">
-                        <field name="recurring_invoice"/>
-                        <field name="subscription_template_id" invisible="not recurring_invoice"/>
-                    </group>
                 </xpath>
                 <xpath expr="//group[@name='group_standard_price']/field[last()]" position="after">
                     <field name="to_multiply_by_factor"/>
