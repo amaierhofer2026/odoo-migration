@@ -285,3 +285,18 @@ wurde die gelöschte View aktiv → Felder verschwanden aus dem Formular.
 | Sichtbarkeit Gruppe | `invisible="not (type == 'service')"` | Immer sichtbar |
 | Template-Dropdown | `invisible="not recurring_invoice"` | unverändert |
 | Sales-Tab | keine Anpassung | Sichtbar wenn `recurring_invoice` |
+
+### Session 5: account_invoice_line_number verifiziert
+
+**Datum:** 01.07.2026
+
+#### Ergebnis
+Modul `account_invoice_line_number` ist in Odoo 18 bereits vollständig integriert und funktionsfähig. 
+Keine Migration nötig.
+
+#### Verifikation
+- Module: installed, v18.0.1.0.0
+- Feld `number` (Integer, store=True) auf `account.move.line` vorhanden
+- View: `<field name="number" string="Line NO."/>` korrekt nach `sequence` im Rechnungsformular
+- Live-Test an Rechnung RE/2026/0001: 3 Zeilen mit Nummern 1, 2, 3 — korrekt berechnet
+- Keine Fehler, keine Warnungen
