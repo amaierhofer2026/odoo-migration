@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="partner_update_population_and_multifactor_confirm_view" model="ir.ui.view">
+        <field name="name">res.partner.multifactor.update.confirm.form</field>
+        <field name="model">res.partner.multifactor.update.confirm</field>
+        <field name="arch" type="xml">
+            <form string="Update Population and Multifactor for selected Partners">
+                <p class="oe_grey">This update is not reversible.</p>
+                <footer>
+                    <button string="Update Population and Multifactor" name="partner_update_population_and_multifactor" type="object" default_focus="1" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window id="action_partner_update_population_and_multifactor_confirm" multi="True" key2="client_action_multi" name="Update Population and Multifactor for Partners" res_model="res.partner.multifactor.update.confirm" src_model="res.partner" view_mode="form" target="new"/>
+
+</odoo>
