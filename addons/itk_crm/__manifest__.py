@@ -1,0 +1,21 @@
+{
+    'name': "itk_crm",
+    'summary': "ITK CRM Anpassungen — Partner-Attribute & Lookup-Modelle",
+    'description': "Adds partner attributes: population, community_magnitude, status_of_partner, etc.",
+    'author': "Alvarium Services, Andreas Vathroder, Fabian Vathroder",
+    'website': "http://www.alvarium-services.de",
+    'category': 'ITK - Specific Industry Applications',
+    'version': '18.0.1.0.0',
+    'license': 'LGPL-3',
+    'depends': ['base', 'sale'],
+    'data': [
+        'security/itk_crm_security.xml',
+        'security/ir.model.access.csv',
+        'views/res_partner.xml',
+        'data/itk_status_of_partner.xml',
+        'data/itk_community_magnitude_classes.xml',
+    ],
+    'installable': True,
+    'application': False,
+    'auto_install': False,
+}

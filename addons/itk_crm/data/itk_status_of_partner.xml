@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="itk_crm.statusofpartner" id="status_of_partner_KK">
+        <field name="code">KK</field>
+        <field name="name">Kein Kunde</field>
+        <field name="seq">100</field>
+    </record>
+    <record model="itk_crm.statusofpartner" id="status_of_partner_BK">
+        <field name="code">BK</field>
+        <field name="name">Bestandskunde</field>
+        <field name="seq">10</field>
+    </record>
+    <record model="itk_crm.statusofpartner" id="status_of_partner_EK">
+        <field name="code">EK</field>
+        <field name="name">Ehemaliger Kunde</field>
+        <field name="seq">20</field>
+    </record>
+
+</odoo>

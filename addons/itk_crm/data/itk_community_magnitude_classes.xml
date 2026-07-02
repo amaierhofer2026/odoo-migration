@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="itk_crm.communitymagnitude" id="grkl1">
+        <field name="name">bis 500</field>
+        <field name="code">1</field>
+        <field name="seq">1</field>
+        <field name="lower_limit">0</field>
+        <field name="upper_limit">500</field>
+        <field name="description">bis 500</field>
+    </record>
+    <record model="itk_crm.communitymagnitude" id="grkl501">
+        <field name="name">501 bis 1000</field>
+        <field name="code">2</field>
+        <field name="seq">2</field>
+        <field name="lower_limit">501</field>
+        <field name="upper_limit">1000</field>
+        <field name="description">501 bis 1.000</field>
+    </record>
+    <record model="itk_crm.communitymagnitude" id="grkl1001">
+        <field name="name">1.001 bis 1.500</field>
+        <field name="code">3</field>
+        <field name="seq">3</field>
+        <field name="lower_limit">1001</field>
+        <field name="upper_limit">1500</field>
+        <field name="description">1.001 bis 1.500</field>
+    </record>
+    <record model="itk_crm.communitymagnitude" id="grkl1501">
+        <field name="name">1.501 bis 2.000</field>
+        <field name="code">4</field>
+        <field name="seq">4</field>
+        <field name="lower_limit">1501</field>
+        <field name="upper_limit">2000</field>
+        <field name="description">1.501 bis 2.000</field>
+    </record>
+    <record model="itk_crm.communitymagnitude" id="grkl2001">
+        <field name="name">2.001 bis 2.500</field>
+        <field name="code">5</field>
+        <field name="seq">5</field>
+        <field name="lower_limit">2001</field>
+        <field name="upper_limit">2500</field>
+        <field name="description">2.001 bis 2.500</field>
+    </record>
+    <record model="itk_crm.communitymagnitude" id="grkl2501">
+        <field name="name">2.501 bis 3.000</field>
+        <field name="code">6</field>
+        <field name="seq">6</field>
+        <field name="lower_limit">2501</field>
+        <field name="upper_limit">3000</field>
+        <field name="description">2.501 bis 3.000</field>
+    </record>
+    <record model="itk_crm.communitymagnitude" id="grkl3001">
+        <field name="name">3.001 bis 5.000</field>
+        <field name="code">7</field>
+        <field name="seq">7</field>
+        <field name="lower_limit">3001</field>
+        <field name="upper_limit">5000</field>
+        <field name="description">3.001 bis 5.000</field>
+    </record>
+    <record model="itk_crm.communitymagnitude" id="grkl5001">
+        <field name="name">5.001 bis 10.000</field>
+        <field name="code">8</field>
+        <field name="seq">8</field>
+        <field name="lower_limit">5001</field>
+        <field name="upper_limit">10000</field>
+        <field name="description">5.001 bis 10.000</field>
+    </record>
+    <record model="itk_crm.communitymagnitude" id="grkl10001">
+        <field name="name">10.001 bis 20.000</field>
+        <field name="code">9</field>
+        <field name="seq">9</field>
+        <field name="lower_limit">10001</field>
+        <field name="upper_limit">20000</field>
+        <field name="description">10.001 bis 20.000</field>
+    </record>
+    <record model="itk_crm.communitymagnitude" id="grkl20001">
+        <field name="name">20.001 bis 50.000</field>
+        <field name="code">10</field>
+        <field name="seq">10</field>
+        <field name="lower_limit">20001</field>
+        <field name="upper_limit">50000</field>
+        <field name="description">20.001 bis 50.000</field>
+    </record>
+    <record model="itk_crm.communitymagnitude" id="grkl50001">
+        <field name="name">50.001 bis 100.000</field>
+        <field name="code">11</field>
+        <field name="seq">11</field>
+        <field name="lower_limit">50001</field>
+        <field name="upper_limit">100000</field>
+        <field name="description">50.001 bis 100.000</field>
+    </record>
+    <record model="itk_crm.communitymagnitude" id="grkl100001">
+        <field name="name">100.001 bis 500.000</field>
+        <field name="code">12</field>
+        <field name="seq">12</field>
+        <field name="lower_limit">100001</field>
+        <field name="upper_limit">500000</field>
+        <field name="description">100.001 bis 500.000</field>
+    </record>
+    <record model="itk_crm.communitymagnitude" id="grkl500001">
+        <field name="name">500.001 bis 1.000.000</field>
+        <field name="code">13</field>
+        <field name="seq">13</field>
+        <field name="lower_limit">500001</field>
+        <field name="upper_limit">1000000</field>
+        <field name="description">500.001 bis 1.000.000</field>
+    </record>
+    <record model="itk_crm.communitymagnitude" id="grkl1000001">
+        <field name="name">über 1.000.000</field>
+        <field name="code">14</field>
+        <field name="seq">14</field>
+        <field name="lower_limit">1000001</field>
+        <field name="upper_limit">999999999</field>
+        <field name="description">über 1.000.000</field>
+    </record>
+
+</odoo>
