@@ -598,4 +598,40 @@ Odoo 18 validiert Daten-XML-Dateien strenger via RelaxNG. `<odoo><data>` und `<o
 Der `hasattr`-Guard in `itk_subscription` für `multi_factor` kann jetzt entfernt werden — das Feld existiert jetzt.
 Nächstes Modul sollte `itk_crm` sein (liefert `population` und `_compute_communitymagnitude`).
 
+### Session 15: JS-Fehler in Odoo behoben (tour.js)
+
+**Datum:** 02.07.2026
+
+#### Problem
+Rotes Banner in Odoo: "An error occurred while loading javascript modules"
+Browser-Konsole zeigte:
+```
+The following modules are needed by other modules but have not been defined:
+  ["web.core", "web_tour.tour"]
+The following modules could not be loaded:
+  ["@itk_subscription/js/tour"]
+```
+
+#### Ursache
+`itk_subscription/static/src/js/tour.js` verwendete Odoo-11-JS-Pattern:
+- `odoo.define('itk_subscription.tour', ...)` — in Odoo 18 durch `@odoo-module` ersetzt
+- `require('web.core')` und `require('web_tour.tour')` — existieren nicht mehr in Odoo 18 Asset-Bundles
+
+#### Fix
+1. `tour.js` aus `__manifest__.py` Assets entfernt (`web.assets_backend`)
+2. `tour.js` auf Disk durch Platzhalter-Kommentar ersetzt
+3. Docker-Neustart nötig weil Container Datei-Änderungen cached
+4. Nach Docker-Neustart: Asset-Cache geleert
+
+#### Verifikation
+- ✅ Keine JS-Errors in Browser-Konsole
+- ✅ Login-Seite lädt korrekt mit CSS
+- ✅ Settings-Seite ohne roten Fehler-Banner
+- ✅ Alle 9 Module weiterhin installiert
+
+#### Pitfall: Docker-Container cached statische Dateien
+Der Docker-Container cached statische Dateien aus dem Shared-Folder.
+`button_immediate_upgrade` allein reicht nicht — Docker muss neustarten,
+damit Änderungen an JS/CSS-Dateien wirksam werden.
+
 Nächster Schritt: Weitere ~47 Module aus `odoo11 module/` migrieren.
