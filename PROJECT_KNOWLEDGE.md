@@ -634,4 +634,31 @@ Der Docker-Container cached statische Dateien aus dem Shared-Folder.
 `button_immediate_upgrade` allein reicht nicht — Docker muss neustarten,
 damit Änderungen an JS/CSS-Dateien wirksam werden.
 
-Nächster Schritt: Weitere ~47 Module aus `odoo11 module/` migrieren.
+### Session 16: itk_crm migriert nach Odoo 18
+
+**Datum:** 02.07.2026
+
+#### Migration
+- Manifest: Version v0.2 → 18.0.1.0.0, coding header, license/installable, depends: sale_management→sale
+- Python (7 Modelle): coding header, @api.one→for-loop, @api.multi entfernt, view_type entfernt
+- Views: alle attrs=→invisible=, type="search" entfernt, mode="extension" entfernt
+- View-Fixes: supplier/customer/company_name/open_parent entfernt (existieren nicht in Odoo 18)
+- XML: <?xml?>+<odoo>+<record> ohne <data>-Wrapper
+- Security: ITK-Gruppen (itk_group_user, itk_group_manager)
+- Data: 14 Community-Magnitude-Klassen + 3 Status-of-Partner
+
+#### Odoo-18-Änderungen
+- res.partner: supplier, customer, company_name, open_parent entfernt
+
+#### Modulinhalt (19 Felder + 6 Lookup-Modelle)
+population, community_magnitude (auto-computed), status_of_partner_id, asset_partner, attention_of, uvm.
+
+#### Verifikation
+- ✅ v18.0.1.0.0, 19 Felder, 14 magnitudes, 3 partner-status
+- ✅ population=1200 → magnitude="1.001 bis 1.500"
+- ✅ ITK-Gruppen, Admin zugeordnet
+
+#### Gelöste Blockaden
+population + _compute_communitymagnitude → itk_multifactor hasattr-Guards entfernbar.
+
+Nächster Schritt: Weitere ~46 Module aus `odoo11 module/` migrieren.
