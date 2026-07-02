@@ -1,0 +1,22 @@
+{
+    'name': "itk_multifactor",
+    'summary': "ITK Multiplikationsfaktor (EWZ je Tsd.)",
+    'description': "Adds multi_factor, is_multi_factor_product, qty_multiplication_factor fields.",
+    'author': "Alvarium Services, Andreas Vathroder, Fabian Vathroder",
+    'website': "http://www.alvarium-services.de",
+    'category': 'ITK - Specific Industry Applications',
+    'version': '18.0.1.0.0',
+    'license': 'LGPL-3',
+    'depends': ['base', 'product', 'sale', 'itk_saleorder_lines', 'itk_subscription'],
+    'data': [
+        'views/res_partner.xml',
+        'views/itk_product.xml',
+        'views/itk_subscription_line.xml',
+        'wizard/itk_contacts_update_multifactor_view.xml',
+        'wizard/itk_subscriptionline_update_multifactor_view.xml',
+        'wizard/itk_subscription_set_pricelist_view.xml',
+    ],
+    'installable': True,
+    'application': False,
+    'auto_install': False,
+}
