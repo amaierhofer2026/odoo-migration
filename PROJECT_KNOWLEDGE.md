@@ -539,4 +539,177 @@ Der alte Code rief `datetime.datetime.strptime(date_feld, "%Y-%m-%d")` auf — d
 2. Falls nicht → `ir.attachment` Assets löschen
 3. Seite neu laden
 
-Nächster Schritt: Weitere ~49 Module aus `odoo11 module/` migrieren.
+### Session 13: itk_saleorder_lines migriert nach Odoo 18
+
+**Datum:** 01.07.2026
+
+#### Migration
+- Manifest: Version v0.4 → 18.0.1.0.0, coding header entfernt, license/installable hinzugefügt
+- Python: coding header aus allen .py-Dateien entfernt
+- Views: `<tree>`→`<list>` in view_mode, `view_type`-Attribut entfernt
+- Keine security-Datei nötig (sale.order.line hat bereits ACLs vom sale-Modul)
+
+#### Modulinhalt
+Erweitert `sale.order.line` um 2 Felder:
+- `partner_id` (Many2one zu res.partner)
+- `salesperson_id` (Many2one zu res.users)
+
+Fügt Menüeintrag "All Order Lines" unter Sales/Orders hinzu.
+
+#### Verifikation
+- ✅ Modul installiert (v18.0.1.0.0)
+- ✅ Felder partner_id und salesperson_id auf sale.order.line vorhanden
+- ✅ Menü "All Order Lines" unter Sales/Orders erstellt
+- ✅ Funktionstest: Sale Order erstellt, partner_id und salesperson_id korrekt gesetzt
+
+#### Abhängigkeiten für nächste Module
+Dieses Modul ist Voraussetzung für `itk_multifactor` — nächster Migrationskandidat.
+- ✅ itk_saleorder_lines → hängt ab von: base, sale → alle verfügbar
+
+### Session 14: itk_multifactor migriert nach Odoo 18
+
+**Datum:** 02.07.2026
+
+#### Migration
+- Manifest: Version v0.1 → 18.0.1.0.0, coding header entfernt, license/installable hinzugefügt
+- Python (4 Modelle): coding header entfernt, `track_visibility`→`tracking=True`, `@api.multi` entfernt, `self._context`→`self.env.context`
+- Cross-Modul-Guards: `_compute_communitymagnitude()` und `population` mit `hasattr` geschützt (kommen aus itk_crm, noch nicht migriert)
+- Views (6 XMLs): `<tree>`→`<list>`, `attrs`→`invisible`, `view_type` entfernt, `product_template_only_form_view`→`product_template_form_view`
+- Wizards (3): `itk_contacts_update_multifactor`, `itk_subscriptionline_update_multifactor`, `itk_subscription_set_pricelist`
+- XML-Format: `<?xml?>`+`<odoo>`+`<record>` ohne `<data>`-Wrapper (Odoo-18-Standard)
+
+#### Pitfall: RNG-Validierung bei XML-Dateien
+Odoo 18 validiert Daten-XML-Dateien strenger via RelaxNG. `<odoo><data>` und `<odoo><record>` (ohne `<?xml?>`) wurden beide abgelehnt. Lösung: `<?xml version="1.0" encoding="utf-8"?>` + `<odoo>` + bare `<record>` (exakt wie Odoo-18-Quellcode).
+
+#### Modulinhalt
+- `res.partner` + `multi_factor` (Integer, auto-berechnet aus EWZ/1000)
+- `product.template` + `is_multi_factor_product` (Boolean)
+- `sale.order.line` + `qty_multiplication_factor` (Integer)
+- `sale.subscription.line` + `qty_multiplication_factor` (Integer)
+- 3 Wizards für Batch-Updates
+
+#### Verifikation
+- ✅ Modul installiert (v18.0.1.0.0)
+- ✅ Alle 4 Felder auf den Modellen vorhanden
+- ✅ multi_factor schreibbar und lesbar (Wert 42 getestet)
+- ✅ is_multi_factor_product schreibbar (True/False)
+
+#### Gelöste Blockade
+Der `hasattr`-Guard in `itk_subscription` für `multi_factor` kann jetzt entfernt werden — das Feld existiert jetzt.
+Nächstes Modul sollte `itk_crm` sein (liefert `population` und `_compute_communitymagnitude`).
+
+### Session 15: JS-Fehler in Odoo behoben (tour.js)
+
+**Datum:** 02.07.2026
+
+#### Problem
+Rotes Banner in Odoo: "An error occurred while loading javascript modules"
+Browser-Konsole zeigte:
+```
+The following modules are needed by other modules but have not been defined:
+  ["web.core", "web_tour.tour"]
+The following modules could not be loaded:
+  ["@itk_subscription/js/tour"]
+```
+
+#### Ursache
+`itk_subscription/static/src/js/tour.js` verwendete Odoo-11-JS-Pattern:
+- `odoo.define('itk_subscription.tour', ...)` — in Odoo 18 durch `@odoo-module` ersetzt
+- `require('web.core')` und `require('web_tour.tour')` — existieren nicht mehr in Odoo 18 Asset-Bundles
+
+#### Fix
+1. `tour.js` aus `__manifest__.py` Assets entfernt (`web.assets_backend`)
+2. `tour.js` auf Disk durch Platzhalter-Kommentar ersetzt
+3. Docker-Neustart nötig weil Container Datei-Änderungen cached
+4. Nach Docker-Neustart: Asset-Cache geleert
+
+#### Verifikation
+- ✅ Keine JS-Errors in Browser-Konsole
+- ✅ Login-Seite lädt korrekt mit CSS
+- ✅ Settings-Seite ohne roten Fehler-Banner
+- ✅ Alle 9 Module weiterhin installiert
+
+#### Pitfall: Docker-Container cached statische Dateien
+Der Docker-Container cached statische Dateien aus dem Shared-Folder.
+`button_immediate_upgrade` allein reicht nicht — Docker muss neustarten,
+damit Änderungen an JS/CSS-Dateien wirksam werden.
+
+### Session 16: itk_crm migriert nach Odoo 18
+
+**Datum:** 02.07.2026
+
+#### Migration
+- Manifest: Version v0.2 → 18.0.1.0.0, coding header, license/installable, depends: sale_management→sale
+- Python (7 Modelle): coding header, @api.one→for-loop, @api.multi entfernt, view_type entfernt
+- Views: alle attrs=→invisible=, type="search" entfernt, mode="extension" entfernt
+- View-Fixes: supplier/customer/company_name/open_parent entfernt (existieren nicht in Odoo 18)
+- XML: <?xml?>+<odoo>+<record> ohne <data>-Wrapper
+- Security: ITK-Gruppen (itk_group_user, itk_group_manager)
+- Data: 14 Community-Magnitude-Klassen + 3 Status-of-Partner
+
+#### Odoo-18-Änderungen
+- res.partner: supplier, customer, company_name, open_parent entfernt
+
+#### Modulinhalt (19 Felder + 6 Lookup-Modelle)
+population, community_magnitude (auto-computed), status_of_partner_id, asset_partner, attention_of, uvm.
+
+#### Verifikation
+- ✅ v18.0.1.0.0, 19 Felder, 14 magnitudes, 3 partner-status
+- ✅ population=1200 → magnitude="1.001 bis 1.500"
+- ✅ ITK-Gruppen, Admin zugeordnet
+
+#### Gelöste Blockaden
+population + _compute_communitymagnitude → itk_multifactor hasattr-Guards entfernbar.
+
+Nächster Schritt: Weitere ~45 Module aus `odoo11 module/` migrieren.
+
+### Session 17: account_invoice_line_report migriert nach Odoo 18
+
+**Datum:** 02.07.2026
+
+#### Migration
+- Manifest: Version v11.0.1.0.0 → 18.0.1.0.0, `application`/`auto_install` hinzugefügt
+- Keine Python-Dateien (reines View-Modul)
+- View-XML: `<tree>`→`<list>`, `view_type` entfernt
+- Feld-Renames: `categ_id`→`product_categ_id`, `product_qty`→`quantity`
+- Search-View: `date`→`invoice_date` (Feldname in Odoo 18)
+- `uom_name`-Filter entfernt (kein valides Feld mehr im Modell `account.invoice.report`)
+- Menü-Parent: `account_reports_business_intelligence_menu`→`account.menu_finance_reports`
+
+#### Modulinhalt
+Erweitert `account.invoice.report` um:
+- Tree-View "Invoice Line" mit partner_id, product_categ_id, product_id, quantity, price_average, price_total
+- Search-View-Erweiterung: without_price/with_price Filter
+- Action "Invoice Lines" + Menüeintrag unter Invoicing → Reporting
+
+#### Fehler & Lösungen
+| # | Fehler | Ursache | Lösung |
+|---|---|---|---|
+| 1 | `categ_id` existiert nicht | Feld in Odoo 18 umbenannt | `categ_id`→`product_categ_id`, `product_qty`→`quantity` |
+| 2 | XPath `date` nicht gefunden | Search-View verwendet `invoice_date` | `date`→`invoice_date` |
+| 3 | `uom_name` existiert nicht | Odoo 18 validiert Suchfelder gegen Modell | `uom_name` Filter entfernt |
+| 4 | `account_reports_business_intelligence_menu` nicht gefunden | Menü in Odoo 18 umbenannt | →`account.menu_finance_reports` |
+
+#### Verifikation
+- ✅ Modul installiert (v18.0.1.0.0)
+- ✅ Tree-View mit allen 7 Feldern korrekt
+- ✅ Search-View mit without_price/with_price Filter
+- ✅ Menü "Invoice Lines" unter Invoicing → Reporting
+- ✅ 3 Datensätze im Report vorhanden
+
+#### Aktueller Gesamtstand (02.07.2026)
+| # | Modul | Status |
+|---|---|---|
+| 1 | itk_subscription | ✅ |
+| 2 | account_invoice_line_number | ✅ |
+| 3 | itk_product | ✅ |
+| 4 | itk_projectcategory | ✅ |
+| 5 | itk_sale_management | ✅ |
+| 6 | itk_valorisierung | ✅ |
+| 7 | sale_order_line_number | ✅ |
+| 8 | itk_saleorder_lines | ✅ |
+| 9 | itk_multifactor | ✅ |
+| 10 | itk_crm | ✅ |
+| 11 | account_invoice_line_report | ✅ |
+
+11/56 Module migriert. GitHub-Push blockiert (Token abgelaufen).

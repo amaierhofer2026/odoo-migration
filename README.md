@@ -21,16 +21,20 @@ Migration aller Odoo-Module von **Version 11 nach Version 18** für ITK (IT Komm
 | `itk_sale_management` | ✅ Migriert, installiert | 18.0.1.0.0 |
 | `itk_valorisierung` | ✅ Migriert, installiert | 18.0.1.0.0 |
 | `sale_order_line_number` | ✅ Fertig getestet | 18.0.1.0.0 |
+| `itk_saleorder_lines` | ✅ Migriert, installiert | 18.0.1.0.0 |
+| `itk_multifactor` | ✅ Migriert, installiert | 18.0.1.0.0 |
+| `itk_crm` | ✅ Migriert, installiert | 18.0.1.0.0 |
+| `account_invoice_line_report` | ✅ Migriert, installiert | 18.0.1.0.0 |
 
-➕ **49 weitere Module** in `odoo11 module/` (Originalquellen) warten auf Migration.
+➕ **45 weitere Module** in `odoo11 module/` (Originalquellen) warten auf Migration.
 
 ## Struktur
 
 ```
 odoo-migration/
-├── addons/              → 7 Odoo-Addons (migriert + getestet)
+├── addons/              → 11 Odoo-Addons (migriert + getestet)
 ├── config/              → Odoo-Konfiguration
-├── odoo11 module/       → 49 Odoo-11-Originalquellen
+├── odoo11 module/       → 45+ Odoo-11-Originalquellen
 ├── postgres/            → PostgreSQL-Datenbank
 ├── docker-compose.yml   → Docker-Stack (Odoo 18 + PostgreSQL 16)
 ├── PROJECT_KNOWLEDGE.md → Detailliertes Projekt-Tagebuch
