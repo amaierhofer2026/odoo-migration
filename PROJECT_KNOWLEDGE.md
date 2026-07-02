@@ -791,3 +791,30 @@ Nächster Schritt: hr_employee_firstname (abhängig von partner_firstname).
 Beide Module fehlerfrei installiert und voll funktionsfähig. Alle Views, Felder, Menüs und Einstellungen wie erwartet.
 
 Nächster Schritt: hr_employee_firstname (abhängig von partner_firstname).
+
+### Session 19: hr_employee_firstname migriert nach Odoo 18
+
+**Datum:** 02.07.2026
+
+#### Migration
+- Manifest: Version 11.0.1.0.1 → 18.0.1.0.0
+- Python: `@api.multi` entfernt, `address_home_id`-Guard (Feld in Odoo 18 entfernt)
+- init_hook: `post_init_hook(cr, pool)` → `post_init_hook(env)`
+- View: `label[@for='name']` XPath entfernt (Label existiert in Odoo 18 nicht mehr)
+- View: `field[@name='name']` hidden + firstname/lastname in `<h1>` eingefügt
+
+#### Fehler & Lösungen
+| # | Fehler | Ursache | Lösung |
+|---|---|---|---|
+| 1 | `label[@for='name']` nicht lokalisiert | Kein Label für name in Odoo 18 | XPath entfernt |
+| 2 | `KeyError: address_home_id` | Feld in Odoo 18 entfernt | `_fields`-Check statt `hasattr()` |
+| 3 | Docker .pyc-Cache | Container cached alte bytecodes | docker compose restart |
+
+#### Verifikation
+- ✅ v18.0.1.0.0, installed
+- ✅ firstname/lastname auf hr.employee
+- ✅ Name computed: "Mustermann Max"
+- ✅ View: name hidden, firstname+lastname in h1
+- ✅ Create/Update funktioniert
+
+13/56 Module migriert.
