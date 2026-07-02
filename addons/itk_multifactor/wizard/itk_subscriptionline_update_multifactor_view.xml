@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="salesubscriptionline_update_multifactor_confirm_view" model="ir.ui.view">
+        <field name="name">sale.subscriptionline.multifactor.update.confirm.form</field>
+        <field name="model">sale.subscriptionline.multifactor.update.confirm</field>
+        <field name="arch" type="xml">
+            <form string="Update Multifactor for Salesubscriptionlines">
+                <p class="oe_grey">This update is not reversible.</p>
+                <footer>
+                    <button string="Update Multifactor" name="salesubscriptionline_update_multifactor" type="object" default_focus="1" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window id="action_salesubscriptionline_update_multifactor_confirm" multi="True" key2="client_action_multi" name="Update Multifactor for Subscriptionlines" res_model="sale.subscriptionline.multifactor.update.confirm" src_model="sale.subscription.line" view_mode="form" target="new"/>
+
+</odoo>
