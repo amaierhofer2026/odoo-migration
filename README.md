@@ -29,6 +29,7 @@ Migration aller Odoo-Module von **Version 11 nach Version 18** für ITK (IT Komm
 | `hr_employee_firstname` | ✅ Migriert, installiert | 18.0.1.0.0 |
 | `partner_academic_title` | ✅ Migriert, installiert | 18.0.1.0.0 |
 | `itk_base_setup` | ✅ Migriert, installiert | 18.0.1.0.0 |
+| `itk_third_party_setup` | ✅ Migriert, installiert | 18.0.1.0.0 |
 
 ➕ **45 weitere Module** in `odoo11 module/` (Originalquellen) warten auf Migration.
 
@@ -36,9 +37,9 @@ Migration aller Odoo-Module von **Version 11 nach Version 18** für ITK (IT Komm
 
 ```
 odoo-migration/
-├── addons/              → 15 Odoo-Addons (migriert + getestet)
+├── addons/              → 16 Odoo-Addons (migriert + getestet)
 ├── config/              → Odoo-Konfiguration
-├── odoo11 module/       → 41+ Odoo-11-Originalquellen
+├── odoo11 module/       → 40+ Odoo-11-Originalquellen
 ├── postgres/            → PostgreSQL-Datenbank
 ├── docker-compose.yml   → Docker-Stack (Odoo 18 + PostgreSQL 16)
 ├── PROJECT_KNOWLEDGE.md → Detailliertes Projekt-Tagebuch
