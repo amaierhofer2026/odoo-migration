@@ -748,3 +748,46 @@ Erweitert `account.invoice.report` um:
 - ✅ Partner mit firstname/lastname erstellt (ID 13)
 
 Nächster Schritt: hr_employee_firstname (abhängig von partner_firstname).
+
+### Session 18 Nachtrag: Gründlicher Integrationstest beider neuer Module
+
+**Datum:** 02.07.2026
+
+#### account_invoice_line_report — Testprotokoll
+
+| Test | Ergebnis |
+|---|---|
+| Module state | installed, v18.0.1.0.0 ✅ |
+| Tree View `account.invoice.report.tree.info` | 7/7 Felder: partner_id, product_categ_id, product_id, quantity, price_average, price_total, currency_id ✅ |
+| Search View `view_account_invoice_report_search` | Inherits `account.invoice.report.search` (ID 1045), without_price + with_price filter ✅ |
+| Search View XPath | invoice_date im XPath ✅ |
+| Action Window | Invoice Lines → account.invoice.report, view_mode: list,pivot,graph ✅ |
+| Menü | Invoice Lines → Invoicing/Reporting ✅ |
+| Datenzugriff | 3 records lesbar, Felder korrekt ✅ |
+| Keine `attrs=` in Views | ✅ |
+| Keine `<tree>` mehr | ✅ (verwendet `<list>`) |
+
+#### partner_firstname — Testprotokoll
+
+| Test | Ergebnis |
+|---|---|
+| Module state | installed, v18.0.1.0.0 ✅ |
+| Felder res.partner | firstname (Char, store), lastname (Char, store), name (Char, computed) ✅ |
+| Simple Form View | Inherits base.view_partner_simple_form, firstname+lastname, invisible/is_company ✅ |
+| Full Form View | Inherits base.view_partner_form, firstname+lastname, child_ids ✅ |
+| User Form View | Inherits base.view_users_form, name readonly=True, firstname+lastname ✅ |
+| Settings View | Odoo-18-Format: `<app>/<block>/<setting>`, partner_names_order ✅ |
+| Create (Anna Maierhofer) | firstname='Anna' lastname='Maierhofer' → name='Maierhofer Anna' ✅ |
+| Update lastname → Meier | name recomputed: 'Meier Anna' ✅ |
+| Create Company | firstname=False, lastname='Testfirma GmbH', name='Testfirma GmbH' ✅ |
+| Post-install hook | 3/7 Partner haben firstname+lastname ✅ |
+| Keine `attrs=` in Views | ✅ |
+| Keine `<data>` auf Disk | ✅ |
+| partner_names_order im Settings | ✅ |
+| Recalculate Button im Settings | ✅ |
+| Test-Daten gelöscht | ✅ |
+
+#### Ergebnis
+Beide Module fehlerfrei installiert und voll funktionsfähig. Alle Views, Felder, Menüs und Einstellungen wie erwartet.
+
+Nächster Schritt: hr_employee_firstname (abhängig von partner_firstname).
