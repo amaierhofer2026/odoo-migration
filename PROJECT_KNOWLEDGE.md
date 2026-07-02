@@ -566,4 +566,36 @@ Fügt Menüeintrag "All Order Lines" unter Sales/Orders hinzu.
 Dieses Modul ist Voraussetzung für `itk_multifactor` — nächster Migrationskandidat.
 - ✅ itk_saleorder_lines → hängt ab von: base, sale → alle verfügbar
 
-Nächster Schritt: Weitere ~48 Module aus `odoo11 module/` migrieren.
+### Session 14: itk_multifactor migriert nach Odoo 18
+
+**Datum:** 02.07.2026
+
+#### Migration
+- Manifest: Version v0.1 → 18.0.1.0.0, coding header entfernt, license/installable hinzugefügt
+- Python (4 Modelle): coding header entfernt, `track_visibility`→`tracking=True`, `@api.multi` entfernt, `self._context`→`self.env.context`
+- Cross-Modul-Guards: `_compute_communitymagnitude()` und `population` mit `hasattr` geschützt (kommen aus itk_crm, noch nicht migriert)
+- Views (6 XMLs): `<tree>`→`<list>`, `attrs`→`invisible`, `view_type` entfernt, `product_template_only_form_view`→`product_template_form_view`
+- Wizards (3): `itk_contacts_update_multifactor`, `itk_subscriptionline_update_multifactor`, `itk_subscription_set_pricelist`
+- XML-Format: `<?xml?>`+`<odoo>`+`<record>` ohne `<data>`-Wrapper (Odoo-18-Standard)
+
+#### Pitfall: RNG-Validierung bei XML-Dateien
+Odoo 18 validiert Daten-XML-Dateien strenger via RelaxNG. `<odoo><data>` und `<odoo><record>` (ohne `<?xml?>`) wurden beide abgelehnt. Lösung: `<?xml version="1.0" encoding="utf-8"?>` + `<odoo>` + bare `<record>` (exakt wie Odoo-18-Quellcode).
+
+#### Modulinhalt
+- `res.partner` + `multi_factor` (Integer, auto-berechnet aus EWZ/1000)
+- `product.template` + `is_multi_factor_product` (Boolean)
+- `sale.order.line` + `qty_multiplication_factor` (Integer)
+- `sale.subscription.line` + `qty_multiplication_factor` (Integer)
+- 3 Wizards für Batch-Updates
+
+#### Verifikation
+- ✅ Modul installiert (v18.0.1.0.0)
+- ✅ Alle 4 Felder auf den Modellen vorhanden
+- ✅ multi_factor schreibbar und lesbar (Wert 42 getestet)
+- ✅ is_multi_factor_product schreibbar (True/False)
+
+#### Gelöste Blockade
+Der `hasattr`-Guard in `itk_subscription` für `multi_factor` kann jetzt entfernt werden — das Feld existiert jetzt.
+Nächstes Modul sollte `itk_crm` sein (liefert `population` und `_compute_communitymagnitude`).
+
+Nächster Schritt: Weitere ~47 Module aus `odoo11 module/` migrieren.
