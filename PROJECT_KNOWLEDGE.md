@@ -711,5 +711,40 @@ Erweitert `account.invoice.report` um:
 | 9 | itk_multifactor | ✅ |
 | 10 | itk_crm | ✅ |
 | 11 | account_invoice_line_report | ✅ |
+| 12 | partner_firstname | ✅ |
 
-11/56 Module migriert. GitHub-Push blockiert (Token abgelaufen).
+12/56 Module migriert.
+
+### Session 18: partner_firstname migriert nach Odoo 18
+
+**Datum:** 02.07.2026
+
+#### Migration
+- Manifest: Version 11.0.1.0.1 → 18.0.1.0.0, application/auto_install hinzugefügt
+- Python (3 Modelle): Coding-Header entfernt, `@api.multi` entfernt (Odoo 18 Default)
+- hooks.py: `post_init_hook(cr, _)` → `post_init_hook(env)` (neue Odoo-18-Signatur)
+- Views (3 XML): `<data>`-Wrapper entfernt, ALLE `attrs` → `invisible`/`required` konvertiert
+- Settings-View: Odoo-11 `<div class="settings">` → Odoo-18 `<app>`/`<block>`/`<setting>` (pitfall #22)
+- XPath fix: `//div[@name='multi_company']` → `//app[@name='general_settings']`
+
+#### Modulinhalt
+- `res.partner` + `firstname` (Char), `lastname` (Char), `name` wird computed
+- `res.users` + Name-Splitting-Logik
+- `res.config.settings` + Partner Names Order (last_first, last_first_comma, first_last)
+- post_init_hook: Bestehende Partner-Namen automatisch splitten
+
+#### Fehler & Lösungen
+| # | Fehler | Ursache | Lösung |
+|---|---|---|---|
+| 1 | `//div[@name='multi_company']` nicht gefunden | Settings in Odoo 18 neu | XPath auf `<app name='general_settings'>` |
+| 2 | `post_init_hook() missing argument '_'` | Signatur (cr, _) veraltet | → (env) |
+| 3 | Docker-cache hielt alte hooks.py | .pyc-Cache in Container | docker compose down && up -d |
+
+#### Verifikation
+- ✅ Modul installiert (v18.0.1.0.0)
+- ✅ firstname/lastname Felder auf res.partner
+- ✅ Name computed: "Mustermann Max" (last_first)
+- ✅ Settings: Partner Names Order + Recalculate Button
+- ✅ Partner mit firstname/lastname erstellt (ID 13)
+
+Nächster Schritt: hr_employee_firstname (abhängig von partner_firstname).
