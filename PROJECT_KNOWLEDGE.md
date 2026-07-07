@@ -892,3 +892,43 @@ Vollständiger Funktionstest **26/26 bestanden (100 %)**:
 - `addons/itk_multifactor/__manifest__.py` (CSV in `data` aufgenommen)
 
 `itk_multifactor` ist damit vollständig getestet und fehlerfrei. 16/56 Module migriert.
+
+---
+
+### Session 21: Login-Seite ungestylt / keine Anmeldefelder – Asset-Cache nach Docker-Neustart geleert
+
+**Datum:** 07.07.2026
+**Art:** Betriebs-/Laufzeitfix (KEINE Modul-Codeänderung, Migrationsstand bleibt 16/56)
+**Auslöser:** Nach dem `docker compose down && docker compose up -d` aus Session 20 (itk_multifactor)
+wollte Anna sich in Odoo anmelden. Die Login-Seite erschien komplett ungestylt: „Your logo"-Platzhalter,
+blaue Standard-Links, kein Odoo-Design – und die Eingabefelder für E-Mail/Passwort waren nicht sichtbar.
+(Screenshot: `C:\Odoo-Test\scans\LOGIN_odoo.png`)
+
+#### Ursache (Root Cause)
+Exakt das bereits in **Session 12 (Nachtrag)** dokumentierte und in der **Merkregel** festgehaltene Problem:
+Beim `docker compose down/up` wird der Container neu erstellt, die Container-internen CSS/JS-Bundles sind
+frisch – aber in der Datenbank (`ir.attachment`) liegen noch alte Asset-Bundles mit URLs `/web/assets/*`,
+die auf veraltete Datei-Hashes zeigen. Der Browser lädt dadurch kaputte/leere CSS-Dateien, die Login-Seite
+bleibt ungestylt und das Formular rendert nicht korrekt.
+
+#### Fix (per JSON-RPC gegen http://192.168.56.1:8069, DB odoo18_test)
+1. Als Administrator authentifiziert (uid=2).
+2. `ir.attachment.search([('url','like','/web/assets/%')])` → **7 veraltete Bundles** gefunden
+   (IDs: 958, 957, 956, 955, 850, 846, 845).
+3. `ir.attachment.unlink([...])` → `True`.
+4. Login-Seite (`/web/login`) neu geladen → Odoo regeneriert die Bundles frisch
+   (nun ein sauberes `web.assets_frontend.min.css` mit neuem Hash `8b68e82`).
+
+#### Verifikation
+- ✅ Login-Seite wieder korrekt gestylt: zentrierte lila Karte, E-Mail-Feld, Passwort-Feld, Login-Button,
+  „Passwort zurücksetzen" (visuell per Screenshot bestätigt).
+- ✅ Kompletter Login-Durchlauf über die UI erfolgreich → Web-Client geladen (`/odoo/discuss`, Navbar + Backend-Assets rendern).
+- ✅ Keine Datei-/Code-Änderung nötig, keine Modul-Neuinstallation.
+
+#### Merkregel bestätigt (unverändert gültig)
+**Nach JEDEM `docker compose down && docker compose up -d`:**
+1. Prüfen, ob die Login-Seite CSS/Design hat.
+2. Falls nicht → `ir.attachment` mit URL `/web/assets/%` löschen (per JSON-RPC oder UI).
+3. Seite neu laden → Bundles regenerieren sich automatisch.
+
+16/56 Module migriert (Stand unverändert – reiner Betriebsfix).

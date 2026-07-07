@@ -61,6 +61,15 @@ Das **PROJECT_KNOWLEDGE.md** enthält:
 | PostgreSQL | localhost:5432, User `odoo` |
 | Docker-Stack | `docker compose up -d` im Projektverzeichnis |
 
+## Betriebshinweise
+
+**Nach jedem `docker compose down && docker compose up -d`** kann die Login-/Web-Oberfläche
+ungestylt erscheinen (kein Odoo-Design, fehlende Login-Felder). Ursache sind veraltete
+Asset-Bundles in der DB-Tabelle `ir.attachment` (URLs `/web/assets/*`), die auf tote Datei-Hashes
+zeigen. **Fix:** diese Anhänge löschen (`ir.attachment` mit URL `/web/assets/%`) und die Seite neu
+laden – Odoo regeneriert die CSS/JS-Bundles automatisch. Details siehe PROJECT_KNOWLEDGE.md
+(Session 12 Nachtrag & Session 21).
+
 ## Lizenz
 
 LGPL-3
