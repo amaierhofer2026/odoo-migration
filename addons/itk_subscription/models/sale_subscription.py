@@ -243,7 +243,7 @@ class SaleSubscription(models.Model):
     def _track_subtype(self, init_values):
         self.ensure_one()
         if 'state' in init_values:
-            return 'itk_subscription.subtype_state_change'
+            return self.env.ref('itk_subscription.subtype_state_change')
         return super(SaleSubscription, self)._track_subtype(init_values)
 
     def _compute_invoice_count(self):
@@ -373,7 +373,7 @@ class SaleSubscription(models.Model):
         return self.write({'state': 'cancel'})
 
     def set_close(self):
-        return self.write({'state': 'close', 'date': fields.Date.from_string(fields.Date.today())})
+        return self.write({'state': 'close', 'date': fields.Date.today()})
 
     def _prepare_invoice_data(self):
         self.ensure_one()
