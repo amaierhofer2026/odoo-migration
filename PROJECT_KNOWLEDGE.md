@@ -1085,9 +1085,13 @@ in `C:\Odoo-Test\` (auf dem Windows-Host, von der Linux-VM aus nicht auslösbar)
 Nach dem Neustart (Merkregel Session 12/21): ggf. Asset-Cache leeren
 (`ir.attachment` mit URL `/web/assets/%`) und Login-Seite neu laden.
 
-#### Status
-Fix in beiden Kopien geschrieben, Syntax OK, gepusht. **Aktivierung + Endverifikation stehen nach dem
-Container-Neustart aus** (dann: Abo-Button klicken → Abo-Formular öffnet sich fehlerfrei, „Tags"-Feld
-nutzt crm.tag).
+#### Status — ✅ ERLEDIGT & VERIFIZIERT (nach Container-Neustart, 07.07.2026)
+Fix in beiden Kopien, gepusht. Nach `docker compose down && up -d` (durch Anna auf Windows):
+- `itk_subscription` per JSON-RPC upgegradet → crm.tag-Verknüpfungstabellen angelegt.
+- `sale.subscription.tag_ids` und `sale.subscription.template.tag_ids` → relation jetzt `crm.tag` (nicht mehr `_unknown`).
+- Lesen von Abo id 181 fehlerfrei (`tag_ids: []`, kein Crash).
+- **End-to-End im Browser:** Auftrag S00177 → Klick auf Smart-Button „1 Subscriptions" → Abo-Formular
+  „Monatsabrechnung-Abonnement" öffnet sich fehlerfrei (kein RPC_ERROR, keine JS-Fehler, per Screenshot bestätigt).
+- Asset-Cache nach dem Neustart erneut geleert (7 Bundles, `/web/assets/%`) — sonst leere Seite (Merkregel Session 21 erneut bestätigt).
 
 16/56 Module migriert (Stand unverändert – Bugfix an bereits migriertem Modul).
