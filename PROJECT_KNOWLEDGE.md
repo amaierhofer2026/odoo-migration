@@ -990,3 +990,45 @@ zugehöriges `<field nolabel="1">` einfügen – das bricht das Label/Wert-Paar 
 verrutscht. Immer **nach** dem Feld (`position="after"`) oder **vor** dem Label-`<div>` einfügen.
 
 16/56 Module migriert (Stand unverändert – reiner View-Layout-Fix).
+
+---
+
+### Session 23: itk_subscription – Abo-Smart-Button „Subscriptions" verifiziert (KEIN Bug – Vorlage am Produkt nötig)
+
+**Datum:** 07.07.2026
+**Art:** Verifikation/Diagnose (KEINE Code-Änderung)
+**Auslöser:** Anna: In Odoo 11 erscheint nach dem Bestätigen eines Auftrags mit Abo-Produkt oben rechts
+ein Smart-Button, der anzeigt, dass es ein Abo-Auftrag ist. In Odoo 18 „passiert nichts" – man erkennt
+nicht, ob es ein Abo-Auftrag ist.
+
+#### Untersuchung
+- **View:** `itk_subscription/views/sale_order_views.xml` – Button `action_open_subscriptions`,
+  `invisible="subscription_count == 0"`. `get_view('sale.order','form')` bestätigt: Button IST im
+  gerenderten Arch vorhanden (XPath `//div[hasclass('oe_button_box')]/button[1]` greift → kein Silent-Fail).
+- **Model:** `itk_subscription/models/sale_order.py` – `action_confirm()` ruft `create_subscriptions()`
+  → `_split_subscription_lines()` filtert Order-Lines auf `not subscription_id and product_id.subscription_template_id`.
+  `subscription_count` (computed) zählt Order-Lines mit gesetztem `subscription_id`.
+
+#### Live-Test (JSON-RPC + Browser gegen http://192.168.56.1:8069, DB odoo18_test)
+| Auftrag | Produkt | subscription_template_id | Ergebnis nach Bestätigen |
+|---|---|---|---|
+| S00177 | id 50 „TEST-Abo Monatlich" | ✅ Monatsabrechnung | Abo erzeugt (id 181), `subscription_id` gesetzt, `subscription_count=1` → **Smart-Button „Subscriptions (1)" sichtbar** (per Screenshot bestätigt) |
+| S00178 | id 6 „Test-Abo monatlich" | ❌ keine | KEIN Abo, `subscription_count=0` → **kein Button** |
+
+#### Fazit
+**Kein Migrationsfehler.** Der Button funktioniert und entspricht 1:1 der Odoo-11-Logik: Die
+automatische Abo-Erzeugung beim Bestätigen UND der Smart-Button setzen voraus, dass das Produkt eine
+**Abrechnungsvorlage (`subscription_template_id`)** hat. Nur `recurring_invoice=True` anzuhaken genügt
+NICHT. Der ursprüngliche Test wurde vermutlich mit einem Produkt ohne Vorlage gemacht.
+
+#### Offener Datenpunkt (kein Code)
+In der Test-DB haben nur id 50 + id 16 eine Vorlage; id 6 + id 13 nicht. Die Produkt→Vorlage-Zuordnung
+kommt vermutlich aus nicht-migrierten Import-Daten (`itk_initial_product_import`, vgl. Session 6).
+Empfehlung für später: reale Abo-Produkte mit einer Abrechnungsvorlage versehen (reine Datenpflege
+im Produktformular: „Wiederkehrende Abrechnung" ✓ + Abrechnungsvorlage wählen).
+
+#### Testartefakte (dürfen gelöscht werden)
+Zu Diagnosezwecken angelegt: Aufträge **S00177** (mit Abo) + **S00178** (ohne Abo), Abo **id 181**.
+S00177 dient als Live-Demo des funktionierenden Buttons.
+
+16/56 Module migriert (Stand unverändert – reine Verifikation, kein Code geändert).
