@@ -1032,3 +1032,62 @@ Zu Diagnosezwecken angelegt: Aufträge **S00177** (mit Abo) + **S00178** (ohne A
 S00177 dient als Live-Demo des funktionierenden Buttons.
 
 16/56 Module migriert (Stand unverändert – reine Verifikation, kein Code geändert).
+
+---
+
+### Session 24: itk_subscription – RPC_ERROR beim Öffnen des Abo-Smart-Buttons (`_unknown`-Modell) behoben
+
+**Datum:** 07.07.2026
+**Modul:** `itk_subscription`
+**Auslöser:** Klick auf den Abo-Smart-Button „Subscriptions" im bestätigten Auftrag →
+`RPC_ERROR … ValueError: Invalid field 'id' on model '_unknown'` (Traceback in `fields.py` →
+`comodel._order_to_sql(comodel._order, query)`).
+
+#### Ursache (Root Cause)
+Beim Lesen des `sale.subscription`-Datensatzes (web_read für das Formular) versucht Odoo, ein
+relationales Feld zu laden, dessen **Ziel-Modell (`comodel`) nicht existiert** und daher zu
+`_unknown` aufgelöst wird. Beim Sortieren des `_unknown`-Modells nach `id` bricht es ab.
+
+Betroffenes Feld: **`tag_ids`** (Many2many „Tags"), definiert auf ZWEI Modellen mit dem in Odoo 18
+**entfernten** Modell `account.analytic.tag`:
+- `sale.subscription.tag_ids` (`sale_subscription.py` Zeile 29)
+- `sale.subscription.template.tag_ids` (`sale_subscription.py` Zeile 902)
+
+`account.analytic.tag` (Kostenstellen-/Analytic-Tags) wurde in Odoo 18 ersatzlos entfernt
+(Analytic läuft jetzt über Analyse-Verteilung/`analytic_distribution`). Verifiziert per JSON-RPC:
+`fields_get('tag_ids').relation == '_unknown'`.
+
+**Zusätzlicher latenter Folgebug (gleiche Ursache):** In `_prepare_invoice_line` (Zeile 447) wurde
+`'analytic_tag_ids': [(6, 0, line.analytic_account_id.tag_ids.ids)]` gesetzt. In Odoo 18 hat
+`account.move.line` **kein** `analytic_tag_ids` mehr → hätte bei jeder Abo-Rechnungserstellung gecrasht.
+
+#### Fix (feature-erhaltend)
+- `sale.subscription.tag_ids`: `account.analytic.tag` → **`crm.tag`**
+- `sale.subscription.template.tag_ids`: `account.analytic.tag` → **`crm.tag`** (Relationstabelle
+  `sale_subscription_template_tag_rel` bleibt)
+- `_prepare_invoice_line`: `analytic_tag_ids`-Key **entfernt** (Kostenstelle wird bereits über
+  `analytic_distribution` gesetzt, Zeile 439)
+
+**Warum `crm.tag`?** Es existiert in Odoo 18, hat ein `color`-Feld (die Views nutzen
+`options="{'color_field': 'color'}"`) und ist exakt das Modell, das `sale.order.tag_ids` in dieser
+DB bereits verwendet — also der konsistente, funktionierende Ersatz für die entfernten Analytic-Tags.
+
+#### Geänderte Datei (beide Kopien synchron: Docker-Mount + Git)
+- `addons/itk_subscription/models/sale_subscription.py` (Zeilen 29, 447, 902)
+
+#### Deploy – ⚠️ Container-Neustart zwingend nötig (Python-Änderung)
+Empirisch bestätigt: `button_immediate_upgrade` allein reicht NICHT — nach dem Upgrade war
+`tag_ids.relation` weiterhin `_unknown` (der laufende Odoo-Prozess hält die alte Felddefinition im
+Speicher; `.pyc`/Registry-Cache). **Aktivierung nur durch `docker compose down && docker compose up -d`
+in `C:\Odoo-Test\` (auf dem Windows-Host, von der Linux-VM aus nicht auslösbar).**
+`__pycache__` in beiden Kopien wurde bereits gelöscht.
+
+Nach dem Neustart (Merkregel Session 12/21): ggf. Asset-Cache leeren
+(`ir.attachment` mit URL `/web/assets/%`) und Login-Seite neu laden.
+
+#### Status
+Fix in beiden Kopien geschrieben, Syntax OK, gepusht. **Aktivierung + Endverifikation stehen nach dem
+Container-Neustart aus** (dann: Abo-Button klicken → Abo-Formular öffnet sich fehlerfrei, „Tags"-Feld
+nutzt crm.tag).
+
+16/56 Module migriert (Stand unverändert – Bugfix an bereits migriertem Modul).

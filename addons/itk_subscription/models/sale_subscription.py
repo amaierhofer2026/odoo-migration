@@ -26,7 +26,7 @@ class SaleSubscription(models.Model):
     company_id = fields.Many2one('res.company', string="Company",
                                  default=lambda s: s.env['res.company']._company_default_get(), required=True)
     partner_id = fields.Many2one('res.partner', string='Customer', required=True, auto_join=True)
-    tag_ids = fields.Many2many('account.analytic.tag', string='Tags')
+    tag_ids = fields.Many2many('crm.tag', string='Tags')  # Odoo 18: account.analytic.tag entfernt -> crm.tag (wie sale.order.tag_ids)
     date_start = fields.Date(string='Start Date', default=fields.Date.today)
     date = fields.Date(string='End Date', tracking=True,
                        help="If set in advance, the subscription will be set to pending 1 month before the date and will be closed on the date set in this field.")
@@ -444,7 +444,8 @@ class SaleSubscription(models.Model):
             'product_uom_id': line.uom_id.id,
             'product_id': line.product_id.id,
             'tax_ids': [(6, 0, tax.ids)],
-            'analytic_tag_ids': [(6, 0, line.analytic_account_id.tag_ids.ids)]
+            # Odoo 18: account.move.line hat kein 'analytic_tag_ids' mehr (Analytic-Tags entfernt).
+            # Die Kostenstelle wird bereits oben ueber 'analytic_distribution' gesetzt.
         }
 
     def _prepare_invoice_lines(self, fiscal_position):
@@ -899,8 +900,8 @@ class SaleSubscriptionTemplate(models.Model):
                                  company_dependent=True,
                                  help="If set, subscriptions with this template will invoice in this journal; "
                                       "otherwise the sales journal with the lowest sequence is used.")
-    tag_ids = fields.Many2many('account.analytic.tag', 'sale_subscription_template_tag_rel', 'template_id', 'tag_id',
-                               string='Tags')
+    tag_ids = fields.Many2many('crm.tag', 'sale_subscription_template_tag_rel', 'template_id', 'tag_id',
+                               string='Tags')  # Odoo 18: account.analytic.tag entfernt -> crm.tag
     product_count = fields.Integer(compute='_compute_product_count')
     subscription_count = fields.Integer(compute='_compute_subscription_count')
     color = fields.Integer()
