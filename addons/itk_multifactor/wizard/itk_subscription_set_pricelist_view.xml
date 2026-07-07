@@ -18,6 +18,15 @@
         </field>
     </record>
 
-    <act_window id="action_subscription_set_pricelist_confirm" multi="True" key2="client_action_multi" name="Set Pricelist for Subscriptions" res_model="sale.subscription.set.pricelist.confirm" src_model="sale.subscription" view_mode="form" target="new"/>
+    <!-- Odoo 18: <act_window> Kurzform entfernt -> vollwertiges ir.actions.act_window Record.
+         Kontext-Aktion (frueher src_model + multi + key2) via binding_model_id + binding_type. -->
+    <record id="action_subscription_set_pricelist_confirm" model="ir.actions.act_window">
+        <field name="name">Set Pricelist for Subscriptions</field>
+        <field name="res_model">sale.subscription.set.pricelist.confirm</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="itk_subscription.model_sale_subscription"/>
+        <field name="binding_type">action</field>
+    </record>
 
 </odoo>

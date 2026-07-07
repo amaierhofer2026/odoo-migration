@@ -818,3 +818,77 @@ Nächster Schritt: hr_employee_firstname (abhängig von partner_firstname).
 - ✅ Create/Update funktioniert
 
 13/56 Module migriert.
+
+---
+
+### Session 20: itk_multifactor – Bugfixes beim Abo-Test (act_window + fehlende Wizard-ACL)
+
+**Datum:** 07.07.2026
+**Modul:** `itk_multifactor` (bereits migriert, aber beim Test des Abo-Moduls fielen zwei Fehler auf)
+**Auslöser:** Beim Upgrade/Test des Moduls „Abo" (`itk_subscription`) über die Odoo-UI erschien:
+`RPC_ERROR … AssertionError: Element odoo has extra content: record, line 4`
+
+#### Ursachenanalyse
+- Ein Upgrade von `itk_subscription` kaskadiert automatisch auf das abhängige `itk_multifactor`
+  (Modul, das von `itk_subscription` abhängt). Dabei wurden dessen Wizard-XML-Dateien neu eingelesen.
+- Alle XML-Dateien wurden mit lxml gegen Odoos echtes RelaxNG-Schema
+  (`odoo/import_xml.rng`, Branch 18.0) validiert. Ergebnis: `itk_subscription` = 0 Fehler,
+  drei Dateien in `itk_multifactor/wizard/` = ungültig (Zeile 4).
+
+#### Fehler 1 – veraltete `<act_window>`-Kurzform (RNG-Fehler)
+Die Odoo-18-RNG erlaubt als Kind von `<odoo>` nur noch: `record`, `template`, `menuitem`,
+`delete`, `function`, `asset`, verschachteltes `data`/`odoo` und Text. Das alte
+`<act_window .../>`-Kurzform-Tag ist **nicht mehr gültig**. Der Validator meldet dann irreführend
+den vorangehenden `<record>` (Zeile 4) als „extra content".
+
+Betroffen (je 1 `<act_window>` am Dateiende):
+- `wizard/itk_contacts_update_multifactor_view.xml`
+- `wizard/itk_subscription_set_pricelist_view.xml`
+- `wizard/itk_subscriptionline_update_multifactor_view.xml`
+
+**Lösung (feature-erhaltend):** `<act_window>` → vollwertiges `<record model="ir.actions.act_window">`.
+Die frühere Kontext-Aktion (`src_model` + `multi="True"` + `key2="client_action_multi"`,
+sichtbar im „Aktion"-Menü bei selektierten Datensätzen) wird in Odoo 18 über
+`binding_model_id` (ref auf das ir.model) + `binding_type="action"` nachgebildet:
+- Contacts-Wizard → `binding_model_id ref="base.model_res_partner"`
+- Set-Pricelist-Wizard → `ref="itk_subscription.model_sale_subscription"`
+- Subscriptionline-Wizard → `ref="itk_subscription.model_sale_subscription_line"`
+
+#### Fehler 2 – fehlende Zugriffsrechte für die Wizard-Modelle
+Beim Funktionstest zeigte sich: `itk_multifactor` hatte **gar keine** `security/ir.model.access.csv`.
+In Odoo 18 braucht **jedes** Modell explizite Rechte (auch TransientModels/Wizards) – sonst
+scheitert jeder Klick auf die (nun sichtbaren) Kontext-Aktionen mit
+„Sie sind nicht berechtigt … zu erstellen".
+
+**Lösung:** neue Datei `itk_multifactor/security/ir.model.access.csv` mit Vollzugriff für
+`base.group_user` (Standard-Odoo-Muster für Wizard-Modelle) für die 3 TransientModels,
+und Eintrag `'security/ir.model.access.csv'` an **erster Stelle** der `data`-Liste im Manifest.
+
+#### Wichtige Erkenntnis – Manifest-Cache (Odoo 18)
+Das nachträgliche Hinzufügen einer **neuen** Daten-Datei zur `data`-Liste eines bereits
+installierten Moduls wird von `button_immediate_upgrade` **nicht** übernommen, weil Odoo 18
+das Manifest pro Prozess cached (`get_manifest` via `lru_cache`) – analog zum `.pyc`-Cache.
+Sauberer Weg: `docker compose down && docker compose up -d` in `C:\Odoo-Test\`, danach
+`itk_multifactor` erneut upgraden. Da Docker (Windows) vom Linux-VM nicht neustartbar ist,
+wurden die 3 ACL-Datensätze zusätzlich direkt per JSON-RPC mit den korrekten External-IDs
+(`itk_multifactor.access_…`) angelegt → Feature sofort nutzbar, CSV bleibt für saubere
+Neuinstallation/Neustart konsistent (noupdate=0 aktualisiert vorhandene IDs kollisionsfrei).
+
+#### Verifikation (JSON-RPC gegen http://192.168.56.1:8069, DB odoo18_test)
+Vollständiger Funktionstest **26/26 bestanden (100 %)**:
+- ✅ Alle XML-Dateien beider Kopien RNG-valide (je 51 Dateien, 0 Fehler)
+- ✅ Upgrade `itk_subscription` (kaskadiert → `itk_multifactor`) fehlerfrei – Originalfehler weg
+- ✅ Abo-Lebenszyklus: create → set_open → set_pending → set_open → set_close
+- ✅ View-Felder vorhanden (product.template, sale.order, res.partner)
+- ✅ Lesezugriff auf alle Custom-/Wizard-Modelle
+- ✅ 3 Kontext-Aktionen mit korrektem `binding_model_id` + `binding_type=action` angelegt
+- ✅ Set-Pricelist-Wizard real ausgeführt (mit `active_ids`-Kontext) → Preisliste am Abo gesetzt
+
+#### Geänderte Dateien (beide Kopien synchron: Docker-Mount + Git)
+- `addons/itk_multifactor/wizard/itk_contacts_update_multifactor_view.xml`
+- `addons/itk_multifactor/wizard/itk_subscription_set_pricelist_view.xml`
+- `addons/itk_multifactor/wizard/itk_subscriptionline_update_multifactor_view.xml`
+- `addons/itk_multifactor/security/ir.model.access.csv` (NEU)
+- `addons/itk_multifactor/__manifest__.py` (CSV in `data` aufgenommen)
+
+`itk_multifactor` ist damit vollständig getestet und fehlerfrei. 16/56 Module migriert.

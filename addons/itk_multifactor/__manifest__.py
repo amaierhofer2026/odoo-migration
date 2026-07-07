@@ -9,6 +9,7 @@
     'license': 'LGPL-3',
     'depends': ['base', 'product', 'sale', 'itk_saleorder_lines', 'itk_subscription'],
     'data': [
+        'security/ir.model.access.csv',
         'views/res_partner.xml',
         'views/itk_product.xml',
         'views/itk_subscription_line.xml',
