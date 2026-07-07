@@ -109,7 +109,12 @@
 
 
                 </xpath>
-                <xpath expr="//field[@name='date_order']" position="before">
+                <!-- user_id (Vertriebsmitarbeiter) NACH date_order einfuegen, nicht davor:
+                     In Odoo 18 ist date_order als getrenntes o_td_label-<div> + <field nolabel="1">
+                     aufgebaut. position="before" schob user_id ZWISCHEN Label und Feld, wodurch
+                     der Angebotsdatum-Wert nach unten verrutschte. position="after" haelt Label und
+                     Wert zusammen: Gueltigkeit, Angebotsdatum, Vertriebsmitarbeiter, Preisliste, Zahlungsbedingungen. -->
+                <xpath expr="//field[@name='date_order']" position="after">
                     <field name="user_id"/>
                 </xpath>
 

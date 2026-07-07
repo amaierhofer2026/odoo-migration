@@ -932,3 +932,61 @@ bleibt ungestylt und das Formular rendert nicht korrekt.
 3. Seite neu laden → Bundles regenerieren sich automatisch.
 
 16/56 Module migriert (Stand unverändert – reiner Betriebsfix).
+
+---
+
+### Session 22: itk_sale_management – Layout-Bug „Angebotsdatum verrutscht" im Auftragsformular behoben
+
+**Datum:** 07.07.2026
+**Modul:** `itk_sale_management` (bereits migriert; reiner View-Layout-Fix)
+**Auslöser:** Beim Neuanlegen eines Auftrags fiel auf, dass das Feld **Angebotsdatum** (`date_order`)
+verrutscht war: Das Label „Angebotsdatum" stand oben (ohne Wert), der eigentliche Datumswert
+(`07.07.2026 …`) erschien label-los weiter unten – zwischen **Vertriebsmitarbeiter** und **Preisliste**.
+(Screenshot: `C:\Odoo-Test\scans\Auftrag_test.png`)
+
+#### Ursache (Root Cause)
+Die itk-Erb-View `view_saleorder_itk_form` (`addons/itk_sale_management/views/sale_order.xml`)
+fügte den Vertriebsmitarbeiter (`user_id`) so ein:
+```xml
+<xpath expr="//field[@name='date_order']" position="before">
+    <field name="user_id"/>
+</xpath>
+```
+In Odoo 18 ist `date_order` im Basis-Formular als **zwei getrennte Elemente** aufgebaut:
+```xml
+<div class="o_td_label"><label for="date_order" string="Quotation Date"/></div>  <!-- Label -->
+<field name="date_order" nolabel="1" .../>                                        <!-- Wert -->
+```
+`position="before"` schob `user_id` **genau zwischen** das Label-`<div>` und das Wert-`<field>`.
+Dadurch wurde das Label/Wert-Paar im Group-Grid aufgebrochen: Das Label „Angebotsdatum" blieb in
+seiner Zelle (ohne Wert), der Datumswert rutschte in die nächste freie Zelle unterhalb von
+„Vertriebsmitarbeiter".
+
+#### Fix (feature-erhaltend)
+`position="before"` → `position="after"`. `user_id` sitzt jetzt sauber **nach** dem `date_order`-Feld.
+Resultierende Reihenfolge in der rechten Spalte:
+**Gültigkeit → Angebotsdatum (Label + Wert zusammen) → Vertriebsmitarbeiter → Preisliste → Zahlungsbedingungen.**
+Das Feature (Vertriebsmitarbeiter im Kopf sichtbar) bleibt vollständig erhalten.
+
+#### Geänderte Datei (beide Kopien synchron: Docker-Mount + Git)
+- `addons/itk_sale_management/views/sale_order.xml` (XPath auf `date_order`, ~Zeile 112)
+
+#### Deploy
+- `button_immediate_upgrade` auf `itk_sale_management` (id 709) → erfolgreich.
+- Reine XML-Änderung in einer bereits im Manifest gelisteten Datei → **kein Docker-Neustart nötig**
+  (der .pyc/Manifest-Cache betrifft nur Python bzw. NEU hinzugefügte Dateien).
+
+#### Verifikation
+- ✅ `get_view('sale.order','form')`-Arch: `user_id` steht nach `date_order` (Reihenfolge korrekt).
+- ✅ Im Entwicklermodus (Admin hat `base.group_no_one`, daher ist „Angebotsdatum" sichtbar) gerendertes
+  Neu-Formular: Angebotsdatum-Wert klebt wieder am Label, „Vertriebsmitarbeiter" ist eine eigene Zeile,
+  KEIN label-loser Datumswert mehr (per Screenshot bestätigt).
+- ✅ Feld `date_order` hat `groups="base.group_no_one"` → nur im Entwicklermodus sichtbar (Odoo-18-Standard,
+  erklärt, warum das Feld ohne Debug-Modus gar nicht erscheint).
+
+#### Pitfall (neu, allgemeingültig für Odoo 18)
+**Niemals** mit `position="before"` zwischen ein `<div class="o_td_label">…<label/>…</div>` und sein
+zugehöriges `<field nolabel="1">` einfügen – das bricht das Label/Wert-Paar im Group-Grid und der Wert
+verrutscht. Immer **nach** dem Feld (`position="after"`) oder **vor** dem Label-`<div>` einfügen.
+
+16/56 Module migriert (Stand unverändert – reiner View-Layout-Fix).
