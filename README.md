@@ -14,7 +14,7 @@ Migration aller Odoo-Module von **Version 11 nach Version 18** für ITK (IT Komm
 
 | Modul | Status | Version |
 |---|---|---|
-| `itk_subscription` (ITK Abo-Management) | ✅ Fertig getestet · 3 Abo-Vorlagen (J/M/Q) | 18.0.1.0.0 |
+| `itk_subscription` (ITK Abo-Management) | ✅ Fertig getestet · 3 Abo-Vorlagen (J/M/Q) · Formular-Fix (Chatter/Archiv Odoo 18) | 18.0.1.0.0 |
 | `account_invoice_line_number` | ✅ In Odoo 18 integriert | 18.0.1.0.0 |
 | `itk_product` | ✅ Migriert, installiert | 18.0.1.0.0 |
 | `itk_projectcategory` | ✅ Migriert, installiert | 18.0.1.0.0 |

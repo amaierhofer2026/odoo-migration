@@ -1146,3 +1146,77 @@ Vorlagen für Abonnements.
   Session korrigiert (Scope), kann bei Bedarf separat gefixt werden.
 
 16/56 Module migriert (Stand unverändert – reine Datenpflege an bereits migriertem Modul; keine neue Modul-Migration).
+
+---
+
+### Session 26: itk_subscription – Vorlagen-/Abo-Formular repariert (Felder „fehlten" wegen veralteter Chatter-/Widget-Syntax)
+
+**Datum:** 08.07.2026
+**Modul:** `itk_subscription` (View-Fix; KEINE Python-/Logik-Änderung)
+**Auslöser:** Anna verglich das Vorlagen-Formular (Abonnements → Konfiguration → Vorlagen für
+Abonnements) mit Odoo 11 (Scans: `C:\Odoo-Test\scans\Jahresabo_Odoo11.png` vs `Jahresabo_Odoo18.png`).
+In Odoo 18 „fehlten die Felder" — sie konnte keine Vorlage mit Bedingungen anlegen; das Formular
+zeigte stattdessen zwei rohe Tabellen/Listen.
+
+#### Ursache (Root Cause)
+Der Form-Arch war gültig und enthielt ALLE Felder — aber **drei Widgets existieren in Odoo 18 nicht
+mehr** (Browser-Konsole: „Missing widget: …"):
+- `mail_followers` (One2many `message_follower_ids`)
+- `mail_thread` (One2many `message_ids`)
+- `boolean_button` (Boolean `active`, Archiv-Smart-Button)
+
+Fehlt ein Widget, rendert Odoo das Feld mit seinem **Default-Widget**. Für die One2many-Chatter-Felder
+bedeutet das: rohe, editierbare **Listen** (Follower-Liste + Nachrichten-Liste) statt des richtigen
+Chatters. Der Scan zeigte den nach unten gescrollten Bereich mit genau diesen Listen → Eindruck
+„die Felder fehlen".
+
+#### Betroffene Stellen (alle in `views/sale_subscription_views.xml`)
+1. **Abo-Formular** (`sale.subscription`) Chatter (Z. 381–385): `message_follower_ids`/`activity_ids`/`message_ids` mit alten Widgets.
+2. **Vorlagen-Formular** (`sale.subscription.template`) Archiv-Button (Z. 538–540): `boolean_button`.
+3. **Vorlagen-Formular** Chatter (Z. 586–589): `message_follower_ids`/`message_ids` mit alten Widgets.
+
+#### Fix (Odoo-18-Standard, 1:1 aus Kernmodul `product.template` übernommen)
+- Beide Chatter-Blöcke → einfach **`<chatter/>`** (self-closing). Rendert Follower/Nachrichten/
+  Aktivitäten korrekt inkl. „Nachricht senden" / „Notiz hinterlassen" / „Folgen".
+- Archiv-Button (`boolean_button`) → **`<widget name="web_ribbon" title="Archived"
+  bg_color="text-bg-danger" invisible="active"/>`** + `<field name="active" invisible="1"/>`.
+  Archivieren/Reaktivieren läuft in Odoo 18 über das Aktionsmenü (Zahnrad); das rote „Archived"-Band
+  zeigt den Status. Entspricht dem Odoo-18-Kernmuster.
+
+#### Geänderte Datei (beide Kopien synchron: Docker-Mount + Git)
+- `addons/itk_subscription/views/sale_subscription_views.xml` — XML valide, `diff` identical,
+  0 alte Widgets verblieben (`grep` = 0).
+
+#### Deploy
+- `button_immediate_upgrade` auf `itk_subscription` (id 710) → erfolgreich. Reine XML-Änderung → **kein
+  Docker-Neustart nötig**.
+
+#### Verifikation
+- ✅ Konsole VORHER: 3× „Missing widget" (`mail_followers`, `mail_thread`, `boolean_button`).
+  NACHHER: **0 Meldungen, 0 Fehler**.
+- ✅ `get_view('form')` für Template + Subscription: enthält `<chatter/>` + `web_ribbon`, keine alten Widgets.
+- ✅ Browser (UI): Vorlagen-Formular zeigt jetzt ALLE Felder (Code, Recurrence, Min. Contract Life,
+  Notice Period + Kündigungsfrist-Dropdown, ONLINE MANAGEMENT mit Closable by customer / Automatic
+  Payment / Category, Terms and Conditions) + richtiger Chatter unten (per Screenshot bestätigt).
+- ✅ „Neu"-Formular: alle Bedingungsfelder leer & editierbar → Anna kann jetzt selbst eine neue
+  Vorlage anlegen (per Screenshot bestätigt).
+
+#### Antwort auf Annas Frage (Vorlage selbst anlegen)
+Abonnements → Konfiguration → Vorlagen für Abonnements → **„Neu"** → Template Name, Code, Recurrence
+(Zahl + Einheit), Min. Contract Life, Notice Period (Zahl + Einheit + Kündigungsfrist) ausfüllen,
+ONLINE-MANAGEMENT-Optionen setzen, speichern. Bisher ging das nicht, weil das Formular durch die
+fehlenden Widgets kaputt gerendert wurde — jetzt behoben.
+
+#### Pitfall (neu, allgemeingültig für Odoo 18)
+Alte Chatter-Syntax `<div class="oe_chatter"><field name="message_follower_ids" widget="mail_followers"/>
+<field name="message_ids" widget="mail_thread"/></div>` → in Odoo 18 durch **`<chatter/>`** ersetzen.
+Archiv-Stat-Button mit `widget="boolean_button"` → durch **`web_ribbon`** ersetzen. Fehlende Widgets
+crashen nicht hart, sondern rendern das Feld als Default-Widget (One2many → rohe Liste) — leicht mit
+„fehlenden Feldern" zu verwechseln. Diagnose immer über die Browser-Konsole („Missing widget: …").
+
+#### Nebenbefund (separat, NICHT in dieser Session gefixt – Scope)
+Konsole meldet zusätzlich, dass das Frontend-JS `@itk_subscription/js/portal_subscription` das Modul
+`web.dom_ready` nicht laden kann (in Odoo 18 entfernt). Betrifft nur das Portal-JS, nicht das
+Backend-Formular. Kandidat für eine spätere Session.
+
+16/56 Module migriert (Stand unverändert – View-Bugfix an bereits migriertem Modul).
