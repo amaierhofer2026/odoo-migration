@@ -30,14 +30,15 @@ Migration aller Odoo-Module von **Version 11 nach Version 18** für ITK (IT Komm
 | `partner_academic_title` | ✅ Migriert, installiert | 18.0.1.0.0 |
 | `itk_base_setup` | ✅ Migriert, installiert | 18.0.1.0.0 |
 | `itk_third_party_setup` | ✅ Migriert, installiert | 18.0.1.0.0 |
+| `itk_reports` | ✅ Migriert, installiert · 4 ITK-Druckvorlagen (Angebot/Auftrag, Bestellung, Bestellanfrage, Rechnung) alle gerendert | 18.0.1.0.0 |
 
-➕ **45 weitere Module** in `odoo11 module/` (Originalquellen) warten auf Migration.
+➕ **44 weitere Module** in `odoo11 module/` (Originalquellen) warten auf Migration.
 
 ## Struktur
 
 ```
 odoo-migration/
-├── addons/              → 16 Odoo-Addons (migriert + getestet)
+├── addons/              → 17 Odoo-Addons (migriert + getestet)
 ├── config/              → Odoo-Konfiguration
 ├── odoo11 module/       → 40+ Odoo-11-Originalquellen
 ├── postgres/            → PostgreSQL-Datenbank

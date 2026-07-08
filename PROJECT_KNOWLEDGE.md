@@ -1274,3 +1274,70 @@ sondern `#wc-modal-close`. Allgemeiner Odoo-18-Pitfall: altes `odoo.define` + `r
   ist definiert (`portalSubDefined=true`), keine `dom_ready`-Referenz mehr.
 
 16/56 Module migriert (Stand unverändert – Frontend-Bugfix an bereits migriertem Modul).
+
+### Session 28: itk_reports migriert nach Odoo 18 (ITK-Druckvorlagen: Angebot/Auftrag, Bestellung, Bestellanfrage, Rechnung)
+
+**Datum:** 08.07.2026
+**Modul:** `itk_reports` (NEU migriert – 17. Modul)
+**Auslöser:** Anna sah in Odoo 18 unter Apps eine Karte `itk_reports` (nicht installiert). Diagnose ergab:
+Es war ein noch nicht migriertes Odoo-11-Modul; die Apps-Karte war eine **DB-Karteileiche** (`ir.module.module`
+id=706, state=uninstalled, leeres Manifest), deren Ordner nicht im aktiven addons-Pfad lag. Der Original-Code
+lag unter `odoo11 module/itk_reports/`.
+
+#### Was das Modul macht
+QWeb-PDF-Druckvorlagen mit ITK-Briefkopf/-Fußzeile für vier Belegarten:
+- Angebot/Auftrag (`sale.order`) – Report-Action `action_report_itk_saleorders`
+- Bestellung (`purchase.order`) – `action_report_itk_purchaseorders`
+- Bestellanfrage (`purchase.order`) – `action_report_itk_purchasequotations`
+- Rechnung (`account.move`) – `action_report_itk_invoices` (in Odoo 11 auskommentiert → hier **aktiviert**)
+`models.py` überschreibt `print_quotation` (sale/purchase) und `invoice_print` (account.move), um die ITK-Reports
+statt der Standard-Reports zu drucken. Alle Report-Actions sind über das Drucken-Menü der jeweiligen Belege gebunden.
+
+#### Odoo-18-Anpassungen (feature-erhaltend)
+1. **Fremd-Modul-Präfix in Template-IDs → „Cannot update missing record" (NEUER, zentraler Pitfall).**
+   Odoo 11 erlaubte `<template id="sale.report_itk_saleorder">` in einem FREMDEN Modul (itk_reports). Odoo 18
+   deutet `id="sale.xxx"` als **Update eines existierenden sale-Records** → `Exception: Cannot update missing
+   record 'sale.report_itk_saleorder_document'` beim Install. **Fix:** alle Template-IDs in den eigenen Namespace
+   (`report_itk_saleorder…` → `itk_reports.…`); `t-call`, `inherit_id`, `report_name`/`report_file` entsprechend
+   auf `itk_reports.*` umgestellt. `account.document_tax_totals` (echtes Odoo-Template) blieb unangetastet.
+2. **`<report>`-Kurzform → vollwertige `<record model="ir.actions.report">`** (analog zum entfernten
+   `<act_window>`-Shortcut; RNG-sicher). Print-Menü-Bindung via `binding_model_id` + `binding_type="report"`.
+3. **`account.invoice` → `account.move`** in `models.py` (`_inherit`) und im Rechnungs-Template:
+   `type→move_type`, `date_invoice→invoice_date`, `number→name`, `comment→narration`, `residual→amount_residual`,
+   `payment_term_id→invoice_payment_term_id`; State-Werte `'open'/'paid'` → `'posted'`.
+4. **`_get_tax_amount_by_group()` entfernt** (existiert in Odoo 18 nicht) → offizielle Steuersumme
+   `<t t-call="account.document_tax_totals"><t t-set="tax_totals" t-value="doc/o.tax_totals"/></t>`
+   (erhält Netto + Steuergruppen + Gesamt). Beim Purchase-Report manuelle Netto/Steuer/Gesamt-Tabelle (amount_*).
+5. **`sale.order.order_lines_layouted()` entfernt** (sale_layout-Feature weg) → Positionstabelle direkt über
+   `doc.order_line` gerendert (die innere Schleife nutzte ohnehin `doc.order_line`).
+6. **`purchase.order.line.number` fehlt** (purchase_order_line_number nicht migriert) → Positionsnummer über
+   Schleifenindex `l_index + 1` / `line_index + 1` (Feature erhalten, keine Fremd-Abhängigkeit nötig).
+7. **`@api.multi` entfernt** (Odoo-18-Default). `self.sent = True` in `invoice_print` entfernt (Feld weg).
+8. **Bootstrap 3 → 5:** `col-xs-N→col-N`, `pull-right→float-end`, `text-right→text-end`, `text-left→text-start`,
+   `table-condensed→table-sm`, `hidden→d-none`, `mt8→mt-3`, `col-xs-offset-7→offset-7`.
+9. **`t-field-options` → `t-options`**, Datumsformat `YYYY→yyyy`.
+10. **Fehlende `groups=` entfernt:** `product.group_uom` (heißt jetzt `uom.group_uom`) und
+    `sale.group_show_price_subtotal` existieren nicht mehr → Spalten immer sichtbar (kein Feature-Verlust).
+    `sale.group_discount_per_so_line` existiert → behalten.
+11. **`account.move.line.origin` entfernt** (Feld weg; war nur versteckte Spalte). **`_get_payments_vals()`**
+    (Rechnung-mit-Zahlungen-Report) existiert nicht mehr → Template strukturell erhalten, Zahlungs-Teil auf
+    `amount_residual` reduziert + TODO (dieser Report war in Odoo 11 nie aktiv). `depends` ergänzt: `purchase`, `account`.
+12. `views/views.xml` + `views/templates.xml` (nur auskommentierter itk_product-Boilerplate) aus dem Manifest
+    genommen; `demo/demo.xml` auf leeres `<odoo/>` gesetzt; auf Disk 1:1 belassen.
+
+#### Install-Hürde: Manifest-Cache + DB-Karteileiche
+`update_list` liest das Manifest für **existierende** `ir.module.module`-Records NICHT neu (lru_cache). Da die
+Karteileiche id=706 schon vor Container-Start existierte, blieb `latest_version=False`, deps leer, und
+`button_immediate_install` lud nichts (state hing bei „to install"). **Fix:** `docker compose down && up -d`
+(durch Anna), dann `update_list` → deps/Manifest frisch → `button_immediate_install` → **state=installed**.
+
+#### Verifikation (real, HTTP-gerendert)
+- ✅ Modul installiert (state=installed), 4 Report-Actions + 11 QWeb-Views angelegt.
+- ✅ Alle vier Reports fehlerfrei als HTML gerendert (echte Daten, `/report/html/…`, HTTP 200, keine QWeb-/Feldfehler):
+  Angebot/Auftrag (S.O. 180), Rechnung (account.move 2), Bestellung + Bestellanfrage (Test-P.O.).
+- ✅ Test-Bestellung nach dem Test wieder storniert + gelöscht (0 purchase.order verbleiben).
+
+#### Gespeichert (beide Kopien synchron: Docker-Mount + Git) + GitHub
+- `addons/itk_reports/` (komplettes Modul), PROJECT_KNOWLEDGE.md, README.md.
+
+17/56 Module migriert.

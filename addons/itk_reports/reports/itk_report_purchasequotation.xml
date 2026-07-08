@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_itk_purchasequotation_document">
+        <t t-call="web.external_layout">
+            <t t-set="doc" t-value="doc.with_context({'lang':doc.partner_id.lang})"/>
+            <div class="page">
+                <form>
+                    <div class="container" style="line-height: 50%;padding-bottom:3em;padding-top:10em">
+                        <div class="row" style="padding-bottom:1em; font-size:10px;padding-top:3em;">
+                            <div class="col-10 small first-page text-start" name="company_address">
+                                <u>
+                                    <span t-field="doc.company_id.partner_id.name"/>
+                                    <font color="#215083">◼</font>
+                                    <span t-field="doc.company_id.partner_id.zip"/>
+                                    <span t-field="doc.company_id.partner_id.city"/>
+                                    <font color="#215083">◼</font>
+                                    <span t-field="doc.company_id.partner_id.street"/>
+                                </u>
+                            </div>
+                        </div>
+
+
+                        <div class="row" style="padding-bottom:1em;padding-top:1em;">
+                            <div class="col-9 text-start">
+                                <table style="text-align: left; width: 60%; height: 36px; font-size: 16px;"
+                                       border="1"
+                                       cellpadding="2"
+                                       cellspacing="2">
+                                    <tbody>
+                                        <tr>
+                                            <td style="vertical-align: top;">
+                                                <t t-esc="doc.partner_id.parent_id.name"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="vertical-align: top;">
+                                                <t t-esc="doc.partner_id.name"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="vertical-align: top;">
+                                                <t t-esc="doc.partner_id.street"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="vertical-align: top;">
+                                                <t t-esc="doc.partner_id.street2"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="vertical-align: top;">
+                                                <t t-esc="doc.partner_id.zip"/>
+                                                <t t-esc="doc.partner_id.city"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="vertical-align: top;">
+                                                <t t-esc="doc.partner_id.country_id.name"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-9 text-start"/>
+                                <div class="col-1">
+                                    <ul class="list-inline pagenumber float-end text-end">
+                                        <li>
+                                            <strong>
+                                                <span class="page"/>
+                                            </strong>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="container" style="line-height: 50%;padding-bottom:1em;padding-top:1em">
+                    <div class="row mt-3">
+                        <div class="col-6 text-start"/>
+                        <div class="col-6 float-end text-end">
+                            <div style=" font-size: 16px;">
+                                <strong>
+                                    <span>Anfragedatum</span>
+                                    <span t-field="doc.date_order" t-options='{"format": "dd.MM.yyyy"}'/>
+                                </strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-9 text-start"/>
+                        <div class="col-1">
+                            <ul class="list-inline pagenumber float-end text-end">
+                                <li>
+                                    <strong>
+                                        <span class="page"/>
+                                    </strong>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div style=" font-size: 16px;">
+                    <strong>
+                        <span>Bestellanfrage</span>
+                        <span t-field="doc.name"/>
+                    </strong>
+                </div>
+                <div style="padding-top:3em;font-size: 16px;"/>
+                <div style="font-size: 16px;">
+                    <span>Bitte senden Sie uns ein Angebot für folgende Produkte zum gegebenen Lieferzeitpunkt.
+                    </span>
+                </div>
+                <div style="padding-bottom:2em"/>
+
+
+                <table class="active" style="width:100%">
+                    <thead class="active">
+                        <tr>
+                            <th class=" text-center"
+                                style="font-weight: bold; border-bottom: 1px solid black; width: 5%; background-color:#bbbbbb;">Pos
+                            </th>
+                            <th class=" text-start"
+                                style="font-weight: bold; border-bottom: 1px solid black; width: 55%; background-color:#bbbbbb;">Leistungsgegenstand
+                            </th>
+                            <th class="text-center"
+                                style="font-weight: bold; border-bottom: 1px solid black; width: 25%;  background-color:#bbbbbb;">Geplantes
+                                Lieferdatum
+                            </th>
+                            <th class="text-end"
+                                style="font-weight: bold; border-bottom: 1px solid black; width: 15%; background-color:#bbbbbb;">Menge
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="purchase_tbody">
+                        <t t-foreach="doc.order_line" t-as="l">
+                            <tr>
+                                <td class="text-center">
+                                    <span t-esc="l_index + 1"/>
+                                </td>
+                                <td class="text-start">
+                                    <span t-field="l.product_id.name"/>
+                                </td>
+                                <td class="text-center">
+                                    <span t-field="l.date_planned" t-options='{"format": "dd.MM.yyyy"}'/>
+                                </td>
+                                <td class="text-end">
+                                    <span t-field="l.product_qty"/>
+                                    <span t-field="l.product_uom.name"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+                <div style="padding-top:3em;"/>
+                <div style="font-size: 16px;">
+                    <span>Wir bitten um Ihr zeitnahes Angebot.</span>
+                </div>
+                <div style="padding-top:3em"/>
+                <div style="font-size: 16px;">
+                    <span>
+                        Ihr Team von
+                        <br/>
+                        IT-Kommunal GmbH
+                        <br/>
+                        <br/>
+                        www.it-kommunal.at
+                    </span>
+                    <div class="oe_structure"/>
+                </div>
+            </div>
+        </t>
+    </template>
+
+
+    <template id="report_itk_purchasequotation">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="itk_reports.report_itk_purchasequotation_document" t-lang="doc.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
+
+</odoo>

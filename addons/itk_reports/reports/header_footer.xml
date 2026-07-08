@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<t t-name="web.external_layout_standard">
+    <div class="header">
+      <img src="itk_reports/static/img/itk_pageheader.jpg" width="100%"/>
+    </div>
+    <div class="article o_report_layout_standard">
+        <t t-raw="0"/>
+    </div>
+    <div class="footer">
+        <table class="small" width="100%" style="font-size:10px;">
+            <tr>
+                <td align="left" width="33%">
+                    <span t-field="o.company_id.name"/>
+                    <br/>
+                    <span t-field="o.company_id.zip"/>
+                    <span t-field="o.company_id.city"/>,
+                    <span t-field="o.company_id.street"/>
+                    <br/>
+                    <span t-field="o.company_id.email"/>,
+                    <span t-field="o.company_id.phone"/>
+                </td>
+                <td align="center" width="34%">
+                    <span t-field="o.company_id.company_registry"/>
+                    <br/>
+                    <span t-field="o.company_id.vat"/>
+                </td>
+                <td align="right" width="33%">
+                    <span t-field="o.company_id.bank_journal_ids.bank_id.name"/>
+                    <br/>
+                    IBAN:
+                    <span t-field="o.company_id.bank_journal_ids.bank_acc_number"/>
+                    <br/>
+                    BIC:
+                    <span t-field="o.company_id.bank_journal_ids.bank_id.bic"/>
+                    <br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+</t>

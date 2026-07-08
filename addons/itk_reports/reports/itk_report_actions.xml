@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ITK-Bestellanfrage (purchase.order) -->
+    <record id="action_report_itk_purchasequotations" model="ir.actions.report">
+        <field name="name">ITK-Bestellanfrage</field>
+        <field name="model">purchase.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">itk_reports.report_itk_purchasequotation</field>
+        <field name="report_file">itk_reports.report_itk_purchasequotation</field>
+        <field name="print_report_name">'Bestellanfrage - %s - %s' % (object.partner_id.name or '', object.name)</field>
+        <field name="binding_model_id" ref="purchase.model_purchase_order"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- ITK-Bestellung (purchase.order) -->
+    <record id="action_report_itk_purchaseorders" model="ir.actions.report">
+        <field name="name">ITK-Bestellung</field>
+        <field name="model">purchase.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">itk_reports.report_itk_purchaseorder</field>
+        <field name="report_file">itk_reports.report_itk_purchaseorder</field>
+        <field name="print_report_name">'Bestellung - %s - %s' % (object.partner_id.name or '', object.name)</field>
+        <field name="binding_model_id" ref="purchase.model_purchase_order"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- ITK-Angebot/Auftrag (sale.order) -->
+    <record id="action_report_itk_saleorders" model="ir.actions.report">
+        <field name="name">ITK-Angebot/Auftrag</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">itk_reports.report_itk_saleorder</field>
+        <field name="report_file">itk_reports.report_itk_saleorder</field>
+        <field name="print_report_name">'Angebot - %s - %s' % (object.partner_id.name or '', object.name)</field>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- ITK-Rechnung (account.move) — in Odoo 11 auskommentiert, hier aktiviert -->
+    <record id="action_report_itk_invoices" model="ir.actions.report">
+        <field name="name">ITK-Rechnung</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">itk_reports.report_itk_invoice</field>
+        <field name="report_file">itk_reports.report_itk_invoice</field>
+        <field name="print_report_name">'Rechnung - %s - %s' % (object.partner_id.name or '', object.name)</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>
