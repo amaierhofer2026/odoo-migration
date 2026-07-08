@@ -1220,3 +1220,57 @@ Konsole meldet zusätzlich, dass das Frontend-JS `@itk_subscription/js/portal_su
 Backend-Formular. Kandidat für eine spätere Session.
 
 16/56 Module migriert (Stand unverändert – View-Bugfix an bereits migriertem Modul).
+
+---
+
+### Session 27: itk_subscription – Portal-JS auf Odoo 18 portiert (`web.dom_ready` / jQuery entfernt)
+
+**Datum:** 08.07.2026
+**Modul:** `itk_subscription` (Frontend-Asset/JS-Fix; KEINE Python-/Logik-Änderung)
+**Auslöser:** Nebenbefund aus Session 26 — die Browser-Konsole meldete beim Laden von Frontend-Seiten:
+- „The following modules … have not been defined … [`web.dom_ready`]"
+- „… could not be loaded because they have unmet dependencies … [`@itk_subscription/js/portal_subscription`]"
+
+#### Ursache (Root Cause)
+`static/src/js/portal_subscription.js` war noch im Odoo-11-Stil:
+`odoo.define('itk_subscription.portal_subscription', function (require) { require('web.dom_ready'); … jQuery `$` … })`.
+In Odoo 18:
+- Das Modul `web.dom_ready` existiert nicht mehr → das JS-Modul konnte nie definiert werden (unmet dependency), daher der Ladefehler.
+- jQuery (`$`) ist aus dem Frontend-Bundle (`web.assets_frontend`) entfernt.
+
+#### Funktion des Skripts (1:1 erhalten)
+Auf der Abo-Portal-Seite im „Abo schließen"-Modal (`#wc-modal-close`) beim Klick auf den Confirm-Button
+(`.contract-submit`): Button deaktivieren, Spinner anzeigen, umgebendes `<form>` absenden. Das explizite
+`form.submit()` ist nötig, weil das `disabled`-Attribut den nativen Submit sonst abbricht (verhindert Doppel-Submit).
+
+#### Fix (Odoo-18-Standard)
+- Datei komplett neu als **public widget** geschrieben: `/** @odoo-module **/` +
+  `import publicWidget from "@web/legacy/js/public/public_widget";`.
+- Kein `odoo.define`, kein `web.dom_ready`, kein jQuery — reines Vanilla-DOM (`ev.currentTarget`,
+  `closest('form')`, `insertAdjacentHTML`).
+- `selector: '#wc-modal-close'` + delegiertes Event `'click .contract-submit'`. Das Modal existiert nur
+  auf der Abo-Schließen-Seite (`t-if="display_close"`) und ersetzt so den alten `.oe_website_contract`-Seiten-Guard.
+
+#### Pitfall / wichtig zur Selektor-Wahl
+Der Button `.contract-submit` liegt im Modal `#wc-modal-close`, das ein **Geschwister** von
+`.oe_website_contract` ist (NICHT darin, gleiche Einrückung in `subscription_portal_templates.xml`).
+Daher NICHT `.oe_website_contract` als Widget-Root nehmen (Event-Delegation würde nicht greifen),
+sondern `#wc-modal-close`. Allgemeiner Odoo-18-Pitfall: altes `odoo.define` + `require('web.dom_ready')`
++ Frontend-jQuery → durch `publicWidget` (`@web/legacy/js/public/public_widget`) + Vanilla-DOM ersetzen.
+
+#### Geänderte Datei (beide Kopien synchron: Docker-Mount + Git)
+- `addons/itk_subscription/static/src/js/portal_subscription.js` (0 Alt-Tokens `odoo.define`/`require`/`dom_ready` im Code verblieben).
+
+#### Deploy
+- `button_immediate_upgrade` auf `itk_subscription` + **Asset-Bundle-Cache geleert** (`ir.attachment`
+  mit URL `/web/assets/%`). Die JS-Datei liegt auf dem Mount → für den Container sofort sichtbar →
+  **kein Docker-Neustart nötig**; nur der Bundle-Neubau war erforderlich (regeneriert beim nächsten
+  Frontend-Seitenaufruf).
+
+#### Verifikation
+- ✅ Konsole auf Frontend-Seite (`/my`) VORHER: `web.dom_ready` + `portal_subscription`-Ladefehler.
+  NACHHER: **0 Meldungen, 0 Fehler**.
+- ✅ Modul-Loader live geprüft (`odoo.loader`): `failedCount=0`, `@itk_subscription/js/portal_subscription`
+  ist definiert (`portalSubDefined=true`), keine `dom_ready`-Referenz mehr.
+
+16/56 Module migriert (Stand unverändert – Frontend-Bugfix an bereits migriertem Modul).
