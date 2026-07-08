@@ -1095,3 +1095,54 @@ Fix in beiden Kopien, gepusht. Nach `docker compose down && up -d` (durch Anna a
 - Asset-Cache nach dem Neustart erneut geleert (7 Bundles, `/web/assets/%`) — sonst leere Seite (Merkregel Session 21 erneut bestätigt).
 
 16/56 Module migriert (Stand unverändert – Bugfix an bereits migriertem Modul).
+
+---
+
+### Session 25: itk_subscription – Neue Abo-Vorlage „Q – Quartalsabrechnung-Abonnement" angelegt
+
+**Datum:** 08.07.2026
+**Modul:** `itk_subscription` (Datenpflege + Erweiterung der Daten-XML; KEINE Python-/Logik-Änderung)
+**Auslöser:** Anna wollte Abos testen und eine dritte Abrechnungsvorlage (quartalsweise) anlegen.
+Bisher existierten zwei Vorlagen: **J – Jahresabrechnung-Abonnement** (jährlich) und
+**M – Monatsabrechnung-Abonnement** (monatlich). Menüpfad: Abonnements → Konfiguration →
+Vorlagen für Abonnements.
+
+#### Vorgehen
+1. Die zwei bestehenden Vorlagen live per JSON-RPC inspiziert (Struktur/Konvention ermittelt).
+   `sale.subscription.template.name_get()` baut den Anzeigenamen als `"<code> - <name>"`.
+2. Neue Vorlage **sauber als Modul-Datensatz** in `data/itk_sale_subscription_template.xml`
+   ergänzt (feste External-ID `subscription_template_Q`), damit sie einen Modul-Neuaufbau
+   überlebt und im Git dokumentiert ist. (Der erste Test-Datensatz war per JSON-RPC angelegt
+   worden [id 7]; er wurde wieder gelöscht und via XML + Modul-Upgrade frisch mit fester
+   External-ID erzeugt [res_id 8] → keine Dublette.)
+3. Werte der neuen Vorlage:
+   - `code` = **Q**, `name` = **Quartalsabrechnung-Abonnement** → Anzeige „Q - Quartalsabrechnung-Abonnement"
+   - Wiederholung: **alle 3 Monate** (`recurring_rule_type=monthly`, `recurring_interval=3`) = quartalsweise
+   - Kündigungsfrist (`noticeperiod`): `notice_period_2` „zum Quartalsende" (passt logisch zum
+     Quartals-Abo; J und M nutzen „zum Monatsende")
+   - Mindestlaufzeit 24 Monate, Kündigungsfrist-Zahl 3 Monate (konsistent mit der Jahres-Vorlage)
+
+#### Geänderte Datei (beide Kopien synchron: Docker-Mount + Git)
+- `addons/itk_subscription/data/itk_sale_subscription_template.xml` (neuer `<record>` `subscription_template_Q`)
+- `diff` bestätigt: beide Kopien identisch, XML valide (`xml.dom.minidom.parse` OK).
+
+#### Deploy
+- `button_immediate_upgrade` auf `itk_subscription` (id 710) → erfolgreich.
+- Reine Daten-Datei, bereits im Manifest gelistet (Zeile 40) → **kein Docker-Neustart nötig**
+  (der .pyc-Cache betrifft nur Python bzw. NEU hinzugefügte Dateien).
+
+#### Verifikation
+- ✅ JSON-RPC: genau **EINE** Q-Vorlage. External-ID `itk_subscription.subscription_template_Q`
+  → `res_id 8`. `recurring_interval=3` / `monthly`, `noticeperiod` = „zum Quartalsende".
+- ✅ Browser (UI, http://192.168.56.1:8069, DB odoo18_test): Abonnements → Konfiguration →
+  Vorlagen für Abonnements zeigt **1-3 / 3** Karten: J (1 Year), M (1 Month), **Q (3 Month)** —
+  keine Dublette (per Screenshot bestätigt).
+
+#### Hinweis (optionale Anpassung)
+- Die neue Vorlage nutzt die Kündigungsfrist „zum Quartalsende". Falls stattdessen „zum Monatsende"
+  (wie J/M) gewünscht ist, genügt ein 1-Zeilen-Fix (`noticeperiod` ref → `notice_period_1`).
+- Kosmetischer Alt-Bestandteil der Daten: Die Kündigungsfrist heißt in der DB „zum Qauartalsende"
+  (Tippfehler in `data/itk_noticeperiod.xml`, bereits aus Odoo 11 vorhanden). Nicht in dieser
+  Session korrigiert (Scope), kann bei Bedarf separat gefixt werden.
+
+16/56 Module migriert (Stand unverändert – reine Datenpflege an bereits migriertem Modul; keine neue Modul-Migration).

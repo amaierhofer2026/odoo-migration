@@ -22,5 +22,16 @@
             <field name='contract_termination_period_unit'>monthly</field>
             <field name='noticeperiod' ref="itk_subscription.notice_period_1"/>
         </record>
+        <record model='sale.subscription.template' id='subscription_template_Q'>
+            <field name='code'>Q</field>
+            <field name='name'>Quartalsabrechnung-Abonnement</field>
+            <field name='recurring_interval'>3</field>
+            <field name='recurring_rule_type'>monthly</field>
+            <field name='minimum_contract_life'>24</field>
+            <field name='minimum_contract_life_unit'>monthly</field>
+            <field name='contract_termination_period_number'>3</field>
+            <field name='contract_termination_period_unit'>monthly</field>
+            <field name='noticeperiod' ref="itk_subscription.notice_period_2"/>
+        </record>
     </data>
 </odoo>
