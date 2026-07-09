@@ -1571,3 +1571,54 @@ Duplikate); die 1:1-Quelle bleibt das CSV im Modul.
 
 19/56 Module migriert. Naheliegendes nächstes: `merge_purchase_order` (Geschwister).
 
+---
+
+### Session 31: merge_sale_order – Merge zusätzlich für „Angebot gesendet" (sent) freigegeben
+
+**Datum:** 09.07.2026
+**Modul:** `merge_sale_order` (funktionale Erweiterung – KEIN neues Modul, Zähler bleibt 19/56)
+**Art:** Bewusste, kleine Abweichung vom strikten 1:1 (auf Annas Wunsch, dokumentiert)
+
+#### Auslöser
+Anna testete den Assistenten „Merge Orders" und bekam beim Zusammenführen die Meldung
+„Ungültiger Vorgang – Please select Sale orders which are in Quotation state to perform
+the Merge Operation." Analyse: **kein Migrationsfehler** – die Prüfung ist 1:1 identisch
+zum Odoo-11-Original. Der Wizard erlaubte bisher NUR den Status „Angebot" (draft). Fachlich
+wollte Anna auch bereits per E-Mail versendete Angebote („Angebot gesendet", sent)
+zusammenführbar machen.
+
+#### Entscheidung
+- `draft` (Angebot) **und** `sent` (Angebot gesendet) sind ab jetzt erlaubt – beides sind
+  Vor-Bestätigungs-Status, fachlich gleichwertig zusammenführbar.
+- Bestätigte Verkaufsaufträge (`sale`) und `cancel` bleiben **bewusst blockiert** –
+  verbindlich/heikel, das Original schließt sie bewusst aus, das bleibt so.
+
+#### Änderung (`wizard/merge_sale_order_wizard.py`, `merge_orders`, Zeile 44)
+```
+vorher:  if any(order.state != 'draft' for order in sale_orders):
+             raise UserError(_('Please select Sale orders which are in
+                                Quotation state to perform the Merge Operation.'))
+nachher: if any(order.state not in ('draft', 'sent') for order in sale_orders):
+             raise UserError(_('Please select Sale orders which are in Quotation or
+                                Quotation Sent state to perform the Merge Operation.'))
+```
+Reine Python-Änderung (Logik + Meldungstext). Keine View-/Asset-/Manifest-Änderung.
+
+#### Verifikation (real, JSON-RPC, zerstörungsfrei)
+Nach dem `docker compose down && up -d` auf Windows die neue Logik am laufenden Server geprüft,
+ohne echten Merge (also ohne Daten zu verändern):
+- ✅ `merge_orders` mit zwei **bestätigten** Aufträgen (S00180, S00179, beide `sale`) aufgerufen
+  → korrekt abgebrochen mit der **neuen** Meldung „…Quotation or Quotation Sent state…".
+  Das beweist zugleich: (a) der neue Code ist LIVE (Container-Neubau wirksam), (b) bestätigte
+  Aufträge werden weiterhin korrekt blockiert.
+- ✅ Die beiden Test-Aufträge blieben unverändert (`state='sale'`), nur der Validierungs-Check lief.
+- ✅ Login gestylt (9 Asset-Bundles, `assets_frontend` vorhanden) – kein Asset-Cache-Problem nach dem Neustart.
+- Positiver Merge-Fall (2× draft/sent, gleicher Kunde → läuft durch) von Anna live in der UI getestet.
+
+#### Gespeichert (beide Kopien synchron: Docker-Mount + Git) + GitHub
+- `addons/merge_sale_order/wizard/merge_sale_order_wizard.py`, `diff` identisch.
+- Commit **c54f33e** (main): „merge_sale_order: Merge auch fuer Angebote im Status 'gesendet' (sent) erlauben".
+- PROJECT_KNOWLEDGE.md, README.md aktualisiert.
+
+19/56 Module migriert (Stand unverändert – funktionale Erweiterung eines bereits migrierten Moduls).
+
