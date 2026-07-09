@@ -1523,3 +1523,51 @@ Die Ansätze (2) scheiterten im Live-Formular (Anna: neue Zeile „0", Umsortier
 
 **Auftrag & Bestellung:** unverändert korrekt über den Zeilen-Compute mit `order_id.order_line.sequence` + `.sorted()`
 (Formular bindet `order_line` = direktes Inverse, das Odoo für den Kind-Compute vollständig befüllt).
+
+### Session 30: merge_sale_order migriert nach Odoo 18 (Assistent „Aufträge zusammenführen")
+
+**Datum:** 09.07.2026
+**Modul:** `merge_sale_order` (NEU migriert – 19. Modul)
+**Auslöser:** Nächstes Modul der Reihe (Verkaufsbereich). Kleiner TransientModel-Assistent (Aktiv Software),
+der über das Aktionsmenü der Aufträge mehrere Angebote/Aufträge zusammenführt (4 Strategien:
+neu+stornieren, neu+löschen, in bestehenden+stornieren, in bestehenden+löschen).
+
+#### Odoo-18-Anpassungen (feature-erhaltend)
+1. **Manifest:** `# -*- coding -*-` raus, version `11.0.1.0.0` → `18.0.1.0.0`, `depends` `sale_management` → `sale`,
+   `application/auto_install` ergänzt.
+2. **Alle .py:** coding-Header entfernt. `@api.multi` entfernt (Odoo-18-Default). `_description` am TransientModel
+   ergänzt (Odoo 18 verlangt es). Klassenname `MergePurchaseOrder` → `MergeSaleOrder` (Original-Copy-Paste-Name).
+3. **View:** `attrs="{'invisible':[...],'required':[...]}"` → `invisible="merge_type in ('new_cancel','new_delete')"`
+   + `required="merge_type not in (...)"`. `<field name="view_type">form</field>` aus dem act_window entfernt
+   (Odoo 18). `class="btn-default"` → `btn-secondary` (Bootstrap 5). `binding_model_id`/`target=new` behalten
+   → Aktion erscheint im Aktionsmenü der Aufträge.
+4. **Fehlende `ir.model.access.csv` (NEU angelegt, Pitfall #34):** Das Wizard-Modell hatte KEINE Zugriffsrechte.
+   In Odoo 18 brauchen auch TransientModels explizite ACL → sonst `AccessError` beim Öffnen des Assistenten.
+   CSV mit Rechten für `sales_team.group_sale_salesman` + `group_sale_manager` angelegt + ins Manifest eingetragen.
+5. **Original-Bug korrigiert (damit das Feature funktioniert):** `existing_so_line` wurde im Original nur EINMAL
+   vor allen Schleifen auf `False` gesetzt, nie pro Quellzeile → nach dem ersten Treffer wären alle folgenden
+   Positionen fälschlich in dieselbe Zielposition gemergt worden. Fix: `existing_so_line = False` am Anfang jeder
+   `for line in order.order_line`-Schleife (in allen 4 Strategien). Verifiziert: unterschiedliche Produkte bleiben
+   getrennte Positionen, gleiche Produkte (gleicher Preis) werden korrekt in Menge summiert.
+
+#### Install-Hürde: Manifest-Cache beim nachträglich ergänzten CSV (Pitfall #56)
+Nach dem Frischinstall (Manifest ohne CSV) wurde das CSV nachgereicht. `button_immediate_upgrade` lud es NICHT
+(`get_manifest`-lru_cache pro Prozess → altes Manifest ohne CSV). Normal bräuchte es `docker compose down && up -d`.
+**Um Anna einen weiteren Neustart zu ersparen:** die beiden `ir.model.access`-Records per JSON-RPC direkt angelegt
+– mit exakt den External-IDs, die das CSV vergibt (`merge_sale_order.access_merge_sale_order_salesman`/`_manager`)
++ passende `ir.model.data`-Einträge. So aktualisiert das CSV sie beim nächsten Neustart/Reinstall nur (keine
+Duplikate); die 1:1-Quelle bleibt das CSV im Modul.
+
+#### Verifikation (real, JSON-RPC)
+- ✅ Modul installiert (state=installed, v18.0.1.0.0), Abhängigkeit `sale`.
+- ✅ Aktion „Merge Orders" hängt im Aktionsmenü der Aufträge (`binding_model_id` = Sales Order, `target=new`).
+- ✅ Funktionstest Strategie „neu + stornieren": SO1 (A×1, B×2) + SO2 (A×3, C×1) → neuer Auftrag mit A×4 (gemergt),
+  B×2, C×1 (getrennt); SO1/SO2 = `cancel`. Reset-Bugfix bestätigt.
+- ✅ Testdaten anschließend storniert + gelöscht (0 verbleibende Aufträge).
+
+#### Gespeichert (beide Kopien synchron: Docker-Mount + Git) + GitHub
+- `addons/merge_sale_order/` (komplett, inkl. `security/ir.model.access.csv`), `diff` identisch.
+- PROJECT_KNOWLEDGE.md, README.md aktualisiert.
+
+19/56 Module migriert. Naheliegendes nächstes: `merge_purchase_order` (Geschwister).
+
