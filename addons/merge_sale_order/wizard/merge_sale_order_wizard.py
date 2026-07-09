@@ -41,10 +41,10 @@ class MergeSaleOrder(models.TransientModel):
             raise UserError(
                 _('Please select atleast two sale orders to perform '
                     'the Merge Operation.'))
-        if any(order.state != 'draft' for order in sale_orders):
+        if any(order.state not in ('draft', 'sent') for order in sale_orders):
             raise UserError(
-                _('Please select Sale orders which are in Quotation state '
-                  'to perform the Merge Operation.'))
+                _('Please select Sale orders which are in Quotation or '
+                  'Quotation Sent state to perform the Merge Operation.'))
         partner = sale_orders[0].partner_id.id
         if any(order.partner_id.id != partner for order in sale_orders):
             raise UserError(
