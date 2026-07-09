@@ -1341,3 +1341,18 @@ Karteileiche id=706 schon vor Container-Start existierte, blieb `latest_version=
 - `addons/itk_reports/` (komplettes Modul), PROJECT_KNOWLEDGE.md, README.md.
 
 17/56 Module migriert.
+
+#### Nachtrag Session 28: Report-Layout auf Bootstrap 5 neu aufgebaut
+Beim ersten Test-Ausdruck (Auftrag S00180) war das PDF-Layout zerschossen: Adresse verrutscht, Info-Block
+überlappte den Text, riesige Leerräume, Report ging über 2 Seiten. Ursache = Odoo-11-Inline-Styles, die in
+Odoo 18 (wkhtmltopdf + Bootstrap 5) nicht mehr funktionieren:
+- `style="line-height: 50%"` auf den Containern → Textzeilen quetschen sich, überlappen.
+- `padding-top:10em` / `padding-top:5em` → Inhalt weit nach unten geschoben, riesige Leerflächen.
+- Float-Layout über eigene `.column70`/`.column30`-Klassen ohne clearfix → Info-Block legt sich über Folgetext.
+- `<form>`-Wrapper + verschachtelte `<div class="container">` → zusätzliche Layout-Verschiebungen.
+**Fix (alle 4 Report-Templates):** Layout komplett auf Bootstrap-5-Grid umgebaut (`row`/`col-*`, `text-end`,
+`ms-auto`, `mt-*`, `table table-sm`), alle `line-height:50%` und `em`-Paddings raus, Floats durch Grid ersetzt,
+`<form>`-Wrapper entfernt. Feld-Bindungen (t-field/t-esc/t-call/tax_totals) blieben unverändert.
+**Verifikation:** alle 4 Reports als PDF gerendert (HTTP 200, je 1 Seite, keine Überlappung) — Auftrag S00180,
+Rechnung (account.move 2), Bestellung + Bestellanfrage (Test-PO, danach gelöscht). Layout sauber/professionell.
+Pitfall in Skill `odoo-module-migration` #57 ergänzt.
