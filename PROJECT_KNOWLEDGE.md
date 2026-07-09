@@ -1356,3 +1356,55 @@ Odoo 18 (wkhtmltopdf + Bootstrap 5) nicht mehr funktionieren:
 **Verifikation:** alle 4 Reports als PDF gerendert (HTTP 200, je 1 Seite, keine Überlappung) — Auftrag S00180,
 Rechnung (account.move 2), Bestellung + Bestellanfrage (Test-PO, danach gelöscht). Layout sauber/professionell.
 Pitfall in Skill `odoo-module-migration` #57 ergänzt.
+
+### Session 29: purchase_order_line_number migriert nach Odoo 18 (Positionsnummer in Bestellungen)
+
+**Datum:** 09.07.2026
+**Modul:** `purchase_order_line_number` (NEU migriert – 18. Modul)
+**Auslöser:** Nächstes Modul der Reihe. Logischer Kandidat, weil es das Geschwister der bereits
+migrierten `sale_order_line_number` und `account_invoice_line_number` ist und in Session 28
+(`itk_reports`) sein Fehlen umgangen werden musste (Positionsnummer im Bestell-Report über
+QWeb-Schleifenindex statt über ein echtes Feld). Sehr klein, risikoarm.
+
+#### Was das Modul macht
+Fügt `purchase.order.line` ein berechnetes, gespeichertes Integer-Feld `number` hinzu, das die
+Positionen einer Bestellung fortlaufend mit 1, 2, 3 … nummeriert, und zeigt es im Bestellformular
+in der Positionsliste direkt nach dem Sortier-Handle (`sequence`) an.
+
+#### Odoo-18-Anpassungen (feature-erhaltend)
+1. **Manifest:** `version` `11.0.1.0.0` → `18.0.1.0.0` (Rest unverändert: `depends=['purchase']`,
+   `license='AGPL-3'`, `installable=True`). Kein `# -*- coding -*-`-Header vorhanden → nichts zu entfernen.
+2. **View (`views/purchase_order_view.xml`):** Odoo-11-Kurzform `<field name="sequence" position="after">`
+   → expliziter XPath **`//field[@name='order_line']/list/field[@name='sequence']`** (Odoo 18: die
+   Positionsliste im Bestellformular ist ein `<list>`, nicht `<tree>`; `sequence` liegt dort mit
+   `widget="handle"`). Muster identisch zum bereits migrierten `sale_order_line_number`.
+   Record-ID von `purchase_order_form` → `purchase_order_form_line_number` (sprechender, kollisionssicher).
+3. **Model (`models/purchase_order_line.py`):** `@api.depends('sequence', 'order_id')` →
+   **`@api.depends('sequence', 'order_id.order_line')`** — so wird `number` auch neu berechnet, wenn
+   Positionen hinzugefügt/entfernt werden (nicht nur bei Umsortierung). Logik 1:1 erhalten.
+4. **Übersetzung (`i18n/de.po`) – Original war fehlerhaft:** Die Odoo-11-`de.po` war ein Copy-Paste
+   aus `sale_order_line_number` und referenzierte das FALSCHE Modul/Modell
+   (`#. module: sale_order_line_number`, `field_sale_order_line__number`, `model_sale_order_line`) →
+   die Übersetzung hätte für `purchase_order_line_number` nie gegriffen. Korrigiert auf
+   `purchase_order_line_number` / `purchase.order.line` (`field_purchase_order_line__number`,
+   `model_purchase_order_line`, View-ID `purchase_order_form_line_number`). Deutsche Strings behalten:
+   "Line No." → "Pos", "Number" → "Nummer", Modellname → "Bestellposition". View-`string="Line No."`
+   deckt sich jetzt exakt mit der `msgid`, sodass "Pos" tatsächlich angezeigt wird.
+
+#### Install (kein Docker-Neustart nötig)
+Modul war noch NIE gescannt (keine Ghost-`ir.module.module`-Karteileiche) → frischer
+`update_list()` (erkannt als id 748, deps=`purchase`, shortdesc korrekt) → `button_immediate_install`
+→ **state=installed, v18.0.1.0.0**. Reiner Frischinstall → Container kompiliert `.py` neu, kein
+`docker compose down/up` erforderlich.
+
+#### Verifikation (real, JSON-RPC)
+- ✅ Feld `number` auf `purchase.order.line` vorhanden (Integer, `store=True`).
+- ✅ Feld im gerenderten Bestellformular direkt nach `sequence` in der Positionsliste (`get_view`).
+- ✅ Funktionstest: Test-Bestellung mit 3 Positionen angelegt → `number` = **1, 2, 3** korrekt berechnet.
+- ✅ Test-Bestellung anschließend storniert + gelöscht (0 `purchase.order` verbleiben in der DB).
+
+#### Gespeichert (beide Kopien synchron: Docker-Mount + Git) + GitHub
+- `addons/purchase_order_line_number/` (komplettes Modul), `diff` Git↔Mount identisch, XML valide.
+- PROJECT_KNOWLEDGE.md, README.md aktualisiert.
+
+18/56 Module migriert.
