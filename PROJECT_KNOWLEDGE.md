@@ -1489,3 +1489,37 @@ verifiziert (Produkte → 1, 2, 3; Abschnitt/Steuer/Zahlung übersprungen). Comm
 über das direkte Inverse (`line_ids`) iterieren + in Python filtern, NICHT über das gefilterte Feld.
 
 **Verifikation offen:** Live-Test in der Rechnung nach dem zweiten Docker-Neustart durch Anna.
+
+#### Nachtrag Session 29 (3): Rechnung – endgültige Lösung auf account.move-Ebene (LIVE verifiziert)
+
+Die Ansätze (2) scheiterten im Live-Formular (Anna: neue Zeile „0", Umsortieren chaotisch, dann „überall 1"):
+- **Iteration über `line_ids`** → im onchange nur mit `self` befüllt (nicht das im Formular gebundene Feld)
+  → jede Zeile sah nur sich selbst → **überall 1**.
+- **Iteration über `invoice_line_ids` (auch `| self`)** → im zeilenbasierten onchange von `account.move`
+  ebenfalls ohne Geschwister → weiter „1"; ein **stored-computed-Feld überschreibt** zudem die onchange-Werte
+  im selben Zyklus wieder auf 1.
+- Fazit (im Browser empirisch bestätigt): Ein **zeilenbasierter Compute kann bei `account.move` grundsätzlich
+  nicht live funktionieren**.
+
+**Endgültige Lösung — Nummerierung am Elternobjekt `account.move`:**
+- `number` = **einfaches gespeichertes Feld, `readonly=True`, KEIN compute** (kein Clobbering; readonly, weil ohne
+  compute sonst editierbar → störte die Eingabe).
+- `@api.onchange('invoice_line_ids')` auf `account.move` → Live-Formular (dort ist `self.invoice_line_ids` vollständig).
+- `create` + `write`-Override auf `account.move` → serverseitig erzeugte Rechnungen (Auftrag/Abo-Abrechnung).
+  `write` nur für `state == 'draft'` (gebuchte Buchungen nie anfassen).
+- Nur `display_type == 'product'` wird nummeriert (Abschnitt/Notiz/Steuer/Zahlung übersprungen).
+- Commits: `1c68b86` (Move-Ebene), `1a0d8fa` (Feld readonly). Beide Kopien synchron.
+
+**LIVE verifiziert (Browser, Kundenrechnung „Neu"):**
+- ✅ Neue Zeile → sofort **1** (nicht mehr 0).
+- ✅ Drei Produkte → **1, 2, 3**.
+- ✅ Mittlere Zeile gelöscht → lückenlos **1, 2** (Cloud_Service von 3 → 2).
+- ✅ Serverseitig (JSON-RPC create + write): create → 1,2,3 (Abschnitt übersprungen); Umsortieren → korrekt neu.
+- Reorder-Drag konnte im automatisierten Browser nicht simuliert werden (jQuery-UI-Sortable reagiert nicht auf
+  synthetische Events), nutzt aber denselben onchange → durch Löschen-Test + Server-Test abgedeckt.
+
+**Pitfall #59 im Skill korrigiert/vervollständigt:** account.move braucht Nummerierung am Elternobjekt
+(onchange + create/write, PLAIN readonly-Feld), NICHT über einen Zeilen-Compute.
+
+**Auftrag & Bestellung:** unverändert korrekt über den Zeilen-Compute mit `order_id.order_line.sequence` + `.sorted()`
+(Formular bindet `order_line` = direktes Inverse, das Odoo für den Kind-Compute vollständig befüllt).
