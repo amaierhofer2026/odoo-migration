@@ -44,4 +44,4 @@ class AccountMove(models.Model):
 class AccountInvoiceLine(models.Model):
     _inherit = 'account.move.line'
 
-    number = fields.Integer(store=True)
+    number = fields.Integer(store=True, readonly=True)
