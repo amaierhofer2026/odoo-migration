@@ -1408,3 +1408,47 @@ Modul war noch NIE gescannt (keine Ghost-`ir.module.module`-Karteileiche) → fr
 - PROJECT_KNOWLEDGE.md, README.md aktualisiert.
 
 18/56 Module migriert.
+
+#### Nachtrag Session 29: Positionsnummer aktualisiert sich jetzt LIVE im Formular (3 Module gefixt)
+
+**Auslöser (Anna beim Testen):** Im „Neu"-Formular einer Bestellung mehrere Produkte anlegen und dann
+per Anfasser umsortieren (oberstes Produkt nach unten) → die „Pos"-Nummern blieben stehen (Produkt A
+behielt Nr. 1, obwohl es an dritter Stelle stand). Auch beim Löschen einer Zeile wurde nicht neu
+nummeriert.
+
+**Diagnose (JSON-RPC, ORM-Ebene):** Auf Speicher-Ebene war ALLES korrekt — nach `write` einer neuen
+`sequence` bzw. nach `unlink` einer Zeile wurden die verbleibenden Positionen sauber neu nummeriert
+(reorder: A→3, B→1, C→2; delete-mitte: A=1, C=2). Der Fehler lag also ausschließlich im **Live-Formular
+(onchange, vor dem Speichern)**.
+
+**Ursache:** `@api.depends('sequence', 'order_id.order_line')` markiert bei einer Sequenz-Änderung NUR
+die verschobene Zeile zur Neuberechnung. Die Geschwisterzeilen hängen nur an der Sammlung `order_line`
+(ändert sich beim reinen Umsortieren nicht) → sie werden im Formular nicht neu gerechnet und behalten
+ihre alte Nummer bis zum Speichern.
+
+**Fix (feature-erhaltend, gleiche Logik):**
+- Abhängigkeit auf die **Sequenz der Geschwister** legen statt nur auf die Sammlung → jede Zeile rechnet
+  neu, sobald irgendeine Sequenz sich ändert:
+  - `purchase_order_line_number`: `order_id.order_line` → **`order_id.order_line.sequence`**
+  - `sale_order_line_number`: `order_id.order_line` → **`order_id.order_line.sequence`**
+  - `account_invoice_line_number`: `move_id.invoice_line_ids` → **`move_id.invoice_line_ids.sequence`**
+- Iteration explizit **`.sorted(lambda l: l.sequence)`** statt Verlass auf die Recordset-Reihenfolge
+  (im onchange spiegelt die In-Memory-Reihenfolge nicht zuverlässig die neue Sequenz wider).
+
+**Warum alle drei:** `sale_order_line_number` und `account_invoice_line_number` (Session 11 / Session 5)
+hatten den identischen latenten Fehler — er war nur nie beim Umsortieren getestet worden. Alle drei in
+einem Docker-Neustart gefixt.
+
+**Deploy:** Reine Python-/`@api.depends`-Änderung → der laufende Odoo-Prozess hält den alten Code im
+Speicher; die Registry muss neu geladen werden. Aus der VM kein Docker-Zugriff → **`docker compose down
+&& docker compose up -d` in `C:\Odoo-Test\` durch Anna**, danach Asset-Cache leeren (ir.attachment
+`/web/assets/%`). Kein Modul-Upgrade nötig (kein Schema-/View-Change).
+
+**Commits:** `973c7e2` (purchase), `88898aa` (sale + account_invoice). Beide Kopien (Git + Docker-Mount)
+synchron, `diff` identisch.
+
+**Verifikation offen:** Live-Test im Formular (reorder + delete) nach dem Docker-Neustart durch Anna.
+
+**Neuer Pitfall (allgemein, Skill #59):** Ein `@api.depends` NUR auf der O2M-Sammlung (`parent.lines`)
+aktualisiert Geschwisterzeilen beim Handle-Umsortieren NICHT live im Formular — die Abhängigkeit muss
+auf das konkrete Sortierfeld der Geschwister zeigen (`parent.lines.sequence`), plus `.sorted()`.

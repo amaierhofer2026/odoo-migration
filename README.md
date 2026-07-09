@@ -15,12 +15,12 @@ Migration aller Odoo-Module von **Version 11 nach Version 18** für ITK (IT Komm
 | Modul | Status | Version |
 |---|---|---|
 | `itk_subscription` (ITK Abo-Management) | ✅ Fertig getestet · 3 Abo-Vorlagen (J/M/Q) · Odoo-18-Fixes: Formular (Chatter/Archiv) + Portal-JS (publicWidget) | 18.0.1.0.0 |
-| `account_invoice_line_number` | ✅ In Odoo 18 integriert | 18.0.1.0.0 |
+| `account_invoice_line_number` | ✅ In Odoo 18 integriert · Live-Renummerierung im Formular gefixt (⟳ Docker-Neustart) | 18.0.1.0.0 |
 | `itk_product` | ✅ Migriert, installiert | 18.0.1.0.0 |
 | `itk_projectcategory` | ✅ Migriert, installiert | 18.0.1.0.0 |
 | `itk_sale_management` | ✅ Migriert, installiert (Layout-Fix: Angebotsdatum) | 18.0.1.0.0 |
 | `itk_valorisierung` | ✅ Migriert, installiert | 18.0.1.0.0 |
-| `sale_order_line_number` | ✅ Fertig getestet | 18.0.1.0.0 |
+| `sale_order_line_number` | ✅ Fertig getestet · Live-Renummerierung im Formular gefixt (⟳ Docker-Neustart) | 18.0.1.0.0 |
 | `itk_saleorder_lines` | ✅ Migriert, installiert | 18.0.1.0.0 |
 | `itk_multifactor` | ✅ Fertig getestet (act_window + Wizard-ACL gefixt) | 18.0.1.0.0 |
 | `itk_crm` | ✅ Migriert, installiert | 18.0.1.0.0 |
@@ -31,7 +31,7 @@ Migration aller Odoo-Module von **Version 11 nach Version 18** für ITK (IT Komm
 | `itk_base_setup` | ✅ Migriert, installiert | 18.0.1.0.0 |
 | `itk_third_party_setup` | ✅ Migriert, installiert | 18.0.1.0.0 |
 | `itk_reports` | ✅ Migriert, installiert · 4 ITK-Druckvorlagen (Angebot/Auftrag, Bestellung, Bestellanfrage, Rechnung) alle gerendert | 18.0.1.0.0 |
-| `purchase_order_line_number` | ✅ Fertig getestet · Positionsnummer (1,2,3…) in Bestellungen; fehlerhafte de.po (verwies auf sale-Modul) korrigiert | 18.0.1.0.0 |
+| `purchase_order_line_number` | ✅ Positionsnummer (1,2,3…) in Bestellungen · Live-Renummerierung im Formular gefixt (⟳ Docker-Neustart) · fehlerhafte de.po korrigiert | 18.0.1.0.0 |
 
 ➕ **38 weitere Module** in `odoo11 module/` (Originalquellen) warten auf Migration.
 
