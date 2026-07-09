@@ -1452,3 +1452,40 @@ synchron, `diff` identisch.
 **Neuer Pitfall (allgemein, Skill #59):** Ein `@api.depends` NUR auf der O2M-Sammlung (`parent.lines`)
 aktualisiert Geschwisterzeilen beim Handle-Umsortieren NICHT live im Formular — die Abhängigkeit muss
 auf das konkrete Sortierfeld der Geschwister zeigen (`parent.lines.sequence`), plus `.sorted()`.
+
+#### Nachtrag Session 29 (2): Rechnung brauchte einen ANDEREN Fix als Auftrag/Bestellung
+
+**Auslöser (Anna, Screenshot `C:\Odoo-Test\scans\positionen_rechnung.png`):** In der Rechnung bekam eine
+neue Zeile „Line No. 0" statt 1, beim Umsortieren gerieten die Nummern durcheinander (angezeigt 3, 4, 0),
+die 1 wurde nie vergeben; zusätzlich roter Fehler „Datensätze mit IDs … nicht gefunden".
+
+**Warum der erste Fix (nur `.sequence`-Dependency) bei Rechnungen NICHT reichte:** `account.move` hat ZWEI
+One2many auf `account.move.line`: `line_ids` (direktes Inverse) und `invoice_line_ids` (**domain-gefiltert**
+auf `display_type in product/line_section/line_note`). Das Formular bindet an `invoice_line_ids`. Im onchange
+ist ein domain-gefiltertes O2M NICHT zuverlässig befüllt: die gerade angelegte Zeile fehlt in
+`move.invoice_line_ids` → sie wird beim Iterieren nie erreicht → bleibt auf Default 0; beim Umsortieren wird
+auf einer veralteten/teilweisen Menge gerechnet (daher der „IDs nicht gefunden"-Fehler). Zusätzlich zählte
+der alte Iterations-Code Abschnitts-/Steuer-/Zahlungszeilen mit — eine Abschnittszeile bekam eine Nummer,
+sodass die Produkte 1, 3, 4 statt 1, 2, 3 hatten (server-seitig reproduziert).
+
+**Fix (Rechnung):** Über das DIREKTE Inverse **`move_id.line_ids`** iterieren (im onchange zuverlässig
+befüllt — genau wie `order_line` beim Auftrag), in Python auf **`display_type == 'product'`** filtern und
+nach `sequence` sortieren:
+```python
+@api.depends('sequence', 'move_id.line_ids', 'move_id.line_ids.sequence', 'move_id.line_ids.display_type')
+def _compute_number(self):
+    for move in self.mapped('move_id'):
+        number = 1
+        product_lines = move.line_ids.filtered(lambda l: l.display_type == 'product')
+        for line in product_lines.sorted(lambda l: l.sequence):
+            line.number = number
+            number += 1
+```
+Nur Produktzeilen werden nummeriert; Abschnitte/Notizen/Steuer/Zahlungsbedingung werden übersprungen
+(entspricht dem Odoo-11-Verhalten, wo `account.invoice.line` nur Produktzeilen kannte). Logik server-seitig
+verifiziert (Produkte → 1, 2, 3; Abschnitt/Steuer/Zahlung übersprungen). Commit `1d8b8ff`.
+
+**Pitfall #59 im Skill ergänzt:** Bei domain-gefilterten O2M (`account.move.invoice_line_ids`) im onchange
+über das direkte Inverse (`line_ids`) iterieren + in Python filtern, NICHT über das gefilterte Feld.
+
+**Verifikation offen:** Live-Test in der Rechnung nach dem zweiten Docker-Neustart durch Anna.
