@@ -1,0 +1,9 @@
+/* Show form sheets with full available width */
+.o_form_view .o_form_sheet_bg .o_form_sheet {
+    margin: 16px;
+    max-width: none;
+    width: auto;
+}
+.o_form_view .oe_chatter {
+    max-width: none;
+}

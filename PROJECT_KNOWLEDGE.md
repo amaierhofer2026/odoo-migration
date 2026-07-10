@@ -1691,3 +1691,38 @@ Verkaufsaufträge.
 
 20/56 Module migriert.
 
+---
+
+### Session 33: web_no_bubble + web_sheet_full_width migriert nach Odoo 18 (reine CSS-Module)
+
+**Datum:** 09.07.2026
+**Module:** `web_no_bubble` + `web_sheet_full_width` (NEU migriert – 21. und 22. Modul)
+**Art:** Reine CSS-Module — kein Python, kein JavaScript, OCA-Qualität.
+
+#### web_no_bubble
+- Blendet die animierten Tooltip-Bubbles (`.o_tooltip.o_animated`) in Odoo aus.
+- Eine einzige CSS-Regel (3 Zeilen).
+- Migration: coding-Header aus Manifest entfernt, Version 18.0.1.0.0.
+  Odoo-11-Asset-Loading (`<template inherit_id="web.assets_backend">`) →
+  Odoo-18 `'assets': {'web.assets_backend': [...]}` im Manifest.
+  `data: []` (keine Data-Dateien mehr — nur Manifest-Assets).
+
+#### web_sheet_full_width
+- Nutzt die volle Bildschirmbreite für Formularansichten (Sheet nicht auf max-width begrenzt).
+- 2 CSS-Regeln.
+- Migration: Manifest-Version 18.0.1.0.0. Odoo-11-LESS-Mixin `@padding-base-horizontal`
+  durch konkreten Pixelwert `16px` ersetzt. LESS → plain CSS.
+  Asset-Loading wie bei web_no_bubble über Manifest.
+
+#### Verifikation
+- ✅ Beide Module über `update_list()` + `button_immediate_install` installiert (state=installed, v18.0.1.0.0).
+- ✅ Keine Install-Fehler. Keine External IDs (data: [] → keine Datensätze).
+- CSS-Dateien werden über Manifest-Assets ins `web.assets_backend`-Bundle eingebunden —
+  beim nächsten Seitenaufruf automatisch aktiv (kein Docker-Neustart nötig).
+
+#### Gespeichert (beide Kopien synchron: Docker-Mount + Git) + GitHub
+- `addons/web_no_bubble/` (Manifest + CSS), `addons/web_sheet_full_width/` (Manifest + CSS).
+- PROJECT_KNOWLEDGE.md, README.md aktualisiert.
+
+22/56 Module migriert.
+
