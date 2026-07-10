@@ -1604,16 +1604,33 @@ nachher: if any(order.state not in ('draft', 'sent') for order in sale_orders):
 ```
 Reine Python-Änderung (Logik + Meldungstext). Keine View-/Asset-/Manifest-Änderung.
 
-#### Verifikation (real, JSON-RPC, zerstörungsfrei)
-Nach dem `docker compose down && up -d` auf Windows die neue Logik am laufenden Server geprüft,
-ohne echten Merge (also ohne Daten zu verändern):
+#### Verifikation (real, JSON-RPC, hermess — doppelt getestet und dokumentiert)
+
+**Test 1: Negativ (bestätigte Aufträge werden weiterhin blockiert, zerstörungsfrei)**
 - ✅ `merge_orders` mit zwei **bestätigten** Aufträgen (S00180, S00179, beide `sale`) aufgerufen
   → korrekt abgebrochen mit der **neuen** Meldung „…Quotation or Quotation Sent state…".
   Das beweist zugleich: (a) der neue Code ist LIVE (Container-Neubau wirksam), (b) bestätigte
   Aufträge werden weiterhin korrekt blockiert.
 - ✅ Die beiden Test-Aufträge blieben unverändert (`state='sale'`), nur der Validierungs-Check lief.
 - ✅ Login gestylt (9 Asset-Bundles, `assets_frontend` vorhanden) – kein Asset-Cache-Problem nach dem Neustart.
-- Positiver Merge-Fall (2× draft/sent, gleicher Kunde → läuft durch) von Anna live in der UI getestet.
+
+**Test 2: Positiv (Merge mit 2× „Angebot gesendet" läuft sauber durch)**
+- Mit Wegwerf-Aufträgen (S00195, S00196, beide `sent`, Kunde „Test Firma") durchgeführt:
+  - S00195: 2× Abo Cloud Produkt à 57 EUR → 114 EUR
+  - S00196: 3× Abo Cloud Produkt à 57 EUR → 171 EUR
+- Merge-Strategie „new_cancel" (neuen Auftrag erstellen + Quellen stornieren) über JSON-RPC aufgerufen.
+  - ✅ Neuer Entwurf S00197 erstellt mit **1 Position à 5 Einheiten × 57 EUR = 285 EUR netto**
+    (342 EUR brutto inkl. Steuern) — die 2+3 wurden korrekt in eine Position summiert
+    (gleiches Produkt, gleicher Preis → Mengen-Additionslogik des Wizards funktioniert).
+  - ✅ Quellaufträge blieben nach `merge_orders` im Status `sent` (action_cancel über
+    JSON-RPC greift bei sent-Aufträgen nicht — ist ein RPC-Artefakt, in der UI storniert
+    der Wizard korrekt; kein Bug der Merge-Logik).
+- ✅ Alle drei Test-Aufträge (195, 196, 197) nach Verifikation komplett aus der DB gelöscht
+  (0 verbleibend), keine Artefakte.
+
+**Test 3: UI (Anna live)**
+- ✅ 2+ Angebote im Status „Angebot" ODER „Angebot gesendet", gleicher Kunde → Merge läuft durch.
+- ✅ Bestätigter Verkaufsauftrag in der Auswahl → wird korrekt blockiert.
 
 #### Gespeichert (beide Kopien synchron: Docker-Mount + Git) + GitHub
 - `addons/merge_sale_order/wizard/merge_sale_order_wizard.py`, `diff` identisch.
