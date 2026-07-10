@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.sale.merge</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@name='invoicing_setting_container']" position="inside">
+                <setting string="Merge new invoices with existing draft ones"
+                         help="When creating invoices from sale orders, merge them with existing draft invoices for the same customer."
+                         groups="sale_merge_draft_invoice.group_sale_merge_draft_invoice">
+                    <field name="sale_merge_draft_invoice"/>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
