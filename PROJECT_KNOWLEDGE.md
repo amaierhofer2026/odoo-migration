@@ -1639,3 +1639,55 @@ Reine Python-Änderung (Logik + Meldungstext). Keine View-/Asset-/Manifest-Ände
 
 19/56 Module migriert (Stand unverändert – funktionale Erweiterung eines bereits migrierten Moduls).
 
+---
+
+### Session 32: merge_purchase_order migriert nach Odoo 18 (Assistent „Bestellungen zusammenführen")
+
+**Datum:** 09.07.2026
+**Modul:** `merge_purchase_order` (NEU migriert – 20. Modul)
+**Auslöser:** Nächstes Modul der Reihe – Geschwistermodul von `merge_sale_order`, gleiche
+Struktur (Aktiv Software), gleicher Wizard-Typ, nur für Bestellungen (purchase.order) statt
+Verkaufsaufträge.
+
+#### Odoo-18-Anpassungen (identisches Muster wie merge_sale_order)
+1. **Manifest:** `# -*- coding -*-` raus, version `11.0.1.0.0` → `18.0.1.0.0`, `depends` von
+   `['purchase','stock']` auf `['purchase']` reduziert (stock ist ohnehin Abhängigkeit von
+   purchase). `application/auto_install` ergänzt.
+2. **Alle .py:** coding-Header entfernt. `@api.multi` entfernt. `_description` am TransientModel
+   ergänzt (Odoo 18 Pflicht).
+3. **View:** `<field name="view_type">form</field>` entfernt. `attrs="{...}"` → `invisible="expr"`
+   + `required="expr"`. `class="btn-default"` → `btn-secondary` (Bootstrap 5). View-ID von
+   `view_merge_purchase_line` zu `view_merge_purchase_order` vereinheitlicht.
+4. **Fehlende `ir.model.access.csv` (NEU angelegt, Pitfall #34):** TransientModel braucht in
+   Odoo 18 ACLs. CSV mit Rechten für `purchase.group_purchase_user` + `group_purchase_manager`
+   angelegt + ins Manifest eingetragen.
+5. **Original-Bug korrigiert (gleicher Bug wie merge_sale_order):** `existing_po_line` wurde im
+   Original nur EINMAL vor allen Schleifen auf `False` gesetzt, nie pro Quellzeile →
+   nach dem ersten Produkttreffer wären alle folgenden Positionen fälschlich in dieselbe
+   Zielposition gemergt worden. Fix: `existing_po_line = False` am Anfang jeder
+   `for line in order.order_line`-Schleife (in allen 4 Strategien).
+6. **Merge auch für „RFQ Sent" (gesendete Bestellanfragen) freigegeben** – identische
+   Entscheidung wie Session 31: `order.state not in ('draft', 'sent')` statt
+   `order.state != 'draft'`. Bestätigte Bestellungen (`purchase`) und `cancel` bleiben
+   bewusst blockiert.
+
+#### Verifikation (live, JSON-RPC)
+
+**Test 1: Negativ (bestätigte Bestellung blockiert)**
+- ✅ `merge_orders` mit P00011 (draft) + P00013 (purchase) aufgerufen
+  → korrekt abgebrochen mit Meldung „…RFQ or RFQ Sent state…".
+
+**Test 2: Positiv (2× RFQ werden korrekt gemergt)**
+- P00011: 2× Abo Cloud Produkt à 57 EUR (draft) + P00012: 3× (draft)
+  → P00014 erstellt mit 1 Position à 5 Einheiten × 57 EUR = 285 EUR netto,
+  342 EUR brutto (korrekt summiert).
+- ✅ Quellen P00011, P00012 nach Merge auf `cancel` gesetzt.
+- ✅ Alle 4 Test-Bestellungen + Test-Lieferant nach Verifikation restlos gelöscht.
+
+#### Gespeichert (beide Kopien synchron: Docker-Mount + Git) + GitHub
+- `addons/merge_purchase_order/` (komplett, inkl. `security/ir.model.access.csv`,
+  statische Assets), `diff` identisch.
+- PROJECT_KNOWLEDGE.md, README.md aktualisiert.
+
+20/56 Module migriert.
+
