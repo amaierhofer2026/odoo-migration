@@ -1814,3 +1814,30 @@ Modul war noch NIE gescannt (keine Karteileiche) → `update_list()` → `button
 
 25/56 Module migriert.
 
+#### Nachtrag Session 35: JS deaktiviert → Modul geparkt
+
+**Datum:** 13.07.2026
+**Erkenntnis:** Die JS-Patches (odoo.define → web.ViewManager/SearchView.include) sind
+fundamental inkompatibel mit Odoo 18 OWL. `web.ViewManager`, `web.SearchView`, `web.Widget`,
+`web.core` existieren unter diesen Namen nicht mehr. Fehler in Konsole:
+„The following modules are needed … but have not been defined: web.core, web.Widget,
+web.ViewManager, web.SearchView".
+
+**Fix (Fehler-Banner entfernt):**
+- JS-Dateien (`web_group_expand.js`, `web_group_expand_menu.js`) gelöscht
+- QWeb-Template (`web_group_expand.xml`) gelöscht
+- Manifest: `assets`-Key komplett entfernt (nur noch `depends: ['web']`)
+- Reinstall + Asset-Cache geleert → Fehler-Banner verschwunden
+
+**Status:** ⚠️ GEPARKT — wie `web_tree_resize_column`. JS/OWL-Rewrite nötig für
+Odoo-18-Funktionalität. Modul bleibt installiert (kein Schaden), aber ohne Funktion.
+
+**Pitfall (neu):** Odoo-11-JS-Module mit `odoo.define()` + `require('web.*')` sind NICHT
+1:1 nach Odoo 18 migrierbar. Die Legacy-Klassen existieren nicht mehr im Odoo-18-OWL-System.
+JS muss komplett als OWL-Komponente neugeschrieben werden.
+
+Zähler bleibt: 25 Module im Repo, aber 2 davon geparkt (web_tree_resize_column, web_group_expand)
+→ effektiv 23 funktionsfähige Module.
+
+Nächstes Modul: `website_odoo_debranding` (trivial, nur Template).
+
