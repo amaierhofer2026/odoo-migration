@@ -113,8 +113,8 @@ class SaleOrderLine(models.Model):
 
     subscription_id = fields.Many2one('sale.subscription', 'Subscription', copy=False)
 
-    def _prepare_invoice_line(self, qty):
-        res = super(SaleOrderLine, self)._prepare_invoice_line(qty)
+    def _prepare_invoice_line(self, **optional_values):
+        res = super(SaleOrderLine, self)._prepare_invoice_line(**optional_values)
         if self.subscription_id and self.order_id.subscription_management != 'upsell':
             next_date = fields.Date.from_string(self.subscription_id.recurring_next_date)
             periods = {'daily': 'days', 'weekly': 'weeks', 'monthly': 'months', 'yearly': 'years'}
