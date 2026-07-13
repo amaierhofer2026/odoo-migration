@@ -1724,5 +1724,93 @@ Verkaufsaufträge.
 - `addons/web_no_bubble/` (Manifest + CSS), `addons/web_sheet_full_width/` (Manifest + CSS).
 - PROJECT_KNOWLEDGE.md, README.md aktualisiert.
 
-22/56 Module migriert.
+23/56 Module migriert.
+
+#### Nachtrag Session 33: web_environment_ribbon (OCA — Environment Ribbon)
+
+**Datum:** 09.07.2026
+**Modul:** `web_environment_ribbon` (im selben Batch wie web_no_bubble + web_sheet_full_width)
+**Art:** CSS + JS (OCA-Qualität), zeigt farbiges Ribbon-Banner für Test/Dev/Staging-Umgebungen.
+
+**Migration:**
+- Manifest: coding-Header entfernt, Version 18.0.1.0.0
+- Asset-Loading: Odoo-11-Template → `'assets': {'web.assets_backend': [...]}` im Manifest
+- `data: ['data/ribbon_data.xml']` → Ribbon-Konfiguration als Datensatz
+- `controllers/main.py` + JS `ribbon.js` + CSS: unverändert (Standard-OCA-18-kompatibel)
+- Bestehendes Modul in addons/ (bereits v18 im Manifest) → nur finalisiert + dokumentiert.
+
+23/56 → jetzt korrekt. Nächstes: sale_merge_draft_invoice.
+
+---
+
+### Session 34: sale_merge_draft_invoice migriert nach Odoo 18 (Sammelrechnungs-Assistent)
+
+**Datum:** 11.07.2026
+**Modul:** `sale_merge_draft_invoice` (NEU migriert – 24. Modul, OCA)
+**Auslöser:** Lag bereits in `addons/` mit v18.0.1.0.0-Manifest, aber war noch nicht installiert/getestet/dokumentiert.
+
+#### Migration
+- Manifest: Version bereits 18.0.1.0.0, `depends: ['sale']`, license LGPL-3
+- Python (res_company.py, res_config_settings.py, Wizard): coding-Header entfernt, `@api.multi` entfernt
+- `res_config_settings.py`: Odoo-11-`@api.model`-Defaults → Odoo-18-`get_values()`/`set_values()`
+- Views: `attrs=` → `invisible=`, `<data>`-Wrapper entfernt
+- Sicherheit: `sale_merge_draft_invoice_security.xml` → Gruppen-Rechte
+- **Odoo-18-Änderung:** `account.invoice` → `account.move` in Wizard
+
+#### Verifikation
+- ✅ Modul installiert (v18.0.1.0.0)
+- ✅ Assistent im Aktionsmenü von Rechnungen
+- ✅ Sammelrechnung aus mehreren Entwürfen erstellbar
+
+#### Gespeichert (beide Kopien synchron: Docker-Mount + Git) + GitHub
+- `addons/sale_merge_draft_invoice/` (komplett)
+
+24/56 Module migriert.
+
+---
+
+### Session 35: web_group_expand migriert nach Odoo 18 (Group Expand Buttons für Listenansichten)
+
+**Datum:** 13.07.2026
+**Modul:** `web_group_expand` (NEU migriert – 25. Modul, OCA)
+**Auslöser:** Nächstes Modul der Reihe. Kleines OCA-Modul, das in gruppierten Listenansichten
+zwei Buttons hinzufügt: „Alle aufklappen" / „Alle zuklappen".
+
+#### Was das Modul macht
+- Patched `web.SearchView` und `web.ViewManager` um Expand/Shrink-Buttons in die Suchleiste einzufügen
+- QWeb-Widget `SearchView.GroupByExpandMenu` (2 Buttons: expand/compress)
+- Nur sichtbar in gruppierten Listenansichten
+
+#### Odoo-18-Anpassungen (feature-erhaltend)
+1. **Manifest:** Doppelte `qweb`-Keys entfernt, Version `11.0.1.0.1` → `18.0.1.0.0`
+   `data: ['templates/assets.xml']` + `qweb: [...]` → `'assets': {'web.assets_backend': [...]}`
+   (JS-, CSS-, QWeb-Dateien direkt im Asset-Bundle, Odoo-18-Standard).
+2. **`templates/assets.xml` gelöscht** (durch Manifest-Assets ersetzt, Pitfall #3).
+3. **JS-Dateien unverändert** (`odoo.define()`-Legacy-Syntax — Odoo-18-Legacy-Layer unterstützt sie).
+   `web.ViewManager.include` + `web.SearchView.include` → `this._super.apply()` Promise-Pattern.
+4. **LESS → plain CSS** (`+.toggle_buttons`-Parent-Selector aufgelöst in `.o_favorites_menu + .toggle_buttons`).
+5. **`__init__.py`** (leer) erhalten.
+
+#### Abweichungen vom strikten 1:1 (bewusst, dokumentiert)
+- Manifest von `data`/`qweb`-Keys auf `assets`-Key umgestellt (Odoo-18-Standard für JS/CSS)
+- `templates/assets.xml` entfernt → kein <template inherit_id="web.assets_backend"> mehr
+- LESS-Mixin-Syntax durch plain CSS ersetzt
+
+#### Install
+Modul war noch NIE gescannt (keine Karteileiche) → `update_list()` → `button_immediate_install`
+→ state=installed, v18.0.1.0.0. Reiner Frischinstall → kein Docker-Neustart nötig.
+
+#### Verifikation (JSON-RPC)
+- ✅ Modul installiert (state=installed, v18.0.1.0.0), Abhängigkeit `web`
+- ✅ Keine Views/Datensätze/External-IDs in DB (reines JS/CSS-Asset-Modul, alles im Bundle)
+- ⏳ UI-Funktionstest ausstehend (Anna): in gruppierter Liste prüfen ob Expand/Shrink-Buttons erscheinen
+
+#### Geänderte Dateien (beide Kopien synchron: Docker-Mount + Git)
+- `addons/web_group_expand/__manifest__.py`
+- `addons/web_group_expand/static/src/less/web_group_expand.less`
+- `addons/web_group_expand/templates/assets.xml` (GELÖSCHT)
+- `addons/web_group_expand/static/src/js/*.js` (unverändert)
+- `addons/web_group_expand/static/src/xml/*.xml` (unverändert)
+
+25/56 Module migriert.
 
