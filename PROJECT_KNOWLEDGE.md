@@ -1839,5 +1839,31 @@ JS muss komplett als OWL-Komponente neugeschrieben werden.
 Zähler bleibt: 25 Module im Repo, aber 2 davon geparkt (web_tree_resize_column, web_group_expand)
 → effektiv 23 funktionsfähige Module.
 
+---
+
+### Session 36: website_odoo_debranding migriert nach Odoo 18 (Remove Odoo Branding)
+
+**Datum:** 13.07.2026
+**Modul:** `website_odoo_debranding` (NEU migriert – 26. Modul, OCA)
+**Art:** Reines Template-Modul — kein Python, kein JS.
+
+#### Was das Modul macht
+Entfernt den Odoo-Promotion-Link ("Powered by Odoo" / "Create a free website with Odoo")
+aus dem Website-Footer.
+
+#### Odoo-18-Anpassungen (feature-erhaltend)
+- Manifest: coding-Header entfernt, Version `11.0.1.0.0` → `18.0.1.0.0`, `installable`/`license`/`application` ergänzt
+- Template: `website.layout_footer_copyright` existiert in Odoo 18 nicht mehr.
+  Neues Ziel: `website.brand_promotion` (erbt von `web.brand_promotion`).
+  XPath: `//div[hasclass('o_brand_promotion')]` → mit leerem, verstecktem div ersetzt.
+- `customize_show="True"` erhalten (im Website-Builder ein-/ausschaltbar)
+
+#### Verifikation (JSON-RPC)
+- ✅ Modul installiert (state=installed, v18.0.1.0.0, LGPL-3)
+- ✅ View `brand_promotion` erbt korrekt von `website.brand_promotion`
+- ⏳ UI-Test (Anna): Website-Frontend aufrufen → kein "Powered by Odoo" mehr im Footer
+
+26/56 Module migriert.
+
 Nächstes Modul: `website_odoo_debranding` (trivial, nur Template).
 

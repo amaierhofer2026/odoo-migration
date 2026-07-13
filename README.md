@@ -38,17 +38,18 @@ Migration aller Odoo-Module von **Version 11 nach Version 18** für ITK (IT Komm
 | `web_sheet_full_width` | ✅ Migriert, installiert · Nutzt die volle Bildschirmbreite für Formularansichten (reines CSS) | 18.0.1.0.0 |
 | `web_environment_ribbon` | ✅ Migriert, installiert · Farbiges Ribbon-Banner für Test/Dev/Staging (CSS + JS) | 18.0.1.0.0 |
 | `sale_merge_draft_invoice` | ✅ Migriert, installiert · Sammelrechnungs-Assistent (Draft Invoices mergen) | 18.0.1.0.0 |
-| `web_group_expand` | ✅ Migriert, installiert · Expand/Shrink-Buttons für gruppierte Listenansichten (JS/QWeb) | 18.0.1.0.0 |
+| `web_group_expand` | ⚠️ Geparkt · JS inkompatibel mit Odoo 18 OWL (wie web_tree_resize_column) | 18.0.1.0.0 |
+| `website_odoo_debranding` | ✅ Migriert, installiert · Entfernt Odoo-Promotion aus Website-Footer (Template) | 18.0.1.0.0 |
 
-➕ **31 weitere Module** in `odoo11 module/` (Originalquellen) warten auf Migration.
+➕ **30 weitere Module** in `odoo11 module/` (Originalquellen) warten auf Migration.
 
 ## Struktur
 
 ```
 odoo-migration/
-├── addons/              → 25 Odoo-Addons (migriert + getestet)
+├── addons/              → 26 Odoo-Addons (24 funktionsfähig + 2 geparkt)
 ├── config/              → Odoo-Konfiguration
-├── odoo11 module/       → 34 Odoo-11-Originalquellen
+├── odoo11 module/       → 33 Odoo-11-Originalquellen
 ├── postgres/            → PostgreSQL-Datenbank
 ├── docker-compose.yml   → Docker-Stack (Odoo 18 + PostgreSQL 16)
 ├── PROJECT_KNOWLEDGE.md → Detailliertes Projekt-Tagebuch
