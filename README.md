@@ -41,14 +41,15 @@ Migration aller Odoo-Module von **Version 11 nach Version 18** für ITK (IT Komm
 | `web_group_expand` | ⚠️ Geparkt · JS inkompatibel mit Odoo 18 OWL (wie web_tree_resize_column) | 18.0.1.0.0 |
 | `website_odoo_debranding` | ✅ Migriert, installiert · Entfernt Odoo-Promotion aus Website-Footer (Template) | 18.0.1.0.0 |
 | `partner_external_map` | ✅ Migriert, installiert · Map/Route-Map-Buttons im Partner-Formular (Google Maps, OSM etc.) | 18.0.1.0.0 |
+| `mass_email_invoice` | ✅ Migriert, installiert · Massen-Email-Versand für Rechnungen (mail.compose.message) | 18.0.1.0.0 |
 
-➕ **29 weitere Module** in `odoo11 module/` (Originalquellen) warten auf Migration.
+➕ **28 weitere Module** in `odoo11 module/` (Originalquellen) warten auf Migration.
 
 ## Struktur
 
 ```
 odoo-migration/
-├── addons/              → 27 Odoo-Addons (25 funktionsfähig + 2 geparkt)
+├── addons/              → 28 Odoo-Addons (26 funktionsfähig + 2 geparkt)
 ├── config/              → Odoo-Konfiguration
 ├── odoo11 module/       → 33 Odoo-11-Originalquellen
 ├── postgres/            → PostgreSQL-Datenbank

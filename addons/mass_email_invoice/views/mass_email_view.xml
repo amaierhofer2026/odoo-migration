@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="action_send_mass_electronic_invoice" model="ir.actions.act_window">
+        <field name="name">Mass Invoice Email</field>
+        <field name="res_model">mail.compose.message</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_composition_mode': 'mass_mail', 'default_email_to': '{{(object.email or \x27\x27)|safe}}', 'mass_mark_invoice_as_sent': True, 'default_model': 'account.move'}</field>
+    </record>
+</odoo>

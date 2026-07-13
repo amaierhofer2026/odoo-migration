@@ -1948,3 +1948,35 @@ für nicht installierte Module.
 
 ---
 
+### Session 39: mass_email_invoice migriert nach Odoo 18 (Massen-Email für Rechnungen)
+
+**Datum:** 13.07.2026
+**Modul:** `mass_email_invoice` (28. Modul)
+**Art:** Python + View — fügt Massen-Email-Action für Rechnungen hinzu
+
+#### Was das Modul macht
+Ermöglicht das gleichzeitige Versenden von E-Mails an mehrere Rechnungs-Empfänger
+über den Standard-Mail-Dialog, mit automatischer Markierung als "gesendet".
+
+#### Odoo-18-Anpassungen
+- Manifest: Version `1.0` → `18.0.1.0.0`, Coding-Header entfernt, `images`-Key entfernt,
+  `installable`/`application` ergänzt
+- `account.invoice` → `account.move` (Odoo 18 Invoice-Modell)
+- `invoice.sent = True` → `invoice.is_move_sent = True` (Odoo-18-Feld)
+- `@api.multi` entfernt, `super()` modernisiert
+- View: `<act_window>` standalone → `<record>` mit `binding_model_id` (Odoo-18-XML-Syntax)
+
+#### Pitfalls
+- `<act_window>` und `<data>` direkt unter `<odoo>` schlagen in Odoo 18 fehl;
+  Actions müssen als `<record model="ir.actions.act_window">` definiert werden
+- `src_model`/`multi`/`key2` → `binding_model_id` (Odoo 18 Action-Binding)
+
+#### Verifikation
+- ✅ Modul installiert (v18.0.1.0.0, AGPL-3)
+- ✅ Action "Mass Invoice Email" registriert auf `account.move`
+- ⏳ UI-Test (Anna): Rechnungen → mehrere auswählen → Action → Mass Email Dialog
+
+28/56 Module migriert.
+
+---
+
