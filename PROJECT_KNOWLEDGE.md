@@ -1865,5 +1865,46 @@ aus dem Website-Footer.
 
 26/56 Module migriert.
 
-Nächstes Modul: `website_odoo_debranding` (trivial, nur Template).
+---
+
+### Session 37: website_mass_mailing Asset-Fix + website_odoo_debranding UI-Test
+
+**Datum:** 13.07.2026
+**Art:** Bugfix (kein neues Modul)
+
+#### Problem
+Nach Installation von `website_odoo_debranding` kam beim Testen der Website ein 500 Internal
+Server Error: "Unallowed to fetch files from addon website_mass_mailing".
+
+#### Ursache
+`website_mass_mailing` war nicht installiert, aber das `website`-Modul referenzierte dessen
+Assets (`s_popup/000.js`) im `web.assets_frontend`-Bundle. Odoo 18 verweigert Asset-Zugriff
+für nicht installierte Module.
+
+#### Erster Fixversuch (fehlgeschlagen)
+- `website_mass_mailing` via RPC installiert → Login funktionierte
+- Nach Docker-Neustart: Asset-Bundles korrupt (CSS/JS 500er)
+- Login-Seite ungestylt, nach Login weißes Blatt
+
+#### Zweiter Fixversuch (Asset-Cache löschen — fehlgeschlagen)
+- `ir.attachment.unlink()` mit geschachtelter ID-Liste (`[[id]]` statt `[id]`)
+- PostgreSQL-Fehler: `operator does not exist: integer = integer[]`
+
+#### Endgültige Lösung
+1. `website_mass_mailing` deinstalliert
+2. Asset-Cache korrekt gelöscht: flache ID-Liste → 15 Attachments entfernt
+3. Odoo regeneriert frische Bundles → alles HTTP 200
+
+#### Pitfalls
+- RPC `unlink` braucht FLACHE ID-Liste: `[id1, id2]` — niemals `[[id1], [id2]]`
+- `?debug=assets` in URL umgeht Cache für Tests
+
+#### UI-Test (Anna)
+- ✅ Login-Seite lädt korrekt
+- ✅ Backend nach Login erreichbar
+- ✅ `website_odoo_debranding`: kein "Powered by Odoo" im Footer
+
+---
+
+Nächstes Modul: `partner_external_map` (Google Maps Link).
 
