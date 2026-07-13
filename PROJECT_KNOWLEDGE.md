@@ -1906,5 +1906,45 @@ für nicht installierte Module.
 
 ---
 
-Nächstes Modul: `partner_external_map` (Google Maps Link).
+---
+
+### Session 38: partner_external_map migriert nach Odoo 18 (Google Maps Button)
+
+**Datum:** 13.07.2026
+**Modul:** `partner_external_map` (OCA — 27. Modul)
+**Art:** Python + Views — fügt Map/Route-Map-Buttons im Partner-Formular hinzu
+
+#### Was das Modul macht
+- Zwei Buttons im Partner-Formular: "Map" (Karte) und "Route Map" (Routenplaner)
+- Unterstützt Google Maps, OpenStreetMap, Bing, Here, MapQuest
+- Nutzer kann Map-Provider in seinen Einstellungen wählen
+
+#### Odoo-18-Anpassungen
+- Manifest: Version `11.0.1.0.0` → `18.0.1.0.0`, Coding-Header entfernt, `application: False`
+- `@api.multi` → entfernt (Odoo-18-kompatibel, `self.ensure_one()` bleibt)
+- `super(ResUsers, self).create(vals)` → `super().create(vals)`
+- `attrs="{'invisible': ...}"` → `invisible="not city"` (Odoo-17+-Syntax)
+- `<tree>` → `<list>`, `view_mode="tree,form"` → `"list,form"`
+- `hooks.py`: `set_default_map_settings(cr, registry)` → `set_default_map_settings(env)`
+  (Odoo 18 post_init_hook nur noch mit `env`-Argument)
+- Alle Coding-Header entfernt
+
+#### Pitfalls
+- `update_list`-RPC funktioniert in Odoo 18 nicht mehr; Modul-Erkennung braucht
+  „Apps aktualisieren" im UI oder `docker compose down && up -d`
+- Post-Init-Hook-Signatur: Odoo 18 ruft `hook(env)` statt `hook(cr, registry)`
+- Nach Hook-Änderung muss das `ir.module.module`-Record gelöscht UND die App-Liste
+  neu aktualisiert werden, sonst wird die alte Hook-Version gecacht
+
+#### Verifikation
+- ✅ Modul installiert (v18.0.1.0.0, AGPL-3)
+- ✅ 5 Views erstellt (Partner-Form, User-Form ×2, Map-Website-Form/Liste)
+- ✅ 6 Map-Provider geladen (Google, OSM, Bing, Here, MapQuest, OSM-FR)
+- ✅ 3 User-Felder (context_map_website_id, context_route_map_website_id,
+  context_route_start_partner_id)
+- ⏳ UI-Test (Anna): Partner-Formular öffnen → Map/Route-Map-Buttons sichtbar
+
+27/56 Module migriert.
+
+---
 
