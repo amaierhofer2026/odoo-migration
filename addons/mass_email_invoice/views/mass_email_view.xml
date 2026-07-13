@@ -6,6 +6,11 @@
         <field name="binding_model_id" ref="account.model_account_move"/>
         <field name="view_mode">form</field>
         <field name="target">new</field>
-        <field name="context">{'default_composition_mode': 'mass_mail', 'default_email_to': '{{(object.email or \x27\x27)|safe}}', 'mass_mark_invoice_as_sent': True, 'default_model': 'account.move'}</field>
+        <field name="context">{
+            'default_composition_mode': 'mass_mail',
+            'mass_mark_invoice_as_sent': True,
+            'default_model': 'account.move',
+            'default_use_template': False,
+        }</field>
     </record>
 </odoo>
