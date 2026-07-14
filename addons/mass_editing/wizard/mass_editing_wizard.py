@@ -2,7 +2,6 @@ from lxml import etree
 
 import odoo.tools as tools
 from odoo import api, fields, models
-from odoo.http import request
 
 
 class MassEditingWizard(models.TransientModel):
@@ -16,13 +15,10 @@ class MassEditingWizard(models.TransientModel):
     def get_view(self, view_id=None, view_type='form', **options):
         result = super(MassEditingWizard, self).get_view(
             view_id=view_id, view_type=view_type, **options)
-        # Try context first, then request.session, then default_get
         mass_obj_id = self.env.context.get('mass_editing_object')
-        if not mass_obj_id and request:
-            mass_obj_id = request.session.get('mass_editing_object_id')
         if not mass_obj_id:
-            defaults = self.default_get(['mass_editing_object_id'])
-            mass_obj_id = defaults.get('mass_editing_object_id')
+            mass_obj_id = int(self.env['ir.config_parameter'].sudo().get_param(
+                'mass_editing_last_id', '0'))
         if mass_obj_id:
             mass_obj = self.env['mass.object']
             editing_data = mass_obj.browse([mass_obj_id])
