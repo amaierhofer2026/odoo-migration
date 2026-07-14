@@ -182,6 +182,42 @@ class MassEditingWizard(models.TransientModel):
     def action_apply(self):
         return {'type': 'ir.actions.act_window_close'}
 
+    @api.model
+    def fields_get(self, allfields=None, attributes=None):
+        res = super().fields_get(allfields=allfields, attributes=attributes)
+        mass_obj_id = self.env.context.get('mass_editing_object')
+        if not mass_obj_id:
+            mass_obj_id = int(self.env['ir.config_parameter'].sudo().get_param(
+                'mass_editing_last_id', '0'))
+        if mass_obj_id:
+            mass_obj = self.env['mass.object'].browse([mass_obj_id])
+            model_obj = self.env[mass_obj.model_id.model]
+            field_info = model_obj.fields_get()
+            for field in mass_obj.field_ids:
+                sel_name = "selection__" + field.name
+                if field.ttype == "many2many":
+                    res[sel_name] = {
+                        'type': 'selection',
+                        'string': field_info[field.name]['string'],
+                        'selection': [('set', 'Set'), ('remove_m2m', 'Remove'), ('add', 'Add')],
+                    }
+                else:
+                    res[sel_name] = {
+                        'type': 'selection',
+                        'string': field_info[field.name]['string'],
+                        'selection': [('set', 'Set'), ('remove', 'Remove')],
+                    }
+                if field.ttype in ('many2many', 'one2many', 'many2one'):
+                    res[field.name] = {
+                        'type': field.ttype, 'string': field.field_description,
+                        'relation': field.relation,
+                    }
+                else:
+                    res[field.name] = {
+                        'type': field.ttype, 'string': field.field_description,
+                    }
+        return res
+
     def read(self, fields, load='_classic_read'):
         real_fields = fields
         if fields:
