@@ -19,7 +19,7 @@ class MassEditingWizard(models.TransientModel):
         context = self.env.context
         if context.get('mass_editing_object'):
             mass_obj = self.env['mass.object']
-            editing_data = mass_obj.browse(context.get('mass_editing_object'))
+            editing_data = mass_obj.browse([context.get('mass_editing_object')])
             all_fields = {}
             xml_form = etree.Element('form', {
                 'string': tools.ustr(editing_data.name)
