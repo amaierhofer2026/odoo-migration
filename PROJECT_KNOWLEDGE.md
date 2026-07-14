@@ -2050,3 +2050,40 @@ ausgeblendet und ein Session-Cookie gesetzt (kein erneutes Anzeigen).
 
 ---
 
+### Session 42: Asset-Bundle-Fix — Login-Seite ohne CSS repariert
+
+**Datum:** 14.07.2026
+**Modul:** Kein Modul — Infrastruktur-Fix
+
+#### Problem
+Nach Installation von `website_cookie_notice` wurde die Odoo-Login-Seite
+(`/web/login`) komplett ohne CSS gerendert (rohes HTML).
+`/web/assets/...min.css` lieferte HTTP 500.
+
+#### Ursachenanalyse
+1. Asset-Bundle in `ir.attachment` war korrupt
+2. **Odoo-18-Bug entdeckt:** `ir.attachment._search()` crashed mit `IndexError`
+   bei fast jeder Domain-Query (line 541 in `addons/base/models/ir_attachment.py`).
+   Die Custom-`_search`-Überschreibung iteriert `for arg in domain` und greift
+   auf `arg[0]` zu, ohne leere oder 2-Tuple-Domain-Elemente zu behandeln.
+
+#### Fix (JSON-RPC)
+1. **Workaround:** `execute_kw` statt `execute`, mit `context={'skip_res_field_check': True}`
+   → umgeht den Bug in `_search()`
+2. 15 korrupte Asset-Attachments gefunden und gelöscht (`unlink`)
+3. Asset-Regenerierung mit `?debug=assets` auf der Login-Page getriggert
+
+#### Verifikation
+- ✅ Login-Page (`/web/login`): HTTP 200, CSS-Bundle 671 KB, Odoo-Styling aktiv
+- ✅ `web.assets_frontend.min.css`: HTTP 200 (vorher 500)
+- ✅ `web.assets_frontend_minimal.js`: HTTP 200, 58 KB
+- ✅ `web.assets_frontend_lazy.js`: HTTP 200, 4 MB
+
+#### Gespeichert
+- Skill `odoo-asset-fix` mit Schritt-für-Schritt-Anleitung
+- Memory-Eintrag mit Workaround aktualisiert
+
+30/56 Module migriert.
+
+---
+
