@@ -11,181 +11,109 @@ class MassEditingWizard(models.TransientModel):
         'mass.object', 'Mass Editing Template',
         default=lambda self: self.env.context.get('mass_editing_object'))
 
+    # Fixed generic fields — labels/types overridden via get_view + fields_get
+    select_1 = fields.Selection([], string='Op 1')
+    value_1 = fields.Char(string='Val 1')
+    select_2 = fields.Selection([], string='Op 2')
+    value_2 = fields.Char(string='Val 2')
+    select_3 = fields.Selection([], string='Op 3')
+    value_3 = fields.Char(string='Val 3')
+
     @api.model
     def get_view(self, view_id=None, view_type='form', **options):
-        result = super(MassEditingWizard, self).get_view(
-            view_id=view_id, view_type=view_type, **options)
+        result = super().get_view(view_id=view_id, view_type=view_type, **options)
         mass_obj_id = self.env.context.get('mass_editing_object')
         if not mass_obj_id:
             mass_obj_id = int(self.env['ir.config_parameter'].sudo().get_param(
                 'mass_editing_last_id', '0'))
-        if mass_obj_id:
-            mass_obj = self.env['mass.object']
-            editing_data = mass_obj.browse([mass_obj_id])
-            all_fields = {}
-            dynamic_fields = {}
-            xml_form = etree.Element('form', {
-                'string': tools.ustr(editing_data.name)
-            })
-            xml_group = etree.SubElement(xml_form, 'group', {
-                'colspan': '6', 'col': '6',
-            })
-            etree.SubElement(xml_group, 'label', {
-                'string': '', 'colspan': '2',
-            })
-            xml_group = etree.SubElement(xml_form, 'group', {
-                'colspan': '6', 'col': '6',
-            })
-            model_obj = self.env[editing_data.model_id.model]
-            field_info = model_obj.fields_get()
-            for field in editing_data.field_ids:
-                sel_name = "selection__" + field.name
-                if field.ttype == "many2many":
-                    all_fields[sel_name] = {
-                        'type': 'selection',
-                        'string': field_info[field.name]['string'],
-                        'selection': [('set', 'Set'),
-                                      ('remove_m2m', 'Remove'),
-                                      ('add', 'Add')],
+        if not mass_obj_id:
+            return result
+
+        mass_obj = self.env['mass.object'].browse([mass_obj_id])
+        model_obj = self.env[mass_obj.model_id.model]
+        field_info = model_obj.fields_get()
+        fields_out = {}
+        xml_form = etree.Element('form', {'string': tools.ustr(mass_obj.name)})
+        xml_form.append(etree.Element('sheet'))
+        xml_group = etree.SubElement(xml_form[0], 'group', {'colspan': '2'})
+
+        for i, fld in enumerate(mass_obj.field_ids[:3]):
+            idx = i + 1
+            sel_name = 'select_%d' % idx
+            val_name = 'value_%d' % idx
+
+            if fld.ttype == 'many2many':
+                fields_out[sel_name] = {
+                    'type': 'selection', 'string': field_info[fld.name]['string'],
+                    'selection': [('set', 'Set'), ('remove_m2m', 'Remove'), ('add', 'Add')],
+                }
+                fields_out[val_name] = {
+                    'type': 'many2many', 'string': fld.field_description,
+                    'relation': fld.relation,
+                }
+                sep = etree.SubElement(xml_group, 'separator', {
+                    'string': field_info[fld.name]['string'], 'colspan': '2',
+                })
+                etree.SubElement(xml_group, 'field', {
+                    'name': sel_name, 'nolabel': '1',
+                })
+                etree.SubElement(xml_group, 'field', {
+                    'name': val_name, 'nolabel': '1',
+                    'invisible': "%s == 'remove_m2m'" % sel_name,
+                })
+            elif fld.ttype in ('one2many', 'many2one'):
+                fields_out[sel_name] = {
+                    'type': 'selection', 'string': field_info[fld.name]['string'],
+                    'selection': [('set', 'Set'), ('remove', 'Remove')],
+                }
+                fields_out[val_name] = {
+                    'type': 'many2one', 'string': fld.field_description,
+                    'relation': fld.relation,
+                }
+                etree.SubElement(xml_group, 'field', {'name': sel_name})
+                etree.SubElement(xml_group, 'field', {
+                    'name': val_name, 'nolabel': '1',
+                    'invisible': "%s == 'remove'" % sel_name,
+                })
+            else:
+                fields_out[sel_name] = {
+                    'type': 'selection', 'string': field_info[fld.name]['string'],
+                    'selection': [('set', 'Set'), ('remove', 'Remove')],
+                }
+                if fld.ttype == 'selection':
+                    fields_out[val_name] = {
+                        'type': 'selection', 'string': fld.field_description,
+                        'selection': field_info[fld.name]['selection'],
                     }
-                    all_fields[field.name] = field_info[field.name]
-                    dynamic_fields[sel_name] = fields.Selection(
-                        [('set', 'Set'), ('remove_m2m', 'Remove'), ('add', 'Add')],
-                        string=field_info[field.name]['string'])
-                    dynamic_fields[field.name] = fields.Many2many(
-                        field.relation,
-                        'mass_editing_dyn_m2m_rel',
-                        'wizard_id', 'target_id',
-                        string=field.field_description)
-                    xml_group2 = etree.SubElement(xml_group, 'group', {
-                        'colspan': '6', 'col': '6',
-                    })
-                    etree.SubElement(xml_group2, 'separator', {
-                        'string': field_info[field.name]['string'], 'colspan': '6',
-                    })
-                    etree.SubElement(xml_group2, 'field', {
-                        'name': sel_name, 'colspan': '6', 'nolabel': '1',
-                    })
-                    etree.SubElement(xml_group2, 'field', {
-                        'name': field.name, 'colspan': '6', 'nolabel': '1',
-                        'invisible': "%s == 'remove_m2m'" % sel_name,
-                    })
+                elif fld.ttype == 'text':
+                    fields_out[val_name] = {
+                        'type': 'text', 'string': fld.field_description,
+                    }
                 else:
-                    all_fields[sel_name] = {
-                        'type': 'selection',
-                        'string': field_info[field.name]['string'],
-                        'selection': [('set', 'Set'), ('remove', 'Remove')],
+                    fields_out[val_name] = {
+                        'type': fld.ttype, 'string': fld.field_description,
                     }
-                    dynamic_fields[sel_name] = fields.Selection(
-                        [('set', 'Set'), ('remove', 'Remove')],
-                        string=field_info[field.name]['string'])
-                    if field.ttype in ('many2many', 'one2many', 'many2one'):
-                        all_fields[field.name] = {
-                            'type': field.ttype,
-                            'string': field.field_description,
-                            'relation': field.relation,
-                        }
-                        dynamic_fields[field.name] = fields.Many2one(
-                            field.relation,
-                            string=field.field_description)
-                    else:
-                        all_fields[field.name] = {
-                            'type': field.ttype,
-                            'string': field.field_description,
-                        }
-                        dynamic_fields[field.name] = fields.Char(
-                            string=field.field_description)
-                    if field.ttype == 'text':
-                        xml_group2 = etree.SubElement(xml_group, 'group', {
-                            'colspan': '6', 'col': '6',
-                        })
-                        etree.SubElement(xml_group2, 'separator', {
-                            'string': all_fields[field.name]['string'],
-                            'colspan': '6',
-                        })
-                        etree.SubElement(xml_group2, 'field', {
-                            'name': sel_name, 'colspan': '6', 'nolabel': '1',
-                        })
-                        etree.SubElement(xml_group2, 'field', {
-                            'name': field.name, 'colspan': '6', 'nolabel': '1',
-                            'invisible': "%s == 'remove'" % sel_name,
-                        })
-                    else:
-                        etree.SubElement(xml_group, 'field', {
-                            'name': sel_name, 'colspan': '2',
-                        })
-                        etree.SubElement(xml_group, 'field', {
-                            'name': field.name, 'nolabel': '1', 'colspan': '4',
-                            'invisible': "%s == 'remove'" % sel_name,
-                        })
-            # Patch _fields with dynamic fields so onchange works
-            for fname, fdef in dynamic_fields.items():
-                fdef.name = fname
-                self._fields[fname] = fdef
-            for f in all_fields.values():
-                f.setdefault("views", {})
-            etree.SubElement(xml_form, 'separator', {
-                'string': '', 'colspan': '6', 'col': '6',
-            })
-            xml_footer = etree.SubElement(xml_form, 'footer', {})
-            etree.SubElement(xml_footer, 'button', {
-                'string': 'Apply', 'class': 'btn-primary',
-                'type': 'object', 'name': 'action_apply',
-            })
-            etree.SubElement(xml_footer, 'button', {
-                'string': 'Close', 'class': 'btn-default',
-                'special': 'cancel',
-            })
-            root = xml_form.getroottree()
-            result['arch'] = etree.tostring(root)
-            result['fields'] = all_fields
+                etree.SubElement(xml_group, 'field', {'name': sel_name})
+                etree.SubElement(xml_group, 'field', {
+                    'name': val_name, 'nolabel': '1',
+                    'invisible': "%s == 'remove'" % sel_name,
+                })
+
+        for f in fields_out.values():
+            f.setdefault("views", {})
+
+        xml_footer = etree.SubElement(xml_form[0], 'footer', {})
+        etree.SubElement(xml_footer, 'button', {
+            'string': 'Apply', 'class': 'btn-primary',
+            'type': 'object', 'name': 'action_apply',
+        })
+        etree.SubElement(xml_footer, 'button', {
+            'string': 'Close', 'class': 'btn-default', 'special': 'cancel',
+        })
+
+        result['arch'] = etree.tostring(xml_form.getroottree())
+        result['fields'] = fields_out
         return result
-
-    @api.model
-    def create(self, vals):
-        if (self.env.context.get('active_model') and
-                self.env.context.get('active_ids')):
-            model_obj = self.env[self.env.context.get('active_model')]
-            model_field_obj = self.env['ir.model.fields']
-
-            values = {}
-            for key, val in vals.items():
-                if key.startswith('selection_'):
-                    split_key = key.split('__', 1)[1]
-                    if val == 'set':
-                        values.update({split_key: vals.get(split_key, False)})
-                    elif val == 'remove':
-                        values.update({split_key: False})
-                        model_field = model_field_obj.search([
-                            ('model', '=', self.env.context.get('active_model')),
-                            ('name', '=', split_key)])
-                        if model_field and model_field.translate:
-                            translation_ids = self.env['ir.translation'].search([
-                                ('res_id', 'in', self.env.context.get('active_ids')),
-                                ('type', '=', 'model'),
-                                ('name', '=', u"{0},{1}".format(
-                                    self.env.context.get('active_model'), split_key))])
-                            translation_ids.unlink()
-                    elif val == 'remove_m2m':
-                        m2m_list = []
-                        if vals.get(split_key):
-                            for m2m_id in vals.get(split_key)[0][2]:
-                                m2m_list.append((3, m2m_id))
-                        if m2m_list:
-                            values.update({split_key: m2m_list})
-                        else:
-                            values.update({split_key: [(5, 0, [])]})
-                    elif val == 'add':
-                        m2m_list = []
-                        for m2m_id in vals.get(split_key, False)[0][2]:
-                            m2m_list.append((4, m2m_id))
-                        values.update({split_key: m2m_list})
-            if values:
-                model_obj.browse(self.env.context.get('active_ids')).write(values)
-        return super(MassEditingWizard, self).create({})
-
-    def action_apply(self):
-        return {'type': 'ir.actions.act_window_close'}
 
     @api.model
     def fields_get(self, allfields=None, attributes=None):
@@ -194,39 +122,89 @@ class MassEditingWizard(models.TransientModel):
         if not mass_obj_id:
             mass_obj_id = int(self.env['ir.config_parameter'].sudo().get_param(
                 'mass_editing_last_id', '0'))
-        if mass_obj_id:
-            mass_obj = self.env['mass.object'].browse([mass_obj_id])
-            model_obj = self.env[mass_obj.model_id.model]
-            field_info = model_obj.fields_get()
-            for field in mass_obj.field_ids:
-                sel_name = "selection__" + field.name
-                if field.ttype == "many2many":
-                    res[sel_name] = {
-                        'type': 'selection',
-                        'string': field_info[field.name]['string'],
-                        'selection': [('set', 'Set'), ('remove_m2m', 'Remove'), ('add', 'Add')],
+        if not mass_obj_id:
+            return res
+
+        mass_obj = self.env['mass.object'].browse([mass_obj_id])
+        model_obj = self.env[mass_obj.model_id.model]
+        field_info = model_obj.fields_get()
+
+        for i, fld in enumerate(mass_obj.field_ids[:3]):
+            idx = i + 1
+            sel_name = 'select_%d' % idx
+            val_name = 'value_%d' % idx
+
+            if fld.ttype == 'many2many':
+                res[sel_name] = {
+                    'type': 'selection', 'string': field_info[fld.name]['string'],
+                    'selection': [('set', 'Set'), ('remove_m2m', 'Remove'), ('add', 'Add')],
+                }
+                res[val_name] = {
+                    'type': 'many2many', 'string': fld.field_description,
+                    'relation': fld.relation,
+                }
+            elif fld.ttype in ('one2many', 'many2one'):
+                res[sel_name] = {
+                    'type': 'selection', 'string': field_info[fld.name]['string'],
+                    'selection': [('set', 'Set'), ('remove', 'Remove')],
+                }
+                res[val_name] = {
+                    'type': 'many2one', 'string': fld.field_description,
+                    'relation': fld.relation,
+                }
+            else:
+                res[sel_name] = {
+                    'type': 'selection', 'string': field_info[fld.name]['string'],
+                    'selection': [('set', 'Set'), ('remove', 'Remove')],
+                }
+                if fld.ttype == 'selection':
+                    res[val_name] = {
+                        'type': 'selection', 'string': fld.field_description,
+                        'selection': field_info[fld.name]['selection'],
                     }
+                elif fld.ttype == 'text':
+                    res[val_name] = {'type': 'text', 'string': fld.field_description}
                 else:
-                    res[sel_name] = {
-                        'type': 'selection',
-                        'string': field_info[field.name]['string'],
-                        'selection': [('set', 'Set'), ('remove', 'Remove')],
-                    }
-                if field.ttype in ('many2many', 'one2many', 'many2one'):
-                    res[field.name] = {
-                        'type': field.ttype, 'string': field.field_description,
-                        'relation': field.relation,
-                    }
-                else:
-                    res[field.name] = {
-                        'type': field.ttype, 'string': field.field_description,
-                    }
+                    res[val_name] = {'type': fld.ttype, 'string': fld.field_description}
         return res
 
-    def read(self, fields, load='_classic_read'):
-        real_fields = fields
-        if fields:
-            real_fields = [x for x in fields if x in self._fields]
-        result = super(MassEditingWizard, self).read(real_fields, load=load)
-        [result[0].update({x: False}) for x in fields if x not in real_fields]
-        return result
+    @api.model
+    def create(self, vals):
+        if (self.env.context.get('active_model') and self.env.context.get('active_ids')):
+            model_obj = self.env[self.env.context.get('active_model')]
+            mass_obj_id = self.env.context.get('mass_editing_object')
+            if not mass_obj_id:
+                mass_obj_id = int(self.env['ir.config_parameter'].sudo().get_param(
+                    'mass_editing_last_id', '0'))
+            mass_obj = self.env['mass.object'].browse([mass_obj_id])
+
+            values = {}
+            for i, fld in enumerate(mass_obj.field_ids[:3]):
+                idx = i + 1
+                sel_key = 'select_%d' % idx
+                val_key = 'value_%d' % idx
+                sel_val = vals.get(sel_key)
+                val_val = vals.get(val_key)
+
+                if not sel_val:
+                    continue
+
+                if sel_val == 'set':
+                    values[fld.name] = val_val
+                elif sel_val == 'remove':
+                    values[fld.name] = False
+                elif sel_val == 'remove_m2m':
+                    if val_val and isinstance(val_val, list):
+                        values[fld.name] = [(3, mid) for mid in val_val]
+                    else:
+                        values[fld.name] = [(5, 0, [])]
+                elif sel_val == 'add':
+                    if val_val and isinstance(val_val, list):
+                        values[fld.name] = [(4, mid) for mid in val_val]
+
+            if values:
+                model_obj.browse(self.env.context.get('active_ids')).write(values)
+        return super().create({})
+
+    def action_apply(self):
+        return {'type': 'ir.actions.act_window_close'}
