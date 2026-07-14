@@ -2,20 +2,29 @@
 from lxml import etree
 
 import odoo.tools as tools
-from odoo import api, models
+from odoo import api, fields, models
 
 
 class MassEditingWizard(models.TransientModel):
     _name = 'mass.editing.wizard'
 
+    mass_editing_object_id = fields.Many2one(
+        'mass.object', 'Mass Editing Template',
+        default=lambda self: self.env.context.get('mass_editing_object'))
+
     @api.model
     def get_view(self, view_id=None, view_type='form', **options):
         result = super(MassEditingWizard, self).get_view(
             view_id=view_id, view_type=view_type, **options)
-        context = self.env.context
-        if context.get('mass_editing_object'):
+        # Use the stored field value as fallback if context doesn't have it
+        mass_obj_id = self.env.context.get('mass_editing_object')
+        if not mass_obj_id:
+            # Try default_get — this works because the field has a default
+            defaults = self.default_get(['mass_editing_object_id'])
+            mass_obj_id = defaults.get('mass_editing_object_id')
+        if mass_obj_id:
             mass_obj = self.env['mass.object']
-            editing_data = mass_obj.browse([context.get('mass_editing_object')])
+            editing_data = mass_obj.browse([mass_obj_id])
             all_fields = {}
             xml_form = etree.Element('form', {
                 'string': tools.ustr(editing_data.name)
@@ -32,7 +41,7 @@ class MassEditingWizard(models.TransientModel):
                 'colspan': '6',
                 'col': '6',
             })
-            model_obj = self.env[context.get('active_model')]
+            model_obj = self.env[self.env.context.get('active_model')]
             field_info = model_obj.fields_get()
             for field in editing_data.field_ids:
                 if field.ttype == "many2many":
