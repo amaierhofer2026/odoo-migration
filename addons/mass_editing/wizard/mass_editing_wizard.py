@@ -11,6 +11,12 @@ class MassEditingWizard(models.TransientModel):
         'mass.object', 'Mass Editing Template',
         default=lambda self: self.env.context.get('mass_editing_object'))
 
+    # Generic dynamic field placeholders
+    dyn_select = fields.Selection([], string='Operation')
+    dyn_char = fields.Char(string='Value')
+    dyn_m2o = fields.Many2one('res.partner', string='Value')
+    dyn_m2m = fields.Many2many('res.partner', string='Value')
+
     @api.model
     def get_view(self, view_id=None, view_type='form', **options):
         result = super(MassEditingWizard, self).get_view(
@@ -42,181 +48,153 @@ class MassEditingWizard(models.TransientModel):
             field_info = model_obj.fields_get()
             for field in editing_data.field_ids:
                 if field.ttype == "many2many":
-                    all_fields[field.name] = field_info[field.name]
-                    all_fields["selection__" + field.name] = {
+                    all_fields["dyn_select"] = {
                         'type': 'selection',
                         'string': field_info[field.name]['string'],
                         'selection': [('set', 'Set'),
                                       ('remove_m2m', 'Remove'),
                                       ('add', 'Add')]
                     }
+                    all_fields["dyn_m2m"] = {
+                        'type': 'many2many',
+                        'string': field.field_description,
+                        'relation': field.relation,
+                    }
                     xml_group = etree.SubElement(xml_group, 'group', {
-                        'colspan': '6',
-                        'col': '6',
+                        'colspan': '6', 'col': '6',
                     })
                     etree.SubElement(xml_group, 'separator', {
                         'string': field_info[field.name]['string'],
                         'colspan': '6',
                     })
                     etree.SubElement(xml_group, 'field', {
-                        'name': "selection__" + field.name,
-                        'colspan': '6',
-                        'nolabel': '1'
+                        'name': 'dyn_select',
+                        'colspan': '6', 'nolabel': '1',
                     })
                     etree.SubElement(xml_group, 'field', {
-                        'name': field.name,
-                        'colspan': '6',
-                        'nolabel': '1',
-                        'invisible': "selection__%s == 'remove_m2m'" % field.name,
+                        'name': 'dyn_m2m',
+                        'colspan': '6', 'nolabel': '1',
+                        'invisible': "dyn_select == 'remove_m2m'",
                     })
                 elif field.ttype == "one2many":
-                    all_fields["selection__" + field.name] = {
+                    all_fields["dyn_select"] = {
                         'type': 'selection',
                         'string': field_info[field.name]['string'],
                         'selection': [('set', 'Set'), ('remove', 'Remove')],
                     }
-                    all_fields[field.name] = {
+                    all_fields["dyn_m2o"] = {
                         'type': field.ttype,
                         'string': field.field_description,
                         'relation': field.relation,
                     }
                     etree.SubElement(xml_group, 'field', {
-                        'name': "selection__" + field.name,
-                        'colspan': '4',
+                        'name': 'dyn_select', 'colspan': '4',
                     })
                     etree.SubElement(xml_group, 'field', {
-                        'name': field.name,
-                        'colspan': '6',
-                        'nolabel': '1',
-                        'invisible': "selection__%s == 'remove_o2m'" % field.name,
+                        'name': 'dyn_m2o', 'colspan': '6', 'nolabel': '1',
+                        'invisible': "dyn_select == 'remove_o2m'",
                     })
                 elif field.ttype == "many2one":
-                    all_fields["selection__" + field.name] = {
+                    all_fields["dyn_select"] = {
                         'type': 'selection',
                         'string': field_info[field.name]['string'],
                         'selection': [('set', 'Set'), ('remove', 'Remove')],
                     }
-                    all_fields[field.name] = {
+                    all_fields["dyn_m2o"] = {
                         'type': field.ttype,
                         'string': field.field_description,
                         'relation': field.relation,
                     }
                     etree.SubElement(xml_group, 'field', {
-                        'name': "selection__" + field.name,
-                        'colspan': '2',
+                        'name': 'dyn_select', 'colspan': '2',
                     })
                     etree.SubElement(xml_group, 'field', {
-                        'name': field.name,
-                        'nolabel': '1',
-                        'colspan': '4',
-                        'invisible': "selection__%s == 'remove'" % field.name,
+                        'name': 'dyn_m2o', 'nolabel': '1', 'colspan': '4',
+                        'invisible': "dyn_select == 'remove'",
                     })
                 elif field.ttype == "char":
-                    all_fields["selection__" + field.name] = {
+                    all_fields["dyn_select"] = {
                         'type': 'selection',
                         'string': field_info[field.name]['string'],
                         'selection': [('set', 'Set'), ('remove', 'Remove')],
                     }
-                    all_fields[field.name] = {
+                    all_fields["dyn_char"] = {
                         'type': field.ttype,
                         'string': field.field_description,
                         'size': field.size or 256,
                     }
                     etree.SubElement(xml_group, 'field', {
-                        'name': "selection__" + field.name,
-                        'colspan': '2',
+                        'name': 'dyn_select', 'colspan': '2',
                     })
                     etree.SubElement(xml_group, 'field', {
-                        'name': field.name,
-                        'nolabel': '1',
-                        'invisible': "selection__%s == 'remove'" % field.name,
+                        'name': 'dyn_char', 'nolabel': '1',
+                        'invisible': "dyn_select == 'remove'",
                         'colspan': '4',
                     })
                 elif field.ttype == 'selection':
-                    all_fields["selection__" + field.name] = {
+                    all_fields["dyn_select"] = {
                         'type': 'selection',
                         'string': field_info[field.name]['string'],
-                        'selection': [('set', 'Set'), ('remove', 'Remove')]
+                        'selection': [('set', 'Set'), ('remove', 'Remove')],
                     }
                     etree.SubElement(xml_group, 'field', {
-                        'name': "selection__" + field.name,
-                        'colspan': '2',
+                        'name': 'dyn_select', 'colspan': '2',
                     })
                     etree.SubElement(xml_group, 'field', {
-                        'name': field.name,
-                        'nolabel': '1',
-                        'colspan': '4',
-                        'invisible': "selection__%s == 'remove'" % field.name,
+                        'name': 'dyn_char', 'nolabel': '1', 'colspan': '4',
+                        'invisible': "dyn_select == 'remove'",
                     })
-                    all_fields[field.name] = {
-                        'type': field.ttype,
+                    all_fields["dyn_char"] = {
+                        'type': 'selection',
                         'string': field.field_description,
                         'selection': field_info[field.name]['selection'],
                     }
                 else:
-                    all_fields[field.name] = {
+                    all_fields["dyn_select"] = {
+                        'type': 'selection',
+                        'string': field_info[field.name]['string'],
+                        'selection': [('set', 'Set'), ('remove', 'Remove')],
+                    }
+                    all_fields["dyn_char"] = {
                         'type': field.ttype,
                         'string': field.field_description,
                     }
-                    all_fields["selection__" + field.name] = {
-                        'type': 'selection',
-                        'string': field_info[field.name]['string'],
-                        'selection': [('set', 'Set'), ('remove', 'Remove')]
-                    }
                     if field.ttype == 'text':
                         xml_group = etree.SubElement(xml_group, 'group', {
-                            'colspan': '6',
-                            'col': '6',
+                            'colspan': '6', 'col': '6',
                         })
                         etree.SubElement(xml_group, 'separator', {
-                            'string': all_fields[field.name]['string'],
+                            'string': all_fields["dyn_char"]['string'],
                             'colspan': '6',
                         })
                         etree.SubElement(xml_group, 'field', {
-                            'name': "selection__" + field.name,
-                            'colspan': '6',
-                            'nolabel': '1',
+                            'name': 'dyn_select', 'colspan': '6', 'nolabel': '1',
                         })
                         etree.SubElement(xml_group, 'field', {
-                            'name': field.name,
-                            'colspan': '6',
-                            'nolabel': '1',
-                            'invisible': "selection__%s == 'remove'" % field.name,
+                            'name': 'dyn_char', 'colspan': '6', 'nolabel': '1',
+                            'invisible': "dyn_select == 'remove'",
                         })
                     else:
-                        all_fields["selection__" + field.name] = {
-                            'type': 'selection',
-                            'string': field_info[field.name]['string'],
-                            'selection': [('set', 'Set'), ('remove', 'Remove')]
-                        }
                         etree.SubElement(xml_group, 'field', {
-                            'name': "selection__" + field.name,
-                            'colspan': '2',
+                            'name': 'dyn_select', 'colspan': '2',
                         })
                         etree.SubElement(xml_group, 'field', {
-                            'name': field.name,
-                            'nolabel': '1',
-                            'invisible': "selection__%s == 'remove'" % field.name,
+                            'name': 'dyn_char', 'nolabel': '1',
+                            'invisible': "dyn_select == 'remove'",
                             'colspan': '4',
                         })
-            # Patch fields with required extra data
-            for field in all_fields.values():
-                field.setdefault("views", {})
+            for f in all_fields.values():
+                f.setdefault("views", {})
             etree.SubElement(xml_form, 'separator', {
-                'string': '',
-                'colspan': '6',
-                'col': '6',
+                'string': '', 'colspan': '6', 'col': '6',
             })
-            xml_group3 = etree.SubElement(xml_form, 'footer', {})
-            etree.SubElement(xml_group3, 'button', {
-                'string': 'Apply',
-                'class': 'btn-primary',
-                'type': 'object',
-                'name': 'action_apply',
+            xml_footer = etree.SubElement(xml_form, 'footer', {})
+            etree.SubElement(xml_footer, 'button', {
+                'string': 'Apply', 'class': 'btn-primary',
+                'type': 'object', 'name': 'action_apply',
             })
-            etree.SubElement(xml_group3, 'button', {
-                'string': 'Close',
-                'class': 'btn-default',
+            etree.SubElement(xml_footer, 'button', {
+                'string': 'Close', 'class': 'btn-default',
                 'special': 'cancel',
             })
             root = xml_form.getroottree()
@@ -230,7 +208,6 @@ class MassEditingWizard(models.TransientModel):
                 self.env.context.get('active_ids')):
             model_obj = self.env[self.env.context.get('active_model')]
             model_field_obj = self.env['ir.model.fields']
-            translation_obj = self.env['ir.translation']
 
             values = {}
             for key, val in vals.items():
@@ -240,22 +217,16 @@ class MassEditingWizard(models.TransientModel):
                         values.update({split_key: vals.get(split_key, False)})
                     elif val == 'remove':
                         values.update({split_key: False})
-
-                        # If field to remove is translatable,
-                        # its translations have to be removed
                         model_field = model_field_obj.search([
                             ('model', '=', self.env.context.get('active_model')),
                             ('name', '=', split_key)])
                         if model_field and model_field.translate:
-                            translation_ids = translation_obj.search([
-                                ('res_id', 'in', self.env.context.get(
-                                    'active_ids')),
+                            translation_ids = self.env['ir.translation'].search([
+                                ('res_id', 'in', self.env.context.get('active_ids')),
                                 ('type', '=', 'model'),
                                 ('name', '=', u"{0},{1}".format(
-                                    self.env.context.get('active_model'),
-                                    split_key))])
+                                    self.env.context.get('active_model'), split_key))])
                             translation_ids.unlink()
-
                     elif val == 'remove_m2m':
                         m2m_list = []
                         if vals.get(split_key):
@@ -277,57 +248,10 @@ class MassEditingWizard(models.TransientModel):
     def action_apply(self):
         return {'type': 'ir.actions.act_window_close'}
 
-    @api.model
-    def fields_get(self, allfields=None, attributes=None):
-        res = super().fields_get(allfields=allfields, attributes=attributes)
-        # Add dynamic fields if mass_editing_object is configured
-        mass_obj_id = self.env.context.get('mass_editing_object')
-        if not mass_obj_id:
-            mass_obj_id = int(self.env['ir.config_parameter'].sudo().get_param(
-                'mass_editing_last_id', '0'))
-        if mass_obj_id:
-            mass_obj = self.env['mass.object'].browse([mass_obj_id])
-            model_obj = self.env[mass_obj.model_id.model]
-            field_info = model_obj.fields_get()
-            for field in mass_obj.field_ids:
-                sel_name = "selection__" + field.name
-                if field.ttype == "many2many":
-                    res[sel_name] = {
-                        'type': 'selection',
-                        'string': field_info[field.name]['string'],
-                        'selection': [('set', 'Set'), ('remove_m2m', 'Remove'), ('add', 'Add')],
-                    }
-                else:
-                    res[sel_name] = {
-                        'type': 'selection',
-                        'string': field_info[field.name]['string'],
-                        'selection': [('set', 'Set'), ('remove', 'Remove')],
-                    }
-                if field.ttype in ('many2many', 'one2many', 'many2one'):
-                    res[field.name] = {
-                        'type': field.ttype,
-                        'string': field.field_description,
-                        'relation': field.relation,
-                    }
-                else:
-                    res[field.name] = {
-                        'type': field.ttype,
-                        'string': field.field_description,
-                    }
-        return res
-
     def read(self, fields, load='_classic_read'):
-        """ Without this call, dynamic fields build by get_view()
-            generate a log warning, i.e.:
-            odoo.models:mass.editing.wizard.read() with unknown field 'myfield'
-            odoo.models:mass.editing.wizard.read()
-                with unknown field 'selection__myfield'
-        """
         real_fields = fields
         if fields:
-            # We remove fields which are not in _fields
             real_fields = [x for x in fields if x in self._fields]
         result = super(MassEditingWizard, self).read(real_fields, load=load)
-        # adding fields to result
         [result[0].update({x: False}) for x in fields if x not in real_fields]
         return result
