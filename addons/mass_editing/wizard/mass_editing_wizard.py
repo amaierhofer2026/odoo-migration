@@ -9,13 +9,9 @@ class MassEditingWizard(models.TransientModel):
     _name = 'mass.editing.wizard'
 
     @api.model
-    def fields_view_get(self, view_id=None, view_type='form', toolbar=False,
-                        submenu=False):
-        result =\
-            super(MassEditingWizard, self).fields_view_get(view_id=view_id,
-                                                           view_type=view_type,
-                                                           toolbar=toolbar,
-                                                           submenu=submenu)
+    def get_view(self, view_id=None, view_type='form', **options):
+        result = super(MassEditingWizard, self).get_view(
+            view_id=view_id, view_type=view_type, **options)
         context = self.env.context
         if context.get('mass_editing_object'):
             mass_obj = self.env['mass.object']
