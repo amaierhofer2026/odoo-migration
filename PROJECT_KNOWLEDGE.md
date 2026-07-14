@@ -1980,3 +1980,32 @@ Ermöglicht das gleichzeitige Versenden von E-Mails an mehrere Rechnungs-Empfän
 
 ---
 
+### Session 40: itk_automated_actions migriert nach Odoo 18
+
+**Datum:** 13.07.2026
+**Modul:** `itk_automated_actions` (ITK — 29. Modul)
+**Art:** Data-only — Mail-Template + automatisierte Aktion für Urlaubsanträge
+
+#### Was das Modul macht
+Sendet automatisch eine E-Mail an den Manager, wenn ein Mitarbeiter einen
+Urlaubsantrag (Time Off) erstellt.
+
+#### Odoo-18-Anpassungen
+- Manifest: Version `0.1` → `18.0.1.0.0`, `installable`/`application` ergänzt
+- `hr_holidays.model_hr_holidays` → `hr_holidays.model_hr_leave`
+  (Modell umbenannt: `hr.holidays` → `hr.leave`)
+- `base.automation`: `state='email'` + `template_id` existieren in Odoo 18 nicht mehr
+  → ersetzt durch `ir.actions.server` (state=`mail_post`) + `base.automation.action_server_ids`
+- `built_in` vom mail.template entfernt
+- `<data>`-Wrapper entfernt
+
+#### Verifikation
+- ✅ Modul installiert (v18.0.1.0.0)
+- ✅ Mail-Template "AV ITK - Neuer Urlaubsantrag eingereicht" erstellt
+- ✅ base.automation mit trigger=on_create + action_server_ids
+- ✅ ir.actions.server mit state=mail_post
+
+29/56 Module migriert.
+
+---
+
