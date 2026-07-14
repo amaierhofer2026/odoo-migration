@@ -11,12 +11,6 @@ class MassEditingWizard(models.TransientModel):
         'mass.object', 'Mass Editing Template',
         default=lambda self: self.env.context.get('mass_editing_object'))
 
-    # Generic dynamic field placeholders
-    dyn_select = fields.Selection([], string='Operation')
-    dyn_char = fields.Char(string='Value')
-    dyn_m2o = fields.Many2one('res.partner', string='Value')
-    dyn_m2m = fields.Many2many('res.partner', string='Value')
-
     @api.model
     def get_view(self, view_id=None, view_type='form', **options):
         result = super(MassEditingWizard, self).get_view(
@@ -29,160 +23,100 @@ class MassEditingWizard(models.TransientModel):
             mass_obj = self.env['mass.object']
             editing_data = mass_obj.browse([mass_obj_id])
             all_fields = {}
+            dynamic_fields = {}
             xml_form = etree.Element('form', {
                 'string': tools.ustr(editing_data.name)
             })
             xml_group = etree.SubElement(xml_form, 'group', {
-                'colspan': '6',
-                'col': '6',
+                'colspan': '6', 'col': '6',
             })
             etree.SubElement(xml_group, 'label', {
-                'string': '',
-                'colspan': '2',
+                'string': '', 'colspan': '2',
             })
             xml_group = etree.SubElement(xml_form, 'group', {
-                'colspan': '6',
-                'col': '6',
+                'colspan': '6', 'col': '6',
             })
             model_obj = self.env[editing_data.model_id.model]
             field_info = model_obj.fields_get()
             for field in editing_data.field_ids:
+                sel_name = "selection__" + field.name
                 if field.ttype == "many2many":
-                    all_fields["dyn_select"] = {
+                    all_fields[sel_name] = {
                         'type': 'selection',
                         'string': field_info[field.name]['string'],
                         'selection': [('set', 'Set'),
                                       ('remove_m2m', 'Remove'),
-                                      ('add', 'Add')]
+                                      ('add', 'Add')],
                     }
-                    all_fields["dyn_m2m"] = {
-                        'type': 'many2many',
-                        'string': field.field_description,
-                        'relation': field.relation,
-                    }
-                    xml_group = etree.SubElement(xml_group, 'group', {
+                    all_fields[field.name] = field_info[field.name]
+                    dynamic_fields[sel_name] = fields.Selection(
+                        [('set', 'Set'), ('remove_m2m', 'Remove'), ('add', 'Add')],
+                        string=field_info[field.name]['string'])
+                    dynamic_fields[field.name] = fields.Many2many(
+                        field.relation, string=field.field_description)
+                    xml_group2 = etree.SubElement(xml_group, 'group', {
                         'colspan': '6', 'col': '6',
                     })
-                    etree.SubElement(xml_group, 'separator', {
-                        'string': field_info[field.name]['string'],
-                        'colspan': '6',
+                    etree.SubElement(xml_group2, 'separator', {
+                        'string': field_info[field.name]['string'], 'colspan': '6',
                     })
-                    etree.SubElement(xml_group, 'field', {
-                        'name': 'dyn_select',
-                        'colspan': '6', 'nolabel': '1',
+                    etree.SubElement(xml_group2, 'field', {
+                        'name': sel_name, 'colspan': '6', 'nolabel': '1',
                     })
-                    etree.SubElement(xml_group, 'field', {
-                        'name': 'dyn_m2m',
-                        'colspan': '6', 'nolabel': '1',
-                        'invisible': "dyn_select == 'remove_m2m'",
+                    etree.SubElement(xml_group2, 'field', {
+                        'name': field.name, 'colspan': '6', 'nolabel': '1',
+                        'invisible': "%s == 'remove_m2m'" % sel_name,
                     })
-                elif field.ttype == "one2many":
-                    all_fields["dyn_select"] = {
-                        'type': 'selection',
-                        'string': field_info[field.name]['string'],
-                        'selection': [('set', 'Set'), ('remove', 'Remove')],
-                    }
-                    all_fields["dyn_m2o"] = {
-                        'type': field.ttype,
-                        'string': field.field_description,
-                        'relation': field.relation,
-                    }
-                    etree.SubElement(xml_group, 'field', {
-                        'name': 'dyn_select', 'colspan': '4',
-                    })
-                    etree.SubElement(xml_group, 'field', {
-                        'name': 'dyn_m2o', 'colspan': '6', 'nolabel': '1',
-                        'invisible': "dyn_select == 'remove_o2m'",
-                    })
-                elif field.ttype == "many2one":
-                    all_fields["dyn_select"] = {
-                        'type': 'selection',
-                        'string': field_info[field.name]['string'],
-                        'selection': [('set', 'Set'), ('remove', 'Remove')],
-                    }
-                    all_fields["dyn_m2o"] = {
-                        'type': field.ttype,
-                        'string': field.field_description,
-                        'relation': field.relation,
-                    }
-                    etree.SubElement(xml_group, 'field', {
-                        'name': 'dyn_select', 'colspan': '2',
-                    })
-                    etree.SubElement(xml_group, 'field', {
-                        'name': 'dyn_m2o', 'nolabel': '1', 'colspan': '4',
-                        'invisible': "dyn_select == 'remove'",
-                    })
-                elif field.ttype == "char":
-                    all_fields["dyn_select"] = {
-                        'type': 'selection',
-                        'string': field_info[field.name]['string'],
-                        'selection': [('set', 'Set'), ('remove', 'Remove')],
-                    }
-                    all_fields["dyn_char"] = {
-                        'type': field.ttype,
-                        'string': field.field_description,
-                        'size': field.size or 256,
-                    }
-                    etree.SubElement(xml_group, 'field', {
-                        'name': 'dyn_select', 'colspan': '2',
-                    })
-                    etree.SubElement(xml_group, 'field', {
-                        'name': 'dyn_char', 'nolabel': '1',
-                        'invisible': "dyn_select == 'remove'",
-                        'colspan': '4',
-                    })
-                elif field.ttype == 'selection':
-                    all_fields["dyn_select"] = {
-                        'type': 'selection',
-                        'string': field_info[field.name]['string'],
-                        'selection': [('set', 'Set'), ('remove', 'Remove')],
-                    }
-                    etree.SubElement(xml_group, 'field', {
-                        'name': 'dyn_select', 'colspan': '2',
-                    })
-                    etree.SubElement(xml_group, 'field', {
-                        'name': 'dyn_char', 'nolabel': '1', 'colspan': '4',
-                        'invisible': "dyn_select == 'remove'",
-                    })
-                    all_fields["dyn_char"] = {
-                        'type': 'selection',
-                        'string': field.field_description,
-                        'selection': field_info[field.name]['selection'],
-                    }
                 else:
-                    all_fields["dyn_select"] = {
+                    all_fields[sel_name] = {
                         'type': 'selection',
                         'string': field_info[field.name]['string'],
                         'selection': [('set', 'Set'), ('remove', 'Remove')],
                     }
-                    all_fields["dyn_char"] = {
-                        'type': field.ttype,
-                        'string': field.field_description,
-                    }
+                    dynamic_fields[sel_name] = fields.Selection(
+                        [('set', 'Set'), ('remove', 'Remove')],
+                        string=field_info[field.name]['string'])
+                    if field.ttype in ('many2many', 'one2many', 'many2one'):
+                        all_fields[field.name] = {
+                            'type': field.ttype,
+                            'string': field.field_description,
+                            'relation': field.relation,
+                        }
+                        dynamic_fields[field.name] = fields.Many2one(
+                            field.relation, string=field.field_description)
+                    else:
+                        all_fields[field.name] = {
+                            'type': field.ttype,
+                            'string': field.field_description,
+                        }
+                        dynamic_fields[field.name] = fields.Char(
+                            string=field.field_description)
                     if field.ttype == 'text':
-                        xml_group = etree.SubElement(xml_group, 'group', {
+                        xml_group2 = etree.SubElement(xml_group, 'group', {
                             'colspan': '6', 'col': '6',
                         })
-                        etree.SubElement(xml_group, 'separator', {
-                            'string': all_fields["dyn_char"]['string'],
+                        etree.SubElement(xml_group2, 'separator', {
+                            'string': all_fields[field.name]['string'],
                             'colspan': '6',
                         })
-                        etree.SubElement(xml_group, 'field', {
-                            'name': 'dyn_select', 'colspan': '6', 'nolabel': '1',
+                        etree.SubElement(xml_group2, 'field', {
+                            'name': sel_name, 'colspan': '6', 'nolabel': '1',
                         })
-                        etree.SubElement(xml_group, 'field', {
-                            'name': 'dyn_char', 'colspan': '6', 'nolabel': '1',
-                            'invisible': "dyn_select == 'remove'",
+                        etree.SubElement(xml_group2, 'field', {
+                            'name': field.name, 'colspan': '6', 'nolabel': '1',
+                            'invisible': "%s == 'remove'" % sel_name,
                         })
                     else:
                         etree.SubElement(xml_group, 'field', {
-                            'name': 'dyn_select', 'colspan': '2',
+                            'name': sel_name, 'colspan': '2',
                         })
                         etree.SubElement(xml_group, 'field', {
-                            'name': 'dyn_char', 'nolabel': '1',
-                            'invisible': "dyn_select == 'remove'",
-                            'colspan': '4',
+                            'name': field.name, 'nolabel': '1', 'colspan': '4',
+                            'invisible': "%s == 'remove'" % sel_name,
                         })
+            # Patch _fields with dynamic fields so onchange works
+            for fname, fdef in dynamic_fields.items():
+                self._fields[fname] = fdef
             for f in all_fields.values():
                 f.setdefault("views", {})
             etree.SubElement(xml_form, 'separator', {
