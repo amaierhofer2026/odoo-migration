@@ -61,8 +61,7 @@ class MassEditingWizard(models.TransientModel):
                         'name': field.name,
                         'colspan': '6',
                         'nolabel': '1',
-                        'attrs': ("{'invisible': [('selection__" +
-                                  field.name + "', '=', 'remove_m2m')]}"),
+                        'invisible': "selection__%s == 'remove_m2m'" % field.name,
                     })
                 elif field.ttype == "one2many":
                     all_fields["selection__" + field.name] = {
@@ -83,8 +82,7 @@ class MassEditingWizard(models.TransientModel):
                         'name': field.name,
                         'colspan': '6',
                         'nolabel': '1',
-                        'attrs': ("{'invisible':[('selection__" +
-                                  field.name + "', '=', 'remove_o2m')]}"),
+                        'invisible': "selection__%s == 'remove_o2m'" % field.name,
                     })
                 elif field.ttype == "many2one":
                     all_fields["selection__" + field.name] = {
@@ -105,8 +103,7 @@ class MassEditingWizard(models.TransientModel):
                         'name': field.name,
                         'nolabel': '1',
                         'colspan': '4',
-                        'attrs': ("{'invisible':[('selection__" +
-                                  field.name + "', '=', 'remove')]}"),
+                        'invisible': "selection__%s == 'remove'" % field.name,
                     })
                 elif field.ttype == "char":
                     all_fields["selection__" + field.name] = {
@@ -126,8 +123,7 @@ class MassEditingWizard(models.TransientModel):
                     etree.SubElement(xml_group, 'field', {
                         'name': field.name,
                         'nolabel': '1',
-                        'attrs': ("{'invisible':[('selection__" +
-                                  field.name + "','=','remove')]}"),
+                        'invisible': "selection__%s == 'remove'" % field.name,
                         'colspan': '4',
                     })
                 elif field.ttype == 'selection':
@@ -144,8 +140,7 @@ class MassEditingWizard(models.TransientModel):
                         'name': field.name,
                         'nolabel': '1',
                         'colspan': '4',
-                        'attrs': ("{'invisible':[('selection__" +
-                                  field.name + "', '=', 'remove')]}"),
+                        'invisible': "selection__%s == 'remove'" % field.name,
                     })
                     all_fields[field.name] = {
                         'type': field.ttype,
@@ -180,8 +175,7 @@ class MassEditingWizard(models.TransientModel):
                             'name': field.name,
                             'colspan': '6',
                             'nolabel': '1',
-                            'attrs': ("{'invisible':[('selection__" +
-                                      field.name + "','=','remove')]}"),
+                            'invisible': "selection__%s == 'remove'" % field.name,
                         })
                     else:
                         all_fields["selection__" + field.name] = {
@@ -196,8 +190,7 @@ class MassEditingWizard(models.TransientModel):
                         etree.SubElement(xml_group, 'field', {
                             'name': field.name,
                             'nolabel': '1',
-                            'attrs': ("{'invisible':[('selection__" +
-                                      field.name + "','=','remove')]}"),
+                            'invisible': "selection__%s == 'remove'" % field.name,
                             'colspan': '4',
                         })
             # Patch fields with required extra data
@@ -279,7 +272,7 @@ class MassEditingWizard(models.TransientModel):
         return {'type': 'ir.actions.act_window_close'}
 
     def read(self, fields, load='_classic_read'):
-        """ Without this call, dynamic fields build by fields_view_get()
+        """ Without this call, dynamic fields build by get_view()
             generate a log warning, i.e.:
             odoo.models:mass.editing.wizard.read() with unknown field 'myfield'
             odoo.models:mass.editing.wizard.read()
