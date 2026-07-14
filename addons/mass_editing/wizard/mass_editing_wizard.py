@@ -38,7 +38,7 @@ class MassEditingWizard(models.TransientModel):
                 'colspan': '6',
                 'col': '6',
             })
-            model_obj = self.env[self.env.context.get('active_model')]
+            model_obj = self.env[editing_data.model_id.model]
             field_info = model_obj.fields_get()
             for field in editing_data.field_ids:
                 if field.ttype == "many2many":
