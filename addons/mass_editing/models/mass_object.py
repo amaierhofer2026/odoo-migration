@@ -55,10 +55,11 @@ class MassObject(models.Model):
             'type': 'ir.actions.act_window',
             'res_model': 'mass.editing.wizard',
             'context': "{'mass_editing_object' : %d}" % (self.id),
-            'view_mode': 'form,list',
+            'view_mode': 'form',
             'target': 'new',
             'binding_model_id': self.model_id.id,
             'binding_type': 'action',
+            'binding_view_types': 'list',
         }).id
         self.write(vals)
         return True
