@@ -12,7 +12,9 @@ class IrModelFields(models.Model):
     )
 
     @api.model
-    def search(self, args, offset=0, limit=0, order=None, count=False):
+    def search(self, args, offset=0, limit=None, order=None, **kwargs):
+        # Odoo 18 removed 'count' from search() but some internal callers
+        # still pass it. Accept **kwargs to avoid TypeError.
         model_domain = []
         for domain in args:
             if (len(domain) > 2 and domain[0] == 'mass_editing_domain' and
@@ -23,5 +25,4 @@ class IrModelFields(models.Model):
             else:
                 model_domain.append(domain)
         return super(IrModelFields, self).search(model_domain, offset=offset,
-                                                 limit=limit, order=order,
-                                                 count=count)
+                                                 limit=limit, order=order)
