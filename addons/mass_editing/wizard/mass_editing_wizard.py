@@ -53,7 +53,10 @@ class MassEditingWizard(models.TransientModel):
                         [('set', 'Set'), ('remove_m2m', 'Remove'), ('add', 'Add')],
                         string=field_info[field.name]['string'])
                     dynamic_fields[field.name] = fields.Many2many(
-                        field.relation, string=field.field_description)
+                        comodel_name=field.relation,
+                        relation='mass_editing_dyn_m2m_rel',
+                        column1='wizard_id', column2='target_id',
+                        string=field.field_description)
                     xml_group2 = etree.SubElement(xml_group, 'group', {
                         'colspan': '6', 'col': '6',
                     })
@@ -83,7 +86,8 @@ class MassEditingWizard(models.TransientModel):
                             'relation': field.relation,
                         }
                         dynamic_fields[field.name] = fields.Many2one(
-                            field.relation, string=field.field_description)
+                            comodel_name=field.relation,
+                            string=field.field_description)
                     else:
                         all_fields[field.name] = {
                             'type': field.ttype,
