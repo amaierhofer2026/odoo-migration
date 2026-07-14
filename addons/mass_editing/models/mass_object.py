@@ -59,7 +59,6 @@ class MassObject(models.Model):
             'target': 'new',
             'binding_model_id': self.model_id.id,
             'binding_type': 'action',
-            'multi': True,
         }).id
         self.write(vals)
         return True
