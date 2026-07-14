@@ -16,7 +16,7 @@ class MassEditingWizard(models.TransientModel):
                                                            view_type=view_type,
                                                            toolbar=toolbar,
                                                            submenu=submenu)
-        context = self._context
+        context = self.env.context
         if context.get('mass_editing_object'):
             mass_obj = self.env['mass.object']
             editing_data = mass_obj.browse(context.get('mass_editing_object'))
@@ -231,9 +231,9 @@ class MassEditingWizard(models.TransientModel):
 
     @api.model
     def create(self, vals):
-        if (self._context.get('active_model') and
-                self._context.get('active_ids')):
-            model_obj = self.env[self._context.get('active_model')]
+        if (self.env.context.get('active_model') and
+                self.env.context.get('active_ids')):
+            model_obj = self.env[self.env.context.get('active_model')]
             model_field_obj = self.env['ir.model.fields']
             translation_obj = self.env['ir.translation']
 
@@ -249,15 +249,15 @@ class MassEditingWizard(models.TransientModel):
                         # If field to remove is translatable,
                         # its translations have to be removed
                         model_field = model_field_obj.search([
-                            ('model', '=', self._context.get('active_model')),
+                            ('model', '=', self.env.context.get('active_model')),
                             ('name', '=', split_key)])
                         if model_field and model_field.translate:
                             translation_ids = translation_obj.search([
-                                ('res_id', 'in', self._context.get(
+                                ('res_id', 'in', self.env.context.get(
                                     'active_ids')),
                                 ('type', '=', 'model'),
                                 ('name', '=', u"{0},{1}".format(
-                                    self._context.get('active_model'),
+                                    self.env.context.get('active_model'),
                                     split_key))])
                             translation_ids.unlink()
 
@@ -276,7 +276,7 @@ class MassEditingWizard(models.TransientModel):
                             m2m_list.append((4, m2m_id))
                         values.update({split_key: m2m_list})
             if values:
-                model_obj.browse(self._context.get('active_ids')).write(values)
+                model_obj.browse(self.env.context.get('active_ids')).write(values)
         return super(MassEditingWizard, self).create({})
 
     def action_apply(self):
