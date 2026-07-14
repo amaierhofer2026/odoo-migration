@@ -2011,3 +2011,42 @@ Urlaubsantrag (Time Off) erstellt.
 
 ---
 
+### Session 41: website_cookie_notice migriert nach Odoo 18 (Cookie-Banner)
+
+**Datum:** 14.07.2026
+**Modul:** `website_cookie_notice` (OCA — 30. Modul)
+**Art:** Template + Controller + JS — Cookie-Zustimmungsbanner auf der Website
+
+#### Was das Modul macht
+Zeigt einen Cookie-Banner auf der Website. Bei Klick auf OK wird der Banner
+ausgeblendet und ein Session-Cookie gesetzt (kein erneutes Anzeigen).
+
+#### Odoo-18-Anpassungen
+- Manifest: `website_legal_page` → `website` (existiert in Odoo 18 nicht)
+- Version `11.0.1.0.0` → `18.0.1.0.0`, Coding-Header entfernt
+- JS: `odoo.define()` + `web_editor.base` → vanilla JS mit `addEventListener`
+  (Odoo-18-Legacy-APIs entfernt)
+- `assets`-Key im Manifest getestet → funktioniert in Odoo 18 nicht zuverlässig
+  → `<script>`-Tag direkt im Template (inline)
+- `onclick`-Attribute werden von Odoo 18 sanitized → `addEventListener` im Script
+- Controller-Code: `clear_caches()` über QWeb entfernt (in Odoo 18 nicht nötig)
+- Datenschutz-Link entfernt (hing an `website_legal_page`, das es nicht mehr gibt)
+
+#### Pitfalls
+- Odoo 18 strippt `onclick`-Handler aus QWeb-Templates (Sicherheit)
+- `web.assets_frontend` existiert in Odoo 18 nicht als XML-ID für `inherit_id`
+- Template-Cache: nach Cleanup wurden Views doppelt gerendet → `ir.ui.view`
+  manuell löschen vor Neuinstallation nötig
+- `assets`-Manifest-Key funktioniert in Odoo 18 nur bei Erstinstallation,
+  nicht bei Upgrade
+
+#### Verifikation
+- ✅ Modul installiert (v18.0.1.0.0)
+- ✅ Cookie-Banner im HTML (cc-cookies, cookie_ok_btn, addEventListener)
+- ⏳ UI-Test (Anna): Website aufrufen → Banner sichtbar → OK klicken →
+  Banner verschwindet → Reload → Banner bleibt weg
+
+30/56 Module migriert.
+
+---
+

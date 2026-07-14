@@ -43,14 +43,15 @@ Migration aller Odoo-Module von **Version 11 nach Version 18** für ITK (IT Komm
 | `partner_external_map` | ✅ Migriert, installiert · Map/Route-Map-Buttons im Partner-Formular (Google Maps, OSM etc.) | 18.0.1.0.0 |
 | `mass_email_invoice` | ✅ Migriert, installiert · Massen-Email-Versand für Rechnungen (mail.compose.message) | 18.0.1.0.0 |
 | `itk_automated_actions` | ✅ Migriert, installiert · Automatisierte E-Mail bei Urlaubsanträgen (base.automation) | 18.0.1.0.0 |
+| `website_cookie_notice` | ✅ Migriert, installiert · Cookie-Zustimmungsbanner auf der Website (Template + JS) | 18.0.1.0.0 |
 
-➕ **27 weitere Module** in `odoo11 module/` (Originalquellen) warten auf Migration.
+➕ **26 weitere Module** in `odoo11 module/` (Originalquellen) warten auf Migration.
 
 ## Struktur
 
 ```
 odoo-migration/
-├── addons/              → 29 Odoo-Addons (27 funktionsfähig + 2 geparkt)
+├── addons/              → 30 Odoo-Addons (28 funktionsfähig + 2 geparkt)
 ├── config/              → Odoo-Konfiguration
 ├── odoo11 module/       → 33 Odoo-11-Originalquellen
 ├── postgres/            → PostgreSQL-Datenbank
