@@ -56,7 +56,7 @@ class MassObject(models.Model):
             'res_model': 'mass.editing.wizard',
             'src_model': src_obj,
             'context': "{'mass_editing_object' : %d}" % (self.id),
-            'view_mode': 'form, tree',
+            'view_mode': 'form,list',
             'target': 'new',
             'binding_model_id': self.model_id.id,
             'binding_type': 'action',
