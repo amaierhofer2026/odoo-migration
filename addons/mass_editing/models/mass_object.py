@@ -71,13 +71,19 @@ class MassObject(models.Model):
             'binding_view_types': 'list',
             'state': 'code',
             'code': (
-                "action = env['ir.actions.act_window'].browse(%d).read()[0]\n"
-                "action['context'] = {\n"
-                "    'mass_editing_object': %d,\n"
-                "    'active_model': context.get('active_model'),\n"
-                "    'active_ids': context.get('active_ids'),\n"
+                "action = {\n"
+                "    'type': 'ir.actions.act_window',\n"
+                "    'name': '%s',\n"
+                "    'res_model': 'mass.editing.wizard',\n"
+                "    'view_mode': 'form',\n"
+                "    'target': 'new',\n"
+                "    'context': {\n"
+                "        'mass_editing_object': %d,\n"
+                "        'active_model': context.get('active_model'),\n"
+                "        'active_ids': context.get('active_ids'),\n"
+                "    },\n"
                 "}\n"
-            ) % (window_action_id, self.id),
+            ) % (button_name, self.id),
         }).id
 
         # Register both in ir.model.data
