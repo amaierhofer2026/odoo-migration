@@ -120,6 +120,7 @@ class MassEditingWizard(models.TransientModel):
                         })
             # Patch _fields with dynamic fields so onchange works
             for fname, fdef in dynamic_fields.items():
+                fdef.name = fname
                 self._fields[fname] = fdef
             for f in all_fields.values():
                 f.setdefault("views", {})
