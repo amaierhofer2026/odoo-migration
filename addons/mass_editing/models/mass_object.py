@@ -72,7 +72,11 @@ class MassObject(models.Model):
             'state': 'code',
             'code': (
                 "action = env['ir.actions.act_window'].browse(%d).read()[0]\n"
-                "action['context'] = {'mass_editing_object': %d}\n"
+                "action['context'] = {\n"
+                "    'mass_editing_object': %d,\n"
+                "    'active_model': context.get('active_model'),\n"
+                "    'active_ids': context.get('active_ids'),\n"
+                "}\n"
             ) % (window_action_id, self.id),
         }).id
 
