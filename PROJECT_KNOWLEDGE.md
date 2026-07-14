@@ -2004,6 +2004,8 @@ Urlaubsantrag (Time Off) erstellt.
 - ✅ Mail-Template "AV ITK - Neuer Urlaubsantrag eingereicht" erstellt
 - ✅ base.automation mit trigger=on_create + action_server_ids
 - ✅ ir.actions.server mit state=mail_post
+- ✅ Vollständiger API-Test (Hermes): Allocation→Leave→Approve→Validate→Refuse
+- ✅ Automatische E-Mail on_create an ronald.sallmann@it-kommunal.at gesendet
 
 29/56 Module migriert.
 
