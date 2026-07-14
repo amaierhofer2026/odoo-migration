@@ -61,6 +61,14 @@ class MassObject(models.Model):
             'binding_type': 'action',
             'binding_view_types': 'list',
         }).id
+        # Create ir.model.data entry so Odoo 18 shows the action in UI
+        self.env['ir.model.data'].create({
+            'module': 'mass_editing',
+            'name': 'action_mass_editing_%d' % self.id,
+            'model': 'ir.actions.act_window',
+            'res_id': vals['ref_ir_act_window_id'],
+            'noupdate': True,
+        })
         self.write(vals)
         return True
 
