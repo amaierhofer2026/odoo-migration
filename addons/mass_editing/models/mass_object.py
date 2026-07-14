@@ -46,30 +46,62 @@ class MassObject(models.Model):
 
     def create_action(self):
         self.ensure_one()
-        vals = {}
         action_obj = self.env['ir.actions.act_window']
+        server_obj = self.env['ir.actions.server']
         src_obj = self.model_id.model
         button_name = _('Mass Editing (%s)') % self.name
-        vals['ref_ir_act_window_id'] = action_obj.create({
+
+        # Create window action (the actual wizard opener, no binding)
+        window_action_id = action_obj.create({
             'name': button_name,
             'type': 'ir.actions.act_window',
             'res_model': 'mass.editing.wizard',
             'context': "{'mass_editing_object' : %d}" % (self.id),
             'view_mode': 'form',
             'target': 'new',
+        }).id
+
+        # Create server action that binds to the model (Odoo 18 requires
+        # ir.actions.server for dynamically created actions to appear in UI)
+        server_action_id = server_obj.create({
+            'name': button_name,
+            'model_id': self.model_id.id,
             'binding_model_id': self.model_id.id,
             'binding_type': 'action',
             'binding_view_types': 'list',
+            'state': 'code',
+            'code': (
+                "action = env['ir.actions.act_window'].browse(%d).read()[0]\n"
+                "action['context'] = {'mass_editing_object': %d}\n"
+            ) % (window_action_id, self.id),
         }).id
-        # Create ir.model.data entry so Odoo 18 shows the action in UI
+
+        # Register both in ir.model.data
         self.env['ir.model.data'].create({
             'module': 'mass_editing',
-            'name': 'action_mass_editing_%d' % self.id,
+            'name': 'action_window_mass_editing_%d' % self.id,
             'model': 'ir.actions.act_window',
-            'res_id': vals['ref_ir_act_window_id'],
+            'res_id': window_action_id,
             'noupdate': True,
         })
-        self.write(vals)
+        self.env['ir.model.data'].create({
+            'module': 'mass_editing',
+            'name': 'action_server_mass_editing_%d' % self.id,
+            'model': 'ir.actions.server',
+            'res_id': server_action_id,
+            'noupdate': True,
+        })
+
+        # Store the window action ID (used by unlink_action)
+        self.write({'ref_ir_act_window_id': window_action_id})
+        # Also need to track the server action for cleanup
+        self.env['ir.model.data'].create({
+            'module': 'mass_editing',
+            'name': 'action_server_ref_%d' % self.id,
+            'model': 'ir.actions.server',
+            'res_id': server_action_id,
+            'noupdate': True,
+        })
         return True
 
     def unlink_action(self):
