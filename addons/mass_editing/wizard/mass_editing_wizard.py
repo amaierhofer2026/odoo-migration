@@ -1,8 +1,8 @@
-
 from lxml import etree
 
 import odoo.tools as tools
 from odoo import api, fields, models
+from odoo.http import request
 
 
 class MassEditingWizard(models.TransientModel):
@@ -16,10 +16,11 @@ class MassEditingWizard(models.TransientModel):
     def get_view(self, view_id=None, view_type='form', **options):
         result = super(MassEditingWizard, self).get_view(
             view_id=view_id, view_type=view_type, **options)
-        # Use the stored field value as fallback if context doesn't have it
+        # Try context first, then request.session, then default_get
         mass_obj_id = self.env.context.get('mass_editing_object')
+        if not mass_obj_id and request:
+            mass_obj_id = request.session.get('mass_editing_object_id')
         if not mass_obj_id:
-            # Try default_get — this works because the field has a default
             defaults = self.default_get(['mass_editing_object_id'])
             mass_obj_id = defaults.get('mass_editing_object_id')
         if mass_obj_id:
