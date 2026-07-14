@@ -79,11 +79,11 @@ class MassObject(models.Model):
                 "    'target': 'new',\n"
                 "    'context': {\n"
                 "        'mass_editing_object': %d,\n"
-                "        'active_model': env.context.get('active_model'),\n"
-                "        'active_ids': env.context.get('active_ids'),\n"
+                "        'active_model': '%s',\n"
+                "        'active_ids': env.context.get('active_ids', []),\n"
                 "    },\n"
                 "}\n"
-            ) % (button_name, self.id),
+            ) % (button_name, self.id, src_obj),
         }).id
 
         # Register both in ir.model.data
