@@ -2191,3 +2191,49 @@ JSON-RPC aus DB gelöscht. `itk_translation` liefert jetzt nur noch Menüs; alle
 Partner-Views kommen von `itk_crm`.
 
 ---
+
+### Session 48: server_action_mass_edit (OCA) + 20 Massenbearbeitungen aus Odoo 11
+
+**Datum:** 15.07.2026
+
+#### server_action_mass_edit (OCA/server-ux, Branch 18.0)
+- Technischer Name: `server_action_mass_edit`, Version 18.0.1.1.3
+- Funktioniert via `ir.actions.server` + `ir.actions.server.mass.edit.line`
+- OWL-kompatibles JavaScript
+- Installation: `button_immediate_install` mit 120s Timeout (Registry-Neubau In-Process, KEIN Server-Restart)
+
+#### docker-compose.yml
+- `init: true` für korrektes Signal-Handling (tini als PID1)
+- Kein command: nötig — Installation via API
+
+#### 20 Massenbearbeitungen aus Odoo 11 migriert
+| ID | Name | Feld |
+|----|------|------|
+| 1304 | Zuweisung Preisliste NÖ (res.partner) | property_product_pricelist |
+| 1305 | Zuweisung zu Preisliste (sale.order) | pricelist_id |
+| 1306 | Recurring Total (sale.subscription.line) | quantity |
+| 1307 | Angebot zu Auftrag (sale.order) | state |
+| 1308 | Status Kunde (res.partner) | status_of_partner_id |
+| 1309 | Zahlungsbedingungen setzen (sale.order) | payment_term_id |
+| 1310 | Startdatum nächster Leistungszeitraum (sale.subscription) | recurring_next_date |
+| 1311 | Abo-Status ändern (sale.subscription) | state |
+| 1312 | Produktkategorie zuweisen (product.product) | categ_id |
+| 1313 | Valorisierungstext ändern (account.move) | valorisierung_id |
+| 1314 | Zahlungsbedingungen Abrechnung (account.move) | invoice_payment_term_id |
+| 1315 | Rechnungsdatum Abrechnung (account.move) | invoice_date |
+| 1316 | Datum nächste Rechnung (sale.subscription) | recurring_next_date |
+| 1317 | Leistungszeitraum setzen (account.move) | sale_order_benefit_period |
+| 1318 | Projektkategorie setzen (account.move) | projectcategory_id |
+| 1319 | Tag-Zuweisung (res.partner) | category_id |
+| 1320 | Produktinteresse setzen (crm.lead) | x_Produktinteresse |
+| 1321 | Lead Quelle setzen (crm.lead) | x_Lead_Quelle |
+| 1322 | Interessent Stichwort setzen (crm.lead) | tag_ids |
+| 1323 | Interessent Lead Status (crm.lead) | x_lead_status |
+
+#### Modell-Änderungen
+- `account.invoice` → `account.move`, `date_invoice` → `invoice_date`, `payment_term_id` → `invoice_payment_term_id`
+- Neue CRM-x-Felder: x_Produktinteresse, x_Lead_Quelle, x_lead_status
+
+31/56 Module funktionsfähig (server_action_mass_edit + 20 Aktionen erstellt).
+
+---
