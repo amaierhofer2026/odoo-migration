@@ -2180,4 +2180,14 @@ Effektiv: 29/56 funktionsfähig, 3 geparkt, 24+ ausstehend.
 
 30/56 Module funktionsfähig (33 migriert, 3 geparkt, 23 ausstehend).
 
+#### Nachtrag Session 47: Dubletten-Fix — res_partner.xml aus Manifest entfernt
+
+**Problem:** Community Information Tab und Spalten (GKZ/Status) erschienen doppelt.
+**Ursache:** `itk_crm` UND `itk_translation` definierten dieselben View-XML-IDs
+(`res_partner_searchview_customization_itk`, `view_partner_itk_tree`, `view_partner_form_itk`)
+als separate `ir.ui.view`-Records → Odoo wendete BEIDE inherited Views an.
+**Fix:** `res_partner.xml` aus Manifest-`data` entfernt + 3 doppelte View-Records per
+JSON-RPC aus DB gelöscht. `itk_translation` liefert jetzt nur noch Menüs; alle
+Partner-Views kommen von `itk_crm`.
+
 ---
