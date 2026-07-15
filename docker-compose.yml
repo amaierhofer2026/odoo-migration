@@ -13,6 +13,7 @@ services:
   odoo:
     image: odoo:18
     container_name: odoo18
+    init: true
     depends_on:
       - db
     ports:
@@ -23,5 +24,4 @@ services:
       PASSWORD: odoo
     volumes:
       - ./addons:/mnt/extra-addons
-    command: -i mass_editing
     restart: unless-stopped
