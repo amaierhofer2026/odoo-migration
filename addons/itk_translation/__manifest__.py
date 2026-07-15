@@ -21,7 +21,6 @@
     'data': [
         'security/ir.model.access.csv',
         'views/itk_menus.xml',
-        'views/res_partner.xml',
     ],
     'installable': True,
     'application': False,
