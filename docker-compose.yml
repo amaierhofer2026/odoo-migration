@@ -23,5 +23,5 @@ services:
       PASSWORD: odoo
     volumes:
       - ./addons:/mnt/extra-addons
-    command: odoo -u mass_editing
+    command: odoo -i mass_editing
     restart: unless-stopped
