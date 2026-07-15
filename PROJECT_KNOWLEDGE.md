@@ -2237,3 +2237,46 @@ Partner-Views kommen von `itk_crm`.
 31/56 Module funktionsfähig (server_action_mass_edit + 20 Aktionen erstellt).
 
 ---
+
+### Session 49: itk_contract – Analyse & Entscheidung gegen Migration
+
+**Datum:** 15.07.2026
+
+#### Analyse
+
+Modul `itk_contract` (Version 0.3, Alvarium Services) in Odoo 11 vollständig untersucht.
+
+**Modulinhalt:**
+- `minimum_contract_period` (Boolean) auf `account.analytic.account` — 0 Datensätze mit true
+- `recurring_invoice` + `subscription_template_id` auf `product.template` — Duplikate zu `itk_subscription`
+- View-Erweiterung für `contract.account_analytic_account_recurring_form_form` (OCA contract)
+- Keine Business-Logik, keine Server-Actions, keine Mail-Templates
+
+**Datenbankanalyse Odoo 11:**
+- `minimum_contract_period = true`: 0 Datensätze auf allen 3 Modellen (account.analytic.account, sale.subscription, project.project)
+- `contract`-Modul (OCA): state=uninstalled — war nie installiert
+- `itk_contract`: state=installed, aber Felder nie genutzt
+- `minimum_contract_period` auf `sale.subscription` stammt von `itk_subscription` (nicht von itk_contract)
+
+**Odoo 18 Status:**
+- `minimum_contract_period` auf `sale.subscription` bereits durch `itk_subscription` vorhanden
+- `recurring_invoice` + `subscription_template_id` bereits durch `itk_subscription` vorhanden
+- OCA `contract` 18.0 zwar verfügbar, aber nie genutzt und nicht nötig
+
+#### Entscheidung
+
+**itk_contract wird NICHT migriert — ersatzlos gestrichen.**
+
+Begründung:
+- Historisches, praktisch ungenutztes Modul
+- `minimum_contract_period` in Odoo 11 bei 0 Datensätzen gesetzt
+- Keine Business-Logik, Serveraktionen, Automatisierungen oder Mailvorlagen
+- OCA contract war in Odoo 11 nie installiert
+- Relevante Felder und Funktionen sind bereits in `itk_subscription` für Odoo 18 enthalten
+- Eine Migration würde unnötige doppelte Vertragslogik erzeugen
+
+**Archivierung:** Modul von `odoo11 module/itk_contract/` nach `geparkt/itk_contract/` verschoben (nicht gelöscht).
+
+31/56 Module funktionsfähig (32 migriert, 3 geparkt, 1 gestrichen, 22 ausstehend).
+
+---
