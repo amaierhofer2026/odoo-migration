@@ -2135,3 +2135,49 @@ Erfordert später einen Neu-Ansatz mit OWL-Widget statt dynamischem get_view/fie
 Effektiv: 29/56 funktionsfähig, 3 geparkt, 24+ ausstehend.
 
 ---
+
+### Session 47: itk_translation migriert nach Odoo 18 (ITK-Partner-Views + Menüs)
+
+**Datum:** 14.07.2026
+**Modul:** `itk_translation` (NEU migriert – 33. Modul)
+**Art:** Reines View-/Menü-Modul — kein aktiver Python-Code.
+
+#### Was das Modul macht
+- Erweitert `res.partner`-Views mit ITK-Feldern (GKZ/ref, Status, Community-Info-Tab)
+- Search-View: Filter nach Community Code + Status
+- Tree-View: GKZ, Salesperson, Status
+- Form-View: Characteristics-Gruppe, Community-Information-Tab, Adress-Layout
+- ITK-Menü: Top-Level "ITK-Menu" mit Partner/Reseller-Untermenüs
+- 6 Actions: All/Actual/Former/Target Customers, Resellers, Magnitudes
+
+#### Odoo-18-Anpassungen (feature-erhaltend)
+1. **Manifest:** Version 0.1→18.0.1.0.0, Coding-Header entfernt, license/installable/application, depends: base+itk_crm
+2. **res_partner.xml:** ALLE `attrs=`→`invisible=`/`readonly=`, `<data>`-Wrapper entfernt,
+   `oe_edit_only`→`o_edit_only`, `mode="extension"` entfernt, `groups_id`/`field_parent` entfernt,
+   `company_name`-Feldblock entfernt (existiert in Odoo 18 nicht),
+   `open_parent`-Button entfernt (existiert nicht),
+   XPath `customer`→`website` (customer-Feld in Odoo 18 entfernt)
+3. **itk_menus.xml:** `<openerp>`→`<odoo>`, `<act_window>`-Shortcuts→`<record>`-Syntax,
+   `view_mode tree,kanban,form`→`list,kanban,form`,
+   Domains `customer=True`→`customer_rank>0`
+4. **models/models.py:** Coding-Header entfernt (leer)
+5. **controllers/controllers.py:** Coding-Header entfernt (alles auskommentiert)
+6. **security/ir.model.access.csv:** Leere CSV durch gültigen Header ersetzt (Odoo 18 crasht bei leerer CSV)
+
+#### Pitfalls
+- Leere `ir.model.access.csv` crasht in Odoo 18 mit `StopIteration` — braucht mindestens Header-Zeile
+- `customer`-Feld in Odoo 18 komplett entfernt → XPath-Anker auf `website` umgestellt
+- `supplier_rank`/`customer_rank` sind invisible=1 im Formular — XPath findet sie nicht
+
+#### Verifikation
+- ✅ Modul installiert (state=installed, v18.0.1.0.0)
+- ✅ ITK-Partner-Views: Search, Tree, Form
+- ✅ ITK-Menu: Top-Level mit Partner/Reseller-Untermenüs
+- ✅ 6 Actions mit korrekten Domains (customer_rank>0 statt customer=True)
+
+#### Geänderte Dateien (beide Kopien synchron)
+- `addons/itk_translation/` (komplettes Modul aus odoo11 module/ kopiert + migriert)
+
+30/56 Module funktionsfähig (33 migriert, 3 geparkt, 23 ausstehend).
+
+---
