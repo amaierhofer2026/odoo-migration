@@ -45,7 +45,7 @@ Migration aller Odoo-Module von **Version 11 nach Version 18** für ITK (IT Komm
 | `itk_automated_actions` | ✅ Migriert, installiert · Automatisierte E-Mail bei Urlaubsanträgen (base.automation) | 18.0.1.0.0 |
 | `website_cookie_notice` | ✅ Migriert, installiert · Cookie-Zustimmungsbanner auf der Website (Template + JS) | 18.0.1.0.0 |
 | `hr_holidays_public` | ✅ Migriert, installiert · Public-Holiday-Management + Urlaubsberechnung (Models + Wizard) | 18.0.1.0.0 |
-| `mass_editing` | ✅ Migriert, installiert · Massenbearbeitung von Datensätzen (Wizard + dynamische Forms) | 18.0.1.0.0 |
+| `mass_editing` | ⚠️ Geparkt · Dynamische Felder inkompatibel mit Odoo 18 OWL (aus addons/ entfernt, liegt in geparkt/) | 18.0.1.0.0 |
 
 ➕ **24 weitere Module** in `odoo11 module/` (Originalquellen) warten auf Migration.
 
@@ -53,7 +53,8 @@ Migration aller Odoo-Module von **Version 11 nach Version 18** für ITK (IT Komm
 
 ```
 odoo-migration/
-├── addons/              → 32 Odoo-Addons (30 funktionsfähig + 2 geparkt)
+├── addons/              → 31 Odoo-Addons (29 funktionsfähig + 2 geparkt)
+├── geparkt/             → 1 geparktes Modul (mass_editing)
 ├── config/              → Odoo-Konfiguration
 ├── odoo11 module/       → 33 Odoo-11-Originalquellen
 ├── postgres/            → PostgreSQL-Datenbank

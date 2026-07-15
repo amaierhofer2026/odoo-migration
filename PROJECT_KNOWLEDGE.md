@@ -2098,3 +2098,40 @@ Siehe Commit-Historie für Details.
 32/56 Module migriert (30 funktionsfähig + 2 geparkt).
 
 ---
+
+### Session 46: mass_editing geparkt — dynamische Felder inkompatibel mit Odoo 18
+
+**Datum:** 14.07.2026
+**Modul:** `mass_editing` (32. Modul, GEPARKT)
+**Grund:** Das Modul erwies sich nach ~20 Fix-Commits als nicht stabil lauffähig.
+
+#### Kernproblem
+Der Wizard (`mass.editing.wizard`) baut seine Formular-Felder dynamisch per `get_view()`-
+und `fields_get()`-Override auf Basis der ausgewählten `mass.object`-Konfiguration.
+In Odoo 11 funktionierte das mit `fields_view_get()`, aber in Odoo 18 gibt es fundamentale
+Probleme mit:
+
+1. **Dynamischen Felddefinitionen** — feste `select_1-3`/`value_1-3` Felder deren Typ
+   erst zur Laufzeit gesetzt wird; Odoo 18 validiert Felder strikter
+2. **Kontext-Propagation** — `active_model`/`active_ids` verschwinden zwischen
+   Server-Action → act_window → Wizard (braucht Workarounds via `ir.config_parameter`)
+3. **`_search`-Bug** — der Odoo-18-`ir.attachment._search`-Bug breitet sich auf
+   andere Models aus und crasht Suchabfragen
+
+#### Entscheidung
+Modul wird komplett aus `addons/` entfernt und in `geparkt/` verschoben (analog zu
+`web_tree_resize_column`). Deinstallation in Odoo erfolgreich (state=uninstalled).
+Erfordert später einen Neu-Ansatz mit OWL-Widget statt dynamischem get_view/fields_get.
+
+#### Zähler
+- **31 Module** in `addons/` (29 funktionsfähig + 2 geparkt: web_group_expand, web_tree_resize_column)
+- **1 Modul** in `geparkt/` (mass_editing)
+- **25 Module** in `odoo11 module/` warten auf Migration
+
+#### Geänderte Dateien (beide Kopien synchron)
+- `addons/mass_editing/` → `geparkt/mass_editing/` (VERSCHOBEN)
+- `README.md`, `PROJECT_KNOWLEDGE.md`
+
+Effektiv: 29/56 funktionsfähig, 3 geparkt, 24+ ausstehend.
+
+---
