@@ -2087,3 +2087,14 @@ Nach Installation von `website_cookie_notice` wurde die Odoo-Login-Seite
 
 ---
 
+
+### Session 43-45: mass_editing + hr_holidays_public migriert (31.-32. Modul)
+
+Siehe Commit-Historie für Details.
+- `hr_holidays_public`: hr.holidays→hr.leave, @api.multi, from_string→to_date, <tree>→<list>
+- `mass_editing`: fields_view_get→get_view, attrs→invisible, dynamische Felder→feste select_1-3/value_1-3
+- Infrastruktur: Asset-Bundle-Fix, ir.attachment-Bug mit skip_res_field_check
+
+32/56 Module migriert (30 funktionsfähig + 2 geparkt).
+
+---
