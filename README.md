@@ -77,6 +77,7 @@ Das **PROJECT_KNOWLEDGE.md** enthält:
 | Komponente | Adresse / Zugang |
 |---|---|
 | Odoo 18 | http://localhost:8069 |
+| Odoo 11 (Referenz) | https://93.189.28.204 (DB: ITK_V1_a, Login: anna.maierhofer@it-kommunal.at) |
 | PostgreSQL | localhost:5432, User `odoo` |
 | Docker-Stack | `docker compose up -d` im Projektverzeichnis |
 
