@@ -2480,3 +2480,34 @@ Nächste Phasen:
 2. Datenmigration aus Odoo 11 (laut `DATA_MIGRATION_CHECKLIST.md`)
 
 ---
+
+### Session 55: OCA helpdesk_mgmt + helpdesk_mgmt_timesheet installiert
+
+**Datum:** 16.07.2026
+**Art:** Installation (OCA-Module aus 18.0-Branch)
+**Auslöser:** In Session 53 wurde entschieden: website_support → OCA helpdesk_mgmt
+
+#### Installierte Module
+
+| # | Modul | Quelle | Version | Depends |
+|---|---|---|---|---|
+| 1 | `helpdesk_mgmt` | OCA/helpdesk 18.0 | 18.0.1.17.1 | mail, portal |
+| 2 | `helpdesk_mgmt_project` | OCA/helpdesk 18.0 | 18.0.1.3.0 | helpdesk_mgmt, project |
+| 3 | `project_timesheet_time_control` | OCA/project 18.0 | 18.0.1.0.7 | hr_timesheet, project |
+| 4 | `helpdesk_mgmt_timesheet` | OCA/helpdesk 18.0 | 18.0.1.1.3 | helpdesk_mgmt_project, hr_timesheet, project_timesheet_time_control |
+
+#### Installation
+- Alle 4 Module via `git sparse-checkout` aus OCA-Repos geholt
+- `button_immediate_install` via JSON-RPC (120s Timeout), alle erfolgreich
+- Installationsreihenfolge: helpdesk_mgmt → helpdesk_mgmt_project → project_timesheet_time_control → helpdesk_mgmt_timesheet
+
+#### Ergebnis
+- ✅ OCA Helpdesk-System vollständig installiert
+- ✅ Tickettypen, Teams, Stages, Kategorien, Kanäle, Tags konfigurierbar
+- ✅ Zeiterfassung via `helpdesk_mgmt_timesheet` integriert (hr_timesheet + Projektaufgaben)
+- ⏳ UI-Test ausstehend (Anna)
+
+**Migriert:** 32+4 = 36 Module funktionsfähig
+**Gesamtübersicht:** 57 analysiert → 36 migriert, 24 geparkt, 1 gestrichen
+
+---

@@ -61,8 +61,12 @@ Migration aller Odoo-Module von **Version 11 nach Version 18** für ITK (IT Komm
 || `web_responsive` | ⚠️ Geparkt · Odoo 18 ist nativ responsive (Bootstrap 5 + OWL) | — |
 || `itk_fix_import` | ⚠️ Geparkt · Einmal-Fix ("DO NOT INSTALL AGAIN") | — |
 || `itk_main_company_import` | ⚠️ Geparkt · `installable: False`, Firmendaten manuell konfiguriert | — |
+|| `helpdesk_mgmt` | ✅ Installiert (OCA 18.0) · Helpdesk-Ticketsystem (Ersatz für website_support) | 18.0.1.17.1 |
+|| `helpdesk_mgmt_project` | ✅ Installiert (OCA 18.0) · Helpdesk-Projektverknüpfung | 18.0.1.3.0 |
+|| `project_timesheet_time_control` | ✅ Installiert (OCA 18.0) · Zeiterfassungskontrolle | 18.0.1.0.7 |
+|| `helpdesk_mgmt_timesheet` | ✅ Installiert (OCA 18.0) · Helpdesk-Zeiterfassung | 18.0.1.1.3 |
 
-**Modul-Analyse abgeschlossen:** 57 Module analysiert → 32 migriert, 24 geparkt, 1 gestrichen.
+**Modul-Analyse abgeschlossen:** 57 Module analysiert → 36 migriert, 24 geparkt, 1 gestrichen.
 
 ## Geparkte/Archivierte Module
 
@@ -95,7 +99,7 @@ Abhängigkeiten und Importwege pro Datenbereich.
 
 ```
 odoo-migration/
-├── addons/              → 32 Odoo-Addons (30 funktionsfähig + 2 geparkt)
+├── addons/              → 36 Odoo-Addons (34 funktionsfähig + 2 geparkt)
 ├── geparkt/             → 25 geparkte/archivierte Module
 ├── config/              → Odoo-Konfiguration
 ├── odoo11 module/       → 0 verbleibende Odoo-11-Quellen (alle analysiert)
