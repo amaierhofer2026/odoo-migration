@@ -2372,3 +2372,43 @@ Migration_Referenzen/
 32/56 Module funktionsfähig (32 migriert, 13 geparkt, 1 gestrichen, 12 ausstehend).
 
 ---
+
+### Session 52: bi_crm_claim — Analyse & Entscheidung gegen Migration
+
+**Datum:** 15.07.2026
+
+#### Analyse
+
+Modul `bi_crm_claim` (BrowseInfo, Version 11.0.0.1, Lizenz OPL-1):
+
+**Modelle:**
+- `crm.claim` — Claim-Subject, Description, Resolution, Priority, Stage, Category, Partner, Follow-Up
+- `crm.claim.stage` — Name, Sequence, Teams
+- `crm.claim.category` — Name, Team
+
+**Erweiterungen:**
+- `res.partner` → Smart-Button „Claims" + `claim_count`
+
+**Views/Menüs:**
+- Tree/Form/Calendar für Claims
+- Menüs unter Verkauf → Konfiguration → After-Sale → Services
+
+**Datenbank Odoo 11:**
+- `crm.claim`: **0 Datensätze**
+- `res.partner.claim_count`: 0 bei allen Partnern
+- Modul installiert, aber nie produktiv genutzt
+
+**Wichtig:** bi_crm_claim ist NICHT das ITK-Ticketsystem. Das echte Ticketsystem
+ist `website_support` (1.110 Tickets) — separat zu analysieren.
+
+#### Entscheidung
+
+**Nicht migrieren.** 0 Datensätze, keine Business-Logik, keine produktive Nutzung.
+Bei künftigem Bedarf an Ticketfunktionalität wird das nach Analyse der
+website_support-Module separat bewertet.
+
+**Archivierung:** Modul nach `geparkt/bi_crm_claim/` verschoben.
+
+32/56 Module funktionsfähig (32 migriert, 14 geparkt, 1 gestrichen, 11 ausstehend).
+
+---
