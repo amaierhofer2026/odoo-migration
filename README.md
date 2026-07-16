@@ -49,24 +49,41 @@ Migration aller Odoo-Module von **Version 11 nach Version 18** für ITK (IT Komm
 | `server_action_mass_edit` | ✅ Installiert · 20 Massenbearbeitungen aus Odoo 11 migriert | 18.0.1.1.3 |
 | `itk_translation` | ✅ Migriert, installiert · ITK-Partner-Views (GKZ/Status/Community) + ITK-Menü (Kunden/Reseller/Magnitudes) | 18.0.1.0.0 |
 
-| `itk_contract` | ❌ Gestrichen · historisches Modul (0 Datensätze, OCA contract nie installiert, Felder in itk_subscription enthalten) | — |
-| `web_tree_resize_column` | ⚠️ Geparkt · JS inkompatibel mit Odoo 18 OWL | 18.0.1.0.0 |
-| `website_support` | ❌ Ersetzt durch OCA `helpdesk_mgmt` · Ticketmigration entfällt (leerer Helpdesk) | — |
-| `website_support_analytic_timesheets` | ❌ Ersetzt durch OCA `helpdesk_mgmt_timesheet` | — |
-| `website_support_billing` | ❌ Ersetzt durch Odoo-18-Standard-Projektabrechnung | — |
-| `itk_support` | ❌ Entfällt · leeres Modul, Menüs in `itk_translation` | — |
+|| `itk_contract` | ❌ Gestrichen · historisches Modul (0 Datensätze, OCA contract nie installiert, Felder in itk_subscription enthalten) | — |
+|| `web_tree_resize_column` | ⚠️ Geparkt · JS inkompatibel mit Odoo 18 OWL | 18.0.1.0.0 |
+|| `website_support` | ❌ Ersetzt durch OCA `helpdesk_mgmt` · Ticketmigration entfällt (leerer Helpdesk) | — |
+|| `website_support_analytic_timesheets` | ❌ Ersetzt durch OCA `helpdesk_mgmt_timesheet` | — |
+|| `website_support_billing` | ❌ Ersetzt durch Odoo-18-Standard-Projektabrechnung | — |
+|| `itk_support` | ❌ Entfällt · leeres Modul, Menüs in `itk_translation` | — |
+|| `hr_holiday_exclude_special_days` | ⚠️ Geparkt · `hr_holidays_public` deckt Public-Holiday-Management bereits ab | — |
+|| `itk_update_population` | ⚠️ Geparkt · Historische Einmal-Aktualisierung (2018), Datenimport-Modul | — |
+|| `mail_activity_board` | ⚠️ Geparkt · JS/QWeb inkompatibel mit Odoo 18 OWL | — |
+|| `web_responsive` | ⚠️ Geparkt · Odoo 18 ist nativ responsive (Bootstrap 5 + OWL) | — |
+|| `itk_fix_import` | ⚠️ Geparkt · Einmal-Fix ("DO NOT INSTALL AGAIN") | — |
+|| `itk_main_company_import` | ⚠️ Geparkt · `installable: False`, Firmendaten manuell konfiguriert | — |
 
-➕ **6 weitere Module** in `odoo11 module/` warten auf Analyse.
+**Modul-Analyse abgeschlossen:** 57 Module analysiert → 32 migriert, 24 geparkt, 1 gestrichen.
 
 ## Geparkte/Archivierte Module
 
-| Modul | Grund |
-|---|---|
-| `itk_contract` | Gestrichen · 0 Datensätze, Felder in itk_subscription enthalten |
-| `web_tree_resize_column` | JS inkompatibel mit Odoo 18 OWL |
-| `web_group_expand` | JS inkompatibel mit Odoo 18 OWL |
-| `mass_editing` | Ersetzt durch `server_action_mass_edit` (OCA) |
-| 9× `itk_initial_*` / `itk_data_setup` | Datenimport-Module → Daten über CSV migrieren (siehe DATA_MIGRATION_CHECKLIST.md) |
+|| Modul | Grund |
+||---|---|
+|| `itk_contract` | Gestrichen · 0 Datensätze, Felder in itk_subscription enthalten |
+|| `web_tree_resize_column` | JS inkompatibel mit Odoo 18 OWL |
+|| `web_group_expand` | JS inkompatibel mit Odoo 18 OWL |
+|| `mass_editing` | Ersetzt durch `server_action_mass_edit` (OCA) |
+|| `mail_activity_board` | JS/QWeb inkompatibel mit Odoo 18 OWL |
+|| `web_responsive` | Odoo 18 nativ responsive (Bootstrap 5 + OWL) |
+|| `hr_holiday_exclude_special_days` | `hr_holidays_public` bereits migriert |
+|| `itk_fix_import` | Einmal-Fix ("DO NOT INSTALL AGAIN") |
+|| `itk_main_company_import` | `installable: False`, Firmendaten manuell |
+|| `itk_update_population` | Historische Einmal-Aktualisierung (2018) |
+|| 9× `itk_initial_*` / `itk_data_setup` | Datenimport-Module → Daten über CSV migrieren (siehe DATA_MIGRATION_CHECKLIST.md) |
+|| `bi_crm_claim` | 0 Datensätze, nie produktiv genutzt |
+|| `website_support` | Ersetzt durch OCA `helpdesk_mgmt` |
+|| `website_support_analytic_timesheets` | Ersetzt durch OCA `helpdesk_mgmt_timesheet` |
+|| `website_support_billing` | Ersetzt durch Odoo-18-Standard-Projektabrechnung |
+|| `itk_support` | Leeres Modul, Menüs in `itk_translation` |
 
 ## Datenmigration
 
@@ -79,9 +96,9 @@ Abhängigkeiten und Importwege pro Datenbereich.
 ```
 odoo-migration/
 ├── addons/              → 32 Odoo-Addons (30 funktionsfähig + 2 geparkt)
-├── geparkt/             → 1 geparktes Modul (mass_editing)
+├── geparkt/             → 25 geparkte/archivierte Module
 ├── config/              → Odoo-Konfiguration
-├── odoo11 module/       → 33 Odoo-11-Originalquellen
+├── odoo11 module/       → 0 verbleibende Odoo-11-Quellen (alle analysiert)
 ├── postgres/            → PostgreSQL-Datenbank
 ├── docker-compose.yml   → Docker-Stack (Odoo 18 + PostgreSQL 16)
 ├── PROJECT_KNOWLEDGE.md → Detailliertes Projekt-Tagebuch
