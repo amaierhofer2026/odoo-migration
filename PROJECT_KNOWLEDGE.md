@@ -2412,3 +2412,34 @@ website_support-Module separat bewertet.
 32/56 Module funktionsfähig (32 migriert, 14 geparkt, 1 gestrichen, 11 ausstehend).
 
 ---
+
+### Session 53: Support-Module — Entscheidung & Zielarchitektur
+
+**Datum:** 15.07.2026
+
+#### Entscheidung Support-Bereich
+
+**Keines der website_support-Module wird migriert.** Ersatz durch OCA helpdesk_mgmt.
+
+| Odoo 11 | Entscheidung |
+|---|---|
+| `website_support` | → OCA `helpdesk_mgmt` |
+| `website_support_analytic_timesheets` | → OCA `helpdesk_mgmt_timesheet` |
+| `website_support_billing` | → Odoo-18-Standard-Projektabrechnung |
+| `itk_support` | → Entfällt (leeres Modul, Menüs in `itk_translation`) |
+
+**Ticketmigration entfällt.** Das Odoo-18-Helpdesk startet leer (0 Tickets).
+Die 1.110 Tickets aus Odoo 11 werden nicht migriert.
+
+#### Phasenwechsel: Analyse → Zielarchitektur
+
+Die Modul-für-Modul-Analyse ist abgeschlossen. Die Gesamtübersicht
+(Odoo 11 → Odoo 18 Mapping, Phasenplan) ist in `TARGET_ARCHITECTURE.md`
+dokumentiert.
+
+**Verbleibende Module:** `hr_holiday_exclude_special_days`, `itk_update_population`,
+`mail_activity_board`, `web_responsive`, `itk_fix_import`, `itk_main_company_import`
+
+32/56 Module funktionsfähig (32 migriert, 18 geparkt, 1 gestrichen, 7 ausstehend).
+
+---

@@ -51,8 +51,12 @@ Migration aller Odoo-Module von **Version 11 nach Version 18** für ITK (IT Komm
 
 | `itk_contract` | ❌ Gestrichen · historisches Modul (0 Datensätze, OCA contract nie installiert, Felder in itk_subscription enthalten) | — |
 | `web_tree_resize_column` | ⚠️ Geparkt · JS inkompatibel mit Odoo 18 OWL | 18.0.1.0.0 |
+| `website_support` | ❌ Ersetzt durch OCA `helpdesk_mgmt` · Ticketmigration entfällt (leerer Helpdesk) | — |
+| `website_support_analytic_timesheets` | ❌ Ersetzt durch OCA `helpdesk_mgmt_timesheet` | — |
+| `website_support_billing` | ❌ Ersetzt durch Odoo-18-Standard-Projektabrechnung | — |
+| `itk_support` | ❌ Entfällt · leeres Modul, Menüs in `itk_translation` | — |
 
-➕ **13 weitere Module** in `odoo11 module/` (Originalquellen) warten auf Migration.
+➕ **6 weitere Module** in `odoo11 module/` warten auf Analyse.
 
 ## Geparkte/Archivierte Module
 
