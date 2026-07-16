@@ -52,7 +52,23 @@ Migration aller Odoo-Module von **Version 11 nach Version 18** für ITK (IT Komm
 | `itk_contract` | ❌ Gestrichen · historisches Modul (0 Datensätze, OCA contract nie installiert, Felder in itk_subscription enthalten) | — |
 | `web_tree_resize_column` | ⚠️ Geparkt · JS inkompatibel mit Odoo 18 OWL | 18.0.1.0.0 |
 
-➕ **22 weitere Module** in `odoo11 module/` (Originalquellen) warten auf Migration.
+➕ **13 weitere Module** in `odoo11 module/` (Originalquellen) warten auf Migration.
+
+## Geparkte/Archivierte Module
+
+| Modul | Grund |
+|---|---|
+| `itk_contract` | Gestrichen · 0 Datensätze, Felder in itk_subscription enthalten |
+| `web_tree_resize_column` | JS inkompatibel mit Odoo 18 OWL |
+| `web_group_expand` | JS inkompatibel mit Odoo 18 OWL |
+| `mass_editing` | Ersetzt durch `server_action_mass_edit` (OCA) |
+| 9× `itk_initial_*` / `itk_data_setup` | Datenimport-Module → Daten über CSV migrieren (siehe DATA_MIGRATION_CHECKLIST.md) |
+
+## Datenmigration
+
+Die `DATA_MIGRATION_CHECKLIST.md` enthält den vollständigen Plan für den
+Datenexport aus Odoo 11 und Import nach Odoo 18: Reihenfolge, Kontrollzahlen,
+Abhängigkeiten und Importwege pro Datenbereich.
 
 ## Struktur
 

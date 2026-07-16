@@ -2280,3 +2280,49 @@ Begründung:
 31/56 Module funktionsfähig (32 migriert, 3 geparkt, 1 gestrichen, 22 ausstehend).
 
 ---
+
+### Session 50: Datenimport-Module — Analyse & Archivierung
+
+**Datum:** 15.07.2026
+
+#### Module (alle `installable: False`, reine Erstinstallations-Datenloader)
+
+| Modul | Daten | Datensätze |
+|---|---|---|
+| `itk_data_setup` | Bundesländer, Zahlungsbedingungen, Sale-Layout-Kategorien | ~20 |
+| `itk_initial_data_import` | 2.100+ Gemeinden, Status-of-Community, GKZ/PLZ | 2.275 |
+| `itk_initial_product_import` | Produkttypen, Kategorien, UOMs, Produkte | 478 |
+| `itk_initial_partner_data_import` | Straßen, Websites, Koordinaten, Bürgermeister | ~2.100 |
+| `itk_initial_partner_nogkz_data_import` | Nicht-GKZ-Partner, Display-Name-Funktionen | ~50 |
+| `itk_initial_partner_emblem_import` | Gemeindewappen (Bilder) | 3.102 |
+| `itk_initial_abo_import` | Historische Aufträge + Abos (HA, NHA, DSGVO, BLFS, Heurigen, GOO) | 526 Orders + 510 Abos |
+| `itk_initial_data_habasis_gkz_strasse` | Straßen, Rechnungskontakte | ~500 |
+| `itk_initial_data_habasis_gszk` | GSZK-Kunden, Preislisten, Aufträge | ~150 |
+
+#### Entscheidung
+
+**Keines dieser Module wird als Odoo-18-Modul migriert.** Es sind historische
+Erstinstallations-Module, deren Daten über den normalen CSV-Export/Import nach
+Odoo 18 übernommen werden.
+
+#### Archivierung
+
+Alle 9 Module von `odoo11 module/` nach `geparkt/initial_import_modules/` verschoben.
+
+#### Datenmigrationsplan
+
+Die detaillierte Datenmigrations-Checkliste mit Importreihenfolge, Kontrollzahlen
+und Abhängigkeiten ist in `DATA_MIGRATION_CHECKLIST.md` dokumentiert.
+
+**Importreihenfolge:**
+1. Phase 1 — Stammdaten: Bundesländer ✅, Zahlungsbedingungen, Layout-Kategorien, Produktkategorien, Produkte, Preislisten
+2. Phase 2 — Partner: Gemeinden mit GKZ, Straßen/Websites, Nicht-GKZ-Kontakte, Gemeindewappen (separates Bild-Skript)
+3. Phase 3 — Geschäftsdaten: Verkaufsaufträge, Abonnements, Auftrags-Abo-Verknüpfungen
+4. Phase 4 — GSZK: GSZK-spezifische Konfiguration manuell
+
+**Wichtig:** Keine Daten wurden exportiert oder importiert. Die Checkliste ist
+die Planungsgrundlage für die spätere Gesamtdatenmigration.
+
+32/56 Module funktionsfähig (32 migriert, 12 geparkt, 1 gestrichen, 13 ausstehend).
+
+---
