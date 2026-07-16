@@ -1,6 +1,28 @@
 # Datenmigrations-Checkliste: Odoo 11 → Odoo 18
 
 > Diese Checkliste ersetzt die historischen `itk_initial_*`-Module und `itk_data_setup`.
+> Ergänzt um Nummernkreise aus `itk_misc` und Konfigurationsreferenzen aus `Migration_Referenzen/`.
+
+## Phase 0: Konfiguration vor Datenimport
+
+### 0.1 Nummernkreise (Sequenzen) ⚠️ KRITISCH
+
+> Quelle: Odoo-11-DB + `Migration_Referenzen/Sequenzen/itk_nummernkreise.md`
+
+**Diese Sequenzen MÜSSEN vor dem ersten Datenimport eingerichtet werden.**
+Falsche Nummernkreise führen zu Buchhaltungsproblemen und nicht korrigierbaren
+Rechnungsnummern.
+
+| Sequenz | Code | Präfix | Padding | Date-Range |
+|---|---|---|---|---|
+| Ausgangsrechnungen | (Journal) | R-%(y)s | 3 | Ja |
+| Eingangsrechnungen | (Journal) | ER-%(y)s | 5 | Ja |
+| Angebote/Aufträge | sale.order | A-%(y)s | 5 | Ja |
+| Beschaffungsaufträge | purchase.order | E-%(y)s | 5 | Ja |
+| Nutzungsvereinbarungen | sale.subscription | NV- | 5 | Nein |
+
+**Einrichtung:** Einstellungen → Technisch → Sequenzen → Neu
+**Validierung:** Probeauftrag anlegen, Nummer muss A-20xx00001 lauten
 > Keines dieser Module wird als Odoo-18-Modul migriert — die Daten werden über
 > CSV-Export/Import bzw. Migrationsskripte übernommen.
 

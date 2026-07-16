@@ -1,0 +1,34 @@
+id,category_id/id,users/id,model_access/model_id/id,model_access/perm_read,model_access/perm_write,model_access/perm_create,model_access/perm_unlink,name,model_access/name
+itk_crm.itk_group_manager,itk_crm.module_itk_category,base.user_root,itk_crm.model_itk_crm_statusofcommunity,True,True,True,True,Manager (edit),access_itk_crm_statusofcommunity_manager
+,,,itk_crm.model_itk_crm_communitymagnitude,True,True,True,True,,access_itk_crm_communitymagnitude_manager
+,,,itk_crm.model_itk_crm_titleputinfront,True,True,True,True,,access_itk_crm_titleputinfront_manager
+,,,itk_crm.model_itk_crm_titleputinback,True,True,True,True,,access_itk_crm_titleputinback_manager
+,,,itk_crm.model_itk_crm_communitycode,True,True,True,True,,access_itk_crm_communitycode_manager
+,,,itk_valorisierung.model_itk_valorisierung_valorisierung,True,True,True,True,,access_itk_account_valorisierung_manager
+,,,itk_product.model_itk_product_product_type,True,True,True,True,,access_itk_product_type_manager
+,,,itk_product.model_product_template,True,True,True,True,,access_itk_product_template_manager
+,,,purchase.model_product_product,True,True,True,True,,access_itk_product_manager
+,,,itk_projectcategory.model_itk_projectcategory_projectcategory,True,True,True,True,,access_itk_account_projectcategory_manager
+,,,itk_crm.model_itk_crm_statusofpartner,True,True,True,True,,access_itk_crm_statusofpartner_manager
+itk_subscription.group_sale_subscription_manager,itk_subscription.module_category_subscription_management,base.user_root,itk_subscription.model_sale_subscription,True,True,True,True,Manager (edit),access_sale_subscription_manager
+,,,itk_subscription.model_sale_subscription_template,True,True,True,True,,access_sale_subscription_template_manager
+,,,itk_subscription.model_sale_subscription_line,True,True,True,True,,access_sale_subscription_line_manager
+,,,itk_subscription.model_sale_subscription_close_reason,True,True,True,True,,access_sale_subscription_close_reason_manager
+,,,itk_product.model_product_template,True,True,True,True,,product.template.sale.subscription.manager
+,,,purchase.model_product_product,True,True,True,True,,product.product.sale.subscription.manager
+,,,product.model_product_price_history,True,True,True,True,,product.price.history.sale.subscription.manager
+itk_subscription.group_sale_subscription_view,itk_subscription.module_category_subscription_management,base.user_root,itk_subscription.model_sale_subscription,True,False,False,False,User (read only),access_sale_subscription_view
+,,,itk_subscription.model_sale_subscription_template,True,False,False,False,,access_sale_subscription_template_view
+,,,itk_subscription.model_sale_subscription_line,True,False,False,False,,access_sale_subscription_line_view
+,,,itk_subscription.model_sale_subscription_close_reason,True,False,False,False,,access_sale_subscription_close_reason_view
+itk_crm.itk_group_user,itk_crm.module_itk_category,base.user_root,itk_crm.model_itk_crm_statusofcommunity,True,False,False,False,User (read only),access_itk_crm_statusofcommunity_user
+,,,itk_crm.model_itk_crm_communitymagnitude,True,False,False,False,,access_itk_crm_communitymagnitude_user
+,,,itk_crm.model_itk_crm_titleputinfront,True,False,False,False,,access_itk_crm_titleputinfront_user
+,,,itk_crm.model_itk_crm_titleputinback,True,False,False,False,,access_itk_crm_titleputinback_user
+,,,itk_crm.model_itk_crm_communitycode,True,False,False,False,,access_itk_crm_communitycode_user
+,,,itk_valorisierung.model_itk_valorisierung_valorisierung,True,False,False,False,,access_itk_account_valorisation_user
+,,,itk_crm.model_itk_crm_statusofpartner,True,False,False,False,,access_itk_crm_statusofpartner_user
+,,,itk_product.model_itk_product_product_type,True,False,False,False,,access_itk_product_type_user
+,,,itk_product.model_product_template,True,False,False,False,,access_itk_product_template_user
+,,,purchase.model_product_product,True,False,False,False,,access_itk_product_user
+,,,itk_projectcategory.model_itk_projectcategory_projectcategory,True,False,False,False,,access_itk_account_projectcategroy_user

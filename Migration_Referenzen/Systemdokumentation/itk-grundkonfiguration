@@ -1,0 +1,60 @@
+itk_1 installierte odoo-Standard-Module:
+1. Kundenverwaltung         crm
+2. Verkaufsmanagement       sale_management     depends on: sale, account_invoicing
+4. Beschaffung              purchase            depends on: stock_account
+3. Mitarbeiterverzeichnis   hr                  depends on: base_setup, mail, resource, web
+4. Anwesenheitszeiten       hr_attendance       depends on: barcodes
+5. Zeiterfassung            hr_timesheet        depends on: project
+6. E-Mail-Marketing         mass_mailing        depends on: link_tracker
+7. Umfrage                  survey              depends on: website
+
+    
+itk_1 installierte odoo-Module aus odoo-Store
+Show sheets with full width web_sheet_full_width    web_sheet_full_width
+HR Employee First Name, Last Name                   hr_employee_firstname           depends on: partner_firstname   Von Savoir-faire Linux, Fekete Mihai (Forest and Biomass Services Romania), Odoo Community Association (OCA)
+Contracts Management - Recurring                    contract                                                        Von OpenERP SA, Tecnativa, LasLabs, Odoo Community Association (OCA)
+Account Invoice Line Number                         account_invoice_line_number                                     by ADHOC SA
+
+
+
+
+
+
+
+Website_slides                                                                         
+
+Project Task Material       project_task_material               by Daniel Reis, Tecnativa, Odoo Community Association (OCA)
+
+
+
+
+
+
+
+        Einstellungen ==> Allgemeine Einstellungen
+
+                Papierformat:
+                Din A4 RÄnder, Ausrichtung etc. bestimmen
+                ZUweisung der Berichte zum Papierformat
+                ==> EIntragung in "Einstellungen ==> Allgemeine Einstellungen ==> Geschäftsunterlagen ==> Papierformat"
+
+                Kopf-/Fußzeile festlegen
+                ==> EIntragung in "Einstellungen ==> Allgemeine Einstellungen ==> Dokumentenvorlage ==> Kopfzeile bearbeiten"
+
+
+                Multi-Company ????
+
+                Integration Google-Kalender
+
+                LDAP ????
+                OAuth ????
+                Mail/Mailserver ????
+
+        Einstellungen ==> Kundenverwaltung
+                Interessenten/Leads Ja/Nein ????
+
+
+
+        Einstellungen ==> Kundenverwaltung
+                
+

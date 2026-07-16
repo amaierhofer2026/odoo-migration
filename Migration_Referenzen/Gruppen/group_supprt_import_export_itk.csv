@@ -1,0 +1,33 @@
+id,category_id/id,users/id,model_access/name,model_access/model_id/id,model_access/perm_read,model_access/perm_write,model_access/perm_create,model_access/perm_unlink
+website_support.support_manager,website_support.support_application,base.user_root,support manager access website.support.ticket.states,website_support.model_website_support_ticket_states,True,True,True,True
+,,,support manager access website.support.ticket.categories,website_support.model_website_support_ticket_categories,True,True,True,True
+,,,support manager access website.support.ticket.subcategory,website_support.model_website_support_ticket_subcategory,True,True,True,True
+,,,support manager access website.support.help.groups,website_support.model_website_support_help_groups,True,True,True,True
+,,,support manager access website.support.help.page,website_support.model_website_support_help_page,True,True,True,True
+,,,support manager access website.support.help.page.feedback,website_support.model_website_support_help_page_feedback,True,True,True,True
+,,,support manager access website.support.ticket.priority,website_support.model_website_support_ticket_priority,True,True,True,True
+,,,support manager access website.support.ticket.tag,website_support.model_website_support_ticket_tag,True,True,True,True
+,,,access website.support.department.contact,website_support.model_website_support_department_contact,True,True,True,True
+,,,support manager access website.support.ticket.subcategory.field,website_support.model_website_support_ticket_subcategory_field,True,True,True,True
+,,,support manager access website.support.sla,website_support.model_website_support_sla,True,True,True,True
+,,,support manager access website.support.sla.response,website_support.model_website_support_sla_response,True,True,True,True
+,,,support manager access website.support.sla.alert,website_support.model_website_support_sla_alert,True,True,True,True
+,,,support manager access ir.rule,base.model_ir_rule,True,False,False,False
+,,,support manager access ir.config_parameter,base.model_ir_config_parameter,True,False,False,False
+,,,support manager access res.users,partner_firstname.model_res_users,True,False,True,False
+website_support.support_staff,website_support.support_application,base.user_root,access website.support.ticket,website_support_analytic_timesheets.model_website_support_ticket,True,True,True,False
+,,,access website.support.ticket.compose,website_support.model_website_support_ticket_compose,True,True,True,False
+,,,support staff access website.support.ticket.states,website_support.model_website_support_ticket_states,True,False,False,False
+,,,access website.support.ticket.message,website_support.model_website_support_ticket_message,True,False,True,False
+,,,support staff access website.support.ticket.categories,website_support.model_website_support_ticket_categories,True,False,False,False
+,,,support staff access website.support.ticket.subcategory,website_support.model_website_support_ticket_subcategory,True,False,False,False
+,,,support staff access website.support.ticket.priority,website_support.model_website_support_ticket_priority,True,False,False,False
+,,,support staff access website.support.ticket.tag,website_support.model_website_support_ticket_tag,True,False,False,False
+,,,support staff access website.support.ticket.close,website_support.model_website_support_ticket_close,True,True,True,True
+,,,access website.support.ticket.approval,website_support.model_website_support_ticket_approval,True,True,True,True
+,,,support staff access website.support.ticket.subcategory.field,website_support.model_website_support_ticket_subcategory_field,True,False,False,False
+,,,support staff access website.support.ticket.field,website_support.model_website_support_ticket_field,True,True,True,True
+,,,support staff access website.support.sla,website_support.model_website_support_sla,True,False,False,False
+,,,support staff access website.support.sla.response,website_support.model_website_support_sla_response,True,False,False,False
+,,,support staff access website.support.sla.alert,website_support.model_website_support_sla_alert,True,False,False,False
+website_support.support_group,website_support.support_application,base.user_root,,,,,,

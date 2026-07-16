@@ -2326,3 +2326,49 @@ die Planungsgrundlage für die spätere Gesamtdatenmigration.
 32/56 Module funktionsfähig (32 migriert, 12 geparkt, 1 gestrichen, 13 ausstehend).
 
 ---
+
+### Session 51: itk_misc — Referenzdateien statt Modul
+
+**Datum:** 15.07.2026
+
+#### Analyse
+
+`itk_misc` ist **kein Odoo-Modul** (kein `__manifest__.py`, keine Python-Dateien).
+Es ist eine Sammlung von Betriebsnotizen und Referenzdateien aus der Odoo-11-Installation.
+
+#### Für Migration relevante Inhalte
+
+| Datei | Aktion |
+|---|---|
+| `itk_nummernkreise.txt` | → `Migration_Referenzen/Sequenzen/` + Checkliste |
+| `itk-grundkonfiguration` | → `Migration_Referenzen/Systemdokumentation/` |
+| `group_import_export_itk.csv` | → `Migration_Referenzen/Gruppen/` |
+| `group_supprt_import_export_itk.csv` | → `Migration_Referenzen/Gruppen/` |
+| `price_lists_external_ids.ods` | → `Migration_Referenzen/Preislisten/` |
+
+#### Nummernkreise
+
+Die 5 ITK-Nummernkreise wurden aus der Odoo-11-DB ausgelesen und als
+**Phase 0** in die `DATA_MIGRATION_CHECKLIST.md` aufgenommen:
+
+- Rechnungen: R-%(y)s
+- Angebote: A-%(y)s
+- Bestellungen: E-%(y)s
+- Nutzungsvereinbarungen: NV-
+- Eingangsrechnungen: ER-%(y)s
+
+**Wichtig:** Diese Sequenzen MÜSSEN vor dem ersten Datenimport eingerichtet werden.
+
+#### Neue Ordnerstruktur
+
+```
+Migration_Referenzen/
+├── Sequenzen/          # Nummernkreise (Original + aufbereitet)
+├── Gruppen/            # Benutzergruppen-Exporte
+├── Preislisten/        # Preislisten-External-IDs
+└── Systemdokumentation/# Grundkonfiguration
+```
+
+32/56 Module funktionsfähig (32 migriert, 13 geparkt, 1 gestrichen, 12 ausstehend).
+
+---
