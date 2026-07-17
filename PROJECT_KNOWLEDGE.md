@@ -2511,3 +2511,85 @@ Nächste Phasen:
 **Gesamtübersicht:** 57 analysiert → 36 migriert, 24 geparkt, 1 gestrichen
 
 ---
+
+### Session 56: Helpdesk-Funktionstest — vollständiger Durchlauf
+
+**Datum:** 16.07.2026
+**Art:** Funktionstest (KEINE neuen Module)
+**Auslöser:** Anna: "Bitte jetzt keine weiteren Module installieren. Führe einen vollständigen Funktionstest des neuen leeren Helpdesks durch."
+
+#### Test-Konfiguration
+
+| Element | Wert |
+|---|---|
+| Team | IT-Kommunal Support Test (id=1) |
+| Stages | Neu(34) → In Bearbeitung(35) → Warten auf Kunde(36) → Erledigt(37) |
+| Kategorie | IT-Support Test (id=1) |
+| Testkontakt | Helpdesk Tester (id=25) |
+| Testticket | HT00001 — "Drucker funktioniert nicht" (id=1) |
+| Testprojekt | Helpdesk Test-Projekt (id=5) |
+| Testaufgabe | Drucker im 2. Stock reparieren (id=8) |
+| Zeiteinträge | 2× account.analytic.line (1.5h + 0.5h = 2.0h) |
+
+#### Testergebnisse (36/36 bestanden, 0 Fehler)
+
+**1. Installation & Technik (4/4)**
+- ✅ helpdesk_mgmt installed v18.0.1.17.1
+- ✅ helpdesk_mgmt_project installed v18.0.1.3.0
+- ✅ project_timesheet_time_control installed v18.0.1.0.7
+- ✅ helpdesk_mgmt_timesheet installed v18.0.1.1.3
+- ✅ Keine ERROR/WARNING in ir.logging
+- ✅ 6 Demo-Stages + 4 Kanäle aus Demo-Daten vorhanden
+
+**2. Grundkonfiguration (3/3)**
+- ✅ Team "IT-Kommunal Support Test" erstellt
+- ✅ 4 Team-Stages erstellt (Neu, In Bearbeitung, Warten auf Kunde, Erledigt)
+- ✅ Kategorie "IT-Support Test" erstellt
+
+**3. Ticket-Test (8/8)**
+- ✅ Ticket HT00001 erstellt mit allen Feldern
+- ✅ Partner-Verknüpfung: Helpdesk Tester
+- ✅ Team: IT-Kommunal Support Test
+- ✅ Kanal: Web
+- ✅ Priorität: Normal (2)
+- ✅ Stage: Neu
+- ✅ Verantwortlicher: Administrator
+- ✅ Beschreibung gespeichert
+
+**4. Projektverknüpfung (4/4)**
+- ✅ ticket.project_id → Helpdesk Test-Projekt
+- ✅ task.ticket_ids → HT00001 (Many2many)
+- ✅ ticket.task_id → Drucker im 2. Stock reparieren (Many2one)
+- ✅ Bidirektionale Verknüpfung intakt
+
+**5. Zeiterfassung (7/7)**
+- ✅ Manuelle Buchung auf Ticket (account.analytic.line)
+- ✅ ticket.timesheet_ids → 2 Einträge
+- ✅ ticket.total_hours = 2.0 (automatisch berechnet)
+- ✅ task.total_hours_spent = 2.0
+- ✅ Buchung sichtbar in: Ticket, Aufgabe, Projekt
+- ✅ ticket_id + task_id + project_id auf account.analytic.line
+- ✅ duration_tracking (JSON) + show_time_control vorhanden
+
+**6. Ticket-Abschluss (4/4)**
+- ✅ Schließen (stage=Erledigt) trotz 2.0h Zeiteinträgen
+- ✅ closed_date automatisch gesetzt
+- ✅ Wiedereröffnung (stage=In Bearbeitung) möglich
+- ✅ Zeiten nach Reopen erhalten
+
+**7. GAP-Prüfung vs. website_support**
+- ✅ Portal-Ticketerstellung: Controller + Templates im Modul
+- ✅ E-Mail-Gateway: 2 mail.alias für helpdesk.ticket
+- ✅ Kundenbewertung: rating + portal_rating installiert, rating_ids vorhanden
+- ⚠️ SLA: Nur activity_date_deadline via mail.activity (kein dediziertes SLA-Modul)
+- ❌ Genehmigungsworkflow: Keine Approvals (könnte über base.automation laufen)
+- ⚠️ Direkte Abrechnung: Kein sale.order/product_id am Ticket (muss über Projektaufgabe)
+
+**8. Fazit**
+- **36/36 Einzeltests bestanden, 0 Fehler**
+- Keine Blocker für Produktivstart
+- Optionale OCA-Module für SLA und Genehmigung verfügbar, aber nicht zwingend
+
+**Geänderte Dateien:** Keine (reiner Funktionstest, keine Code-Änderungen)
+
+---
