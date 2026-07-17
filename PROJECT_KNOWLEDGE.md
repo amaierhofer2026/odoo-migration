@@ -2593,3 +2593,45 @@ Nächste Phasen:
 **Geänderte Dateien:** Keine (reiner Funktionstest, keine Code-Änderungen)
 
 ---
+
+### Session 57: mail_activity_board + web_responsive → Entfällt (Finalentscheidung)
+
+**Datum:** 17.07.2026
+**Art:** Finalentscheidung (KEINE Migration, KEINE neuen Module)
+
+#### Auslöser
+Anna: „Werden sie wirklich gebraucht? Wenn ja → installieren und testen. Wenn nein → endgültig als entfällt markieren. Nicht mehr geparkt."
+
+#### mail_activity_board
+
+**Analyse:**
+- Odoo-11-Modul aus OCA/social: Activity-Dashboard (Board-Ansicht für Mail-Aktivitäten)
+- `depends`: calendar, board
+- QWeb/JS: chat.py QWeb-Templates (inherit_chatter.xml)
+- **OCA/social Branch 18.0:** Modul existiert NICHT (404 auf GitHub API)
+- **Odoo 18 nativ:** Activity-System komplett überarbeitet — `mail.activity` mit Systray-Übersicht, Kanban-Ansicht, Activity-Types, Activity-Dashboard im Discuss-Modul integriert
+
+**Entscheidung: ❌ Entfällt ersatzlos.** Kein OCA-18.0-Branch, Funktionalität in Odoo 18 nativ integriert.
+
+#### web_responsive
+
+**Analyse:**
+- Odoo-11-Modul aus OCA/web: Mobile-kompatibles Interface (39 JS-Dateien, jQuery/drawer/iscroll)
+- `depends`: web
+- **Odoo 18 nativ:** Bootstrap 5 + OWL = vollständig responsive. App-Drawer, Navbar, Form-Views passen sich automatisch an.
+
+**Entscheidung: ❌ Entfällt ersatzlos.** Odoo 18 ist nativ responsive — das Modul von 2018 ist obsolet.
+
+#### Geänderte Dateien (Git)
+- `PROJECT_KNOWLEDGE.md` — Session 57 dokumentiert
+- `README.md` — Status von ⚠️ Geparkt → ❌ Entfällt, neue „Entfällt"-Sektion
+
+#### Neuer Gesamtstand
+| Kategorie | Anzahl |
+|---|---|
+| ✅ Migriert & funktionsfähig | 36 |
+| ⚠️ Geparkt | 22 |
+| ❌ Entfällt | 3 (mail_activity_board, web_responsive, itk_contract) |
+| **Gesamt** | **57** |
+
+---

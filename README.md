@@ -57,8 +57,8 @@ Migration aller Odoo-Module von **Version 11 nach Version 18** für ITK (IT Komm
 || `itk_support` | ❌ Entfällt · leeres Modul, Menüs in `itk_translation` | — |
 || `hr_holiday_exclude_special_days` | ⚠️ Geparkt · `hr_holidays_public` deckt Public-Holiday-Management bereits ab | — |
 || `itk_update_population` | ⚠️ Geparkt · Historische Einmal-Aktualisierung (2018), Datenimport-Modul | — |
-|| `mail_activity_board` | ⚠️ Geparkt · JS/QWeb inkompatibel mit Odoo 18 OWL | — |
-|| `web_responsive` | ⚠️ Geparkt · Odoo 18 ist nativ responsive (Bootstrap 5 + OWL) | — |
+|| `mail_activity_board` | ❌ Entfällt · Kein OCA-18.0-Branch, Activity-System in Odoo 18 nativ integriert | — |
+|| `web_responsive` | ❌ Entfällt · Odoo 18 ist nativ responsive (Bootstrap 5 + OWL) | — |
 || `itk_fix_import` | ⚠️ Geparkt · Einmal-Fix ("DO NOT INSTALL AGAIN") | — |
 || `itk_main_company_import` | ⚠️ Geparkt · `installable: False`, Firmendaten manuell konfiguriert | — |
 || `helpdesk_mgmt` | ✅ Installiert (OCA 18.0) · Helpdesk-Ticketsystem (Ersatz für website_support) | 18.0.1.17.1 |
@@ -66,18 +66,15 @@ Migration aller Odoo-Module von **Version 11 nach Version 18** für ITK (IT Komm
 || `project_timesheet_time_control` | ✅ Installiert (OCA 18.0) · Zeiterfassungskontrolle | 18.0.1.0.7 |
 || `helpdesk_mgmt_timesheet` | ✅ Installiert (OCA 18.0) · Helpdesk-Zeiterfassung | 18.0.1.1.3 |
 
-**Modul-Analyse abgeschlossen:** 57 Module analysiert → 36 migriert, 24 geparkt, 1 gestrichen.
+**Modul-Analyse abgeschlossen:** 57 Module analysiert → 36 migriert, 22 geparkt, 3 entfällt, 1 gestrichen.
 
 ## Geparkte/Archivierte Module
 
 || Modul | Grund |
 ||---|---|
-|| `itk_contract` | Gestrichen · 0 Datensätze, Felder in itk_subscription enthalten |
 || `web_tree_resize_column` | JS inkompatibel mit Odoo 18 OWL |
 || `web_group_expand` | JS inkompatibel mit Odoo 18 OWL |
 || `mass_editing` | Ersetzt durch `server_action_mass_edit` (OCA) |
-|| `mail_activity_board` | JS/QWeb inkompatibel mit Odoo 18 OWL |
-|| `web_responsive` | Odoo 18 nativ responsive (Bootstrap 5 + OWL) |
 || `hr_holiday_exclude_special_days` | `hr_holidays_public` bereits migriert |
 || `itk_fix_import` | Einmal-Fix ("DO NOT INSTALL AGAIN") |
 || `itk_main_company_import` | `installable: False`, Firmendaten manuell |
@@ -88,6 +85,14 @@ Migration aller Odoo-Module von **Version 11 nach Version 18** für ITK (IT Komm
 || `website_support_analytic_timesheets` | Ersetzt durch OCA `helpdesk_mgmt_timesheet` |
 || `website_support_billing` | Ersetzt durch Odoo-18-Standard-Projektabrechnung |
 || `itk_support` | Leeres Modul, Menüs in `itk_translation` |
+
+## Entfällt (Funktionalität in Odoo 18 nativ / kein OCA-18.0-Branch)
+
+|| Modul | Grund |
+||---|---|
+|| `mail_activity_board` | Kein OCA-18.0-Branch, Activity-System nativ in Odoo 18 |
+|| `web_responsive` | Odoo 18 nativ responsive (Bootstrap 5 + OWL) |
+|| `itk_contract` | 0 Datensätze, Felder in itk_subscription enthalten |
 
 ## Datenmigration
 
@@ -100,7 +105,7 @@ Abhängigkeiten und Importwege pro Datenbereich.
 ```
 odoo-migration/
 ├── addons/              → 36 Odoo-Addons (34 funktionsfähig + 2 geparkt)
-├── geparkt/             → 25 geparkte/archivierte Module
+├── geparkt/             → 22 geparkte + 3 entfällt
 ├── config/              → Odoo-Konfiguration
 ├── odoo11 module/       → 0 verbleibende Odoo-11-Quellen (alle analysiert)
 ├── postgres/            → PostgreSQL-Datenbank
