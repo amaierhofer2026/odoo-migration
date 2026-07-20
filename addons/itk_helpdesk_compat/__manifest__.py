@@ -16,7 +16,6 @@
         "views/helpdesk_priority_views.xml",
         "views/helpdesk_subcategory_field_views.xml",
         "views/helpdesk_ticket_views.xml",
-        "views/helpdesk_ticket_templates.xml",
         "views/menus.xml",
     ],
     "assets": {

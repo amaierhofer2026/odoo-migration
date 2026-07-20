@@ -5,30 +5,26 @@
     <record id="view_helpdesk_ticket_form_inherit" model="ir.ui.view">
         <field name="name">itk.helpdesk.ticket.form.inherit</field>
         <field name="model">helpdesk.ticket</field>
-        <field name="inherit_id"
-               ref="helpdesk_mgmt.view_helpdesk_ticket_form"/>
+        <field name="inherit_id" ref="helpdesk_mgmt.ticket_view_form"/>
         <field name="arch" type="xml">
-            <!-- Place sub_category_id right after category_id -->
             <field name="category_id" position="after">
                 <field name="sub_category_id"
                        string="Unterkategorie"
                        domain="[('parent_id', '=', category_id)]"
-                       attrs="{'required': [('category_id', '!=', False)],
-                               'invisible': [('category_id', '=', False)]}"/>
+                       invisible="not category_id"/>
             </field>
-            <!-- Place priority_id -->
             <field name="priority" position="after">
                 <field name="priority_id" string="Priorität"/>
             </field>
         </field>
     </record>
 
-    <!-- 2-step category selection also in search view -->
+    <!-- Add sub_category_id to ticket search -->
     <record id="view_helpdesk_ticket_search_inherit" model="ir.ui.view">
         <field name="name">itk.helpdesk.ticket.search.inherit</field>
         <field name="model">helpdesk.ticket</field>
         <field name="inherit_id"
-               ref="helpdesk_mgmt.view_helpdesk_ticket_search"/>
+               ref="helpdesk_mgmt.helpdesk_ticket_view_search"/>
         <field name="arch" type="xml">
             <field name="category_id" position="after">
                 <field name="sub_category_id"/>
