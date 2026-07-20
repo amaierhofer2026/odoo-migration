@@ -12,240 +12,282 @@ class TestHelpdeskCategoryUser(TransactionCase):
         cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
 
         # Create test users
-        cls.user_assignee = cls.env["res.users"].create(
+        cls.user_a = cls.env["res.users"].create(
             {
-                "name": "Test Assignee",
-                "login": "test_assignee",
-                "email": "assignee@example.com",
+                "name": "CatUser A",
+                "login": "test_catuser_a",
+                "email": "catuser_a@example.com",
                 "groups_id": [
                     (6, 0, [cls.env.ref("base.group_user").id]),
                 ],
             }
         )
-        cls.user_other = cls.env["res.users"].create(
+        cls.user_b = cls.env["res.users"].create(
             {
-                "name": "Test Other",
-                "login": "test_other",
-                "email": "other@example.com",
+                "name": "CatUser B",
+                "login": "test_catuser_b",
+                "email": "catuser_b@example.com",
+                "groups_id": [
+                    (6, 0, [cls.env.ref("base.group_user").id]),
+                ],
+            }
+        )
+        cls.user_c = cls.env["res.users"].create(
+            {
+                "name": "CatUser C",
+                "login": "test_catuser_c",
+                "email": "catuser_c@example.com",
                 "groups_id": [
                     (6, 0, [cls.env.ref("base.group_user").id]),
                 ],
             }
         )
 
-        # Create a helpdesk team with both users
+        # Team with all users
         cls.team = cls.env["helpdesk.ticket.team"].create(
             {
-                "name": "Test Team",
-                "user_ids": [(6, 0, [cls.user_assignee.id, cls.user_other.id])],
+                "name": "Test Team CatUsers",
+                "user_ids": [
+                    (6, 0, [cls.user_a.id, cls.user_b.id, cls.user_c.id])
+                ],
             }
         )
 
-        # Create a category with assigned user
-        cls.category = cls.env["helpdesk.ticket.category"].create(
+        # Category with 2 users (A + B)
+        cls.cat_ab = cls.env["helpdesk.ticket.category"].create(
             {
-                "name": "Test Category",
-                "user_id": cls.user_assignee.id,
+                "name": "Category AB",
+                "user_ids": [(6, 0, [cls.user_a.id, cls.user_b.id])],
             }
         )
 
-        # Create a category without assigned user
-        cls.category_no_user = cls.env["helpdesk.ticket.category"].create(
+        # Category with 1 user (C)
+        cls.cat_c = cls.env["helpdesk.ticket.category"].create(
             {
-                "name": "No User Category",
+                "name": "Category C",
+                "user_ids": [(6, 0, [cls.user_c.id])],
             }
         )
 
-        # Team without the assignee
+        # Category with no users
+        cls.cat_none = cls.env["helpdesk.ticket.category"].create(
+            {
+                "name": "Category None",
+            }
+        )
+
+        # Team for the assigned user to belong to
         cls.team_other = cls.env["helpdesk.ticket.team"].create(
             {
                 "name": "Other Team",
-                "user_ids": [(6, 0, [cls.user_other.id])],
+                "user_ids": [
+                    (6, 0, [cls.user_a.id, cls.user_b.id, cls.user_c.id])
+                ],
             }
+        )
+
+        # Test partner for ticket
+        cls.test_partner = cls.env["res.partner"].create(
+            {"name": "Test Customer"}
         )
 
     # ---- CREATE TESTS ----
 
-    def test_create_ticket_auto_assign(self):
-        """Ticket created with category should auto-assign category user."""
+    def test_create_with_category_subscribes_all_users(self):
+        """All category users become followers; user_id stays empty."""
         ticket = self.env["helpdesk.ticket"].create(
             {
-                "name": "Test Ticket",
-                "description": "Test",
-                "category_id": self.category.id,
+                "name": "Subscribe All",
+                "description": "<p>Test</p>",
+                "category_id": self.cat_ab.id,
                 "team_id": self.team.id,
             }
         )
-        self.assertEqual(ticket.user_id, self.user_assignee)
+        # Both users A and B should be followers
         self.assertIn(
-            self.user_assignee.partner_id, ticket.message_partner_ids,
-            "Category user should be subscribed as follower",
+            self.user_a.partner_id, ticket.message_partner_ids,
+            "User A must be a follower",
+        )
+        self.assertIn(
+            self.user_b.partner_id, ticket.message_partner_ids,
+            "User B must be a follower",
+        )
+        # user_id must stay empty (no auto-assign)
+        self.assertFalse(
+            ticket.user_id,
+            "user_id must NOT be auto-assigned",
         )
 
-    def test_create_ticket_no_category_user(self):
-        """Ticket with category lacking a user should not auto-assign."""
+    def test_create_without_category_users(self):
+        """Category without users — nothing happens."""
         ticket = self.env["helpdesk.ticket"].create(
             {
-                "name": "Test Ticket",
-                "description": "Test",
-                "category_id": self.category_no_user.id,
+                "name": "No Category Users",
+                "description": "<p>Test</p>",
+                "category_id": self.cat_none.id,
                 "team_id": self.team.id,
             }
         )
         self.assertFalse(ticket.user_id)
 
-    def test_create_ticket_manual_user_preserved(self):
-        """Explicitly set user_id should not be overridden by category."""
+    def test_create_manual_user_preserved(self):
+        """Explicitly set user_id is never overridden."""
         ticket = self.env["helpdesk.ticket"].create(
             {
-                "name": "Test Ticket",
-                "description": "Test",
-                "category_id": self.category.id,
+                "name": "Manual User",
+                "description": "<p>Test</p>",
+                "category_id": self.cat_ab.id,
                 "team_id": self.team.id,
-                "user_id": self.user_other.id,
+                "user_id": self.user_c.id,
             }
         )
-        self.assertEqual(ticket.user_id, self.user_other)
-
-    def test_create_ticket_no_team(self):
-        """Ticket without team: auto-assign from category should still work."""
-        ticket = self.env["helpdesk.ticket"].create(
-            {
-                "name": "Test Ticket",
-                "description": "Test",
-                "category_id": self.category.id,
-            }
-        )
-        self.assertEqual(ticket.user_id, self.user_assignee)
-
-    def test_create_ticket_user_not_in_team(self):
-        """Auto-assign should skip when category user is not a team member."""
-        ticket = self.env["helpdesk.ticket"].create(
-            {
-                "name": "Test Ticket",
-                "description": "Test",
-                "category_id": self.category.id,
-                "team_id": self.team_other.id,
-            }
-        )
-        self.assertFalse(ticket.user_id)
+        self.assertEqual(ticket.user_id, self.user_c)
+        # Category users should still be followers
+        self.assertIn(self.user_a.partner_id, ticket.message_partner_ids)
+        self.assertIn(self.user_b.partner_id, ticket.message_partner_ids)
 
     # ---- WRITE TESTS ----
 
-    def test_write_category_change_auto_assign(self):
-        """Changing category on existing ticket should auto-assign."""
+    def test_category_change_updates_followers(self):
+        """Switching category from AB to C: A+B removed, C added."""
         ticket = self.env["helpdesk.ticket"].create(
             {
-                "name": "Test Ticket",
-                "description": "Test",
-                "category_id": self.category_no_user.id,
+                "name": "Cat Change",
+                "description": "<p>Test</p>",
+                "category_id": self.cat_ab.id,
                 "team_id": self.team.id,
             }
         )
-        self.assertFalse(ticket.user_id)
+        # Verify initial state
+        self.assertIn(self.user_a.partner_id, ticket.message_partner_ids)
+        self.assertIn(self.user_b.partner_id, ticket.message_partner_ids)
 
-        ticket.write({"category_id": self.category.id})
-        self.assertEqual(ticket.user_id, self.user_assignee)
+        # Switch to category C
+        ticket.write({"category_id": self.cat_c.id})
+
+        # Users A and B (from old category) should be removed
+        self.assertNotIn(
+            self.user_a.partner_id, ticket.message_partner_ids,
+            "User A from old category must be removed",
+        )
+        self.assertNotIn(
+            self.user_b.partner_id, ticket.message_partner_ids,
+            "User B from old category must be removed",
+        )
+        # User C (from new category) should be added
         self.assertIn(
-            self.user_assignee.partner_id, ticket.message_partner_ids,
+            self.user_c.partner_id, ticket.message_partner_ids,
+            "User C from new category must be added",
         )
 
-    def test_write_category_change_preserves_manual_user(self):
-        """Category change should NOT override a manually set user."""
+    def test_manual_user_survives_category_change(self):
+        """Manually set user_id must never be removed on category change."""
         ticket = self.env["helpdesk.ticket"].create(
             {
-                "name": "Test Ticket",
-                "description": "Test",
-                "category_id": self.category_no_user.id,
+                "name": "Manual Survives",
+                "description": "<p>Test</p>",
+                "category_id": self.cat_ab.id,
                 "team_id": self.team.id,
-                "user_id": self.user_other.id,
+                "user_id": self.user_c.id,
             }
         )
-        ticket.write({"category_id": self.category.id})
-        self.assertEqual(ticket.user_id, self.user_other)
-
-    def test_write_user_explicitly_set(self):
-        """When user_id is explicitly set together with category, no override."""
-        ticket = self.env["helpdesk.ticket"].create(
-            {
-                "name": "Test Ticket",
-                "description": "Test",
-                "category_id": self.category_no_user.id,
-                "team_id": self.team.id,
-            }
-        )
-        ticket.write(
-            {"category_id": self.category.id, "user_id": self.user_other.id}
-        )
-        self.assertEqual(ticket.user_id, self.user_other)
-
-    def test_write_category_user_not_in_team(self):
-        """Category change to user not in team should skip auto-assign."""
-        ticket = self.env["helpdesk.ticket"].create(
-            {
-                "name": "Test Ticket",
-                "description": "Test",
-                "category_id": self.category_no_user.id,
-                "team_id": self.team_other.id,
-            }
-        )
-        ticket.write({"category_id": self.category.id})
-        self.assertFalse(
-            ticket.user_id,
-            "Should not auto-assign when category user is not in team",
-        )
-
-    def test_write_category_remove_does_nothing(self):
-        """Removing the category should not touch user_id."""
-        ticket = self.env["helpdesk.ticket"].create(
-            {
-                "name": "Test Ticket",
-                "description": "Test",
-                "category_id": self.category.id,
-                "team_id": self.team.id,
-            }
-        )
-        self.assertEqual(ticket.user_id, self.user_assignee)
-
-        ticket.write({"category_id": False})
-        # User should remain assigned — removing category doesn't unassign
-        self.assertEqual(ticket.user_id, self.user_assignee)
-
-    # ---- FOLLOWER TESTS ----
-
-    def test_subscribe_category_user(self):
-        """Category user should be added as follower."""
-        ticket = self.env["helpdesk.ticket"].create(
-            {
-                "name": "Test Ticket",
-                "description": "Test",
-                "category_id": self.category.id,
-                "team_id": self.team.id,
-            }
-        )
-        self.assertIn(
-            self.user_assignee.partner_id,
-            ticket.message_partner_ids,
-            "Category user must be a follower for email notifications",
-        )
-
-    def test_manual_user_no_duplicate_follower(self):
-        """Manually set user from category should not create duplicate follows."""
-        ticket = self.env["helpdesk.ticket"].create(
-            {
-                "name": "Test Ticket",
-                "description": "Test",
-                "category_id": self.category.id,
-                "team_id": self.team.id,
-                "user_id": self.user_assignee.id,
-            }
-        )
-        # Count occurrences of the partner in followers
-        follower_count = ticket.message_partner_ids.filtered(
-            lambda p: p == self.user_assignee.partner_id
-        )
+        # User C is both assigned user AND in new category C — test
+        # that assigned user is never removed
+        ticket.write({"category_id": self.cat_none.id})
         self.assertEqual(
-            len(follower_count),
-            1,
-            "User should only be subscribed once",
+            ticket.user_id, self.user_c,
+            "Manually set user_id must survive category removal",
         )
+        # Assigned user's partner should remain a follower
+        self.assertIn(
+            self.user_c.partner_id, ticket.message_partner_ids,
+            "Assigned user must stay a follower",
+        )
+
+    def test_category_remove_does_not_delete_assigned_user(self):
+        """Removing the category should not remove the assigned user."""
+        ticket = self.env["helpdesk.ticket"].create(
+            {
+                "name": "Remove Cat",
+                "description": "<p>Test</p>",
+                "category_id": self.cat_ab.id,
+                "team_id": self.team.id,
+                "user_id": self.user_a.id,
+            }
+        )
+        ticket.write({"category_id": False})
+        self.assertEqual(ticket.user_id, self.user_a)
+        # User A was both category user AND assigned user — must stay
+        self.assertIn(
+            self.user_a.partner_id, ticket.message_partner_ids,
+            "Assigned user must remain a follower",
+        )
+        # User B (only a category follower) should be removed
+        self.assertNotIn(
+            self.user_b.partner_id, ticket.message_partner_ids,
+            "Pure category follower must be removed",
+        )
+
+    def test_ticket_partner_not_removed_on_category_change(self):
+        """Ticket partner should never be removed during category change."""
+        ticket = self.env["helpdesk.ticket"].create(
+            {
+                "name": "Partner Protected",
+                "description": "<p>Test</p>",
+                "category_id": self.cat_ab.id,
+                "team_id": self.team.id,
+                "partner_id": self.user_a.partner_id.id,
+            }
+        )
+        ticket.write({"category_id": self.cat_none.id})
+        # User A is the ticket partner — must stay
+        self.assertIn(
+            self.user_a.partner_id, ticket.message_partner_ids,
+            "Ticket partner must not be removed on category change",
+        )
+
+    def test_category_change_to_same_does_nothing(self):
+        """Setting the same category is a no-op."""
+        ticket = self.env["helpdesk.ticket"].create(
+            {
+                "name": "Same Cat",
+                "description": "<p>Test</p>",
+                "category_id": self.cat_ab.id,
+                "team_id": self.team.id,
+            }
+        )
+        followers_before = ticket.message_partner_ids
+        ticket.write({"category_id": self.cat_ab.id})
+        self.assertEqual(
+            ticket.message_partner_ids, followers_before,
+            "Followers must not change when category stays the same",
+        )
+
+    def test_create_with_partner_gets_both_followers(self):
+        """Ticket with partner + category: partner is NOT removed."""
+        ticket = self.env["helpdesk.ticket"].create(
+            {
+                "name": "Partner Plus Cat",
+                "description": "<p>Test</p>",
+                "category_id": self.cat_ab.id,
+                "team_id": self.team.id,
+                "partner_id": self.test_partner.id,
+            }
+        )
+        self.assertIn(self.user_a.partner_id, ticket.message_partner_ids)
+        self.assertIn(self.user_b.partner_id, ticket.message_partner_ids)
+        self.assertIn(self.test_partner, ticket.message_partner_ids)
+
+    def test_single_user_category(self):
+        """Category with one user: only that user is subscribed."""
+        ticket = self.env["helpdesk.ticket"].create(
+            {
+                "name": "Single User Cat",
+                "description": "<p>Test</p>",
+                "category_id": self.cat_c.id,
+                "team_id": self.team.id,
+            }
+        )
+        self.assertIn(self.user_c.partner_id, ticket.message_partner_ids)
+        self.assertNotIn(self.user_a.partner_id, ticket.message_partner_ids)
+        self.assertFalse(ticket.user_id)
