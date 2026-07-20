@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- Dynamic subcategory field list -->
+    <record id="view_subcategory_field_list" model="ir.ui.view">
+        <field name="name">itk.helpdesk.subcategory.field.list</field>
+        <field name="model">itk.helpdesk.subcategory.field</field>
+        <field name="arch" type="xml">
+            <list string="Zusätzliche Felder" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name" string="Feldname"/>
+                <field name="sub_category_id"
+                       string="Unterkategorie"
+                       domain="[('parent_id','!=',False)]"/>
+                <field name="field_type" string="Typ"/>
+                <field name="required"/>
+                <field name="show_in_portal"/>
+                <field name="show_in_internal"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Dynamic subcategory field form -->
+    <record id="view_subcategory_field_form" model="ir.ui.view">
+        <field name="name">itk.helpdesk.subcategory.field.form</field>
+        <field name="model">itk.helpdesk.subcategory.field</field>
+        <field name="arch" type="xml">
+            <form string="Zusätzliches Feld">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <field name="sub_category_id"
+                               string="Unterkategorie"
+                               domain="[('parent_id','!=',False)]"
+                               required="1"/>
+                        <field name="field_type"/>
+                        <field name="required"/>
+                    </group>
+                    <group string="Sichtbarkeit">
+                        <field name="show_in_portal"/>
+                        <field name="show_in_internal"/>
+                    </group>
+                    <group string="Reihenfolge">
+                        <field name="sequence"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- ============================================================
+         Hide OCA default config menu items (keep only config parent)
+         ============================================================ -->
+    <record id="helpdesk_mgmt.helpdesk_config_settings_menu" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+    <record id="helpdesk_mgmt.helpdesk_ticket_channel_menu" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+    <record id="helpdesk_mgmt.helpdesk_ticket_category_menu" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+    <record id="helpdesk_mgmt.helpdesk_ticket_stage_menu" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+    <record id="helpdesk_mgmt.helpdesk_ticket_team_menu" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+    <record id="helpdesk_mgmt.helpdesk_ticket_tag_menu" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+    <record id="helpdesk_mgmt_sla.helpdesk_sla" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+
+    <!-- ============================================================
+         ITK Config Menu Structure (under OCA Configuration menu #749)
+         Order: Kategorien, Unterkategorien, Status, Stichwörter,
+                Prioritäten, SLA's, Helpdesk Gruppen, Hilfeseiten,
+                Einstellungen
+         ============================================================ -->
+
+    <!-- 1. Kategorien (categories without parent_id) -->
+    <record id="menu_helpdesk_config_category" model="ir.ui.menu">
+        <field name="name">Kategorien</field>
+        <field name="parent_id" ref="helpdesk_mgmt.helpdesk_ticket_config_main_menu"/>
+        <field name="sequence">10</field>
+        <field name="action" ref="action_category_main"/>
+    </record>
+
+    <!-- 2. Unterkategorien (categories with parent_id) -->
+    <record id="menu_helpdesk_config_subcategory" model="ir.ui.menu">
+        <field name="name">Unterkategorien</field>
+        <field name="parent_id" ref="helpdesk_mgmt.helpdesk_ticket_config_main_menu"/>
+        <field name="sequence">20</field>
+        <field name="action" ref="action_subcategory"/>
+    </record>
+
+    <!-- 3. Status (= stages, renamed) -->
+    <record id="menu_helpdesk_config_status" model="ir.ui.menu">
+        <field name="name">Status</field>
+        <field name="parent_id" ref="helpdesk_mgmt.helpdesk_ticket_config_main_menu"/>
+        <field name="sequence">30</field>
+        <field name="action" ref="helpdesk_mgmt.helpdesk_ticket_stage_action"/>
+    </record>
+
+    <!-- 4. Stichwörter (= tags, renamed) -->
+    <record id="menu_helpdesk_config_tags" model="ir.ui.menu">
+        <field name="name">Stichwörter</field>
+        <field name="parent_id" ref="helpdesk_mgmt.helpdesk_ticket_config_main_menu"/>
+        <field name="sequence">40</field>
+        <field name="action" ref="helpdesk_mgmt.helpdesk_ticket_tag_action"/>
+    </record>
+
+    <!-- 5. Prioritäten -->
+    <record id="menu_helpdesk_config_priority" model="ir.ui.menu">
+        <field name="name">Prioritäten</field>
+        <field name="parent_id" ref="helpdesk_mgmt.helpdesk_ticket_config_main_menu"/>
+        <field name="sequence">50</field>
+        <field name="action" ref="action_priority"/>
+    </record>
+
+    <!-- 6. SLA's (reuse OCA SLA action, renamed) -->
+    <record id="menu_helpdesk_config_sla" model="ir.ui.menu">
+        <field name="name">SLA's</field>
+        <field name="parent_id" ref="helpdesk_mgmt.helpdesk_ticket_config_main_menu"/>
+        <field name="sequence">60</field>
+        <field name="action" ref="helpdesk_mgmt_sla.action_helpdesk_sla_tree"/>
+    </record>
+
+    <!-- 7. Helpdesk Gruppen (= teams, renamed) -->
+    <record id="menu_helpdesk_config_team" model="ir.ui.menu">
+        <field name="name">Helpdesk Gruppen</field>
+        <field name="parent_id" ref="helpdesk_mgmt.helpdesk_ticket_config_main_menu"/>
+        <field name="sequence">70</field>
+        <field name="action" ref="helpdesk_mgmt.helpdesk_ticket_team_action"/>
+    </record>
+
+    <!-- 8. Hilfeseiten (placeholder model, not yet implemented) -->
+    <record id="menu_helpdesk_config_help" model="ir.ui.menu">
+        <field name="name">Hilfeseiten</field>
+        <field name="parent_id" ref="helpdesk_mgmt.helpdesk_ticket_config_main_menu"/>
+        <field name="sequence">80</field>
+        <!-- Points to a server action showing "Coming soon" for now -->
+        <field name="action" ref="action_help_page_placeholder"/>
+    </record>
+
+    <!-- 9. Einstellungen (= settings, reused) -->
+    <record id="menu_helpdesk_config_settings" model="ir.ui.menu">
+        <field name="name">Einstellungen</field>
+        <field name="parent_id" ref="helpdesk_mgmt.helpdesk_ticket_config_main_menu"/>
+        <field name="sequence">90</field>
+        <field name="action" ref="helpdesk_mgmt.action_helpdesk_mgmt_config_settings"/>
+    </record>
+</odoo>
