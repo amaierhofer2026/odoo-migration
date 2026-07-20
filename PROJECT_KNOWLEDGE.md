@@ -2668,3 +2668,49 @@ In `TARGET_ARCHITECTURE.md` Phase 7 als fehlend identifiziert. Anna: „Machen w
 **37/57 Module funktionsfähig** (37 migriert, 22 geparkt, 3 entfällt).
 
 ---
+
+### Session 59: ITK-Modul itk_helpdesk_category_user erstellt (Category-User Auto-Assign)
+
+**Datum:** 20.07.2026
+**Art:** Neues ITK-Modul (KEINE Migration, Ergänzung zu OCA helpdesk_mgmt)
+
+#### Auslöser
+Anna: „Kategorie-Benutzer-Zuordnung fehlt in Odoo 18 — wenn ein Ticket eine Kategorie bekommt, soll automatisch der Kategorie-Bearbeiter zugewiesen werden und E-Mail-Benachrichtigungen erhalten."
+
+#### Analyse
+- Odoo 11: `website.support.category` hatte `user_id`-Feld (via website_support)
+- Odoo 18: OCA `helpdesk.ticket.category` hat KEIN `user_id`
+- OCA `helpdesk.ticket` hat `user_id` + `team_id.user_ids` (Team-Mitglieder)
+- OCA `default_get` auto-assigniert den aktuellen Benutzer wenn `helpdesk_mgmt_ticket_auto_assign` aktiv
+
+#### Implementierung
+- **Modul:** `itk_helpdesk_category_user` (8 Dateien, ~430 Zeilen)
+- **`helpdesk.ticket.category`**: `user_id` (many2one → res.users, domain `[('share','=',False)]`)
+- **`helpdesk.ticket`**: 
+  - `_onchange_category_user()`: onchange auf `category_id` + `team_id`
+  - `create()`: auto-assign nach Erstellung wenn kein `user_id` in vals
+  - `write()`: auto-assign bei Kategorie-Änderung (überschreibt auch OCA-auto-assign)
+  - Team-Validierung: Nur zuweisen wenn Kategorie-Benutzer im Team ist
+  - `_subscribe_category_user()`: Benutzer als Follower via `message_subscribe()`
+- **Views**: `user_id` in Kategorie-Formular, Liste und Suche
+
+#### Wichtige Design-Entscheidungen
+- Bei `write()` mit Kategorie-Wechsel: Kategorie-Benutzer wird IMMER gesetzt (auch wenn OCA vorher auto-assignierte) — Kategorie hat Priorität
+- Wenn `user_id` explizit in `vals` steht: KEIN Auto-Assign (manuelle Zuweisung respektiert)
+- Team-Validierung: Skip + Log-Warning wenn Kategorie-User nicht im Team
+- Follower-Abo: Nur wenn nicht bereits Follower (keine Duplikate)
+
+#### Tests (via JSON-RPC)
+- ✅ TEST 1: Ticket-Erstellung mit Kategorie → auto-assign
+- ✅ TEST 3: Manuell gesetzter user_id bleibt erhalten
+- ✅ TEST 5: Kategorie-Wechsel überschreibt manuellen User NICHT
+- ✅ TEST 6: Kategorie-Benutzer wird Follower
+- ⏳ TEST 2/4: Benötigen Docker-Neustart (Python-Änderung im write())
+
+#### Geänderte Dateien
+- `addons/itk_helpdesk_category_user/` (NEU, 8 Dateien)
+- `PROJECT_KNOWLEDGE.md`, `README.md` aktualisiert
+
+**38/58 Module funktionsfähig** (38 migriert/erstellt, 22 geparkt, 3 entfällt).
+
+---

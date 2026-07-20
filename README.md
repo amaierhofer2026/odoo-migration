@@ -66,8 +66,9 @@ Migration aller Odoo-Module von **Version 11 nach Version 18** für ITK (IT Komm
 || `project_timesheet_time_control` | ✅ Installiert (OCA 18.0) · Zeiterfassungskontrolle | 18.0.1.0.7 |
 || `helpdesk_mgmt_timesheet` | ✅ Installiert (OCA 18.0) · Helpdesk-Zeiterfassung | 18.0.1.1.3 |
 || `helpdesk_mgmt_sla` | ✅ Installiert (OCA 18.0) · Helpdesk-SLA-Management | 18.0.2.1.0 |
+| `itk_helpdesk_category_user` | ✅ Installiert (NEU) · Kategorie-Benutzer Auto-Assign + Follower | 18.0.1.0.0 |
 
-**Modul-Analyse abgeschlossen:** 57 Module analysiert → 37 migriert, 22 geparkt, 3 entfällt, 1 gestrichen.
+**Modul-Analyse abgeschlossen:** 57 Module analysiert → 37 migriert, 22 geparkt, 3 entfällt, 1 gestrichen. +1 ITK-Neumodul.
 
 ## Geparkte/Archivierte Module
 
