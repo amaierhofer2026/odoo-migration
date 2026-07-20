@@ -2723,3 +2723,65 @@ das Ticket bleibt unzugewiesen. Beim Kategorienwechsel werden alte Follower entf
 **38/58 Module funktionsfähig** (38 migriert/erstellt, 22 geparkt, 3 entfällt).
 
 ---
+
+### Session 60: ITK-Modul itk_helpdesk_compat erstellt (Odoo-11-Helpdesk-Oberfläche in Odoo 18)
+
+**Datum:** 20.07.2026
+**Art:** Neues ITK-Kompatibilitätsmodul
+
+#### Auslöser
+Anna: „Die Menüpunkte, Bezeichnungen und der bisherige Arbeitsablauf sollen möglichst gleich wie in Odoo 11 bleiben."
+
+#### Analyse (Odoo 11 → Odoo 18 Mapping)
+| Odoo-11-Funktion | Odoo-11-Modell | #Records | Odoo-18-Ziel |
+|---|---|---|---|
+| Kategorien | `website.support.ticket.categories` | 18 | `helpdesk.ticket.category` |
+| Unterkategorien | `website.support.ticket.subcategory` | 20 | `helpdesk.ticket.category` (parent_id) |
+| Status | `website.support.ticket.states` | 6 | `helpdesk.ticket.stage` |
+| Stichwörter | `website.support.ticket.tag` | 0 | `helpdesk.ticket.tag` |
+| Prioritäten | `website.support.ticket.priority` | 4 | `itk.helpdesk.priority` (NEU) |
+| SLA's | `website.support.sla` | 1 | `helpdesk.sla` (OCA, nicht verwendet) |
+| Helpdesk-Gruppen | `website.support.teams` | ? | `helpdesk.ticket.team` |
+| Hilfeseiten | `website.support.help.groups/page` | 0 | Placeholder |
+| Einstellungen | `website.support.settings` | 0 | `res.config.settings` |
+
+#### Dynamische Subkategorie-Felder (Odoo 11)
+11 Zusatzfelder dokumentiert (alle Typ "textbox"):
+- Sub #3 (Angebot anfordern / amtsweg.gv.at): Einwohnerzahl, Produkt
+- Sub #6 (Angebot anfordern / Amtssignatur): Einwohnerzahl
+- Sub #9 (Als Administrator anmelden / E-Learning): 6 Felder (Gemeinde-Infos, Admin-Daten)
+- Sub #14 (Verordnung löschen / Gemeindeverordnungen): Name der zu löschenden Datei
+
+#### Implementierung: itk_helpdesk_compat (14 Dateien, ~630 Zeilen)
+- **Menüs**: OCA-Default-Menüs deaktiviert, 9 neue Menüpunkte in Odoo-11-Reihenfolge
+- **Kategorie-Filter**: `action_category_main` (parent_id=False), `action_subcategory` (parent_id!=False)
+- **Getrennte Views**: Kategorien-Liste (Name, Zuständige Benutzer), Unterkategorien-Liste (Oberkategorie, Unterkategorie Name, Zusätzliche Felder)
+- **Umbenannt**: Stages→Status, Tags→Stichwörter, Teams→Helpdesk Gruppen, Channels→Kanäle (hidden)
+- **2-stufige Auswahl**: `sub_category_id` auf Ticket mit Domain `[('parent_id','=',category_id)]` + onchange
+- **Neue Modelle**: `itk.helpdesk.priority` (name, sequence, color), `itk.helpdesk.subcategory.field` (name, sub_category_id, field_type, required, show_in_portal, show_in_internal)
+- **Portal-JS**: `portal_category_filter.esm.js` (Filter für 2-stufige Auswahl) — noch nicht in Manifest aktiviert
+
+#### Aktuelle Menüstruktur (Helpdesk → Konfiguration)
+1. Kategorien (seq=10) → helpdesk.ticket.category [parent_id=False]
+2. Unterkategorien (seq=20) → helpdesk.ticket.category [parent_id!=False]
+3. Status (seq=30) → helpdesk.ticket.stage
+4. Stichwörter (seq=40) → helpdesk.ticket.tag
+5. Prioritäten (seq=50) → itk.helpdesk.priority
+6. SLA's (seq=60) → helpdesk.sla
+7. Helpdesk Gruppen (seq=70) → helpdesk.ticket.team
+8. Hilfeseiten (seq=80) → Placeholder Client Action
+9. Einstellungen (seq=90) → res.config.settings
+
+#### Noch ausstehend (nächste Session)
+- Portal-Template: `portal_category_filter.esm.js` in `helpdesk_mgmt.portal_create_ticket` integrieren
+- Dynamische Felder: Rendering-Logik im Ticket-Formular (Felder aus `itk.helpdesk.subcategory.field` einblenden)
+- Hilfeseiten: Funktionalität definieren und umsetzen
+- Datenmigration: Kategorien, Unterkategorien, Status, Prioritäten aus Odoo 11 übernehmen
+
+#### Geänderte Dateien
+- `addons/itk_helpdesk_compat/` (NEU, 14 Dateien)
+- `PROJECT_KNOWLEDGE.md`, `README.md` aktualisiert
+
+**39/59 Module funktionsfähig** (39 migriert/erstellt, 22 geparkt, 3 entfällt).
+
+---
