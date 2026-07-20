@@ -6,21 +6,34 @@ class ITKHelpdeskSubcategoryField(models.Model):
     _description = "Helpdesk Subcategory Dynamic Field"
     _order = "sequence, id"
 
-    name = fields.Char(string="Label", required=True, translate=True)
+    name = fields.Char(string="Buchungstext", required=True, translate=True)
     sub_category_id = fields.Many2one(
         comodel_name="helpdesk.ticket.category",
-        string="Subcategory",
+        string="Unterkategorie",
         required=True,
         ondelete="cascade",
         domain="[('parent_id', '!=', False)]",
     )
     field_type = fields.Selection(
-        selection=[("char", "Text"), ("text", "Multiline Text")],
-        string="Field Type",
+        selection=[
+            ("char", "Textfeld"),
+            ("text", "Mehrzeiliges Textfeld"),
+            ("integer", "Zahl (ganzzahlig)"),
+            ("float", "Zahl (Dezimal)"),
+            ("date", "Datum"),
+            ("boolean", "Ja/Nein"),
+            ("selection", "Auswahlfeld"),
+        ],
+        string="Typ",
         default="char",
         required=True,
     )
-    required = fields.Boolean(string="Required")
-    show_in_portal = fields.Boolean(string="Show in Portal", default=True)
-    show_in_internal = fields.Boolean(string="Show in Internal Ticket", default=True)
-    sequence = fields.Integer(default=10)
+    selection_options = fields.Text(
+        string="Auswahloptionen",
+        help="Eine Option pro Zeile",
+    )
+    required = fields.Boolean(string="Pflichtfeld")
+    help_text = fields.Char(string="Hilfetext")
+    show_in_portal = fields.Boolean(string="Im Portal anzeigen", default=True)
+    show_in_internal = fields.Boolean(string="Im Backend anzeigen", default=True)
+    sequence = fields.Integer(string="Reihenfolge", default=10)

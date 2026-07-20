@@ -16,6 +16,7 @@
         "views/helpdesk_priority_views.xml",
         "views/helpdesk_subcategory_field_views.xml",
         "views/helpdesk_ticket_views.xml",
+        "views/helpdesk_stage_views.xml",
         "views/menus.xml",
     ],
     "assets": {
@@ -23,6 +24,7 @@
             "itk_helpdesk_compat/static/src/js/portal_category_filter.esm.js",
         ],
     },
+    "post_init_hook": "post_init_hook",
     "installable": True,
     "application": False,
     "auto_install": False,
