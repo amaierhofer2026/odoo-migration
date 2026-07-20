@@ -2701,11 +2701,20 @@ Anna: „Kategorie-Benutzer-Zuordnung fehlt in Odoo 18 — wenn ein Ticket eine 
 - Follower-Abo: Nur wenn nicht bereits Follower (keine Duplikate)
 
 #### Tests (via JSON-RPC)
-- ✅ TEST 1: Ticket-Erstellung mit Kategorie → auto-assign
+- ✅ TEST 1: Multi-User-Kategorie → beide Benutzer als Follower
+- ✅ TEST 2: Kategorie ohne Benutzer → keine Follower hinzugefügt
 - ✅ TEST 3: Manuell gesetzter user_id bleibt erhalten
-- ✅ TEST 5: Kategorie-Wechsel überschreibt manuellen User NICHT
-- ✅ TEST 6: Kategorie-Benutzer wird Follower
-- ⏳ TEST 2/4: Benötigen Docker-Neustart (Python-Änderung im write())
+- ✅ TEST 4: Kategorie-Wechsel AB→C: A+B entfernt, C hinzugefügt
+- ✅ TEST 5: Manueller Bearbeiter überlebt Kategorie-Entfernung
+- ✅ TEST 6: Zugewiesener Benutzer (user_id) wird nie als Follower entfernt
+- ✅ TEST 7: Ticket-Partner wird nie als Follower entfernt
+- Hinweis: OCA `helpdesk_mgmt_ticket_auto_assign` setzt user_id (Administrator) — kommt NICHT von unserem Modul
+
+#### V2 Redesign (20.07.2026)
+Nach Rücksprache mit Anna: `user_id` (many2one) → `user_ids` (many2many), Label „Zuständige Benutzer".
+Statt Auto-Assign nur Follower-Management: Alle Kategorien-Benutzer werden Follower,
+das Ticket bleibt unzugewiesen. Beim Kategorienwechsel werden alte Follower entfernt
+(außer assigned user + ticket partner) und neue hinzugefügt.
 
 #### Geänderte Dateien
 - `addons/itk_helpdesk_category_user/` (NEU, 8 Dateien)
