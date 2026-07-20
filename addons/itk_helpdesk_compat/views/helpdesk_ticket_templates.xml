@@ -1,52 +1,34 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-
-    <!-- ============================================================
-         Portal Ticket Form — 2-step Category + Subcategory Selection
-         ============================================================ -->
     <template id="portal_ticket_form_2step"
               inherit_id="helpdesk_mgmt.portal_ticket_form"
               name="ITK 2-Step Category Selection">
-        <!-- Replace single category dropdown with 2-step selection -->
         <xpath expr="//select[@id='category']/.." position="replace">
-            <!-- Step 1: Main Category -->
             <div class="form-group mb-3" t-if="main_categories">
-                <label class="col-md-3 col-sm-4 control-label" for="category_id">
-                    Kategorie
-                </label>
+                <label class="col-md-3 col-sm-4 control-label" for="category_id">Kategorie</label>
                 <div class="col-md-7 col-sm-8">
-                    <select class="form-control"
-                            id="category_id"
-                            name="category_id"
+                    <select class="form-control" id="category_id" name="category_id"
                             t-att-required="ticket_category_id_required">
                         <option value=""/>
                         <t t-foreach="main_categories" t-as="cat">
-                            <option t-attf-value="#{cat.id}">
+                            <option t-att-value="str(cat.id)"
+                                    t-att-selected="'selected' if category_id and int(category_id) == cat.id else None">
                                 <t t-esc="cat.name"/>
                             </option>
                         </t>
                     </select>
                 </div>
             </div>
-
-            <!-- Step 2: Subcategory (filtered by JS, shown after category pick) -->
-            <div class="form-group mb-3"
-                 t-if="subcategories"
-                 id="subcategory_group"
-                 t-attf-style="display: none">
-                <label class="col-md-3 col-sm-4 control-label" for="sub_category_id">
-                    Unterkategorie
-                </label>
+            <div class="form-group mb-3" t-if="subcategories" id="subcategory_group"
+                 t-att-style="'display:none' if not sub_category_id else ''">
+                <label class="col-md-3 col-sm-4 control-label" for="sub_category_id">Unterkategorie</label>
                 <div class="col-md-7 col-sm-8">
-                    <select class="form-control"
-                            id="sub_category_id"
-                            name="sub_category_id"
-                            data-all-subcategories=""
-                            t-att-data-all='[]'>
+                    <select class="form-control" id="sub_category_id" name="sub_category_id">
                         <option value=""/>
                         <t t-foreach="subcategories" t-as="sub">
-                            <option t-attf-value="#{sub.id}"
-                                    t-att-data-parent="#{sub.parent_id[0] if isinstance(sub.parent_id, list) else sub.parent_id.id}">
+                            <option t-att-value="str(sub.id)"
+                                    t-att-data-parent="str(sub.parent_id.id if hasattr(sub.parent_id, 'id') else sub.parent_id[0])"
+                                    t-att-selected="'selected' if sub_category_id and int(sub_category_id) == sub.id else None">
                                 <t t-esc="sub.name"/>
                             </option>
                         </t>
@@ -55,5 +37,4 @@
             </div>
         </xpath>
     </template>
-
 </odoo>
