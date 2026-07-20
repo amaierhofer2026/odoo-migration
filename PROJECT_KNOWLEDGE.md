@@ -2635,3 +2635,36 @@ Anna: „Werden sie wirklich gebraucht? Wenn ja → installieren und testen. Wen
 | **Gesamt** | **57** |
 
 ---
+
+### Session 58: OCA helpdesk_mgmt_sla installiert (SLA-Management für Helpdesk)
+
+**Datum:** 17.07.2026
+**Art:** OCA-Modulinstallation (KEINE Migration)
+
+#### Auslöser
+In `TARGET_ARCHITECTURE.md` Phase 7 als fehlend identifiziert. Anna: „Machen wir zuerst Punkt 1."
+
+#### Installation
+- **Quelle:** OCA/helpdesk Branch 18.0, v18.0.2.1.0
+- **Abhängigkeiten:** `base`, `helpdesk_mgmt`, `resource` — alle bereits installiert
+- **Methode:** `git sparse-checkout` → beide Kopien → `button_immediate_install` (120s)
+- **Ergebnis:** state=installed, v18.0.2.1.0
+
+#### Modulinhalt
+- **Modelle (2):** `helpdesk.sla` (SLA-Konfiguration), `helpdesk.sla.report` (Pivot-Report)
+- **Views (12):** SLA-Form/Liste/Search, Ticket-SLA-Form/Liste, Team-Form-Erweiterung, Report-Pivot
+- **Ticket-Felder (6):** `team_sla`, `ticket_sla_ids`, `sla_ids`, `sla_expired`, `sla_deadline`, `sla_fits`
+
+#### Verifikation
+- ✅ 2 SLA-Modelle registriert
+- ✅ 12 Views geladen
+- ✅ 6 SLA-Felder auf `helpdesk.ticket` vorhanden
+- ✅ SLA-Konfiguration über Helpdesk → Konfiguration → SLAs verfügbar
+
+#### Geänderte Dateien
+- `addons/helpdesk_mgmt_sla/` (NEU, 37 Dateien)
+- `PROJECT_KNOWLEDGE.md`, `README.md` aktualisiert
+
+**37/57 Module funktionsfähig** (37 migriert, 22 geparkt, 3 entfällt).
+
+---

@@ -65,8 +65,9 @@ Migration aller Odoo-Module von **Version 11 nach Version 18** für ITK (IT Komm
 || `helpdesk_mgmt_project` | ✅ Installiert (OCA 18.0) · Helpdesk-Projektverknüpfung | 18.0.1.3.0 |
 || `project_timesheet_time_control` | ✅ Installiert (OCA 18.0) · Zeiterfassungskontrolle | 18.0.1.0.7 |
 || `helpdesk_mgmt_timesheet` | ✅ Installiert (OCA 18.0) · Helpdesk-Zeiterfassung | 18.0.1.1.3 |
+|| `helpdesk_mgmt_sla` | ✅ Installiert (OCA 18.0) · Helpdesk-SLA-Management | 18.0.2.1.0 |
 
-**Modul-Analyse abgeschlossen:** 57 Module analysiert → 36 migriert, 22 geparkt, 3 entfällt, 1 gestrichen.
+**Modul-Analyse abgeschlossen:** 57 Module analysiert → 37 migriert, 22 geparkt, 3 entfällt, 1 gestrichen.
 
 ## Geparkte/Archivierte Module
 
@@ -104,7 +105,7 @@ Abhängigkeiten und Importwege pro Datenbereich.
 
 ```
 odoo-migration/
-├── addons/              → 36 Odoo-Addons (34 funktionsfähig + 2 geparkt)
+├── addons/              → 37 Odoo-Addons (35 funktionsfähig + 2 geparkt)
 ├── geparkt/             → 22 geparkte + 3 entfällt
 ├── config/              → Odoo-Konfiguration
 ├── odoo11 module/       → 0 verbleibende Odoo-11-Quellen (alle analysiert)
