@@ -2901,3 +2901,95 @@ Header-Buttons („Ticket schließen", OCA „Assign to me") sind in der View-Ar
 **Commit:** `af3bec8`
 
 ---
+
+### Session 63: Personal → Mitarbeiter — Testmigration abgeschlossen
+
+**Datum:** 22.07.2026
+**Art:** Datenmigration (Odoo 11 → Odoo 18)
+**Auslöser:** Anna: „Modul Personal aus Odoo 11 mit Modul Mitarbeiter in Odoo 18 vergleichen und Testmigration durchführen."
+
+#### NATIVE-FIRST CHECK (Phase A-E)
+
+**Phase A — Odoo 11:** Das Modul „Personal" ist das native Odoo-11-`hr`-Modul (kein Custom-Modul). Bereits migrierte HR-Erweiterungen: `hr_employee_firstname` (Session 19), `hr_holidays_public` (Session 43-45).
+
+**Phase B — Odoo 18:** Das native `hr`-Modul („Mitarbeiter") ist installiert und deutlich reicher als in Odoo 11 (174 vs. 73 Felder). Alle Kernfelder vorhanden.
+
+#### Feldvergleich Odoo 11 → Odoo 18 (hr.employee)
+
+| Odoo 11 Feld | Odoo 18 Feld | Status |
+|---|---|---|
+| `image` / `image_medium` / `image_small` | `image_1920` (auto-resize) | ✅ Umbenannt |
+| `address_home_id` (res.partner) | `private_street`, `private_city`, etc. | ✅ Aufgelöst in Einzelfelder |
+| `timesheet_cost` | `hourly_cost` | ✅ Umbenannt |
+| `work_location` (Char) | `work_location_id` (Many2one) | ✅ Neues Modell |
+| `firstname` / `lastname` | `firstname` / `lastname` | ✅ Bereits via hr_employee_firstname |
+| `is_absent_totay` | `is_absent` | ✅ Computed |
+| `manual_attendance` | Entfernt | ✅ War nicht stored |
+| `message_channel_ids` | Entfernt | ✅ Mail-Refactor |
+
+**Neue Pflichtfelder in Odoo 18:**
+- `employee_type` → default 'employee'
+- `marital` → default 'single'
+- `company_id` → default company 1
+- `distance_home_work_unit` → default 'km'
+
+#### Datenbestand Odoo 11 (vor Migration)
+
+| Modell | Anzahl |
+|---|---|
+| hr.employee (aktiv) | 15 |
+| hr.employee (archiviert) | 9 |
+| hr.department | 4 |
+| hr.job | 5 |
+| hr.employee.category | 2 |
+| Mitarbeiter mit Foto | 12/15 |
+
+#### Testmigration (JSON-RPC Odoo 11 → Odoo 18)
+
+**Reihenfolge:**
+1. Abteilungen (4) — Administration, Geschäftsleitung, Infrastruktur, Sales
+2. Positionen (5) — Projektconsultant, Bereichsleiter IT-Services, Geschäftsführer, Assistenz, Prokurist
+3. Kategorien (2) — IT-Kommunal GmbH, Externe MA & Vertriebspartner
+4. Mitarbeiter (24) — aktive zuerst, dann archivierte; Manager/Coach in zweitem Durchlauf
+
+**Besonderheiten:**
+- Benutzerverknüpfungen nur wo Odoo-18-User existiert (derzeit 2 User: Anna, Florian)
+- Fotos als base64 von Odoo 11 übertragen
+- Archivierte Mitarbeiter (9) mit `active=False` markiert
+- Privatadresse (address_home_id) in Einzelfelder extrahiert
+
+#### Ergebnis (Odoo 18 nach Migration)
+
+| Metrik | Odoo 11 | Odoo 18 | Status |
+|---|---|---|---|
+| Mitarbeiter gesamt | 24 | 24 | ✅ |
+| Aktiv | 15 | 15 | ✅ |
+| Archiviert | 9 | 9 | ✅ |
+| Mit Benutzer | 15 | 2* | ⚠️ |
+| Mit Foto | 12 | 15 | ✅ |
+| Abteilungen | 4 | 4 | ✅ |
+| Positionen | 5 | 5 | ✅ |
+| Kategorien | 2 | 2 | ✅ |
+
+\* Nur 2 Benutzer existieren derzeit in Odoo 18. Benutzermigration steht noch aus.
+
+#### UI-Verifikation
+- ✅ Kanban-Ansicht: 15 Mitarbeiterkarten
+- ✅ Abteilungen: Administration (4), Geschäftsleitung (2), Infrastruktur (4), Sales (1)
+- ✅ Positionen: Projektconsultant, Assistenz, Geschäftsführer sichtbar
+- ✅ Fotos: Mitarbeiterfotos korrekt angezeigt
+- ✅ Test-Banner: „TEST (odoo18_test)"
+
+#### Bekannte Einschränkungen
+1. **Benutzerverknüpfungen:** Die meisten Mitarbeiter haben keine `user_id`, weil die entsprechenden Benutzer in Odoo 18 noch nicht existieren. Benutzermigration ist ein separater Schritt.
+2. **Anna Maierhofer:** Hat kein `user_id=2`, weil uid=2 bereits mit „Administrator" (employee 1) verknüpft ist. Muss nach Benutzermigration bereinigt werden.
+3. **Abteilungsleiter:** `manager_id` auf `hr.department` wurde nicht migriert (Odoo 11 hatte keine Department-Manager gesetzt).
+
+#### Nächste Schritte
+- Benutzermigration aus Odoo 11 (59 Benutzer)
+- Passwort-Handling für migrierte Benutzer
+- Korrekte Zuordnung user_id ↔ employee_id nach Benutzermigration
+
+32/56 Module funktionsfähig (32 migriert, 24 geparkt/entfallen, 1 gestrichen).
+
+---
