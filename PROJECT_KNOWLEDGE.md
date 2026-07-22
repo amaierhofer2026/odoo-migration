@@ -2778,10 +2778,60 @@ Anna: „Die Menüpunkte, Bezeichnungen und der bisherige Arbeitsablauf sollen m
 - Hilfeseiten: Funktionalität definieren und umsetzen
 - Datenmigration: Kategorien, Unterkategorien, Status, Prioritäten aus Odoo 11 übernehmen
 
-#### Geänderte Dateien
-- `addons/itk_helpdesk_compat/` (NEU, 14 Dateien)
-- `PROJECT_KNOWLEDGE.md`, `README.md` aktualisiert
-
 **39/59 Module funktionsfähig** (39 migriert/erstellt, 22 geparkt, 3 entfällt).
+
+---
+
+### Session 61: Unterkategorien-Menü korrigiert — Views, Daten, Portal-Template
+
+**Datum:** 22.07.2026
+**Art:** Bugfix + Datenimport
+
+#### Auslöser
+Anna: „Beim Öffnen von Helpdesk → Konfiguration → Unterkategorien wird aktuell weiterhin eine Kategorienansicht angezeigt." — falsche Spalten, nur 1 Datensatz.
+
+#### Ursache
+Die Aktionen `action_category_main` und `action_subcategory` hatten **keine `view_ids`**. Odoo wählte automatisch die OCA-Standard-Views (priority=16) statt der ITK-eigenen. Dadurch wurden die falschen Spalten („Kategorie Name", „Zuständige Benutzer", „Show In Portal", „Aktiv") angezeigt.
+
+#### Fixes
+
+**1. view_ids in Aktionen gesetzt:**
+```xml
+<field name="view_ids" eval="[(5,0,0),
+    (0,0,{'view_mode':'list','view_id': ref('view_subcategory_list')}),
+    (0,0,{'view_mode':'form','view_id': ref('view_subcategory_form')}),
+]"/>
+```
+Gleiches Muster für `action_category_main`. Views auf priority=20 gesetzt (über OCA priority=16).
+
+**2. Unterkategorien-Liste bereinigt:**
+Nur noch `parent_id` (Oberkategorie) + `name` (Unterkategorie Name). `show_in_portal`, `sequence`-Widget entfernt.
+
+**3. Unterkategorien-Formular:**
+`field_ids` mit `widget="one2many_list"` — inline-editierbare Tabelle: Buchungstext, Typ, required, sequence.
+
+**4. Portal-Template-Fix:**
+`helpdesk_ticket_templates.xml`: `inherit_id` von `helpdesk_mgmt.portal_ticket_form` (existiert nicht) auf `helpdesk_mgmt.portal_create_ticket` (id=3704) geändert.
+
+**5. Datenimport aus Odoo 11:**
+17 Hauptkategorien + 20 Unterkategorien per JSON-RPC angelegt. Mapping `parent_category_id` → `parent_id`.
+
+**6. ACL wiederhergestellt:**
+`ir.model.access.csv`: Fehlende Einträge für `itk.helpdesk.subcategory.field.value`.
+
+#### Ergebnis
+| Aktion | View (Liste) | View (Formular) | Spalten |
+|---|---|---|---|
+| Kategorien (1416) | `itk.helpdesk.category.main.list` | `itk.helpdesk.category.main.form` | Name, Zuständige Benutzer, Portal |
+| Unterkategorien (1417) | `itk.helpdesk.subcategory.list` | `itk.helpdesk.subcategory.form` | Oberkategorie, Unterkategorie Name |
+
+18 Hauptkategorien + 21 Unterkategorien in Odoo 18.
+
+#### Geänderte Dateien
+- `addons/itk_helpdesk_compat/views/helpdesk_ticket_category_views.xml`
+- `addons/itk_helpdesk_compat/views/helpdesk_ticket_templates.xml`
+- `addons/itk_helpdesk_compat/security/ir.model.access.csv`
+
+**Commit:** `a53256e`
 
 ---
