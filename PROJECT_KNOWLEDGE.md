@@ -2835,3 +2835,65 @@ Nur noch `parent_id` (Oberkategorie) + `name` (Unterkategorie Name). `show_in_po
 **Commit:** `a53256e`
 
 ---
+
+### Session 62: Ticket-Ansichten nach Odoo-11-Vorbild — Liste, Formular, Tabs, Timesheets
+
+**Datum:** 22.07.2026
+**Art:** View-Entwicklung + Bugfixes
+
+#### Auslöser
+Anna: „Die derzeitige Odoo-18-Ansicht entspricht noch nicht unserem bisherigen Arbeitsablauf."
+
+#### Umgesetzt
+
+**1. Dedizierte Ticket-Action + Menü:**
+- `action_itk_support_tickets` (id=1450): `view_mode=list,form`, `view_ids` gesetzt
+- Menü „Support Tickets" unter Helpdesk → Tickets (ersetzt OCA „All Tickets")
+- OCA-Menü `helpdesk_mgmt.helpdesk_all_ticket_menu` deaktiviert
+
+**2. Listenansicht (8 Spalten, Odoo-11-Reihenfolge):**
+```
+Erstellt am | Ticket-Nummer | Priorität | Zugewiesener Benutzer | Personenname | Kategorie | Status | Betreff
+```
+- `view_itk_ticket_list` (priority=30), `default_order="number desc"`
+- `view_itk_ticket_search` mit deutschen Filterbezeichnungen
+
+**3. Formularansicht (Odoo-11-Layout):**
+- Erbt von OCA `ticket_view_form` (3721), priority=30
+- `//sheet` per XPath ersetzt — komplettes 2-Spalten-Layout:
+  - **Links:** Ticket-Nr, Kanal, Priorität (ITK), Stichwörter, Kategorie, Unterkategorie, Status
+  - **Rechts:** Zugew. Benutzer, Partner, Personenname, E-Mail, Abschluss, Abschlusszeitpunkt
+- OCA-Stern-Priorität: `invisible="1"`
+- OCA `sequence`: `groups="base.group_no_one"`
+- OCA `duplicate_tracking_enabled`: `invisible="1"`
+
+**4. Fünf Registerkarten:**
+- **Beschreibung:** `description` mit `widget="html"`
+- **Zusätzliche Felder:** `dynamic_field_value_ids` (mode=tree entfernt wegen Odoo-18-Bug)
+- **Dateianhänge:** `attachment_ids` mit `widget="many2many_binary"`
+- **SLA:** `sla_ids` mit `widget="many2many_tags"`
+- **Zeiterfassung:** `timesheet_ids` Inline-Liste (Datum, Benutzer, Beschreibung, Projekt, Aufgabe, Dauer mit `sum="Gesamt"`)
+
+**5. Neue Modellfelder:**
+- `close_comment` (Text, „Abschluss")
+- `support_comment` (Text, „Partner Kommentar")
+- Methode `action_close_ticket()` — setzt Stage auf „Geschlossen/Behoben" + `closed_date`
+
+**6. Bugfixes:**
+- Portal-JS (`portal_category_filter.esm.js`) aus `web.assets_frontend` entfernt — verursachte JS-Fehler (importierte `@web/legacy/js/public/public_widget`, existiert in Odoo 18 nicht)
+- `helpdesk_mgmt_timesheet` zu `depends` hinzugefügt (Ladereihenfolge)
+- `ir.model.access.csv`: Field-Value-ACLs wiederhergestellt
+- Default-Tree-View für `itk.helpdesk.subcategory.field.value` angelegt
+
+**7. Bekannte Einschränkung:**
+Header-Buttons („Ticket schließen", OCA „Assign to me") sind in der View-Architektur vorhanden, werden aber von Odoo 18 im Edit-Modus nicht ins DOM gerendert. Button ist zusätzlich als Stat-Button im `oe_button_box` definiert. Grund: Odoo-18-Form-Renderer verarbeitet Header-Buttons anders als Odoo 11.
+
+#### Geänderte Dateien
+- `addons/itk_helpdesk_compat/__manifest__.py` — depends + assets
+- `addons/itk_helpdesk_compat/models/helpdesk_ticket.py` — neue Felder + action_close_ticket
+- `addons/itk_helpdesk_compat/views/helpdesk_ticket_views.xml` — komplett neu
+- `addons/itk_helpdesk_compat/views/menus.xml` — Support Tickets Menü
+
+**Commit:** `af3bec8`
+
+---
