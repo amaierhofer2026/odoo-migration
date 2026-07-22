@@ -12,14 +12,22 @@
         <field name="view_mode">list,form</field>
         <field name="domain">[('parent_id', '=', False)]</field>
         <field name="context">{'default_parent_id': False}</field>
+        <field name="view_ids" eval="[(5,0,0),
+            (0,0,{'view_mode':'list','view_id': ref('view_category_main_list')}),
+            (0,0,{'view_mode':'form','view_id': ref('view_category_main_form')}),
+        ]"/>
     </record>
 
-    <!-- Subcategories: only records with parent_id -->
+    <!-- Subcategories: only records with parent_id, dedicated views -->
     <record id="action_subcategory" model="ir.actions.act_window">
         <field name="name">Unterkategorien</field>
         <field name="res_model">helpdesk.ticket.category</field>
         <field name="view_mode">list,form</field>
         <field name="domain">[('parent_id', '!=', False)]</field>
+        <field name="view_ids" eval="[(5,0,0),
+            (0,0,{'view_mode':'list','view_id': ref('view_subcategory_list')}),
+            (0,0,{'view_mode':'form','view_id': ref('view_subcategory_form')}),
+        ]"/>
     </record>
 
     <!-- Priority action -->
@@ -27,6 +35,10 @@
         <field name="name">Prioritäten</field>
         <field name="res_model">itk.helpdesk.priority</field>
         <field name="view_mode">list,form</field>
+        <field name="view_ids" eval="[(5,0,0),
+            (0,0,{'view_mode':'list','view_id': ref('view_itk_helpdesk_priority_list')}),
+            (0,0,{'view_mode':'form','view_id': ref('view_itk_helpdesk_priority_form')}),
+        ]"/>
     </record>
 
     <!-- Help pages placeholder -->
@@ -41,6 +53,10 @@
         <field name="res_model">itk.helpdesk.subcategory.field</field>
         <field name="view_mode">list,form</field>
         <field name="domain">[]</field>
+        <field name="view_ids" eval="[(5,0,0),
+            (0,0,{'view_mode':'list','view_id': ref('view_subcategory_field_list')}),
+            (0,0,{'view_mode':'form','view_id': ref('view_subcategory_field_form')}),
+        ]"/>
     </record>
 
     <!-- ============================================================
@@ -51,6 +67,7 @@
         <field name="name">itk.helpdesk.category.main.list</field>
         <field name="model">helpdesk.ticket.category</field>
         <field name="mode">primary</field>
+        <field name="priority">20</field>
         <field name="arch" type="xml">
             <list string="Kategorien" editable="bottom">
                 <field name="sequence" widget="handle"/>
@@ -69,6 +86,7 @@
         <field name="name">itk.helpdesk.category.main.form</field>
         <field name="model">helpdesk.ticket.category</field>
         <field name="mode">primary</field>
+        <field name="priority">20</field>
         <field name="arch" type="xml">
             <form string="Kategorie">
                 <header/>
@@ -96,15 +114,14 @@
         <field name="name">itk.helpdesk.subcategory.list</field>
         <field name="model">helpdesk.ticket.category</field>
         <field name="mode">primary</field>
+        <field name="priority">20</field>
         <field name="arch" type="xml">
             <list string="Unterkategorien" editable="bottom">
-                <field name="sequence" widget="handle"/>
                 <field name="parent_id"
                        string="Oberkategorie"
                        required="1"
                        domain="[('parent_id','=',False)]"/>
                 <field name="name" string="Unterkategorie Name"/>
-                <field name="show_in_portal" widget="boolean_toggle"/>
             </list>
         </field>
     </record>
@@ -113,6 +130,7 @@
         <field name="name">itk.helpdesk.subcategory.form</field>
         <field name="model">helpdesk.ticket.category</field>
         <field name="mode">primary</field>
+        <field name="priority">20</field>
         <field name="arch" type="xml">
             <form string="Unterkategorie">
                 <header/>
@@ -125,13 +143,18 @@
                                string="Oberkategorie"
                                domain="[('parent_id','=',False)]"
                                required="1"/>
-                        <field name="sequence"/>
-                        <field name="show_in_portal" widget="boolean_toggle"/>
                     </group>
                     <group name="additional_fields" string="Zusätzliche Felder">
-                        <field name="child_id" invisible="1"/>
-                        <!-- Dynamic fields are shown in a dedicated tab/menu;
-                             listed here as context for the config -->
+                        <field name="field_ids"
+                               string="Zusätzliche Felder"
+                               widget="one2many_list">
+                            <list editable="bottom">
+                                <field name="name" string="Buchungstext"/>
+                                <field name="field_type" string="Typ"/>
+                                <field name="required"/>
+                                <field name="sequence" widget="handle"/>
+                            </list>
+                        </field>
                     </group>
                 </sheet>
             </form>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <template id="portal_ticket_form_2step"
-              inherit_id="helpdesk_mgmt.portal_ticket_form"
+              inherit_id="helpdesk_mgmt.portal_create_ticket"
               name="ITK 2-Step Category Selection">
         <xpath expr="//select[@id='category']/.." position="replace">
             <div class="form-group mb-3" t-if="main_categories">
@@ -11,7 +11,7 @@
                             t-att-required="ticket_category_id_required">
                         <option value=""/>
                         <t t-foreach="main_categories" t-as="cat">
-                            <option t-att-value="str(cat.id)"
+                            <option t-attf-value="#{cat.id}"
                                     t-att-selected="'selected' if category_id and int(category_id) == cat.id else None">
                                 <t t-esc="cat.name"/>
                             </option>
@@ -26,8 +26,8 @@
                     <select class="form-control" id="sub_category_id" name="sub_category_id">
                         <option value=""/>
                         <t t-foreach="subcategories" t-as="sub">
-                            <option t-att-value="str(sub.id)"
-                                    t-att-data-parent="str(sub.parent_id.id if hasattr(sub.parent_id, 'id') else sub.parent_id[0])"
+                            <option t-attf-value="#{sub.id}"
+                                    t-att-data-parent="#{sub.parent_id.id}"
                                     t-att-selected="'selected' if sub_category_id and int(sub_category_id) == sub.id else None">
                                 <t t-esc="sub.name"/>
                             </option>
