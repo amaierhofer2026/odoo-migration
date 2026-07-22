@@ -41,12 +41,10 @@ Features:
     ],
     'assets': {
         'web.assets_backend': [
-            'itk_subscription/static/src/js/tour.js',
             'itk_subscription/static/src/css/sale_subscription_backend.less',
         ],
         'web.assets_frontend': [
             'itk_subscription/static/src/less/portal_subscription.less',
-            'itk_subscription/static/src/js/portal_subscription.js',
         ],
     },
     'demo': [

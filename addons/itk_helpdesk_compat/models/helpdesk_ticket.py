@@ -46,24 +46,25 @@ class HelpdeskTicket(models.Model):
             })
 
     def action_reply_ticket(self):
-        """Open the mail compose wizard for this ticket."""
+        """Open mail compose wizard to reply to this ticket's customer."""
         self.ensure_one()
+        ctx = {
+            "default_model": "helpdesk.ticket",
+            "default_res_ids": [self.id],
+            "default_composition_mode": "comment",
+            "default_use_template": False,
+        }
+        if self.partner_id:
+            ctx["default_partner_ids"] = [self.partner_id.id]
+        if self.partner_email:
+            ctx["default_email_to"] = self.partner_email
         return {
             "type": "ir.actions.act_window",
             "res_model": "mail.compose.message",
             "view_mode": "form",
             "view_id": self.env.ref("mail.email_compose_message_wizard_form").id,
             "target": "new",
-            "context": {
-                "default_model": "helpdesk.ticket",
-                "default_res_ids": [self.id],
-                "default_composition_mode": "comment",
-                "default_template_id": self.env.ref(
-                    "itk_helpdesk_compat.mail_template_new_ticket_itk",
-                    raise_if_not_found=False,
-                ).id,
-                "default_partner_ids": [self.partner_id.id] if self.partner_id else [],
-            },
+            "context": ctx,
         }
 
     # ---- Onchange ----
