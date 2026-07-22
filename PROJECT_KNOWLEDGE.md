@@ -2888,6 +2888,10 @@ Erstellt am | Ticket-Nummer | Priorität | Zugewiesener Benutzer | Personenname 
 **7. Bekannte Einschränkung:**
 Header-Buttons („Ticket schließen", OCA „Assign to me") sind in der View-Architektur vorhanden, werden aber von Odoo 18 im Edit-Modus nicht ins DOM gerendert. Button ist zusätzlich als Stat-Button im `oe_button_box` definiert. Grund: Odoo-18-Form-Renderer verarbeitet Header-Buttons anders als Odoo 11.
 
+**8. Nicht benötigte Odoo-11-Funktionen (endgültig entfallen):**
+- „Sende Umfrage" — wird nicht mehr gebraucht
+- „Genehmigungsanfrage stellen" — wird nicht mehr gebraucht
+
 #### Geänderte Dateien
 - `addons/itk_helpdesk_compat/__manifest__.py` — depends + assets
 - `addons/itk_helpdesk_compat/models/helpdesk_ticket.py` — neue Felder + action_close_ticket
