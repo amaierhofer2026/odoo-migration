@@ -2992,4 +2992,25 @@ Header-Buttons („Ticket schließen", OCA „Assign to me") sind in der View-Ar
 
 32/56 Module funktionsfähig (32 migriert, 24 geparkt/entfallen, 1 gestrichen).
 
+### Session 64: Benutzerkonten für alle Mitarbeiter erstellt (Helpdesk-Zuweisung)
+
+**Datum:** 22.07.2026
+**Art:** Benutzererstellung + Verknüpfung
+
+#### Auslöser
+Anna: „mach so, dass unter helpdesk - support tickets - ticket aufmachen - zugewiesene Benutzer alle eingetragene Mitarbeiter zu sehen sind"
+
+#### Durchführung
+1. Für alle 12 aktiven Mitarbeiter ohne `user_id` wurden `res.users`-Konten erstellt (Login = work_email)
+2. `user_id` auf `hr.employee` mit dem neuen User verknüpft
+3. Alle User zur Gruppe „Helpdesk Manager" (id=619) hinzugefügt
+4. Alle User in das Helpdesk-Team „IT-Kommunal Support Test" (id=1) aufgenommen
+5. Hannah Buchinger hat keine E-Mail → kein User-Konto (muss manuell angelegt werden)
+6. Anna Maierhofer: eigenes User-Konto (uid=16, Login: Anna.maierhofer@it-kommunal.at) getrennt vom Admin (uid=2)
+
+#### Ergebnis
+- 14 `res.users` insgesamt (vorher: 2)
+- 14 von 15 aktiven Mitarbeitern haben `user_id` (außer Hannah Buchinger)
+- Dropdown „Zugewiesener Benutzer" im Ticket-Formular zeigt alle Mitarbeiter ✅
+
 ---
