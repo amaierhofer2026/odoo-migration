@@ -1,4 +1,5 @@
-from odoo import api, fields, models
+from odoo import api, fields, models, _
+from odoo.exceptions import UserError
 
 
 class HelpdeskTicket(models.Model):
@@ -19,6 +20,53 @@ class HelpdeskTicket(models.Model):
         string="Zusätzliche Felder",
         copy=False,
     )
+    close_comment = fields.Text(
+        string="Abschluss",
+    )
+    support_comment = fields.Text(
+        string="Partner Kommentar",
+    )
+
+    # ---- Ticket Actions ----
+
+    def action_close_ticket(self):
+        """Close ticket: set stage to 'Geschlossen/Behoben', record close time."""
+        closed_stage = self.env["helpdesk.ticket.stage"].search([
+            ("name", "=", "Geschlossen/Behoben"),
+        ], limit=1)
+        if not closed_stage:
+            raise UserError(_(
+                "Kein Status 'Geschlossen/Behoben' gefunden. "
+                "Bitte im Menü 'Status' anlegen."
+            ))
+        for ticket in self:
+            ticket.write({
+                "stage_id": closed_stage.id,
+                "closed_date": fields.Datetime.now(),
+            })
+
+    def action_reply_ticket(self):
+        """Open the mail compose wizard for this ticket."""
+        self.ensure_one()
+        return {
+            "type": "ir.actions.act_window",
+            "res_model": "mail.compose.message",
+            "view_mode": "form",
+            "view_id": self.env.ref("mail.email_compose_message_wizard_form").id,
+            "target": "new",
+            "context": {
+                "default_model": "helpdesk.ticket",
+                "default_res_ids": [self.id],
+                "default_composition_mode": "comment",
+                "default_template_id": self.env.ref(
+                    "itk_helpdesk_compat.mail_template_new_ticket_itk",
+                    raise_if_not_found=False,
+                ).id,
+                "default_partner_ids": [self.partner_id.id] if self.partner_id else [],
+            },
+        }
+
+    # ---- Onchange ----
 
     @api.onchange("category_id")
     def _onchange_category_id(self):
@@ -40,6 +88,8 @@ class HelpdeskTicket(models.Model):
             self.dynamic_field_value_ids = [(0, 0, {
                 "field_id": fdef.id,
             })]
+
+    # ---- Portal helpers ----
 
     def _get_dynamic_field_values_for_portal(self):
         self.ensure_one()

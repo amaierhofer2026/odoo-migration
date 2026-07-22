@@ -26,6 +26,23 @@
     </record>
 
     <!-- ============================================================
+         Hide OCA "All Tickets" menu — replaced by our own
+         ============================================================ -->
+    <record id="helpdesk_mgmt.helpdesk_all_ticket_menu" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+
+    <!-- ============================================================
+         ITK Main Menu — Support Tickets (replaces OCA "All Tickets")
+         ============================================================ -->
+    <record id="menu_itk_support_tickets" model="ir.ui.menu">
+        <field name="name">Support Tickets</field>
+        <field name="parent_id" ref="helpdesk_mgmt.helpdesk_ticket_menu"/>
+        <field name="sequence">10</field>
+        <field name="action" ref="action_itk_support_tickets"/>
+    </record>
+
+    <!-- ============================================================
          ITK Config Menu Structure (under OCA Configuration menu #749)
          Order: Kategorien, Unterkategorien, Status, Stichwörter,
                 Prioritäten, SLA's, Helpdesk Gruppen, Hilfeseiten,

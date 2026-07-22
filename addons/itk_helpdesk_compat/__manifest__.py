@@ -8,6 +8,7 @@
     "website": "https://www.it-kommunal.at",
     "depends": [
         "helpdesk_mgmt",
+        "helpdesk_mgmt_timesheet",
         "itk_helpdesk_category_user",
     ],
     "data": [
@@ -21,9 +22,6 @@
         "views/menus.xml",
     ],
     "assets": {
-        "web.assets_frontend": [
-            "itk_helpdesk_compat/static/src/js/portal_category_filter.esm.js",
-        ],
     },
     "post_init_hook": "post_init_hook",
     "installable": True,
