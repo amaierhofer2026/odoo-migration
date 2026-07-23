@@ -143,7 +143,7 @@ fields11 = ["id", "name", "is_company", "company_type", "active", "ref", "custom
             "user_id", "phone", "mobile", "email", "website", "lang",
             "category_id", "parent_id", "function",
             "attention_of", "community_salutation", "status_of_partner_id",
-            "official_email", "multi_factor"]
+            "official_email", "multi_factor", "image"]
 partners11 = {p["id"]: p for p in rpc11("object", "execute_kw", [
     ODOO11_DB, uid11, ODOO11_PWD, "res.partner", "read", [ids11, fields11]
 ])}
@@ -203,9 +203,9 @@ for odoo11_id, mig_id, desc in TEST_CONTACTS:
         "ref": gkz,
     }
 
-    # GKZ als Migrations-ID vermerken
+    # GKZ: nur setzen wenn tatsächlich vorhanden
     if not vals["ref"]:
-        vals["ref"] = mig_id  # Fallback: Mig-ID als GKZ
+        del vals["ref"]  # keine GKZ → Feld nicht setzen
 
     # Country (Austria = 12)
     if p11.get("country_id") and p11["country_id"][0] == 12:
@@ -269,6 +269,10 @@ for odoo11_id, mig_id, desc in TEST_CONTACTS:
         vals["official_email"] = p11["official_email"]
     if p11.get("multi_factor") is not None and p11["multi_factor"] != 0:
         vals["multi_factor"] = p11["multi_factor"]
+
+    # Bild/Logo (Odoo 11: image → Odoo 18: image_1920, beide base64)
+    if p11.get("image") and p11["image"] != "False":
+        vals["image_1920"] = p11["image"]
 
     # === CREATE in Odoo 18 ===
     try:
