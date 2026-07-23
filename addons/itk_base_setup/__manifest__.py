@@ -22,6 +22,7 @@
     'data': [
         'data/menu_contacts_config.xml',
         'views/res_partner_form.xml',
+        'views/res_partner_list.xml',
     ],
     'installable': True,
     'application': False,
