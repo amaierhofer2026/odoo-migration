@@ -3133,3 +3133,77 @@ In der Kontakte-Listenansicht waren zwei Spalten für denselben Zweck sichtbar:
 - ✅ Liste: Nur eine "Verkäufer"-Spalte
 - ✅ Kanban: Kein user_id (unverändert)
 - ✅ Formular: Nur ein user_id-Feld (unverändert)
+
+---
+
+### Session 51: Test-Migration 15 Kontakte Odoo 11 → 18
+
+**Datum:** 23.07.2026
+**Skript:** `scripts/test_migration_contacts.py`
+
+#### Auslöser
+Kontrollierte Test-Migration von 15 repräsentativen Kontakten, um Feld-Mapping,
+Datenqualität und Darstellung zu validieren, bevor die vollständige Migration startet.
+
+#### Ausgewählte Kontakte (15)
+| # | Odoo11 ID | Name | Typ | Besonderheit |
+|---|-----------|------|-----|-------------|
+| 1 | 5792 | Eisenstadt | Gemeinde | GKZ, Status, Tags, MultiFactor |
+| 2 | 5793 | Rust | Gemeinde | GKZ, Status |
+| 3 | 5796 | Großhöflein | Gemeinde | GKZ, Kein Kunde |
+| 4 | 5794 | Breitenbrunn | Gemeinde | GKZ, Tags |
+| 5 | 12025 | BKH St. Johann | Unternehmen | UID, Telefon |
+| 6 | 13406 | Clever Data GmbH | Unternehmen | UID, Email offiziell |
+| 7 | 10288 | Städtebund Bgld | Unternehmen | mit Parent |
+| 8 | 9449 | Abendstein Friedl | Person | Bürgermeister, Parent |
+| 9 | 9285 | Abenthung Christian | Person | Bürgermeister, Parent |
+| 10 | 13659 | Aberl Paul | Person | Telefon, Tags, Parent |
+| 11 | 10429 | Villach (Kontakt) | Person | Verkäufer |
+| 12 | 13184 | Michaela Müller | Person | Telefon, Standalone |
+| 13 | 10902 | Roland Zangerl | Person | Telefon, Verkäufer |
+| 14 | 7469 | Söchau | Gemeinde | ARCHIVIERT |
+| 15 | 10686 | BMBWF | Unternehmen | ARCHIVIERT |
+
+#### Feld-Mapping
+| Odoo 11 | Odoo 18 | Status |
+|---------|---------|--------|
+| name | name | ✅ direkt |
+| is_company | is_company | ✅ direkt |
+| company_type | company_type | ✅ direkt |
+| active | active | ✅ direkt |
+| ref (GKZ) | ref | ✅ direkt |
+| vat (UID) | vat | ✅ direkt (Whitespace-Bereinigung) |
+| street/zip/city | street/zip/city | ✅ direkt |
+| state_id | state_id | ✅ Name-Mapping |
+| country_id | country_id | ✅ identisch (12=AT) |
+| user_id (Verkäufer) | user_id | ⚠️ Login-Matching (nicht alle User in O18) |
+| customer (Boolean) | customer_rank (Integer) | ✅ Boolean→Rank (1/0) |
+| supplier (Boolean) | supplier_rank (Integer) | ✅ Boolean→Rank (1/0) |
+| status_of_partner_id | status_of_partner_id | ✅ Name-Mapping (IDs identisch) |
+| category_id (Tags) | category_id | ✅ Name-Mapping, Auto-Create |
+| multi_factor | multi_factor | ✅ direkt |
+| attention_of | attention_of | ✅ direkt |
+| community_salutation | community_salutation | ✅ direkt |
+| official_email | official_email | ✅ direkt |
+| phone/mobile/email/website/lang | phone/mobile/email/website/lang | ✅ direkt |
+| function | function | ✅ direkt |
+
+#### Ergebnisse
+- Importiert: **15/15** ✅
+- Übersprungen: 0
+- Fehler: 0
+- Odoo 18 vorher: 54 Kontakte → nachher: 67 (+13, da 2 archivierte)
+- Browser-Verifikation: ✅ (Eisenstadt, Söchau)
+
+#### Bekannte Issues
+1. Verkäufer-Matching nur via Login-Email; nicht alle O11-User haben O18-Äquivalent → Fallback auf Admin
+2. `False`-Strings in Textfeldern → im Nachgang bereinigt
+3. MIG-TEST-XXX im ref-Feld für GKZ-lose Kontakte → im Nachgang gelöscht
+4. Keine Unterkontakte/Ansprechpartner migriert (separater Schritt nötig)
+5. Keine parent_id-Verknüpfung (Parent-Unternehmen müssen vorher existieren)
+
+#### Aufräumen
+Importierte Kontakte haben IDs 69–83. Löschbar via:
+```python
+rpc18("object", "execute_kw", [DB, uid, PWD, "res.partner", "unlink", [list(range(69,84))]])
+```
