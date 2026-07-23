@@ -3060,3 +3060,49 @@ Anna möchte die Menübezeichnungen unter Kontakte → Konfiguration an die gewo
 - Aktionen zeigen weiterhin auf die richtigen Odoo-18-Modelle ✅
 - Docker-Mount und Git-Repo sind synchron ✅
 - Beim nächsten Docker-Neustart lädt Odoo das Modul mit PO-Datei und XML-Daten nach ✅
+
+---
+
+### Session 49: Kontaktformular an Odoo-11-Darstellung anpassen
+
+**Datum:** 23.07.2026
+**Modul:** `itk_base_setup`
+
+#### Auslöser
+Anna möchte die Formularansicht für Kontakte (res.partner) an das Odoo-11-Layout anpassen. Feldbezeichnungen sollen auf Deutsch den Odoo-11-Namen entsprechen, drei fehlende Felder sollen ergänzt werden.
+
+#### Änderungen
+
+**1. Python-Model: `models/res_partner.py`**
+- `is_customer`: Boolean, computed aus `customer_rank > 0`, mit Inverse (setzt Rank auf 1/0)
+- `is_supplier`: Boolean, computed aus `supplier_rank > 0`, mit Inverse
+- Erbt von `res.partner`
+
+**2. View: `views/res_partner_form.xml`**
+- Erbt von `itk_crm.view_partner_form_itk` (id=2303), Prio 25
+- Gruppe "Characteristics" → "Kenndaten"
+- `multi_factor` (Multiplication Factor/Thsd) in linker Spalte eingefügt
+- `is_supplier`, `is_customer` in rechter Spalte (nur für Unternehmen sichtbar)
+- Feldbezeichnungen per `string`-Attribut: zu Handen, Organisationsbezeichnung, Verkäufer, Status, UID, Email offiziell, Website, Adresse
+
+**3. Manifest**
+- Neue Abhängigkeiten: `itk_crm`, `itk_multifactor`
+- Neue Daten: `views/res_partner_form.xml`
+- Model-Import in `__init__.py`
+
+**4. i18n/de.po**
+- Übersetzungen für Feldbeschreibungen ergänzt (Tax ID→UID, Salesperson→Verkäufer, etc.)
+- "Characteristics" → "Kenndaten"
+
+#### Feld-Mapping
+- `multi_factor` (itk_multifactor): bereits in Odoo 18 vorhanden, nur View-Einbindung fehlte
+- `customer`/`supplier` (Odoo 11 Boolean): in Odoo 18 durch `customer_rank`/`supplier_rank` (Integer) ersetzt → computed Boolean-Felder als Brücke
+
+#### Ergebnis (Unternehmen-Formular)
+- Kenndaten-Gruppe mit GKZ, Multiplication Factor/Thsd, zu Handen, Organisationsbezeichnung, Verkäufer, Ist ein Lieferant, Ist ein Kunde, Status ✅
+- Adressblock mit Adresse, UID, Stichwörter ✅
+- Rechte Spalte: Telefon, Mobil, E-Mail, Email offiziell, Website, Sprache ✅
+- Status-Radio-Buttons: Bestandskunde, Ehemaliger Kunde, Kein Kunde ✅
+
+#### Ergebnis (Einzelperson-Formular)
+- Unternehmensfelder (GKZ, Organisationsbezeichnung, Ist ein Kunde/Lieferant, Email offiziell, Multiplication Factor) korrekt ausgeblendet ✅
