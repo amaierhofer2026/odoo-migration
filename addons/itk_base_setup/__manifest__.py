@@ -15,10 +15,13 @@
         'hr_attendance',
         'hr_timesheet',
         'mass_mailing',
-        'survey'
+        'survey',
+        'itk_crm',
+        'itk_multifactor',
     ],
     'data': [
         'data/menu_contacts_config.xml',
+        'views/res_partner_form.xml',
     ],
     'installable': True,
     'application': False,

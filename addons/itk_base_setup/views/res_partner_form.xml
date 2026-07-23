@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!--
+            Formularansicht res.partner: Odoo-11-Layout und -Bezeichnungen.
+            Erbt vom ITK-CRM-View und passt Felder/Labels an.
+        -->
+        <record id="view_partner_form_itk_base" model="ir.ui.view">
+            <field name="name">res.partner.form (itk_base_setup)</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="itk_crm.view_partner_form_itk"/>
+            <field name="priority">25</field>
+            <field name="arch" type="xml">
+
+                <!-- 1. "Characteristics" → "Kenndaten" -->
+                <xpath expr="//group[@name='group_1']" position="attributes">
+                    <attribute name="string">Kenndaten</attribute>
+                </xpath>
+
+                <!-- 2. multi_factor nach ref/GKZ in linker Spalte einfügen -->
+                <xpath expr="//group[@name='group_1']//group[@name='group_1_left']//field[@name='attention_of']" position="before">
+                    <field name="multi_factor" invisible="not is_company"/>
+                </xpath>
+
+                <!-- 3. is_supplier und is_customer in rechter Spalte nach user_id -->
+                <xpath expr="//group[@name='group_1']//group[@name='group_1_right']//field[@name='status_of_partner_id']" position="before">
+                    <field name="is_supplier" invisible="not is_company"/>
+                    <field name="is_customer" invisible="not is_company"/>
+                </xpath>
+
+                <!-- 4. Feldbezeichnungen ändern -->
+                <xpath expr="//field[@name='attention_of']" position="attributes">
+                    <attribute name="string">zu Handen</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='community_salutation']" position="attributes">
+                    <attribute name="string">Organisationsbezeichnung</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='user_id']" position="attributes">
+                    <attribute name="string">Verkäufer</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='status_of_partner_id']" position="attributes">
+                    <attribute name="string">Status</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='vat']" position="attributes">
+                    <attribute name="string">UID</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='official_email']" position="attributes">
+                    <attribute name="string">Email offiziell</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='website']" position="attributes">
+                    <attribute name="string">Website</attribute>
+                </xpath>
+
+                <!-- "Address" Label im Adressblock -->
+                <xpath expr="//label[@for='street']" position="attributes">
+                    <attribute name="string">Adresse</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>
