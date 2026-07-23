@@ -3106,3 +3106,30 @@ Anna möchte die Formularansicht für Kontakte (res.partner) an das Odoo-11-Layo
 
 #### Ergebnis (Einzelperson-Formular)
 - Unternehmensfelder (GKZ, Organisationsbezeichnung, Ist ein Kunde/Lieferant, Email offiziell, Multiplication Factor) korrekt ausgeblendet ✅
+
+---
+
+### Session 50: Doppelte "Salesperson"/"Verkäufer"-Spalte in Kontaktliste entfernen
+
+**Datum:** 23.07.2026
+**Modul:** `itk_base_setup`
+
+#### Auslöser
+In der Kontakte-Listenansicht waren zwei Spalten für denselben Zweck sichtbar:
+"Verkäufer" (vom Basis-Modul, Deutsch übersetzt) und "Salesperson" (vom ITK-Modul, Englisch).
+
+#### Ursache
+- `base.view_partner_tree` (id=123): enthält `user_id` als Standard-Spalte
+- `itk_crm.view_partner_itk_tree` (id=2302): fügt `user_id` mit `string="Salesperson"` nach `email` ein
+- Ergebnis: zwei `user_id`-Spalten in der kombinierten View
+
+#### Fix
+- Neue View: `views/res_partner_list.xml`
+- Erbt von `itk_crm.view_partner_itk_tree` (Prio 25)
+- XPath auf `//field[@name='email']/following-sibling::field[@name='user_id']`
+- Setzt `column_invisible="True"` → ITK-Version ausgeblendet, Basis-Version ("Verkäufer") bleibt
+
+#### Ergebnis
+- ✅ Liste: Nur eine "Verkäufer"-Spalte
+- ✅ Kanban: Kein user_id (unverändert)
+- ✅ Formular: Nur ein user_id-Feld (unverändert)
