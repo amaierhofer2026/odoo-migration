@@ -1,0 +1,58 @@
+# Translation of ITK Base Setup - German
+# Override Odoo 18 standard translations for Contact Configuration menus
+
+msgid ""
+msgstr ""
+"Project-Id-Version: itk_base_setup 18.0.1.0.0\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: contacts
+#: model:ir.ui.menu,name:contacts.menu_partner_category_form
+msgid "Contact Tags"
+msgstr "Kontakt Tags"
+
+#. module: contacts
+#: model:ir.ui.menu,name:contacts.menu_partner_title_contact
+msgid "Contact Titles"
+msgstr "Partner-Kontaktanrede"
+
+#. module: contacts
+#: model:ir.ui.menu,name:contacts.res_partner_industry_menu
+msgid "Industries"
+msgstr "Tätigkeitsbereiche"
+
+#. module: contacts
+#: model:ir.ui.menu,name:contacts.menu_localisation
+msgid "Localization"
+msgstr "Lokalisierung"
+
+#. module: contacts
+#: model:ir.ui.menu,name:contacts.menu_country_partner
+msgid "Countries"
+msgstr "Länder"
+
+#. module: contacts
+#: model:ir.ui.menu,name:contacts.menu_country_state_partner
+msgid "Fed. States"
+msgstr "Bundesländer / Regionen"
+
+#. module: contacts
+#: model:ir.ui.menu,name:contacts.menu_country_group
+msgid "Country Group"
+msgstr "Ländergruppe"
+
+#. module: contacts
+#: model:ir.ui.menu,name:contacts.menu_config_bank_accounts
+msgid "Bank Accounts"
+msgstr "Bankkonten"
+
+#. module: contacts
+#: model:ir.ui.menu,name:contacts.menu_action_res_bank_form
+msgid "Banks"
+msgstr "Bankverzeichnis"
+
+#. module: contacts
+#: model:ir.ui.menu,name:contacts.menu_action_res_partner_bank_form
+msgid "Bank Accounts"
+msgstr "Bankkonten"

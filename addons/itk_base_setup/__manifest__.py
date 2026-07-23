@@ -17,7 +17,9 @@
         'mass_mailing',
         'survey'
     ],
-    'data': [],
+    'data': [
+        'data/menu_contacts_config.xml',
+    ],
     'installable': True,
     'application': False,
     'auto_install': False,
