@@ -3014,3 +3014,49 @@ Anna: „mach so, dass unter helpdesk - support tickets - ticket aufmachen - zug
 - Dropdown „Zugewiesener Benutzer" im Ticket-Formular zeigt alle Mitarbeiter ✅
 
 ---
+
+### Session 48: Menübezeichnungen Kontakte → Konfiguration an Odoo-11-Darstellung anpassen
+
+**Datum:** 23.07.2026
+**Modul:** `itk_base_setup`
+
+#### Auslöser
+Anna möchte die Menübezeichnungen unter Kontakte → Konfiguration an die gewohnte Odoo-11-Darstellung anpassen. Funktionen bleiben bestehen, nur die Labels ändern sich.
+
+#### Änderungen
+
+**1. Neue Datei: `data/menu_contacts_config.xml`**
+- Renennt 10 `ir.ui.menu`-Records via `<record id="contacts.xxx">` auf deutsche Odoo-11-Bezeichnungen.
+
+**2. Neue Datei: `i18n/de.po`**
+- Überschreibt die Odoo-18-Standard-Übersetzungen (z.B. "Kontakt-Stichwörter" → "Kontakt Tags")
+- Notwendig, weil Odoo mit deutschem Sprachkontext die PO-Übersetzungen der `contacts`-Basis verwendet
+
+**3. Manifest-Update**
+- `data: []` → `data: ['data/menu_contacts_config.xml']`
+
+#### Menü-Mapping
+- Contact Tags → Kontakt Tags
+- Contact Titles → Partner-Kontaktanrede
+- Industries → Tätigkeitsbereiche
+- Localization → Lokalisierung
+- Countries → Länder
+- Fed. States → Bundesländer / Regionen
+- Country Group → Ländergruppe
+- Bank Accounts (Parent) → Bankkonten
+- Banks → Bankverzeichnis
+- Bank Accounts (Child) → Bankkonten
+
+#### Technische Details
+- Die Menü-Namen in `ir.ui.menu` werden bei deutschem Sprachkontext aus PO-Dateien übersetzt
+- Direktes Schreiben auf `ir.ui.menu.name` reicht nicht — der Browser holt Menüs mit `lang=de_DE` Context
+- Lösung: `write` mit `context={'lang': 'de_DE'}` auf Menüs UND Actions (`ir.actions.act_window`)
+- Für Modul-Persistenz: `i18n/de.po` überschreibt die `contacts`-Modul-Übersetzungen
+- Keine neuen Modelle, keine doppelten Menüpunkte, Zugriffsrechte unverändert
+
+#### Ergebnis
+- Alle 10 Menüpunkte zeigen die gewünschten deutschen Bezeichnungen ✅
+- Browser-Titel (Breadcrumb) zeigt ebenfalls korrekte Namen ✅
+- Aktionen zeigen weiterhin auf die richtigen Odoo-18-Modelle ✅
+- Docker-Mount und Git-Repo sind synchron ✅
+- Beim nächsten Docker-Neustart lädt Odoo das Modul mit PO-Datei und XML-Daten nach ✅
