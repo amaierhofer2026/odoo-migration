@@ -86,5 +86,47 @@
             </field>
         </record>
 
+        <!--
+            Smart-Button-Bezeichnungen und Support-Ticket-Tab.
+            Erbt direkt von base.view_partner_form (nicht von itk_crm),
+            damit die von anderen Modulen hinzugefuegten Stat-Buttons 
+            (Sale, Invoiced, Subscriptions etc.) im XPath gefunden werden.
+        -->
+        <record id="view_partner_smart_buttons" model="ir.ui.view">
+            <field name="name">res.partner.form (itk_base_setup smart buttons)</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="priority">30</field>
+            <field name="arch" type="xml">
+
+                <!-- "Sales" → "Verkauf" -->
+                <xpath expr="//field[@name='sale_order_count']" position="attributes">
+                    <attribute name="string">Verkauf</attribute>
+                </xpath>
+
+                <!-- "Invoiced" → "Fakturiert" (span-Text ersetzen) -->
+                <xpath expr="//button[@name='action_view_partner_invoices']//span[@class='o_stat_text']" position="replace">
+                    <span class="o_stat_text">Fakturiert</span>
+                </xpath>
+
+                <!-- "Subscriptions" → "Abonnements" -->
+                <xpath expr="//field[@name='subscription_count']" position="attributes">
+                    <attribute name="string">Abonnements</attribute>
+                </xpath>
+
+                <!-- Support-Ticket-Tab -->
+                <xpath expr="//notebook" position="inside">
+                    <page string="Support Ticket" name="support_ticket">
+                        <group>
+                            <div class="text-muted">
+                                Dem Kontakt zugeordnete Support-Tickets werden hier angezeigt.
+                            </div>
+                        </group>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+
     </data>
 </odoo>
