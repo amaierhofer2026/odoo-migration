@@ -808,20 +808,22 @@ class SaleSubscriptionLine(models.Model):
     def onchange_product_quantity(self):
         domain = {}
         subscription = self.analytic_account_id
-        company_id = subscription.company_id.id
-        pricelist_id = subscription.pricelist_id.id
-        context = dict(self.env.context, company_id=company_id, force_company=company_id, pricelist=pricelist_id,
-                       quantity=self.quantity)
         if not self.product_id:
             self.price_unit = 0.0
             domain['uom_id'] = []
         else:
-            partner = subscription.partner_id.with_context(context)
-            if partner.lang:
-                context.update({'lang': partner.lang})
+            product = self.product_id
+            pricelist = subscription.pricelist_id
+            partner = subscription.partner_id
 
-            product = self.product_id.with_context(context)
-            self.price_unit = product.price
+            # Preis über die Kundenpreisliste ermitteln (Odoo-18-API)
+            # product.price existiert in Odoo 18 nicht mehr;
+            # stattdessen pricelist._get_product_price() nutzen
+            self.price_unit = pricelist._get_product_price(
+                product, self.quantity, partner,
+                date=self.analytic_account_id.date_start or fields.Date.today(),
+                uom=self.uom_id or product.uom_id,
+            )
 
             if not self.uom_id:
                 self.uom_id = product.uom_id.id
