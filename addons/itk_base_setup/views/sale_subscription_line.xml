@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!--
+            ITK-Abonnement-Listenansicht: Spaltenbezeichnungen wie in Odoo 11.
+            Erbt von der Basis-List-View (sale.subscription.line.list).
+        -->
+        <record id="view_sale_subscription_line_list_itk" model="ir.ui.view">
+            <field name="name">sale.subscription.line.list (itk)</field>
+            <field name="model">sale.subscription.line</field>
+            <field name="inherit_id" ref="itk_subscription.sale_subscription_line_list"/>
+            <field name="priority">30</field>
+            <field name="arch" type="xml">
+
+                <!-- Spaltenbezeichnungen wie in Odoo 11 -->
+
+                <!-- "Subscription" → "Aboauftrag" -->
+                <xpath expr="//field[@name='analytic_account_id']" position="attributes">
+                    <attribute name="string">Aboauftrag</attribute>
+                </xpath>
+
+                <!-- "Product" → "Produkt" -->
+                <xpath expr="//field[@name='product_id']" position="attributes">
+                    <attribute name="string">Produkt</attribute>
+                </xpath>
+
+                <!-- "Multiplication Factor/Thsd" → volle Breite, nicht abschneiden -->
+                <xpath expr="//field[@name='qty_multiplication_factor']" position="attributes">
+                    <attribute name="string">Multiplication Factor/Thsd</attribute>
+                    <attribute name="optional">show</attribute>
+                </xpath>
+
+                <!-- "Quantity" → "Menge" -->
+                <xpath expr="//field[@name='quantity']" position="attributes">
+                    <attribute name="string">Menge</attribute>
+                </xpath>
+
+                <!-- "Discount" → "Rabatt (%)" -->
+                <xpath expr="//field[@name='discount']" position="attributes">
+                    <attribute name="string">Rabatt (%)</attribute>
+                </xpath>
+
+                <!-- "Unit Price" → "Preis pro ME" -->
+                <xpath expr="//field[@name='price_unit']" position="attributes">
+                    <attribute name="string">Preis pro ME</attribute>
+                </xpath>
+
+                <!-- "Sub Total" → "Zwischensumme" -->
+                <xpath expr="//field[@name='price_subtotal']" position="attributes">
+                    <attribute name="string">Zwischensumme</attribute>
+                </xpath>
+
+                <!-- "Partner" → "Partner" (bleibt) -->
+
+                <!-- "Salesperson" → "Verkäufer" -->
+                <xpath expr="//field[@name='salesperson_id']" position="attributes">
+                    <attribute name="string">Verkäufer</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+        <!--
+            Eigene Action für Abonnements vom Kontakt aus.
+            Verwendet die ITK-List-View und gruppiert nach Aboauftrag.
+        -->
+        <record id="action_subscription_lines_partner" model="ir.actions.act_window">
+            <field name="name">Abonnements</field>
+            <field name="res_model">sale.subscription.line</field>
+            <field name="view_mode">list,form</field>
+            <field name="domain">[('partner_id', '=', active_id)]</field>
+            <field name="context">{'group_by': 'analytic_account_id', 'default_partner_id': active_id}</field>
+            <field name="view_ids" eval="[(5,0,0),
+                (0,0,{'view_mode': 'list', 'view_id': ref('view_sale_subscription_line_list_itk')}),
+            ]"/>
+        </record>
+
+    </data>
+</odoo>
