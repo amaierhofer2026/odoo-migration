@@ -120,17 +120,17 @@
             </xpath>
 
             <notebook position="inside">
-                <page invisible="not is_company" string="Community Information">
+                <page name="community_info" invisible="not is_company" string="Gemeinde-Information">
                     <group name="container_row_3">
-                        <group string="Population" name="population">
-                            <field name="population" invisible="not is_company"/>
-                            <field name="community_magnitude" invisible="not is_company"/>
-                            <field name="population_update" invisible="not is_company"/>
+                        <group string="Einwohnerzahl" name="population">
+                            <field name="population" string="Einwohnerzahl" invisible="not is_company"/>
+                            <field name="community_magnitude" string="Größenklasse" invisible="not is_company"/>
+                            <field name="population_update" string="Stand vom" invisible="not is_company"/>
                         </group>
                         <group>
-                            <group string="Other" name="other">
-                                <field name="status_of_community" invisible="not is_company"/>
-                                <field name="member_of_city_alliance" invisible="not is_company"/>
+                            <group string="Andere" name="other">
+                                <field name="status_of_community" string="Organisationstyp" invisible="not is_company"/>
+                                <field name="member_of_city_alliance" string="Städtebund-Mitglied" invisible="not is_company"/>
                             </group>
                         </group>
                     </group>

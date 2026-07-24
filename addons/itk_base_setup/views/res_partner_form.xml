@@ -63,6 +63,26 @@
                     <attribute name="string">Adresse</attribute>
                 </xpath>
 
+                <!-- 5. Tab-Bezeichnungen an Odoo 11 anpassen -->
+
+                <!-- "Sales &amp; Purchase" → "Verkauf &amp; Einkauf" -->
+                <xpath expr="//page[@name='sales_purchases']" position="attributes">
+                    <attribute name="string">Verkauf &amp; Einkauf</attribute>
+                </xpath>
+
+                <!-- "Invoicing" → "Abrechnung" -->
+                <xpath expr="//page[@name='accounting']" position="attributes">
+                    <attribute name="string">Abrechnung</attribute>
+                </xpath>
+
+                <!--
+                     Community-Information-Page-Umbennung erfolgt direkt
+                     im itk_crm-View (name-Attribut dort ergaenzt).
+                     Der Tab-String wird dort auf "Gemeinde-Information" gesetzt.
+                -->
+
+                <!-- 6. Community-Info Feldbezeichnungen direkt in itk_crm/views/res_partner.xml -->
+
             </field>
         </record>
 
