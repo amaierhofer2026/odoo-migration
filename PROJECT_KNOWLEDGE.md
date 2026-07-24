@@ -3207,3 +3207,113 @@ Importierte Kontakte haben IDs 69–83. Löschbar via:
 ```python
 rpc18("object", "execute_kw", [DB, uid, PWD, "res.partner", "unlink", [list(range(69,84))]])
 ```
+
+---
+
+### Session 50: Referenzkontakt Breitenbrunn – Vollmigration (24.07.2026)
+
+**Ziel:** Kontakt [10301] Marktgemeinde Breitenbrunn am Neusiedler See vollständig mit allen verknüpften Daten nach Odoo 18 migrieren.
+
+#### Ablauf
+
+**1. Stammdaten-Abhängigkeiten**
+- Produkte 25/26 (Amtsweg.gv.at) → Odoo 18 ID 223/224
+- Steuer 18 (20% USt) → Odoo 18 ID 15 (20% Ust)
+- UoM "ITK Einheit" → Odoo 18 ID 29 (uom.uom)
+- Zahlungsziel "14 Tage" → Odoo 18 ID 12
+- Preisliste "Preisliste 2026 + Valorisierung" → Odoo 18 ID 34
+- User "IT-Kommunal" existiert nicht → Admin (ID 2) als Fallback
+
+**2. Beleg-Migration**
+- Abonnement NV-00962 (ID=185): Template J, jährlich, 162€, 2 Lines
+  - Line 76: Sockelbetrag, qty=1, 110€
+  - Line 77: Einwohner, qty=2, 26€
+- Verkaufsauftrag A-1900011 (ID=198): 102€, 2 Lines
+- Verkaufsauftrag A-2600018 (ID=199): storniert
+- 7 Rechnungen (IDs 22-28): alle bezahlt, Summe 871,01€ netto
+  - Fakturiert = Summe `amount_untaxed` (nicht `amount_total`!)
+
+**3. Kontakt-Daten**
+- 3 Child-Kontakte (IDs 84-86)
+- Community-Felder: population=1909, magnitude=1.501-2.000, update=2018-10-31, status=Marktgemeinde
+- GKZ-Display über name_get: `[10301] Marktgemeinde Breitenbrunn am Neusiedler See`
+
+**4. View-Anpassungen**
+- Tab-Labels: Verkauf & Einkauf, Abrechnung, Gemeinde-Information
+- Smart-Button-Labels: Verkauf, Fakturiert, Abonnements
+- Community-Feldbezeichnungen: Einwohnerzahl, Größenklasse, Stand vom, Organisationstyp
+- Support-Ticket-Tab (Platzhalter)
+- Neue View `itk_base_setup.view_partner_smart_buttons` (prio=30, erbt von base)
+
+#### Kritische Fehler & Fixes
+
+**Fehler 1: Abonnement-Smart-Button → leere Liste**
+- `subscription_count` zählt `sale.subscription` → zeigt 1
+- Action 1104 öffnet `sale.subscription.line` mit `search_default_partner_id`
+- `partner_id` auf `sale.subscription.line` ist STORED (kein Related-Feld)
+- Bei Migration via JSON-RPC wurde `partner_id` nicht gesetzt → leere Liste
+- **Fix:** `write([76,77], {"partner_id": 72})` + Action-Domain `[('partner_id','=',active_id)]`
+
+**Fehler 2: uom_id → _unknown (RPC-Fehler beim Öffnen der Position)**
+- Odoo 18 hat `product.uom` nach `uom.uom` umbenannt
+- `sale.subscription.line.uom_id = Many2one('product.uom')` → `relation='_unknown'`
+- `web_read` → `AttributeError: '_unknown' object has no attribute 'id'`
+- **Fix:** `product.uom` → `uom.uom` in 3 Dateien:
+  - `models/sale_subscription.py:768`
+  - `wizard/sale_subscription_wizard.py:70`
+  - `report/sale_subscription_report.py:14`
+- Docker-Restart + Modul-Upgrade erforderlich (Python-Code-Änderung)
+
+**Fehler 3: ir.ui.view.create via JSON-RPC schlägt fehl**
+- `rpc("ir.ui.view", "create", [...])` returned immer `None`
+- Browser-Console `fetch('/web/dataset/call_kw')` funktioniert
+- **Workaround:** Views über Browser-Console erstellen, nicht via JSON-RPC
+
+#### Mapping-Tabellen
+
+**Smart Buttons:**
+| Odoo 11 | Odoo 18 Modell | Zähler-Feld |
+|---|---|---|
+| Verkaufschancen | crm.lead | opportunity_count |
+| Meetings | calendar.event | meeting_count |
+| Verkauf | sale.order | sale_order_count |
+| Abonnements | sale.subscription | subscription_count |
+| Fakturiert | account.move | total_invoiced |
+| Support Tickets | helpdesk.ticket | (via partner_id) |
+
+**Community-Felder (itk_crm):**
+| Odoo 11 Label | Odoo 18 Feld | Zielmodell |
+|---|---|---|
+| Einwohnerzahl | population | res.partner |
+| Größenklasse | community_magnitude | computed via itk_crm.communitymagnitude |
+| Stand vom | population_update | res.partner |
+| Organisationstyp | status_of_community | → itk_crm.statusofcommunity |
+| Städtebund-Mitglied | member_of_city_alliance | res.partner |
+
+⚠️ Community-Modelle: `itk_crm.statusofcommunity` und `itk_crm.communitymagnitude` (nicht `community.status`!)
+
+**Verkauf & Einkauf:**
+| Odoo 11 | Odoo 18 |
+|---|---|
+| user_id=21 (IT-Kommunal) | user_id=2 (Admin) ⚠️ |
+| pricelist_id=1 (Public) | property_product_pricelist=34 |
+| payment_term_id=False | property_payment_term_id=12 (14 Tage) |
+| customer=True | customer_rank=15 |
+| account_receivable=295 | account_receivable=80 |
+
+**Abrechnung:**
+| Odoo 11 | Odoo 18 |
+|---|---|
+| Debitorenkonto 1410 | 2000 Trade receivables |
+| Kreditorenkonto 1610 | 3300 Trade payables |
+| payment_term=False | 14 Tage (ID 12) |
+| vat=leer | vat=leer |
+| bank_ids=[] | bank_ids=[] |
+
+#### Modul-Änderungen
+- `itk_crm/views/res_partner.xml`: Community-Info Page umbenannt + Labels
+- `itk_base_setup/views/res_partner_form.xml`: Tab-Labels, Smart-Button-Labels, Support-Ticket-Tab
+- `itk_base_setup/views/sale_subscription_line.xml`: Form-View + List-View für Abo-Positionen
+- `itk_subscription/models/sale_subscription.py`: uom_id fix (product.uom→uom.uom)
+- `itk_subscription/wizard/sale_subscription_wizard.py`: uom_id fix
+- `itk_subscription/report/sale_subscription_report.py`: product_uom fix
