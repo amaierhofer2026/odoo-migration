@@ -3317,3 +3317,30 @@ rpc18("object", "execute_kw", [DB, uid, PWD, "res.partner", "unlink", [list(rang
 - `itk_subscription/models/sale_subscription.py`: uom_id fix (product.uom→uom.uom)
 - `itk_subscription/wizard/sale_subscription_wizard.py`: uom_id fix
 - `itk_subscription/report/sale_subscription_report.py`: product_uom fix
+
+#### Onchange-Fix (product.price)
+
+**Fehler 4: `product.price` existiert nicht in Odoo 18**
+- `onchange_product_quantity` Zeile 824: `self.price_unit = product.price`
+- In Odoo 11 war `product.price` ein computed Feld mit Context (Pricelist, Quantity)
+- In Odoo 18 gibt es nur `product.lst_price` (Standard-Listenpreis)
+- **Fix:** `pricelist._get_product_price(product, quantity, partner, date, uom)` 
+  - Berücksichtigt: Produkt, Menge, Partner, Preisliste, UoM, Datum
+- `_compute_price()` auf uom.uom existiert weiterhin ✅
+- Docker-Restart + Modul-Upgrade erforderlich
+
+#### Ergebnisse Breitenbrunn (Final)
+
+| Kennzahl | Wert | Quelle |
+|---|---|---|
+| Verkauf | 2 | sale.order (A-1900011, A-2600018) |
+| Abonnements | 1 | sale.subscription (NV-00962) |
+| Fakturiert | 871,01 € | account.move (7 Rechnungen, Netto-Summe) |
+| Einwohnerzahl | 1.909 | res.partner.population |
+| Größenklasse | 1.501-2.000 | itk_crm.communitymagnitude |
+| Stand vom | 31.10.2018 | res.partner.population_update |
+| Organisationstyp | Marktgemeinde | itk_crm.statusofcommunity (ID=1) |
+| Städtebund-Mitglied | nein | res.partner.member_of_city_alliance |
+| Child-Kontakte | 3 | res.partner (Hareter Helmut, Tobler Bernd×2) |
+| GKZ-Display | [10301] Marktgemeinde... | name_get via itk_crm |
+| DB-Backups | 2 | vor_labels + vor_onchange_fix |
