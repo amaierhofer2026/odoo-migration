@@ -11,7 +11,7 @@ class sale_subscription_report(models.Model):
     date_start = fields.Date('Date Start', readonly=True)
     date_end = fields.Date('Date End', readonly=True)
     product_id = fields.Many2one('product.product', 'Product', readonly=True)
-    product_uom = fields.Many2one('product.uom', 'Unit of Measure', readonly=True)
+    product_uom = fields.Many2one('uom.uom', 'Unit of Measure', readonly=True)
     recurring_price = fields.Float('Recurring price(per period)', readonly=True)
     quantity = fields.Float('Quantity', readonly=True)
     partner_id = fields.Many2one('res.partner', 'Customer', readonly=True)
