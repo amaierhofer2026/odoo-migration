@@ -23,6 +23,7 @@
         'data/menu_contacts_config.xml',
         'views/res_partner_form.xml',
         'views/res_partner_list.xml',
+        'views/sale_subscription_line.xml',
     ],
     'installable': True,
     'application': False,

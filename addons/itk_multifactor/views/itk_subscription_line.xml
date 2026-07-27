@@ -7,7 +7,7 @@
         <field name="inherit_id" ref="itk_subscription.sale_subscription_lines_view_list"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='name']" position="replace">
-                <field name="qty_multiplication_factor"/>
+                <field name="qty_multiplication_factor" string="Multiplication Factor/Thsd"/>
             </xpath>
         </field>
     </record>

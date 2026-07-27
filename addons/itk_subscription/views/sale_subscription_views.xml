@@ -205,15 +205,15 @@
         <field name="model">sale.subscription.line</field>
         <field name="arch" type="xml">
             <list>
-                <field name="analytic_account_id"/>
-                <field name="product_id"/>
+                <field name="analytic_account_id" string="Aboauftrag"/>
+                <field name="product_id" string="Produkt"/>
                 <field name="name"/>
-                <field name="quantity"/>
-                <field name="discount"/>
-                <field name="price_unit"/>
-                <field name="price_subtotal"/>
-                <field name="partner_id"/>
-                <field name="salesperson_id"/>
+                <field name="quantity" string="Menge"/>
+                <field name="discount" string="Rabatt (%)"/>
+                <field name="price_unit" string="Preis pro ME"/>
+                <field name="price_subtotal" string="Zwischensumme"/>
+                <field name="partner_id" string="Partner"/>
+                <field name="salesperson_id" string="Verkäufer"/>
             </list>
         </field>
     </record>
