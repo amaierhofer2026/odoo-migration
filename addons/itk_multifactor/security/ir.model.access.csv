@@ -1,4 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_res_partner_multifactor_update_confirm,access.res.partner.multifactor.update.confirm,itk_multifactor.model_res_partner_multifactor_update_confirm,base.group_user,1,1,1,1
-access_sale_subscription_set_pricelist_confirm,access.sale.subscription.set.pricelist.confirm,itk_multifactor.model_sale_subscription_set_pricelist_confirm,base.group_user,1,1,1,1
-access_sale_subscriptionline_multifactor_update_confirm,access.sale.subscriptionline.multifactor.update.confirm,itk_multifactor.model_sale_subscriptionline_multifactor_update_confirm,base.group_user,1,1,1,1

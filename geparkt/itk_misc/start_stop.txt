@@ -1,7 +1,0 @@
-sudo systemctl stop odoo
-sudo systemctl start odoo
-sudo systemctl status odoo
-
-sudo /etc/init.d/postgresql restart
-
-sudo /etc/init.d/postgresql start|stop|restart|reload|force-reload|status)

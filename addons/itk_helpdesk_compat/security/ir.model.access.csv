@@ -1,7 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_itk_helpdesk_priority_manager,itk.helpdesk.priority.manager,model_itk_helpdesk_priority,helpdesk_mgmt.group_helpdesk_manager,1,1,1,1
-access_itk_helpdesk_priority_user,itk.helpdesk.priority.user,model_itk_helpdesk_priority,base.group_user,1,0,0,0
-access_itk_helpdesk_subcfield_manager,itk.helpdesk.subcategory.field.manager,model_itk_helpdesk_subcategory_field,helpdesk_mgmt.group_helpdesk_manager,1,1,1,1
-access_itk_helpdesk_subcfield_user,itk.helpdesk.subcategory.field.user,model_itk_helpdesk_subcategory_field,base.group_user,1,0,0,0
-access_itk_helpdesk_subc_field_val_mgr,itk.helpdesk.subcategory.field.value.manager,model_itk_helpdesk_subcategory_field_value,helpdesk_mgmt.group_helpdesk_manager,1,1,1,1
-access_itk_helpdesk_subc_field_val_user,itk.helpdesk.subcategory.field.value.user,model_itk_helpdesk_subcategory_field_value,base.group_user,1,1,1,0
