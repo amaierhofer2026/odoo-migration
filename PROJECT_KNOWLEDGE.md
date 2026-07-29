@@ -3343,4 +3343,68 @@ rpc18("object", "execute_kw", [DB, uid, PWD, "res.partner", "unlink", [list(rang
 | Städtebund-Mitglied | nein | res.partner.member_of_city_alliance |
 | Child-Kontakte | 3 | res.partner (Hareter Helmut, Tobler Bernd×2) |
 | GKZ-Display | [10301] Marktgemeinde... | name_get via itk_crm |
-| DB-Backups | 2 | vor_labels + vor_onchange_fix |
+|| DB-Backups | 2 | vor_labels + vor_onchange_fix |
+
+---
+
+### Session 65: Disaster Recovery — PostgreSQL-Korruption behoben (29.07.2026)
+
+#### Problem
+- Odoo 18 zeigte nur noch "Create new database"-Seite
+- PostgreSQL meldete: `could not open file "base/5/2601"` und `"base/16388/16508"`
+- PostgreSQL-Datenverzeichnis unvollständig/beschädigt
+
+#### Wiederherstellung
+
+**Quellen geprüft:**
+- GitHub `amaierhofer2026/odoo-migration` (main, catastrophe-backup, hermes/crm-structure-docs)
+- Linux-VM: `/home/amaierhofer/Schreibtisch/odoo-migration/backups/`
+- Docker-Volumes (nicht persistent — kein Filestore-Mount in docker-compose.yml)
+- Keine Tags im Repo, kein .dump/.sql im Projektverzeichnis
+
+**Gefundenes Backup:**
+- `odoo18_backup_vor_onchange_fix.zip` (5,5 MB, Stand 24.07.2026)
+  - `dump.sql` (29 MB, 176k Zeilen, 650 CREATE TABLE, 6239 Zeilen mit UTF-8)
+  - `filestore/` (25 Verzeichnisse)
+
+**Fehler beim ersten Restore:**
+- `Get-Content dump.sql | docker exec -i odoo18-db psql` → UTF-8 durch Windows-1252-Pipeline zerstört
+- Symptome: `N??tzliche Links`, `??ber uns`, Login kaputt
+- PostgreSQL-Warnings: `transaction_timeout` (PG17-Parameter, PG16 kennt ihn nicht — harmlos)
+- PostgreSQL-Error: `res_country_state_name_code_uniq` — Artefakt des Encoding-Fehlers
+
+**Korrigierter Restore (fix_encoding.ps1 v2):**
+1. `docker stop odoo18` + `docker rm odoo18`
+2. `DROP DATABASE IF EXISTS odoo18_test WITH (FORCE)`
+3. `CREATE DATABASE odoo18_test OWNER odoo ENCODING 'UTF8'`
+4. `docker cp dump.sql odoo18-db:/tmp/dump.sql` (binär, keine Pipeline!)
+5. `docker exec odoo18-db psql -U odoo -d odoo18_test -f /tmp/dump.sql`
+6. `docker cp filestore odoo18:/tmp/filestore_restore` + in `/var/lib/odoo/filestore/odoo18_test/` kopieren
+7. `docker restart odoo18`
+
+**Ergebnis:**
+- ✅ Odoo 18 läuft unter http://localhost:8069
+- ✅ Deutsche Sonderzeichen korrekt
+- ✅ Login funktioniert
+- ✅ Sauberes Backup erstellt: `backups/odoo18_backup_clean_2026-07-29_1248.zip` (7 MB)
+- ✅ Alle 7 ITK-Module installiert (itk_subscription, itk_product, itk_projectcategory, itk_sale_management, itk_valorisierung, itk_base_setup, itk_crm)
+- ✅ helpdesk_mgmt (OCA): 1 Team, 37 Kategorien, 16 Stages, 4 Channels, 14 User-Zuordnungen
+- ✅ res_country_state_name_code_uniq Constraint vorhanden und gültig
+- ✅ Keine Duplikate, alle Indizes valide, UTF-8 Encoding bestätigt
+
+#### Erstellte Scripts
+| Script | Zweck |
+|--------|-------|
+| `fix_encoding.ps1` (v2) | Full Recovery: DB + Filestore mit docker cp + psql -f |
+| `backup_now.ps1` | Clean Backup: pg_dump + Filestore → ZIP |
+| `diag_db.ps1` | DB-Diagnose: Constraints, Duplikate, Row-Counts, User |
+
+#### Root Cause des Encoding-Bugs
+PowerShells `Get-Content`-Pipeline verwendet je nach System-Config Windows-1252/ANSI.
+Alle UTF-8-Bytes > 0x7F werden beschädigt. **Docker cp + psql -f ist der einzig sichere Weg.**
+
+#### Technische Notizen
+- `docker-compose.yml` mountet Filestore **nicht** → bei `docker rm odoo18` geht Filestore verloren
+- Empfehlung: `./filestore:/var/lib/odoo/filestore` in docker-compose.yml ergänzen
+- `transaction_timeout`-Warning beim Restore ist harmlos (PG17-Parameter in PG16)
+- Dump ist Plain SQL (`-- PostgreSQL database dump`), nicht Custom-Format → `psql`, nicht `pg_restore`

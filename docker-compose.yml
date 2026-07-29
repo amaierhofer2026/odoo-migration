@@ -24,4 +24,5 @@ services:
       PASSWORD: odoo
     volumes:
       - ./addons:/mnt/extra-addons
+      - ./filestore:/var/lib/odoo/filestore
     restart: unless-stopped
