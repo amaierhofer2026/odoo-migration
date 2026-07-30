@@ -4,6 +4,53 @@ Erstellt: 30.07.2026
 Branch: `crm-kundenverwaltung-migration`
 Quelldaten: JSON-RPC-Abfragen Odoo 11 (`ITK_V1_a`) + Odoo 18 (`odoo18_test`)
 
+**Status: UMGESETZT am 30.07.2026** — Stages, Menüs, Custom-Felder und App-Name angepasst.
+
+---
+
+## Umsetzungsprotokoll (30.07.2026)
+
+### 1. Stages (crm.stage)
+Alle 8 Stages via JSON-RPC angelegt/umbenannt. PO-Übersetzungen umgangen durch Löschen+Neuanlegen.
+
+| ID | Name | Seq | Fold | is_won |
+|----|------|-----|------|--------|
+| 12 | Neu | 1 | false | false |
+| 9 | Angebotsphase | 2 | false | false |
+| 10 | On-Hold | 3 | false | false |
+| 5 | Positive Rückmeldung | 4 | false | false |
+| 11 | Erfolgreich | 5 | false | true |
+| 6 | Zur Verrechnung bereit | 6 | false | false |
+| 7 | Verloren | 7 | true | false |
+| 8 | Verrechnet | 8 | true | false |
+
+### 2. Menüs (ir.ui.menu)
+Umbenannt und neu strukturiert. PO-Übersetzungen umgangen durch Löschen+Neuanlegen für 144 (Pipeline) und 146 (Aktivitäten).
+
+| ID | Name | Parent | Seq |
+|----|------|--------|-----|
+| 143 | Kundenverwaltung | - | 25 |
+| 894 | Aktivitäten | 143 | 0 |
+| 892 | Pipeline | 143 | 1 |
+| 148 | Kunden | 143 | 5 |
+| 150 | Berichtswesen | 143 | 20 |
+| 155 | Konfiguration | 143 | 25 |
+
+### 3. App-Name "CRM" → "Kundenverwaltung"
+ir.module.category (id=13) per Server-Action mit sudo() umbenannt. Browser bestätigt: Navbar zeigt "Kundenverwaltung".
+
+### 4. Custom-Felder (ir.model.fields)
+Alte char-Felder gelöscht, als selection neu angelegt:
+
+| Feld | ID | Typ | Werte |
+|------|-----|-----|-------|
+| x_Lead_Quelle | 20641 | selection | 24 Optionen (Lead-Quellen) |
+| x_Produktinteresse | 20643 | selection | 10 Optionen (Produkte) |
+| x_lead_status | 20645 | selection | 12 Optionen (Status) |
+| x_Anrede_Lead | 20647 | selection | 3 Optionen (Anrede) |
+
+⚠️ **Hinweis für spätere Migration**: O11 `rückruf` → O18 `rueckruf` (Umlaut entfernt, da selection-key kein Sonderzeichen)
+
 ---
 
 ## 1. Menü-Struktur: Odoo 11 → Odoo 18 Mapping
