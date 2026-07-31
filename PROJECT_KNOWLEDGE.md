@@ -3408,3 +3408,38 @@ Alle UTF-8-Bytes > 0x7F werden beschädigt. **Docker cp + psql -f ist der einzig
 - Empfehlung: `./filestore:/var/lib/odoo/filestore` in docker-compose.yml ergänzen
 - `transaction_timeout`-Warning beim Restore ist harmlos (PG17-Parameter in PG16)
 - Dump ist Plain SQL (`-- PostgreSQL database dump`), nicht Custom-Format → `psql`, nicht `pg_restore`
+
+### Session 6: CRM / Kundenverwaltung — Strukturmigration Odoo 11 → 18
+
+**Datum:** 30.–31.07.2026
+**Branch:** `crm-kundenverwaltung-migration` → PR #3 (Analyse), PR #4 (Umsetzung)
+**Dokumentation:** `docs/crm_kundenverwaltung_analysis.md`
+
+#### Ziel
+Odoo-18-CRM strukturell an Odoo-11-Kundenverwaltung angleichen. Keine alten Daten migriert.
+
+#### Umgesetzt (30.–31.07.)
+
+**App-Name:** ir.module.category id=13 "CRM" → "Kundenverwaltung" (per Server-Action sudo())
+
+**Menüs (5 Haupt + Sub):**
+- Root: Kundenverwaltung (143) / Aktivitäten (894), Pipeline (892), Kunden (148), Berichtswesen (150), Konfiguration (155)
+- Sub: Interessenten (149), Angebote (294), Teams (147), Vertriebskanäle (158), Aktivitätstypen (161), Interessenten und Chancen (164), Ablehnungsgründe (167)
+
+**Stages (8):**
+- Neu(12), Angebotsphase(9), On-Hold(10), Positive Rückmeldung(5), Erfolgreich(11,is_won=True), Zur Verrechnung bereit(6), Verloren(7,fold), Verrechnet(8,fold)
+- PITFALL: probability existiert NICHT auf crm.stage in O18
+
+**Custom-Felder (4, alle selection):**
+- x_Lead_Quelle (20641): 24 Werte / x_Produktinteresse (20643): 10 / x_lead_status (20645): 12 / x_Anrede_Lead (20647): 3
+
+**Interessenten-Ansicht (31.07.):**
+- Labels: Salesperson→Verkäufer, Sales Team→Vertriebskanal, Contact Name→Ansprechpartner, Created on→Erstellt am, Last Updated on→Aktualisierungsdatum
+- Action 210: "Leads"→"Interessenten"
+- Inherited View id=4005: Custom-Felder + write_date hinzugefügt, name="Lead"→"Interessent"
+
+**Nicht umgesetzt:** Automated Action "Zur Verrechnung bereit" (nur analysiert)
+
+**PITFALLS:**
+- ir.translation kein ORM-Modell → PO-Translations umgehen durch Löschen+Neuanlegen
+- Server-Actions mit sudo() für geschützte Modelle (ir.module.category)
