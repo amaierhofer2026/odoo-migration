@@ -3443,3 +3443,54 @@ Odoo-18-CRM strukturell an Odoo-11-Kundenverwaltung angleichen. Keine alten Date
 **PITFALLS:**
 - ir.translation kein ORM-Modell → PO-Translations umgehen durch Löschen+Neuanlegen
 - Server-Actions mit sudo() für geschützte Modelle (ir.module.category)
+
+---
+
+### Session 66: Aktivitäten-Kanban-Ansicht (31.07.2026)
+
+#### Analyse
+- Menu 894 "Aktivitäten" (unter Kundenverwaltung) zeigte **falsche Action 211** (crm.lead mit Aktivitäten-Filter)
+- Das ist eine CRM-Lead-Liste, nicht die echte mail.activity-Übersicht
+- Odoo 18 hat alle benötigten mail.activity-Felder bereits nativ
+- Kanban-View 308 (mail.activity.view.kanban.open.target) existiert bereits
+
+#### Durchgeführte Änderungen
+
+1. **Neue Action 1464 erstellt** (ir.actions.act_window):
+   - name: "Aktivitäten"
+   - res_model: mail.activity
+   - view_mode: kanban,list,calendar,form (Kanban als Default)
+   - context: {"group_by": "activity_type_id"} → Kanban nach Aktivitätstyp gruppiert
+
+2. **Menu 894 aktualisiert**: von Action 211 (crm.lead) auf Action 1464 umgebogen
+
+3. **Zusätzliche Aktivitätstypen** (für Odoo-11-Kompatibilität):
+   - "Anrufen" (14) — phonecall, fa-phone
+   - "data.gv.at Neukunde anlegen" (12) — default, fa-user-plus
+   - "Webinar / Präsentation" (13) — meeting, fa-presentation
+
+4. **XML-Daten-Datei** (`data/aktivitaeten_views.xml`):
+   - Definiert die 3 neuen Aktivitätstypen
+   - Definiert die Action mit XML-ID `itk_crm.action_aktivitaeten`
+   - `<function>`-Call zum Aktualisieren von Menu 894
+   - In `__manifest__.py` registriert
+
+5. **Test-Aktivitäten** (IDs 9-12) zu Partner "Magistrat der Stadt Villach":
+   - E-Mail: "Projektunterlagen per E-Mail senden" (10.08.2026)
+   - Anrufen: "Rückruf vereinbart - Angebot besprechen" (05.08.2026)
+   - Meeting: "Webinar / Präsentation IT-Sicherheit" (15.08.2026)
+   - To-Do: "Daten für data.gv.at Neukunden vorbereiten" (10.08.2026)
+
+#### Browser-Verifikation
+- Kanban-Ansicht zeigt 4 Spalten gruppiert nach Aktivitätstyp ✅
+- Karten zeigen: Kunde, Zusammenfassung, Fälligkeit (In X Tagen), User-Avatar, Typ-Badge ✅
+- Erledigt/Abbrechen-Buttons auf jeder Karte ✅
+- View-Switcher: Kanban (aktiv), Liste, Kalender ✅
+- Such- und Filterleiste vorhanden ✅
+
+#### Mapping-Tabelle (kompakt)
+16 von 17 Feldern/Funktionen 1:1 in Odoo 18 vorhanden. Nur Menü-Verknüpfung + Kanban-Gruppierung mussten angepasst werden. Keine neuen Felder angelegt.
+
+#### PITFALLS
+- mail.activity braucht in Odoo 18 `res_model_id` (Many2one ir.model) statt `res_model` (Char)
+- Action-Context mit `group_by` muss JSON-String sein (nicht dict)

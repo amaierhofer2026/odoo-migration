@@ -14,6 +14,7 @@
         'views/res_partner.xml',
         'data/itk_status_of_partner.xml',
         'data/itk_community_magnitude_classes.xml',
+        'data/aktivitaeten_views.xml',
     ],
     'installable': True,
     'application': False,
