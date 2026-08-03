@@ -3494,3 +3494,51 @@ Odoo-18-CRM strukturell an Odoo-11-Kundenverwaltung angleichen. Keine alten Date
 #### PITFALLS
 - mail.activity braucht in Odoo 18 `res_model_id` (Many2one ir.model) statt `res_model` (Char)
 - Action-Context mit `group_by` muss JSON-String sein (nicht dict)
+
+---
+
+### Session 67: Lost Reasons + Automated Action "Zur Verrechnung bereit" (03.08.2026)
+
+**Branch:** `feature/aktivitaeten-kanban-ansicht`
+**Commit:** `b8aac83`
+
+#### Lost Reasons (Odoo 11 → 18)
+
+| O11 ID | O11 Name | O18 Status | Aktion |
+|--------|----------|------------|--------|
+| 1 | Too expensive | ✅ Existiert | Unverändert |
+| 2 | Im Moment keinen Bedarf | ✅ Umbenannt | "We don't have people/skills" → "Im Moment keinen Bedarf" |
+| 4 | Bedarf zu gering | ✅ Neu | `itk_crm.lost_reason_bedarf_zu_gering` |
+| 5 | Später kontaktieren | ✅ Neu | `itk_crm.lost_reason_spaeter_kontaktieren` |
+| 6 | Mitbewerb | ✅ Neu | `itk_crm.lost_reason_mitbewerb` |
+
+**Implementierung:** `data/lost_reasons.xml` (noupdate=1)
+- ID 2: `<function>`-Call mit search nach "We don't have people/skills" → write name
+- 3 neue Records mit XML-IDs für Idempotenz
+
+#### Automated Action "Zur Verrechnung bereit"
+
+**Was:** Wenn ein crm.lead auf Stage "Zur Verrechnung bereit" wechselt → Benachrichtigung an Follower
+
+**Implementierung:** `hooks.py` → `post_init_hook(env)`
+- Sucht Stage "Zur Verrechnung bereit" per Namen
+- Erstellt `ir.actions.server` (state='code'): `record.message_post()` an Follower
+- Erstellt `base.automation` (trigger='on_write', filter_pre_domain stage_id)
+- **Idempotent:** Prüft vorher, ob bereits existiert
+- **Sanft:** Nur Warnung, wenn Stage nicht gefunden wird (RPC-Setup zuerst nötig)
+
+**Dateien geändert/neu:**
+- `addons/itk_crm/hooks.py` — **NEU** — post_init_hook
+- `addons/itk_crm/data/lost_reasons.xml` — **NEU** — Lost Reasons
+- `addons/itk_crm/__init__.py` — `from . import hooks`
+- `addons/itk_crm/__manifest__.py` — data + post_init_hook registriert
+
+**PITFALLS:**
+- GitHub-Token wird von Hermes maskiert (Security-Scanner) → Push muss manuell erfolgen
+- Odoo 18 Docker war nicht erreichbar → keine Browser-Verifikation möglich
+- Lost-Reason-ID 2 per Namen gesucht statt XML-ID (robuster)
+
+**Noch offen:**
+- Browser-Verifikation sobald Odoo 18 läuft
+- Modul-Upgrade `itk_crm` durchführen zum Testen
+- Teams-Migration (blockiert bis Kontaktmigration freigegeben)
