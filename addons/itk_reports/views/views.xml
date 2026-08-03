@@ -20,7 +20,7 @@
         <record model="ir.actions.act_window" id="itk_product.action_window">
           <field name="name">itk_product window</field>
           <field name="res_model">itk_product.itk_product</field>
-          <field name="view_mode">tree,form</field>
+          <field name="view_mode">list,form</field>
         </record>
         -->
 
@@ -33,7 +33,7 @@
           <field name="code">
             action = {
               "type": "ir.actions.act_window",
-              "view_mode": "tree,form",
+              "view_mode": "list,form",
               "res_model": self._name,
             }
           </field>
