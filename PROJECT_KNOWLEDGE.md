@@ -3443,3 +3443,102 @@ Odoo-18-CRM strukturell an Odoo-11-Kundenverwaltung angleichen. Keine alten Date
 **PITFALLS:**
 - ir.translation kein ORM-Modell → PO-Translations umgehen durch Löschen+Neuanlegen
 - Server-Actions mit sudo() für geschützte Modelle (ir.module.category)
+
+---
+
+### Session 66: Aktivitäten-Kanban-Ansicht (31.07.2026)
+
+#### Analyse
+- Menu 894 "Aktivitäten" (unter Kundenverwaltung) zeigte **falsche Action 211** (crm.lead mit Aktivitäten-Filter)
+- Das ist eine CRM-Lead-Liste, nicht die echte mail.activity-Übersicht
+- Odoo 18 hat alle benötigten mail.activity-Felder bereits nativ
+- Kanban-View 308 (mail.activity.view.kanban.open.target) existiert bereits
+
+#### Durchgeführte Änderungen
+
+1. **Neue Action 1464 erstellt** (ir.actions.act_window):
+   - name: "Aktivitäten"
+   - res_model: mail.activity
+   - view_mode: kanban,list,calendar,form (Kanban als Default)
+   - context: {"group_by": "activity_type_id"} → Kanban nach Aktivitätstyp gruppiert
+
+2. **Menu 894 aktualisiert**: von Action 211 (crm.lead) auf Action 1464 umgebogen
+
+3. **Zusätzliche Aktivitätstypen** (für Odoo-11-Kompatibilität):
+   - "Anrufen" (14) — phonecall, fa-phone
+   - "data.gv.at Neukunde anlegen" (12) — default, fa-user-plus
+   - "Webinar / Präsentation" (13) — meeting, fa-presentation
+
+4. **XML-Daten-Datei** (`data/aktivitaeten_views.xml`):
+   - Definiert die 3 neuen Aktivitätstypen
+   - Definiert die Action mit XML-ID `itk_crm.action_aktivitaeten`
+   - `<function>`-Call zum Aktualisieren von Menu 894
+   - In `__manifest__.py` registriert
+
+5. **Test-Aktivitäten** (IDs 9-12) zu Partner "Magistrat der Stadt Villach":
+   - E-Mail: "Projektunterlagen per E-Mail senden" (10.08.2026)
+   - Anrufen: "Rückruf vereinbart - Angebot besprechen" (05.08.2026)
+   - Meeting: "Webinar / Präsentation IT-Sicherheit" (15.08.2026)
+   - To-Do: "Daten für data.gv.at Neukunden vorbereiten" (10.08.2026)
+
+#### Browser-Verifikation
+- Kanban-Ansicht zeigt 4 Spalten gruppiert nach Aktivitätstyp ✅
+- Karten zeigen: Kunde, Zusammenfassung, Fälligkeit (In X Tagen), User-Avatar, Typ-Badge ✅
+- Erledigt/Abbrechen-Buttons auf jeder Karte ✅
+- View-Switcher: Kanban (aktiv), Liste, Kalender ✅
+- Such- und Filterleiste vorhanden ✅
+
+#### Mapping-Tabelle (kompakt)
+16 von 17 Feldern/Funktionen 1:1 in Odoo 18 vorhanden. Nur Menü-Verknüpfung + Kanban-Gruppierung mussten angepasst werden. Keine neuen Felder angelegt.
+
+#### PITFALLS
+- mail.activity braucht in Odoo 18 `res_model_id` (Many2one ir.model) statt `res_model` (Char)
+- Action-Context mit `group_by` muss JSON-String sein (nicht dict)
+
+---
+
+### Session 67: Lost Reasons + Automated Action "Zur Verrechnung bereit" (03.08.2026)
+
+**Branch:** `feature/aktivitaeten-kanban-ansicht`
+**Commit:** `b8aac83`
+
+#### Lost Reasons (Odoo 11 → 18)
+
+| O11 ID | O11 Name | O18 Status | Aktion |
+|--------|----------|------------|--------|
+| 1 | Too expensive | ✅ Existiert | Unverändert |
+| 2 | Im Moment keinen Bedarf | ✅ Umbenannt | "We don't have people/skills" → "Im Moment keinen Bedarf" |
+| 4 | Bedarf zu gering | ✅ Neu | `itk_crm.lost_reason_bedarf_zu_gering` |
+| 5 | Später kontaktieren | ✅ Neu | `itk_crm.lost_reason_spaeter_kontaktieren` |
+| 6 | Mitbewerb | ✅ Neu | `itk_crm.lost_reason_mitbewerb` |
+
+**Implementierung:** `data/lost_reasons.xml` (noupdate=1)
+- ID 2: `<function>`-Call mit search nach "We don't have people/skills" → write name
+- 3 neue Records mit XML-IDs für Idempotenz
+
+#### Automated Action "Zur Verrechnung bereit"
+
+**Was:** Wenn ein crm.lead auf Stage "Zur Verrechnung bereit" wechselt → Benachrichtigung an Follower
+
+**Implementierung:** `hooks.py` → `post_init_hook(env)`
+- Sucht Stage "Zur Verrechnung bereit" per Namen
+- Erstellt `ir.actions.server` (state='code'): `record.message_post()` an Follower
+- Erstellt `base.automation` (trigger='on_write', filter_pre_domain stage_id)
+- **Idempotent:** Prüft vorher, ob bereits existiert
+- **Sanft:** Nur Warnung, wenn Stage nicht gefunden wird (RPC-Setup zuerst nötig)
+
+**Dateien geändert/neu:**
+- `addons/itk_crm/hooks.py` — **NEU** — post_init_hook
+- `addons/itk_crm/data/lost_reasons.xml` — **NEU** — Lost Reasons
+- `addons/itk_crm/__init__.py` — `from . import hooks`
+- `addons/itk_crm/__manifest__.py` — data + post_init_hook registriert
+
+**PITFALLS:**
+- GitHub-Token wird von Hermes maskiert (Security-Scanner) → Push muss manuell erfolgen
+- Odoo 18 Docker war nicht erreichbar → keine Browser-Verifikation möglich
+- Lost-Reason-ID 2 per Namen gesucht statt XML-ID (robuster)
+
+**Noch offen:**
+- Browser-Verifikation sobald Odoo 18 läuft
+- Modul-Upgrade `itk_crm` durchführen zum Testen
+- Teams-Migration (blockiert bis Kontaktmigration freigegeben)
