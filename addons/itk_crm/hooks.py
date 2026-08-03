@@ -1,4 +1,4 @@
-"""Post-install hooks for itk_crm — sets up automated actions and other runtime data."""
+"""Post-install hooks for itk_crm — sets up automated actions and runtime data."""
 import logging
 
 _logger = logging.getLogger(__name__)
@@ -54,7 +54,7 @@ def post_init_hook(env):
         'name': "Interessent 'zur Verrechnung bereit'",
         'model_id': env.ref('crm.model_crm_lead').id,
         'trigger': 'on_write',
-        'filter_pre_domain': f"[['stage_id', '=', {stage.id}]]",
+        'filter_pre_domain': "[['stage_id', '=', {}]]".format(stage.id),
         'action_server_id': server_action.id,
         'active': True,
     })

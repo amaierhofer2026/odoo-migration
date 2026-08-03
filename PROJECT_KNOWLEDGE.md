@@ -3542,3 +3542,45 @@ Odoo-18-CRM strukturell an Odoo-11-Kundenverwaltung angleichen. Keine alten Date
 - Browser-Verifikation sobald Odoo 18 läuft
 - Modul-Upgrade `itk_crm` durchführen zum Testen
 - Teams-Migration (blockiert bis Kontaktmigration freigegeben)
+
+---
+
+### Session 68: Aktivitäten-Kanban-Test + CRM-Menü-Fixes (03.08.2026)
+
+**Branch:** `hermes/aktivitaeten-crm-fixes`
+**Commit:** `b60b64a`
+
+#### Browser-Test: Aktivitäten-Kanban
+
+Getestet und funktionsfähig:
+- **Kanban-Ansicht**: 4 Spalten gruppiert nach Aktivitätstyp (E-Mail, Anrufen, Meeting, To-do) ✅
+- **Listen-Ansicht**: Gruppierte Liste mit Spalten (Dokument, Typ, Zugewiesen, Fälligkeit) ✅
+- **Kalender-Ansicht**: Woche 32, Aktivitäten korrekt auf Daten verteilt ✅
+- **Keine JS-Fehler** in der Browser-Konsole ✅
+
+#### CRM-Menü-Fixes (Delete & Recreate)
+
+**Problem:** Odoo-18-PO-Übersetzungen überschreiben DB-Namen. Der einzig funktionierende Fix ist Delete+Recreate (siehe `references/odoo18-translation-pitfalls.md`).
+
+**Gefixt:**
+| Element | Vorher | Nachher | Methode |
+|---------|--------|---------|---------|
+| Menu 145 (Pipeline-Sub) | Meine Pipeline | **Pipeline** | Delete+Recreate → id=897 |
+| Menu 294 (Angebote-Sub) | Meine Angebote | **Angebote** | Delete+Recreate → id=898 |
+| Action 210 (Interessenten) | Leads | **Interessenten** | Delete+Recreate → id=1469 |
+
+**Nicht gefixt (PO-Übersetzung, Felder nicht delete+recreate-fähig):**
+- Spalten: "Vertriebsmitarbeiter" (soll: Verkäufer), "Verkaufsteam" (soll: Vertriebskanal)
+- View-Titel: "Leads" (soll: Interessenten — View-Arch-String, nicht Action-Name)
+
+**PITFALLS:**
+- `ir.translation` kein ORM-Modell → `<record>` in XML funktioniert NICHT
+- `post_init_hook` mit SQL funktioniert NICHT (PO-Übersetzungen werden NACH dem Hook geladen)
+- Einziger Weg für Menüs: Delete+Recreate per RPC
+- Action 210 wurde gelöscht, aber Create schlug fehl → manuell mit korrekten Attributen neu erstellt
+
+**Nicht committet:**
+- `KONTAKTPRUEFUNG_BERICHT.md`: Enthält Login-Referenzen + Kundennamen
+- `validate_partner_migration.py`: Enthält Login-Referenzen
+- `backups/`: Datenbank-Backups
+- `crm_menu_translations.xml`: Funktionslos, wurde gelöscht
