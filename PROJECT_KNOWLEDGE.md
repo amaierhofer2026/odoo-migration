@@ -3584,3 +3584,10 @@ Getestet und funktionsfähig:
 - `validate_partner_migration.py`: Enthält Login-Referenzen
 - `backups/`: Datenbank-Backups
 - `crm_menu_translations.xml`: Funktionslos, wurde gelöscht
+
+**Nachtrag — Bugfix view_mode tree→list (03.08.2026):**
+- Action 1469 (Interessenten) hatte `view_mode: tree,...` → JS-Fehler "View types not defined tree"
+- Fix: view_mode auf `list,...` geändert + search_view_id entfernt (View 219 verweist auf Feld `state`, das in Odoo 18 nicht existiert)
+- Gleicher Fix in 5 Moduldateien (itk_sale_management, itk_translation, itk_reports, hr_holidays_public)
+- `.gitignore`: backups/, scans/, *.zip, *.dump ergänzt
+- Browser-Verifikation: Interessenten, Angebote, Pipeline, Aktivitäten — alle ohne JS-Fehler ✅
