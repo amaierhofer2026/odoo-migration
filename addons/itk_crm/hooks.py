@@ -46,12 +46,16 @@ def _setup_lost_reasons(env):
 
 def _setup_automated_action(env):
     """Create the automated action 'Zur Verrechnung bereit' for CRM leads."""
+    _logger.info("itk_crm post_init_hook: Setting up automated action...")
+
+    # Find the "Zur Verrechnung bereit" stage
     Stage = env['crm.stage']
     stage = Stage.search([('name', '=', 'Zur Verrechnung bereit')], limit=1)
     if not stage:
         _logger.warning(
             "itk_crm: Stage 'Zur Verrechnung bereit' not found — "
-            "skipping automated action creation."
+            "skipping automated action creation. "
+            "Run the CRM setup JSON-RPC script first."
         )
         return
 

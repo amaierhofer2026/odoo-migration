@@ -3591,7 +3591,6 @@ Getestet und funktionsfähig:
 - Gleicher Fix in 5 Moduldateien (itk_sale_management, itk_translation, itk_reports, hr_holidays_public)
 - `.gitignore`: backups/, scans/, *.zip, *.dump ergänzt
 - Browser-Verifikation: Interessenten, Angebote, Pipeline, Aktivitäten — alle ohne JS-Fehler ✅
-
 ---
 
 ### Session 69: itk_crm Modul-Upgrade — Lost Reasons, Automated Action, Aktivitäten-Kanban (04.08.2026)

@@ -2,15 +2,42 @@
 <odoo>
     <data noupdate="1">
 
-        <!-- Action: Aktivitäten-Kanban-Ansicht (mail.activity) -->
+        <!-- Zusätzliche Aktivitätstypen für Odoo-11-Kompatibilität -->
+        <record id="mail_activity_type_anrufen" model="mail.activity.type">
+            <field name="name">Anrufen</field>
+            <field name="category">phonecall</field>
+            <field name="icon">fa-phone</field>
+            <field name="sequence">6</field>
+        </record>
+
+        <record id="mail_activity_type_datagvat" model="mail.activity.type">
+            <field name="name">data.gv.at Neukunde anlegen</field>
+            <field name="category">default</field>
+            <field name="icon">fa-user-plus</field>
+            <field name="sequence">5</field>
+        </record>
+
+        <record id="mail_activity_type_webinar" model="mail.activity.type">
+            <field name="name">Webinar / Präsentation</field>
+            <field name="category">meeting</field>
+            <field name="icon">fa-presentation</field>
+            <field name="sequence">8</field>
+        </record>
+
+        <!-- Aktivitäten-Action: Kanban als Default, gruppiert nach Aktivitätstyp -->
         <!-- Wurde bereits via RPC angelegt (id=1464) - record ist idempotent via XML-ID -->
         <record id="action_aktivitaeten" model="ir.actions.act_window">
             <field name="name">Aktivitäten</field>
             <field name="res_model">mail.activity</field>
             <field name="view_mode">kanban,list,calendar,form</field>
-            <field name="context">{'group_by': 'activity_type_id'}</field>
-            <field name="help">Übersicht aller geplanten Aktivitäten (Anrufe, E-Mails, Meetings, To-dos)</field>
+            <field name="context">{"group_by": "activity_type_id"}</field>
+            <field name="help">Alle Aktivitäten - gruppiert nach Aktivitätstyp</field>
         </record>
+
+        <!-- Menü "Aktivitäten" (ID=894) auf die neue Action umbiegen -->
+        <function model="ir.ui.menu"
+                  name="write"
+                  eval="([894], {'action': 'ir.actions.act_window,%d' % ref('itk_crm.action_aktivitaeten')})"/>
 
     </data>
 </odoo>
