@@ -3591,3 +3591,82 @@ Getestet und funktionsfähig:
 - Gleicher Fix in 5 Moduldateien (itk_sale_management, itk_translation, itk_reports, hr_holidays_public)
 - `.gitignore`: backups/, scans/, *.zip, *.dump ergänzt
 - Browser-Verifikation: Interessenten, Angebote, Pipeline, Aktivitäten — alle ohne JS-Fehler ✅
+
+---
+
+### Session 69: itk_crm Modul-Upgrade — Lost Reasons, Automated Action, Aktivitäten-Kanban (04.08.2026)
+
+**Branch:** `crm-kundenverwaltung-migration`
+**Commit:** `7e7f39d`
+
+#### Probleme behoben
+
+1. **`aktivitaeten_views.xml` fehlte** — Datei existierte nicht, war aber im Manifest referenziert → Modul-Upgrade blockiert
+2. **`lost_reasons.xml` mit `<function>`-Tags** — escaped Quotes verursachten ParseError beim XML-Load
+3. **`hooks.py` Feld-Fehler** — `action_server_id` (many2one) existiert nicht mehr in Odoo 18; korrekt ist `action_server_ids` (one2many)
+4. **`crm.lost.reason` kein `sequence`-Feld** — create mit `sequence` crashte den Hook
+
+#### Durchgeführte Änderungen
+
+**`data/aktivitaeten_views.xml` — NEU**
+- Definiert Action `itk_crm.action_aktivitaeten` (mail.activity, Kanban-Gruppierung nach Typ)
+
+**`data/lost_reasons.xml` — NEU (leer)**
+- Lost-Reason-Logik komplett nach hooks.py verlagert
+
+**`hooks.py` — NEU (134 Zeilen)**
+- `_setup_lost_reasons()`: Rename "We don't have people/skills" → "Im Moment keinen Bedarf"; erstellt "Bedarf zu gering", "Später kontaktieren", "Mitbewerb"
+- `_setup_automated_action()`: base.automation "Interessent 'zur Verrechnung bereit'" (trigger=on_write, filter_pre_domain stage_id=6)
+- `_setup_activity_kanban()`: Stellt sicher, dass Aktivitäten-Action korrekt konfiguriert ist
+- Alle Operationen idempotent (search vor create/write)
+
+**`__manifest__.py`**
+- `data/aktivitaeten_views.xml` + `data/lost_reasons.xml` registriert
+- `post_init_hook: 'post_init_hook'` registriert
+
+**`__init__.py`**
+- `from . import hooks` ergänzt
+
+**view_mode tree→list Fixes** (in 4 weiteren Modulen):
+- `hr_holidays_public/views/hr_holidays_public_view.xml`
+- `hr_holidays_public/wizards/holidays_public_next_year_wizard.py`
+- `itk_reports/views/views.xml`
+- `itk_sale_management/views/views.xml`
+- `itk_translation/views/views.xml`
+
+**`.gitignore`**
+- `filestore/` ergänzt
+
+#### RPC-Nacharbeiten (post_init_hook schlug initial fehl)
+- Lost Reasons manuell via RPC erstellt/nachbearbeitet
+- Automated Action via RPC erstellt (action_server_ids statt action_server_id)
+- Duplikate Aktivitäten-Action gelöscht (id=1473, behalten: id=1464)
+- Broken asset attachments gelöscht (7 Stück, nach Docker-Neustart)
+
+#### Finaler Stand
+
+| Bereich | Status |
+|---|---|
+| Lost Reasons | 6/6 ✅ (Too expensive, Im Moment keinen Bedarf, Not enough stock, Bedarf zu gering, Später kontaktieren, Mitbewerb) |
+| Automated Actions | 2 ✅ (Urlaubsantrag + Zur Verrechnung bereit) |
+| CRM Stages | 8/8 ✅ |
+| Aktivitäten-Kanban | 4 Spalten (E-Mail, Anrufen, Meeting, To-do) ✅ |
+| ITK-Module | 15 installed ✅ |
+
+#### Browser-Verifikation (04.08.2026)
+- ✅ Login erfolgreich
+- ✅ Kundenverwaltung-Menüstruktur (Aktivitäten, Pipeline, Kunden, Berichtswesen, Konfiguration)
+- ✅ Interessenten: Listen-Ansicht (Titel "Interessenten", 3 Leads, korrekte Spalten)
+- ✅ Interessenten: Kanban-Ansicht (8 Stages, Karten mit Name/Kontakt/Betrag/Stage)
+- ✅ Aktivitäten: Kanban-Ansicht (4 Spalten gruppiert nach Aktivitätstyp)
+- ✅ Aktivitäten: Listen-Ansicht (gruppiert, 4 Einträge)
+- ✅ Aktivitäten: Kalender-Ansicht (Woche 32, Aktivitäten auf korrekten Tagen)
+- ✅ Pipeline-Dropdown (Pipeline, Interessenten, Angebote, Teams)
+- ✅ Keine JS-Fehler, keine RPC-Fehler, keine 500-Fehler
+
+#### PITFALLS
+- `button_immediate_upgrade` über JSON-RPC nicht nutzbar (Access Denied) → Workaround: `button_upgrade` + Browser-Reload
+- `crm.lost.reason` hat in Odoo 18 nur `name` + `active` — kein `sequence`, keine weiteren Felder
+- `base.automation` verwendet `action_server_ids` (one2many), nicht `action_server_id`
+- `env.ref()` für `crm.model_crm_lead` kann fehlschlagen → `env['ir.model'].search([('model','=','crm.lead')])` robuster
+- Docker Shared-Filesystem: `.pyc`-Cache kann nach Änderungen veraltet sein → Modul-Upgrade erzwingt Neu-Kompilierung
