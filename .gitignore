@@ -17,3 +17,10 @@ Thumbs.db
 *.swo
 # Hermes-Zugangsdaten (lokal, nie committen)
 .hermes_secrets
+
+# Datenbank-Backups und Scans
+backups/
+scans/
+*.zip
+*.dump
+filestore/

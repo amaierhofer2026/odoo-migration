@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Action: Aktivitäten-Kanban-Ansicht (mail.activity) -->
+        <!-- Wurde bereits via RPC angelegt (id=1464) - record ist idempotent via XML-ID -->
+        <record id="action_aktivitaeten" model="ir.actions.act_window">
+            <field name="name">Aktivitäten</field>
+            <field name="res_model">mail.activity</field>
+            <field name="view_mode">kanban,list,calendar,form</field>
+            <field name="context">{'group_by': 'activity_type_id'}</field>
+            <field name="help">Übersicht aller geplanten Aktivitäten (Anrufe, E-Mails, Meetings, To-dos)</field>
+        </record>
+
+    </data>
+</odoo>

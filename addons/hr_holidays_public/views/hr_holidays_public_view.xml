@@ -45,7 +45,7 @@
     <record id="open_holidays_public_view" model="ir.actions.act_window">
         <field name="name">Public Holidays</field>
         <field name="res_model">hr.holidays.public</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <menuitem id="menu_hr_public_holidays"
