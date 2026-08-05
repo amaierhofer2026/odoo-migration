@@ -3,31 +3,8 @@
     <data noupdate="1">
 
         <!-- Odoo-11-kompatible Lost Reasons -->
-        <!-- ID 1 "Too expensive" existiert bereits in O18 — unverändert lassen -->
-
-        <!-- ID 2: "We don't have people/skills" → "Im Moment keinen Bedarf" -->
-        <!-- Suche den bestehenden Lost Reason per Namen und benenne ihn um -->
-        <function model="crm.lost.reason"
-                  name="write"
-                  eval="(obj.search([('name', '=', 'We don\\'t have people/skills')]), {'name': 'Im Moment keinen Bedarf'})"/>
-
-        <!-- ID 4: "Bedarf zu gering" (NEU) -->
-        <record id="lost_reason_bedarf_zu_gering" model="crm.lost.reason">
-            <field name="name">Bedarf zu gering</field>
-            <field name="sequence">4</field>
-        </record>
-
-        <!-- ID 5: "Später kontaktieren" (NEU) -->
-        <record id="lost_reason_spaeter_kontaktieren" model="crm.lost.reason">
-            <field name="name">Später kontaktieren</field>
-            <field name="sequence">5</field>
-        </record>
-
-        <!-- ID 6: "Mitbewerb" (NEU) -->
-        <record id="lost_reason_mitbewerb" model="crm.lost.reason">
-            <field name="name">Mitbewerb</field>
-            <field name="sequence">6</field>
-        </record>
+        <!-- Alle Lost Reasons werden via post_init_hook angelegt (idempotent) -->
+        <!-- Keine <record> oder <function> Tags - vermeidet Parse-Konflikte -->
 
     </data>
 </odoo>

@@ -25,6 +25,7 @@
         </record>
 
         <!-- Aktivitäten-Action: Kanban als Default, gruppiert nach Aktivitätstyp -->
+        <!-- Wurde bereits via RPC angelegt (id=1464) - record ist idempotent via XML-ID -->
         <record id="action_aktivitaeten" model="ir.actions.act_window">
             <field name="name">Aktivitäten</field>
             <field name="res_model">mail.activity</field>
