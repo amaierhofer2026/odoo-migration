@@ -3717,3 +3717,79 @@ Getestet und funktionsfähig:
 - ✅ Keine doppelten Menüs
 - ✅ Nur 1 bestehendes Team ("Verkauf"), keine Migration aus O11
 
+### Session 50: PostgreSQL-Crash — Recovery & Architektur-Analyse
+
+**Datum:** 10.08.2026 (unmittelbar nach Session 49)
+
+#### Vorfall
+
+Nach den CRM-Änderungen aus Session 49 wurden die Docker-Container neugestartet.
+PostgreSQL (`odoo18-db`) startete nicht mehr:
+
+```
+invalid checkpoint record
+PANIC: could not locate a valid checkpoint record
+FATAL: the database system is starting up
+```
+
+Container liefen in einer Restart-Schleife. `docker compose stop` wurde ausgeführt.
+
+#### Zeitleiste (rekonstruiert aus pg_control/WAL-Timestamps)
+
+| Zeit | Ereignis |
+|------|----------|
+| 11:13 | PG startet, schreibt WAL 15/16/17 + Systemkataloge |
+| 11:15 | PG wird unterbrochen — pg_control geschrieben, postmaster: "stopping" |
+| 11:24 | Docker/PG-Neustart 1 (postmaster.opts neu) |
+| 11:26 | Docker/PG-Neustart 2 — PG bleibt in "stopping" hängen |
+
+#### Ursachenanalyse
+
+**Root Cause: VirtualBox Shared Folder (vboxsf) als PostgreSQL-Datenverzeichnis**
+
+```yaml
+# docker-compose.yml
+volumes:
+  - ./postgres:/var/lib/postgresql/data    # ← vboxsf-Dateisystem!
+```
+
+vboxsf garantiert kein echtes fsync(), erlaubt Write-Reordering und hat File-Locking-Probleme.
+PostgreSQL benötigt zwingend atomare WAL-Schreibvorgänge.
+
+**Zweiter Vorfall in 12 Tagen** — am 29.07.2026 gab es einen ähnlichen Crash (siehe disaster-recovery.md).
+
+**Keine** der heutigen Code-Änderungen hat direkt PostgreSQL-Dateien modifiziert.
+Alle CRM-Änderungen liefen über Odoo ORM/RPC. Die Modul-Upgrades und Docker-Restarts
+haben PG zu normalen Shutdown/Startup-Zyklen gezwungen — einer davon fiel mit
+vboxsf-Schreibinkonsistenz zusammen.
+
+#### Sicherungsstand
+
+| Sicherung | Stand | Status |
+|-----------|-------|--------|
+| `backups/odoo18_backup_clean_2026-07-29_1248.zip` (6.7 MB) | 29.07. | Sauber, 12 Tage alt |
+| `postgres/` (15202 Dateien, 384 MB) | 10.08. 11:15 | Beschädigt (WAL-Checkpoint) |
+| `postgres_defekt_2026-08-10/` | 10.08. | Exakte Kopie von postgres/ |
+| `postgres_defekt_2026-07-29_114402/` | 29.07. | Vom ersten Crash |
+| `filestore/odoo18_test/` (28 Dateien, 34 MB) | aktuell | Intakt (keine DB-Abhängigkeit) |
+
+#### Recovery Phase 2: pg_resetwal auf Kopie
+
+- Script: `recovery_phase2.ps1`
+- Arbeitet NUR auf `C:\Odoo-Test\postgres_recovery` (Kopie von postgres_defekt)
+- Schritte:
+  1. Kopie postgres_defekt → postgres_recovery
+  2. `docker run ... pg_resetwal -f` auf der Kopie
+  3. Temporärer Recovery-PG-Container (isoliert von odoo18-db)
+  4. Prüfung: odoo18_test vorhanden, Tabellen-Zählungen
+  5. `pg_dump` → `backups\odoo18_dump_rescued_2026-08-10.sql`
+  6. Filestore-Sicherung → `backups\filestore_rescued_2026-08-10\`
+  7. Recovery-Container stoppen
+
+#### Nächste Schritte (geplant)
+
+- **Phase 3:** Neue saubere PG-Instanz → Dump importieren → Odoo verifizieren
+- **Phase 4:** PostgreSQL auf Docker Named Volume migrieren (kein bind-mount mehr)
+  - `C:\Odoo-Test\postgres` nur noch für manuelle pg_dump-Backups
+
+
