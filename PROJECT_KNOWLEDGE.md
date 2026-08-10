@@ -3669,3 +3669,51 @@ Getestet und funktionsfähig:
 - `base.automation` verwendet `action_server_ids` (one2many), nicht `action_server_id`
 - `env.ref()` für `crm.model_crm_lead` kann fehlschlagen → `env['ir.model'].search([('model','=','crm.lead')])` robuster
 - Docker Shared-Filesystem: `.pyc`-Cache kann nach Änderungen veraltet sein → Modul-Upgrade erzwingt Neu-Kompilierung
+
+### Session 49: Vertriebskanäle — Menü & Listenansicht an O11 angleichen
+
+**Datum:** 10.08.2026
+
+#### Ausgangslage
+- O11: Menü "Vertriebskanäle" unter Kundenverwaltung → Konfiguration, Modell `crm.team`
+- O18: Menü "Verkaufsteams" (ID 158) an gleicher Stelle, selbes Modell `crm.team`
+- DB-Name war bereits "Vertriebskanäle", aber deutsche PO-Übersetzung zeigte "Verkaufsteams"
+- Listenansicht: Spalten "Verkaufsteam" (name) und "Teamleiter" (user_id)
+
+#### Analyse
+| Aspekt | Odoo 11 | Odoo 18 |
+|--------|---------|---------|
+| Menü | "Vertriebskanäle" (ID 201) | "Verkaufsteams" → "Vertriebskanäle" gefixt |
+| Action | act_window auf crm.team | ID 186, xml_id=sales_team.crm_team_action_config |
+| Spalte name | "Vertriebskanal" | "Vertriebskanal" (war "Verkaufsteam") |
+| Spalte user_id | "Kanal Leitung" | "Kanal Leitung" (war "Teamleiter") |
+| Form | Name, Leitung, Mitglieder | Name, Teamleiter, Mitglieder + CRM/Sales-Features |
+
+#### Änderungen
+
+**1. Menü-Label (DE):** "Verkaufsteams" → "Vertriebskanäle"
+- Per Server-Action mit `sudo()` und `with_context(lang='de_DE')`
+- Menu 158 (crm.crm_team_config) + Action 186 (sales_team.crm_team_action_config)
+
+**2. Listenansicht Spalten-Labels:**
+- `name`: "Verkaufsteam" → "Vertriebskanal"
+- `user_id`: "Teamleiter" → "Kanal Leitung"
+- Inherited View 4010 auf `sales_team.crm_team_view_tree` (ID 492)
+
+**3. Persistent in itk_crm (für nächsten Docker-Restart):**
+- `views/vertriebskanaele_views.xml` — Inherited List View
+- `hooks.py` — `_setup_vertriebskanaele_labels()` für DE-Menü/Action-Label
+- `__manifest__.py` — v18.0.1.1.0, neue View registriert
+
+**Wichtig:** Docker-Container (Windows) hat die Datei-Änderungen beim Modul-Upgrade nicht erkannt. View wurde per RPC direkt in DB angelegt. Beim nächsten Docker compose down/up greifen die persistenten Dateien.
+
+#### Verifikation (Browser)
+- ✅ Menü-Dropdown zeigt "Vertriebskanäle"
+- ✅ Seitentitel: "Vertriebskanäle"
+- ✅ Spalten: "Vertriebskanal", "Alias", "Kanal Leitung"
+- ✅ Formular: Name, Teamleiter, Mitglieder + O18-Features erhalten
+- ✅ Bestehende O18-Funktionalität vollständig erhalten
+- ✅ Keine JS-Fehler in Browser-Console
+- ✅ Keine doppelten Menüs
+- ✅ Nur 1 bestehendes Team ("Verkauf"), keine Migration aus O11
+

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherited list view: O11-kompatible Spaltenbezeichnungen -->
+    <record id="crm_team_list_inherit_itk" model="ir.ui.view">
+        <field name="name">crm.team.list.inherit.itk</field>
+        <field name="model">crm.team</field>
+        <field name="inherit_id" ref="sales_team.crm_team_view_tree"/>
+        <field name="priority" eval="99"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="string">Vertriebskanal</attribute>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="attributes">
+                    <attribute name="string">Kanal Leitung</attribute>
+                </xpath>
+            </data>
+        </field>
+    </record>
+</odoo>
