@@ -11,6 +11,7 @@ def post_init_hook(env):
     _setup_lost_reasons(env)
     _setup_automated_action(env)
     _setup_activity_kanban(env)
+    _setup_vertriebskanaele_labels(env)
 
 
 def _setup_lost_reasons(env):
@@ -136,3 +137,29 @@ def _setup_activity_kanban(env):
             'help': 'Übersicht aller geplanten Aktivitäten (Anrufe, E-Mails, Meetings, To-dos)',
         })
         _logger.info("itk_crm: Created Aktivitäten action (id=%s)", action.id)
+
+
+def _setup_vertriebskanaele_labels(env):
+    """Fix German labels: 'Sales Teams' → 'Vertriebskanäle' (idempotent).
+
+    The crm module's PO file overrides menu/action names to 'Verkaufsteams'.
+    This writes the correct German label via the Odoo translation system.
+    """
+    _logger.info("itk_crm: Setting up Vertriebskanäle German labels...")
+
+    # Menu 158 = crm.crm_team_config
+    # Action 186 = sales_team.crm_team_action_config
+    Menu = env['ir.ui.menu'].sudo()
+    Action = env['ir.actions.act_window'].sudo()
+
+    # Write German label for menu
+    menu = Menu.browse(158)
+    if menu.exists():
+        menu.with_context(lang='de_DE').write({'name': 'Vertriebskanäle'})
+        _logger.info("itk_crm: Menu 158 DE label → 'Vertriebskanäle'")
+
+    # Write German label for action (page title / breadcrumb)
+    action = Action.browse(186)
+    if action.exists():
+        action.with_context(lang='de_DE').write({'name': 'Vertriebskanäle'})
+        _logger.info("itk_crm: Action 186 DE label → 'Vertriebskanäle'")
