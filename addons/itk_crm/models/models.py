@@ -127,6 +127,26 @@ class ResPartner(models.Model):
         return result
 
 
+class CrmLead(models.Model):
+    """ITK-Custom-Felder auf crm.lead (Odoo-11-kompatibel).
+
+    x_Anrede_Lead wird als Modelfeld geführt, damit es bei jedem Modul-Load
+    (Install + Upgrade, auch nach Restore) VOR den Data-Files existiert —
+    die Interessenten-Views referenzieren es. Die übrigen x_-Felder
+    (x_Lead_Quelle, x_Produktinteresse, x_lead_status) wurden in Odoo 11/18
+    als manuelle Felder angelegt und werden im post_init_hook auf selection
+    konvertiert.
+    """
+    _inherit = 'crm.lead'
+
+    x_Anrede_Lead = fields.Selection(
+        [('sg_Frau', 'Sehr geehrte Frau'),
+         ('sg_Herr', 'Sehr geehrter Herr'),
+         ('sg_Damen_Herren', 'Sehr geehrte Damen und Herren')],
+        string='Anrede Lead',
+    )
+
+
 class CommunityMagnitude(models.Model):
     _name = 'itk_crm.communitymagnitude'
     _description = 'Community Magnitude'
