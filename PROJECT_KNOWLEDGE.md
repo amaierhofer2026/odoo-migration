@@ -3999,4 +3999,27 @@ Neue/geaenderte Dateien:
 - Encoding separat behandeln (eigene Freigabe)
 - PostgreSQL NIE wieder als Live-Datenverzeichnis ueber den alten Shared-/Bind-Mount betreiben
 
+## Notfall-Backup-Strategie (automatisiert, eingerichtet 12.08.2026)
+
+**Ziel:** `C:\Odoo-Notfallbackup` — zweimal taeglich (09:00 + 15:00) per Windows Task Scheduler, unabhaengig von Hermes.
+
+**Tasks (aktiviert):**
+- `Odoo18 Notfallbackup 09-00` — taeglich 09:00 (naechster Lauf 13.08.2026 09:00)
+- `Odoo18 Notfallbackup 15-00` — taeglich 15:00 (naechster Lauf 13.08.2026 15:00)
+- Beide rufen `powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\Odoo-Test\scripts\odoo18_notfallbackup.ps1` auf; laufen als angemeldeter User (Docker Desktop-Kontext), d.h. der PC muss angemeldet sein.
+- Registrierung reproduzierbar: `C:\Odoo-Test\scripts\setup_notfallbackup_tasks.ps1` (idempotent, -Force)
+
+**Skript** `C:\Odoo-Test\scripts\odoo18_notfallbackup.ps1` (PowerShell 5.1):
+1. Zeitstempel-Ordner `2026-08-12_1757\` (Kollisionsschutz: Suffix _2, _3 …)
+2. pg_dump `--format=custom` IM Container (`--file=/tmp/…`, kein Binary-Stream durch PowerShell wegen Encoding-Gefahr), Restore-Eignung via `pg_restore --list` (TOC lesbar), `docker cp` auf Host, Temp-Datei im Container wird geloescht
+3. Filestore: robocopy NUR `C:\Odoo-Test\filestore\odoo18_test` (Bind-Mount `./filestore` → `/var/lib/odoo/filestore`; Exit-Code < 8 = Erfolg)
+4. `backup_info.txt` mit Datum, DB-Name, Odoo-Version (18.0-20260609), PostgreSQL-Version (16.14), Git-Branch/-Commit, Named-Volume, Ergebnis, Dump-Groesse, Filestore-Anzahl/-Groesse
+5. Validierung: pg_dump Exit 0, Dump existiert + > 0 Bytes, Filestore vorhanden, Backup-Ziel beschreibbar (Probe-Datei). Fehler → `C:\Odoo-Notfallbackup\logs\backup_<lauf>.log` + Exit 1, KEINE Aenderungen an der Live-Umgebung (kein Container-Stop, kein Volume-Zugriff, keine DB-Modifikation, keine Loeschungen)
+
+**Sicherheit (unantastbar):** Named Volume `odoo18_pgdata` wird NIE direkt kopiert/angefasst; `C:\Odoo-Test\postgres` und alle `postgres_defekt_*`-Ordner sind keine Backup-Quellen; Backup-Dateien nie nach Git pushen. `C:\Odoo-Notfallbackup` liegt AUSSERHALB des Repos (Geschwisterverzeichnis von `C:\Odoo-Test`) und ist damit strukturell nie in Git (in `.gitignore` dokumentiert).
+
+**Verifiziert am 12.08.2026:** 2 manuelle Testlaeufe (Exit 0, Dump 8.058.383 Bytes = 7,69 MB custom-Format, pg_restore --list 13.548 TOC-Eintraege, Filestore 10 Dateien / 11,58 MB) + Task-Probelauf `schtasks /Run` → LastTaskResult 0.
+
+**Hinweis:** `C:\Odoo-Notfallbackup\Odoo-Test` (483 MB, Stand 28.07.) ist eine ALTE manuelle Notfallkopie von `C:\Odoo-Test` inkl. `postgres/` — obsolet, aber NICHT ohne Freigabe loeschen; Kandidat fuer spaetere Bereinigung.
+
 
