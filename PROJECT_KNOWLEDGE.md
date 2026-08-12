@@ -3717,3 +3717,215 @@ Getestet und funktionsfähig:
 - ✅ Keine doppelten Menüs
 - ✅ Nur 1 bestehendes Team ("Verkauf"), keine Migration aus O11
 
+### Session 50: PostgreSQL-Crash — Recovery & Architektur-Analyse
+
+**Datum:** 10.08.2026 (unmittelbar nach Session 49)
+
+#### Vorfall
+
+Nach den CRM-Änderungen aus Session 49 wurden die Docker-Container neugestartet.
+PostgreSQL (`odoo18-db`) startete nicht mehr:
+
+```
+invalid checkpoint record
+PANIC: could not locate a valid checkpoint record
+FATAL: the database system is starting up
+```
+
+Container liefen in einer Restart-Schleife. `docker compose stop` wurde ausgeführt.
+
+#### Zeitleiste (rekonstruiert aus pg_control/WAL-Timestamps)
+
+| Zeit | Ereignis |
+|------|----------|
+| 11:13 | PG startet, schreibt WAL 15/16/17 + Systemkataloge |
+| 11:15 | PG wird unterbrochen — pg_control geschrieben, postmaster: "stopping" |
+| 11:24 | Docker/PG-Neustart 1 (postmaster.opts neu) |
+| 11:26 | Docker/PG-Neustart 2 — PG bleibt in "stopping" hängen |
+
+#### Ursachenanalyse
+
+**Root Cause: VirtualBox Shared Folder (vboxsf) als PostgreSQL-Datenverzeichnis**
+
+```yaml
+# docker-compose.yml
+volumes:
+  - ./postgres:/var/lib/postgresql/data    # ← vboxsf-Dateisystem!
+```
+
+vboxsf garantiert kein echtes fsync(), erlaubt Write-Reordering und hat File-Locking-Probleme.
+PostgreSQL benötigt zwingend atomare WAL-Schreibvorgänge.
+
+**Zweiter Vorfall in 12 Tagen** — am 29.07.2026 gab es einen ähnlichen Crash (siehe disaster-recovery.md).
+
+**Keine** der heutigen Code-Änderungen hat direkt PostgreSQL-Dateien modifiziert.
+Alle CRM-Änderungen liefen über Odoo ORM/RPC. Die Modul-Upgrades und Docker-Restarts
+haben PG zu normalen Shutdown/Startup-Zyklen gezwungen — einer davon fiel mit
+vboxsf-Schreibinkonsistenz zusammen.
+
+#### Sicherungsstand
+
+| Sicherung | Stand | Status |
+|-----------|-------|--------|
+| `backups/odoo18_backup_clean_2026-07-29_1248.zip` (6.7 MB) | 29.07. | Sauber, 12 Tage alt |
+| `postgres/` (15202 Dateien, 384 MB) | 10.08. 11:15 | Beschädigt (WAL-Checkpoint) |
+| `postgres_defekt_2026-08-10/` | 10.08. | Exakte Kopie von postgres/ |
+| `postgres_defekt_2026-07-29_114402/` | 29.07. | Vom ersten Crash |
+| `filestore/odoo18_test/` (28 Dateien, 34 MB) | aktuell | Intakt (keine DB-Abhängigkeit) |
+
+#### Recovery Phase 2: pg_resetwal auf Kopie
+
+- Script: `recovery_phase2.ps1`
+- Arbeitet NUR auf `C:\Odoo-Test\postgres_recovery` (Kopie von postgres_defekt)
+- Schritte:
+  1. Kopie postgres_defekt → postgres_recovery
+  2. `docker run ... pg_resetwal -f` auf der Kopie
+  3. Temporärer Recovery-PG-Container (isoliert von odoo18-db)
+  4. Prüfung: odoo18_test vorhanden, Tabellen-Zählungen
+  5. `pg_dump` → `backups\odoo18_dump_rescued_2026-08-10.sql`
+  6. Filestore-Sicherung → `backups\filestore_rescued_2026-08-10\`
+  7. Recovery-Container stoppen
+
+#### Naechste Schritte (geplant)
+
+- **Phase 3:** Neue saubere PG-Instanz -> Dump importieren -> Odoo verifizieren
+- **Phase 4:** PostgreSQL auf Docker Named Volume migrieren (kein bind-mount mehr)
+
+---
+
+## Disaster Recovery — 11.08.2026
+
+### Phase 2: ENDBEFUND (pg_resetwal)
+
+- Dry-Run am 10.08. erfolgreich: pg_resetwal -n erkannte Cluster, WAL-Segment 000000010000000000000019
+- recovery_phase2_v6.ps1: pg_resetwal -f auf frischer Kopie erfolgreich
+- **Aber:** PostgreSQL-Start scheiterte an `FATAL: could not open file "global/1262"`
+- **OID 1262 = pg_database** — Systemkatalog aller Datenbanken im Cluster
+- `global/1262` fehlt in ALLEN Rohdatenkopien:
+  - `postgres/` (live, 15202 Dateien): FEHLT
+  - `postgres_defekt_2026-08-10/` (15202 Dateien): FEHLT
+  - `postgres_defekt_2026-07-29_114402/` (4255 Dateien): FEHLT
+  - `postgres_recovery/` (nach pg_resetwal): FEHLT
+  - `postgres-backup.tar.gz` (29.07.): FEHLT
+  - Nur 1262_fsm und 1262_vm existieren, die Hauptdatei fehlt ueberall
+- **Ursache:** vboxsf-Bind-Mount hatte die Datei bereits vor 29.07. verloren
+- **Entscheidung:** Keine weiteren Reparaturversuche an Rohdaten
+
+### Phase 3A: Clean Restore aus SQL-Dump (29.07.)
+
+- **Quelle:** `C:\Odoo-Test\backups\odoo18_backup_clean_2026-07-29_1248.zip`
+- **Methode:** Docker Named Volume `odoo18_pgdata` (kein vboxsf-Bind-Mount mehr)
+- **Script:** recovery_phase3_v8.ps1 (PowerShell 5.1, 8 Iterationen bis Parser-clean)
+- **Ergebnis (11.08.):** Odoo startet (JA), HTTP 200 (JA), `/web/login`-Route erreichbar (JA)
+  - **Loginformular sichtbar und funktional: NEIN / noch offen** — siehe Diagnose 12.08.2026
+
+### BEFUND: Encoding-Problem im Dump vom 29.07.
+
+- dump.sql ist UTF-16 LE mit BOM (0xFF 0xFE)
+- `SET client_encoding = 'UTF8';` korrekt gesetzt
+- **Deutsche Sonderzeichen sind im Dump BEREITS defekt — Diagnose 12.08.: CP850-Doppel-Encoding (nicht CP1252!)**
+- Beispiele: `├£ber uns` statt `Über uns`, `N├╝tzliche Links`, `l├Âsen` statt `lösen`
+  - Ursache: UTF-8-Bytes wurden als **CP850** interpretiert und erneut encodiert (VOR dem 29.07., vermutlich beim urspruenglichen pg_dump)
+- Reversibel: `text.encode('cp850').decode('utf-8')` — 35/35 ├-Paare + 41/41 Ô-Tripel (17.296 Sequenzen) fehlerfrei, KEINE `?`-Verluste im 29.07.-Dump
+- Website-Menue zeigt: `Top-Men├╝ f├╝r Website 1` statt `Top-Menue fuer Website 1`
+- **Login-Seite:** Formular IST im HTML (oe_login_form, login/password/Submit/csrf vorhanden), aber mit Klasse `d-none` (Odoo-18-Stock-Template webclient_templates.xml:141 — Einblendung per JS nach Asset-Load). JS-Bundle `web.assets_frontend_minimal.min.js` liefert **HTTP 500** (fehlende Filestore-Datei `filestore/odoo18_test/15/159bc8e4e01c680cc106306c5c31d71c1ff77d37`), CSS 200/0B -> Formular bleibt unsichtbar. **Login NICHT funktional (Stand 12.08.)**
+
+### Geplanter Repair-Plan (Phase 3B)
+
+1. Encoding-Reparatur: dump.sql mit korrekter Encoding-Behandlung neu importieren
+   - Originaldump ist UTF-16 LE -> nach UTF-8 konvertieren -> psql mit `PGCLIENTENCODING=UTF8`
+   - ODER: Im laufenden Odoo die defekten Texte per SQL reparieren (convert_from/convert_to)
+2. Nach erfolgreichem Encoding-Fix: Modul-Upgrades aus Git (itk_crm etc.)
+3. Vollverifikation: Login, CRM, Interessenten, Pipeline, Aktivitaeten, Vertriebskanaele
+
+---
+
+## Diagnose 12.08.2026: Login-Formular unsichtbar + Encoding-Beweis (NUR Analyse, read-only)
+
+### Statuskorrektur (ersetzt fruehere Aussagen)
+
+| Aussage | Status |
+|---|---|
+| Odoo startet | JA |
+| HTTP 200 | JA |
+| /web/login-Route erreichbar | JA |
+| Loginformular sichtbar und funktional | JA — Asset-Fix am 12.08. durchgefuehrt (UI-Bestaetigung durch Anna noch offen) |
+| Deutsche Sonderzeichen | FEHLER / noch offen (Reparatur erst nach Freigabe) |
+
+### 1) Login /web/login — Befund
+
+- GET /web/login liefert 19.497 Bytes HTML, Titel "Login | My Website" (Website-Layout).
+- **Das Formular ist serverseitig VOLLSTAENDIG vorhanden:**
+  `<form class="oe_login_form d-none" action="/web/login">` mit input `login`, input `password`,
+  Submit-Button und csrf_token (oe_login_form: 1, name=login: 1, name=password: 1, submit: 3).
+- **Unsichtbar wegen `d-none`:** Odoo-18-Stock-Template `webclient_templates.xml:141`
+  (`t-attf-class="oe_login_form #{'' if login else 'd-none'}"`) — das Formular wird erst per JS
+  nach erfolgreichem Asset-Load eingeblendet.
+- **Assets kaputt (Root Cause):**
+  - `web.assets_frontend_minimal.min.js` -> **HTTP 500**
+  - `web.assets_frontend.min.css` -> HTTP 200, **0 Bytes**
+  - Odoo-Log: `FileNotFoundError ... '/var/lib/odoo/filestore/odoo18_test/15/159bc8e4e01c680cc106306c5c31d71c1ff77d37'`
+  - Die Datei existiert im 29.07.-Backup-Zip (30.353 B) UND in `filestore_before_phase3_2026-08-11/` (104 Dateien),
+    aber NICHT im aktiven Filestore (Container wie Host-Mount: nur 29 Dateien) -> **Phase-3A-Filestore-Restore war unvollstaendig**
+- **Fix (bekannt, NICHT ausgefuehrt):** ir.attachment mit URL `/web/assets/%` loeschen -> Odoo regeneriert
+  die Bundles (Merkregel Sessions 12/21/42). Alternativ fehlende Filestore-Dateien aus dem Backup ergaenzen.
+
+### 2) Encoding — Beweis (Sollwert | Original-Dump 29.07. | DB odoo18_test | Browser-HTML)
+
+Texte stecken in `ir_ui_view` 2893 `website.footer_custom` (+ 2832 `website.aboutus`), `website_menu` 1/4, `ir_module_module`.
+
+| Sollwert | Original-Dump | DB (View 2893/2832) | Browser (gerendertes HTML) |
+|---|---|---|---|
+| Über uns | `├£ber uns` | `├£ber uns` | `├£ber uns` (Footer-Link) |
+| Nützliche Links | `N├╝tzliche Links` | `N├╝tzliche Links` | `N├╝tzliche Links` (Footer) |
+| großartige | `gro├ƒartige` | `gro├ƒartige` | `gro├ƒartige` (Footer-Text) |
+| Geschäftsprobleme | `Gesch├ñftsprobleme` | `Gesch├ñftsprobleme` | `Gesch├ñftsprobleme` (Footer-Text) |
+| lösen | `l├Âsen` | `l├Âsen` (Hex: 6c e2949c c382 ...) | `l├Âsen` (Footer-Text) |
+
+- Saubere Formen: **0 Vorkommen** im Dump (alle Umlaute betroffen, 100 %).
+- Umfang: 905 Views in der DB mit Mojibake; im Dump 14.624 ├-Paare + 2.672 Ô-Tripel (17.296 Sequenzen).
+- **Muster EINHEITLICH: UTF-8 -> CP850-Doppel-Encoding** (nicht CP1252, nicht CP437!):
+  - 0xC3->'├', 0x9C->'£', 0xA4->'ñ', 0xB6->'Â', 0xBC->'╝', 0x9F->'ƒ'; 3-Byte: 0xE2 0x80 0x9E->'ÔÇï' etc.
+  - Gegenprobe: cp437 scheitert (4/35), cp1252 scheitert (24/35), **cp850: 35/35 + 41/41 ok, 0 Fehler**
+- **Reversibel: `text.encode('cp850').decode('utf-8')`** — keine '?'-Verluste im 29.07.-Dump (0 Zeilen mit ??).
+- Betroffene Tabellen im Dump (Top 12): ir_model_fields (2.596), ir_ui_view (931), ir_module_module (580),
+  ir_model_fields_selection (287), ir_act_window (247), res_country_state (191), ir_model (143),
+  account_account (94), ir_ui_menu (88), ir_model_constraint (76), mail_message (71), account_report_line (48).
+- **KEINE Reparatur durchgefuehrt** (nur Analyse). Phase 3B und DB-Aenderungen erst nach Freigabe.
+
+---
+
+### Session 70: Asset-/Login-Fix — Loginformular nach Restore unsichtbar (12.08.2026)
+
+**Branch:** `crm-kundenverwaltung-migration` (nur Dokumentation; Fix lief direkt in der laufenden DB)
+**Freigabe:** Nur Asset-Reparatur — KEIN Phase 3B, KEINE Encoding-Reparatur, keine normalen Attachments/Filestore-Dateien angefasst.
+
+#### Symptom
+- `/web/login` liefert HTML (Titel "Login | My Website"), aber KEIN sichtbares Loginformular — "grosser leerer Bereich", Button "Anmelden" ohne Effekt.
+
+#### Diagnose (read-only, 12.08.)
+- **Formular IST serverseitig vollstaendig im HTML:** `<form class="oe_login_form d-none" action="/web/login">` mit login/password/Submit/csrf (oe_login_form 1x, name=login 1x, name=password 1x, submit 3x).
+- **d-none ist Odoo-18-Stock:** `webclient_templates.xml:141` — `t-attf-class="oe_login_form #{'' if login else 'd-none'}"`. Einblendung per JS nach Asset-Load.
+- **Assets defekt:** `web.assets_frontend_minimal.min.js` = HTTP 500, `frontend.min.css` = 200/0 Bytes, `lazy.min.js` = 200/0 Bytes.
+- **Odoo-Log:** `FileNotFoundError: ... '/var/lib/odoo/filestore/odoo18_test/15/159bc8e4e01c680cc106306c5c31d71c1ff77d37'`
+- **Root Cause:** Phase-3A-Filestore-Restore UNVOLLSTAENDIG — Datei fehlt im aktiven Filestore (29 Dateien), existiert aber im 29.07.-Backup-Zip UND in `filestore_before_phase3_2026-08-11/` (104 Dateien).
+
+#### Fix (ausgefuehrt nach Freigabe)
+1. Bestandsaufnahme: 5 Asset-Attachments (IDs 1948, 1949, 1952, 1953, 1954) — 3 mit fehlender Filestore-Datei, 2 vorhanden aber defekt geliefert.
+2. `DELETE FROM ir_attachment WHERE id IN (1948,1949,1952,1953,1954)` — NUR `/web/assets/`-Bundles; normale Attachments (1.238) und Filestore-Dateien NICHT angefasst.
+3. Odoo regenerierte die Bundles beim ersten Abruf (Log: "Generating a new asset bundle attachment id:1955/1956/1957"); fehlende Datei `15/159bc8...` neu geschrieben (30.353 B).
+
+#### Verifikation
+- `/web/login`: HTTP 200, 19.497 B, Formular im HTML.
+- Assets: 200 mit vollem Content-Length (minimal.js 30.353 / css 671.273 / lazy 2.226.829).
+- Logs: keine FileNotFoundError / keine 500 mehr.
+
+#### Merkregel (ergaenzt)
+- Nach jedem Restore Filestore-Vollstaendigkeit pruefen (Dateizahl vs. Backup); fehlende Bundle-Dateien → `ir.attachment` mit `url LIKE '/web/assets/%'` loeschen → Odoo regeneriert.
+- Asset-Hashes sind inhaltbasiert und bleiben gleich → nach Fix **Strg+F5** (Browser-Cache liefert sonst die alte kaputte Antwort).
+
+#### Status
+- Loginformular sichtbar/funktional: **JA** (Asset-Ebene verifiziert; UI-Bestaetigung durch Anna noch offen)
+- Deutsche Sonderzeichen: WEITERHIN FEHLER (CP850-Mojibake) — **Phase 3B NICHT gestartet**, wartet auf Freigabe
+
+
