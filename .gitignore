@@ -24,3 +24,30 @@ scans/
 *.zip
 *.dump
 filestore/
+
+# PostgreSQL-Rohdaten (nie committen — Live-Daten laufen im Named Volume odoo18_pgdata)
+postgres/
+postgres_defekt_*/
+postgres_recovery/
+BACKUP-2026-07-29/
+filestore_before_phase3_2026-08-11/
+
+# Recovery-Compose-Schnappschuesse (kanonisch ist docker-compose.yml)
+docker-compose.phase3.yml
+docker-compose.before_phase3_2026-08-11.yml
+
+# Recovery-Script-Zwischenversionen (finale Versionen v6/v8 + diag sind committet)
+recovery_phase2_v3.ps1
+recovery_phase2_v4.ps1
+recovery_phase2_v5.ps1
+recovery_phase3_v1.ps1
+recovery_phase3_v2.ps1
+recovery_phase3_v3.ps1
+recovery_phase3_v4.ps1
+recovery_phase3_v5.ps1
+recovery_phase3_v6.ps1
+recovery_phase3_v7.ps1
+
+# Temporaere Analyse-Artefakte
+form_arch.xml
+list_arch.xml
