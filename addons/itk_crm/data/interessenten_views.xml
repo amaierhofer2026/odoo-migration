@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Interessenten-Ansicht (O11-kompatibel)
+             Persistierung der RPC-Arbeit vom 31.07./03.08.2026 (Sessions 6/66/68):
+             Action 1469 + Views 4005/4007 laut docs/interessenten-views.md.
+             x_Anrede_Lead wird vom pre_init_hook vor dem Laden dieser Datei angelegt.
+             Hinweis: Bei mehrdeutigen XPaths verwendet Odoo nodes[0] (ersten Treffer). -->
+
+        <record id="action_interessenten" model="ir.actions.act_window">
+            <field name="name">Interessenten</field>
+            <field name="res_model">crm.lead</field>
+            <field name="domain">[('type', '=', 'lead')]</field>
+            <field name="view_mode">list,kanban,calendar,pivot,graph,form</field>
+            <field name="view_id" ref="crm.crm_case_tree_view_leads"/>
+        </record>
+
+        <!-- Interessenten-Listenansicht: O11-Spaltenreihenfolge (ehem. View 4005)
+             Sichtbar: create_date, write_date, name, x_Anrede_Lead, contact_name,
+             city, email_from, phone, x_Lead_Quelle, x_Produktinteresse,
+             user_id, team_id, x_lead_status -->
+        <record id="crm_lead_list_interessenten_inherit" model="ir.ui.view">
+            <field name="name">crm.lead.list.lead.inherit.itk</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_tree_view_leads"/>
+            <field name="priority" eval="99"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='create_date']" position="attributes">
+                    <attribute name="optional">show</attribute>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="write_date" optional="show"/>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="x_Anrede_Lead"/>
+                </xpath>
+                <xpath expr="//field[@name='contact_name']" position="attributes">
+                    <attribute name="string">Ansprechpartner</attribute>
+                    <attribute name="optional">show</attribute>
+                </xpath>
+                <!-- Basis-city ausblenden, neue city vor email_from einsortieren -->
+                <xpath expr="//field[@name='city']" position="attributes">
+                    <attribute name="column_invisible">True</attribute>
+                </xpath>
+                <xpath expr="//field[@name='email_from']" position="before">
+                    <field name="city" optional="show"/>
+                </xpath>
+                <xpath expr="//field[@name='phone']" position="attributes">
+                    <attribute name="optional">show</attribute>
+                </xpath>
+                <xpath expr="//field[@name='phone']" position="after">
+                    <field name="x_Lead_Quelle"/>
+                    <field name="x_Produktinteresse"/>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="attributes">
+                    <attribute name="string">Verkäufer</attribute>
+                </xpath>
+                <xpath expr="//field[@name='team_id']" position="attributes">
+                    <attribute name="string">Vertriebskanal</attribute>
+                </xpath>
+                <xpath expr="//field[@name='team_id']" position="after">
+                    <field name="x_lead_status"/>
+                </xpath>
+                <!-- O11: nicht benoetigte Basis-Spalten ausblenden -->
+                <xpath expr="//field[@name='partner_name']" position="attributes"><attribute name="column_invisible">True</attribute></xpath>
+                <xpath expr="//field[@name='company_id']" position="attributes"><attribute name="column_invisible">True</attribute></xpath>
+                <xpath expr="//field[@name='state_id']" position="attributes"><attribute name="column_invisible">True</attribute></xpath>
+                <xpath expr="//field[@name='country_id']" position="attributes"><attribute name="column_invisible">True</attribute></xpath>
+                <xpath expr="//field[@name='campaign_id']" position="attributes"><attribute name="column_invisible">True</attribute></xpath>
+                <xpath expr="//field[@name='medium_id']" position="attributes"><attribute name="column_invisible">True</attribute></xpath>
+                <xpath expr="//field[@name='source_id']" position="attributes"><attribute name="column_invisible">True</attribute></xpath>
+                <xpath expr="//field[@name='probability']" position="attributes"><attribute name="column_invisible">True</attribute></xpath>
+                <xpath expr="//field[@name='tag_ids']" position="attributes"><attribute name="column_invisible">True</attribute></xpath>
+                <xpath expr="//field[@name='priority']" position="attributes"><attribute name="column_invisible">True</attribute></xpath>
+            </field>
+        </record>
+
+        <!-- Interessenten-Formularansicht: ITK-Felder (ehem. View 4007) -->
+        <record id="crm_lead_form_interessenten_inherit" model="ir.ui.view">
+            <field name="name">crm.lead.form.inherit.itk</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="priority" eval="99"/>
+            <field name="arch" type="xml">
+                <!-- x_Anrede_Lead vor function (lead_info-Gruppe, nodes[0]) -->
+                <xpath expr="//field[@name='function']" position="before">
+                    <field name="x_Anrede_Lead"/>
+                </xpath>
+                <!-- Neue Gruppe 'Lead Classification' nach der lead_priority-Gruppe -->
+                <xpath expr="//group[@name='lead_priority']" position="after">
+                    <group string="Lead Classification" invisible="type == 'opportunity'">
+                        <field name="x_lead_status"/>
+                        <field name="x_Produktinteresse"/>
+                        <field name="x_Lead_Quelle"/>
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="attributes">
+                    <attribute name="string">Verkäufer</attribute>
+                </xpath>
+                <xpath expr="//field[@name='team_id']" position="attributes">
+                    <attribute name="string">Vertriebskanal</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

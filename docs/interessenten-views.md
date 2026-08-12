@@ -2,6 +2,10 @@
 
 Stand: 2026-08-07 | Session: Interessenten List + Form
 
+> **Stand 12.08.2026:** Die Views/Action sind seit itk_crm 18.0.1.3.0 als Modulcode persistiert:
+> `addons/itk_crm/data/interessenten_views.xml` (Basis-Views 567 Liste / 566 Formular, Action 1459,
+> `_validate_module_views` gruen). Dieses Dokument bleibt die Spezifikation.
+
 ## Übersicht
 
 Die Interessenten-Ansicht zeigt ausschließlich `crm.lead`-Datensätze mit `type = 'lead'`.

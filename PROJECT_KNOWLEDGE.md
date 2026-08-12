@@ -3849,7 +3849,7 @@ vboxsf-Schreibinkonsistenz zusammen.
 | Odoo startet | JA |
 | HTTP 200 | JA |
 | /web/login-Route erreichbar | JA |
-| Loginformular sichtbar und funktional | JA — Asset-Fix am 12.08. durchgefuehrt (UI-Bestaetigung durch Anna noch offen) |
+| Loginformular sichtbar und funktional | JA — von Anna im Browser bestaetigt (12.08., nach Asset-Fix Session 70) |
 | Deutsche Sonderzeichen | FEHLER / noch offen (Reparatur erst nach Freigabe) |
 
 ### 1) Login /web/login — Befund
@@ -3927,5 +3927,76 @@ Texte stecken in `ir_ui_view` 2893 `website.footer_custom` (+ 2832 `website.abou
 #### Status
 - Loginformular sichtbar/funktional: **JA** (Asset-Ebene verifiziert; UI-Bestaetigung durch Anna noch offen)
 - Deutsche Sonderzeichen: WEITERHIN FEHLER (CP850-Mojibake) — **Phase 3B NICHT gestartet**, wartet auf Freigabe
+
+---
+
+## Session 71: itk_crm 18.0.1.3.0 — DB-only-Struktur in Modulcode persistiert + Session-Abschluss (12.08.2026)
+
+**Branch:** `crm-kundenverwaltung-migration` → PR #13 (kein Auto-Merge)
+**Freigaben (Anna):** Script 0 (Asset-Health) + Script 1 (Persistierung + itk_crm-Upgrade). **NICHT freigegeben:** Encoding-Reparatur (Phase 3B), weitere Modul-Upgrades, Datenmigration, Testdaten.
+
+### Script 0: Asset-Health (Vorabpruefung, 12.08.)
+- 10 Asset-Attachments (IDs 1955–1964) geloescht → Odoo regenerierte Bundles (IDs 1965–1973)
+- Finale Verifikation per echten Datei-Downloads: alle Bundles HTTP 200 mit vollem Inhalt (siehe Sollwerte unten)
+- **Korrektur frueherer „200/0 B“-Meldungen:** Messfehler (natives Windows-curl kann nicht nach `/dev/null` schreiben, exit 23) — tatsaechlich war nur `minimal.js` wirklich kaputt
+- Beobachtet, NICHT behoben: Partner-Bilder (Attachments 25, 515–524) liefern weiter 500 — Filestore-Dateien fehlen und sind NICHT im 29.07.-Zip
+
+### Script 1: Persistierung in itk_crm (Version 18.0.1.3.0)
+**Ziel:** Die bisher nur per RPC/DB angelegte CRM-Struktur dauerhaft im Modul persistieren, damit ein Restore + Modul-Upgrade sie automatisch rekonstruiert.
+
+Neue/geaenderte Dateien:
+- `addons/itk_crm/data/crm_stages.xml` — 8 Stages (Neu, Angebotsphase, On-Hold, Positive Rückmeldung, Erfolgreich/is_won, Zur Verrechnung bereit, Verloren/fold, Verrechnet/fold); `<data noupdate="1">` (RNG: noupdate nur auf `<data>` erlaubt, NICHT auf `<record>`)
+- `addons/itk_crm/data/interessenten_views.xml` — Action 1459 „Interessenten“ (Domain `type=lead`) + Listen-/Formular-Inherits auf Basis-Views 567/566 (Anker: Gruppe `lead_priority`); noupdate nur auf `<data>`
+- `addons/itk_crm/setup_runtime.py` — idempotente Setup-Funktionen: Custom-Felder, Stage-Labels, App-Name, Menues (Delete+Recreate), Lost Reasons, Automation, Aktivitaetstypen, Vertriebskanaele
+- `addons/itk_crm/hooks.py` — schlank: post_init_hook → setup_runtime
+- `addons/itk_crm/models/models.py` — ResPartner-Erweiterung (firstname, status_of_community, offizieller Name, community_salutation, official_email, …) + neue Klasse `CrmLead` mit `x_Anrede_Lead = fields.Selection([...])` (echtes Python-Modelfeld, weil `ir.model.fields.create` keine DB-Spalte anlegt)
+- `addons/itk_crm/migrations/18.0.1.3.0/post-migration.py` — laeuft bei JEDEM Upgrade (Standard-Mechanismus in Odoo 18)
+- `addons/itk_crm/__manifest__.py` — Version 18.0.1.3.0
+
+**PITFALLS (Odoo 18, in dieser Session verifiziert):**
+- `pre_init_hook`/`post_init_hook` laufen NUR bei Neuinstallation (`if new_install:` in loading.py) → fuer Upgrade-/Restore-Zeit-Aktionen Migrationsskript verwenden
+- `field_description` ist jsonb (translatable) → SQL-UPDATE nur auf `ttype`
+- Mehrfach-XPath-Treffer: Odoo nimmt `nodes[0]` (tools/template_inheritance.py), kein Fehler
+- `.pyc`-Cache auf vboxsf problematisch → `__pycache__` im Container loeschen + Container-Neustart
+- Manifest wird pro Prozess gecacht → nach Manifest-Aenderung Container-Neustart noetig
+- `button_immediate_upgrade` per RPC funktioniert (uid 2, Modul-ID 729), Rueckgabe „OK: None“ → Version im Modul pruefen
+- Reihenfolge Pflicht: Stages VOR itk_crm-Upgrade (Automated-Action-Hook „Zur Verrechnung bereit“ bricht mit Warning ab, wenn Stage fehlt)
+
+**Verifizierter DB-Zustand (alle 9 Pruefpunkte gruen):**
+- 8 Stages | 6 Lost Reasons | 2 Automationen (Urlaubsantrag + „Interessent 'zur Verrechnung bereit'“, stage_id=18) | 14 Aktivitaetstypen (inkl. Anrufen, data.gv.at Neukunde anlegen, Webinar/Praesentation)
+- Actions 1458 (Aktivitaeten), 1459 (Interessenten), 196 (Pipeline), 431 (Angebote)
+- Views 4013 (Liste) + 4014 (Formular) — von Odoo selbst validiert (`_validate_module_views` ohne Fehler = Beweis, dass alle XPaths/Felder existieren)
+- Menues 143/144/892–895/147/148/150/155/158; Vertriebskanaele (Menue 158, Action 186) mit DE-Labels
+- Custom-Selection-Felder: x_Lead_Quelle (11), x_Produktinteresse (10), x_lead_status (12), x_Anrede_Lead (3: sg_Frau/sg_Herr/sg_Damen_Herren)
+- App-Name „Kundenverwaltung“
+- HTTP: /web/login 200, Assets 200 mit vollem Inhalt, keine 500
+
+**Asset-Sollwerte (fuer kuenftige Checks):** minimal.js 30.353 B, frontend.min.css 671.273 B, frontend_lazy.min.js 2.226.829 B, websocket_worker 16.004 B, web.min.css 1.157.303 B, web_print.min.css 1.162.265 B, backend_lazy.css 13.335 B, backend_lazy.js 190.046 B, chartjs 337.290 B, web.min.js 6.332.710 B (Hash a9c78f9; alter Hash → 303-Redirect = normales Odoo-Verhalten)
+
+### Manueller Browser-Test durch Anna (12.08.) — OFFENE Punkte (NICHT geloest!)
+- **A. Encoding / deutsche Sonderzeichen — OFFEN.** „Über“, „Nützliche“, „großartig“, „Geschäftsprobleme“, „lösen“ werden weiterhin falsch dargestellt (CP850-Mojibake). **Keine Encoding-Reparatur ohne NEUE Freigabe in der naechsten Session.**
+- **B. Kundenverwaltung → Aktivitaeten: neue Aktivitaet kann NICHT angelegt werden — OFFEN.** Browser-/Funktionspruefung erforderlich. **Noch NICHT reparieren.**
+- **C. Aktivitaeten-Kanban: Spaltennamen nicht persistent — OFFEN.** Umbenannte Spalten sind nach Ansichtswechsel/-Rueckkehr wieder verschwunden. **Noch NICHT reparieren.**
+- **D. Vertriebskanaele: vorhanden — OK.**
+
+### Infrastruktur / Repository-Aufraeumung (Session-Abschluss)
+- `docker-compose.yml`: PostgreSQL-Bind-Mount `./postgres` → Docker Named Volume `odoo18_pgdata` (committet; compose-Schnappschuesse `docker-compose.phase3.yml` + `docker-compose.before_phase3_2026-08-11.yml` sind NUR lokal, gitignored)
+- Container `odoo18` (odoo:18) + `odoo18-db` (postgres:16) laufen; DB `odoo18_test`; itk_crm = installed 18.0.1.3.0
+- Recovery-Scripts: finale Versionen committet — `recovery_diag.ps1`, `recovery_phase2_v6.ps1` (pg_resetwal auf Kopie, erfolgreich), `recovery_phase3_v8.ps1` (Clean Restore, 8 Iterationen bis Parser-clean). Zwischenversionen (phase2 v3–v5, phase3 v1–v7) bewusst NICHT committet (nur lokal, gitignored)
+- `.gitignore` erweitert: `postgres/` (Rohdaten), `postgres_defekt_*/`, `postgres_recovery/`, `BACKUP-2026-07-29/`, `filestore_before_phase3_2026-08-11/`, compose-Schnappschuesse, Script-Zwischenversionen, `form_arch.xml`/`list_arch.xml` (Temporaer-Analyse, geloescht)
+- `git rm --cached postgres/` — PostgreSQL-Rohdaten aus dem Tracking entfernt (Dateien bleiben lokal erhalten; der Ordner ist nach Named-Volume-Umstellung funktionslos)
+- `hermes verify --json`: Timeout nach 300 s — kein kanonischer Build/Test fuer ein Odoo-Addons-Repo; Workspace-Scan haengt an den GB-grossen Backup-Ordnern. Projektbezogene Verifikation = DB-/HTTP-Pruefungen oben (gruen)
+
+### Priorisierung naechste Session (Vorschlag)
+1. **Encoding-Reparatur (Phase 3B)** — erfordert NEUE Freigabe
+2. **Aktivitaeten: neue Aktivitaet anlegen** — Browser-/Funktionspruefung (Punkt B)
+3. **Aktivitaeten-Kanban: Spaltennamen persistent** (Punkt C)
+4. **Vier Modul-Upgrades einzeln** (tree→list-Fixes): hr_holidays_public → itk_reports → itk_sale_management → itk_translation (je einzeln freigeben)
+5. Weitere CRM-/Migrationsarbeiten
+
+### Einschraenkungen (fortgeschrieben)
+- KEINE Odoo-11-Datenmigration, KEINE Kontakte/Leads/Teams migrieren, KEINE Testdaten
+- Encoding separat behandeln (eigene Freigabe)
+- PostgreSQL NIE wieder als Live-Datenverzeichnis ueber den alten Shared-/Bind-Mount betreiben
 
 
