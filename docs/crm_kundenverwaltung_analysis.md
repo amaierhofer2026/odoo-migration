@@ -6,6 +6,8 @@ Quelldaten: JSON-RPC-Abfragen Odoo 11 (`ITK_V1_a`) + Odoo 18 (`odoo18_test`)
 
 **Status: UMGESETZT am 30.07.2026** — Stages, Menüs, Custom-Felder und App-Name angepasst.
 
+**Stand 12.08.2026:** Die gesamte unten dokumentierte CRM-Struktur ist seit **itk_crm 18.0.1.3.0** dauerhaft im Modul persistiert (`data/crm_stages.xml`, `data/interessenten_views.xml`, `setup_runtime.py`, `migrations/18.0.1.3.0/post-migration.py`) und wird nach jedem Restore + Modul-Upgrade automatisch wiederhergestellt (Details: PROJECT_KNOWLEDGE.md, Session 71). Die Kontakt-Datenmigration selbst ist weiterhin **NICHT freigegeben**.
+
 ---
 
 ## Umsetzungsprotokoll (30.07.2026)
