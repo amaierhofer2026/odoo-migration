@@ -73,6 +73,7 @@ def setup_all(env):
     _setup_lost_reasons(env)
     _setup_automated_action(env)
     _setup_activity_kanban(env)
+    _setup_activity_types(env)
     _setup_vertriebskanaele_labels(env)
     _logger.info("itk_crm setup_runtime: Struktur-Setup abgeschlossen")
 
@@ -192,7 +193,51 @@ def _setup_crm_menus(env):
         'ir.actions.act_window,%d' % env.ref('sale.action_quotations').id,
         3, old_xmlids=('sale_crm.sale_order_menu_quotations_crm',),
     )
+    _setup_neue_aktivitaet_menu(env)
     _logger.info("itk_crm: Menüstruktur Kundenverwaltung hergestellt")
+
+
+def _setup_neue_aktivitaet_menu(env):
+    """Menü 'Neue Aktivität' unter 'Aktivitäten' (B1, idempotent).
+
+    Das Eltern-Menü 'Aktivitäten' wird hier per Action-Suche gefunden (nicht
+    per fester ID), weil setup_runtime es per Delete+Recreate verwaltet und
+    seine ID nach einem Restore nicht stabil ist. Das Kind-Menü öffnet den
+    nativen Odoo-18-Wizard mail.activity.schedule (itk_crm.action_neue_aktivitaet).
+    """
+    Menu = env['ir.ui.menu'].sudo()
+    Action = env['ir.actions.act_window'].sudo()
+    parent_action = Action.search([
+        ('name', '=', 'Aktivitäten'),
+        ('res_model', '=', 'mail.activity'),
+    ], limit=1)
+    if not parent_action:
+        _logger.warning("itk_crm: Aktivitäten-Action nicht gefunden — 'Neue Aktivität'-Menü uebersprungen")
+        return
+    parent = Menu.search([
+        ('action', '=', 'ir.actions.act_window,%d' % parent_action.id),
+    ], limit=1)
+    if not parent:
+        _logger.warning("itk_crm: Aktivitäten-Menü nicht gefunden — 'Neue Aktivität'-Menü uebersprungen")
+        return
+    action = env.ref('itk_crm.action_neue_aktivitaet', raise_if_not_found=False)
+    if not action:
+        _logger.warning("itk_crm: action_neue_aktivitaet fehlt — 'Neue Aktivität'-Menü uebersprungen")
+        return
+    existing = Menu.search([
+        ('name', '=', 'Neue Aktivität'),
+        ('parent_id', '=', parent.id),
+    ], limit=1)
+    if existing:
+        _logger.info("itk_crm: 'Neue Aktivität'-Menü existiert bereits (id=%s)", existing.id)
+        return
+    Menu.create({
+        'name': 'Neue Aktivität',
+        'parent_id': parent.id,
+        'action': 'ir.actions.act_window,%d' % action.id,
+        'sequence': 99,
+    })
+    _logger.info("itk_crm: 'Neue Aktivität'-Menü unter Aktivitäten angelegt")
 
 
 def _setup_lost_reasons(env):
@@ -300,3 +345,126 @@ def _setup_vertriebskanaele_labels(env):
     if action.exists():
         action.with_context(lang='de_DE').write({'name': 'Vertriebskanäle'})
         _logger.info("itk_crm: Action 186 DE label → 'Vertriebskanäle'")
+
+
+# ---------------------------------------------------------------------------
+# Aktivitaetstypen: RPC-Duplikate bereinigen + de_DE-Slots sicherstellen (C)
+# ---------------------------------------------------------------------------
+# Kanonische Typen (XML-ID im Modul) -> Namen, an denen RPC-Duplikate erkannt werden.
+# Typ 2 ('Anruf', mail) und Typ 21 ('Anrufen', itk_crm) bleiben bewusst GETRENNT
+# (Entscheidung Anna, 13.08.2026 — Vergleich: category/icon/chaining identisch,
+# aber delay_count 2 vs 0 und Name/XML-ID verschieden; Zusammenfuehrung erst nach
+# separater Freigabe).
+_ACTIVITY_TYPE_CANONICALS = [
+    # (XML-ID des kanonischen Typs, [Duplikat-Namen en_US])
+    ('itk_crm.mail_activity_type_anrufen', ['Anrufen']),
+    ('mail.mail_activity_data_email', ['E-Mail', 'Email']),
+    ('mail.mail_activity_data_todo', ['Zu erledigen', 'To-Do', 'To-do']),
+]
+
+
+def _setup_activity_types(env):
+    """Aktivitaetstypen bereinigen (idempotent, C).
+
+    1. RPC-Duplikate (keine XML-ID, gleicher Name) auf den kanonischen Typ
+       zusammenfuehren: Referenzen umhaengen, dann loeschen.
+    2. Fehlende de_DE-Slots fuer die kanonischen Typen ergaenzen (jsonb),
+       damit die deutsche Anzeige nie auf den en_US-Slot zurueckfaellt.
+    """
+    _logger.info("itk_crm: Aktivitaetstypen-Setup (Duplikat-Bereinigung + de_DE-Slots)...")
+    ActivityType = env['mail.activity.type']
+
+    def _find_dup(canonical, dup_names):
+        """RPC-Duplikat finden: gleicher Name, aber KEINE XML-ID (ir_model_data)."""
+        for name in dup_names:
+            candidates = ActivityType.with_context(lang='en_US').search(
+                [('name', '=', name)])
+            for cand in candidates:
+                if cand.id == canonical.id:
+                    continue
+                # Nur bereinigen, wenn der Kandidat wirklich RPC-angelegt ist
+                # (kein ir_model_data-Eintrag -> kein Modul besitzt ihn).
+                xmlid = env['ir.model.data'].search([
+                    ('model', '=', 'mail.activity.type'),
+                    ('res_id', '=', cand.id),
+                ], limit=1)
+                if not xmlid:
+                    return cand
+        return False
+
+    # Referenz-Spalten (FK auf mail.activity.type), die umgehaengt werden muessen
+    _FK_COLUMNS = [
+        ('mail_activity', 'activity_type_id'),
+        ('mail_activity', 'previous_activity_type_id'),
+        ('mail_activity', 'recommended_activity_type_id'),
+        ('mail_activity_plan_template', 'activity_type_id'),
+        ('ir_act_server', 'activity_type_id'),
+        ('mail_compose_message', 'mail_activity_type_id'),
+        ('mail_message', 'mail_activity_type_id'),
+        ('mail_activity_type_mail_template_rel', 'mail_activity_type_id'),
+        ('mail_activity_type', 'triggered_next_type_id'),
+    ]
+
+    def _repoint_refs(cr, dup_id, canonical_id):
+        """Alle Referenzen von dup auf canonical umhaengen; Anzahl loggen."""
+        moved = 0
+        for table, column in _FK_COLUMNS:
+            cr.execute(
+                'SELECT count(*) FROM "%s" WHERE "%s" = %%s' % (table, column),
+                (dup_id,))
+            cnt = cr.fetchone()[0]
+            if cnt:
+                cr.execute(
+                    'UPDATE "%s" SET "%s" = %%s WHERE "%s" = %%s' % (table, column, column),
+                    (canonical_id, dup_id))
+                moved += cnt
+                _logger.info("itk_crm:   %s.%s: %s Referenz(en) umgehaengt %s -> %s",
+                             table, column, cnt, dup_id, canonical_id)
+        return moved
+
+    def _name_dict(record):
+        """jsonb-Dict von mail.activity.type.name lesen (robust in jedem Kontext).
+
+        record.name liefert OHNE Sprachkontext (Migration, Shell) einen String
+        (en_US-Slot) statt des jsonb-Dicts — daher per SQL lesen.
+        """
+        env.cr.execute(
+            "SELECT name FROM mail_activity_type WHERE id=%s", (record.id,))
+        row = env.cr.fetchone()
+        return row[0] if row and isinstance(row[0], dict) else {}
+
+    for xmlid, dup_names in _ACTIVITY_TYPE_CANONICALS:
+        canonical = env.ref(xmlid, raise_if_not_found=False)
+        if not canonical or not canonical.exists():
+            _logger.warning("itk_crm: kanonischer Typ %s nicht gefunden — uebersprungen", xmlid)
+            continue
+        dup = _find_dup(canonical, dup_names)
+        if dup:
+            moved = _repoint_refs(env.cr, dup.id, canonical.id)
+            env['mail.activity.type'].browse(dup.id).unlink()
+            _logger.info("itk_crm: RPC-Duplikat %s (%s) entfernt, %s Referenzen umgehaengt",
+                         dup.id, dup_names, moved)
+        else:
+            _logger.info("itk_crm: kein RPC-Duplikat fuer %s — ok", xmlid)
+        # de_DE-Slot NUR ergaenzen, wenn er fehlt (nie ueberschreiben):
+        # name ist jsonb {lang: value}; existiert 'de_DE' bereits (z.B. die
+        # deutsche Uebersetzung 'E-Mail' bei mail_activity_data_email),
+        # bleibt sie unangetastet.
+        name_dict = _name_dict(canonical)
+        if 'de_DE' not in name_dict and name_dict.get('en_US'):
+            canonical.write({'name': dict(name_dict, de_DE=name_dict['en_US'])})
+            _logger.info("itk_crm: de_DE-Slot fuer %s ergaenzt: %s",
+                         xmlid, name_dict['en_US'])
+        else:
+            _logger.info("itk_crm: de_DE-Slot fuer %s bereits vorhanden: %s",
+                         xmlid, name_dict.get('de_DE'))
+
+    # Generische Nachsorge: ALLE Aktivitaetstypen ohne de_DE-Slot ergaenzen
+    # (deckt die weiteren itk_crm-XML-Typen 22/23 und kuenftige Faelle ab).
+    for activity_type in ActivityType.search([]):
+        name_dict = _name_dict(activity_type)
+        if 'de_DE' not in name_dict and name_dict.get('en_US'):
+            activity_type.write({'name': dict(name_dict, de_DE=name_dict['en_US'])})
+            _logger.info("itk_crm: de_DE-Slot fuer Typ %s ergaenzt: %s",
+                         activity_type.id, name_dict['en_US'])
+    _logger.info("itk_crm: Aktivitaetstypen-Setup abgeschlossen")
