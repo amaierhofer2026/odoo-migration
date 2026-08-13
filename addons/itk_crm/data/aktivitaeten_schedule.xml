@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- B1: 'Neue Aktivität' ueber den nativen Odoo-18-Wizard mail.activity.schedule
+             (Kundenverwaltung → Aktivitaeten). Kein Umbau der mail.activity-Views,
+             keine ACL-Aenderungen: Der Wizard erstellt die Aktivitaet ueber den
+             Standard-Mechanismus (res_model + res_ids + _check_access auf dem
+             Zieldokument). -->
+
+        <!-- Inherit-View: Zielmodell + Zieldokument im Wizard auswaehlbar machen -->
+        <record id="itk_mail_activity_schedule_view_form" model="ir.ui.view">
+            <field name="name">itk_crm.mail.activity.schedule.form</field>
+            <field name="model">mail.activity.schedule</field>
+            <field name="inherit_id" ref="mail.mail_activity_schedule_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='activity_type_id']" position="before">
+                    <field name="itk_target_model" invisible="1"/>
+                    <group string="Zieldokument" name="itk_target">
+                        <field name="itk_target_model_id"
+                               domain="[('model', 'in', ['res.partner', 'crm.lead', 'sale.order', 'sale.subscription', 'project.project', 'project.task', 'helpdesk.ticket', 'account.move'])]"
+                               options="{'no_create': True, 'no_open': True}"/>
+                        <field name="itk_target_res_id"
+                               options="{'no_create': True, 'no_open': True}"
+                               placeholder="Dokument auswaehlen ..."/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Action: 'Neue Aktivitaet' (Wizard als Dialog) -->
+        <record id="action_neue_aktivitaet" model="ir.actions.act_window">
+            <field name="name">Neue Aktivität</field>
+            <field name="res_model">mail.activity.schedule</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="help">Wählen Sie das Zieldokument aus, für das die Aktivität angelegt wird.</field>
+        </record>
+
+        <!-- Das Menü 'Neue Aktivität' wird idempotent in setup_runtime angelegt
+             (_setup_neue_aktivitaet_menu), weil das Eltern-Menü 'Aktivitäten' (892)
+             keine XML-ID hat (setup_runtime Delete+Recreate) und seine ID nach
+             Restore nicht stabil ist. -->
+
+    </data>
+</odoo>

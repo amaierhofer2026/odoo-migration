@@ -1,6 +1,101 @@
 from odoo import models, fields, api
 
 
+class MailActivitySchedule(models.TransientModel):
+    """Erweiterung des nativen Odoo-18-Wizards 'mail.activity.schedule' (B1).
+
+    Ermoeglicht das Anlegen einer neuen Aktivitaet aus dem Aktivitaeten-Menue
+    (Kundenverwaltung), ohne ein vorausgewaehltes Dokument (active_model):
+    Der User waehlt Zielmodell + Zieldokument direkt im Wizard. Es werden
+    KEINE mail.activity-Views auf create=true umgebaut und keine ACLs
+    angepasst — der Wizard nutzt weiterhin die native _check_access-Logik
+    (mail_post_access/write auf dem Zieldokument).
+    """
+
+    _inherit = 'mail.activity.schedule'
+
+    # res_model ist im Standard-Modell readonly=True -> der Web-Client sendet
+    # es beim Speichern nicht mit (Feld wird nicht gerendert), wodurch beim
+    # Create res_model=False ist und _compute_res_model_id crasht
+    # (ir.model._get_id(False)). Im Inherit beschreibbar machen (im Formular
+    # bleibt es invisible, nur der onchange setzt es).
+    res_model = fields.Char(string='Model', readonly=False)
+
+    itk_target_model_id = fields.Many2one(
+        'ir.model', string='Dokumenttyp',
+        help='Zielmodell des Dokuments, fuer das die Aktivitaet angelegt wird.',
+    )
+    # Char-Feld als model_field fuer itk_target_res_id (Many2oneReference):
+    # res_model des Wizards ist im Standard-Formular nicht im DOM gerendert
+    # (invisible), daher ein eigenes, immer vorhandenes Feld verwenden.
+    itk_target_model = fields.Char(
+        string='Zielmodell (intern)', compute='_compute_itk_target_model',
+    )
+    itk_target_res_id = fields.Many2oneReference(
+        string='Dokument', model_field='itk_target_model',
+        help='Zieldokument, fuer das die Aktivitaet angelegt wird.',
+    )
+
+    @api.depends('itk_target_model_id')
+    def _compute_itk_target_model(self):
+        for rec in self:
+            rec.itk_target_model = rec.itk_target_model_id.model or False
+
+    @api.depends('res_model')
+    def _compute_res_model_id(self):
+        """Defensive Variante: kein Crash wenn res_model leer ist."""
+        for scheduler in self:
+            if scheduler.res_model:
+                scheduler.res_model_id = self.env['ir.model']._get_id(scheduler.res_model)
+            else:
+                scheduler.res_model_id = False
+
+    @api.onchange('itk_target_model_id')
+    def _onchange_itk_target_model_id(self):
+        """Zielmodell setzen -> res_model/res_model_id des Wizards befuellen."""
+        if self.itk_target_model_id:
+            self.res_model = self.itk_target_model_id.model
+            self.res_model_id = self.itk_target_model_id
+        else:
+            self.res_model = False
+            self.res_model_id = False
+        self.itk_target_res_id = False
+
+    @api.onchange('itk_target_res_id')
+    def _onchange_itk_target_res_id(self):
+        """Kein Zieldokument, kein res_model -> Anzeige konsistent halten."""
+        if not self.itk_target_res_id and self.res_model:
+            self.res_model = False
+            self.res_model_id = False
+
+    def _evaluate_res_ids(self):
+        """Standalone-Start: Ziel-IDs aus itk_target_res_id ableiten.
+
+        Im Normalbetrieb (Wizard mit Kontext active_ids geoeffnet) verhaelt sich
+        alles wie im Standard. Wurde das Ziel im Wizard selbst gewaehlt
+        (itk_target_res_id), wird genau dieses Dokument als Ziel verwendet.
+        """
+        if self.itk_target_res_id:
+            return [self.itk_target_res_id]
+        return super()._evaluate_res_ids()
+
+    def _get_applied_on_records(self):
+        """Standalone-Start: Dokument aus itk_target_res_id ableiten.
+
+        Im Normalbetrieb (Wizard mit Kontext geoeffnet) verhaelt sich alles wie
+        im Standard; nur wenn der Wizard ohne active_model/active_ids gestartet
+        wurde und der User das Ziel selbst gewaehlt hat, wird das gewaehlte
+        Dokument als Ziel verwendet. Ohne Ziel liefern wir ein leeres Recordset,
+        damit die computes (_compute_company_id/_compute_error) nicht crashen.
+        """
+        if not self.res_model:
+            return self.env['res.partner'].browse([])
+        res_ids = self._evaluate_res_ids()
+        if not res_ids:
+            return self.env[self.res_model].browse([])
+        return self.env[self.res_model].browse(res_ids)
+
+
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 

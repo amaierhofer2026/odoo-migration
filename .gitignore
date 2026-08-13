@@ -25,6 +25,8 @@ scans/
 *.dump
 filestore/
 
+# Notfallbackup-Ziel liegt AUSSERHALB des Repos (C:\Odoo-Notfallbackup, Geschwisterverzeichnis) — strukturell nie in Git; nie dorthin pushen
+
 # PostgreSQL-Rohdaten (nie committen — Live-Daten laufen im Named Volume odoo18_pgdata)
 postgres/
 postgres_defekt_*/

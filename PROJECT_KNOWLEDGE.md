@@ -3999,4 +3999,141 @@ Neue/geaenderte Dateien:
 - Encoding separat behandeln (eigene Freigabe)
 - PostgreSQL NIE wieder als Live-Datenverzeichnis ueber den alten Shared-/Bind-Mount betreiben
 
+## Notfall-Backup-Strategie (automatisiert, eingerichtet 12.08.2026)
 
+**Ziel:** `C:\Odoo-Notfallbackup` — zweimal taeglich (09:00 + 15:00) per Windows Task Scheduler, unabhaengig von Hermes.
+
+**Tasks (aktiviert):**
+- `Odoo18 Notfallbackup 09-00` — taeglich 09:00 (naechster Lauf 13.08.2026 09:00)
+- `Odoo18 Notfallbackup 15-00` — taeglich 15:00 (naechster Lauf 13.08.2026 15:00)
+- Beide rufen `powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\Odoo-Test\scripts\odoo18_notfallbackup.ps1` auf; laufen als angemeldeter User (Docker Desktop-Kontext), d.h. der PC muss angemeldet sein.
+- Registrierung reproduzierbar: `C:\Odoo-Test\scripts\setup_notfallbackup_tasks.ps1` (idempotent, -Force)
+
+**Skript** `C:\Odoo-Test\scripts\odoo18_notfallbackup.ps1` (PowerShell 5.1):
+1. Zeitstempel-Ordner `2026-08-12_1757\` (Kollisionsschutz: Suffix _2, _3 …)
+2. pg_dump `--format=custom` IM Container (`--file=/tmp/…`, kein Binary-Stream durch PowerShell wegen Encoding-Gefahr), Restore-Eignung via `pg_restore --list` (TOC lesbar), `docker cp` auf Host, Temp-Datei im Container wird geloescht
+3. Filestore: robocopy NUR `C:\Odoo-Test\filestore\odoo18_test` (Bind-Mount `./filestore` → `/var/lib/odoo/filestore`; Exit-Code < 8 = Erfolg)
+4. `backup_info.txt` mit Datum, DB-Name, Odoo-Version (18.0-20260609), PostgreSQL-Version (16.14), Git-Branch/-Commit, Named-Volume, Ergebnis, Dump-Groesse, Filestore-Anzahl/-Groesse
+5. Validierung: pg_dump Exit 0, Dump existiert + > 0 Bytes, Filestore vorhanden, Backup-Ziel beschreibbar (Probe-Datei). Fehler → `C:\Odoo-Notfallbackup\logs\backup_<lauf>.log` + Exit 1, KEINE Aenderungen an der Live-Umgebung (kein Container-Stop, kein Volume-Zugriff, keine DB-Modifikation, keine Loeschungen)
+
+**Sicherheit (unantastbar):** Named Volume `odoo18_pgdata` wird NIE direkt kopiert/angefasst; `C:\Odoo-Test\postgres` und alle `postgres_defekt_*`-Ordner sind keine Backup-Quellen; Backup-Dateien nie nach Git pushen. `C:\Odoo-Notfallbackup` liegt AUSSERHALB des Repos (Geschwisterverzeichnis von `C:\Odoo-Test`) und ist damit strukturell nie in Git (in `.gitignore` dokumentiert).
+
+**Verifiziert am 12.08.2026:** 2 manuelle Testlaeufe (Exit 0, Dump 8.058.383 Bytes = 7,69 MB custom-Format, pg_restore --list 13.548 TOC-Eintraege, Filestore 10 Dateien / 11,58 MB) + Task-Probelauf `schtasks /Run` → LastTaskResult 0.
+
+**Hinweis:** `C:\Odoo-Notfallbackup\Odoo-Test` (483 MB, Stand 28.07.) ist eine ALTE manuelle Notfallkopie von `C:\Odoo-Test` inkl. `postgres/` — obsolet, aber NICHT ohne Freigabe loeschen; Kandidat fuer spaetere Bereinigung.
+
+
+
+
+---
+
+## Session 72: Encoding-Reparatur + Fix B (Neue Aktivitaet) + Fix C (Kanban-Spalten) (13.08.2026)
+
+**Branch:** `crm-kundenverwaltung-migration` (Fortsetzung nach PR #13, der am 12.08. gemergt wurde)
+**Freigaben (Anna):** Encoding-Reparatur Stufe A+B; Fix B (Option B1, nativer Wizard); Fix C (RPC-Duplikate 24/25/26 bereinigen, de_DE-Slots ergaenzen, Typ 2 vs 21 NICHT zusammenfuehren). KEINE Datenmigration, KEINE Testdaten (ausser der freigegebenen Browser-Test-Aktivitaet id=8), KEIN -u all, keine weiteren Modul-Upgrades.
+
+### 1) Encoding-Reparatur (abgeschlossen + verifiziert)
+
+**Backup vorher:** `C:\Odoo-Notfallbackup\2026-08-13_0912` (8.058.796 Bytes custom-Dump, 10 Filestore-Dateien)
+
+**Strategie:** Statt Ganz-String-Reencode (text.encode('cp850').decode('utf-8') auf der ganzen Zelle - riskant bei Mischzustaenden) wurde eine SELEKTIVE Sequenz-Ersetzung eingesetzt:
+- Mapping dynamisch aus den tatsaechlich in der DB vorhandenen Mojibake-Sequenzen gebaut (886 distinkte Sequenzen, 844 reparierbar)
+- Nur nachgewiesene CP850->UTF-8-Sequenzen ersetzt (laengste zuerst), alles andere unangetastet
+- Nicht-reparierbare Kandidaten (42) wurden automatisch durch die 2-Zeichen-Bausteine abgedeckt
+
+**Zahlen:**
+- 6815 betroffene Zellen repariert (6412 davon jsonb-Strings, 0 unveraendert)
+- 0 verbleibende ├-Zeilen in der gesamten DB (vorher 6815)
+- Sollwerte View 2893 (de_DE-Slot): Über uns / Nützliche Links / großartige / Geschäftsprobleme / lösen - alle korrekt
+- Browser-HTML (Homepage): alle 5 Sollwerte korrekt gerendert, 0 ├-Zeichen
+- Website-Menue 4: "Top-Menü für Website 1" (war "Top-Men├╝ f├╝r Website 1")
+- Login 200 mit vollstaendigen Formular-Markern; Assets nach Neustart 200 mit Sollgroessen (minimal.js 30.353 B, frontend.min.css 671.273 B, lazy.min.js 2.226.829 B)
+
+**WICHTIG:** Encoding danach NICHT mehr anfassen. Reparatur ist abgeschlossen; jede weitere Encoding-Aenderung braucht neue Freigabe.
+
+### 2) Fix B - Neue Aktivitaet anlegen (Option B1, Odoo-18-nativ)
+
+**Ursache (diagnostiziert, read-only):** Alle mail.activity-Views haben create="false" (Kanban 308, Liste 305, Formular 301) -> kein Neu-Button im Aktivitaeten-Menue. Zusaetzlich verlangt mail.activity.create in Odoo 18 res_model_id (required) + _check_access auf dem Zieldokument (mail_post_access/write) - Standalone-Create ohne Dokument ist prinzipiell blockiert.
+
+**Loesung (B1):** Neuer Menueeinstieg "Neue Aktivitaet" (Kundenverwaltung -> Aktivitaeten -> Neue Aktivitaet), der den NATIVEN Odoo-18-Wizard mail.activity.schedule als Dialog oeffnet:
+- `addons/itk_crm/data/aktivitaeten_schedule.xml` - NEU: Inherit-View auf mail.mail_activity_schedule_view_form (Zielmodell + Zieldokument-Auswahl), Action `itk_crm.action_neue_aktivitaet` (res_model mail.activity.schedule, view_mode form, target new)
+- `addons/itk_crm/models/models.py` - NEU: `MailActivitySchedule` (_inherit='mail.activity.schedule') mit itk_target_model_id (Many2one ir.model), itk_target_model (Char, model_field fuer Many2oneReference), itk_target_res_id (Many2oneReference). res_model im Inherit auf readonly=False (Web-Client sendet es sonst nicht -> Create crashte mit ir.model._get_id(False)). `_compute_res_model_id` defensiv ueberschrieben (kein Crash bei leerem res_model). `_evaluate_res_ids`/`_get_applied_on_records` so erweitert, dass das im Wizard gewaehlte Ziel verwendet wird.
+- `addons/itk_crm/setup_runtime.py` - NEU: `_setup_neue_aktivitaet_menu(env)` (idempotent; findet das Aktivitaeten-Menue ueber die Action, nicht ueber die instabile ID 892)
+
+**PITFALLS (in dieser Session verifiziert):**
+- Inherit-View als `view_id` einer ir.actions.act_window ist NICHT zulaessig (Client rendert nichts) - view_id weglassen, Odoo nimmt den Basis-View + Inherit automatisch
+- noupdate="1" verhindert das Ueberschreiben bestehender Records beim Upgrade - geaenderte View-Arch nachtraeglich per RPC in die DB schreiben (View 4016)
+- invisible-Felder (res_model) werden vom Web-Client beim Save nicht mitgesendet, wenn das Feld readonly ist -> im Inherit readonly=False setzen
+
+**Browser-Test (erfolgreich, freigegeben):** Aktivitaeten -> Neue Aktivitaet -> Wizard oeffnet -> Zielmodell "Kontakt" (res.partner) -> Zieldokument "Magistrat Rust" (id=70) -> Planen -> Dialog schliesst -> Aktivitaet id=8 in DB (activity_type_id=4 To-Do, res_model=res.partner, res_id=70, Faelligkeit 18.08.2026) -> Kanban zeigt echte Spalte "To-Do (1)" mit Karte. Keine JS-/RPC-Fehler.
+
+**Bewusst NICHT getan:** keine mail.activity-Views auf create=true umgebaut, keine ACL-/Security-Hacks, keine Standalone-Activity ueber mail.activity.create.
+
+### 3) Fix C - Aktivitaeten-Kanban-Spalten / Aktivitaetstypen
+
+**Ursache:** RPC-Duplikate (24 "Anrufen", 25 "E-Mail", 26 "Zu erledigen" - ohne XML-ID, per RPC angelegt) + fehlende de_DE-Slots bei den XML-Typen 21/22/23 (nur en_US) + Odoo 18 hat im Kanban-View KEIN eigenes "Spalte umbenennen"-Feature (die Spaltennamen SIND die mail.activity.type-Namen).
+
+**Bereinigung (idempotent in `setup_runtime._setup_activity_types`, laeuft auch nach Restore/Upgrade):**
+- RPC-Duplikate entfernt: 24 -> 21 (Anrufen), 25 -> 1 (E-Mail), 26 -> 4 (To-Do). Referenzen VOR dem Loeschen geprueft und umgehaengt (0 Referenzen vorhanden - mail_activity war leer; Log: "0 Referenzen umgehaengt" je Duplikat). Kanonische XML-Typen bleiben erhalten.
+- de_DE-Slots ergaenzt (NUR wenn fehlend, nie ueberschreiben): 21, 22, 23 + generische Nachsorge fuer alle Typen ohne de_DE-Slot. Typ 1 behaelt "E-Mail" (de_DE) / "Email" (en_US).
+- `_ACTIVITY_TYPE_CANONICALS` im setup_runtime.py dokumentiert die Zuordnung.
+
+**PITFALL:** `record.name` liefert OHNE Sprachkontext (Migration/Shell) einen String statt des jsonb-Dicts -> `_name_dict()` liest das jsonb per SQL (robust in jedem Kontext). Im ersten Lauf war de_DE von Typ 1 faelschlich mit en_US ueberschrieben worden - per SQL zurueckgesetzt ("E-Mail") und Logik korrigiert.
+
+**Browser-Test (erfolgreich):** Umbenennen ueber Gear-Menue -> Bearbeiten (editGroup -> FormViewDialog auf mail.activity.type) -> Name aendern -> Spalte zeigt neuen Namen -> Ansichtswechsel (Liste->Kanban) UND Voll-Reload -> Name bleibt erhalten. Testname zurueckgesetzt. 0 Duplikat-Typen nach Fix.
+
+### 4) Typ 2 vs. Typ 21 - bewusst NICHT zusammengefuehrt (Entscheidung offen)
+
+Vergleich (vollstaendig, 13.08.2026):
+
+| Feld | Typ 2 "Anruf" (mail.mail_activity_data_call) | Typ 21 "Anrufen" (itk_crm.mail_activity_type_anrufen) |
+|---|---|---|
+| XML-ID | mail.mail_activity_data_call | itk_crm.mail_activity_type_anrufen |
+| name | de_DE "Anruf" / en_US "Call" | de_DE "Anrufen" / en_US "Anrufen" |
+| category | phonecall | phonecall |
+| res_model | leer | leer |
+| icon | fa-phone | fa-phone |
+| decoration_type | leer | leer |
+| chaining_type | suggest | suggest |
+| delay_count | **2** | **0** |
+| delay_unit | days | days |
+| delay_from | previous_activity | previous_activity |
+| default_user_id | leer | leer |
+| keep_done | leer | leer |
+| active | t | t |
+| suggested_next_type_ids | keine (mail_activity_rel leer) | keine |
+
+**Beurteilung:** Fachlich sehr aehnlich (category/icon/chaining identisch), ABER delay_count unterscheidet sich (2 vs. 0 - Auswirkung auf die Verzoegerung bei "suggest"-Verkettung) und die Namen sind verschieden ("Anruf" vs. "Anrufen"). Zusammenfuehrung NICHT automatisch - Entscheidung Anna in naechster Session (O11-Kompatibilitaet: welcher Name/delay soll kanonisch sein?).
+
+### 5) Verifikation (projektbezogen - generisches hermes verify ist hier nicht nutzbar)
+
+`hermes verify --json` laeuft in diesem Workspace NICHT durch: Timeout nach 120s mit 0 Bytes Output (Workspace-Scan traversiert die GB-grossen untracked Backup-/Recovery-Ordner postgres_defekt_*, postgres_recovery/, BACKUP-2026-07-29/, filestore_before_phase3_2026-08-11/). `hermes verify addons/itk_crm --detect-only --json` -> {"ok": false, "error": "no-recipe"} (keine kanonische Build-/Test-Pipeline fuer Odoo-Addons). Das ist ein Workspace-/Repo-Charakteristikum, KEIN Projektfehler.
+
+Relevante echte Verifikation (alles gruen):
+- Modul-Upgrade: itk_crm 18.0.1.3.0 -> 18.0.1.4.0 (button_immediate_upgrade per RPC, uid 2, Modul 729), latest_version 18.0.1.4.0, state installed, Logs ohne Fehler
+- DB-Pruefpunkte: 14 Aktivitaetstypen, 0 Duplikate, de_DE-Slots korrekt, Menue 896 "Neue Aktivitaet" -> Action 1462
+- Browser-Test B + C (s.o.)
+- HTTP/Assets: Login 200 mit Formular-Markern, Assets 200 mit Sollgroessen
+- Konsolen-/Netzwerkpruefung: 0 console errors, 0 failed resources
+
+### 6) itk_crm 18.0.1.4.0 - geaenderte Dateien
+
+- `addons/itk_crm/__manifest__.py` - Version 18.0.1.4.0, data/aktivitaeten_schedule.xml registriert
+- `addons/itk_crm/models/models.py` - MailActivitySchedule-Extend (B1)
+- `addons/itk_crm/setup_runtime.py` - _setup_neue_aktivitaet_menu (B) + _setup_activity_types (C)
+- `addons/itk_crm/data/aktivitaeten_schedule.xml` - NEU (View-Inherit + Action)
+- `addons/itk_crm/migrations/18.0.1.4.0/post-migration.py` - NEU (setup_all bei Upgrade/Restore)
+- Validierung: py_compile OK (5 Dateien), RNG gegen import_xml.rng valid, Idempotenz-Lauf _setup_activity_types OK
+
+### 7) OFFENE PUNKTE (fuer naechste Session)
+
+- **A. Test-Aktivitaet id=8** ("Browser-Test B: neue Aktivitaet via Wizard", Magistrat Rust, To-Do, Faellig 18.08.2026): aktuell vorhanden; in naechster Session entscheiden: loeschen oder behalten. JETZT nicht veraendert.
+- **B. Typ 2 vs. Typ 21** (Anruf vs. Anrufen): fachlicher Vergleich oben dokumentiert; Zusammenfuehrung erst nach Entscheidung Anna.
+- **C. Ausstehende Modul-Upgrades (einzeln, je Freigabe):** hr_holidays_public -> itk_reports -> itk_sale_management -> itk_translation (tree->list-Fixes). NOCH NICHT upgraden.
+- **D. Keine Odoo-11-Datenmigration** (keine Kontakte/Leads/Teams), keine Testdaten, kein -u all.
+
+### 8) Einschraenkungen (fortgeschrieben)
+
+- Encoding NICHT mehr anfassen (abgeschlossen 13.08.)
+- KEINE Datenmigration, KEINE Testdaten (ausser freigegebener Browser-Test-Aktivitaet id=8), KEIN -u all
+- PostgreSQL NIE wieder als Live-Datenverzeichnis ueber den alten Shared-/Bind-Mount betreiben (Named Volume odoo18_pgdata)
