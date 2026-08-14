@@ -23,7 +23,7 @@ Migration aller Odoo-Module von **Version 11 nach Version 18** für ITK (IT Komm
 | `sale_order_line_number` | ✅ Fertig getestet · Live-Renummerierung im Formular gefixt (⟳ Docker-Neustart) | 18.0.1.0.0 |
 | `itk_saleorder_lines` | ✅ Migriert, installiert | 18.0.1.0.0 |
 | `itk_multifactor` | ✅ Fertig getestet (act_window + Wizard-ACL gefixt) | 18.0.1.0.0 |
-| `itk_crm` | ✅ Migriert, installiert · Lost Reasons (O11-kompatibel), Automated Action, Aktivitäten-Kanban, „Neue Aktivität“ via nativem Odoo-18-Wizard (B1) | 18.0.1.4.0 |
+| `itk_crm` | ✅ Migriert, installiert · Lost Reasons (O11-kompatibel), Automated Action, Aktivitäten-Kanban, „Neue Aktivität“ via nativem Odoo-18-Wizard (B1), Aktivitätstyp-Entscheidung: Typ 2 „Anrufen“ kanonisch (Odoo-Standard), O11-Nachbau „Anrufen“ (Typ 21) entfernt | 18.0.1.5.0 |
 | `account_invoice_line_report` | ✅ Migriert, installiert | 18.0.1.0.0 |
 | `partner_firstname` | ✅ Migriert, installiert | 18.0.1.0.0 |
 | `hr_employee_firstname` | ✅ Migriert, installiert | 18.0.1.0.0 |

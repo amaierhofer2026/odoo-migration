@@ -4137,3 +4137,90 @@ Relevante echte Verifikation (alles gruen):
 - Encoding NICHT mehr anfassen (abgeschlossen 13.08.)
 - KEINE Datenmigration, KEINE Testdaten (ausser freigegebener Browser-Test-Aktivitaet id=8), KEIN -u all
 - PostgreSQL NIE wieder als Live-Datenverzeichnis ueber den alten Shared-/Bind-Mount betreiben (Named Volume odoo18_pgdata)
+
+---
+
+## Session 73: Test-Aktivitaet id=8 geloescht + Aktivitaetstyp-Entscheidung Typ 2 vs. Typ 21 (14.08.2026)
+
+**Branch:** `crm-kundenverwaltung-migration`
+**Freigaben (Anna):** Loeschung der Test-Aktivitaet id=8; Typ-Entscheidung "Typ 2 behalten, Typ 21 entfernen" mit de_DE-Umbenennung von Typ 2 auf 'Anrufen'; Modulcode-Bereinigung in itk_crm. KEINE vier Modul-Upgrades (hr_holidays_public/itk_reports/itk_sale_management/itk_translation) — starten erst in neuer Session. KEIN -u all, KEINE Datenmigration, Encoding unangetastet.
+
+### 1) Test-Aktivitaet mail.activity id=8 geloescht
+
+**Read-only-Pruefung vor Loeschung (dokumentiert):**
+- id=8, res_model=res.partner, res_id=70 ("Magistrat Rust", GKZ 10201)
+- activity_type_id=4 (To-Do), summary="Browser-Test B: neue Aktivitaet via Wizard"
+- user_id=2 (anna.maierhofer@it-kommunal.at), date_deadline=2026-08-18
+- create_date=2026-08-13 08:12 (Session-72-Test), mail_activity gesamt = 1 (nur id=8)
+- Eindeutig die freigegebene Session-72-Test-Aktivitaet → `DELETE FROM mail_activity WHERE id=8` (DELETE 1)
+
+**Verifikation danach:**
+- mail_activity = 0 Datensaetze (keine Testdaten mehr), keine anderen Aktivitaeten vorhanden/veraendert
+- Aktivitaeten-Wizard: Browser-Test OK (Dialog oeffnet mit Zielmodell/Zieldokument/Summary + Planen-Buttons; ueber Abbrechen geschlossen, KEINE neue Aktivitaet angelegt)
+- Kanban: OK (Empty-State mit 4 Ghost-Spalten = dokumentiertes Verhalten bei 0 Aktivitaeten)
+- Logs: keine neuen Fehler; FileNotFoundError im Log (09:45-09:59) = bekanntes Partner-Bild-Vorproblem aus Session 71
+
+### 2) Aktivitaetstyp-Entscheidung: Typ 2 kanonisch, Typ 21 entfernt
+
+**Vollstaendiger read-only Vergleich (13 Typen-DB + O11-Referenzabfrage):**
+
+| Feld | Typ 2 "Anruf" (mail) | Typ 21 "Anrufen" (itk_crm) |
+|---|---|---|
+| XML-ID | mail.mail_activity_data_call | itk_crm.mail_activity_type_anrufen |
+| Modul | mail 18.0.1.18 (Odoo-Standard) | itk_crm 18.0.1.4.0 (O11-Nachbau) |
+| name de_DE / en_US | Anruf / Call | Anrufen / Anrufen |
+| category | phonecall | phonecall |
+| res_model | leer | leer |
+| delay_count | **2** | **0** |
+| delay_unit / delay_from | days / previous_activity | days / previous_activity |
+| default_user_id | leer | leer |
+| icon / decoration_type | fa-phone / leer | fa-phone / leer |
+| chaining_type | suggest | suggest |
+| suggested_next_type_ids | 0 | 0 |
+| mail templates / related actions | 0 | 0 |
+| sequence | 6 | 6 |
+| active / keep_done | t / leer | t / leer |
+
+**Odoo-11-Referenz (read-only, ITK_V1_a):** O11 hatte 12 Typen; der Telefon-Typ hiess dort id=2 "Call" (fa-phone) — **kein** "Anrufen". O11 hatte 0 de_DE-Uebersetzungen fuer mail.activity.type und 0 mail.activity-Datensaetze. → Typ 21 hatte KEIN O11-Vorbild fuer den Namen "Anrufen" (der Nachbau basierte auf der Session-66-Annnahme); er war ein itk_crm-Duplikat.
+
+**Referenz-Check vor Loeschung (11 FK-Positionen):** 0 Referenzen auf Typ 21 in mail_activity, mail_activity_rel, mail_activity_plan_template, ir_act_server, mail_compose_message, mail_message, mail_activity_type_mail_template_rel, mail_activity_schedule, triggered_next_type_id, previous/recommended. → Loeschung gefahrlos.
+
+**Durchgefuehrte DB-Aenderungen (eine Transaktion je Schritt):**
+1. `UPDATE mail_activity_type SET name=jsonb_set(name,'{de_DE}','"Anrufen"') WHERE id=2` → Typ 2: de_DE "Anrufen" / en_US "Call"; **delay_count=2 und alle anderen Standardwerte UNVERAENDERT**
+2. `DELETE ir_model_data (module='itk_crm', name='mail_activity_type_anrufen')` + `DELETE mail_activity_type WHERE id=21` (DELETE 1, inkl. RETURNING-Doku)
+
+**Modulcode-Bereinigung itk_crm (Version 18.0.1.5.0):**
+- `data/aktivitaeten_views.xml`: `<record id="mail_activity_type_anrufen">` ENTFERNT (Kommentar dokumentiert Entscheidung) → wird bei Neuinstallation/Upgrade nicht mehr angelegt
+- `setup_runtime.py`: `_ACTIVITY_TYPE_CANONICALS` auf `('mail.mail_activity_data_call', ['Anrufen','Call'])` umgestellt; neue Legacy-Bereinigung (entfernt Typ 21 nach Restore aus Altdumps: Referenzen → Typ 2, ir_model_data mitloeschen, unlink); neuer Block setzt de_DE von Typ 2 auf 'Anrufen' (nur wenn != 'Anrufen', idempotent; en_US/delay_count unangetastet)
+- `migrations/18.0.1.5.0/post-migration.py` (NEU): ruft setup_runtime.setup_all → stellt Entscheidung nach Restore + Upgrade automatisch wieder her
+- `__manifest__.py`: Version 18.0.1.5.0
+
+**Deploy:** __pycache__ im Container geloescht, `docker restart odoo18`, itk_crm EINZELN upgegradet (button_immediate_upgrade, uid 2, Modul 729) → latest_version 18.0.1.5.0, state installed.
+
+**Verifikation (alles gruen):**
+- Typ 2 vorhanden: de_DE "Anrufen" / en_US "Call" / delay_count=2 / alle Standardwerte unveraendert
+- Typ 21 NICHT vorhanden (mail_activity_type UND ir_model_data = 0)
+- Genau 1 Typ mit de_DE "Anrufen" (kein Duplikat); 0 Duplikat-Namen insgesamt
+- 13 Aktivitaetstypen gesamt (14 - 1); mail_activity = 0
+- Upgrade-Log: "kein RPC-Duplikat fuer mail.mail_activity_data_call — ok", "de_DE-Name Typ 2 bereits 'Anrufen' — ok", 0 Fehler
+- Browser: Aktivitaeten-Wizard OK (Dialog + alle Felder), Kanban OK (Renderer + Empty-State), 0 Konsole-/Netzwerkfehler (window.__errs leer, 0 failed resources)
+- Server-Logs: einziger ERROR 11:09:31 = transienter Websocket-Neustart-Artefakt vor dem Upgrade; danach 0 Fehler
+- `hermes verify --json`: weiterhin konkret blockiert (Timeout 170s, Exit 124, 0 Bytes Output — Workspace-Scan ueber GB-grosse untracked Backup-Ordner); `--detect-only` → {"ok": false, "error": "no-recipe"}. Projektbezogene Verifikation (py_compile 5 Dateien, RNG gegen import_xml.rng, DB, Laufzeit, Browser) ersetzt den generischen Lauf.
+
+### 3) Verifikation Gesamtstand (Session-Abschluss)
+
+- itk_crm 18.0.1.5.0 installed; 13 Aktivitaetstypen; mail.activity = 0
+- Aktivitaeten-Wizard OK, Kanban OK, 0 JS-/RPC-/Konsolenfehler
+- Encoding: WEITERHIN abgeschlossen und unveraendert (13.08., kein Eingriff in dieser Session)
+- Logins/Assets: OK (HTTP 200, Assets mit Sollgroessen)
+
+### 4) OFFENE PUNKTE (naechste Session)
+
+- **Vier Modul-Upgrades einzeln (je Freigabe):** hr_holidays_public → itk_reports → itk_sale_management → itk_translation (tree→list-Fixes). AUSDRUECKLICH NICHT in dieser Session.
+- KEINE Odoo-11-Datenmigration (keine Kontakte/Leads/Teams), keine Testdaten, kein -u all.
+
+### 5) Einschraenkungen (fortgeschrieben)
+
+- Encoding NICHT mehr anfassen (abgeschlossen 13.08.)
+- KEINE Datenmigration, KEINE Testdaten, KEIN -u all
+- PostgreSQL NIE wieder als Live-Datenverzeichnis ueber den alten Shared-/Bind-Mount betreiben (Named Volume odoo18_pgdata)
