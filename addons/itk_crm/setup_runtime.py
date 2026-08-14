@@ -351,13 +351,16 @@ def _setup_vertriebskanaele_labels(env):
 # Aktivitaetstypen: RPC-Duplikate bereinigen + de_DE-Slots sicherstellen (C)
 # ---------------------------------------------------------------------------
 # Kanonische Typen (XML-ID im Modul) -> Namen, an denen RPC-Duplikate erkannt werden.
-# Typ 2 ('Anruf', mail) und Typ 21 ('Anrufen', itk_crm) bleiben bewusst GETRENNT
-# (Entscheidung Anna, 13.08.2026 — Vergleich: category/icon/chaining identisch,
-# aber delay_count 2 vs 0 und Name/XML-ID verschieden; Zusammenfuehrung erst nach
-# separater Freigabe).
+# Entscheidung Anna 14.08.2026: Odoo-Standard mail.mail_activity_data_call
+# (Typ 2) ist KANONISCH fuer Telefon-Aktivitaeten; sein de_DE-Name wird auf
+# 'Anrufen' gesetzt (passt zur Kundenverwaltung). Der itk_crm-Nachbau
+# mail_activity_type_anrufen (Typ 21) wurde entfernt — Record aus der XML
+# geloescht; nach Restore aus Altdumps entfernt ihn die Legacy-Bereinigung
+# unten (Referenzen -> Typ 2). delay_count und alle Standardwerte von Typ 2
+# bleiben unangetastet.
 _ACTIVITY_TYPE_CANONICALS = [
     # (XML-ID des kanonischen Typs, [Duplikat-Namen en_US])
-    ('itk_crm.mail_activity_type_anrufen', ['Anrufen']),
+    ('mail.mail_activity_data_call', ['Anrufen', 'Call']),
     ('mail.mail_activity_data_email', ['E-Mail', 'Email']),
     ('mail.mail_activity_data_todo', ['Zu erledigen', 'To-Do', 'To-do']),
 ]
@@ -467,4 +470,45 @@ def _setup_activity_types(env):
             activity_type.write({'name': dict(name_dict, de_DE=name_dict['en_US'])})
             _logger.info("itk_crm: de_DE-Slot fuer Typ %s ergaenzt: %s",
                          activity_type.id, name_dict['en_US'])
+
+    # --- Legacy-Bereinigung: itk_crm.mail_activity_type_anrufen (Typ 21) ---
+    # Entscheidung Anna 14.08.2026: Odoo-Standard mail.mail_activity_data_call
+    # (Typ 2) ist kanonisch; der O11-Nachbau 'Anrufen' (Typ 21) entfaellt.
+    # Nach einem Restore aus einem Altdump koennte Typ 21 inkl. XML-ID wieder
+    # existieren -> hier gezielt entfernen (Referenzen auf Typ 2 umhaengen,
+    # ir_model_data-Eintrag mitloeschen, dann unlink).
+    legacy_anrufen = env.ref('itk_crm.mail_activity_type_anrufen',
+                             raise_if_not_found=False)
+    call_type = env.ref('mail.mail_activity_data_call', raise_if_not_found=False)
+    if legacy_anrufen and legacy_anrufen.exists():
+        if call_type and call_type.exists():
+            moved = _repoint_refs(env.cr, legacy_anrufen.id, call_type.id)
+            env.cr.execute(
+                "DELETE FROM ir_model_data WHERE model='mail.activity.type' "
+                "AND module='itk_crm' AND name='mail_activity_type_anrufen'")
+            legacy_anrufen.unlink()
+            _logger.info(
+                "itk_crm: Legacy-Typ %s (mail_activity_type_anrufen) entfernt, "
+                "%s Referenzen -> Typ %s", legacy_anrufen.id, moved, call_type.id)
+        else:
+            _logger.warning(
+                "itk_crm: Legacy-Typ %s vorhanden, aber kanonischer Typ "
+                "mail.mail_activity_data_call fehlt — nicht entfernt",
+                legacy_anrufen.id)
+
+    # --- Kanonischer Name von Typ 2: de_DE -> 'Anrufen' ---
+    # Entscheidung Anna 14.08.2026: NUR der de_DE-Slot von
+    # mail.mail_activity_data_call wird auf 'Anrufen' gesetzt (passt zur
+    # Kundenverwaltung). en_US 'Call', delay_count=2 und alle uebrigen
+    # Standardwerte bleiben unangetastet. Idempotent: schreibt nur, wenn de_DE
+    # noch nicht 'Anrufen' ist.
+    if call_type and call_type.exists():
+        call_dict = _name_dict(call_type)
+        if call_dict.get('de_DE') != 'Anrufen':
+            call_type.write({'name': dict(call_dict, de_DE='Anrufen')})
+            _logger.info("itk_crm: de_DE-Name Typ %s -> 'Anrufen'", call_type.id)
+        else:
+            _logger.info("itk_crm: de_DE-Name Typ %s bereits 'Anrufen' — ok",
+                         call_type.id)
+
     _logger.info("itk_crm: Aktivitaetstypen-Setup abgeschlossen")

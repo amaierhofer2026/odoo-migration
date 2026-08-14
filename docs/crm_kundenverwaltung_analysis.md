@@ -393,6 +393,37 @@ O18 hat nur 1 Team: "Sales". Die O11-Teams müssen migriert werden (crm.team).
 
 ---
 
+## 11. Aktivitätstypen (mail.activity.type) — Entscheidung 14.08.2026 (Session 73)
+
+**Kanonischer Typ:** `mail.mail_activity_data_call` (Typ 2, Odoo-Standard).
+**Entfernt:** `itk_crm.mail_activity_type_anrufen` (Typ 21, O11-Nachbau).
+
+### Entscheidung (Anna, 14.08.2026)
+- Typ 2 bleibt als kanonischer Odoo-Standardtyp für Telefon-Aktivitäten.
+- Sein **de_DE-Name wurde auf "Anrufen"** gesetzt (passt zur Kundenverwaltung);
+  en_US "Call", `delay_count=2` und alle übrigen Standardwerte bleiben unverändert.
+- Typ 21 wurde aus der DB entfernt (0 Referenzen in allen 11 FK-Positionen;
+  mail_activity war leer) und wird durch Modulcode/Migration künftig **nicht wieder
+  angelegt**: Record aus `data/aktivitaeten_views.xml` gelöscht,
+  `_ACTIVITY_TYPE_CANONICALS` in `setup_runtime.py` auf
+  `mail.mail_activity_data_call` umgestellt, Legacy-Bereinigung entfernt einen
+  eventuell aus Altdumps zurückkehrenden Typ 21 (Referenzen → Typ 2),
+  `migrations/18.0.1.5.0/post-migration.py` stellt die Entscheidung nach
+  Restore + Upgrade automatisch wieder her. itk_crm = 18.0.1.5.0.
+
+### Odoo-11-Referenz (read-only, ITK_V1_a)
+- O11 hatte 12 Aktivitätstypen; der Telefon-Typ hiess dort id=2 **"Call"** (fa-phone) —
+  **kein "Anrufen"**. O11 hatte 0 de_DE-Übersetzungen für mail.activity.type und
+  0 mail.activity-Datensätze. → Typ 21 hatte kein echtes O11-Vorbild für den Namen.
+
+### Ist-Zustand (verifiziert)
+- 13 Aktivitätstypen gesamt; genau 1 Typ mit de_DE "Anrufen" (kein Duplikat)
+- Typ 2: de_DE "Anrufen" / en_US "Call" / delay_count=2 / category phonecall / fa-phone
+- Typ 21: 0 (mail_activity_type UND ir_model_data)
+- Aktivitäten-Wizard OK, Kanban OK, 0 JS-/RPC-/Konsolenfehler
+
+---
+
 ## 9. Umsetzungsplan (Reihenfolge)
 
 1. **Menüs umbenennen** (JSON-RPC write auf ir.ui.menu)

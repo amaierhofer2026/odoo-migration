@@ -3,13 +3,11 @@
     <data noupdate="1">
 
         <!-- Zusätzliche Aktivitätstypen für Odoo-11-Kompatibilität -->
-        <record id="mail_activity_type_anrufen" model="mail.activity.type">
-            <field name="name">Anrufen</field>
-            <field name="category">phonecall</field>
-            <field name="icon">fa-phone</field>
-            <field name="sequence">6</field>
-        </record>
-
+        <!-- Typ 'Anrufen' (mail_activity_type_anrufen) ENTFERNT am 14.08.2026:
+             Entscheidung Anna — Odoo-Standard mail.mail_activity_data_call
+             (Typ 2) ist kanonisch, de_DE-Name dort auf 'Anrufen' gesetzt.
+             Der itk_crm-Nachbau wird nicht mehr angelegt (setup_runtime
+             entfernt ihn auch nach Restore aus Altdumps). -->
         <record id="mail_activity_type_datagvat" model="mail.activity.type">
             <field name="name">data.gv.at Neukunde anlegen</field>
             <field name="category">default</field>
