@@ -4314,3 +4314,42 @@ Kontrollierte Uebertragung lokale DB `odoo18_test` + Filestore -> VM:
 - **Lokale .env**: `C:\Odoo-Test` hat (noch) keine `.env` — vor dem naechsten LOKALEN Stack-Restart anlegen (sonst leeres POSTGRES_PASSWORD). Laufender lokaler Stack ist unkritisch (Container laufen mit altem Env weiter).
 - Vier Einzel-Upgrades aus Session 73 weiterhin offen (hr_holidays_public -> itk_reports -> itk_sale_management -> itk_translation, je Freigabe).
 - `hermes verify --json`: mit `--skip-start` OK (build-Phase); voller Lauf wuerde lokal Container starten -> bewusst nicht ohne Freigabe.
+
+---
+
+### Session 75: Uebertragung des lokalen Odoo-18-Teststands auf die IPAX-Test-VM (31.08.2026)
+
+**Freigabe (Anna):** vollstaendig, kontrolliert Schritt fuer Schritt. KEINE Odoo-11-Daten, KEIN -u all, keine Modul-Upgrades, keine Code-Aenderungen an itk_*/OCA.
+
+#### 1) Ablauf (durchgefuehrt)
+
+- **A) Lokal (konsistenter Stand):** `docker stop odoo18` -> `pg_dump --format=custom --no-owner --no-privileges` (Exit 0, 8.068.361 Bytes, TOC 13551 Eintraege, gzip); Verifikation `pg_restore --list` (Exit 0). Dump + Filestore-Backup (24 MB) nach `C:\Odoo-Notfallbackup\2026-08-31_odoo18_test_migration\`. odoo18 danach wieder gestartet (laeuft weiter). Kontrollcheck: KEIN Modul in state `to upgrade` (unbedingter Start ohne -u auf der VM damit moeglich).
+- **B) Transfer:** scp Dump + `filestore_20260831.tar.gz` (5.085 KB) nach `/tmp/odoo18_migration/`; SHA256 des Dumps auf der VM identisch mit lokal (`0750c25a...`).
+- **C) Pre-Check VM:** 90 GB frei; Stack running; Git main `447c38d` sauber; **KEINE DB odoo18_test vorhanden** (nur postgres/template1).
+- **D) Restore:** `createdb -U odoo -O odoo odoo18_test` (Exit 0) -> `pg_restore -U odoo --no-owner --no-privileges -j 4` (Exit 0, **0 ERROR-Zeilen**, 650 Tabellen).
+- **E) Filestore:** Erste Extraktion als k001959 schlug fehl (Verzeichnis war bereits auf 100:101 gechownt -> kein Schreibrecht fuer k001959). **Fix:** Extraktion mit `sudo`, `chown -R 100:101`. Ergebnis: 40 Dateien gesamt (14 unter `odoo18_test/`), 24 MB, Owner 100:101; Schreib-/Loeschtest im Container OK.
+- **F) Start:** `docker restart odoo18` -> HTTP 200 nach ~8 s (`/web/login?db=odoo18_test`); Registry geladen (1,3 s); 0 Fehler/Tracebacks; Assets OK (`/web/assets/...web.assets_frontend.min.css` -> HTTP 200, 671.266 Bytes); nur harmlose Warnungen ("Missing license key" bei 3 itk-Modulen, vorbestehend).
+
+#### 2) Verifikation (alles gruen)
+
+- **Login:** JSON-RPC `authenticate` -> uid=2 (Administrator) OK.
+- **SQL-Kontrollzahlen VM == lokal (1:1):** res.partner 76, crm.lead 1, crm.stage 8, crm.team 4, mail.activity 0, sale.order 16, account.move 22, product.template 23, res.users 18, ir.attachment 1249, mail.message 455.
+- **Benutzersicht (RPC, Record Rules aktiv) lokal == VM identisch:** 70 / 1 / 8 / 2 / 0 / 16 / 22 / 13 / 14 / 268 / 420. Differenz zu SQL = archivierte/inaktive Datensaetze: 6 Partner, 2 Teams, 10 Produkte, 4 Benutzer (aktiv/gesamt per SQL verifiziert); ir.attachment 268 vs 1249 und mail.message 420 vs 455 = Record-Rules-Sicht von uid=2 (kein Superuser). **Lokal und VM liefern byte-identische Werte -> 1:1 bestaetigt auf beiden Ebenen.**
+- **Module:** 158 installed (15 itk_*, 6 OCA/Helpdesk) identisch.
+- **Filestore:** 1:1 uebertragen. Hinweis: DB referenziert 969 `store_fname`-Dateien, physisch vorhanden sind 14 (unter `odoo18_test/`) — **vorbestehende Altlasten, lokal identisch** (u.a. legacy `payment.method`/`gamification`-Anhaenge aus O11-Zeit + die bekannten Partner-Bilder, Sessions 71/73; anonymes Docker-Volume geprueft: leer). KEINE Korrektur ohne Freigabe.
+- **Security unveraendert:** 127.0.0.1:8069, db ohne Host-Port, .env unveraendert (600, ignoriert).
+
+#### 3) Backup des funktionierenden VM-Stands
+
+- `/opt/odoo18/backups/odoo18_test_vm_20260831.dump` (8.068.376 Bytes, custom) + `filestore_vm_20260831.tar.gz` (5.204.004 Bytes). `backups/` ist gitignored. (SHA weicht vom lokalen Dump nur durch Header-Zeitstempel ab: +15 Bytes.)
+
+#### 4) Befunde / Notizen
+
+- `docker cp` auf Windows: MSYS-Pfadkonvertierung erzeugt `C:\c\...` -> mit relativem Pfad (cd ins Zielverzeichnis) loesen.
+- Filestore-Extraktion auf der VM: Verzeichnis mit Container-UID (100:101) vorab chownen -> Extraktion nur mit sudo.
+- RPC-Checks brauchen die Session-Cookie (http.cookiejar), sonst "Access Denied"/None-Ergebnisse.
+- Lokale .env-Frage bleibt offen (vor naechstem LOKALEN Stack-Restart anlegen).
+
+#### 5) Einschraenkungen (fortgeschrieben)
+
+- KEINE Odoo-11-Datenmigration, KEIN -u all, keine Modul-Upgrades ohne Freigabe; Encoding unangetastet; lokaler Stack laeuft weiter als Quelle.
