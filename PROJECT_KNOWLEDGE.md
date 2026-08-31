@@ -4224,3 +4224,93 @@ Relevante echte Verifikation (alles gruen):
 - Encoding NICHT mehr anfassen (abgeschlossen 13.08.)
 - KEINE Datenmigration, KEINE Testdaten, KEIN -u all
 - PostgreSQL NIE wieder als Live-Datenverzeichnis ueber den alten Shared-/Bind-Mount betreiben (Named Volume odoo18_pgdata)
+
+---
+
+### Session 74: Neue IPAX-Test-VM (Ubuntu 26.04) — Docker-Setup, Stack-Start, Analyse lokaler Teststand (31.08.2026)
+
+#### 1) Ausgangslage
+
+- IPAX hat die bisherige Odoo-11-Test-VM gesichert, geloescht und frisch mit **Ubuntu Server 26.04 LTS** neu installiert.
+- Ziel: neue VM als Testumgebung fuer Odoo 18 (Abloesung/Ergaenzung des Windows-Docker-Teststands).
+- **KEINE Migration produktiver Odoo-11-Daten**; zunaechst Infrastruktur + geplante Uebernahme des bestehenden Odoo-18-Teststands.
+
+#### 2) Neue VM: System (read-only erfasst)
+
+| Eigenschaft | Wert |
+|---|---|
+| OS | Ubuntu 26.04 LTS "Resolute Raccoon" (frisch, 2,8 GB belegt) |
+| Kernel | 7.0.0-28-generic |
+| CPU | 4 vCPU (AMD EPYC 7302P) |
+| RAM | 31 GiB (30 frei) |
+| Disk | 96 GB (94 frei) |
+| Netz | eth0 93.189.28.204/28, GW 93.189.28.193 |
+| DNS | k001959vsx.ipax.at -> 93.189.28.204; VM-Hostname k001959vsv |
+| SSH | **Port 22** (NICHT 2000 wie die alte O11-VM), User k001959, Passwort-Auth, **sudo passwordlos** |
+
+Zugangsdaten liegen bei Anna (nicht in diesem Dokument / Git ablegen).
+
+#### 3) Docker-Installation (offizieller Weg, 31.08.2026)
+
+- Gate-Check: download.docker.com fuehrt Suite **"resolute"** (Components: stable edge test nightly) -> reguläre Unterstützung, kein Workaround noetig.
+- apt-Repo docker.com (resolute/stable), Keyring `/etc/apt/keyrings/docker.gpg`.
+- Installiert: **docker-ce 29.7.2**, docker-compose-plugin (**Compose v5.5.0**), containerd.io, buildx.
+- `usermod -aG docker k001959` (greift ab naechster SSH-Session), `systemctl enable --now docker` -> active.
+- Verifikation: docker info (overlayfs, systemd cgroup, Ubuntu 26.04 LTS, 4 CPU, 31,34 GiB).
+
+#### 4) Projektstruktur + Clone auf der VM
+
+- `/opt/odoo18` (Owner k001959) = `git clone` des Repos, Branch **main**, HEAD `a0a36d3083cf478ef7763c1e257c22a3c9990853` (= PR #15), sauber.
+- addons/ (41 Module) + alle Projektdateien (PROJECT_KNOWLEDGE.md, README.md, docker-compose.yml, ...) vollstaendig vorhanden.
+- `docker compose config`: lesbar, keine Fehler.
+
+#### 5) docker-compose.yml: VM-Anpassungen (in dieser Session committet, lokal gespiegelt)
+
+- **PostgreSQL-Passwort**: hartkodiertes `odoo` entfernt -> `${POSTGRES_PASSWORD}` aus `.env` (Service `db` UND `odoo`).
+- `.env` unter `/opt/odoo18` (nur VM): starkes Zufallspasswort (48 Zeichen hex), `chmod 600`, Owner k001959. **NICHT committet**; `.gitignore` um Eintrag `.env` ergaenzt.
+- **Odoo-Port**: `"8069:8069"` -> `"127.0.0.1:8069:8069"` (nur lokal auf der VM; Browser-Zugriff per SSH-Tunnel: `ssh -L 8069:127.0.0.1:8069 k001959@93.189.28.204`). Kein Nginx/HTTPS (bewusst noch nicht).
+- **Volume**: `odoo18_pgdata` — `external: true` entfernt -> Compose verwaltet ein eigenes persistentes Named Volume (frisches Volume auf der VM).
+- **PostgreSQL**: weiterhin KEIN Port-Mapping, nur internes Docker-Netz (nicht oeffentlich erreichbar).
+- **Filestore**: `/opt/odoo18/filestore`, Owner `100:101` (= Container-User `odoo` im odoo:18-Image), Schreib-/Loeschtest im Container OK.
+
+#### 6) Erster Stack-Start + Verifikation (VM)
+
+- Images: `odoo:18` (18.0-20260817), `postgres:16` (16.15).
+- Container `odoo18` + `odoo18-db` beide running; `pg_isready` -> accepting connections.
+- HTTP lokal: `/web/login` -> 303 -> `/web/database/selector` -> **200** (leeres Grundsystem, DB-Verwaltung erreichbar).
+- Port 8069 lauscht **nur** auf 127.0.0.1; 5432 nicht auf dem Host; von aussen (93.189.28.204:8069 und :5432) nicht erreichbar (Timeout).
+- Volume: `odoo18_odoo18_pgdata`; Odoo-Log: 0 Fehler/Tracebacks, 0 Modul-Warnungen; db-Log: "ready to accept connections" (FATAL "database odoo does not exist" = normales Erstkontakt-Verhalten ohne DB).
+- git status VM: nur `docker-compose.yml` + `.gitignore` modifiziert, `.env` ignoriert.
+- **Stand: VM laeuft mit leerem PostgreSQL/Odoo-Grundsystem — lokale Testdatenbank NOCH NICHT uebertragen.**
+
+#### 7) Analyse lokaler Odoo-18-Teststand (read-only, Basis fuer die Uebertragung)
+
+- **DB**: `odoo18_test`, 80 MB (83.868.695 Bytes); PostgreSQL lokal **16.14** (Debian), VM 16.15 (gleiche Major, kompatibel).
+- **Filestore**: `C:\Odoo-Test\filestore`, 24 MB, 40 Dateien (Hauptteil `odoo18_test/` 13 MB).
+- **Module**: 158 installiert, davon **15 itk_*-Module** (Versionen identisch mit Repo) + OCA/Helpdesk: helpdesk_mgmt 18.0.1.17.1, helpdesk_mgmt_project, helpdesk_mgmt_sla, helpdesk_mgmt_timesheet, project_timesheet_time_control, server_action_mass_edit.
+- **Testdaten-Kontrollzahlen**: 76 Partner, 1 Lead, 8 CRM-Stages, 4 Vertriebsteams, 0 Aktivitaeten, 16 Verkaufsauftraege, 22 Rechnungen, 23 Produkte, 18 Benutzer, 1249 Anhaenge, 455 Nachrichten.
+- **Kompatibilitaet Git**: alle Repo-Module installiert mit identischer Version; Ausnahmen/Hinweise:
+  - `itk_projectcategory`: DB 18.0.0.1 vs Repo 18.0.1.0.0 -> Upgrade offen (KEIN Upgrade ohne Freigabe; Dump uebernimmt 18.0.0.1).
+  - `web_group_expand`: installiert (18.0.1.0.0) obwohl als "geparkt" dokumentiert (Doku-Inkonsistenz; Code liegt im Repo, funktioniert).
+  - `account_add_gln`: Core-Modul des odoo:18-Images (kein Repo-Modul, auf VM vorhanden).
+- Odoo-Build lokal 18.0-20260609 vs VM 18.0-20260817 (gleiche 18.0, DB-kompatibel).
+
+#### 8) Geplanter naechster Schritt (NACH Freigabe, noch nicht ausgefuehrt)
+
+Kontrollierte Uebertragung lokale DB `odoo18_test` + Filestore -> VM:
+
+- A) Dump lokal: `pg_dump --format=custom --no-owner` (odooe18_test) — odoo18-Container stoppen fuer konsistenten Stand; Dump-Verifikation.
+- B) Transfer: Dump + Filestore (24 MB) per scp/tar zur VM.
+- C) Restore: `createdb odoo18_test` + `pg_restore` (custom, --no-owner, Besitzer odoo); DB-Name identisch (Filestore-Pfade in ir_attachment).
+- D) Filestore nach `/opt/odoo18/filestore` (Owner 100:101).
+- E) Start + Verifikation: Browser, CRM-Struktur, Vertriebskanaele (4), Kontrollzahlen, Modul-Status (158), Logs.
+- F) Backup des frischen VM-Stands (pg_dump).
+- G) Doku/Commit nur bei weiteren Aenderungen.
+
+**AUSDRUECKLICH KEINE Migration produktiver Odoo-11-Daten, kein -u all.**
+
+#### 9) Offene Punkte
+
+- **Lokale .env**: `C:\Odoo-Test` hat (noch) keine `.env` — vor dem naechsten LOKALEN Stack-Restart anlegen (sonst leeres POSTGRES_PASSWORD). Laufender lokaler Stack ist unkritisch (Container laufen mit altem Env weiter).
+- Vier Einzel-Upgrades aus Session 73 weiterhin offen (hr_holidays_public -> itk_reports -> itk_sale_management -> itk_translation, je Freigabe).
+- `hermes verify --json`: mit `--skip-start` OK (build-Phase); voller Lauf wuerde lokal Container starten -> bewusst nicht ohne Freigabe.

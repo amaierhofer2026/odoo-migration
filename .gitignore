@@ -17,6 +17,7 @@ Thumbs.db
 *.swo
 # Hermes-Zugangsdaten (lokal, nie committen)
 .hermes_secrets
+.env
 
 # Datenbank-Backups und Scans
 backups/
