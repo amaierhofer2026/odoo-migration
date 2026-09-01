@@ -4443,3 +4443,36 @@ Kontrollierte Uebertragung lokale DB `odoo18_test` + Filestore -> VM:
 
 #### 6) Einschraenkungen (fortgeschrieben)
 - KEINE Odoo-11-Datenmigration, KEIN -u all, keine Modul-Upgrades ohne Freigabe; Encoding unangetastet; DB/Filestore/Module unveraendert; kein Force-Push/Rebase.
+
+
+---
+
+### Session 78: Session-Abschluss — Ausgangspunkt fuer die naechste Session (01.09.2026)
+
+**Freigaben (Anna):** VM-Einrichtung + Teststand-Uebertragung als abgeschlossen betrachtet; Doku-Konsolidierung (PROJECT_KNOWLEDGE.md/README); Sync-Verifikation lokal/GitHub/VM. KEINE weiteren technischen Aenderungen in dieser Session. Benutzer Florian/Tina bewusst NICHT angelegt (separat).
+
+#### 1) Nachtrag: hr_holidays_public-Upgrade (heute frueh, vor Session 76)
+- Freigegeben + ausgefuehrt: Einzel-Upgrade hr_holidays_public (Modul 764, button_immediate_upgrade per RPC, uid 2) auf dem LOKALEN Stack.
+- Ergebnis: Action 1268 "Public Holidays" view_mode tree,form → list,form (Repo-Stand 6b691ec); 0 tree im Modul; Menues intakt; Log sauber. Version bleibt 18.0.1.0.0 (Fix war bereits committet).
+- **WICHTIG (Sync-Differenz):** Das Upgrade lief nur in der LOKALEN DB odoo18_test. Die VM-DB (Stand 31.08.) hat fuer hr_holidays_public weiterhin tree,form. Angleichung bei den restlichen Einzel-Upgrades (itk_reports → itk_sale_management → itk_translation, je Freigabe) oder separat.
+- Offen bleiben damit: itk_reports, itk_sale_management, itk_translation (tree→list-Fixes, je Freigabe).
+
+#### 2) Ausgangspunkt naechste Session (dokumentierter Stand, keine Neu-Erklaerung noetig)
+- **Odoo 18 laeuft auf der IPAX-VM** — Zugriff ueber **https://k001959vsx.ipax.at** (nginx + Let's-Encrypt, Auto-Renew; HTTP→HTTPS; ufw 22/80/443; Odoo nur 127.0.0.1:8069; PostgreSQL nur Docker-intern).
+- **Datenbank odoo18_test** — lokaler Odoo-18-Teststand am 31.08.2026 1:1 auf die VM uebertragen (Dump + Filestore); VM-Backups unter /opt/odoo18/backups/.
+- **Lokale Odoo-18-Umgebung besteht separat weiter** (Windows Docker, http://localhost:8069; lokale .env seit 01.09. vorhanden — POSTGRES_PASSWORD passend zum Volume, Skript-Zugangsdaten; lokale DB unveraendert).
+- **PostgreSQL und Filestore sind persistent** (Named Volume odoo18_odoo18_pgdata bzw. /opt/odoo18/filestore, Owner 100:101).
+- **Nginx/HTTPS eingerichtet** (Session 76): config/nginx_odoo.conf (Referenz), config/odoo.conf (gitignored, proxy_mode/list_db=False/dbfilter), odoo.conf.example.
+- **GitHub/main, lokale Umgebung und VM synchron** (main = bc7882e nach PR #18 + #19), Arbeitsbaeume sauber.
+- **Keine produktiven Odoo-11-Daten migriert** (O11-VM dekommissioniert 31.08.; nur Testdaten des 1:1-Teststands).
+- **Aktuell 158 installierte Module**, darunter 15 itk_*-Module und die verwendeten OCA/Helpdesk-Module (helpdesk_mgmt, helpdesk_mgmt_project/sla/timesheet, project_timesheet_time_control, server_action_mass_edit).
+- **Weitere Modul-Upgrades bzw. Funktionsanpassungen nur kontrolliert und nach Bedarf** (je Freigabe; KEIN -u all; Encoding abgeschlossen 13.08., nicht anfassen).
+
+#### 3) Bewusst offen / naechste Schritte (priorisiert)
+1. **E-Mail-Versand (SMTP): noch NICHT eingerichtet** — Konfiguration in einer der naechsten Sessions (Outgoing-Mail-Server in Odoo + ggf. SMTP-Relay; Doku in PROJECT_KNOWLEDGE ergaenzen).
+2. **Admin-Passwort-Rotation (Odoo 18): bewusst offen** — separat durchfuehren (Grund: Sicherheitsfund Session 77; Wert war im public Repo committet; danach lokale .env aktualisieren).
+3. Benutzer Florian + Tina: Vorschlag steht (Session 76: group_user + group_sale_salesman_all_leads + crm.group_use_lead + helpdesk group_helpdesk_user[_team]; KEINE Admin-Rechte). Hinweis: florian.wuerrer@it-kommunal.at existiert bereits (id 8, 40 Gruppen, O11-Testdaten).
+4. Restliche Einzel-Upgrades (tree→list): itk_reports → itk_sale_management → itk_translation, je Freigabe; dabei VM-Angleichung hr_holidays_public (siehe 1).
+
+#### 4) Einschraenkungen (fortgeschrieben)
+- KEINE Odoo-11-Datenmigration, KEIN -u all, Modul-Upgrades nur einzeln mit Freigabe; Encoding unangetastet; DB/Filestore/Module auf der VM unveraendert; kein Force-Push/Rebase; Passwoerter nie committen (Zugangsdaten nur in gitignored .env).
