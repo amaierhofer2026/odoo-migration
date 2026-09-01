@@ -4476,3 +4476,52 @@ Kontrollierte Uebertragung lokale DB `odoo18_test` + Filestore -> VM:
 
 #### 4) Einschraenkungen (fortgeschrieben)
 - KEINE Odoo-11-Datenmigration, KEIN -u all, Modul-Upgrades nur einzeln mit Freigabe; Encoding unangetastet; DB/Filestore/Module auf der VM unveraendert; kein Force-Push/Rebase; Passwoerter nie committen (Zugangsdaten nur in gitignored .env).
+
+---
+
+### Session 79: Read-only-Inventarisierung + MIGRATION_READINESS_CHECKLIST — Start der Abnahme-Vorbereitung (01.09.2026)
+
+**Auftrag (Anna):** Beginn der fachlichen/technischen Abnahme von Odoo 18 VOR der O11-Datenmigration. 1) Relevante Module tatsaechlich ermitteln (itk_*/OCA-*/Standard, Unterschied installiert vs. Repo-Verzeichnisse vs. zu testen), 2) MIGRATION_READINESS_CHECKLIST.md anlegen (Sprache, Umlaute/Encoding, Waehrung, Grundeinstellungen, Fachbereiche; Mapping-Abschnitt O11->O18 vorerst OFFEN), 3) Testreihenfolge vorschlagen, 4) Doku + Git-Workflow (Branch/Commit/Push/PR/Merge), 5) Sync lokal/GitHub/VM pruefen. **AUSDRUECKLICH:** nur read-only Analyse; KEINE Korrekturen, KEINE Modul-Upgrades, KEIN -u all, KEINE Datenmigration, KEIN E-Mail-Setup. Kein O11-Feldvergleich (keine O11-Referenz vorhanden).
+
+#### 1) Vorgehen (alles read-only)
+- Inventar + Konfiguration direkt aus der VM-DB `odoo18_test` (psql via docker exec, nur SELECT): 158 installierte Module inkl. shortdesc/Version, res_company/res_currency/res_lang/res_users, Preislisten, Journale, Belegwaehrungen, Encoding-Muster (├ und CP850-ÔÇô), Kontrollzahlen je Fachbereich.
+- Repo-Vergleich lokal (Python): `addons/` (41 Verzeichnisse) und `geparkt/` (13) vs. DB-Installationsstand.
+
+#### 2) Modulinventar (Ergebnis, Detail in MIGRATION_READINESS_CHECKLIST.md Abschnitt 0)
+- **158 installiert** = 40 Repo-Module (`addons/`) + 118 Odoo-18-Standard aus dem Image (inkl. account_add_gln).
+- **15 itk_*-Module** (alle installiert; 12 davon nur mit technischem Namen als sichtbare Bezeichnung, 3 mit sprechendem Label: itk_subscription "ITK Abo-Management", itk_helpdesk_category_user, itk_helpdesk_compat).
+- **6 OCA/Helpdesk**: helpdesk_mgmt 18.0.1.17.1, helpdesk_mgmt_project, helpdesk_mgmt_sla, helpdesk_mgmt_timesheet, project_timesheet_time_control, server_action_mass_edit.
+- **19 migrierte Drittanbieter-/Web-Module** (partner_firstname, merge_*, purchase/sale/account_invoice_line_*, web_*, website_*, hr_holidays_public, mass_email_invoice …).
+- **Fachlich genutzte Standardmodule**: contacts, crm, sale/sale_management, product, account (+l10n_at, l10n_din5008*), project, hr (+hr_holidays), sale_subscription, mail, website, portal.
+- NICHT relevant (0 Daten): survey, mass_mailing*, hr_attendance, project_milestone u. a.; NICHT installiert: stock/mrp/pos/fleet.
+- `addons/` = 41 Verzeichnisse, davon 40 installiert; einzige Nicht-Installation: `web_tree_resize_column` (geparkt).
+- Einzige Version-Abweichung DB vs. Repo: **itk_projectcategory DB 18.0.0.1 vs. Repo 18.0.1.0.0** (bekannt, Upgrade offen).
+
+#### 3) Befunde (nur dokumentiert, NICHT behoben — F1–F13 in der Checkliste Abschnitt 8)
+- **F1 EUR-Symbol Mojibake:** res_currency id 126 (EUR) symbol = `Ôé¼` statt `€` (Bytes \303\224\303\251\302\274 = CP850-Schaden; weitere Symbole betroffen: GBP `┬ú`, CZK `K─ì`, PLN `z┼é` …). Spalte war NICHT Teil der CP850-Reparatur vom 13.08.
+- **F2 USD aktiv:** res_currency id 1 USD active=true (Relikt aus initialer DB-Erstellung vor l10n_at).
+- **F3/F4 USD-Belege:** 14 Verkaufsauftraege (inkl. A-1900011) + 4 Rechnungen (account_move 17,20,21,19) in USD (currency_id=1), alle ueber Preisliste 1 "Standard-Preisliste" (USD), Testdaten 01.–24.07.2026.
+- **F5 Preislisten:** beide inaktiv (id 1 USD, id 34 "Preisliste 2026 + Valorisierung" EUR mit 2 Items).
+- **F6 Sprache:** 12/15 itk- + alle 6 OCA-Module ohne de_DE-shortdesc (englische/technische Namen in Apps-Liste).
+- **F7 account_payment-shortdesc:** de_DE "Zahlung ÔÇô Konto" (CP850) — einziges betroffenes INSTALLIERTES Modul; 14 weitere betroffene Module nicht installiert.
+- **F8 Zeitzone:** nur uid 2 + 8 mit Europe/Vienna; 16 Benutzer ohne tz (UTC-Fallback).
+- **F9 res_lang:** nur de_DE aktiv; en_US vorhanden aber inaktiv; 91 Zeilen mit active IS NULL (Altlast).
+- **F10 Doku-Inkonsistenz:** web_group_expand installiert obwohl "geparkt" dokumentiert (Code funktioniert).
+- **F11** itk_projectcategory-Versionsdifferenz (s. o.). **F12** Ausstehende Einzel-Upgrades (itk_reports, itk_sale_management, itk_translation, hr_holidays_public-VM-Angleichung).
+- **F13 Anhaenge:** ir.attachment 1249 → 1260, mail_message 455 → 456 (Asset-Regeneration nach HTTPS/proxy_mode, erwartbar).
+- Kontrollzahlen sonst unveraendert (Partner 76, Lead 1, Stages 8, Teams 4, Auftraege 16, Belege 22, Produkte 23, Benutzer 18/14 aktiv, Abos 5, Helpdesk 1 Ticket/16 Stages/37 Kategorien).
+
+#### 4) Neue Datei + Doku
+- **NEU: `MIGRATION_READINESS_CHECKLIST.md`** — Abnahme-Checkliste (Stand 01.09.2026): Abschnitt 0 Modulinventar (0.1–0.6), 1 Sprache (A), 2 Umlaute/Encoding (B, inkl. Testtexte), 3 Waehrung (C), 4 Grundeinstellungen (D), 5 Fachbereiche (E, je Bereich mit Ist-Daten), 6 O11->O18-Mapping (OFFEN, Schema hinterlegt), 7 Testreihenfolge (Prioritaet laut Anna), 8 Befundliste F1–F13, 9 Grenzen. Tabellenformat: Bereich | Funktion/Feld | Istzustand | Status | Fehler/Abweichung | Anpassung | getestet.
+- `README.md`: "Aktueller Stand & Ausblick" um Abnahme-Phase + Checklisten-Referenz ergaenzt.
+
+#### 5) Git-Workflow
+- Branch `abnahme-readiness` → Commit (Checkliste + PROJECT_KNOWLEDGE Session 79 + README) → Push → PR → Merge nach main (Merge-Commit, kein Rebase/Squash; PR-Nummer und main-Hash im Session-Abschlussbericht) → lokale Synchronisation (`git pull --ff-only`) → VM `git pull` + Sync-Verifikation (lokal == GitHub == VM).
+
+#### 6) Offene Punkte / naechste Schritte
+1. **Abnahme Punkt fuer Punkt** gemaess Checkliste Abschnitt 1 (Sprache) starten — gemeinsam mit Anna.
+2. Vor Waehrungs-Abnahme (Abschnitt 3): Entscheidung zu Befunden F1–F5 (EUR-Symbol-Fix, USD-Bereinigung) — je Freigabe.
+3. Unveraendert offen: SMTP-Konfiguration, Admin-Passwort-Rotation, Benutzer Florian/Tina, Einzel-Upgrades (F12).
+
+#### 7) Einschraenkungen (fortgeschrieben)
+- KEINE Odoo-11-Datenmigration, KEIN -u all, Modul-Upgrades nur einzeln mit Freigabe; Encoding unangetastet (Befunde F1/F7 nur dokumentiert); DB/Filestore/Module auf der VM unveraendert; kein Force-Push/Rebase; Passwoerter nie committen.
