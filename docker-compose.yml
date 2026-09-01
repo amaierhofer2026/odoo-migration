@@ -25,6 +25,7 @@ services:
     volumes:
       - ./addons:/mnt/extra-addons
       - ./filestore:/var/lib/odoo/filestore
+      - ./config/odoo.conf:/etc/odoo/odoo.conf:ro
     restart: unless-stopped
 
 volumes:

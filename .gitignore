@@ -19,6 +19,9 @@ Thumbs.db
 .hermes_secrets
 .env
 
+# Odoo-Master-Passwort (VM-/lokal-spezifisch, nie committen; Vorlage: odoo.conf.example)
+config/odoo.conf
+
 # Datenbank-Backups und Scans
 backups/
 scans/

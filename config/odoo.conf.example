@@ -1,0 +1,26 @@
+; Odoo 18 - Reverse-Proxy-Konfiguration fuer IPAX-Test-VM (k001959vsx.ipax.at)
+; VORLAGE ohne Geheimnisse - in Betrieb ist config/odoo.conf (GITIGNORED,
+; enthaelt das generierte Master-Passwort). Anleitung:
+;   1. cp odoo.conf.example odoo.conf
+;   2. admin_passwd durch zufaelliges Passwort ersetzen (z.B. openssl rand -hex 24)
+;   3. Datei gehoert der VM (chmod 644 - Container-User uid 100 muss lesen)
+;   4. WICHTIG: LF-Zeilenenden verwenden! CRLF bricht Odoos configparser
+;      ("NoSectionError: No section: 'options'" - Sektion heisst dann '[options]\r')
+;   5. Config-Key ist 'dbfilter' (Odoo 18), NICHT 'db_filter'
+;   6. Datei wird NIE committet (gitignored)
+
+[options]
+addons_path = /mnt/extra-addons
+data_dir = /var/lib/odoo
+
+; Reverse-Proxy (nginx) - Odoo erzeugt damit korrekte https-Links
+proxy_mode = True
+
+; DB-Verwaltung deaktivieren (kein DB-Selector, kein Anlegen/Loeschen von DBs)
+list_db = False
+
+; Nur die Test-DB verwenden
+dbfilter = ^odoo18_test$
+
+; Master-Passwort (DB-Management) - zufaellig generieren, nie committen
+; admin_passwd = <openssl rand -hex 24>

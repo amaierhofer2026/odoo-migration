@@ -4353,3 +4353,51 @@ Kontrollierte Uebertragung lokale DB `odoo18_test` + Filestore -> VM:
 #### 5) Einschraenkungen (fortgeschrieben)
 
 - KEINE Odoo-11-Datenmigration, KEIN -u all, keine Modul-Upgrades ohne Freigabe; Encoding unangetastet; lokaler Stack laeuft weiter als Quelle.
+
+
+---
+
+### Session 76: HTTPS-Zugriff ueber Nginx + Let's Encrypt auf der IPAX-Test-VM (01.09.2026)
+
+**Ziel:** Odoo 18 dauerhaft ueber https://k001959vsx.ipax.at erreichbar (statt SSH-Tunnel) fuer Anna, Florian und Tina.
+**Freigaben (Anna):** Option 1 = vorhandener Hostname k001959vsx.ipax.at; vollstaendige Einrichtung (nginx, ufw, Odoo-Config, Let's Encrypt, Tests, Git-Workflow). KEINE DB-/Filestore-/Modul-Aenderungen (kein -u, kein Upgrade).
+
+#### 1) Analyse (read-only)
+- k001959vsv.ipax.at: NXDOMAIN im oeffentlichen DNS (8.8.8.8) — existiert nur im /etc/hosts der VM (127.0.1.1) → fuer HTTPS ungeeignet. k001959vsx.ipax.at: A-Record → 93.189.28.204 (oeffentlich) → gewaehlt.
+- Port 80/443 von aussen ERREICHBAR (mit temporaeren Test-Listenern verifiziert; Datacenter-Firewall laesst durch) → Let's Encrypt HTTP-01 moeglich.
+- Host-Firewall (ufw) war INAKTIV; 8069 nur 127.0.0.1, 5432 nur Docker-intern. nginx/certbot nicht installiert.
+- Odoo 18 bedient /websocket direkt auf Port 8069 (Log: "101 Switching Protocols") — KEIN separater 8072-Listener noetig; nginx proxiet alles auf 127.0.0.1:8069.
+
+#### 2) Aenderungen
+1. **odoo.conf** (`config/odoo.conf`, GITIGNORED, 644): `proxy_mode = True`, `list_db = False`, `dbfilter = ^odoo18_test$`, `admin_passwd` = zufaellig (48 hex, nie committet). Vorlage ohne Secrets committet: `config/odoo.conf.example`.
+   - **PITFALL CRLF:** Windows-Textmodus schreibt CRLF → Linux-configparser: "NoSectionError: No section: 'options'" (Sektion heisst dann '[options]\r') → Datei zwingend LF (Binary-Write).
+   - **PITFALL Config-Key:** Odoo 18 liest den DB-Filter ueber CLI-dest `dbfilter` — der Conf-Key heisst **dbfilter**, NICHT db_filter! (db_filter wird zwar geparst (config['db_filter'] gesetzt), aber nie gelesen → config['dbfilter'] bleibt '' und der Filter wirkt nicht.)
+   - **PITFALL Mount-Rechte:** Bind-Mount-Datei muss fuer Container-User (uid 100) lesbar sein → 644 (600 verursacht "Permission denied" im Entrypoint-grep).
+2. **docker-compose.yml:** odoo-Service Mount `./config/odoo.conf:/etc/odoo/odoo.conf:ro`; Port bleibt `127.0.0.1:8069:8069`. Container-Recreate (`docker compose up -d`): nur odoo18 neu, Named Volume unangetastet, DB/Filestore/Module unveraendert.
+3. **nginx 1.28.3 (apt):** Site `/etc/nginx/sites-available/odoo` (Referenzkopie im Repo: `config/nginx_odoo.conf`):
+   - Port 80: `/.well-known/acme-challenge/` (Webroot /var/www/certbot) + `return 301 https://$host$request_uri`
+   - Port 443: TLS 1.2/1.3, `proxy_pass http://127.0.0.1:8069`, Header Host / X-Forwarded-Host / X-Forwarded-For / X-Forwarded-Proto, `client_max_body_size 100m`, `/websocket` mit Upgrade-Headern + `proxy_read_timeout 86400s`
+   - **PITFALL:** apt startet nginx sofort mit Default-Config; `systemctl enable --now` laedt die neue Config NICHT → `systemctl reload nginx` noetig (sonst 404 auf ACME-Pfad, Zertifikat schlaegt fehl).
+4. **Let's Encrypt:** `certbot 4.0.0 certonly --webroot -w /var/www/certbot -d k001959vsx.ipax.at` (Account: anna.maierhofer@it-kommunal.at), Auto-Renew via systemd-Timer + deploy-hook `systemctl reload nginx`. Zertifikat gueltig 01.09.–30.11.2026.
+5. **ufw:** `DEFAULT_FORWARD_POLICY="ACCEPT"` in /etc/default/ufw (Docker-Kompatibilitaet!), `allow 22/80/443`, `--force enable` → Status: deny incoming / allow outgoing / allow routed. 8069/5432 weiterhin NICHT oeffentlich (127.0.0.1-Bindung + ufw).
+
+#### 3) Verifikation (alles gruen)
+- HTTPS von aussen: 200; Zertifikat CN=k001959vsx.ipax.at, Issuer Let's Encrypt (YE2), keine Warnung.
+- HTTP → 301 https (von aussen verifiziert).
+- Login ueber HTTPS (Formular-POST mit CSRF, db LEER → dbfilter waehlt odoo18_test) → 303 → App-Shell 200.
+- Session: db=odoo18_test, uid=2; **web.base.url = https://k001959vsx.ipax.at** (proxy_mode-Beweis).
+- Kontrollzahlen unveraendert: RPC-User-Sicht uid 2 exakt Session-75-Baseline (70/1/8/2/0/16/22/13); SQL-Gesamtwerte (76/1/8/4/16/22/23) unangetastet.
+- Assets 3/3 (200, >100B). Websocket-Route: HTTP 400 (Odoo-Handshake-Antwort, kein 502 → Proxy korrekt).
+- list_db=False: /web/database/selector zeigt "disabled", /web/database/list → AccessDenied.
+- Ports von aussen: 22/80/443 offen, 8069/5432 gesperrt.
+- Logs: nginx error.log leer; Odoo-Log nur eigene Test-Artefakte (AssertionError db="" + AccessDenied /web/database/list).
+- mail.activity.type: 13 gesamt / 12 aktiv (Typ 6 "Ausnahme" seit jeher archiviert — vorbestehend, unveraendert).
+
+#### 4) Offene Punkte
+- **Benutzer Florian/Tina:** Vorschlag erstellt (siehe Session-Bericht), Anlage wartet auf Freigabe. HINWEIS: florian.wuerrer@it-kommunal.at existiert bereits (id 8, aktiv, 40 Gruppen — O11-Testdaten); Tina nicht.
+- Lokale .env (C:\Odoo-Test) weiterhin offen (vor naechstem LOKALEM Stack-Restart).
+- scripts/test_migration_contacts.py ist committet und enthaelt RPC-Passwoerter → Bereinigung empfohlen (separate Freigabe).
+- Nach PR-Merge: VM `git pull` (config/odoo.conf ist gitignored → bleibt).
+
+#### 5) Einschraenkungen (fortgeschrieben)
+- KEINE Odoo-11-Datenmigration, KEIN -u all, keine Modul-Upgrades ohne Freigabe; Encoding unangetastet; DB/Filestore/Module auf der VM unveraendert (nur Config-Ebene).
