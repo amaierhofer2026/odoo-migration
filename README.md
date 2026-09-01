@@ -71,6 +71,15 @@ Migration aller Odoo-Module von **Version 11 nach Version 18** für ITK (IT Komm
 
 **Modul-Analyse abgeschlossen:** 57 Module analysiert → 37 migriert, 22 geparkt, 3 entfällt, 1 gestrichen. +2 ITK-Neumodule.
 
+## Aktueller Stand & Ausblick (01.09.2026)
+
+- **Odoo 18 läuft auf der IPAX-Test-VM**, Zugriff über **https://k001959vsx.ipax.at** (nginx + Let's Encrypt, Auto-Renew), Datenbank **odoo18_test** (am 31.08.2026 1:1 vom lokalen Teststand übertragen)
+- **Lokale Odoo-18-Umgebung** (Windows Docker, http://localhost:8069) besteht separat weiter; PostgreSQL (Named Volume) und Filestore sind persistent
+- **GitHub/main, lokale Umgebung und VM synchron** (main = bc7882e)
+- **Keine produktiven Odoo-11-Daten migriert**; aktuell 158 installierte Module (15 itk_*-Module + verwendete OCA/Helpdesk-Module)
+- Weitere Modul-Upgrades bzw. Funktionsanpassungen nur **kontrolliert und nach Bedarf** (je Freigabe)
+- **Noch offen:** E-Mail-Versand (SMTP) — Konfiguration in einer der nächsten Sessions; Admin-Passwort-Rotation (bewusst separat, nach Sicherheitsfund Session 77)
+
 ## Geparkte/Archivierte Module
 
 || Modul | Grund |
@@ -132,7 +141,7 @@ Das **PROJECT_KNOWLEDGE.md** enthält:
 | Odoo 18 Test-VM (IPAX, Ubuntu 26.04) | **https://k001959vsx.ipax.at** (nginx-Reverse-Proxy + Let's-Encrypt-Zertifikat, HTTP→HTTPS-Redirect; Odoo lauscht weiterhin NUR auf 127.0.0.1:8069, PostgreSQL nur Docker-intern). SSH: `ssh k001959@93.189.28.204`. Teststand `odoo18_test` am 31.08.2026 1:1 übertragen; VM-Backups unter `/opt/odoo18/backups/` |
 | PostgreSQL (lokal) | localhost:5432, User `odoo` |
 | PostgreSQL (Test-VM) | nur internes Docker-Netz (kein Host-Port-Mapping, nicht öffentlich erreichbar) |
-| Odoo 11 (Referenz, alt) | https://93.189.28.204 (DB: ITK_V1_a) — alte VM wurde von IPAX durch Ubuntu-26.04-Neuinstallation ersetzt |
+| Odoo 11 (Referenz, alt) | dekommissioniert — alte VM wurde am 31.08.2026 durch die Ubuntu-26.04-Neuinstallation ersetzt; die IP 93.189.28.204 dient jetzt der Odoo-18-Test-VM |
 | Docker-Stack | `docker compose up -d` im Projektverzeichnis — erfordert `.env` mit `POSTGRES_PASSWORD` (wird nicht committet) |
 
 ## Betriebshinweise
