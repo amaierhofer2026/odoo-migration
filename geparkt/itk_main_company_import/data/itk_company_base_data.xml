@@ -38,7 +38,6 @@
         <!--<record id="user_1" model="res.users">-->
         <!--<field name="partner_id" ref="waiss_marting"/>-->
         <!--<field name="login">mwaiss</field>-->
-        <!--<field name="password">mwaiss</field>-->
         <!--<field name="name">Martina Waiss</field>-->
         <!--<field name="signature">Martina Waiss</field>-->
         <!--<field name="company_id" ref="base.main_company"/>-->
@@ -55,7 +54,6 @@
         <!--<record id="user_2" model="res.users">-->
         <!--<field name="partner_id" ref="partner_2"/>-->
         <!--<field name="login">partner2</field>-->
-        <!--<field name="password">IzWJt4nu</field>-->
         <!--<field name="name">Partner 2</field>-->
         <!--<field name="signature">Partner 2</field>-->
         <!--<field name="company_id" ref="base.main_company"/>-->
@@ -175,7 +173,6 @@
         <!--<record id="public_user" model="res.users">-->
         <!--<field name="name">Public user</field>-->
         <!--<field name="login">public</field>-->
-        <!--<field name="password"></field>-->
         <!--&lt;!&ndash; Avoid auto-including this demo user in any default group &ndash;&gt;-->
         <!--<field name="groups_id" eval="[(6,0,[])]"/>-->
         <!--<field name="image" type="base64" file="base/static/img/public_user-image.png"/>-->
