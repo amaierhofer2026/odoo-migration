@@ -129,13 +129,15 @@ Das **PROJECT_KNOWLEDGE.md** enthält:
 | Komponente | Adresse / Zugang |
 |---|---|
 | Odoo 18 (lokal, Windows Docker) | http://localhost:8069 |
-| Odoo 18 Test-VM (IPAX, Ubuntu 26.04) | http://127.0.0.1:8069 — nur lokal auf der VM, Zugriff per SSH-Tunnel: `ssh -L 8069:127.0.0.1:8069 k001959@93.189.28.204`. Teststand `odoo18_test` am 31.08.2026 1:1 übertragen; VM-Backups unter `/opt/odoo18/backups/` |
+| Odoo 18 Test-VM (IPAX, Ubuntu 26.04) | **https://k001959vsx.ipax.at** (nginx-Reverse-Proxy + Let's-Encrypt-Zertifikat, HTTP→HTTPS-Redirect; Odoo lauscht weiterhin NUR auf 127.0.0.1:8069, PostgreSQL nur Docker-intern). SSH: `ssh k001959@93.189.28.204`. Teststand `odoo18_test` am 31.08.2026 1:1 übertragen; VM-Backups unter `/opt/odoo18/backups/` |
 | PostgreSQL (lokal) | localhost:5432, User `odoo` |
 | PostgreSQL (Test-VM) | nur internes Docker-Netz (kein Host-Port-Mapping, nicht öffentlich erreichbar) |
 | Odoo 11 (Referenz, alt) | https://93.189.28.204 (DB: ITK_V1_a) — alte VM wurde von IPAX durch Ubuntu-26.04-Neuinstallation ersetzt |
 | Docker-Stack | `docker compose up -d` im Projektverzeichnis — erfordert `.env` mit `POSTGRES_PASSWORD` (wird nicht committet) |
 
 ## Betriebshinweise
+
+**Web-Zugriff (seit 01.09.2026):** https://k001959vsx.ipax.at — nginx (Port 80/443) als Reverse-Proxy vor Odoo (127.0.0.1:8069). ufw: nur 22/80/443 offen. Let's-Encrypt-Zertifikat mit Auto-Renew (certbot, deploy-hook nginx-reload). Konfiguration: `config/odoo.conf` (gitignored, Vorlage `config/odoo.conf.example`) + `config/nginx_odoo.conf` (Referenz, deployed als /etc/nginx/sites-available/odoo).
 
 **Nach jedem `docker compose down && docker compose up -d`** kann die Login-/Web-Oberfläche
 ungestylt erscheinen (kein Odoo-Design, fehlende Login-Felder). Ursache sind veraltete
