@@ -195,7 +195,7 @@ git push --force
 | Dienst | URL | Details |
 |---|---|---|
 | Odoo 18 | http://localhost:8069 | Docker-Container `odoo18` |
-| PostgreSQL | localhost:5432 | Container `odoo18-db`, User `odoo`, Passwort `odoo` |
+| PostgreSQL | localhost:5432 | Container `odoo18-db`, User `odoo`, Passwort aus `.env` (POSTGRES_PASSWORD, gitignored) |
 | Docker-Stack | `C:\Odoo-Test\` | `docker compose up -d` |
 | Addons-Pfad (Host) | `C:\Odoo-Test\addons\` | → Container `/mnt/extra-addons/` |
 | GitHub | https://github.com/amaierhofer2026/odoo-migration | |
@@ -4401,3 +4401,45 @@ Kontrollierte Uebertragung lokale DB `odoo18_test` + Filestore -> VM:
 
 #### 5) Einschraenkungen (fortgeschrieben)
 - KEINE Odoo-11-Datenmigration, KEIN -u all, keine Modul-Upgrades ohne Freigabe; Encoding unangetastet; DB/Filestore/Module auf der VM unveraendert (nur Config-Ebene).
+
+
+---
+
+### Session 77: PR #18 Merge + Sync, Sicherheitsbereinigung (Credentials aus dem Repo), lokale .env (01.09.2026)
+
+**Freigaben (Anna):** PR #18 nach main mergen + Sync lokal/GitHub/VM; Sicherheitsfund scripts/test_migration_contacts.py bereinigen (Zugangsdaten via .env/Umgebungsvariablen, .env gitignored, Repo-Scan auf weitere Zugangsdaten); lokale .env vorbereiten (ohne DB-Aenderung); Doku + Branch/Commit/Push/PR/Merge. KEINE Benutzer fuer Florian/Tina (separat).
+
+#### 1) PR #18 Merge + Sync (main = fbe044b)
+- PR #18 (hermes/nginx-https-vm) per REST-API gemergt (Merge-Commit fbe044b, kein Squash/Rebase).
+- Lokal: `git pull --ff-only` → main fbe044b, sauber. VM: `git checkout -- docker-compose.yml` (lokal gespiegelte Datei == PR-Inhalt) + `git pull --ff-only` → main fbe044b, sauber.
+- Verifiziert: lokal == GitHub == VM (fbe044b), Arbeitsbaeume sauber; Stack auf der VM healthy (odoo18 up, HTTPS 200).
+
+#### 2) Sicherheitsaudit (Repo-Scan, 4081 getrackte Dateien)
+| Fund | Datei | Massnahme |
+|---|---|---|
+| RPC-Zugangsdaten (O11+O18, inkl. Passwoerter) hartkodiert | scripts/test_migration_contacts.py | Refactor auf .env (Loader, Repo-Root) |
+| Dito (O11+O18) | validate_contacts.py (Repo-Root) | Refactor auf .env, Variablen vereinheitlicht (ODOO11_*/ODOO18_*) |
+| 3 auskommentierte Passwort-Zeilen (res.users) | geparkt/itk_main_company_import/data/itk_company_base_data.xml | Passwort-Zeilen entfernt (Kommentar-Bloecke bleiben) |
+| Alt-Passwort im Zugänge-Tabellen | PROJECT_KNOWLEDGE.md (Z. 198) | Verweis auf .env statt Klartext |
+| docs/hermes_memory_backup_2026-07-27.md | — | Bereits bereinigt (Credentials entfernt, verifiziert) |
+| *.ps1 (backup/recovery/diag) | — | Keine Zugangsdaten (docker exec, Peer-Auth im Container) |
+
+- **Ergebnis:** 0 Vorkommen der bekannten Passwortwerte in getrackten Dateien (git grep -F, verifiziert); kein hardcodiertes PWD-Assignment in den Skripten (Regex-Scan); .env gitignored (git check-ignore OK).
+
+#### 3) Zugangsdaten-Feststellung + Passwort-Rotation (Bewertung, KEINE Rotation ausgefuehrt)
+- **Odoo-18-Passwort (anna.maierhofer@it-kommunal.at, uid 2 = Administrator): AKTIV in Verwendung** — gilt fuer lokale UND VM-Testumgebung (DB 1:1). War im PUBLIC Repo committet → oeffentlich bekannt gewesen. **Rotation EMPFOHLEN** (Passwort in Odoo aendern + .env aktualisieren). Die Werte bleiben in der Git-HISTORIE (Rewrite nur mit Force-Push — laut Workflow verboten) → Rotation ist die einzige wirksame Massnahme.
+- **Odoo-11-Passwort: verwaist** — galt fuer die dekommissionierte O11-VM (existiert nicht mehr). Keine Rotation im System moeglich; falls der Wert anderweitig wiederverwendet wird, dort aendern.
+
+#### 4) Lokale .env vorbereitet (C:\Odoo-Test\.env, gitignored; DB NICHT veraendert)
+- `POSTGRES_PASSWORD=odoo` — MUSS dem Passwort des bestehenden Named Volumes odoo18_pgdata entsprechen (Volume vom 12.08.2026; Postgres setzt es nur beim ERSTEN Start). Verifiziert: laufender lokaler odoo-Container nutzt genau dieses Passwort (--db_password Vergleich).
+- Skript-Variablen (ODOO11_*/ODOO18_*): Werte programmatisch aus der committeten Skript-Version extrahiert und nach .env ueberfuehrt (kein Klartext im Bericht).
+- Damit funktioniert der lokale Stack auch nach einem spaeteren `docker compose up -d`/Restart; lokale DB bleibt unveraendert.
+- Vorlage committet: `.env.example` (Platzhalter, keine Werte).
+
+#### 5) Offene Punkte
+- **Passwort-Rotation Odoo-18-Admin** (Entscheidung Anna; danach .env aktualisieren).
+- Benutzer Florian/Tina: Vorschlag aus Session 76 steht, Anlage separat nach Freigabe.
+- Lokaler Stack laeuft weiter (kein Neustart noetig; .env greift beim naechsten Restart).
+
+#### 6) Einschraenkungen (fortgeschrieben)
+- KEINE Odoo-11-Datenmigration, KEIN -u all, keine Modul-Upgrades ohne Freigabe; Encoding unangetastet; DB/Filestore/Module unveraendert; kein Force-Push/Rebase.

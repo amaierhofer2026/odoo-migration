@@ -8,19 +8,35 @@ Voraussetzung: Odoo 11 (93.189.28.204) und Odoo 18 (192.168.56.1:8069) müssen l
 """
 
 import json
+import os
+import pathlib
 import urllib.request
 import sys
 
-# ─── Konfiguration ───
-O11_URL = "http://93.189.28.204:8069"
-O11_DB = "ITK_V1_a"
-O11_USER = "anna.maierhofer@it-kommunal.at"
-O11_PW = "anma120126!"
+# ─── Konfiguration (aus .env im Repo-Root bzw. Umgebungsvariablen, NIE im Code) ───
+def _load_env():
+    """Laedt die gitignored .env (Skript-Ordner oder Repo-Root), falls Variablen nicht gesetzt sind."""
+    for env_file in (pathlib.Path(__file__).resolve().parent / ".env",
+                     pathlib.Path(__file__).resolve().parent.parent / ".env"):
+        if env_file.exists():
+            for line in env_file.read_text(encoding="utf-8").splitlines():
+                line = line.strip()
+                if line and not line.startswith("#") and "=" in line:
+                    k, _, v = line.partition("=")
+                    os.environ.setdefault(k.strip(), v.strip())
+            return
 
-O18_URL = "http://192.168.56.1:8069"
-O18_DB = "odoo18_test"
-O18_USER = "anna.maierhofer@it-kommunal.at"
-O18_PW = "PulIqN8j"
+_load_env()
+ODOO11_URL = os.environ.get("ODOO11_URL", "http://93.189.28.204:8069")
+ODOO11_DB = os.environ.get("ODOO11_DB", "ITK_V1_a")
+ODOO11_USER = os.environ.get("ODOO11_USER", "")
+ODOO11_PWD = os.environ.get("ODOO11_PWD", "")
+ODOO18_URL = os.environ.get("ODOO18_URL", "http://localhost:8069")
+ODOO18_DB = os.environ.get("ODOO18_DB", "odoo18_test")
+ODOO18_USER = os.environ.get("ODOO18_USER", "")
+ODOO18_PWD = os.environ.get("ODOO18_PWD", "")
+if not all([ODOO11_USER, ODOO11_PWD, ODOO18_USER, ODOO18_PWD]):
+    sys.exit("FEHLER: Zugangsdaten fehlen. .env im Repo-Root befuellen (Vorlage: .env.example) - Zugangsdaten NIE in Skripten ablegen.")
 
 # Felder für Vergleich — mit Anzeigenamen
 COMPARE_FIELDS = [
@@ -65,7 +81,7 @@ def rpc_o11(service, method, args, cookie):
     payload = {"jsonrpc": "2.0", "method": "call",
                "params": {"service": service, "method": method, "args": args}}
     data = json.dumps(payload).encode()
-    req = urllib.request.Request(f"{O11_URL}/jsonrpc", data=data,
+    req = urllib.request.Request(f"{ODOO11_URL}/jsonrpc", data=data,
                                   headers={"Content-Type": "application/json"})
     req.add_header("Cookie", cookie)
     with urllib.request.urlopen(req, timeout=30) as resp:
@@ -78,7 +94,7 @@ def rpc_o18(service, method, args, kwargs=None):
     if kwargs:
         payload["params"]["kwargs"] = kwargs
     data = json.dumps(payload).encode()
-    req = urllib.request.Request(f"{O18_URL}/jsonrpc", data=data,
+    req = urllib.request.Request(f"{ODOO18_URL}/jsonrpc", data=data,
                                   headers={"Content-Type": "application/json"})
     with urllib.request.urlopen(req, timeout=30) as resp:
         return json.loads(resp.read()).get("result")
@@ -86,8 +102,8 @@ def rpc_o18(service, method, args, kwargs=None):
 
 def auth_o11():
     ap = json.dumps({"jsonrpc": "2.0", "method": "call",
-                      "params": {"db": O11_DB, "login": O11_USER, "password": O11_PW}}).encode()
-    req = urllib.request.Request(f"{O11_URL}/web/session/authenticate",
+                      "params": {"db": ODOO11_DB, "login": ODOO11_USER, "password": ODOO11_PWD}}).encode()
+    req = urllib.request.Request(f"{ODOO11_URL}/web/session/authenticate",
                                   data=ap, headers={"Content-Type": "application/json"})
     with urllib.request.urlopen(req, timeout=30) as resp:
         for c in resp.headers.get_all("Set-Cookie"):
@@ -103,13 +119,13 @@ def main():
     # Auth
     print("\nVerbinde...")
     ck = auth_o11()
-    o18_uid = rpc_o18("common", "authenticate", [O18_DB, O18_USER, O18_PW, {}])
+    o18_uid = rpc_o18("common", "authenticate", [ODOO18_DB, ODOO18_USER, ODOO18_PWD, {}])
     print(f"O18 verbunden (uid={o18_uid})")
 
     # Alle O18-Kontakte mit ref holen
     print("\nLade O18-Kontakte...")
     o18_all = rpc_o18("object", "execute_kw",
-                       [O18_DB, o18_uid, O18_PW, "res.partner", "search_read",
+                       [ODOO18_DB, o18_uid, ODOO18_PWD, "res.partner", "search_read",
                         [[["ref", "!=", False]]]],
                        {"fields": ["ref"] + [f[0] for f in COMPARE_FIELDS] +
                         [f[0] for f in RELATION_FIELDS] + ["child_ids"]})
@@ -132,7 +148,7 @@ def main():
 
         # O11-Partner suchen
         o11p_list = rpc_o11("object", "execute_kw",
-                             [O11_DB, 87, O11_PW, "res.partner", "search_read",
+                             [ODOO11_DB, 87, ODOO11_PWD, "res.partner", "search_read",
                               [[["ref", "=", ref]]]],
                              {"fields": [f[0] for f in COMPARE_FIELDS] +
                               [f[0] for f in RELATION_FIELDS]},

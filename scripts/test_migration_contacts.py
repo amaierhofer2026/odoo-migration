@@ -3,18 +3,32 @@
 Test-Migration: 15 Kontakte von Odoo 11 nach Odoo 18
 Reproduzierbar, idempotent, mit Migrations-ID-Tracking.
 """
-import json, urllib.request, ssl, http.cookiejar, time, sys
+import json, urllib.request, ssl, http.cookiejar, time, sys, os, pathlib
 
-# === Konfiguration ===
-ODOO11_URL = "https://93.189.28.204"
-ODOO11_DB = "ITK_V1_a"
-ODOO11_USER = "anna.maierhofer@it-kommunal.at"
-ODOO11_PWD = "anma120126!"
+# === Konfiguration (aus .env im Repo-Root bzw. Umgebungsvariablen, NIE im Code) ===
+def _load_env():
+    """Laedt die gitignored .env (Skript-Ordner oder Repo-Root), falls Variablen nicht gesetzt sind."""
+    for env_file in (pathlib.Path(__file__).resolve().parent / ".env",
+                     pathlib.Path(__file__).resolve().parent.parent / ".env"):
+        if env_file.exists():
+            for line in env_file.read_text(encoding="utf-8").splitlines():
+                line = line.strip()
+                if line and not line.startswith("#") and "=" in line:
+                    k, _, v = line.partition("=")
+                    os.environ.setdefault(k.strip(), v.strip())
+            return
 
-ODOO18_URL = "http://192.168.56.1:8069"
-ODOO18_DB = "odoo18_test"
-ODOO18_USER = "anna.maierhofer@it-kommunal.at"
-ODOO18_PWD = "PulIqN8j"
+_load_env()
+ODOO11_URL = os.environ.get("ODOO11_URL", "https://93.189.28.204")
+ODOO11_DB = os.environ.get("ODOO11_DB", "ITK_V1_a")
+ODOO11_USER = os.environ.get("ODOO11_USER", "")
+ODOO11_PWD = os.environ.get("ODOO11_PWD", "")
+ODOO18_URL = os.environ.get("ODOO18_URL", "http://localhost:8069")
+ODOO18_DB = os.environ.get("ODOO18_DB", "odoo18_test")
+ODOO18_USER = os.environ.get("ODOO18_USER", "")
+ODOO18_PWD = os.environ.get("ODOO18_PWD", "")
+if not all([ODOO11_USER, ODOO11_PWD, ODOO18_USER, ODOO18_PWD]):
+    sys.exit("FEHLER: Zugangsdaten fehlen. .env im Repo-Root befuellen (Vorlage: .env.example) - Zugangsdaten NIE in Skripten ablegen.")
 
 # === Odoo 11 Verbindung (mit SSL-Ignore) ===
 ctx11 = ssl.create_default_context()
