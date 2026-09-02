@@ -16,8 +16,8 @@ class ProductTemplate(models.Model):
                                        ])
 
 
-    product_type_id = fields.Many2one('itk_product.product_type', string='Product-Type')
-    to_multiply_by_factor = fields.Boolean(string="To multiply by Factor(thsd)", default=False)
+    product_type_id = fields.Many2one('itk_product.product_type', string='Produkttyp')
+    to_multiply_by_factor = fields.Boolean(string="Mit Faktor multiplizieren (pro 1.000)", default=False)
 
 
 class ProductType(models.Model):

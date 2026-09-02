@@ -5,7 +5,7 @@
         <field name="name">sale.subscription.set.pricelist.confirm.form</field>
         <field name="model">sale.subscription.set.pricelist.confirm</field>
         <field name="arch" type="xml">
-            <form string="Set Pricelist for Subscriptions">
+            <form string="Preisliste für Abonnements festlegen">
                 <p class="oe_grey">This update is not reversible.</p>
                 <group>
                     <field name="pricelist_id"/>
@@ -21,7 +21,7 @@
     <!-- Odoo 18: <act_window> Kurzform entfernt -> vollwertiges ir.actions.act_window Record.
          Kontext-Aktion (frueher src_model + multi + key2) via binding_model_id + binding_type. -->
     <record id="action_subscription_set_pricelist_confirm" model="ir.actions.act_window">
-        <field name="name">Set Pricelist for Subscriptions</field>
+        <field name="name">Preisliste für Abonnements festlegen</field>
         <field name="res_model">sale.subscription.set.pricelist.confirm</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>

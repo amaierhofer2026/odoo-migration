@@ -9,7 +9,7 @@ class HelpdeskTicketCategory(models.Model):
         relation="helpdesk_category_user_rel",
         column1="category_id",
         column2="user_id",
-        string="Assigned Users",
+        string="Benutzer (Follower)",
         help="Users responsible for this category. "
         "When a ticket is assigned to this category, all these users "
         "will be added as followers to receive email notifications.",

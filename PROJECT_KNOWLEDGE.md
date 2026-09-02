@@ -4564,3 +4564,47 @@ Kontrollierte Uebertragung lokale DB `odoo18_test` + Filestore -> VM:
 
 ### 5) Einschraenkungen (fortgeschrieben)
 - KEINE Odoo-11-Datenmigration, KEIN -u all, Modul-Upgrades nur einzeln mit Freigabe; Encoding unangetastet (F1/F7/F26 nur dokumentiert); DB/Filestore/Module auf VM und lokal unveraendert; kein Force-Push/Rebase; Passwoerter nie committen (Zugangsdaten nur in gitignored .env).
+
+---
+
+## Session 81: Abschnitt-1-Korrekturen (A Sprache + Encoding) — F14-F26 bearbeitet (02.09.2026)
+
+**Auftrag (Anna):** Session-80-Doku committen/PR/mergen (erledigt: PR #22, main 4d70b0a); danach Befunde F14-F26 korrigieren: sichtbare englische/technische Texte der itk_*-Module und der genutzten CRM-/Subscription-/Helpdesk-/OCA-Bereiche auf Deutsch, Mojibake reparieren (res_currency EUR -> EUR-Symbol, F26, F7), Umlaute/EUR testen. Regeln: technische Identifier unangetastet, keine globale Ersetzung, USD-/Preislisten-Thematik (F2-F5) NICHT angefasst, kein -u all, keine O11-Datenmigration; Modul-Upgrades nur einzeln mit Grund; unklare Begriffe als KLAERUNG NÖTIG dokumentieren und weiterarbeiten.
+
+### 1) Git-Vorlauf
+- Doku-Stand Session 80: Branch hermes/session-80-doku -> Push -> PR #22 -> gemergt (Merge-Commit 4d70b0a) -> lokal `git pull --ff-only`; main = 4d70b0a.
+
+### 2) Methodik (alles mit Freigabe, gezielt)
+- SSH-Port 22 zur VM weiterhin blockiert -> Arbeit ueber HTTPS-JSON-RPC (https://k001959vsx.ipax.at, uid=2, Credentials aus lokaler .env).
+- **Ursachenanalyse "de.po nachladen wirkt nicht":** `base.language.install` (overwrite=True) lief ohne Fehler und loggte "loading translation file ... for language de_DE", schrieb aber NICHTS in die jsonb-Slots. Grund 1: die OCA-de.po-Dateien (helpdesk_mgmt u. a.) sind UEBERSETZUNGS-GERUESTE (msgid vorhanden, msgstr LEER). Grund 2: selbst mit gefuelltem de.po (partner_firstname: 'First name'->'Vorname') blieb der Import wirkungslos -> Uebersetzungs-Import ist in dieser Umgebung kein zuverlaessiger Weg; dokumentierter Weg = Fix-Skripte (Slot-Writes).
+- **Slot-Schreibmethode (verifiziert):** ORM-write mit `context {'lang':'de_DE'}` + String-Wert setzt genau den de_DE-jsonb-Slot (jsonb_set-Aequivalent) und ist sofort via fields_get sichtbar. ORM-write mit DICT ersetzt dagegen das komplette jsonb (en_US-Verlust!) -> nie dict-write verwenden.
+
+### 3) Durchgefuehrte Korrekturen (VM odoo18_test)
+- **Menues (11):** 736 Alle Kunden, 737 Aktuelle Kunden, 738 Ehemalige Kunden, 739 Zielkunden, 740 Alle Reseller, 891 Support-Tickets, 601 Alle Auftragszeilen, 746 Alle Tickets, 775 SLA-Bericht, 757 Zeiterfassung, 756 Arbeit starten.
+- **Actions (16):** itk_translation (5 Kunden-/Reseller-Actions), itk_helpdesk_compat (Support-Tickets), helpdesk_mgmt (Helpdesk-Ticket x3), helpdesk_mgmt_project (Helpdesk-Tickets), helpdesk_mgmt_timesheet (Zeiterfassung), project_timesheet_time_control (Arbeit starten), helpdesk_mgmt_sla (SLA-Bericht), itk_saleorder_lines (Auftragszeilen), itk_multifactor (3 Wizard-Actions: Preisliste fuer Abos festlegen / Multifaktor fuer Abo-Zeilen aktualisieren / Einwohnerzahl und Faktor fuer Partner aktualisieren).
+- **Felder (304):** de_DE-Slots gesetzt per (a) kuratierter Sonderfall-Liste (~110 Eintraege) und (b) Referenz-Mechanik (Pendant-Felder gleichen Feldnamens mit echtem de-Slot; nur bei identischem en-Wert). Abgedeckt: sale.subscription/-template/-line/-close.reason (Kunde, Start-/Enddatum, Abo-Vorlage, Erstellt am, ...), helpdesk.sla/ticket.sla (Frist, Erwartete Stufe, ...), helpdesk.ticket-Luecken (SLA-Felder, Timesheet-Felder, Duplikat-Felder), helpdesk.ticket.category/team (Vollstaendiger Name, Uebergeordnete Kategorie, ...), project.project/task/milestone (Ticket Count, ...), account.analytic.line/hr.timesheet.switch (Startzeit/Endzeit), res.partner/res.users (Vorname/Nachname/Anrede/Oesterreich-Wiki-URL/Anzahl Verkaeufe als Endkunde), product.template/product (Produkttyp, Mit Faktor multiplizieren (pro 1.000)), sale.order itk-Zusatzfelder (Verwaltungskontakt, Endkunde, Produktkategorie, Anzahl Abonnements), account.move (Valorisierungstext, Projektkategorie, Status in Zahlung), helpdesk.ticket.category.user_ids (Benutzer (Follower)), res.config.settings/res.company (Helpdesk-Portal-/Duplikat-Settings).
+- **Encoding:** res_currency id 126 EUR symbol = `€` (F1; einzige Waehrungen: EUR+USD); account_payment shortdesc de_DE = 'Zahlung – Konto' (F7); F26: account.move.status_in_payment 'Status „In Zahlung“', show_force_tax_included '„Steuer inklusive erzwingen“ anzeigen', peppol_eas-Wert 0245 'SK-Steueridentifikationsnummer (DIČ)'.
+- **Code-Angleichung itk_*-Module (Neuinstallationen):** 10 Module geaendert (itk_crm models, itk_translation itk_menus.xml, itk_saleorder_lines views, itk_helpdesk_compat views/menus, itk_multifactor models+wizards, itk_sale_management models, itk_product models, itk_valorisierung, itk_projectcategory, itk_helpdesk_category_user) - gleiche Wortwahl wie DB-Slots; py_compile + XML-Parse OK.
+- **Skripte ins Repo (reproduzierbar nach Restore):** scripts/fix_ui_labels_de.py, scripts/fix_ui_menus_actions_de.py, scripts/fix_ui_encoding_de.py (idempotent, HTTPS-RPC).
+
+### 4) Verifikation (read-only, VM)
+- fields_get de_DE Stichproben ueber alle Befundgruppen gruen (s. o.); Menue-/Action-Namen de geprueft; res_currency EUR '€'; account_payment 'Zahlung – Konto'; peppol_eas 'DIČ'. Rechnungsbeispiele (EUR) lesbar.
+- KEINE USD-/Preislisten-Aenderung (F2-F5 unangetastet), kein -u all, keine Datenmigration. Lokale DB unveraendert (nur VM-Slots + Repo-Code).
+
+### 5) KLAERUNG NÖTIG (fachliche Entscheidung Anna, bewusst nicht geaendert)
+- itk_crm-Kontakt-Fachfelder: Status of Community, Population ('Size of Population'), Community Magnitude(-Id), Title in Front/Back, Member of City Alliance, Asset Partner, Reseller (Fachwort) - Vorschlaege: Gemeindestatus, Einwohnerzahl/Groessenklasse, Gemeinde-Magnitude, Titel vorne/hinten, Staedtebund-Mitglied, Anlagenpartner - bitte O11-Bedeutung klaeren.
+- x_-Feld-Labels crm.lead: 'Lead Status'/'Anrede Lead'/'Lead Quelle' (Auswahlwerte sind bereits deutsch).
+- Top-Menue 733 'ITK-Menu' (App-Name: 'ITK-Menue'? 'ITK'?) und 741 'All Magnitudes' ('Alle Groessenklassen'?).
+- Menue 750 'Settings' unter Helpdesk/Konfiguration - moegliche Dublette zu itk-Menue 866 'Einstellungen' (beide res.config.settings?) -> pruefen.
+- Daten: CRM-Stage 'On-Hold', Helpdesk-Stage 'on Hold', Kategorie-Duplikate (5x/4x/3x/2x/2x), Tippfehler 'Anynomisierungsportal' (Datenbereinigung separat).
+- Minor: Audit-Labels (Created on/by, Display Name, Last Updated on/by) auf itk-eigenen Lookup-Modellen (itk_crm.communitycode u. a.); Modul-shortdesc F6 (12 itk + 6 OCA) fuer die Apps-Liste - naechste Runde (Code).
+
+### 6) Offene Punkte / naechste Schritte
+1. **Browser-Sichtpruefung** der korrigierten UI auf der VM (Chrome-Popup 'Allow remote debugging' von Anna bestaetigen lassen - Muster aus frueheren Sessions; read-only).
+2. **Deploy Code-Commits auf die VM** (git pull + gezielte Einzel-Upgrades der 10 itk-Module) - SSH-Port 22 war am 02.09. blockiert; sobald erreichbar (oder Anna/anderes Netz).
+3. KLAERUNG-Liste (Punkt 5) mit Anna durchgehen -> Folge-Fixes je Freigabe (inkl. Datenbereinigung F25, F6-shortdesc, Menue-750-Dublette).
+4. Waehrungs-Abnahme (F2-F5) separat; SMTP, Passwort-Rotation, Benutzer Florian/Tina, F12-Upgrades unveraendert offen.
+5. Git: 3 Commits (fix(ui) d0b357b, feat(scripts) e6946e3, docs Session 81) auf Branch hermes/abnahme-sprache-encoding -> Push -> PR -> Merge -> Sync lokal/GitHub/VM (Sync VM offen bis SSH).
+
+### 7) Einschraenkungen (fortgeschrieben)
+- KEINE Odoo-11-Datenmigration, KEIN -u all, Modul-Upgrades nur einzeln mit Freigabe; USD-/Preislisten-Thematik (F2-F5) separat; kein Force-Push/Rebase; Passwoerter nie committen; Fix-Skripte lesen Credentials aus lokaler .env (gitignored).
