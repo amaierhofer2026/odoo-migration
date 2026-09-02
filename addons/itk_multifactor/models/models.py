@@ -5,7 +5,7 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     multi_factor = fields.Integer(
-        string='Multiplication Factor/Thsd',
+        string='Multiplikationsfaktor (pro 1.000)',
         tracking=True,
     )
 
@@ -23,7 +23,7 @@ class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
     is_multi_factor_product = fields.Boolean(
-        string="To multiply by Factor(per 1000)",
+        string="Mit Faktor multiplizieren (pro 1.000)",
         default=False,
     )
 
@@ -32,7 +32,7 @@ class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
     qty_multiplication_factor = fields.Integer(
-        string='Multiplication Factor/Thsd',
+        string='Multiplikationsfaktor (pro 1.000)',
         tracking=True,
     )
 
@@ -52,7 +52,7 @@ class SaleSubscriptionLine(models.Model):
     _inherit = 'sale.subscription.line'
 
     qty_multiplication_factor = fields.Integer(
-        string='Multiplication Factor/Thsd',
+        string='Multiplikationsfaktor (pro 1.000)',
         tracking=True,
         default=1,
     )

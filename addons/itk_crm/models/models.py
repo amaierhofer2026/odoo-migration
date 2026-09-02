@@ -106,13 +106,13 @@ class ResPartner(models.Model):
     population_update = fields.Date('Population Update')
     member_of_city_alliance = fields.Boolean('Member of City Alliance')
     asset_partner = fields.Boolean('Asset Partner')
-    attention_of = fields.Char("For the Attention of")
-    salutation = fields.Char("Salutation")
+    attention_of = fields.Char("zu Handen")
+    salutation = fields.Char("Anrede")
     title_put_in_front = fields.Char(string='Title in Front')
     title_put_in_back = fields.Char(string='Title in Back')
     sales_as_final_customer_count = fields.Integer(
         compute='_sales_as_final_customer_count',
-        string='# of Sales as Final Customer',
+        string='Anzahl Verkäufe als Endkunde',
     )
     community_magnitude_id = fields.Many2one(
         'itk_crm.communitymagnitude',
@@ -123,7 +123,7 @@ class ResPartner(models.Model):
     community_magnitude = fields.Char("Magnitude", compute='_compute_communitymagnitude')
     community_salutation = fields.Char("Salutation of Community")
     official_email = fields.Char("Official Email")
-    austria_wiki_url = fields.Char("Austria Wiki URL")
+    austria_wiki_url = fields.Char("Österreich-Wiki-URL")
     latitude = fields.Char("Latitude")
     longitude = fields.Char("Longitude")
     type = fields.Selection(selection_add=[('administrative', 'Administration'), ('technical', 'Technik')])

@@ -10,11 +10,11 @@ class SaleOrder(models.Model):
         """
     _inherit = 'sale.order'
 
-    administrative_contact_id = fields.Many2one('res.partner', string='Administrative Contact', )
-    technical_contact_id = fields.Many2one('res.partner', string='Technical Contact', )
-    product_category_id = fields.Many2one('product.category', string='Product Category', )
-    final_customer_id = fields.Many2one('res.partner', string='Final Customer', )
-    sale_contact_id = fields.Many2one('res.partner', string='Sale Contact', )
+    administrative_contact_id = fields.Many2one('res.partner', string='Verwaltungskontakt', )
+    technical_contact_id = fields.Many2one('res.partner', string='Technischer Kontakt', )
+    product_category_id = fields.Many2one('product.category', string='Produktkategorie', )
+    final_customer_id = fields.Many2one('res.partner', string='Endkunde', )
+    sale_contact_id = fields.Many2one('res.partner', string='Verkaufskontakt', )
 
     @api.onchange('partner_id')
     def _partner_id_changed(self):

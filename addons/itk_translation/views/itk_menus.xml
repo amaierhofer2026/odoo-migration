@@ -2,7 +2,7 @@
 <odoo>
     <!-- 1. Define actions for ITK menus -->
     <record id="action_all_customers" model="ir.actions.act_window">
-        <field name="name">All customers</field>
+        <field name="name">Alle Kunden</field>
         <field name="res_model">res.partner</field>
         <field name="view_mode">list,kanban,form</field>
         <field name="domain">[('customer_rank', '&gt;', 0)]</field>
@@ -11,7 +11,7 @@
     </record>
 
     <record id="action_all_actual_customers" model="ir.actions.act_window">
-        <field name="name">Actual customers</field>
+        <field name="name">Aktuelle Kunden</field>
         <field name="res_model">res.partner</field>
         <field name="view_mode">list,kanban,form</field>
         <field name="domain">[('customer_rank', '&gt;', 0), ('status_of_partner_id', '=', 'Bestandskunde')]</field>
@@ -20,7 +20,7 @@
     </record>
 
     <record id="action_all_former_customers" model="ir.actions.act_window">
-        <field name="name">Former Customers</field>
+        <field name="name">Ehemalige Kunden</field>
         <field name="res_model">res.partner</field>
         <field name="view_mode">list,kanban,form</field>
         <field name="domain">[('customer_rank', '&gt;', 0), ('status_of_partner_id', '=', 'Ehemaliger Kunde')]</field>
@@ -29,7 +29,7 @@
     </record>
 
     <record id="action_all_target_customers" model="ir.actions.act_window">
-        <field name="name">Target Customers</field>
+        <field name="name">Zielkunden</field>
         <field name="res_model">res.partner</field>
         <field name="view_mode">list,kanban,form</field>
         <field name="domain">[('customer_rank', '&gt;', 0), ('status_of_partner_id', '=', 'Kein Kunde')]</field>
@@ -38,7 +38,7 @@
     </record>
 
     <record id="action_all_resellers" model="ir.actions.act_window">
-        <field name="name">All Resellers</field>
+        <field name="name">Alle Reseller</field>
         <field name="res_model">res.partner</field>
         <field name="view_mode">list,kanban,form</field>
         <field name="domain">[('reseller', '=', True)]</field>

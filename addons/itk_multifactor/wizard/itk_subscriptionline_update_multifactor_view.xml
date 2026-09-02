@@ -18,7 +18,7 @@
     <!-- Odoo 18: <act_window> Kurzform entfernt -> vollwertiges ir.actions.act_window Record.
          Kontext-Aktion (frueher src_model + multi + key2) via binding_model_id + binding_type. -->
     <record id="action_salesubscriptionline_update_multifactor_confirm" model="ir.actions.act_window">
-        <field name="name">Update Multifactor for Subscriptionlines</field>
+        <field name="name">Multifaktor für Abo-Zeilen aktualisieren</field>
         <field name="res_model">sale.subscriptionline.multifactor.update.confirm</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>

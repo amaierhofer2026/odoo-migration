@@ -5,10 +5,10 @@
         <field name="name">res.partner.multifactor.update.confirm.form</field>
         <field name="model">res.partner.multifactor.update.confirm</field>
         <field name="arch" type="xml">
-            <form string="Update Population and Multifactor for selected Partners">
+            <form string="Einwohnerzahl und Faktor für ausgewählte Partner aktualisieren">
                 <p class="oe_grey">This update is not reversible.</p>
                 <footer>
-                    <button string="Update Population and Multifactor" name="partner_update_population_and_multifactor" type="object" default_focus="1" class="btn-primary"/>
+                    <button string="Einwohnerzahl und Faktor aktualisieren" name="partner_update_population_and_multifactor" type="object" default_focus="1" class="btn-primary"/>
                     <button string="Cancel" class="btn-default" special="cancel"/>
                 </footer>
             </form>
@@ -18,7 +18,7 @@
     <!-- Odoo 18: <act_window> Kurzform entfernt -> vollwertiges ir.actions.act_window Record.
          Kontext-Aktion (frueher src_model + multi + key2) via binding_model_id + binding_type. -->
     <record id="action_partner_update_population_and_multifactor_confirm" model="ir.actions.act_window">
-        <field name="name">Update Population and Multifactor for Partners</field>
+        <field name="name">Einwohnerzahl und Faktor für Partner aktualisieren</field>
         <field name="res_model">res.partner.multifactor.update.confirm</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>

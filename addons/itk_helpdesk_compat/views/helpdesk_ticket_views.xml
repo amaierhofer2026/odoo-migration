@@ -10,7 +10,7 @@
         <field name="mode">primary</field>
         <field name="priority">30</field>
         <field name="arch" type="xml">
-            <list string="Support Tickets" default_order="number desc">
+            <list string="Support-Tickets" default_order="number desc">
                 <field name="create_date" string="Erstellt am" optional="show"/>
                 <field name="number" string="Ticket-Nummer"/>
                 <field name="priority_id" string="Priorität"/>
@@ -209,7 +209,7 @@
          ITK Support Tickets — Dedicated Action (MUST be after views)
          ============================================================ -->
     <record id="action_itk_support_tickets" model="ir.actions.act_window">
-        <field name="name">Support Tickets</field>
+        <field name="name">Support-Tickets</field>
         <field name="res_model">helpdesk.ticket</field>
         <field name="view_mode">list,form</field>
         <field name="context">{"search_default_unattended_tickets": 1}</field>
