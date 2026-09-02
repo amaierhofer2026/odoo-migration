@@ -4525,3 +4525,42 @@ Kontrollierte Uebertragung lokale DB `odoo18_test` + Filestore -> VM:
 
 #### 7) Einschraenkungen (fortgeschrieben)
 - KEINE Odoo-11-Datenmigration, KEIN -u all, Modul-Upgrades nur einzeln mit Freigabe; Encoding unangetastet (Befunde F1/F7 nur dokumentiert); DB/Filestore/Module auf der VM unveraendert; kein Force-Push/Rebase; Passwoerter nie committen.
+
+---
+
+## Session 80: Abnahme Abschnitt 1 (A Sprache) — read-only-UI-Text-Inventar der relevanten Module (02.09.2026)
+
+**Auftrag (Anna):** Abnahme gemaess MIGRATION_READINESS_CHECKLIST Abschnitt 1 (Deutsch / sichtbare UI) beginnen; systematisch die sichtbaren Texte der relevanten installierten itk_*- und OCA-/Helpdesk-Module pruefen (Modulbezeichnungen, Menues, Labels, Buttons, Status-/Auswahlwerte, Kanban, Views). Basierend auf Session 79; **AUSDRUECKLICH read-only** — nichts repariert, keine Datenmigration, kein -u all, keine Modul-Upgrades; USD-/Preislisten-Thematik (F1–F5) unangetastet.
+
+### 1) Vorgehen (alles read-only)
+- SSH-Port 22 zur VM war von hier aus nicht erreichbar (Timeout) — HTTPS-Port 80/443 offen → Inventar per **JSON-RPC gegen https://k001959vsx.ipax.at** (Muster Session 75/76), uid=2 (anna.maierhofer@it-kommunal.at), DB odoo18_test, Sprachkontexte **de_DE und en_US**; Credentials aus lokaler .env (nie ausgegeben).
+- Erfasst: ir.module.module.shortdesc (23 Module), ir.ui.menu (Baum inkl. Eltern), ir.actions.act_window, ir.ui.view (171 Views), ir.model.fields.field_description + fields_get (30 Fachmodelle), ir.model.fields.selection, Datensatznamen (CRM-Stages, Helpdesk-Stages/Kategorien, Aktivitaetstypen), Mojibake-Scan ueber alle gesammelten Texte.
+- Rohdaten/Arbeitsskripte nur in %TEMP% (nicht im Repo); Ergebnisdokument **`docs/abnahme_sprache_ui_abschnitt1.md`** (neu, 892 Zeilen Detail-Inventar je Modul).
+- Bestaetigt (Session-79-Befunde F6/F7): 12/15 itk- + 6/6 OCA-Module ohne de_DE-shortdesc; account_payment de_DE-shortdesc „Zahlung ÔÇô Konto“.
+
+### 2) Befunde (nur dokumentiert, F14–F26 in der Checkliste; NICHTS behoben)
+- **F14 itk_translation:** ITK-Menue-Baum sichtbar englisch/technisch (Top „ITK-Menu“ 733; „Actual customers“, „All customers“, „Former Customers“, „Target Customers“, „All Resellers“, „All Magnitudes“, „Partner“, „Reseller“; 6 Actions gleichlautend).
+- **F15 itk_crm:** ~15 Custom-Felder auf res.partner (Delegation res.users) ohne de_DE-Text: firstname/lastname („First/Last name“), status_of_community, population, population_update, member_of_city_alliance, asset_partner, title_put_in_front/back, sales_as_final_customer_count, reseller, salutation, austria_wiki_url, community_magnitude(_id). Positive Gegenprobe: attention_of „zu Handen“, type „Adresstyp“, is_customer/is_supplier „Ist ein Kunde/Lieferant“ deutsch.
+- **F16 x_-Felder crm.lead:** Labels „Lead Status“ (x_lead_status), „Anrede Lead“, „Lead Quelle“; Werte deutsch; Auswahlwert „On-Hold“.
+- **F17 sale.subscription/-template:** Felder sichtbar englisch (70/38 Kandidaten; Kernfelder Customer/Start Date/End Date/Notice Period/Subscription Template/Created on …), obwohl itk_subscription-Menues/-Actions deutsch sind (de.po deckt nur Teile ab bzw. Feld-Terme fehlen).
+- **F18 itk_multifactor / F19 weitere itk_*:** englische Action-/Feldtexte (s. Checkliste).
+- **F20 itk_helpdesk_compat:** nur „Support Tickets“ (Menue+Aktion) englisch; Rest deutsch (Positivbefund).
+- **F21 helpdesk_mgmt:** Menues „All Tickets“/„Dashboard“/„Settings“(u. Konfiguration) + Actions „Helpdesk Ticket“ englisch; Feld-/Settings-Luecken englisch (duplicate_*, Portal-Settings, Auto assign …) trotz vorhandenem de.po (299 Terme).
+- **F22/F23/F24:** helpdesk_mgmt_sla (SLA/SLA Report, Felder grossenteils en), helpdesk_mgmt_timesheet/-project (Timesheets, Allow Timesheet, Ticket Count …), project_timesheet_time_control („Start work“, „Show Time Control“) — letzteres hat de.po, aber nicht geladen/unvollstaendig; sla/timesheet/project ohne de.po im Repo.
+- **F25 Daten/Status:** CRM-Stage „On-Hold“, Helpdesk-Stage „on Hold“; Helpdesk-Kategorien mit sichtbaren Duplikaten + Tippfehler „Anynomisierungsportal“ (Daten, nicht angefasst). Aktivitaetstypen (12) und uebrige Stages deutsch (Positiv).
+- **F26 Encoding (B):** 3 CP850-Artefakte in sichtbaren de_DE-Uebersetzungen (account.move.status_in_payment „Status ÔÇ×In ZahlungÔÇ£“, show_force_tax_included „ÔÇ×…erzwingenÔÇ£ anzeigen“, res.partner.peppol_eas-Wert 0245 „…(DI─î)“) — NICHT Teil der Reparatur vom 13.08.; nur dokumentiert.
+- **Positiv-Stichproben (OK):** Kernmodelle deutsch via fields_get (res.partner „Straße“/„Erstellt am“, crm.lead „Verkaufschance“, product „Verkaufspreis“, account.move „Kunde“/„Gesamt“, sale.order „Auftragsreferenz“); helpdesk.ticket-Kernfelder deutsch (Titel, Kategorie, Stufe, Prioritaet); server_action_mass_edit deutsch; itk_helpdesk_compat-Felder deutsch.
+
+### 3) Aenderungen in diesem Stand (nur Dokumentation)
+- **NEU:** `docs/abnahme_sprache_ui_abschnitt1.md` (Detail-Inventar: Zusammenfassungstabelle je Modul, Menue-Baeume de/en, Actions/Fields-Kandidaten, Fachmodell-Kandidaten, Statusnamen, Mojibake-Stellen).
+- `MIGRATION_READINESS_CHECKLIST.md`: Abschnitt 1-Zeilen mit Ist-Befunden aktualisiert, Abschnitt 2 (B) um de_DE-Uebersetzungs-Mojibake ergaenzt, Befundliste F14–F26, Abschnitt 9 (Methodik RPC-Inventar, Browser offen).
+- **Keine System-/DB-/Modul-Aenderung** (VM und lokal unveraendert).
+
+### 4) Offene Punkte / naechste Schritte (Vorschlag, je Freigabe)
+1. **Browser-Sichtpruefung** der Befunde F14–F26 (gemeinsamer Durchgang; viele Labels sind im Formular ohnehin sichtbar).
+2. **Entscheidung + Korrektur-Konzept Abschnitt 1:** (a) de_DE-Labels fuer Menues/Actions/Felder in itk_-Modulen (XML/Python-Strings oder de.po), (b) OCA-Module: de.po ergaenzen/nachladen bzw. Uebersetzungslauf pruefen (helpdesk_mgmt de.po ist vorhanden, aber offenbar nicht (vollstaendig) geladen — Ursache vor Fix klaeren: Sprach-Aktivierungszeitpunkt vs. Modul-Installation), (c) Modul-shortdesc (F6), (d) account_payment-F7, (e) Daten-Stellen F25. Jede Aenderung einzeln freigeben.
+3. Unveraendert offen: F1–F5 (Waehrung), SMTP, Passwort-Rotation, Benutzer Florian/Tina, Einzel-Upgrades F12.
+4. Git: Doku-Commit auf Arbeitsbranch → PR nach main (nach Freigabe durch Anna; keine Systemaenderung enthalten).
+
+### 5) Einschraenkungen (fortgeschrieben)
+- KEINE Odoo-11-Datenmigration, KEIN -u all, Modul-Upgrades nur einzeln mit Freigabe; Encoding unangetastet (F1/F7/F26 nur dokumentiert); DB/Filestore/Module auf VM und lokal unveraendert; kein Force-Push/Rebase; Passwoerter nie committen (Zugangsdaten nur in gitignored .env).
