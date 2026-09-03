@@ -2,7 +2,7 @@
 
 > **Zweck:** Fachliche und technische Abnahme der Odoo-18-Testumgebung (ITK), **bevor** produktive Odoo-11-Daten migriert werden.
 > **Referenzumgebung:** https://k001959vsx.ipax.at — DB `odoo18_test` (IPAX-Test-VM, Ubuntu 26.04, Docker odoo:18 + postgres:16)
-> **Stand:** 02.09.2026 — Abschnitt 1 (A Sprache) read-only-RPC-Inventar ausgeführt (Session 80, de_DE/en_US-Kontext, uid=2, gegen VM); Befunde F14–F26 ergänzt, **nichts behoben**. Detail-Inventar: `docs/abnahme_sprache_ui_abschnitt1.md`.
+> **Stand:** 03.09.2026 — Abschnitt 1 (A Sprache): read-only-RPC-Inventar (Session 80), Korrekturen F14–F26 ausgeführt (Session 81, VM-Slots + Repo-Code). **Session 82 (03.09.):** Abo-Anlage-Fix (Pflichtfeld `pricelist_id`) — Ursache, Fix und Tests in PROJECT_KNOWLEDGE.md (Session 82); EUR-Preisliste id 34 „Preisliste 2026 + Valorisierung" auf lokal + VM **aktiviert** (Befund F5 teilweise behoben). Detail-Inventar: `docs/abnahme_sprache_ui_abschnitt1.md`.
 > **Datengrundlage dieses Dokuments:** ausschließlich read-only-Analysen (SQL über die VM-DB, Repo-Vergleich). Keine Änderungen an DB, Modulen, Views, Konfiguration oder Daten.
 >
 > **WICHTIGE REGELN (fortgeschrieben):**
@@ -181,7 +181,7 @@
 | Unternehmenswährung | res_company | EUR (126), Land AT | OK | — | — | ja (DB) |
 | Standardwährung | res_currency aktive Währungen | EUR aktiv ✅, **USD aktiv ⚠️** | **ANPASSUNG NÖTIG** | USD aktiv ohne fachliche Nutzung (Relikt) | prüfen, ob USD deaktiviert werden soll (nach Freigabe) | ja (DB) |
 | Währungssymbol | res_currency.symbol (EUR) | `Ôé¼` statt `€` | **FEHLER** | CP850-Mojibake | Symbol korrigieren (nach Freigabe) | ja (DB), UI offen |
-| Preislisten | product_pricelist | 2 Preislisten, **beide inaktiv** | **ANPASSUNG NÖTIG** | keine aktive Preisliste; „Standard-Preisliste“ ist USD | aktivieren/neu anlegen (EUR), nach Freigabe | ja (DB) |
+| Preislisten | product_pricelist | 3 Preislisten-Sätze: EUR-PL id 34 „Preisliste 2026 + Valorisierung" **aktiv** (seit 03.09., Session 82 — als Standard für die Abo-Anlage), USD-PL id 1 „Standard-Preisliste" **weiter inaktiv** | **TEILWEISE BEHOBEN** | keine aktive Preisliste war der Auslöser des Abo-Pflichtfeld-Fehlers; „Standard-Preisliste" ist USD und bleibt inaktiv | EUR-PL aktiviert (erledigt, Session 82); USD-PL-Thematik (F2–F4) separat nach Freigabe | ja (DB, 03.09.) |
 | Produkte | product.template | 23 Produkte | OFFEN | Preis-/Währungsdarstellung prüfen | — | nein |
 | Angebote/Aufträge | sale.order | **14 von 16 Aufträgen USD** (über inaktive USD-Preisliste) | **FEHLER** | USD-Belege (Testdaten) — Ursache: Belegwährung folgt der Preisliste; Standard-Preisliste war USD | Ursache klären, Belege/Währung bereinigen (nach Freigabe) | ja (DB) |
 | Rechnungen | account.move | 18 EUR + **4 USD** (ids 17,20,21,19) | **FEHLER** | USD-Belege vorhanden | wie oben; erst Ursache prüfen, dann bereinigen (nach Freigabe) | ja (DB) |
@@ -226,7 +226,7 @@
 | Berechtigungen | 18 Benutzer (14 aktiv); Rollen nicht einzeln geprüft | OFFEN | Florian/Tina-Anlage offen (separate Freigabe) | — | nein |
 | Reports/PDFs | 4 ITK-Vorlagen gerendert (frühere Sessions); Umlaute/€ offen | OFFEN | €-Symbol s. C | — | nein |
 | E-Mail-Funktionen | SMTP **nicht konfiguriert** (bewusst offen) | OFFEN | — | SMTP in späterer Session (Freigabe) | nein |
-| itk_subscription | 5 Abos, 6 Positionen, 3 Vorlagen | OFFEN | — | — | nein |
+| itk_subscription | 5 Abos, 6 Positionen, 3 Vorlagen | OFFEN | Abo-Anlage-Fix Session 82: `pricelist_id` (Pflichtfeld) — EUR-Standardpreisliste automatisch + tote O11-Gruppe im View korrigiert; lokal 18.0.1.1.0 getestet (8/8); **VM-Code-Deploy offen (SSH)** | — | teilweise (lokal 03.09.; Browser/VM offen) |
 | itk_crm | Struktur persistiert (setup_runtime, post-migration) | OFFEN | — | — | nein |
 | itk_product | 6 Produkt-Typen | OFFEN | — | — | nein |
 | itk_projectcategory | Tabellen vorhanden | OFFEN | **Version DB 18.0.0.1 < Repo 18.0.1.0.0** (Upgrade offen, je Freigabe) | Einzel-Upgrade (nach Freigabe) | nein |
@@ -292,7 +292,7 @@ Reihenfolge mit Priorität (fachlich motiviert: erst Darstellung/Sprache, dann S
 | F2 | C/Währung | USD (id 1) aktiv — Relikt aus initialer DB-Erstellung (Basiswährung vor l10n_at) | res_currency id 1 | ANPASSUNG NÖTIG (separate Währungs-Abnahme, unverändert) |
 | F3 | C/Währung | 14 Verkaufsaufträge (inkl. A-1900011) in USD über inaktive USD-Preisliste 1 „Standard-Preisliste“ (Testdaten 01.–24.07.2026) | sale_order currency_id=1, pricelist_id=1 | FEHLER |
 | F4 | C/Währung | 4 Rechnungen (account_move ids 17,20,21,19) in USD | account_move currency_id=1 | FEHLER |
-| F5 | C/Währung | Beide Preislisten inaktiv (id 1 USD, id 34 EUR mit 2 Items); keine aktive Preisliste | product_pricelist | ANPASSUNG NÖTIG |
+| F5 | C/Währung | Beide Preislisten inaktiv (id 1 USD, id 34 EUR mit 2 Items); keine aktive Preisliste | product_pricelist | **TEILWEISE BEHOBEN** (03.09., Session 82: EUR-PL id 34 aktiviert — Standard für Abo-Anlage; USD-PL id 1 weiter inaktiv, Rest separat) |
 | F6 | A/Sprache | 12 von 15 itk-Modulen + alle 6 OCA-Module ohne de_DE-shortdesc → englische/technische Namen in der Apps-Liste | ir_module_module.shortdesc | ANPASSUNG NÖTIG |
 | F7 | A/Sprache | `account_payment` de_DE-shortdesc „Zahlung ÔÇô Konto“ (CP850-Mojibake) — einziges betroffenes **installiertes** Modul; 14 weitere betroffene Module nicht installiert | ir_module_module.shortdesc | **BEHOBEN** (02.09., Session 81) |
 | F8 | D/Basiseinstellungen | Zeitzone nur bei 2 von 18 Benutzern gesetzt (Europe/Vienna); 16 Benutzer ohne tz (UTC-Fallback) | res_users/res_partner | ANPASSUNG NÖTIG |
@@ -314,6 +314,7 @@ Reihenfolge mit Priorität (fachlich motiviert: erst Darstellung/Sprache, dann S
 | F24 | A/Sprache (project_timesheet_time_control) | Menü + Action „Start work“ (756, unter Zeiterfassung); Felder „Start Time“/„End Time“ (date_time/date_time_end), „Show Time Control“, „Previous timer …“ — de.po im Repo vorhanden, aber nicht geladen/unvollständig | RPC VM de == en | **BEHOBEN** (02.09.) |
 | F25 | A/Sprache + Datenqualität (Statuswerte/Kategorien) | CRM-Stage „On-Hold“, Helpdesk-Stage „on Hold“ (englisch); Helpdesk-Kategorien: deutsch, aber sichtbare Duplikate („Allgemeine Anfrage (Support)“ 5×, „Störung/Fehler melden“ 4×, „Angebot anfordern“ 3×, „allgemeiner Support“ 2×, „Zugangsdaten vergessen“ 2×) + Tippfehler „Anynomisierungsportal“; Aktivitätstypen (12 aktiv) und übrige CRM-Stages deutsch (Positiv) | RPC VM (Datensätze) | **KLÄRUNG NÖTIG** (Daten: Stages "On-Hold"/"on Hold", Kategorie-Duplikate, Tippfehler "Anynomisierungsportal"; Datenbereinigung separat) |
 | F26 | B/Encoding (Übersetzungen) | 3 CP850-Artefakte in sichtbaren de_DE-Übersetzungen (nicht Teil der Reparatur vom 13.08.): `account.move.status_in_payment` „Status ÔÇ×In ZahlungÔÇ£“, `account.reconcile.model.line.show_force_tax_included` „ÔÇ×Steuer inklusive erzwingenÔÇ£ anzeigen“, `res.partner.peppol_eas`-Wert `0245` „SK-Steueridentifikationsnummer (DI─î)“ (auch res.users/res.company sichtbar) | RPC VM ir.model.fields/ir.model.fields.selection de_DE | **BEHOBEN** (02.09., 3 Stellen) |
+| F27 | itk_subscription (Abo-Anlage) | Neues Abo speichern → „Ein Pflichtfeld ist nicht gesetzt — Pricelist (pricelist_id)": (1) `pricelist_id` required=True ohne Default (Feld-Default/default_get/create leer; `property_product_pricelist` bei allen Partnern leer), (2) Form-View blendet Feld per `groups="product.group_sale_pricelist"` aus — Gruppe existiert in Odoo 18 nicht (O11-Relikt; O18: `product.group_product_pricelist`), (3) keine aktive EUR-Preisliste (F5) | RPC/DB (03.09., Session 82), Reproduktion lokal | **BEHOBEN** (lokal 03.09.: itk_subscription 18.0.1.1.0 — EUR-Default via default_get/onchange/create + View-Gruppen korrigiert (`product.group_product_pricelist`, `uom.group_uom`); PL 34 EUR aktiv; Test 8/8 PASS); **VM-Code-Deploy offen (SSH blockiert)** — VM-DB hat PL 34 aktiv, Code folgt nach git pull + Einzel-Upgrade |
 
 **Korrektur-Status Abschnitt 1 (Session 81, 02.09.2026 — ausgeführt mit Freigabe):**
 - **Gezielte de_DE-Slot-Korrekturen auf der VM (Referenzumgebung):** 11 Menüs, 16 Actions, 304 Felder (inkl. sale.subscription/-template-Kernfelder, helpdesk.sla/ticket.sla, Projekt-/Timesheet-Zusatzfelder, itk-Labels auf Kontakt/Verkauf/Produkt/Rechnung). Methodik: ORM-write mit `lang=de_DE`-Kontext (jsonb-Slot), kuratierte Term-Liste + Übernahme korrekter de-Labels von Pendant-Feldern gleichen Feldnamens (keine globale Ersetzung). Verifikation per `fields_get` de_DE (Stichproben grün).

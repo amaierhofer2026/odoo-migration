@@ -14,7 +14,7 @@ Migration aller Odoo-Module von **Version 11 nach Version 18** für ITK (IT Komm
 
 | Modul | Status | Version |
 |---|---|---|
-| `itk_subscription` (ITK Abo-Management) | ✅ Fertig getestet · 3 Abo-Vorlagen (J/M/Q) · Odoo-18-Fixes: Formular (Chatter/Archiv) + Portal-JS (publicWidget) | 18.0.1.0.0 |
+| `itk_subscription` (ITK Abo-Management) | ✅ Fertig getestet · 3 Abo-Vorlagen (J/M/Q) · Odoo-18-Fixes: Formular (Chatter/Archiv) + Portal-JS (publicWidget) + Abo-Anlage: EUR-Standardpreisliste automatisch (Fix Session 82) | 18.0.1.1.0 |
 | `account_invoice_line_number` | ✅ In Odoo 18 integriert · Live-Renummerierung im Formular gefixt (⟳ Docker-Neustart) | 18.0.1.0.0 |
 | `itk_product` | ✅ Migriert, installiert | 18.0.1.0.0 |
 | `itk_projectcategory` | ✅ Migriert, installiert | 18.0.1.0.0 |
@@ -75,9 +75,9 @@ Migration aller Odoo-Module von **Version 11 nach Version 18** für ITK (IT Komm
 
 - **Odoo 18 läuft auf der IPAX-Test-VM**, Zugriff über **https://k001959vsx.ipax.at** (nginx + Let's Encrypt, Auto-Renew), Datenbank **odoo18_test** (am 31.08.2026 1:1 vom lokalen Teststand übertragen)
 - **Lokale Odoo-18-Umgebung** (Windows Docker, http://localhost:8069) besteht separat weiter; PostgreSQL (Named Volume) und Filestore sind persistent
-- **GitHub/main, lokale Umgebung und VM synchron** (main = 08e96d2 vor PR #21)
+- **GitHub/main und lokale Umgebung synchron** (main nach PR #24, Session 82); VM-Sync der Code-/Doku-Commits offen (SSH-Port 22 von hier blockiert — VM-Stand main davor)
 - **Keine produktiven Odoo-11-Daten migriert**; aktuell 158 installierte Module (15 itk_*-Module + verwendete OCA/Helpdesk-Module)
-- **Abnahme-Phase gestartet:** Die fachliche/technische Abnahme von Odoo 18 vor der O11-Datenmigration wird über **`MIGRATION_READINESS_CHECKLIST.md`** geführt (Sprache, Umlaute/Encoding, Währung, Grundeinstellungen, Fachbereiche, Testreihenfolge; O11→O18-Mapping dort vorerst OFFEN). Erste read-only-Befunde (EUR-Symbol-Mojibake `Ôé¼`, USD-Belege aus Testdaten, Preislisten inaktiv, Zeitzonen) sind in der Checkliste dokumentiert — **noch nicht behoben**, jede Korrektur nur mit Freigabe.
+- **Abnahme-Phase gestartet:** Die fachliche/technische Abnahme von Odoo 18 vor der O11-Datenmigration wird über **`MIGRATION_READINESS_CHECKLIST.md`** geführt (Sprache, Umlaute/Encoding, Währung, Grundeinstellungen, Fachbereiche, Testreihenfolge; O11→O18-Mapping dort vorerst OFFEN). Stand: Abschnitt-1-Sprachkorrekturen F14–F26 (Session 81) und EUR-Preislisten-Aktivierung für die Abo-Anlage (Session 82) umgesetzt; offen u. a. USD-Belege aus Testdaten (F3/F4) und USD-Preisliste inaktiv (F2/F5-Rest), Zeitzonen — jede Korrektur nur mit Freigabe.
 - Weitere Modul-Upgrades bzw. Funktionsanpassungen nur **kontrolliert und nach Bedarf** (je Freigabe)
 - **Noch offen:** E-Mail-Versand (SMTP) — Konfiguration in einer der nächsten Sessions; Admin-Passwort-Rotation (bewusst separat, nach Sicherheitsfund Session 77)
 
