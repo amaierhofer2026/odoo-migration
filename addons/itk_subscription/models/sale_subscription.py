@@ -238,7 +238,32 @@ class SaleSubscription(models.Model):
         defaults = super(SaleSubscription, self).default_get(fields)
         if 'code' in fields:
             defaults.update(code=self.env['ir.sequence'].next_by_code('sale.subscription') or 'New')
+        # Preisliste: EUR-Standard, solange kein Partner (bzw. Context-Default) gewaehlt ist
+        if 'pricelist_id' in fields and not defaults.get('pricelist_id'):
+            partner = defaults.get('partner_id')
+            partner = self.env['res.partner'].browse(partner) if partner else None
+            pricelist_id = self._get_default_pricelist_id(partner)
+            if pricelist_id:
+                defaults['pricelist_id'] = pricelist_id
         return defaults
+
+    def _get_default_pricelist_id(self, partner=None):
+        """Ermittelt die EUR-Standardpreisliste fuer ein (neues) Abo.
+
+        Regel: 1) Preisliste des Partners (property_product_pricelist), sofern
+        gesetzt UND in Unternehmenswaehrung (EUR); 2) sonst die erste AKTIVE
+        Preisliste in Unternehmenswaehrung. Es wird NIE automatisch eine
+        Nicht-EUR-Preisliste (z. B. die inaktive USD-Standard-Preisliste)
+        gesetzt. Ohne aktive EUR-Preisliste -> False.
+        """
+        company_currency = self.env.company.currency_id
+        if partner and partner.property_product_pricelist:
+            partner_pricelist = partner.property_product_pricelist
+            if partner_pricelist.currency_id.id == company_currency.id:
+                return partner_pricelist.id
+        pricelist = self.env['product.pricelist'].search(
+            [('currency_id', '=', company_currency.id)], order='id', limit=1)
+        return pricelist.id or False
 
     def _track_subtype(self, init_values):
         self.ensure_one()
@@ -290,7 +315,8 @@ class SaleSubscription(models.Model):
 
     @api.onchange('partner_id')
     def onchange_partner_id(self):
-        self.pricelist_id = self.partner_id.property_product_pricelist.id
+        # Preisliste: Partner-Preisliste (EUR) oder EUR-Standard - nie automatisch USD
+        self.pricelist_id = self._get_default_pricelist_id(self.partner_id)
         if self.partner_id.user_id:
             self.user_id = self.partner_id.user_id
 
@@ -302,6 +328,13 @@ class SaleSubscription(models.Model):
 
     @api.model
     def create(self, vals):
+        # Preisliste absichern (Pflichtfeld): Partner-Preisliste (EUR) bzw.
+        # EUR-Standard - wird z. B. von create_subscriptions immer explizit
+        # mitgegeben und bleibt dann unveraendert.
+        if not vals.get('pricelist_id'):
+            partner = vals.get('partner_id')
+            vals['pricelist_id'] = self._get_default_pricelist_id(
+                self.env['res.partner'].browse(partner) if partner else None)
         vals['code'] = (
                 vals.get('code') or
                 self.env.context.get('default_code') or
