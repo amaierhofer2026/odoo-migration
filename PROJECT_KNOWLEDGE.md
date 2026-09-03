@@ -4608,3 +4608,60 @@ Kontrollierte Uebertragung lokale DB `odoo18_test` + Filestore -> VM:
 
 ### 7) Einschraenkungen (fortgeschrieben)
 - KEINE Odoo-11-Datenmigration, KEIN -u all, Modul-Upgrades nur einzeln mit Freigabe; USD-/Preislisten-Thematik (F2-F5) separat; kein Force-Push/Rebase; Passwoerter nie committen; Fix-Skripte lesen Credentials aus lokaler .env (gitignored).
+
+---
+
+## Session 82: Abo-Anlage-Fix — Pflichtfeld pricelist_id (EUR-Standardpreisliste) (03.09.2026)
+
+**Freigabe (Anna):** Fehler „Ein Pflichtfeld ist nicht gesetzt — Pricelist (pricelist_id)" beim Anlegen/Speichern eines neuen Abos untersuchen und sauber beheben. Vorgaben: ausschließlich EUR (keine USD-Preisliste als Default), bestehende Abos nicht beschädigen, keine anderen Verkaufs-/Abo-Funktionen veraendern, kein -u all, gezieltes Modul-Upgrade nur itk_subscription. Danach testen, dokumentieren, Checkliste aktualisieren, Commit/Push/PR/Merge, GitHub/lokal/VM synchronisieren.
+
+### 1) Diagnose (read-only, VM odoo18_test + lokal, per JSON-RPC)
+
+| # | Befund | Nachweis |
+|---|---|---|
+| 1 | `sale.subscription.pricelist_id` ist **required=True** (Modell itk_subscription, Feld-Definition Z. 33; ir.model.fields id 15766, Modul itk_subscription), hat aber **keinen Default**: kein Feld-Default, kein `default_get`-Eintrag, kein create-Fallback. Einzige Quelle war `onchange_partner_id` → `partner.property_product_pricelist` — bei **allen 70 Partnern leer** (Feld 5079, store=False; kein Wert gesetzt, kein globaler Default) | fields_get/ir.model.fields, res.partner-Lesung (5 Stichproben alle False) |
+| 2 | Form-View `itk_subscription.sale_subscription_view_form` (View 2180) bindet `pricelist_id` mit **`groups="product.group_sale_pricelist"`** (Z. 307). Diese Gruppe existiert in Odoo 18 **nicht** (O11-Relikt; Odoo 18: `product.group_product_pricelist`, id 30 „Basispreisliste"). Im gerenderten Form-Arch fehlt `pricelist_id` komplett → Pflichtfeld ist fuer den Benutzer unsichtbar und nie setzbar. Gleiches Muster Z. 352: `product.group_uom` (fehlt; O18: `uom.group_uom`, id 20) | ir.model.data-Check aller Gruppen-XML-IDs; Referenz sale.order-Form (View 1225) nutzt `product.group_product_pricelist`; get_view(uid2) |
+| 3 | Keine aktive EUR-Preisliste: nur 2 Preislisten, **beide inaktiv** — id 1 „Standard-Preisliste" (USD), id 34 „Preisliste 2026 + Valorisierung" (**EUR**, Firma IT-Kommunal, 2 Festpreis-Items: Amtsweg-Produkt 65,00, TEST-Abo 15,00) | product.pricelist (active_test=False) |
+| 4 | Reproduktion LOKAL: `create` ohne `pricelist_id` → ValidationError „Pflichtfeld" (Not-Null, INSERT ohne pricelist_id) — exakt Annas Fehler | RPC-Test 07:55, docker-Log |
+
+**Historie:** Die 5 bestehenden Abos entstanden ueber Verkaufsauftraege (`create_subscriptions` uebernimmt die Auftragspreisliste: 172/182–184 USD via PL 1 — Testdaten-Kontext F3/F4) bzw. manuelle Migration mit expliziter PL (185 NV-00962 EUR via PL 34). Der UI-Weg „Abonnements → Neu" war nach der Migration nie erfolgreich.
+
+### 2) Fix (Code Repo addons/itk_subscription, Version 18.0.1.0.0 → **18.0.1.1.0**)
+
+- `models/sale_subscription.py`:
+  - Neuer Helfer **`_get_default_pricelist_id(partner=None)`**: 1) Partner-Preisliste (`property_product_pricelist`) nur wenn gesetzt UND in Unternehmenswaehrung (EUR); 2) sonst erste **aktive** Preisliste in Unternehmenswaehrung; 3) sonst False. **Setzt nie automatisch eine Nicht-EUR-Preisliste.**
+  - `default_get`: setzt EUR-Standard, solange kein Partner-/Context-Default vorliegt (Formular „Neu" ist damit vorbelegt).
+  - `onchange_partner_id`: nutzt den Helfer statt des nackten property-Zugriffs.
+  - `create(vals)`: Fallback, wenn `pricelist_id` fehlt (deckt unsichtbares Feld/API-Creates ab); von `create_subscriptions`/Kopieren explizit mitgegebene Preislisten bleiben unveraendert.
+- `views/sale_subscription_views.xml`: `groups="product.group_sale_pricelist"` → **`product.group_product_pricelist`** (Z. 307); `groups="product.group_uom"` → **`uom.group_uom`** (Z. 352). `sale.group_discount_per_so_line` (Z. 354) und `analytic.group_analytic_accounting` (Z. 368) existieren in Odoo 18 — unveraendert.
+- `__manifest__.py`: Version 18.0.1.1.0.
+
+### 3) DB-Aenderungen (lokal + VM, per RPC)
+
+- **product.pricelist id 34 (EUR „Preisliste 2026 + Valorisierung"): `active=True`** auf beiden Instanzen — einzige EUR-Preisliste, wird dadurch als Standard auffindbar/waehlbar. USD-PL id 1 bleibt **inaktiv** (F2–F5-Thematik separat, unangetastet).
+- de_DE-Label-Slot `sale.subscription.pricelist_id` = „Preisliste" (lokal gesetzt, VM war bereits gesetzt; Slot-Methode Session 81).
+
+### 4) Deploy + Verifikation LOKAL (Windows-Docker, DB odoo18_test)
+
+- `docker restart odoo18` (Python-Aenderung → Registry neu), Asset-Cache geleert (11 Bundles `/web/assets/%`), `button_immediate_upgrade` itk_subscription (id 710) → **18.0.1.1.0 installed** (8,7 s, Log ohne Fehler; nur bekannte Altlast-Warnungen).
+- Gerendertes Abo-Formular enthaelt `pricelist_id` wieder (uid 2 hat `product.group_product_pricelist`).
+- **Funktionstest (RPC, 8/8 PASS):**
+  - `default_get` („Neu") liefert `pricelist_id=34`.
+  - `create` OHNE pricelist_id (Partner 72 Breitenbrunn, Template J, 2 Produktzeilen 224/223) → **erfolgreich**, `pricelist_id=34` (EUR), `currency_id=126 (EUR)` automatisch.
+  - Wiedereroeffnen (2x): stabil PL 34 / EUR; Zeilenpreise 65,00/15,00 exakt aus PL-34-Items; `recurring_total` 95,00 korrekt.
+  - Cleanup: Test-Abos (204/205/206 aus Testlaeufen) restlos geloescht → weiterhin **5 Abos, keines veraendert** (4 USD-Alt-Abos unangetastet, NV-00962 EUR unangetastet).
+- Nebenbefund (harmlos): ir.sequence `sale.subscription` durch die Testlaeufe von NV-00195 auf ~NV-00208 vorgerueckt (Test-DB; Entwuerfe wurden geloescht).
+
+### 5) VM (https://k001959vsx.ipax.at): Teil-Fix, Code-Deploy offen
+
+- DB-Fix gesetzt: PL 34 aktiv (wie lokal). Damit ist die EUR-Preisliste auf der VM verfuegbar.
+- **Code-Deploy + Modul-Upgrade auf 18.0.1.1.0 weiterhin offen (SSH-Port 22 blockiert, Stand wie Session 81).** Bis dahin greift auf der VM der neue create-/onchange-Fallback NICHT (alter Code liest nur die leere Partner-Property) → UI-Anlage eines Abos auf der VM erst nach `git pull` + Einzel-Upgrade itk_subscription funktioniert. Lokal (laufender Fix) ist die Umgebung, in der der Fehler auftrat (Label „Pricelist" englisch = lokaler Stand ohne Session-81-Slots).
+
+### 6) Doku/Git
+
+- `PROJECT_KNOWLEDGE.md` (Session 82), `README.md` (Version + Stand), `MIGRATION_READINESS_CHECKLIST.md` (C-Preislisten-Status/F5, E-itk_subscription, Befundliste F27).
+- Branch `hermes/abo-pricelist-fix` → Commit(s) → Push → PR → Merge (kein Rebase/Squash) → lokal `git pull --ff-only`. VM-Sync offen (SSH).
+
+### 7) Einschraenkungen (fortgeschrieben)
+
+- KEINE Odoo-11-Datenmigration, KEIN -u all; USD-Preisliste 1 bleibt inaktiv (F2–F5 separat); Encoding unangetastet; kein Force-Push/Rebase; Passwoerter nie committen.
