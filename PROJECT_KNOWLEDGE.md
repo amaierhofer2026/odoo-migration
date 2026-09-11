@@ -4895,3 +4895,65 @@ Dieser Pfad existiert auf dem heutigen Entwicklungs-Host **nicht** — er stammt
 - Kein `-u all`, keine DB-Migration, keine Modul-Upgrades in dieser Session; keine Systemaenderung ausser dem einen Feld-Write in der lokalen DB.
 - VM nur gelesen (keine Schreiboperation); USD-Daten unangetastet; Encoding-Wiederherstellung vom 13.08.2026 unberuehrt.
 - Kein Force-Push/Rebase; Passwoerter nie committen.
+
+---
+
+## Session 86: Abnahmepunkt Zeitzonen — Europe/Vienna für alle aktiven internen Benutzer (lokale Instanz **und** VM) (11.09.2026)
+
+**Freigabe (Anna):** Europe/Vienna auf **beiden** Instanzen setzen; **alle 12** aktiven normalen internen Benutzer ohne Zeitzone, **inklusive uid 16** (Doppelkonto, wird später separat bereinigt) und **inklusive Christiane Breit** (nicht mehr im Unternehmen — historische Daten müssen vollständig erhalten bleiben, **nichts löschen oder archivieren**); die **4 inaktiven technischen/System-/Portal-Konten nicht verändern**. Danach verifizieren, dokumentieren, Git-Workflow, VM auf `main` nachziehen.
+
+### 1) Analyse (read-only, beide Instanzen identisch)
+
+- 18 Benutzer gesamt: **14 aktiv** (alle intern, 0 Portal-Benutzer), 4 inaktiv.
+- Vorher: **2** aktive interne Benutzer mit `Europe/Vienna` (uid 2 Anna, uid 8 Florian), **12 ohne Zeitzone**, **0 mit anderer Zeitzone**.
+- Inaktive technische Konten (bewusst unberührt): uid 1 `__system__` (OdooBot), uid 3 `default`, uid 4 `public`, uid 5 `portaltemplate`.
+- `res.users.tz` ist ein **related-Feld auf `res.partner.tz`** (`store=False`) — gespeichert wird am Personen-Kontakt; die 12 Kandidaten sind die Partner **id 57–68**.
+- **Mitarbeiterakten waren bereits einheitlich `Europe/Vienna`** (Zielwert fachlich bestätigt).
+- Ausser uid 2 hatte **niemand** einen Login (`login_date` leer) → ohne tz hätte Odoo mit **UTC** gerechnet (Zeiten 2 h zu früh); die Korrektur kommt rechtzeitig vor dem Abnahmetest.
+- Die 61 Kontakte ohne tz sind **Geschäftskontakte** (Kunden/Lieferanten), keine Benutzer → **nicht** angefasst.
+
+### 2) Durchfuehrung (freigegeben, ausgefuehrt)
+
+- **Ein** `write` je Instanz: `res.users` **uid 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24** → `tz = 'Europe/Vienna'` (VM und lokal).
+- uid 2 und uid 8 waren bereits korrekt und wurden **nicht** angefasst.
+- **Keine** Loeschung, **keine** Archivierung, **keine** Deaktivierung, keine Aenderung an `login`/`active`/`share`; die 4 technischen Konten blieben unberuehrt.
+- Kein `-u all`, kein Modul-Upgrade, keine DB-Migration, keine Systemaenderung.
+
+### 3) Verifikation (nach dem Schreiben, beide Instanzen)
+
+| Pruefung | VM | lokal |
+|---|---|---|
+| aktive interne Benutzer | **14** | **14** |
+| davon mit `Europe/Vienna` | **14** | **14** |
+| mit anderer/leerer Zeitzone | **0** | **0** |
+| Benutzerlisten VM ↔ lokal | **identisch** (`True`) | — |
+| technische Konten (1/3/4/5) | unveraendert inaktiv, tz leer | unveraendert inaktiv, tz leer |
+| Benutzer neu/geloescht | 0 / 0 | 0 / 0 |
+| Aenderungen an `login`/`active`/`share` | keine | keine |
+| tz geaendert bei | genau uid 13–24 | genau uid 13–24 |
+| Partner-tz geaendert bei | genau Partner **57–68** | genau Partner **57–68** |
+
+**Historische Daten unveraendert** (Kontrollzahlen vor == nach, je Instanz):
+
+| Modell | VM | lokal |
+|---|---|---|
+| res.partner | 70 | 70 |
+| hr.employee | 13 | 13 |
+| sale.order | **17** | **16** |
+| account.move | 22 | 22 |
+| sale.subscription | **6** | **5** |
+| mail.message | **423** | **421** |
+| crm.lead / helpdesk.ticket / product.template / res.users | 1 / 1 / 13 / 14 | 1 / 1 / 13 / 14 |
+
+Die fett markierten Unterschiede sind die bereits in **F30** dokumentierte, vorbestehende Abweichung VM ↔ lokal (S00198, NV-00204, 2 mail.message) — sie wurde **nicht** angetastet und nicht verändert.
+
+### 4) Hinweise (offen, bewusst nicht angefasst)
+
+- **uid 16 `Anna.maierhofer@it-kommunal.at`** (Doppelkonto, F28) hat jetzt korrekt `Europe/Vienna`; die Bereinigung des Kontos erfolgt später separat (Entscheidung Anna).
+- **uid 14 `christiane.breit@it-kommunal.at`** hat `Europe/Vienna`; der Benutzer bleibt **aktiv** und ihre Daten vollständig erhalten (Mitarbeiterakte ist weiterhin archiviert wie zuvor — unverändert).
+- Der Abnahmepunkt **D/Zeitzone (F8)** ist damit **erledigt**.
+
+### 5) Einschraenkungen (fortgeschrieben)
+
+- Kein `-u all`, keine DB-Migration, keine Modul-Upgrades; nur der beschriebene `write` auf `res.users` (12 Benutzer) je Instanz.
+- Kein Force-Push/Rebase; Passwoerter nie committen.
