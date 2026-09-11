@@ -4665,3 +4665,93 @@ Kontrollierte Uebertragung lokale DB `odoo18_test` + Filestore -> VM:
 ### 7) Einschraenkungen (fortgeschrieben)
 
 - KEINE Odoo-11-Datenmigration, KEIN -u all; USD-Preisliste 1 bleibt inaktiv (F2–F5 separat); Encoding unangetastet; kein Force-Push/Rebase; Passwoerter nie committen.
+
+---
+
+## Session 83: SSH-Zugang der Test-VM VM-seitig gefiltert + Read-only-Bestandsaufnahme der offenen Abnahmepunkte (10.09.2026)
+
+**Ausgangslage:** Auftrag „weiter mit Odoo Migration" mit SSH-Zugangsdaten (Host `k001959vsv`, User `k001959`, 93.189.28.204, Port 22). **Alle Arbeiten dieser Session sind read-only** — keine Reparaturen, keine Modul-Upgrades, keine DB-Schreibzugriffe, keine Aenderung an `main`. Ein Klaerungs-Dialog lief ins Timeout; es wurden daher ausschliesslich Analyse + Doku vorbereitet.
+
+### 1) SSH-Befund (VM-seitig, nicht netzseitig) — VM-Code-Deploy weiterhin blockiert
+
+| # | Test | Ergebnis |
+|---|---|---|
+| 1 | TCP `93.189.28.204:22` von diesem Host (Public IP 37.252.184.71, IPAX Wien) | **Timeout** |
+| 2 | TCP `:22` von 6 externen Nodes (check-host.net: AT/CH/IN/PT/RU/US) | **6/6 Timeout** → Port 22 ist für das **gesamte Internet** gefiltert |
+| 3 | TCP `:443` von denselben 6 Nodes | 6/6 offen (0,0009–0,20 s) → Host lebt, nginx/Odoo erreichbar |
+| 4 | TCP `:8069` / `:5432` extern | Timeout (erwartet — Bindung nur auf 127.0.0.1 bzw. Docker-intern) |
+| 5 | Alternative SSH-Ports 2222/2022/2200/8022/22222/10022/222/2222 | alle Timeout → sshd wurde nicht auf einen anderen Port verlegt |
+| 6 | Gegenprobe `github.com:22` / `gitlab.com:22` | offen → ausgehender Port 22 aus diesem Netz ist **nicht** blockiert |
+| 7 | DNS `k001959vsv.ipax.at` | loest oeffentlich **nicht** auf (existiert nur in `/etc/hosts` der VM); oeffentlicher Name bleibt **k001959vsx.ipax.at** |
+
+**Bewertung:** Die Ursache liegt auf der VM (fehlende ufw-Regel `22/tcp` oder gestoppter sshd) — zeitlich passt der Ausfall zur ufw-Aktivierung am 01.09.2026 (Session 76). Der **einzige offene Punkt aus Session 82** (Code-Deploy `itk_subscription` 18.0.1.1.0 auf der VM) bleibt damit ausfuehrbar erst nach Oeffnen von Port 22: ohne Shell kein `git pull` in `/opt/odoo18`. Ueber HTTPS-RPC sind nur **DB-Aenderungen** und Upgrades von **bereits vorhandenem** Code moeglich.
+
+**Erforderliche Aktion (Anna; IPAX-KVM-Konsole oder IPAX-Panel):**
+```
+sudo systemctl status ssh
+sudo ss -tlnp | grep :22
+sudo ufw status verbose      # fehlt "22/tcp  ALLOW  Anywhere"? -> sudo ufw allow 22/tcp
+```
+
+### 2) Read-only-Bestandsaufnahme VM + lokal (JSON-RPC, 10.09.2026)
+
+Beide Instanzen sind datenidentisch (gleiche `database.uuid`, gleiche Kontrollzahlen) — Unterschiede gibt es nur beim Code-/Fix-Stand.
+
+| Pruefung | VM (https://k001959vsx.ipax.at) | Lokal (http://localhost:8069) |
+|---|---|---|
+| `itk_subscription` | **18.0.1.0.0** installed (= Repo-Stand vor Session 82) | **18.0.1.1.0** installed (= Repo) |
+| F1 EUR-Symbol (`res_currency` id 126) | `€` (Session 81 korrigiert) | **`Ôé¼` — Mojibake, lokal NICHT korrigiert** |
+| USD `res_currency` id 1 | `$`, **active = true** | `$`, **active = true** |
+| Aktive Firmenwaehrung / Firma | EUR (126), IT-Kommunal GmbH, Land AT | identisch |
+| Preislisten | id 1 USD inaktiv, id 34 EUR aktiv (2 Positionen 65,00 / 15,00) | identisch |
+| USD-Verkaufsauftraege (F3) | 14 (S00007, S00040, S00172–S00190, A-1900011) | identisch |
+| USD-Buchungen (F4) | 4 (`account_move` 17, 19, 20, 21; alle draft, out_invoice) | identisch |
+| Benutzer-Zeitzonen (F8) | 14 aktive Benutzer: **2 mit `Europe/Vienna`** (uid 2, 8), **12 ohne** | identisch |
+| Doppelkonto | uid 2 `anna.maierhofer@…` **und** uid 16 `Anna.maierhofer@…` (Gross-A) beide aktiv | identisch |
+| Sprachen | de_DE aktiv, en_US inaktiv | identisch |
+| Abos | 5 (172/182/183/184 USD, 185 NV-00962 EUR) — unveraendert | identisch |
+
+**Modulversionen DB (installed) vs. Repo (`__manifest__.py`):**
+
+| Modul | VM DB | Lokal DB | Repo |
+|---|---|---|---|
+| `itk_projectcategory` | 18.0.1.0.0 | 18.0.1.0.0 | 18.0.1.0.0 |
+| `itk_reports` | 18.0.1.0.0 | 18.0.1.0.0 | 18.0.1.0.0 |
+| `itk_sale_management` | 18.0.1.0.0 | 18.0.1.0.0 | 18.0.1.0.0 |
+| `itk_translation` | 18.0.1.0.0 | 18.0.1.0.0 | 18.0.1.0.0 |
+| `itk_crm` | 18.0.1.5.0 | 18.0.1.5.0 | 18.0.1.5.0 |
+| `hr_holidays_public` | 18.0.1.0.0 | 18.0.1.0.0 | 18.0.1.0.0 |
+| `helpdesk_mgmt` | 18.0.1.17.1 | 18.0.1.17.1 | 18.0.1.17.1 |
+| `itk_subscription` | **18.0.1.0.0** | **18.0.1.1.0** | 18.0.1.1.0 |
+
+→ **F11 geklaert:** Die DB-Spalte `latest_version` zeigt bei `itk_projectcategory` noch 18.0.0.1 (veralteter Cache-Wert von vor dem Upgrade); die **installierte** Version ist auf beiden Instanzen **18.0.1.0.0 = Repo** → **kein offenes Upgrade**.
+→ **F12 erledigt:** Fuer `itk_reports`, `itk_sale_management`, `itk_translation` (tree→list) sind auf **beiden** Instanzen installierte Version und Repo-Version gleich — die in Session 78 notierten Einzel-Upgrades sind bereits erfolgt.
+→ **Einziger echter Code-Unterschied beider Instanzen:** `itk_subscription` (VM fehlt der Session-82-Fix).
+
+### 3) Neue/berichtigte Befunde
+
+| # | Bereich | Befund | Nachweis | Status |
+|---|---|---|---|---|
+| F1 (Berichtigung) | C/Waehrung | Der EUR-Symbol-Fix aus Session 81 wurde **nur auf der VM** gesetzt; die **lokale** DB hat weiterhin `Ôé¼` | RPC res_currency id 126 lokal = `Ôé¼`, VM = `€` | **LOKAL OFFEN** (Korrektur nur mit Freigabe) |
+| F2 (bestaetigt) | C/Waehrung | USD (id 1) auf beiden Instanzen **aktiv** (Symbol `$`, rate 1.0) | res_currency | ANPASSUNG NOETIG |
+| F8 (aktualisiert) | D/Zeitzone | Jetzt **14 aktive Benutzer**: 2 mit `Europe/Vienna`, **12 ohne** (UTC-Fallback) | res.users | ANPASSUNG NOETIG |
+| F28 (neu) | D/Berechtigungen | **Doppelkonto:** uid 2 `anna.maierhofer@it-kommunal.at` (mit tz) **und** uid 16 `Anna.maierhofer@it-kommunal.at` (Gross-A, ohne tz) — beide aktiv, beide Nicht-Portal | res.users | KLAERUNG NOETIG (Datenqualitaet) |
+| F11 | Inventar | erledigt (s. o.: installed = Repo; `latest_version` = veralteter Cache) | ir.module.module | GEPRUEFT/OK |
+| F12 | Inventar | erledigt (s. o.: keine ausstehenden Einzel-Upgrades) | ir.module.module | GEPRUEFT/OK |
+
+### 4) Hinweis zum Pfad `/media/sf_Odoo-Test/addons/`
+
+Dieser Pfad existiert auf dem heutigen Entwicklungs-Host **nicht** — er stammt aus der VirtualBox-Zeit (`C:\Odoo-Test` war als Shared Folder `/media/sf_Odoo-Test/` in die alte VM gemountet; Beleg: `docs/hermes_memory_backup_2026-07-27.md`). Seit Session 74 (31.08.2026) ist der Aufbau: Windows nativ (`C:\Odoo-Test`, Docker Desktop) + Test-VM unter `/opt/odoo18`. Die 3-fach-Synchronisation laeuft daher ueber: **GitHub** + **C:\Odoo-Test** + **VM `/opt/odoo18`** (VM-Sync derzeit durch den SSH-Blocker angehalten).
+
+### 5) Folgearbeiten (jeweils nur nach ausdruecklicher Freigabe)
+
+1. **Port 22 auf der VM oeffnen** (KVM/IPAX-Panel) → dann `git pull --ff-only` in `/opt/odoo18` + **Einzel-Upgrade `itk_subscription`** auf 18.0.1.1.0 + Reproduktionstest der Abo-Anlage im Browser (schliesst F27 ab).
+2. **F1 lokal nachziehen** (EUR-Symbol `Ôé¼` → `€`) — Skript `scripts/fix_ui_encoding_de.py` kann lokal nicht unveraendert laufen (Ziel-URL hart kodiert); separates, freizugebendes Vorgehen.
+3. **F8 Zeitzonen** (12 aktive Benutzer auf `Europe/Vienna`) und **F28 Doppelkonto** (fachliche Entscheidung).
+4. **F2/F3/F4/F5** USD-Thematik (USD deaktivieren? USD-Testbelege bereinigen?) — Grundsatz unveraendert: erst Ursache, dann gezielt; kein String-Replacement.
+5. **F6** de_DE-shortdesc fuer die fachlich sichtbaren Module.
+
+### 6) Einschraenkungen (fortgeschrieben)
+
+- KEINE Odoo-11-Datenmigration, KEIN `-u all`; USD-Preisliste 1 bleibt inaktiv (F2–F5 separat); Encoding unangetastet; kein Force-Push/Rebase; Passwoerter nie committen.
+- In dieser Session wurden ausschliesslich **read-only** Zugriffe (HTTPS-JSON-RPC, TCP-Probes, Git-Lesezugriffe) ausgefuehrt; es gab **keine** Schreiboperation in DB, Code oder `main`.

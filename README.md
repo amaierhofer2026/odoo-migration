@@ -71,13 +71,15 @@ Migration aller Odoo-Module von **Version 11 nach Version 18** für ITK (IT Komm
 
 **Modul-Analyse abgeschlossen:** 57 Module analysiert → 37 migriert, 22 geparkt, 3 entfällt, 1 gestrichen. +2 ITK-Neumodule.
 
-## Aktueller Stand & Ausblick (01.09.2026)
+## Aktueller Stand & Ausblick (10.09.2026)
 
 - **Odoo 18 läuft auf der IPAX-Test-VM**, Zugriff über **https://k001959vsx.ipax.at** (nginx + Let's Encrypt, Auto-Renew), Datenbank **odoo18_test** (am 31.08.2026 1:1 vom lokalen Teststand übertragen)
 - **Lokale Odoo-18-Umgebung** (Windows Docker, http://localhost:8069) besteht separat weiter; PostgreSQL (Named Volume) und Filestore sind persistent
-- **GitHub/main und lokale Umgebung synchron** (main nach PR #24, Session 82); VM-Sync der Code-/Doku-Commits offen (SSH-Port 22 von hier blockiert — VM-Stand main davor)
+- **GitHub/main und lokale Umgebung synchron** (main nach PR #24, Session 82); VM-Sync der Code-/Doku-Commits offen
+- ⚠️ **SSH zur VM derzeit nicht möglich (Stand 10.09.2026, Session 83):** Port 22 ist VM-seitig für das gesamte Internet gefiltert (6/6 externe Nodes Timeout; 443 von denselben Nodes offen; alternative SSH-Ports ebenfalls zu). Damit ist der **Code-Deploy auf die VM angehalten** — `itk_subscription` ist dort weiterhin **18.0.1.0.0** (lokal/Repo: 18.0.1.1.0). Freischaltung über IPAX-KVM/Panel (`sudo ufw status verbose` → ggf. `sudo ufw allow 22/tcp`). Details/Beweise: PROJECT_KNOWLEDGE.md, Session 83.
 - **Keine produktiven Odoo-11-Daten migriert**; aktuell 158 installierte Module (15 itk_*-Module + verwendete OCA/Helpdesk-Module)
-- **Abnahme-Phase gestartet:** Die fachliche/technische Abnahme von Odoo 18 vor der O11-Datenmigration wird über **`MIGRATION_READINESS_CHECKLIST.md`** geführt (Sprache, Umlaute/Encoding, Währung, Grundeinstellungen, Fachbereiche, Testreihenfolge; O11→O18-Mapping dort vorerst OFFEN). Stand: Abschnitt-1-Sprachkorrekturen F14–F26 (Session 81) und EUR-Preislisten-Aktivierung für die Abo-Anlage (Session 82) umgesetzt; offen u. a. USD-Belege aus Testdaten (F3/F4) und USD-Preisliste inaktiv (F2/F5-Rest), Zeitzonen — jede Korrektur nur mit Freigabe.
+- **Abnahme-Phase gestartet:** Die fachliche/technische Abnahme von Odoo 18 vor der O11-Datenmigration wird über **`MIGRATION_READINESS_CHECKLIST.md`** geführt (Sprache, Umlaute/Encoding, Währung, Grundeinstellungen, Fachbereiche, Testreihenfolge; O11→O18-Mapping dort vorerst OFFEN). Stand: Abschnitt-1-Sprachkorrekturen F14–F26 (Session 81) und EUR-Preislisten-Aktivierung für die Abo-Anlage (Session 82) umgesetzt; offen u. a. USD-Thematik aus Testdaten (F2/F3/F4) und USD-Preisliste inaktiv (F5-Rest), Zeitzonen (F8), Doppelkonto F28, de_DE-Modulnamen (F6) — jede Korrektur nur mit Freigabe.
+- **Berichtigt (Session 83, read-only geprüft):** Der EUR-Symbol-Fix (F1) liegt **nur auf der VM** vor — die lokale DB zeigt weiterhin `Ôé¼`. F11 (itk_projectcategory) und F12 (tree→list-Upgrades) sind erledigt: installierte Version = Repo-Version auf beiden Instanzen.
 - Weitere Modul-Upgrades bzw. Funktionsanpassungen nur **kontrolliert und nach Bedarf** (je Freigabe)
 - **Noch offen:** E-Mail-Versand (SMTP) — Konfiguration in einer der nächsten Sessions; Admin-Passwort-Rotation (bewusst separat, nach Sicherheitsfund Session 77)
 
@@ -140,7 +142,7 @@ Das **PROJECT_KNOWLEDGE.md** enthält:
 | Komponente | Adresse / Zugang |
 |---|---|
 | Odoo 18 (lokal, Windows Docker) | http://localhost:8069 |
-| Odoo 18 Test-VM (IPAX, Ubuntu 26.04) | **https://k001959vsx.ipax.at** (nginx-Reverse-Proxy + Let's-Encrypt-Zertifikat, HTTP→HTTPS-Redirect; Odoo lauscht weiterhin NUR auf 127.0.0.1:8069, PostgreSQL nur Docker-intern). SSH: `ssh k001959@93.189.28.204`. Teststand `odoo18_test` am 31.08.2026 1:1 übertragen; VM-Backups unter `/opt/odoo18/backups/` |
+| Odoo 18 Test-VM (IPAX, Ubuntu 26.04) | **https://k001959vsx.ipax.at** (nginx-Reverse-Proxy + Let's-Encrypt-Zertifikat, HTTP→HTTPS-Redirect; Odoo lauscht weiterhin NUR auf 127.0.0.1:8069, PostgreSQL nur Docker-intern). SSH: `ssh k001959@93.189.28.204` — **⚠️ Port 22 seit ~02.09.2026 VM-seitig gefiltert (Stand 10.09.2026, Session 83): von außen Timeout; Analyse/DB-Arbeiten laufen daher über HTTPS-JSON-RPC**. Teststand `odoo18_test` am 31.08.2026 1:1 übertragen; VM-Backups unter `/opt/odoo18/backups/` |
 | PostgreSQL (lokal) | localhost:5432, User `odoo` |
 | PostgreSQL (Test-VM) | nur internes Docker-Netz (kein Host-Port-Mapping, nicht öffentlich erreichbar) |
 | Odoo 11 (Referenz, alt) | dekommissioniert — alte VM wurde am 31.08.2026 durch die Ubuntu-26.04-Neuinstallation ersetzt; die IP 93.189.28.204 dient jetzt der Odoo-18-Test-VM |
