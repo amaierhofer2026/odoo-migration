@@ -1,5 +1,5 @@
 {
-    'name': "itk_multifactor",
+    'name': "ITK Multiplikationsfaktor",
     'summary': "ITK Multiplikationsfaktor (EWZ je Tsd.)",
     'description': "Adds multi_factor, is_multi_factor_product, qty_multiplication_factor fields.",
     'author': "Alvarium Services, Andreas Vathroder, Fabian Vathroder",

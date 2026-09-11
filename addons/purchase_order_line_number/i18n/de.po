@@ -18,7 +18,7 @@ msgstr ""
 "X-Generator: Poedit 2.0.6\n"
 
 #. module: purchase_order_line_number
-#: model:ir.ui.view,arch_db:purchase_order_line_number.purchase_order_form_line_number
+#: model_terms:ir.ui.view,arch_db:purchase_order_line_number.purchase_order_form_line_number
 msgid "Line No."
 msgstr "Pos"
 

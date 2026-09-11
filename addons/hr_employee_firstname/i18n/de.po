@@ -24,11 +24,11 @@ msgid "Employee"
 msgstr "Angestellter"
 
 #. module: hr_employee_firstname
-#: model:ir.model.fields,field_description:hr_employee_firstname.field_hr_employee_firstname
+#: model:ir.model.fields,field_description:hr_employee_firstname.field_hr_employee__firstname
 msgid "Firstname"
 msgstr "Vorname"
 
 #. module: hr_employee_firstname
-#: model:ir.model.fields,field_description:hr_employee_firstname.field_hr_employee_lastname
+#: model:ir.model.fields,field_description:hr_employee_firstname.field_hr_employee__lastname
 msgid "Lastname"
 msgstr "Nachname"

@@ -1,5 +1,5 @@
 {
-    'name': "itk_third_party_setup",
+    'name': "ITK Drittanbieter-Einrichtung",
     'summary': "ITK third party setup. Installs all 3rd-party modules used by ITK.",
     'description': "ITK third party setup. Installs modules from Odoo App Store and OCA.",
     'author': "Alvarium Services, Andreas Väthröder, Fabian Väthröder",

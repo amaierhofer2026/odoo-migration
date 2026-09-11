@@ -1,6 +1,6 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 {
-    "name": "ITK Helpdesk Category User",
+    "name": "ITK Helpdesk-Kategoriebenutzer",
     "summary": "Auto-assign helpdesk tickets based on category user and subscribe them as followers",
     "version": "18.0.1.0.0",
     "license": "LGPL-3",

@@ -1,5 +1,5 @@
 {
-    'name': "itk_crm",
+    'name': "ITK CRM-Erweiterung",
     'summary': "ITK CRM Anpassungen — Partner-Attribute & Lookup-Modelle",
     'description': "Adds partner attributes: population, community_magnitude, status_of_partner, etc.",
     'author': "Alvarium Services, Andreas Vathroder, Fabian Vathroder",

@@ -1,5 +1,5 @@
 {
-    'name': "itk_valorisierung",
+    'name': "ITK Valorisierung",
     'summary': "Valorisierung",
     'description': "ITK Valorisierungstexte",
     'author': "Alvarium Services, Andreas Väthröder, Fabian Väthröder",

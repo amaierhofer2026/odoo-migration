@@ -1,5 +1,5 @@
 {
-    'name': "itk_translation",
+    'name': "ITK Zusatzfelder und Menüs",
 
     'summary': """
         ITK-spezifische Begriffsuebersetzungen, Menues und Partner-Views.

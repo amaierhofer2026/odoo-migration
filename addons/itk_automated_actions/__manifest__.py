@@ -1,5 +1,5 @@
 {
-    'name': "itk_automated_actions",
+    'name': "ITK Automatisierte Aktionen",
     'summary': "This module imports ITK-specific automated actions.",
     'description': "This module imports ITK-specific automated actions.",
     'author': "Alvarium Services, Andreas Väthröder, Fabian Väthröder",

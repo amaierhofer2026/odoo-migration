@@ -1,5 +1,5 @@
 {
-    'name': "itk_base_setup",
+    'name': "ITK Basis-Einrichtung",
     'summary': "ITK base setup. Installs all modules used by ITK.",
     'description': "ITK base setup. Installs all modules used by ITK and delivered with the Odoo system setup.",
     'author': "Alvarium Services, Andreas Väthröder, Fabian Väthröder",

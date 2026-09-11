@@ -1,5 +1,5 @@
 {
-    'name': "itk_reports",
+    'name': "ITK Druckvorlagen",
 
     'summary': "ITK-spezifische Druckvorlagen (Angebot/Auftrag, Bestellung, Bestellanfrage, Rechnung)",
 

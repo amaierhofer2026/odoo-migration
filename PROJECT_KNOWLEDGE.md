@@ -4957,3 +4957,59 @@ Die fett markierten Unterschiede sind die bereits in **F30** dokumentierte, vorb
 
 - Kein `-u all`, keine DB-Migration, keine Modul-Upgrades; nur der beschriebene `write` auf `res.users` (12 Benutzer) je Instanz.
 - Kein Force-Push/Rebase; Passwoerter nie committen.
+
+---
+
+## Session 87: Stufe 1 — dauerhafte deutsche Uebersetzungen im Repo (PO-Referenzen O11 → O18) + gezielte Einzel-Upgrades (11.09.2026)
+
+**Freigabe (Anna):** Stufe 1 umsetzen — die `i18n/de.po`-Referenzen der relevanten `itk_*`-Module auf das **Odoo-18-Schema** umstellen (insbesondere `itk_subscription` vollstaendig), die **eindeutigen sichtbaren deutschen Modul-/Menünamen** der tatsaechlich verwendeten ITK-Module korrigieren, **KLÄRUNG-Liste nicht anfassen**; danach die betroffenen Module **gezielt einzeln upgraden (kein `-u all`)**; anschliessend auf lokal und VM pruefen; dokumentieren → Commit → Push → PR → Merge; VM per Teleport nachziehen.
+
+### 1) Ursache (belegt, drei zusammenwirkende Mechanismen)
+
+| # | Mechanismus | Beleg |
+|---|---|---|
+| 1 | Die `i18n/de.po` der O11-Module referenzieren **automatisch erzeugte XML-IDs im O11-Schema** (`field_sale_subscription_partner_id`), Odoo 18 erzeugt sie aber mit **doppeltem Unterstrich** (`field_sale_subscription__partner_id`, Funktion `field_xmlid()` in `base/models/ir_model.py`) | DB-Abfrage `ir.model.data`; `de.po`-Referenzen |
+| 2 | Der PO-Import joint in `TranslationImporter.save()` per SQL ueber `ir_model_data (module,name)` → **nicht passende Referenzen werden stillschweigend ignoriert** (kein Fehler, keine Logzeile) | Container-Quellcode `odoo/tools/translate.py` |
+| 3 | Selektionswerte: der `PoFileReader` kennt in Odoo 18 nur noch `model:`/`model_terms:`/`code:` — die O11-Form **`selection:modell,feld:index` wird verworfen**; korrekt sind `ir.model.fields.selection`-Referenzen (`selection__model__feld__wert`) | Container-Quellcode; 33 solcher Zeilen in `itk_subscription` |
+| 4 | Zusatz: `ir.ui.view.arch_db` ist in Odoo 18 `translate=xml_translate` (**callable**) → Referenzen muessen **`model_terms:`** heissen, `model:` wird ignoriert | Container-Quellcode `ir_ui_view.py` |
+
+**Folge:** Die deutschen Texte lagen seit der Migration ungenutzt in den `.po`-Dateien; ein Modul-Upgrade hat die in Session 81 handgesetzten DB-Slots sogar wieder ueberschrieben (Rueckfall F17, in Session 85 entdeckt).
+
+### 2) Repo-Korrektur
+
+- **Neues, idempotentes Skript `scripts/fix_po_xmlids_de.py`:** liest die `i18n/de.po` aller `addons/`-Module, prueft **jede Referenz gegen die echte Datenbank** und schreibt sie auf die tatsaechliche Odoo-18-XML-ID um. Enthaelt ausserdem die O11→O18-Modellumbenennungen (`account.invoice.line` → `account.move.line`, `hr_holidays.status` → `hr.leave.type`).
+- **Ergebnis: 543 Referenzen in 15 Modulen korrigiert** (319 Feld-/Modell-/Selection-Referenzen in einem ersten Lauf, 224 `arch_db`-Referenzen im zweiten Lauf nach der `model_terms`-Erkenntnis). 9 Referenzen blieben bewusst unangetastet (Felder existieren in Odoo 18 nicht mehr, z. B. `field_account_invoice_notice`, `…_close_reason_id_7461`).
+- **Modulnamen (Apps-Liste):** 14 `__manifest__.py` der ITK-Module auf deutsche, sichtbare Namen gesetzt (z. B. `itk_crm` → **„ITK CRM-Erweiterung"**, `itk_translation` → **„ITK Zusatzfelder und Menüs"**, `itk_reports` → **„ITK Druckvorlagen"**, `itk_helpdesk_compat` → **„ITK Helpdesk-Oberfläche"**); `itk_subscription` war bereits „ITK Abo-Management". Technische Modulnamen bleiben unveraendert.
+- **Neue Hilfsskripte:** `scripts/upgrade_modules.py` (gezieltes Einzel-Upgrade per RPC, mit Retry bei laufendem Cron) und `scripts/verify_labels_de.py` (Verifikation de/en).
+- **Bewusst NICHT geaendert:** KLÄRUNG-Liste (ITK-Menu 733, All Magnitudes 741, Helpdesk-Root/Dashboard, Menü 750 „Settings", itk_crm-Kontakt-Fachfelder, x_-Felder, Stages „On-Hold"/„on Hold"), fachliche Datenpflege.
+
+### 3) Durchgefuehrte Upgrades (lokal, einzeln — kein `-u all`)
+
+- 23 betroffene Module einzeln upgegradet (`button_immediate_upgrade`), danach nach der `model_terms`-Korrektur weitere 13.
+- **Zwischenfall (harmlos):** zwei Upgrades schlugen mit `InFailedSqlTransaction` fehl — Ursache war ein parallel laufender Cron (`Odoo is currently processing a scheduled action`). Das Skript wurde um einen Retry (3 Versuche, 20 s) erweitert; danach alle Module gruen.
+- **Wichtig:** Modul-**Namen** werden erst durch `ir.module.module.update_list()` („Apps-Liste aktualisieren") uebernommen — und nur, wenn der Odoo-Prozess die Manifeste **neu eingelesen** hat (`docker restart odoo18`). Vorher lieferte der laufende Prozess die alten Namen aus dem Speicher-Cache.
+
+### 4) Verifikation (lokale Instanz, nach allen Upgrades)
+
+| Pruefung | Ergebnis |
+|---|---|
+| Abo-Feldlabels | `Kunde`, `Startdatum`, `Enddatum`, `Preisliste`, `Vorlage für Abonnements`, `Datum der nächsten Rechnung`, `Wiederkehrender Preis`, `Buchungsjournal`, `Preis pro ME` |
+| Abo-Statuswerte | **Neu / Laufend / Zu erneuern / Abgeschlossen / Abgebrochen** (vorher New/In Progress/To Renew/Closed/Cancelled) |
+| Abo-Buttons | **Abonnement starten, Aboauftrag abbrechen, Aboauftrag schließen, Erneuerungsabgebot, Online-Vorschau, Kündigungsfrist, Mindestvertragsdauer, Vertragsend am, Abonnement-Einträge** (vorher englisch) |
+| Modulnamen (Apps-Liste) | alle 15 ITK-Module deutsch (s. Punkt 2) |
+| Kundenspezifische Bezeichnungen | **„Kundenverwaltung"** unveraendert vorhanden (`ir.ui.menu`, 1 Treffer) |
+| Fehler/Tracebacks | **0 ERROR/CRITICAL nach 10:45** lokal; die 6 ERROR-Zeilen um 10:44 stammen aus dem Cron-Konflikt (s. o.) |
+
+### 5) Offen (bewusst nicht geaendert)
+
+- **„Generate Invoice manually"** (Button im Abo-Formular): Eintrag existiert im `de.po`, hat aber `msgstr == msgid` (O11-Altbestand, nie uebersetzt) → neue Uebersetzung noetig.
+- **Tippfehler in bestehenden Uebersetzungen:** „Erneuerungsabgebot" (soll „Erneuerungsangebot"), „Aboauftrag" (soll „Abo-Auftrag/Abonnement").
+- **KLÄRUNG-Liste** unveraendert offen.
+- **OCA-/Helpdesk-Modulnamen** (`helpdesk_mgmt` = „Helpdesk Management" usw.) wurden **nicht** geaendert — sie stammen aus OCA-Manifesten; Entscheidung Anna.
+- **VM-Deploy** der Repo-Korrektur (Pull + Einzel-Upgrades + `update_list` + Neustart) — folgt nach Freigabe/Rueckmeldung.
+
+### 6) Einschraenkungen (fortgeschrieben)
+
+- Kein `-u all`, keine DB-Migration, keine Schemaaenderung; nur `.po`-Referenzen, Manifest-Namen und gezielte Einzel-Upgrades.
+- Keine fachlichen Begriffe geaendert; keine Loeschungen; Encoding-Reparatur vom 13.08.2026 unberuehrt.
+- Kein Force-Push/Rebase; Passwoerter nie committen.
