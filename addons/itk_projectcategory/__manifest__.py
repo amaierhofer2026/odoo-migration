@@ -1,5 +1,5 @@
 {
-    'name': "itk_projectcategory",
+    'name': "ITK Projektkategorie",
     'summary': "Project Category",
     'description': "ITK Projekt Kategorien",
     'author': "Alvarium Services, Andreas Väthröder, Fabian Väthröder",

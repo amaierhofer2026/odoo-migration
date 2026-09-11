@@ -18,21 +18,21 @@ msgstr ""
 "X-Generator: Poedit 2.0.6\n"
 
 #. module: itk_sale_management
-#: model:ir.model.fields,field_description:itk_sale_management.field_sale_order_administrative_contact_id
+#: model:ir.model.fields,field_description:itk_sale_management.field_sale_order__administrative_contact_id
 msgid "Administrative Contact"
 msgstr "Administrativer Kontakt"
 
 #. module: itk_sale_management
-#: model:ir.model.fields,field_description:itk_sale_management.field_sale_order_final_customer_id
-#: model:ir.ui.view,arch_db:itk_sale_management.quotation_searchview_customization_itk
-#: model:ir.ui.view,arch_db:itk_sale_management.saleorder_searchview_customization_itk
+#: model:ir.model.fields,field_description:itk_sale_management.field_sale_order__final_customer_id
+#: model_terms:ir.ui.view,arch_db:itk_sale_management.quotation_searchview_customization_itk
+#: model_terms:ir.ui.view,arch_db:itk_sale_management.saleorder_searchview_customization_itk
 msgid "Final Customer"
 msgstr "Endkunde"
 
 #. module: itk_sale_management
-#: model:ir.model.fields,field_description:itk_sale_management.field_sale_order_product_category_id
-#: model:ir.ui.view,arch_db:itk_sale_management.quotation_searchview_customization_itk
-#: model:ir.ui.view,arch_db:itk_sale_management.saleorder_searchview_customization_itk
+#: model:ir.model.fields,field_description:itk_sale_management.field_sale_order__product_category_id
+#: model_terms:ir.ui.view,arch_db:itk_sale_management.quotation_searchview_customization_itk
+#: model_terms:ir.ui.view,arch_db:itk_sale_management.saleorder_searchview_customization_itk
 msgid "Product Category"
 msgstr "Produktkategorie"
 
@@ -42,11 +42,11 @@ msgid "Quotation"
 msgstr "Angebot"
 
 #. module: itk_sale_management
-#: model:ir.model.fields,field_description:itk_sale_management.field_sale_order_sale_contact_id
+#: model:ir.model.fields,field_description:itk_sale_management.field_sale_order__sale_contact_id
 msgid "Sale Contact"
 msgstr "Verkaufskontakt"
 
 #. module: itk_sale_management
-#: model:ir.model.fields,field_description:itk_sale_management.field_sale_order_technical_contact_id
+#: model:ir.model.fields,field_description:itk_sale_management.field_sale_order__technical_contact_id
 msgid "Technical Contact"
 msgstr "Technischer Kontakt"

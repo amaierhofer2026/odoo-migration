@@ -1,5 +1,5 @@
 {
-    'name': "itk_sale_management",
+    'name': "ITK Verkaufserweiterung",
     'summary': "ITK Sale Management extensions",
     'description': "Adds administrative/technical contacts, product category, and final customer to sale orders.",
     'author': "Alvarium Services, Andreas Väthröder, Fabian Väthröder",

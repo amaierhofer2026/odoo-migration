@@ -18,12 +18,12 @@ msgstr ""
 "X-Generator: Poedit 2.0.6\n"
 
 #. module: sale_order_line_number
-#: model:ir.ui.view,arch_db:sale_order_line_number.invoice_form
+#: model_terms:ir.ui.view,arch_db:sale_order_line_number.invoice_form
 msgid "Line No."
 msgstr "Pos"
 
 #. module: sale_order_line_number
-#: model:ir.model.fields,field_description:sale_order_line_number.field_sale_order_line_number
+#: model:ir.model.fields,field_description:sale_order_line_number.field_sale_order_line__number
 msgid "Number"
 msgstr "Nummer"
 

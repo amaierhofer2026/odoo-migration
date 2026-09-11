@@ -1,5 +1,5 @@
 {
-    'name': "itk_saleorder_lines",
+    'name': "ITK Auftragszeilen",
 
     'summary': """
         Adds partner_id and salesperson_id fields to sale.order.line.

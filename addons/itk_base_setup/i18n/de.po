@@ -94,7 +94,7 @@ msgid "Official Email"
 msgstr "Email offiziell"
 
 #. module: itk_crm
-#: model:ir.ui.view,arch_db:itk_crm.view_partner_form_itk
+#: model_terms:ir.ui.view,arch_db:itk_crm.view_partner_form_itk
 msgid "Characteristics"
 msgstr "Kenndaten"
 
