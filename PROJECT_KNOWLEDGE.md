@@ -4755,3 +4755,51 @@ Dieser Pfad existiert auf dem heutigen Entwicklungs-Host **nicht** — er stammt
 
 - KEINE Odoo-11-Datenmigration, KEIN `-u all`; USD-Preisliste 1 bleibt inaktiv (F2–F5 separat); Encoding unangetastet; kein Force-Push/Rebase; Passwoerter nie committen.
 - In dieser Session wurden ausschliesslich **read-only** Zugriffe (HTTPS-JSON-RPC, TCP-Probes, Git-Lesezugriffe) ausgefuehrt; es gab **keine** Schreiboperation in DB, Code oder `main`.
+
+---
+
+## Session 84: VM-Deploy des Abo-Fixes (itk_subscription 18.0.1.1.0) + Praxistest auf der Test-VM (11.09.2026)
+
+**Freigabe (Anna):** Zugang zur VM besteht ueber **VPN + Teleport** (`k001959vsv`, User `k001959`) — **keine IPAX-Freischaltung, kein zusaetzlicher direkter DB-Zugang**. Arbeitsweise: Code/Git + **gezieltes Einzel-Upgrade**. Reihenfolge: Git-Stand pruefen → `main` holen → ausschliesslich `itk_subscription` aktualisieren → Odoo sauber neu starten → Abo-Speicherfehler auf der VM testen. Verboten: `-u all`, andere Module, DB-Migration, sonstige Systemaenderungen. Die Shell-Befehle wurden Anna einzeln vorgegeben und von ihr ausgefuehrt.
+
+### 1) Durchgefuehrte Schritte (Teleport-Shell, `/opt/odoo18`)
+
+| # | Befehl (Kurzform) | Ergebnis |
+|---|---|---|
+| 1 | `git status -sb` / `git log --oneline -3` / `git stash list` | Branch `main`, Working Tree sauber, HEAD = `origin/main` = **7e9e9de**, kein Stash |
+| 2 | `git pull --ff-only origin main` | **Fast-Forward 7e9e9de → 1d6c835**, 24 Dateien, keine Konflikte |
+| 3 | `docker compose stop odoo` + `docker compose run --rm --no-deps odoo odoo -u itk_subscription -d odoo18_test --stop-after-init` | `Modules loaded` / `Registry changed` / `Registry loaded` / `Initiating shutdown`, **keine ERROR-Zeile**; nur bekannte Warnung `res.partner: inconsistent 'store' for computed fields` |
+| 4 | `docker compose start odoo` + `ps` + `logs` + `curl /web/login` | `odoo18` Up, `odoo18-db` Up, HTTP **200**, Registry geladen |
+| 5 | Code-Gegenprobe im Container (grep) | `__manifest__.py` = **18.0.1.1.0**, `_get_default_pricelist_id` vorhanden, View-Gruppen `product.group_product_pricelist` + `uom.group_uom`, keine O11-Gruppen |
+| 6 | Praxistest (JSON-RPC, s. Punkt 2) | **6/6 gruen** |
+
+**Bewusst NICHT gemacht:** kein `-u all`; die 10 weiteren `itk_*`-Module, die durch PR #23 neue Textdateien erhalten haben, wurden **nicht** aktualisiert (kein Versionssprung → kein Upgrade ausgeloest). Keine DB-Migration, keine Systemaenderung.
+
+### 2) Verifikation (read-only, JSON-RPC gegen https://k001959vsx.ipax.at)
+
+| Pruefung | Ergebnis |
+|---|---|
+| Modulstand | `itk_subscription` **18.0.1.1.0** installed (vorher 18.0.1.0.0), state=installed |
+| Gruppen-XML-IDs | `product.group_product_pricelist` **existiert**; `product.group_sale_pricelist` existiert **nicht**; `uom.group_uom` **existiert**; `product.group_uom` existiert **nicht** (bestaetigt Ursache + Fix aus Session 82) |
+| Gerendertes Abo-Formular (uid 2) | enthaelt wieder `pricelist_id` **und** `uom_id` |
+| `default_get` („Neu") | `pricelist_id = 34` (Preisliste 2026 + Valorisierung, **EUR**) |
+| **Anlegen ohne `pricelist_id`** (= der Fehlerfall) | **erfolgreich** — vorher `ValidationError „Ein Pflichtfeld ist nicht gesetzt — Pricelist (pricelist_id)"`; Testabo id 205 / `NV-00201`, Partner 72 Breitenbrunn, Vorlage J |
+| Produktpositionen | 2 Positionen erfasst: Amtsweg.gv.at **65,00** + TEST Abo Produkt Monatlich **15,00** — beide exakt aus PL 34 |
+| Erneut oeffnen (2x) | stabil: `draft`, PL 34 (EUR), `currency_id` **EUR**, `recurring_total` **80,00** |
+| Waehrung | durchgaengig **EUR** (126); keine USD-Preisliste im Spiel |
+| Bestandsabos | **5, datenidentisch** (172 `Test Monatsabo` USD, 182/183/184 USD, 185 `NV-00962` EUR) — Vergleich vor/nach dem Test: `True` |
+| Aufraeumen | Testabo geloescht → Endstand wieder **5 Abos**. `ir.sequence` `sale.subscription` durch die Testlaeufe von NV-00195 auf ~NV-00202 vorgerueckt (Test-DB, kosmetisch) |
+| Serverdatum | VM und lokal einheitlich `2026-09-11` (keine Uhren-Abweichung) |
+
+### 3) Praxistest im Browser (Einschraenkung, transparent)
+
+- Der UI-Durchlauf konnte in dieser Session **nicht automatisiert** gefahren werden: der Chrome-Harness liefert in dieser Umgebung keine Ausgabe zurueck (bekanntes „remote debugging"-Problem), und Passwoerter werden nicht per Desktop-Automatisierung getippt. Der Browser-Klicktest („Neu → Kunde → Produkt → Speichern → erneut oeffnen") auf der VM bleibt daher **von Anna im Browser zu bestaetigen** (~1 Minute).
+- Als Ersatzbelege fuer den UI-Pfad: gerendertes Formular enthaelt beide Felder wieder (`get_view`), `default_get` belegt die EUR-Vorbelegung, und der Speicherfall wurde ueber die API exakt so nachgestellt, wie ihn das Formular absendet (ohne `pricelist_id`).
+- **Hinweis zum Log:** Beim ersten Roh-API-Testaufruf (zwei Positionen in einem `write`) trat **einmalig** ein serverseitiger `TypeError` auf; identische Aufrufe liefen danach **zweimal fehlerfrei** durch (nicht reproduzierbar, kein Defekt des Fixes). Log-Gegenprobe auf der VM:
+  `cd /opt/odoo18 && docker compose logs --since 60m odoo | grep -iE "error|traceback"`.
+
+### 4) Einschraenkungen (fortgeschrieben)
+
+- VM-Zugang weiterhin **nur ueber VPN + Teleport** (direkter Port 22 von aussen gefiltert, Session 83).
+- KEINE Odoo-11-Datenmigration, KEIN `-u all`; USD-Preisliste 1 weiter inaktiv (F2–F5 separat); Encoding unangetastet; kein Force-Push/Rebase; Passwoerter nie committen.
+- Offen aus der Abnahme: F1 lokal (EUR-Symbol `Ôé¼`), F2/F3/F4 USD-Testdaten, F6 de_DE-Modulnamen, F8 Zeitzonen (12 aktive Benutzer), F28 Doppelkonto — je Freigabe.
