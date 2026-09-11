@@ -4803,3 +4803,16 @@ Dieser Pfad existiert auf dem heutigen Entwicklungs-Host **nicht** — er stammt
 - VM-Zugang weiterhin **nur ueber VPN + Teleport** (direkter Port 22 von aussen gefiltert, Session 83).
 - KEINE Odoo-11-Datenmigration, KEIN `-u all`; USD-Preisliste 1 weiter inaktiv (F2–F5 separat); Encoding unangetastet; kein Force-Push/Rebase; Passwoerter nie committen.
 - Offen aus der Abnahme: F1 lokal (EUR-Symbol `Ôé¼`), F2/F3/F4 USD-Testdaten, F6 de_DE-Modulnamen, F8 Zeitzonen (12 aktive Benutzer), F28 Doppelkonto — je Freigabe.
+
+### 5) Abschluss Session 84 — festgehaltenes Ergebnis (Stand 11.09.2026)
+
+**STATUS: Der `itk_subscription`-Fix ist auf der Test-VM erfolgreich deployed und getestet.**
+
+| Festhaltung | Wert / Beleg |
+|---|---|
+| Modul auf der VM | `itk_subscription` **18.0.1.1.0** installed (vorher 18.0.1.0.0), Modul-ID 710 |
+| **Neue Abos koennen wieder gespeichert werden** | Anlegen/Speichern ohne den frueheren Abbruch `„Ein Pflichtfeld ist nicht gesetzt — Pricelist (pricelist_id)"`; Testabo `NV-00201` erfolgreich angelegt, mit Positionen versehen, zweimal fehlerfrei wiedereroeffnet und wieder entfernt |
+| **Verwendete EUR-Preisliste** | `product.pricelist` **id 34 „Preisliste 2026 + Valorisierung"**, Waehrung **EUR** (`res_currency` id 126), **aktiv** seit 03.09.2026 (Session 82). Festpreis-Positionen: *Amtsweg.gv.at Formularsammlung Oesterreich — Preis pro angefangene 1.000 Einwohner* **65,00** und *TEST Abo Produkt Monatlich* **15,00**. Belege: `default_get` → `pricelist_id = 34`; Testabo-Summe **80,00** = 65,00 + 15,00; USD-Preisliste id 1 bleibt **inaktiv** und unberuehrt |
+| **Umfangstreue (bewusst NICHT gemacht)** | **kein `-u all`** — ausschliesslich `-u itk_subscription`; **keine DB-Migration**; **keine unnoetigen Modul-Upgrades** (die 10 weiteren `itk_*`-Module mit neuen Textdateien aus PR #23 wurden nicht angefasst, da ohne Versionssprung kein Upgrade ausgeloest wird); keine Systemaenderung ausser Odoo-Neustart |
+| Bestandsdaten | 5 Abos vor dem Test = 5 Abos nach dem Test, datenidentisch (172/182/183/184 USD, 185 `NV-00962` EUR) |
+| Synchronisation | GitHub `main` = lokaler Stand = VM-Arbeitsbaum; VM per `git pull --ff-only origin main` nachgezogen (Schritt 2, `7e9e9de → 1d6c835`), Abschluss-Doku danach gemergt |
