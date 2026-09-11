@@ -4816,3 +4816,82 @@ Dieser Pfad existiert auf dem heutigen Entwicklungs-Host **nicht** — er stammt
 | **Umfangstreue (bewusst NICHT gemacht)** | **kein `-u all`** — ausschliesslich `-u itk_subscription`; **keine DB-Migration**; **keine unnoetigen Modul-Upgrades** (die 10 weiteren `itk_*`-Module mit neuen Textdateien aus PR #23 wurden nicht angefasst, da ohne Versionssprung kein Upgrade ausgeloest wird); keine Systemaenderung ausser Odoo-Neustart |
 | Bestandsdaten | 5 Abos vor dem Test = 5 Abos nach dem Test, datenidentisch (172/182/183/184 USD, 185 `NV-00962` EUR) |
 | Synchronisation | GitHub `main` = lokaler Stand = VM-Arbeitsbaum; VM per `git pull --ff-only origin main` nachgezogen (Schritt 2, `7e9e9de → 1d6c835`), Abschluss-Doku danach gemergt |
+
+---
+
+## Session 85: Abnahmepunkt Währung — Analyse Euro-/Dollar-Darstellung + lokales EUR-Symbol korrigiert (11.09.2026)
+
+**Freigabe (Anna), in zwei Teilen:** (1) zuerst **nur Analyse** (read-only): wo ein falsches Euro-Zeichen vorkommt, wo `$` sichtbar ist, welche Preislisten/Währungen dahinterliegen, und ob es Encodingfehler oder echte USD-Daten sind; (2) danach **gezielt** den falschen EUR-Symbolwert **der lokalen** Testumgebung auf `€` korrigieren — **nur `res.currency` EUR**, **keine globale String-Ersetzung**, **VM nicht verändern** (dort ist `€` bereits korrekt), **USD-Daten nicht anfassen**. Danach Doku + ueblicher Git-Workflow.
+
+### 1) Analyse (read-only, beiden Instanzen, 11.09.2026)
+
+**a) Falsche Euro-Zeichen**
+
+| Stelle | Instanz | Wert | Sichtbarkeit |
+|---|---|---|---|
+| `res.currency` id 126 (EUR), Feld `symbol` | **nur lokal** | **`Ôé¼`** statt `€` | hoch — neben jedem Betrag in Liste/Formular, PDF und Website |
+| `res.currency` id 126 (EUR) | VM | `€` (korrekt seit Session 81) | OK |
+| 6 Core-QWeb-Views mit `ÔÇ`-Artefakten | **beide** Instanzen identisch | id 1282 (Auftrags-PDF, Zero-Width-Space → unsichtbar), 325 `mail.notification_preview`, 2451 `mass_mailing.digest_mail_main`, 3090 `website.s_key_images`, 3072 `website.s_opening_hours`, 2895 `website.template_footer_centered` (inaktiv) | derzeit **nicht sichtbar** |
+
+**Sichtbarkeitsprobe (echtes Rendering der VM ueber nginx):** `/` HTTP 200 (18.138 Zeichen), `/contactus` HTTP 200 (27.666), `/web/login` HTTP 200 (19.501) — **keine** Mojibake-Treffer. Die betroffenen Website-Bausteine sind nicht im Einsatz.
+
+**Gegenprobe „`â‚¬`":** kommt nicht vor; die tatsaechliche Artefaktform im Projekt ist `Ôé¼` (UTF-8-`€` als CP850 gelesen) — gleiche Ursache (CP850-Mojibake), andere Codepage als `â‚¬` (UTF-8 als CP1252).
+
+**Sauber geprueft (je beide Instanzen, 4 Suchmuster):** Menues, Actions, Modelle, Feldlabels, Hilfetexte, Reportnamen, Gruppen, Mail-Betreffe, Journals, Preislisten-Namen, Firmenname, Produktnamen/-beschreibungen, Steuernamen, Konfigurationsparameter, Auftragsnotizen, Buchungstexte — **keine** Treffer. **Quellcode** (`addons/**/*.py`, `*.xml`, `i18n/*.po`) enthaelt **keine** Mojibake-Waehrungszeichen und **keine** fest verdrahteten `€`/`$`-Symbole; die Reports rendern ueber `t-options="monetary"` mit `doc.currency_id`, also dynamisch.
+
+**b) Sichtbare `$`-Stellen**
+
+| Stelle | Befund |
+|---|---|
+| `res.currency` id 1 (USD), `symbol='$'`, `active=true` | beide Instanzen — Symbolwert korrekt fuer USD, fraglich ist nur die **Aktivierung** (F2) |
+| Verkaufsauftraege | **14 USD** (3× cancel, 1× draft, 2× sent, 4× sale/rechnungswirksam, 4× „to invoice") — echte USD-Daten (F3) |
+| Rechnungen/Buchungen | **4 USD** (`account.move` 17/19/20/21, alle draft) + **15 USD-Buchungszeilen** (F4) |
+| Abos | **4 USD** (172, 182, 183, 184) vs. 1 EUR (185) |
+| USD-Preisliste id 1 „Standard-Preisliste" | inaktiv, **0 Positionen** |
+| Partner-Voreinstellung | **alle 70 Partner** → PL 34 (EUR), **0** auf USD |
+| Journale | 7 Journale, keines mit eigener Waehrung → alle EUR; keine USD-Zahlungen |
+| Label-Treffer auf `$` | nur QWeb-Platzhalter `${object.code}` in den Abo-Mail-Templates 64–67 + ein technischer Hilfetext — **kein** Waehrungsproblem |
+
+**c) Preislisten/Waehrungen dahinter:** Firmenwaehrung EUR (126); **PL id 34 „Preisliste 2026 + Valorisierung" — EUR, aktiv, 2 Festpreis-Positionen (65,00 / 15,00)** → Standard fuer alle 70 Partner und neue Abos; **PL id 1 — USD, inaktiv, 0 Positionen**; aktive Waehrungen: genau EUR und USD (uebrige 168 inaktiv, ohne Mojibake).
+
+**d) Encoding vs. echte USD-Daten:** Encoding-/Darstellungsfehler sind **nur** der lokale EUR-Symbolwert und die 6 Core-View-Artefakte. Alles uebrige USD-bezogene ist **echte Konfiguration/Daten** aus dem Testdaten-Zeitraum 01.–24.07.2026 (damals war USD Basis-/Preislistenwaehrung).
+
+### 2) Korrektur lokal (ausgefuehrt, freigegeben)
+
+- **VORHER:** lokal `res.currency` id 126 EUR, `symbol = 'Ôé¼'`.
+- **Aenderung:** genau **ein `write`** auf **`res.currency` id 126**, genau **ein Feld** `symbol = '€'` (per HTTPS-JSON-RPC, Administrator, lokale Instanz `http://localhost:8069`).
+- **NACHHER:** lokal `symbol = '€'`, `position='after'`, `decimal_places=2`.
+- **Bewusst NICHT gemacht:** keine globale String-Ersetzung, keine weiteren Waehrungen/Datensaetze, keine Aenderung an `res.currency` der VM (nur gelesen: unveraendert `€`), **keine Aenderung an USD-Daten** (F2/F3/F4 bleiben unberuehrt).
+
+### 3) Verifikation (lokal)
+
+| Pruefung | Ergebnis |
+|---|---|
+| `res.currency` id 126 lokal | `symbol = '€'` |
+| VM `res.currency` id 126 | `symbol = '€'` — **unveraendert** (`vorher == nachher` = True) |
+| Odoo-Formatter (identisch zur UI-Darstellung) | `res.currency.format` liefert lokal **`65,00 €`**, **`15,00 €`**, **`1.234,56 €`** — VM identisch |
+| **Rechnung (ITK-Vorlage) gerendert** | `/report/html/itk_reports.report_itk_invoice/1` → HTTP 200, **9× `€`**, **0× `Ôé¼`**, Beispiel: `<span class="oe_currency_value">1,00</span> €` |
+| **Rechnung (Odoo-Standardvorlage) gerendert** | HTTP 200, **6× `€`**, 0× Mojibake |
+| **Auftrag/Angebot gerendert** | `itk_reports.report_itk_saleorder` (A-2600018): HTTP 200, **2× `€`**, 0× Mojibake; `sale.report_saleorder`: idem |
+| Preise/Preislisten lokal | Produktlistenpreise und PL-34-Positionen (65,00 / 15,00) formatieren korrekt mit `€` |
+| **USD-Kontrollzahlen lokal vor/nach** | Auftraege 14 / Rechnungen 4 / Abos 4 / Buchungszeilen 15 — **identisch** (`True`) |
+
+### 4) Neue Befunde
+
+| # | Bereich | Befund | Nachweis | Status |
+|---|---|---|---|---|
+| F29 | B/Encoding (Odoo-Kern) | 6 Core-QWeb-Views mit CP850-Artefakten (`ÔÇ…`) in **beiden** Instanzen: 1282 (Auftrags-PDF, Zero-Width-Space), 325 `mail.notification_preview`, 2451 `mass_mailing.digest_mail_main`, 3090 `website.s_key_images`, 3072 `website.s_opening_hours`, 2895 `website.template_footer_centered` (inaktiv) | RPC `ir.ui.view.arch_db` + Sichtprobe `/`, `/contactus` (keine Mojibake) | dokumentiert — derzeit **nicht sichtbar**, kein Fix beauftragt |
+| F30 | Datenabgleich VM↔lokal | VM fuehrt **mehr** Datensaetze als lokal: 17 vs. 16 Verkaufsauftraege (zus. id 200 `S00198`, draft, EUR, 01.09.2026 12:43), 6 vs. 5 Abos (zus. `NV-00204` = Browser-Test Anna, 11.09.2026), `mail.message` 423 vs. 421 | RPC `search_read`/`search_count` beider Instanzen | Hinweis — Abweichung dokumentiert, nichts angeglichen |
+| F27-Nachtrag | itk_subscription | **Browser-Klicktest nachweislich erfolgreich:** Abo `NV-00204` (id 207, `draft`, Partner *Abenthung Christian*, Vorlage *Monatsabrechnung*, **PL 34/EUR automatisch**, Summe 50,00) am 11.09.2026 10:42 angelegt und gespeichert | RPC `sale.subscription` read 207 | damit alle Punkte aus F27 erfuellt |
+| F1 | C/Waehrung | EUR-Symbol-Mojibake **jetzt auf beiden Instanzen behoben** (VM 02.09. Session 81, **lokal 11.09. Session 85**) | RPC `res.currency` 126 beider Instanzen | **BEHOBEN (vollstaendig)** |
+
+### 5) Bewusst NICHT angefasst (fachliche Entscheidung Anna)
+
+- **USD-Waehrung aktiv (F2)**, **14 USD-Auftraege (F3)**, **4 USD-Rechnungen + 15 USD-Zeilen (F4)**, **USD-Preisliste id 1** — alles unveraendert, „die echten USD-Daten bitte noch nicht veraendern oder loeschen" (Anna, 11.09.2026).
+- Kein globales Ersetzen `$`→`€`; Grundsatz bleibt: erst Ursache klaeren, dann gezielt korrigieren.
+
+### 6) Einschraenkungen (fortgeschrieben)
+
+- Kein `-u all`, keine DB-Migration, keine Modul-Upgrades in dieser Session; keine Systemaenderung ausser dem einen Feld-Write in der lokalen DB.
+- VM nur gelesen (keine Schreiboperation); USD-Daten unangetastet; Encoding-Wiederherstellung vom 13.08.2026 unberuehrt.
+- Kein Force-Push/Rebase; Passwoerter nie committen.
