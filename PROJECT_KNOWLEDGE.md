@@ -5122,3 +5122,31 @@ erhalten - eine Pruefung in `de_DE` findet ihn daher nicht, die Pruefung erfolgt
 - Kein `-u all`, keine DB-Migration, keine Schemaaenderung; nur Repo-Texte und gezielte Einzel-Upgrades.
 - Keine fachlichen Begriffe, keine OCA-Modulnamen, keine datenbank-gepflegten Menues/Stages/Kategorien geaendert.
 - Kein Force-Push/Rebase; Passwoerter nie committen.
+
+### 6) VM-Deploy (14.09.2026, direkter SSH-Zugang)
+
+1. `cd /opt/odoo18 && git pull --ff-only origin main` -> **`6aaa5b9` -> `e94b511`**
+2. `docker compose restart odoo` (Python-Aenderung in `itk_crm/models/models.py`) -> odoo18 Up, `/web/login` = HTTP 200
+3. **8 Module einzeln upgegradet** (kein `-u all`): itk_crm, itk_translation, itk_helpdesk_compat,
+   itk_subscription, itk_base_setup, helpdesk_mgmt, partner_firstname, partner_external_map -> **8/8 ohne Fehler**
+4. **Zwei gezielte Ueberschreib-Ladungen** per `docker compose exec -T odoo ... odoo shell < scripts/load_terms_de.py`:
+   - `itk_base_setup` / `account_edi_ubl_cii.field_res_partner__peppol_endpoint`: "Peppol Endpoint" -> **"Peppol-Endpunkt"**
+   - `partner_external_map` / `partner_external_map.view_partner_form` (Button Karte/Routenplaner)
+5. `docker compose restart odoo` (Werte wurden von einem externen Prozess geschrieben)
+6. **Verifikation:** `python scripts/verify_s88_de.py` -> **VM 17/17 OK, Summe Fehler 0**;
+   `lokal = GitHub = VM` auf **`e94b511`**
+
+### 7) Log-Gegenprobe VM (48-Stunden-Fenster) - keine neuen Fehlerarten durch diese Session
+
+Auswertung von 40.793 Log-Zeilen (`docker compose logs --since 48h odoo`):
+
+| Fehlerart | Anzahl | Zeitraum (VM-Zeit, UTC) | Bewertung |
+|---|---|---|---|
+| `FileNotFoundError` (Filestore) | 210 | 13.09. 17:23 - 14.09. 11:23 | **vorbestehend** (F33, s. Checkliste) |
+| `KeyError` (u. a. Menue-Cache `load_menus`, de_DE) | 89 | 13.09. 08:38 - 14.09. 11:23 | **vorbestehend** |
+| `TypeError: WebManifest.scoped_app() missing 1 required positional argument` | 10 | 14.09. 10:04 (externer Scan von 138.2.106.209) | vorbestehend, Fremdzugriff auf `/scoped_app` |
+| `AttributeError` | 6 | 12.09. - 13.09. | vorbestehend |
+| `ValueError: Expected singleton: ir.ui.view(False, 'form')` | 4 | 14.09. 11:20:56 - 11:21:20 | transient: Request waehrend des Registry-Reloads (Neustart/Upgrade-Fenster), keine Datenwirkung |
+
+Alle Fehlerarten traten **bereits vor** den Aenderungen dieser Session auf (12./13.09.). Die Fehler im
+Deploy-Fenster (11:20-11:23) sind Neustart-/Upgrade-Artefakte. **Kein neuer Fehlertyp, keine Tracebacks aus den geaenderten Modulen.**
