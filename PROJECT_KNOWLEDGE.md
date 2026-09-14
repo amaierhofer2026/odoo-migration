@@ -5233,3 +5233,96 @@ Asset Partner, Magnitude, Reseller), Helpdesk-Wurzelmenue und Feld Team unveraen
 7. **Verifikation:** `python scripts/verify_s89_de.py` -> **VM 36/36 OK, Summe Fehler 0**;
    `lokal = GitHub = VM` auf **`0f10547`**
 8. Log-Gegenprobe VM: **0 ERROR/CRITICAL** im 20-Minuten-Fenster des Deploys
+
+---
+
+## Session 90: F33 — unvollstaendiger Filestore, Ursache und lokale Quellen (14.09.2026)
+
+**Auftrag (Anna, read-only):** F33 untersuchen (fehlende Filestore-Dateien), danach die lokalen Quellen
+pruefen — ausdruecklich **ohne** IPAX und **ohne** Aenderung/Kopie. Ergebnis jetzt dokumentiert.
+
+### 1) Befund: 895 Anhangsdatensaetze verweisen auf fehlende Dateien
+
+| Groesse | Wert |
+|---|---|
+| Anhaenge mit `store_fname` | **958** (lokal) / 981 (VM) — identische Fehlstellen |
+| davon ohne Datei im Filestore | **895 Datensaetze = 513 verschiedene Dateien** (5,1 MB) |
+| Bild-/Binaerfelder | 887 Datensaetze |
+| echte Dokumente (ohne `res_field`) | 8 Datensaetze (7 verschiedene Dateien) |
+
+Aufteilung der 513 fehlenden Dateien:
+- **432 Odoo-Standardgrafiken** — `payment.method` (440 Anhaenge, **alle 220 Zahlungsmethoden sind archiviert**),
+  `payment.provider` 17, `ir.ui.menu` 21, Gamification 45, Onboarding 6, `res.lang` 3
+- **81 Dateien mit Datenbezug** — 43 echte Kontakt-/Mitarbeiterfotos (45 aktive Kontakte + 13 aktive Mitarbeiter
+  betroffen), 25 Mini-Platzhalter (< 2 kB, ohne Bildinhalt), 7 Beleg-PDFs (Angebote S00188/S00189,
+  Anfragen/Bestellungen P00015–P00018), 4 aktive Dashboard-Inhalte, 1 Website-Logo, 1 CSS-Asset
+
+Nebenbefund: **19 Dateien (lokal) / 20 (VM) liegen im Filestore eine Ebene zu hoch**
+(`filestore/<xx>/<hash>` statt `filestore/odoo18_test/<xx>/<hash>`) und werden daher von Odoo nicht gefunden.
+
+### 2) Alle lokalen Quellen geprueft — keine enthaelt die fehlenden Dateien
+
+Geprueft per SHA-1/Dateinamen-Abgleich (Filestore-Dateiname = SHA-1 des Inhalts):
+
+| Quelle | Dateien | deckt fehlende ab |
+|---|---|---|
+| aktueller Filestore lokal / VM | 29 / 52 | 0 |
+| `filestore_before_phase3_2026-08-11` (4 Kopien) | 104 | 0 |
+| `BACKUP-2026-07-29\extracted\` (Odoo-18-Backup 24.07.2026: `manifest.json` + `dump.sql` + `filestore/`) | 27 | 0 |
+| `backups\odoo18_backup_clean_2026-07-29_1248` (+.zip) | 26 | 0 |
+| 18 Notfallbackup-Laeufe (12.08.–14.09.2026), inkl. `filestore_backup` 31.08. | je 2–14 | 0 |
+| `AppData\Local\Temp\odoo18_restore_2026-08-11` | 26 | 0 |
+| VM: `filestore_vm_20260831.tar.gz` | 33 | 0 |
+| alle ZIPs (Odoo-11-Modulpakete 2019, Odoo-18-Backups), `odoo18-transfer.tar.gz` | 0–27 | 0 |
+| 5 PostgreSQL-Rohcluster (`postgres`, `postgres_recovery`, `postgres_defekt_*`, `Odoo-Notfallbackup\Odoo-Test\postgres`) | alle PG 16 = Odoo-18-Aera | 0 |
+| alter `dump.sql` (29 MB): 1.243 Anhangszeilen, **`db_datas` leer** | – | 0 |
+
+Konsequenz: die fehlenden Dateien sind **nicht** in den DB-Dumps enthalten (Anhaenge lagen nie in der DB)
+und auch nicht in den Filestore-Kopien — der Odoo-11-/Test-Filestore wurde nie vollstaendig mitgesichert.
+F33 ist vorbestehend (erste Spur im VM-Log am 13.09.), nicht durch Session 87–89 verursacht.
+
+### 3) Neuer Fund: vollstaendiges Odoo-11-Backup lokal vorhanden (Desktop **und** Nextcloud)
+
+```
+C:\Users\anna.maierhofer\Desktop\Odoo_DB_Dump_2026_09_03\
+C:\Users\anna.maierhofer\Nextcloud\Odoo_DB_Dump_2026_09_03\   (byte-identische Sync-Kopie)
+   ITK_V1_a.pg_dump            48.157.063 Bytes  03.09.2026 09:26  PostgreSQL-Custom-Dump (PGDMP),
+                                                                   DB-Name "ITK_V1_a"
+   ITK_V1_a_filestore.tar.gz 1.611.611.802 Bytes 03.09.2026 09:33  Struktur filestore/ITK_V1_a/<xx>/<hash>,
+                                                                   21.789 Dateien
+```
+
+Der Dump traegt eindeutige **Odoo-11**-Merkmale (`website_support`, `hr_holidays_status`, `account_invoice`,
+`sale_subscription`) → das ist die **Kunden-Produktivdatenbank (Odoo 11) samt vollstaendigem Filestore**.
+Laut Desktop-Notiz `Odoo18_Server_Anforderungen.txt` bleibt "das bestehende Odoo 11 unveraendert" → das
+Produktivsystem existiert weiter.
+
+**Abdeckung unserer 513 fehlenden Dateien durch diesen Filestore: 18 (3,5 %)** — 158 Anhangsdatensaetze,
+ausschliesslich Kontakt-/Mitarbeiterfotos (u. a. Ronald Sallmann, Sallmann Alexander, Pellkvist, Tiefling,
+Mystek, Blagojevic, Breitenender, Osagie, Waiss, Breit, Buchinger, Czarnecki, Miglar, Mohammad).
+Keine Beleg-PDFs, keine Dashboards, keine Modulgrafiken. Grund: unsere Test-DB verweist auf Dateien mit
+**anderem Inhalt** als der O11-Filestore (Bilder wurden im Test-/Migrationsprozess neu erzeugt), daher
+greift der reine Hash-Abgleich nur bei identischen Dateien.
+
+### 4) Was damit ohne IPAX moeglich ist
+
+| Anteil | Weg |
+|---|---|
+| 432 Modulgrafiken | **ohne jedes Backup** aus dem Odoo-18-Quellcode / frischer Installation (56 per SHA-1 belegt) |
+| 18 Fotodateien | direkt aus `ITK_V1_a_filestore.tar.gz` (hash-identisch) |
+| ~25 weitere echte Fotos | **semantisch** ueber die O11-DB (Partner/Mitarbeiter → Bilddatei), Dump + Filestore liegen vor — Zwischenschritt: Dump read-only in Wegwerf-Instanz lesen |
+| 7 Beleg-PDFs + 4 Dashboards | in keiner lokalen Quelle; wurden am 10.07.2026 in der Test-DB erzeugt. Nur ueber IPAX-Backup der Test-VM (vor 31.08.2026) — oder in der Testphase akzeptiert |
+| 25 Mini-Platzhalter + 1 CSS | ohne Inhalt bzw. aus dem Quellcode |
+
+### 5) Werkzeug (im Repo)
+
+`scripts/f33_filestore_scan.py` — read-only Analyse: vergleicht die Anhangsliste einer Instanz
+(`psql`-Export) mit einer Filestore-Dateiliste, klassifiziert nach Modell/Feld, trennt Bild- von echten
+Anhaengen, prueft alle bekannten Sicherungsquellen per SHA-1/Dateinamen und meldet die Abdeckung.
+Aufruf: `python scripts/f33_filestore_scan.py <anhaenge.txt> <filestore.txt> <label>`
+
+### 6) Grundsatz fuer die Umsetzung (noch nicht ausgefuehrt)
+
+Ausschliesslich **kopieren**, SHA-1-verifiziert, nichts ueberschreiben, nichts loeschen, vorher
+Filestore-Backup. Reihenfolge: (1) Modulgrafiken + falsch liegende Dateien, (2) Fotos aus dem O11-Backup,
+(3) Entscheidung zu PDFs/Dashboards.
