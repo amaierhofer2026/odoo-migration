@@ -5013,3 +5013,29 @@ Die fett markierten Unterschiede sind die bereits in **F30** dokumentierte, vorb
 - Kein `-u all`, keine DB-Migration, keine Schemaaenderung; nur `.po`-Referenzen, Manifest-Namen und gezielte Einzel-Upgrades.
 - Keine fachlichen Begriffe geaendert; keine Loeschungen; Encoding-Reparatur vom 13.08.2026 unberuehrt.
 - Kein Force-Push/Rebase; Passwoerter nie committen.
+
+### 7) VM-Deploy (14.09.2026 — direkter SSH-Zugang wieder offen)
+
+**SSH-Befund:** Der direkte Zugang von diesem Host auf `93.189.28.204:22` funktioniert **wieder** (Session 83: Timeout, VM-seitig gefiltert). Banner `SSH-2.0-OpenSSH_10.2p1 Ubuntu-2ubuntu3.6`, Login als `k001959` per Passwort (Paramiko) erfolgreich. `:8069` und `:5432` bleiben von außen dicht (nur nginx :80/:443 öffentlich) — erwartet und unveraendert. Damit ist der VM-Schritt **nicht mehr** von der Teleport-Shell abhaengig.
+
+**Durchgefuehrt:**
+1. `cd /opt/odoo18 && git pull --ff-only origin main` → **`8f2a387` → `1f07d61`** (34 Dateien, keine Konflikte, Arbeitsbaum sauber)
+2. `docker compose restart odoo` → `odoo18` Up, `/web/login` = **HTTP 200**, Registry geladen
+3. **26 Module einzeln upgegradet** (kein `-u all`), von diesem Host per JSON-RPC:
+   - `.po`-Module: itk_subscription, itk_sale_management, itk_base_setup, hr_holidays_public, hr_employee_firstname, partner_firstname, partner_academic_title, partner_external_map, merge_sale_order, sale_order_line_number, account_invoice_line_number, account_invoice_line_report, purchase_order_line_number, website_cookie_notice
+   - Manifest-Module: itk_crm, itk_product, itk_projectcategory, itk_reports, itk_translation, itk_valorisierung, itk_multifactor, itk_saleorder_lines, itk_automated_actions, itk_third_party_setup, itk_helpdesk_compat, itk_helpdesk_category_user
+   - Ergebnis **26 von 26 ohne Fehler** (bei `itk_helpdesk_category_user` einmal `belegt (Cron)`, Versuch 1/3 in 20 s → danach ok)
+4. `ir.module.module.update_list()` → `[130, 0]` (nach dem Neustart gelesen → Modulnamen greifen)
+
+**Verifikation auf der VM** — identisch zum lokalen Ergebnis:
+
+| Pruefung | VM-Ergebnis |
+|---|---|
+| Abo-Feldlabels | `Kunde`, `Startdatum`, `Enddatum`, `Preisliste`, `Vorlage für Abonnements`, `Datum der nächsten Rechnung`, `Wiederkehrender Preis`, `Buchungsjournal`, `Preis pro ME` |
+| Abo-Statuswerte | **Neu / Laufend / Zu erneuern / Abgeschlossen / Abgebrochen** |
+| Abo-Buttons | 15 deutsche Bezeichnungen (u. a. **Abonnement starten, Aboauftrag abbrechen, Aboauftrag schließen, Erneuerungsabgebot, Online-Vorschau**); nur „Generate Invoice manually" noch englisch |
+| Modulnamen (Apps-Liste) | alle 15 ITK-Module deutsch |
+| „Kundenverwaltung" | unveraendert vorhanden (`ir.ui.menu`, 1 Treffer) |
+| Logs | 4 ERROR-Zeilen im 20-Minuten-Fenster, **alle erklaert**: 1× `Connection to the database failed` um 11:01 = durch den Container-Neustart unterbrochene XML-RPC-Anfrage eines externen Clients (213.90.116.139); 3× um 11:14:57 = Cron-Konflikt (`SELECT * FROM ir_cron FOR UPDATE NOWAIT`) beim Retry. **Nach 11:15 keine Fehler**, Cron laeuft normal weiter |
+
+**Ergebnis:** `lokal = GitHub = VM` auf **`1f07d61`**. Die deutschen Texte liegen auf beiden Instanzen im Repo und sind damit **upgrade-fest** — der Rueckfall-Mechanismus aus F17/F31 ist geschlossen.
