@@ -108,8 +108,8 @@ class ResPartner(models.Model):
     asset_partner = fields.Boolean('Asset Partner')
     attention_of = fields.Char("zu Handen")
     salutation = fields.Char("Anrede")
-    title_put_in_front = fields.Char(string='Title in Front')
-    title_put_in_back = fields.Char(string='Title in Back')
+    title_put_in_front = fields.Char(string='Titel vorangestellt')
+    title_put_in_back = fields.Char(string='Titel nachgestellt')
     sales_as_final_customer_count = fields.Integer(
         compute='_sales_as_final_customer_count',
         string='Anzahl Verkäufe als Endkunde',

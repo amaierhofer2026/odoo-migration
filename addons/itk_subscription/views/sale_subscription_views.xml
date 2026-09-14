@@ -205,7 +205,7 @@
         <field name="model">sale.subscription.line</field>
         <field name="arch" type="xml">
             <list>
-                <field name="analytic_account_id" string="Aboauftrag"/>
+                <field name="analytic_account_id" string="Abo-Auftrag"/>
                 <field name="product_id" string="Produkt"/>
                 <field name="name"/>
                 <field name="quantity" string="Menge"/>

@@ -58,6 +58,7 @@ msgid "Bank Accounts"
 msgstr "Bankkonten"
 
 # Kontaktformular-Feldbezeichnungen
+
 #. module: base
 #: model:ir.model.fields,field_description:base.field_res_partner__vat
 msgid "Tax ID"
@@ -107,7 +108,26 @@ msgstr "Ist ein Kunde"
 #: model:ir.model.fields,field_description:itk_base_setup.field_res_partner__is_supplier
 msgid "Ist ein Lieferant"
 msgstr "Ist ein Lieferant"
+
 #. module: itk_base_setup
 #: model:ir.model.fields,field_description:account_edi_ubl_cii.field_res_partner__peppol_endpoint
 msgid "Peppol Endpoint"
 msgstr "Peppol-Endpunkt"
+
+#. module: itk_base_setup
+# Punkt 13 (Session 89)
+#: model:ir.model.fields,field_description:project.field_res_partner__project_ids
+msgid "Projects"
+msgstr "Projekte"
+
+#. module: itk_base_setup
+# Punkt 13 (Session 89)
+#: model:ir.model.fields,field_description:project.field_res_partner__task_ids
+msgid "Tasks"
+msgstr "Aufgaben"
+
+#. module: itk_base_setup
+# Punkt 13 (Session 89)
+#: model:ir.model.fields,field_description:project.field_res_partner__task_count
+msgid "# Tasks"
+msgstr "# Aufgaben"
