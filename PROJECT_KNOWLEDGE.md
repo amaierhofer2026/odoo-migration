@@ -5218,3 +5218,18 @@ Asset Partner, Magnitude, Reseller), Helpdesk-Wurzelmenue und Feld Team unveraen
 - Kleinere Restbegriffe: Tooltip `End work` (Zeiterfassung-Knopf im Ticket, nicht Teil des Auftrags),
   Standard-Odoo-Begriffe (Apps, Dashboards, Mailings, To-do)
 - Vorbestehend und offen: **F33 Filestore unvollstaendig** (74 fehlende Dateien auf der VM, 29 lokal)
+
+### 6) VM-Deploy (14.09.2026)
+
+1. `cd /opt/odoo18 && git pull --ff-only origin main` -> **`73c3789` -> `0f10547`**
+2. `docker compose restart odoo` (Python-Aenderung itk_crm) -> odoo18 Up
+3. **5 Module einzeln upgegradet** (kein `-u all`): itk_base_setup, itk_crm, itk_subscription,
+   helpdesk_mgmt_sla, helpdesk_mgmt_timesheet -> **5/5 ohne Fehler**
+4. **Gezielte Ueberschreib-Ladung** derselben 22 Referenzen per
+   `docker compose exec -T odoo ... odoo shell < scripts/load_terms_de.py` -> Werte gesetzt
+5. `docker compose restart odoo`
+6. Kategorie **"Anonymisierungsportal"** war bereits vorgezogen auf beiden Instanzen gesetzt
+   (`helpdesk.ticket.category` id 57, en_US + de_DE)
+7. **Verifikation:** `python scripts/verify_s89_de.py` -> **VM 36/36 OK, Summe Fehler 0**;
+   `lokal = GitHub = VM` auf **`0f10547`**
+8. Log-Gegenprobe VM: **0 ERROR/CRITICAL** im 20-Minuten-Fenster des Deploys
