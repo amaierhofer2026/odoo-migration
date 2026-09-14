@@ -91,7 +91,7 @@
 
     <!-- 6. SLA's (reuse OCA SLA action, renamed) -->
     <record id="menu_helpdesk_config_sla" model="ir.ui.menu">
-        <field name="name">SLA's</field>
+        <field name="name">SLAs</field>
         <field name="parent_id" ref="helpdesk_mgmt.helpdesk_ticket_config_main_menu"/>
         <field name="sequence">60</field>
         <field name="action" ref="helpdesk_mgmt_sla.action_helpdesk_sla_tree"/>
@@ -99,7 +99,7 @@
 
     <!-- 7. Helpdesk Gruppen (= teams, renamed) -->
     <record id="menu_helpdesk_config_team" model="ir.ui.menu">
-        <field name="name">Helpdesk Gruppen</field>
+        <field name="name">Helpdesk-Gruppen</field>
         <field name="parent_id" ref="helpdesk_mgmt.helpdesk_ticket_config_main_menu"/>
         <field name="sequence">70</field>
         <field name="action" ref="helpdesk_mgmt.helpdesk_ticket_team_action"/>

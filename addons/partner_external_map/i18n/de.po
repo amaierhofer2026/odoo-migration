@@ -181,7 +181,7 @@ msgstr ""
 #. module: partner_external_map
 #: model_terms:ir.ui.view,arch_db:partner_external_map.view_partner_form
 msgid "Route Map"
-msgstr "Routenkarte"
+msgstr "Routenplaner"
 
 #. module: partner_external_map
 #: model:ir.model.fields,field_description:partner_external_map.field_res_users__context_route_map_website_id

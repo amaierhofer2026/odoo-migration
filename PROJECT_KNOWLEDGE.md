@@ -5039,3 +5039,86 @@ Die fett markierten Unterschiede sind die bereits in **F30** dokumentierte, vorb
 | Logs | 4 ERROR-Zeilen im 20-Minuten-Fenster, **alle erklaert**: 1× `Connection to the database failed` um 11:01 = durch den Container-Neustart unterbrochene XML-RPC-Anfrage eines externen Clients (213.90.116.139); 3× um 11:14:57 = Cron-Konflikt (`SELECT * FROM ir_cron FOR UPDATE NOWAIT`) beim Retry. **Nach 11:15 keine Fehler**, Cron laeuft normal weiter |
 
 **Ergebnis:** `lokal = GitHub = VM` auf **`1f07d61`**. Die deutschen Texte liegen auf beiden Instanzen im Repo und sind damit **upgrade-fest** — der Rueckfall-Mechanismus aus F17/F31 ist geschlossen.
+
+---
+
+## Session 88: Punkt 3, zweite Runde — zehn eindeutige Repo-Begriffe deutsch (14.09.2026)
+
+**Freigabe (Anna):** ausschliesslich die eindeutig uebersetzbaren Repo-Punkte **1, 2, 3, 4, 5, 6, 17, 18, 19, 20**
+mit den vorgeschlagenen deutschen Bezeichnungen. **NICHT** geaendert: fachlich unklare Begriffe,
+datenbank-gepflegte Menues/Stages/Kategorien, OCA-Modulnamen in der Apps-Liste, Nr. 26
+(Anonymisierungsportal), alle Punkte unter "fachlich zu klaeren".
+
+### 1) Neue Ursache gefunden: der PO-Reader mischt die .pot in die .po
+
+`odoo/tools/translate.py` -> `PoFileReader.__init__`:
+
+```python
+if pot_path:
+    # Make a reader for the POT file
+    # (Because the POT comments are correct on GitHub but the PO comments tend to be outdated.)
+    self.pofile.merge(polib.pofile(pot_path))
+```
+
+Die **Referenzen (XML-IDs) stammen damit aus dem `.pot`** - nicht aus der `.po`. Die in Session 87
+korrigierten `.po`-Referenzen waren wirkungslos, solange dieselbe Referenz im `.pot` noch im
+O11-Schema stand (z. B. `partner_firstname.field_res_partner_lastname`). Genau deshalb blieben
+"Vorname/Nachname" und "Karte/Routenplaner" englisch, obwohl die `.po` korrekt war.
+`scripts/fix_po_xmlids_de.py` bearbeitet seit dieser Session deshalb **auch alle `.pot`-Dateien**.
+
+Zwei weitere Mechanismen (belegt im Container-Quellcode und per Test):
+- **Modul-Upgrade laedt Uebersetzungen mit `overwrite=False`** (`_load_module_terms`). Fuer einfache
+  Uebersetzungsfelder gilt dann `t.value || m.feld` -> ein bereits gesetzter (falscher) `de_DE`-Wert
+  in der DB gewinnt. Fuer Korrekturen ist eine gezielte Ladung mit `overwrite=True` noetig
+  (neues Werkzeug `scripts/load_terms_de.py`, per xmlid gefiltert; leere `msgstr` werden vom
+  Importer ohnehin ignoriert, es kann also nichts "geleert" werden).
+- **Python-Aenderungen** (Feld-Label im Quelltext) greifen erst nach einem **Container-Neustart** -
+  ein Modul-Upgrade liest nur Daten (XML/.po) neu. Aenderungen aus einem **externen Prozess**
+  (`odoo shell`) sieht der laufende Server ebenfalls erst nach einem Neustart (View-/Uebersetzungscache).
+
+### 2) Umgesetzt (nur Repo)
+
+| Nr. | Begriff (englisch) | neuer deutscher Text | Ort der Aenderung |
+|---|---|---|---|
+| 1 | `Generate Invoice manually` (Button Abo-Formular) | **Rechnung manuell erstellen** | `itk_subscription/i18n/de.po` (msgstr war mit dem englischen Original identisch) |
+| 2 | `First name` / `Last name` | **Vorname / Nachname** | `partner_firstname` - `.pot`-Referenzen korrigiert (Eintraege waren in der `.po` bereits deutsch) |
+| 3 | `Size of Population` | **Einwohnerzahl** | `itk_crm/models/models.py` (Quelltext) |
+| 4 | `Population Update` | **Einwohnerzahl aktualisiert am** | `itk_crm/models/models.py` (Quelltext) |
+| 5 | `Peppol Endpoint` | **Peppol-Endpunkt** | neuer Eintrag in `itk_base_setup/i18n/de.po` (Feld gehoert zu `account_edi_ubl_cii`) + gezielte Ueberschreib-Ladung |
+| 6 | `Map` / `Route Map` (Buttons Kontaktformular) | **Karte / Routenplaner** | `partner_external_map` - `.pot`-Referenzen + `.po`-Wert |
+| 17 | `Duplicate Count`, `Duplicate of`, `Duplicate tickets`, `Enable duplicate ticket tracking.`, `Mark as duplicate` | **Anzahl Duplikate, Duplikat von, Duplikat-Tickets, Duplikat-Erkennung aktivieren., Als Duplikat markieren** | `helpdesk_mgmt/i18n/de.po` (msgstr waren leer) |
+| 18 | `ITK-Menu` (oberste Menueebene) | **ITK-Menü** | `itk_translation/views/itk_menus.xml` |
+| 19 | `SLA's` (Helpdesk/Konfiguration) | **SLAs** | `itk_helpdesk_compat/views/menus.xml` |
+| 20 | `Helpdesk Gruppen` (Helpdesk/Konfiguration) | **Helpdesk-Gruppen** | `itk_helpdesk_compat/views/menus.xml` |
+
+**Mit derselben Ursache mitbehoben:** **625 weitere `.pot`-Referenzen in 10 Modulen** (u. a.
+itk_subscription 533 ueber .po/.pot, hr_holidays_public 46, partner_external_map 24,
+partner_firstname 10, account_invoice_line_report 5, website_cookie_notice 4,
+hr_employee_firstname 2, account_invoice_line_number 1). Ohne diese Korrektur waeren auch die
+Session-87-Fixes dauerhaft wirkungslos geblieben.
+
+### 3) Neue/erweiterte Werkzeuge (im Repo)
+
+- `scripts/fix_po_xmlids_de.py` - bearbeitet jetzt `.po` **und** `.pot` (Ursache s. o.), weiterhin idempotent.
+- `scripts/load_terms_de.py` - gezieltes Nachladen einzelner PO-Eintraege mit `overwrite=True`,
+  per `xmlids`-Filter auf genau die betroffenen Datensaetze begrenzt (keine Nebenwirkungen);
+  laeuft per `odoo shell` im Container.
+- `scripts/verify_s88_de.py` - read-only Verifikation der zehn Punkte auf **lokaler Instanz und VM**
+  (Feldlabels, Menuenamen, Buttons, "Kundenverwaltung").
+
+### 4) Verifikation lokal (14.09.2026)
+
+`python scripts/verify_s88_de.py` -> **17 Pruefungen OK, 0 Fehler**: alle Feldlabels, die drei
+Menuebezeichnungen, die vier Buttons (inkl. Abo-Button "Rechnung manuell erstellen") und
+"Kundenverwaltung" erhalten. Log: **0 ERROR/CRITICAL**. Upgrades einzeln (kein `-u all`).
+
+**Wichtig zu "Kundenverwaltung":** Der Begriff steht als **Quelltext** am CRM-Wurzelmenue
+(`crm.crm_menu_root`, XML-ID aus dem Core-Modul `crm`, `en_US` = "Kundenverwaltung"); die deutsche
+Core-Uebersetzung dieses Menues lautet "CRM". Der kundenspezifische Begriff ist **unveraendert**
+erhalten - eine Pruefung in `de_DE` findet ihn daher nicht, die Pruefung erfolgt ueber den Quelltext.
+
+### 5) Einschraenkungen (fortgeschrieben)
+
+- Kein `-u all`, keine DB-Migration, keine Schemaaenderung; nur Repo-Texte und gezielte Einzel-Upgrades.
+- Keine fachlichen Begriffe, keine OCA-Modulnamen, keine datenbank-gepflegten Menues/Stages/Kategorien geaendert.
+- Kein Force-Push/Rebase; Passwoerter nie committen.
