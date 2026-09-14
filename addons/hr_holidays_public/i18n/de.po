@@ -167,12 +167,12 @@ msgid "Last Updated on"
 msgstr "Zuletzt aktualisiert am"
 
 #. module: hr_holidays_public
-#: model:ir.model,name:hr_holidays_public.model_hr_leave model:ir.model,name:hr_holidays_public.model_hr_leave model:ir.model,name:hr_holidays_public.model_hr_holidays
+#: model:ir.model,name:hr_holidays_public.model_hr_leave model:ir.model,name:hr_holidays_public.model_hr_leave model:ir.model,name:hr_holidays_public.model_hr_leave model:ir.model,name:hr_holidays_public.model_hr_holidays
 msgid "Leave"
 msgstr "Urlaub"
 
 #. module: hr_holidays_public
-#: model:ir.model,name:hr_holidays_public.model_hr_leave_type model:ir.model,name:hr_holidays_public.model_hr_leave_type model:ir.model,name:hr_holidays_public.model_hr_holidays_status
+#: model:ir.model,name:hr_holidays_public.model_hr_leave_type model:ir.model,name:hr_holidays_public.model_hr_leave_type model:ir.model,name:hr_holidays_public.model_hr_leave_type model:ir.model,name:hr_holidays_public.model_hr_holidays_status
 msgid "Leave Type"
 msgstr "Urlaubsart"
 

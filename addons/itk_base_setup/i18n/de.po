@@ -107,3 +107,7 @@ msgstr "Ist ein Kunde"
 #: model:ir.model.fields,field_description:itk_base_setup.field_res_partner__is_supplier
 msgid "Ist ein Lieferant"
 msgstr "Ist ein Lieferant"
+#. module: itk_base_setup
+#: model:ir.model.fields,field_description:account_edi_ubl_cii.field_res_partner__peppol_endpoint
+msgid "Peppol Endpoint"
+msgstr "Peppol-Endpunkt"

@@ -18,7 +18,7 @@ msgstr ""
 "X-Generator: Poedit 2.0.6\n"
 
 #. module: account_invoice_line_number
-#: model:ir.model,name:account_invoice_line_number.model_account_move_line model:ir.model,name:account_invoice_line_number.model_account_move_line model:ir.model,name:account_invoice_line_number.model_account_invoice_line
+#: model:ir.model,name:account_invoice_line_number.model_account_move_line model:ir.model,name:account_invoice_line_number.model_account_move_line model:ir.model,name:account_invoice_line_number.model_account_move_line model:ir.model,name:account_invoice_line_number.model_account_invoice_line
 msgid "Invoice Line"
 msgstr "Rechungsposition"
 

@@ -274,10 +274,25 @@ def main():
             continue
         if modul in AUSGENOMMEN:
             continue
-        pfad = os.path.join(ADDONS, modul, "i18n", "de.po")
-        if not os.path.isfile(pfad):
+        i18n_dir = os.path.join(ADDONS, modul, "i18n")
+        if not os.path.isdir(i18n_dir):
             continue
-        a, n = verarbeite_datei(pfad, modul, db, dry_run=args.dry_run)
+        # WICHTIG: Odoo mischt beim Import die .pot-Referenzen in die .po
+        # (polib merge, odoo/tools/translate.py PoFileReader.__init__). Falsche
+        # Referenzen im .pot ueberschreiben also die korrekten aus der .po.
+        dateien = []
+        po = os.path.join(i18n_dir, "de.po")
+        if os.path.isfile(po):
+            dateien.append(po)
+        dateien += sorted(os.path.join(i18n_dir, f) for f in os.listdir(i18n_dir)
+                          if f.endswith(".pot"))
+        if not dateien:
+            continue
+        a, n = [], []
+        for datei in dateien:
+            ta, tn = verarbeite_datei(datei, modul, db, dry_run=args.dry_run)
+            a += ta
+            n += tn
         if not a and not n:
             continue
         gesamt_a += len(a)

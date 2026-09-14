@@ -57,7 +57,7 @@
 
     <!-- 2. Create the menu structure -->
     <menuitem id="menu_itk_toplevel"
-              name="ITK-Menu"/>
+              name="ITK-Menü"/>
 
     <menuitem id="menu_itk_partner"
               parent="menu_itk_toplevel"
