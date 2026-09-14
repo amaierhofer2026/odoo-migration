@@ -5150,3 +5150,71 @@ Auswertung von 40.793 Log-Zeilen (`docker compose logs --since 48h odoo`):
 
 Alle Fehlerarten traten **bereits vor** den Aenderungen dieser Session auf (12./13.09.). Die Fehler im
 Deploy-Fenster (11:20-11:23) sind Neustart-/Upgrade-Artefakte. **Kein neuer Fehlertyp, keine Tracebacks aus den geaenderten Modulen.**
+
+---
+
+## Session 89: Punkt 3, dritte Runde — Punkte 10, 13, 15, 16, 22, 26 + Textkorrekturen (14.09.2026)
+
+**Freigabe (Anna):** umsetzen: Nr. 10 (Titel), Nr. 13 (Projects/Tasks/Meetings), Nr. 15 (SLA-Begriffe),
+Nr. 16 (Zeiterfassungs-/Timesheet-Begriffe), Nr. 22 (Helpdesk-Grundbegriff **beibehalten**),
+Nr. 14 (Team **unveraendert**), die Tippfehler/Korrekturen "Erneuerungsabgebot" -> "Erneuerungsangebot"
+und "Aboauftrag" -> "Abo-Auftrag", Nr. 26 "Anonymisierungsportal" korrekt schreiben.
+**NICHT geaendert:** Status of Community, Member of City Alliance, Asset Partner, Magnitude, Reseller,
+On-Hold-Status, doppelte Helpdesk-Kategorien.
+
+### 1) Umgesetzt
+
+| Nr. | Aenderung | Ort |
+|---|---|---|
+| 10 | `Title in Front` / `Title in Back` -> **Titel vorangestellt / Titel nachgestellt** | `itk_crm/models/models.py` (Quelltext) |
+| 13 | `Projects` / `Tasks` / `# Tasks` -> **Projekte / Aufgaben / # Aufgaben** | neue Eintraege in `itk_base_setup/i18n/de.po` (Core-Felder `project.field_res_partner__project_ids/__task_ids/__task_count`) — `Meetings`/`# Meetings` (`calendar.*`) sind im Deutschen identisch, deshalb kein Eintrag |
+| 15 | `SLA deadline`, `Sla Fits`, `Team SLA`, `Ticket Sla`, `Applicable SLAs`, Button `Set SLA` -> **SLA-Frist, SLA erfüllt, Team-SLA, Ticket-SLA, Gültige SLAs, SLA setzen** | **neue Datei** `helpdesk_mgmt_sla/i18n/de.po` (Referenzzeilen unveraendert aus dem `.pot` uebernommen) |
+| 16 | `Allow Timesheet`, `Last Timesheet Activity`, `Planned Hours`, `Progress`, `Remaining Hours`, `Show Time Control`, `Timesheet`, `Total Hours`, Buttons `Start work`/`Stop work`/`Resume work` -> **Zeiterfassung erlauben, Letzte Zeiterfassung, Geplante Stunden, Fortschritt, Reststunden, Zeitsteuerung anzeigen, Zeiterfassung, Gesamtstunden, Arbeit starten/stoppen/fortsetzen** | **neue Datei** `helpdesk_mgmt_timesheet/i18n/de.po` |
+| 22 | Grundbegriff **Helpdesk bleibt** (keine Aenderung) | - |
+| 14 | Feld **Team bleibt** (keine Aenderung) | - |
+| - | **Erneuerungsabgebot -> Erneuerungsangebot**; **Aboauftrag -> Abo-Auftrag** (inkl. "Abo-Auftrag abbrechen/schließen", "Abo-Auftragsmanagement", "Abo-Auftragsvorlage") | `itk_subscription/i18n/de.po` (6 msgstr-Zeilen) und `itk_subscription/views/sale_subscription_views.xml` (`string="Abo-Auftrag"` am Feld `analytic_account_id`) |
+| 26 | Kategorie **Anonymisierungsportal** (vorher "Anynomisierungsportal") | Datenkorrektur `helpdesk.ticket.category` id 57, **auf beiden Instanzen** (en_US + de_DE) |
+
+Anwendung: Neustart (Python-Aenderung), 5 Module einzeln upgegradet (itk_crm, itk_subscription,
+itk_base_setup, helpdesk_mgmt_sla, helpdesk_mgmt_timesheet — kein `-u all`), danach **eine gezielte
+Ueberschreib-Ladung** mit `scripts/load_terms_de.py` (22 xmlids, `overwrite=True`), Neustart,
+Kategorie-Write auf lokal und VM.
+
+### 2) Fehler und Behebung (wichtig fuer kuenftige .po-Aenderungen)
+
+Der erste Upgrade-Versuch brach fuer itk_base_setup, itk_crm und itk_subscription mit
+`AttributeError: 'NoneType' object has no attribute 'groups'` ab (7 ERROR-Zeilen im lokalen Log,
+11:47-11:49, inkl. "Failed to load registry"). **Ursache:** `PoFileReader.__iter__` beginnt mit
+`match = re.match(r"(module[s]?): (\w+)", entry.comment)` und ruft anschliessend **ungeschuetzt**
+`match.groups()` auf. Die erste Extrakt-Kommentarzeile (`#.`) eines Eintrags **muss** daher
+`#. module: <modulname>` lauten; mein selbst formulierter Kommentar
+`#. Punkt 13 (Session 89): ...` lieferte `match = None` -> Absturz beim Laden der Uebersetzungen.
+**Behebung:** Kommentarzeile auf `#. module: itk_base_setup` geaendert (Erlaeuterung als normaler
+`#`-Kommentar), zusaetzlich Leerzeile vor jedem Eintrag; danach Upgrade 3/3 ok und **nach 11:50 keine
+Fehler mehr im Log**. Lehre: `.po`-Eintraege immer mit `#. module: <modul>` einleiten.
+
+### 3) Verifikation lokal (14.09.2026)
+
+`python scripts/verify_s89_de.py` -> **36 Pruefungen OK, 0 Fehler**:
+18 Feldlabels (Punkte 10/13/15/16), 7 Buttons/Texte (SLA setzen, Arbeit starten/stoppen/fortsetzen,
+Erneuerungsangebot, Abo-Auftrag abbrechen/schließen), 2 Gegenproben auf die Altfehler,
+Kategorie "Anonymisierungsportal" (alte Schreibweise 0 Treffer),
+**5 Gegenproben auf bewusst unveraenderte Begriffe** (Status of Community, Member of City Alliance,
+Asset Partner, Magnitude, Reseller), Helpdesk-Wurzelmenue und Feld Team unveraendert,
+"Kundenverwaltung" (Quelltext) erhalten. Log: 0 ERROR/CRITICAL nach 11:50.
+
+### 4) Einschraenkungen (fortgeschrieben)
+
+- Kein `-u all`, keine DB-Migration, keine Schemaaenderung; Upgrades einzeln, Texte aus dem Repo.
+- Nur die freigegebenen Punkte; fachlich unklare Begriffe und Datenpflege (On-Hold, doppelte Kategorien) unberuehrt.
+- Kein Force-Push/Rebase; Passwoerter nie committen.
+
+### 5) Restliste "fachlich zu klaeren" (Stand nach Session 89)
+
+- Kontakte: `Status of Community`, `Member of City Alliance`, `Asset Partner`, `Magnitude` (+ Menue `All Magnitudes`), `Reseller`
+- Status/Pipeline (Daten): CRM-Stage `On-Hold`, Ticket-Status `on Hold`
+- Helpdesk-Kategorien (Daten): doppelte Eintraege ("Allgemeine Anfrage (Support)" 5x, "Störung/Fehler melden" 5x, "Angebot anfordern" 3x, "allgemeiner Support" 2x, "Zugangsdaten vergessen" 2x)
+- OCA-Modulnamen in der Apps-Liste (z. B. "Helpdesk Management", "Partner first name and last name")
+- Kleinere Restbegriffe: Tooltip `End work` (Zeiterfassung-Knopf im Ticket, nicht Teil des Auftrags),
+  Standard-Odoo-Begriffe (Apps, Dashboards, Mailings, To-do)
+- Vorbestehend und offen: **F33 Filestore unvollstaendig** (74 fehlende Dateien auf der VM, 29 lokal)

@@ -674,7 +674,7 @@ msgstr "Abbrechen"
 #. module: itk_subscription
 #: model_terms:ir.ui.view,arch_db:itk_subscription.sale_subscription_view_form
 msgid "Cancel Subscription"
-msgstr "Aboauftrag abbrechen"
+msgstr "Abo-Auftrag abbrechen"
 
 #. module: itk_subscription
 #: model_terms:ir.ui.view,arch_db:itk_subscription.sale_subscription_view_search
@@ -732,7 +732,7 @@ msgstr "Hier klicken, <b>um die erste Abo-Vorlage zu erzeugen</b>"
 #. module: itk_subscription
 #: model:ir.actions.act_window,help:itk_subscription.sale_subscription_template_action
 msgid "Click here to create a template of subscription."
-msgstr "Klicken Sie hier zur Erstellung einer neuen Aboauftragsvorlage."
+msgstr "Klicken Sie hier zur Erstellung einer neuen Abo-Auftragsvorlage."
 
 #. module: itk_subscription
 #: model:ir.actions.act_window,help:itk_subscription.sale_subscription_action
@@ -779,7 +779,7 @@ msgstr "Gründe für Beendigung"
 #. module: itk_subscription
 #: model_terms:ir.ui.view,arch_db:itk_subscription.sale_subscription_view_form
 msgid "Close Subscription"
-msgstr "Aboauftrag schließen"
+msgstr "Abo-Auftrag schließen"
 
 #. module: itk_subscription
 #: model_terms:ir.ui.view,arch_db:itk_subscription.subscription
@@ -1648,7 +1648,7 @@ msgstr "Erneuerung"
 #. module: itk_subscription
 #: model_terms:ir.ui.view,arch_db:itk_subscription.sale_subscription_view_form
 msgid "Renewal Quotation"
-msgstr "Erneuerungsabgebot"
+msgstr "Erneuerungsangebot"
 
 #. module: itk_subscription
 #: model:ir.model.fields,field_description:itk_subscription.field_sale_subscription__recurring_interval
@@ -1876,7 +1876,7 @@ msgstr "Absenden"
 #: model_terms:ir.ui.view,arch_db:itk_subscription.sale_subscription_view_search
 #: model_terms:ir.ui.view,arch_db:itk_subscription.subscription
 msgid "Subscription"
-msgstr "Aboauftrag"
+msgstr "Abo-Auftrag"
 
 #. module: itk_subscription
 #: model:ir.actions.act_window,name:itk_subscription.action_subscription_report_all
@@ -1913,7 +1913,7 @@ msgstr "Abonnement-Einträge"
 #. module: itk_subscription
 #: model:ir.model.fields,field_description:itk_subscription.field_sale_order__subscription_management
 msgid "Subscription Management"
-msgstr "Aboauftragsmanagement"
+msgstr "Abo-Auftragsmanagement"
 
 #. module: itk_subscription
 #: model_terms:ir.ui.view,arch_db:itk_subscription.subscription
