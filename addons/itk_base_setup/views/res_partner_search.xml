@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!--
+            Kontaktsuche: fehlende Odoo-11-Prod-Filter ergänzen.
+
+            Odoo 11 Prod (base.view_res_partner_filter + itk_crm-Customization) hatte u. a.:
+              filter_my_partners : domain [('user_id','=',uid)]          (Label aus help="Meine Partner")
+              activities_my      : domain [('activity_ids.user_id','=',uid)]  "Meine Aktivitäten"
+
+            In Odoo 18 fehlten beide Filter. Domains 1:1 aus Odoo 11 übernommen (Odoo-18-Syntax),
+            Einsortierung an derselben Stelle wie in Odoo 11:
+              "Meine Partner"     vor den Typ-Filtern (Personen/Unternehmen)
+              "Meine Aktivitäten" vor den Aktivitätsfiltern
+
+            Rein additive Ansichtsänderung, keine Datenänderung.
+        -->
+        <record id="view_res_partner_filter_itk_o11" model="ir.ui.view">
+            <field name="name">res.partner.select (itk_base_setup — O11-Filter)</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="itk_crm.res_partner_searchview_customization_itk"/>
+            <field name="priority">100</field>
+            <field name="arch" type="xml">
+
+                <xpath expr="//filter[@name='type_person']" position="before">
+                    <filter name="itk_my_partners" string="Meine Partner" domain="[('user_id','=',uid)]"/>
+                    <separator/>
+                </xpath>
+
+                <xpath expr="//filter[@name='activities_overdue']" position="before">
+                    <filter name="itk_activities_my" string="Meine Aktivitäten"
+                            domain="[('activity_ids.user_id','=',uid)]"/>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

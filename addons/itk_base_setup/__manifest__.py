@@ -5,7 +5,7 @@
     'author': "Alvarium Services, Andreas Väthröder, Fabian Väthröder",
     'website': "http://www.alvarium-services.de",
     'category': 'ITK - Specific Industry Applications',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0.1',
     'depends': [
         'base',
         'crm',
@@ -23,6 +23,7 @@
         'data/menu_contacts_config.xml',
         'views/res_partner_form.xml',
         'views/res_partner_list.xml',
+        'views/res_partner_search.xml',
         'views/sale_subscription_line.xml',
     ],
     'installable': True,
