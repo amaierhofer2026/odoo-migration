@@ -5521,3 +5521,72 @@ fachlich Unklares ausdrücklich als **KLÄRUNG NÖTIG** offenlassen statt raten.
 - VM-Log 15 Minuten um das Upgrade: 4 ERROR-Zeilen = `FileNotFoundError` aus dem bekannten **F33**-Filestore-Thema
   (Browser-Session), **keine** modulbedingten Fehler.
 - **Keine Datenübernahme**, keine Produktivdaten, keine Migration — ausschließlich Ansichten und Modulversion geändert.
+## Session 94: Bereich Kontakte — geöffnetes Kontaktformular / Detailansicht (15.09.2026)
+
+**Auftrag:** Feld für Feld gegen Odoo 11 Prod vergleichen (Labels, Typen, Positionen, Tabs, Buttons, Smart Buttons,
+Sichtbarkeit), eindeutige Abweichungen direkt migrationsgerecht angleichen, Odoo-18-Technik beibehalten, Unklares als
+KLÄRUNG NÖTIG markieren, keine Daten übernehmen.
+
+### Analyse (read-only)
+- Vergleichsbasis: Odoo 11 Prod `fields_view_get('form')` + `res.partner`-Feldlabels (de_DE) gegen Odoo 18 lokal/VM.
+- **64 gemeinsame Formularfelder, davon 19 mit abweichender wirksamer Beschriftung** (Form-`string` hat Vorrang, sonst Feldlabel).
+- **Kenndaten-Bereich ist in beiden Systemen identisch aufgebaut** (`group_1_left`: GKZ/`ref`, `multi_factor`,
+  zu Handen/`attention_of`, Organisationsbezeichnung/`community_salutation`; `group_1_right`: Verkäufer/`user_id`,
+  Kunde-/Lieferanten-Kennzeichnung, Status). **Multiplication Factor/Thsd** (`multi_factor`) und `attention_of` sind in O11
+  teils auskommentiert bzw. doppelt geführt — die aktiven Varianten sind in O18 vorhanden.
+- **Tabs:** O11 = Kontakte & Adressen, Interne Notizen, Verkauf & Einkauf, Abrechnung (2×), Gemeinde-Information, Support Ticket.
+  O18 = dieselben sieben, davon der zweite Abrechnungs-Tab korrekt als **Rechnungsstellung** bezeichnet (O18-Wortlaut besser) —
+  bewusst beibehalten. Der **Support-Ticket-Tab existiert in O18** (Seite `support_ticket`).
+- **Smart Buttons:** O11-Kennzahlen (Verkaufschancen, Verkauf, Einkauf, Eingangsrechnungen, Aufgaben, Abonnements, Meetings,
+  Fakturiert, Support Tickets, Zahlungsmethoden) sind in O18 vorhanden; zusätzlich Zertifizierungen/Mitarbeiter (neu).
+  Fehlend bleiben die Buttons nicht migrierter O11-Module (siehe KLÄRUNG).
+
+### Umgesetzt (Modul `itk_base_setup` 18.0.1.0.3, nur Ansichten/Übersetzungen — keine Daten)
+1. **`title` → „Titel“** (Odoo 18 zeigte „Anrede“ — identisch mit `salutation`, also doppeldeutig), beide Vorkommen.
+2. **`street2` → „Straße 2“** (Odoo 18 hatte den Tippfehler „Straße2“), beide Vorkommen.
+3. **`child_ids` → „Kontakte“** (Odoo 18: „Kontakt“, Einzahl für eine Liste).
+4. **`user_id` → „Verkäufer“** in **beiden** Vorkommen — im Tab „Verkauf & Einkauf“ zeigte Odoo 18 den Kernnamen „Vertriebsmitarbeiter“.
+5. **`i18n/de.po`** mit denselben vier Feldbezeichnungen (dauerhafte Quelle im Repo) und gezielte **Overwrite-Ladung** auf beiden
+   Instanzen (`scripts/load_terms_de.py`), damit auch die Feld-Metadaten stimmen (Exporte, Gruppierungen).
+
+**Technische Lehren dieser Session (beide kosten sonst viel Zeit):**
+- **View-Prioritäten sind entscheidend:** Labels griffen erst, nachdem die eigenen Ansichten von 25/30 auf **90/91** gesetzt wurden —
+  vorher überschrieben später angewendete Modul-Views (z. B. `purchase`) die Werte bzw. neu eingefügte Knoten blieben unbeschriftet.
+- **`position="attributes"` wirkt nicht auf später eingefügte Knoten:** für mehrfach vorkommende Felder deshalb gezielte XPaths
+  (Attribut-Selektoren bzw. `//page[@name='...']//field[...]`) verwenden.
+- **Das `vat`-Label lässt sich NICHT per View setzen:** Odoo 18 setzt es aus den Basisdaten
+  (`res.country.vat_label` für Österreich = „USt“) über den Python-Hook `FormatVATLabelMixin._get_view`
+  (`base/models/res_partner.py`) — nach dem View-Zusammenbau. Siehe KLÄRUNG.
+- **Eine `.po` im Repo wirkt bei bestehender DB nicht sofort:** Modul-Upgrades laden mit `overwrite=False`, ein vorhandener
+  de_DE-Slot gewinnt. Wirkung erst über die gezielte Overwrite-Ladung (Repo bleibt die dauerhafte Quelle).
+- **Zwischenfall (erkannt und behoben):** beim Anlegen der `i18n/de.po` wurde eine **bereits vorhandene** Datei mit
+  Menü-Übersetzungen überschrieben. Aufgefallen am Diff (126 Löschungen) → im Folge-Commit `be4e79f` vollständig
+  wiederhergestellt und die vier neuen Einträge sauber angehängt. **Lehre: vor `write_file` auf bestehende Pfade prüfen.**
+
+### Bewusst NICHT nachgebaut (Odoo-18-Technik ist gleichwertig oder besser)
+| Odoo 11 | Odoo 18 |
+|---|---|
+| `customer` / `supplier` (Boolesch), Kunde/Lieferant-Status | `customer_rank` / `supplier_rank`, `is_customer` / `is_supplier` |
+| `image` | `image_1920` / `avatar_128` |
+| `picking_warn` / `picking_warn_msg` | `sale_warn` / `sale_warn_msg` |
+| `purchase_warn` (+Meldung) | vorhanden, über Gruppe/Einstellung „Warnungen“ gesteuert |
+| Debitoren-/Kreditorenkonto | vorhanden in Gruppe „Buchungen“ (`account.group_account_readonly`) |
+| `property_stock_customer/_supplier` | entfallen (Odoo 18 nutzt Routen) |
+| `toggle_active`-Button | Odoo 18: Aktion „Archivieren“ im Zahnradmenü |
+| `comment` als Text | Odoo 18: HTML-Feld |
+| zwei Tabs „Abrechnung“ | O18: „Abrechnung“ + „Rechnungsstellung“ (eindeutiger) |
+
+### KLÄRUNG NÖTIG (nicht geraten)
+1. **`vat`-Label:** Odoo 11 „UID“ vs. Odoo 18 „USt“ (aus den Basisdaten, per View nicht übersteuerbar).
+   Option: `res.country` (AT) `vat_label` = „UID“ setzen — eine Feldänderung in den Basisdaten. Umsetzen?
+2. **`ref` im Tab „Verkauf & Einkauf“:** O18 „Referenz“ vs. O11 „Interne Referenz“ (im Kenndaten-Bereich heißt es in beiden „GKZ“).
+3. **Wortlaute:** O18 „Einkäufe“/„Lieferantenrechnungen“ vs. O11 „Einkauf“/„Eingangsrechnungen“; `payment_token_count` „Anzahl Zahlungstoken“
+   vs. O11 „Kreditkarte(n)“; `bank_account_count` „Bank“ vs. O11 „Bankkonten“; `property_payment_term_id`/„_supplier_“ heißen in O18
+   beide nur „Zahlungsbedingungen“ (O11 unterschied Kunde/Verkäufer).
+4. **Website-Veröffentlichung, `opt_out`** (aus Session 93) und **Buttons nicht migrierter Module** (Reklamation `claim_count`,
+   Events `event_count`, Kostenstellenkonten `contracts_count`, `sla_id`, `stp_ids`).
+
+### Tests und Git
+- **Lokal 28/28 OK**, **VM 28/28 OK** (`scripts/verify_s94_contact_form.py`): Labels (Titel/Straße 2/Kontakte/Verkäufer), Kenndaten-Felder,
+  sechs Tabs, neun Kennzahlen, Kontrollzahlen unverändert (70 Kontakte, 15 Tags, Abos/Aufträge 5/16 lokal bzw. 6/17 VM).
+- **Keine Produktivdaten übernommen**, keine Datensatzmigration; Änderungen ausschließlich an Ansichten/Übersetzungen.
