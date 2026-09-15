@@ -5364,3 +5364,73 @@ Hinweis zur Methodik (Analysefehler, korrigiert): der erste Vergleich ergab "0 %
 ### Ausblick
 - Naechster Block (laut Anna): **Odoo 11 Prod -> Odoo 18 Feld-/Strukturvergleich vor der Datenmigration** - Basis: der jetzt lokal verfuegbare O11-Dump `ITK_V1_a` (read-only auswertbar, Werkzeuge vorhanden).
 - F33-Reparatur erst nach Freigabe: Stufe 1 (Modulgrafiken + die 19/20 falsch liegenden Dateien kopieren, SHA-1-verifiziert) und Stufe 2 (Fotos aus dem O11-Backup).
+## Session 92: O11-Prod → O18 Strukturvergleich — Bereich Kontakte/Kontakt-Tags (15.09.2026)
+
+**Auftrag (Anna, 15.09.2026):** Neuer Block „Odoo 11 Prod → Odoo 18 Feld-/Strukturvergleich“, Start ausschließlich mit
+**Kontakte → Kontakt-Tags**. Zuerst nur read-only vergleichen und eine Mapping-Tabelle liefern; danach den Vergleich als Dokument
+ins Repo aufnehmen und die **Kontakt-Tag-Struktur in Odoo 18 anpassen** — Ziel: eine **leere, aber migrationsbereite** Struktur,
+die sich für den Benutzer wie Odoo 11 Prod bedient. Ausdrücklich: **keine** O11-Produktivdaten, **keine** Tags, **keine** der 5.307
+Zuordnungen übernehmen; `x_tag_anzeigename2` nicht nachbauen; `parent_left/right` nicht nachbauen.
+
+### Teil 1 — Vergleich (read-only) und Mapping-Tabelle
+- **Datenquellen:** produktives Odoo 11 (`https://portal.it-kommunal.at`, ausschließlich Lesezugriffe über JSON-RPC: Tags, Felder,
+  Views, Aktionen) und der lokale Produktiv-Dump `ITK_V1_a` (03.09.2026, PG 10.23) als Gegenprobe — Tag-Bestand identisch,
+  nur 6 Tags mit je +1 Kontakt (normales Wachstum), daher wurden die **Live-Werte** verwendet.
+- **Odoo 11 Prod:** 123 Kontakt-Tags (alle aktiv), in **bis zu 6 Ebenen**, 5.307 Kontakt-Zuordnungen; 79 Tags verwendet, 44 ohne Kontakt.
+  Liste (`base.view_partner_category_list`, in die das Studio-Feld `x_tag_anzeigename2` hineingearbeitet ist) zeigt
+  `display_name` + `id` + `x_tag_anzeigename2`; Formular zeigt `name`, `active`, `parent_id`, `create_date`, `x_tag_anzeigename2`.
+  **13 Tag-Namen sind mehrfach belegt** (z. B. `Region` 5×, `GemDAT OÖ` 5×, `AWS` 4×) — nur der Pfad unterscheidet sie.
+- **Odoo 18:** 15 Tags (lokal = VM, alle flach). Vergleichstabelle (Felder, Labels, Ansichten, Hierarchie) und Mapping-Tabelle
+  „Odoo 11 Tag | verwendet? | Odoo 18 Entsprechung | Status | empfohlene Aktion“ wurden geliefert: **10 Tags 1:1 vorhanden,
+  67 verwendete fehlen, 44 unbenutzt (obsolet), 0 „anders benannt“**; bei flacher Übernahme würden **8 Namens-Kollisionen**
+  stillschweigend verschmelzen (über 500 Kontakte betroffen).
+- **Hierarchie-Mechanik:** O11 = `parent_left`/`parent_right` (Nested-Set, Liste hierarchisch sortiert); O18 = `parent_path`
+  (ID-Pfad, indiziert) mit `_order = 'name'` (Liste alphabetisch flach) — in `base/models/res_partner.py` per Quellcode belegt.
+- **„Anzeigename“:** O11 `display_name` liefert den **vollen Pfad** (z. B. `AFS / amtsweg.gv.at STANDARD / Region / GVA Baden`);
+  das Studio-Feld `x_tag_anzeigename2` dupliziert ihn und ist **inkonsistent** (id 32 abweichend, id 152 enthält den Text „False“).
+  O18-Äquivalent ist `display_name`, das per `_compute_display_name` automatisch aus der `parent_id`-Kette berechnet wird →
+  **kein Nachbau des Studio-Feldes nötig**.
+- **Ergebnis der Entscheidung:** Modul für die Odoo-18-Struktur, keine Datenübernahme.
+
+### Teil 2 — Dokument und Umsetzung
+- **Neu: `docs/o11-o18-strukturvergleich-kontakt-tags.md`** — vollständiger Struktur-/Funktionsvergleich (Felder mit Labels,
+  Ansichten, Hierarchie, Anzeigename, umgesetzte Anpassung, Hinweise für die spätere Datenmigration).
+- **Neu: Modul `itk_partner_category`** („ITK Kontakt-Tags“, Version 18.0.1.0.0, `depends: [base]`, nur Ansichten, keine Modelle):
+  * Liste: `display_name` mit Label **„Anzeigename“**, `id` mit Label **„ID“**, `name` mit Label **„Tag Anzeigename“**;
+    `parent_id` und `color` mit `optional="hide"` (technisch erhalten, in der Standardansicht ausgeblendet, per Spaltenauswahl zuschaltbar).
+  * Formular: **Tag Anzeigename**, **Anzeigename** (voller Pfad, `readonly`) direkt darunter, **Oberkategorie**, **untergeordnete
+    Kategorien** als read-only-Übersicht (kein Anlegen/Ändern/Löschen), **Aktiv**, **Farbe** (Farbwähler bleibt).
+  * Suche: zusätzliches Suchfeld `parent_id` mit `operator="child_of"` (Hierarchiesuche) sowie die Filter **Hauptkategorien**,
+    **Unterkategorien**, **Verwendete Tags**, **Unverwendete Tags**, **Mit Unterkategorien**, **Ohne Unterkategorien (Blätter)**;
+    Gruppieren nach Kategorie/Farbe und die Anzeigename-Suche (child_of-Semantik) bleiben erhalten.
+  * **Bewusst nicht gebaut:** `x_tag_anzeigename2`, `parent_left`/`parent_right`, jegliche Datenübernahme, keine 5.307 Zuordnungen.
+- **Erweitert: `scripts/upgrade_modules.py`** um `--install` (neue Module installieren) und `--update-list` (Modulliste neu einlesen) —
+  damit ist der Modul-Lebenszyklus auf beiden Instanzen per HTTPS-RPC bedienbar.
+- **Neu: `scripts/verify_s92_partner_category.py`** — read-only Strukturprüfung (Modulstand, gerenderte Ansichten, Filter-Domains)
+  plus optionaler `--hierarchie-test`, der ein **temporäres** Eltern-/Kind-Paar anlegt, `display_name`-Pfad, `parent_path`, `child_ids`
+  und die `child_of`-Suche prüft und beides wieder löscht (Kontrollzahl vorher == nachher).
+
+### Lokale Umsetzung und Test (15.09.2026)
+- Installation: `python scripts/upgrade_modules.py --instanz lokal --update-list --install --module itk_partner_category`
+  → `18.0.1.0.0 (installed)`, Anzeigename in der Apps-Liste „ITK Kontakt-Tags“.
+- **Verifikation lokal: 36/36 OK** (`verify_s92_partner_category.py --instanz lokal --hierarchie-test`):
+  * Modul installiert; Liste/Formular/Suche enthalten alle geforderten Felder, Labels und Filter;
+  * Filter-Domains zählen fehlerfrei (Hauptkategorien 15, Unterkategorien 0, Verwendete 10, Unverwendete 5, mit Kindern 0, ohne Kinder 15);
+  * **Hierarchie-Test:** temporäres Paar angelegt → `display_name` Kind = „ZZ-TEST ITK-Tag Eltern (temporaer) / ZZ-TEST ITK-Tag Kind (temporaer)“,
+    `parent_path` = `16/17/`, `child_ids` des Elternteils enthält das Kind, `child_of`-Suche findet Eltern + Kind, `display_name`-Suche
+    findet auch das Kind; **beide Testdatensätze wieder gelöscht — Tag-Anzahl 15 → 15 unverändert**.
+- Kontrollzahlen unverändert: `res.partner.category` 15, `res.partner` 70, `sale.subscription` 5.
+- Log-Bewertung (20 Minuten um die Installation): Modulinstallation selbst **fehlerfrei**; die 3 `ERROR ... Exception during request handling`
+  stammen ausschließlich aus **eigenen Sondierungsaufrufen** in dieser Session (nicht existierendes Feld `module` auf `ir.ui.view`,
+  falsch verschachtelter `get_views`-Aufruf, alter `update_list()`-Aufruf vor dem Skriptfix) und sind ohne Wirkung; die Tracebacks im Log
+  sind die **bekannten F33-Filestore-Meldungen** (`FileNotFoundError` auf fehlende Anhänge, vorbestehend).
+
+### Zusagen
+- **Keine Odoo-11-Daten übernommen:** keine Tags angelegt, keine der 5.307 Zuordnungen importiert, keine Produktionsinhalte.
+- Im O11-System ausschließlich Lesezugriffe; der Dump wurde nur per `pg_restore`-Leseextrakt in den Analyse-Temp-Ordner gelesen.
+- Die einzigen Schreibvorgänge in Odoo 18: Installation des eigenen Moduls (Ansichten/Labels) und die zwei **temporären**,
+  anschließend gelöschten Hierarchie-Testdatensätze.
+
+### Ausblick
+- **VM:** gleicher Modulstand (Pull → `--update-list --install` → Verifikation mit Hierarchie-Test) — Nachtrag im Anschluss an diesen Commit.
+- Nächste Bereiche des Strukturvergleichs folgen nach Freigabe durch Anna (Kontakt-Felder, Verkauf/Abo, Helpdesk, …).

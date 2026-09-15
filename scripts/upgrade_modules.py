@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
-"""Upgradet einzelne Odoo-Module gezielt per HTTPS/JSON-RPC (kein -u all).
+"""Upgradet oder installiert einzelne Odoo-Module gezielt per HTTPS/JSON-RPC (kein -u all).
 
 Aufruf:
     python scripts/upgrade_modules.py --instanz lokal --module itk_subscription
     python scripts/upgrade_modules.py --instanz vm --liste itk_crm,itk_product
+    python scripts/upgrade_modules.py --instanz lokal --update-list                 # Modulliste neu einlesen
+    python scripts/upgrade_modules.py --instanz lokal --install --module itk_partner_category
 
 Vor jedem Modul wird der Versionsstand protokolliert, danach geprueft, ob
 installed_version == latest_version ist. Credentials aus der lokalen .env.
+Mit --install wird button_immediate_install statt button_immediate_upgrade verwendet
+(neue Module); --update-list liest vorab die Modulliste neu ein (findet neue Modulordner).
 """
 import argparse
 import http.cookiejar
@@ -63,17 +67,26 @@ def main():
     ap.add_argument("--instanz", default="lokal", choices=sorted(URLS))
     ap.add_argument("--module", action="append", default=[])
     ap.add_argument("--liste", default="")
+    ap.add_argument("--install", action="store_true", help="installieren statt upgraden (neue Module)")
+    ap.add_argument("--update-list", action="store_true", help="vorab ir.module.module.update_list() ausfuehren")
     args = ap.parse_args()
 
     module = list(args.module)
     if args.liste:
         module += [m.strip() for m in args.liste.split(",") if m.strip()]
-    if not module:
-        print("Keine Module angegeben.")
-        return 1
 
     db = DB(URLS[args.instanz], lade_env())
-    print("Instanz %s (uid %s) - %d Modul(e)" % (args.instanz, db.uid, len(module)))
+    print("Instanz %s (uid %s)" % (args.instanz, db.uid))
+
+    if args.update_list:
+        neu = db.kw("ir.module.module", "update_list", [])
+        print("  update_list: %s" % (neu,))
+    if not module:
+        print("Keine Module angegeben.")
+        return 0 if args.update_list else 1
+
+    methode = "button_immediate_install" if args.install else "button_immediate_upgrade"
+    print("%d Modul(e), Aktion: %s" % (len(module), methode))
 
     fehler = []
     for name in module:
@@ -84,11 +97,18 @@ def main():
             fehler.append(name)
             continue
         m = treffer[0]
+        if args.install and m["state"] == "installed":
+            print("  %-30s bereits installiert (%s) - kein erneutes Installieren" % (name, m["installed_version"]))
+            continue
+        if not args.install and m["state"] != "installed":
+            print("  %-30s NICHT installiert (state=%s) - mit --install installieren" % (name, m["state"]))
+            fehler.append(name)
+            continue
         vorher = m["installed_version"]
         erfolg = False
         for versuch in range(1, 4):
             try:
-                db.kw("ir.module.module", "button_immediate_upgrade", [[m["id"]]], timeout=900)
+                db.kw("ir.module.module", methode, [[m["id"]]], timeout=900)
                 erfolg = True
                 break
             except Exception as e:
