@@ -5590,3 +5590,49 @@ KLÄRUNG NÖTIG markieren, keine Daten übernehmen.
 - **Lokal 28/28 OK**, **VM 28/28 OK** (`scripts/verify_s94_contact_form.py`): Labels (Titel/Straße 2/Kontakte/Verkäufer), Kenndaten-Felder,
   sechs Tabs, neun Kennzahlen, Kontrollzahlen unverändert (70 Kontakte, 15 Tags, Abos/Aufträge 5/16 lokal bzw. 6/17 VM).
 - **Keine Produktivdaten übernommen**, keine Datensatzmigration; Änderungen ausschließlich an Ansichten/Übersetzungen.
+## Session 95: Bereich Kontakte — LAYOUTVERGLEICH der geöffneten Kontaktansicht im Browser (15.09.2026)
+
+**Anlass (Anna, wörtlich):** "Der technische Vergleich reicht mir noch nicht. … Die geöffnete Kontaktansicht in Odoo 18
+soll fachlich und strukturell an Odoo 11 Prod angeglichen werden." — **Neue Regel: „Vorhanden" ≠ „erledigt".** Künftig bei jedem
+Strukturvergleich zusätzlich prüfen: **sichtbar? richtige Position? gleiche fachliche Funktion? gleiche Bedienlogik?**
+
+### Werkzeug: echter Browser-Render statt XML-Prüfung
+`scripts/browser_form_layout.py` (neu, Playwright + installiertes Chrome, eigenes Temp-Profil): Anmeldung über die Login-Seite,
+Navigation zur Detailansicht, Auslesen **sichtbarer** Feldbezeichnungen mit CSS-Position, Gruppenüberschriften, Notebook-Tabs,
+Smart Buttons; Screenshots + JSON. Referenz: Odoo 11 Prod Kontakt 5792 ↔ Odoo 18 Kontakt 69 (gleicher Name).
+
+### Befunde und Umsetzung (`itk_base_setup` 18.0.1.0.5, nur Ansichten)
+| Punkt | Odoo 11 Prod | Odoo 18 vorher | umgesetzt |
+|---|---|---|---|
+| Tab-Reihenfolge | Kontakte & Adressen · **Interne Notizen** · Verkauf & Einkauf · Abrechnung · Abrechnung · Gemeinde-Info · Support Ticket | Interne Notizen erst an 4. Stelle | `page[internal_notes]` per `position="move"` an 2. Stelle |
+| Smart Buttons | Verkaufschancen · Verkauf · Meetings … | Meetings zuerst | `schedule_meeting`-Button per `position="move"` hinter Verkauf |
+| Kenndaten-Spalten | links GKZ/Thsd/Lieferant/Kunde, rechts Verkäufer/Organisationsbezeichnung/Status | Lieferant/Kunde rechts | `is_supplier`/`is_customer` links; `attention_of`+`community_salutation` rechts |
+| `multi_factor`-Label | Multiplication Factor/Thsd | lokal "Multiplication Factor/Thsd", VM "Multiplikationsfaktor (pro 1.000)" | Label explizit im View gesetzt (repo-durable) |
+
+### Technische Lehren
+- **View-`position="move"`** wird über einen Platzhalter im *before/after*-Knoten ausgeführt:
+  `<xpath expr="//page[@name='contact_addresses']" position="after"><page name="internal_notes" position="move"/></xpath>`
+  (`locate_node` findet den Knoten über Tag+Attribute, ausgewertet in Dokumentreihenfolge).
+- **Labels können zwischen Instanzen abweichen**, wenn sie aus DB-Übersetzungsslots statt aus der View kommen → für
+  Odoo-11-Parität immer `string=` in der View setzen (Vergleich lokale VM hat genau das aufgedeckt).
+- **Playwright**: `wait_for_load_state("networkidle")` läuft bei Odoo **immer** in den Timeout (Bus-Longpolling) →
+  `wait_for_selector(".o_form_view")` verwenden. Der Playwright-eigene Chromium-Download passt oft nicht zur Version →
+  `executable_path` auf `C:\Program Files\Google\Chrome\Application\chrome.exe` setzen. Login-Submit: `.oe_login_form button[type=submit]`
+  (ein blankes `button[type=submit]` trifft die Suchleiste).
+- **Pfade**: `--out /tmp/...` landet bei nativem Python auf `C:\tmp\...` (MSYS-Uebersetzung greift nicht) → native Pfade
+  (`C:/Users/.../Temp/...`) uebergeben.
+- **Optik-Hinweise, keine Fehler:** Odoo 18 schreibt Gruppenüberschriften per CSS groß ("KENNDATEN"), und das "?" hinter
+  einem Label ist das Hilfe-Symbol (`<sup data-tooltip-template="web.FieldTooltip">`), nicht Odoo 11.
+
+### Bewusst NICHT nachgebaut / offen (KLÄRUNG NÖTIG)
+- Smart Buttons aus nicht migrierten Odoo-11-Modulen: **Kostenstellenkonten** (`contracts_count`), **Website-Veröffentlichung**
+  (`website_published`), Archiv-Status-Button **Aktiv** (`active`); "Abonnements" steckt in Odoo 18 im Menü "Mehr".
+- Der **zweite "Abrechnung"-Tab** aus Odoo 11 entspricht in Odoo 18 der Seite `accounting_disabled` ("Invoicing"), die nur
+  Benutzern ohne Buchhaltungsrechte angezeigt wird — Dublette bewusst nicht nachgebaut.
+- `vat`-Label "USt" statt "UID" (Basisdaten `res.country.vat_label`, Option: `vat_label = 'UID'` für AT).
+- `ref` im Tab "Verkauf & Einkauf": "Referenz" statt "Interne Referenz".
+
+### Verifikation
+Browser-Render **lokal und VM deckungsgleich** (identische Tab-Reihenfolge, Button-Reihenfolge, Feldliste mit Labels und
+Positionen); Screenshots unter `Desktop\Odoo18-Layoutvergleich-Session95\`; Einzelheiten in
+`docs/o11-o18-kontaktformular-layoutvergleich.md`. Keine Daten übernommen, keine Datensatzmigration.

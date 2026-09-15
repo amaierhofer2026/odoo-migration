@@ -280,6 +280,18 @@ Vergleich: 64 gemeinsame Formularfelder, 19 abweichende Beschriftungen; Kenndate
 Tab „Rechnungsstellung“.
 
 **Status:** lokal und VM verifiziert (`scripts/verify_s94_contact_form.py`: je **28/28 OK**), Kontrollzahlen unverändert. **Keine Daten übernommen.**
+
+**Layout-Abgleich im echten Browser (Session 95, `itk_base_setup` 18.0.1.0.5):**
+- Werkzeug `scripts/browser_form_layout.py` rendert die geöffnete Detailansicht (Chromium/Playwright) und liest sichtbare
+  Labels mit Position, Tabs und Smart Buttons aus; Referenz-Vergleich Odoo 11 Prod Kontakt 5792 ↔ Odoo 18 Kontakt 69.
+- Umgesetzt: **Tab-Reihenfolge** wie Odoo 11 (Interne Notizen 2.), **Kenndaten-Spalten** wie Odoo 11
+  (links GKZ/Thsd/Lieferant/Kunde, rechts Verkäufer/zu Handen/Organisationsbezeichnung/Status), **Smart-Button-Reihenfolge**
+  (Verkaufschancen, Verkauf, Meetings), `multi_factor`-Label repo-durable.
+- Ergebnis: Browser-Render **lokal = VM** identisch, Screenshots `Desktop\Odoo18-Layoutvergleich-Session95\`,
+  Doku `docs/o11-o18-kontaktformular-layoutvergleich.md`.
+- Offen (KLÄRUNG): Kostenstellenkonten/Website-Veröffentlichung/Aktiv-Button (nicht migrierte O11-Module bzw. Odoo-18-Standardbedienung),
+  zweiter "Abrechnung"-Tab (= Odoo-18-Seite `accounting_disabled` nur für Benutzer ohne Buchhaltungsrechte), `vat` "USt" vs. "UID".
+- **Regel für alle weiteren Bereiche: "vorhanden" ≠ "erledigt"** — je Punkt sichtbar? richtige Position? gleiche fachliche Funktion? gleiche Bedienlogik?
 **KLÄRUNG NÖTIG:** `vat`-Label (O11 „UID“ vs. O18 „USt“, aus Basisdaten — Option: `res.country` AT `vat_label`);
 `ref` „Referenz“ vs. „Interne Referenz“; Wortlaute (Einkäufe/Einkauf, Lieferantenrechnungen/Eingangsrechnungen, Zahlungstoken/Kreditkarte(n),
 Bank/Bankkonten, Zahlungsbedingungen); Website-Veröffentlichung; `opt_out`; Buttons nicht migrierter O11-Module (Reklamation, Events,
