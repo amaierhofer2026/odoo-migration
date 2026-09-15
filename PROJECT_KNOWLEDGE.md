@@ -5434,3 +5434,18 @@ Zuordnungen übernehmen; `x_tag_anzeigename2` nicht nachbauen; `parent_left/righ
 ### Ausblick
 - **VM:** gleicher Modulstand (Pull → `--update-list --install` → Verifikation mit Hierarchie-Test) — Nachtrag im Anschluss an diesen Commit.
 - Nächste Bereiche des Strukturvergleichs folgen nach Freigabe durch Anna (Kontakt-Felder, Verkauf/Abo, Helpdesk, …).
+### VM-Nachzug und Verifikation (15.09.2026, nach dem Merge von PR #38)
+- **Lokal/GitHub:** PR **#38** gemergt (Commits `aa6edb6` Doku-Vergleich, `ec09797` Modul/Werkzeuge) → `main` = **`64e6203`**; lokal per `git pull --ff-only` nachgezogen, Arbeitsbaum sauber.
+- **VM (`/opt/odoo18`):** `git pull --ff-only origin main` → **`64e6203`** (Modulordner `addons/itk_partner_category/` vorhanden).
+- **Installation auf der VM** per HTTPS-RPC (kein `-u all`, kein SSH-Docker-Lauf nötig):
+  `python scripts/upgrade_modules.py --instanz vm --update-list --install --module itk_partner_category`
+  → `update_list: [130, 1]` (130 aktualisiert, 1 neu) und **`18.0.1.0.0 (installed)`**.
+- **Log-Beleg (VM):** `Loading module itk_partner_category (2/159)` → `loading itk_partner_category/views/res_partner_category_views.xml`
+  → `module itk_partner_category: no translation for language de_DE` (INFO, Modul hat bewusst keine .po) →
+  `Module itk_partner_category loaded in 0.34s, 57 queries` — **keine Fehler**.
+- **Verifikation auf der VM: 36/36 OK** (`scripts/verify_s92_partner_category.py --instanz vm --hierarchie-test`) — identisch zum lokalen Ergebnis,
+  inklusive Hierarchie-Test (`display_name` Kind = „ZZ-TEST ITK-Tag Eltern (temporaer) / ZZ-TEST ITK-Tag Kind (temporaer)“, `parent_path` `16/17/`,
+  `child_ids`, `child_of`-Suche, `display_name`-Suche) und **Aufräumen: 15 → 15 Tags**.
+- **VM-Log-Gegenprobe (20–30 Minuten um den Deploy):** genau **1 ERROR** um 09:20:23 UTC — ein `FileNotFoundError` (bekanntes **F33**-Filestore-Thema),
+  ausgelöst von einer Browser-Session (IP 213.90.116.139), also **vor** dem Modul-Deploy (09:28:01) und **nicht** durch das Modul verursacht.
+- **Ergebnis: lokal = GitHub = VM auf `64e6203`**, alle Arbeitsbäume sauber; die Tag-Struktur ist auf beiden Instanzen identisch und leer.
