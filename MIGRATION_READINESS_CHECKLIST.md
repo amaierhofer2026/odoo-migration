@@ -7,7 +7,8 @@
 >
 > **WICHTIGE REGELN (fortgeschrieben):**
 > - Keine Korrekturen ohne ausdrückliche Freigabe. Befunde werden hier dokumentiert, nicht behoben.
-> - Kein Feld-für-Feld-Vergleich mit Odoo 11: Es existiert derzeit **keine laufende Odoo-11-Referenz** (alte VM am 31.08.2026 dekommissioniert). Das Mapping O11→O18 wird separat erstellt, sobald eine verlässliche Referenz verfügbar ist (gesicherte O11-Testumgebung, lesender Zugriff auf produktives O11, Exporte oder Dokumentation). Abschnitt 6 bleibt deshalb **OFFEN**.
+> - **Feld-für-Feld-Vergleich O11→O18 (seit 15.09.2026, Session 92):** Referenz ist jetzt vorhanden — **lesender** Zugriff auf das produktive Odoo 11 (`https://portal.it-kommunal.at`) und der lokale Produktiv-Dump `ITK_V1_a` (03.09.2026, PostgreSQL 10.23). Der Vergleich läuft **bereichsweise** in Abschnitt 6 und hat mit Kontakte → Kontakt-Tags begonnen.
+> - **In dieser Phase wird nur die Odoo-18-Struktur vorbereitet.** Es werden **keine** Odoo-11-Daten, Tags oder Zuordnungen übernommen (keine der 5.307 Kontakt-Tag-Zuordnungen, keine Produktionsinhalte). Die Datenmigration folgt erst, wenn alle Bereiche in Odoo 18 angepasst und getestet sind.
 > - Kein `-u all`, keine Modul-Upgrades, keine Datenmigration, keine Testdaten, kein E-Mail-Server-Setup in dieser Phase.
 
 ## Status-Legende
@@ -247,16 +248,50 @@
 
 ---
 
-## 6. Odoo 11 → Odoo 18 Mapping (späterer Abschnitt — VORLÄUFIG OFFEN)
+## 6. Odoo 11 → Odoo 18 Mapping (in Bearbeitung — bereichsweise)
 
-> **Grund:** Keine laufende Odoo-11-Referenz vorhanden (O11-Test-VM am 31.08.2026 dekommissioniert). Ein Feld-für-Feld-Vergleich wäre ohne verlässliche Referenz Spekulation und wird **nicht** durchgeführt.
-> **Verfügbare Referenzoptionen (sobald vorhanden):** gesicherte alte O11-Testumgebung (IPAX), produktives Odoo 11 mit ausschließlich lesendem Zugriff, Exporte, vorhandene Dokumentation (z. B. `Migration_Referenzen/`, `DATA_MIGRATION_CHECKLIST.md`).
+> **Referenz seit 15.09.2026 (Session 92):** produktives Odoo 11 mit **ausschließlich lesendem** Zugriff (`https://portal.it-kommunal.at`)
+> sowie der lokale Produktiv-Dump `ITK_V1_a` (03.09.2026, `Desktop\Odoo_DB_Dump_2026_09_03`, identische Kopie in `Nextcloud`, PostgreSQL 10.23/Ubuntu 18.04).
+> Der Feld-/Strukturvergleich läuft **bereichsweise**; dieser Abschnitt wird fortlaufend gefüllt.
+>
+> **Wichtig — nur Struktur, keine Daten:** In dieser Phase wird ausschließlich die **Odoo-18-Struktur** migrationsbereit gemacht.
+> Es werden **keine** Odoo-11-Produktivdaten, **keine** Tags und **keine** Zuordnungen übernommen. Die Datenmigration folgt erst,
+> wenn alle Bereiche in Odoo 18 angepasst und getestet sind.
 
-**Erfassungsschema für das spätere Mapping:**
+
+**Erfassungsschema:**
 
 | Odoo-11-Modell/Feld | Odoo-18-Zielfeld | Datentyp | Pflichtfeld | Auswahlwerte | Relation | Transformations-/Migrationsregel |
 |---|---|---|---|---|---|---|
-| (OFFEN) | (OFFEN) | (OFFEN) | (OFFEN) | (OFFEN) | (OFFEN) | (OFFEN) |
+| *siehe 6.1 ff. (bereichsweise befüllt)* | | | | | | |
+
+### 6.1 Kontakte → Kontakt-Tags (`res.partner.category`) — STRUKTUR BEREIT (leer, lokal getestet)
+
+Vollständiger Struktur-/Funktionsvergleich (Felder, Ansichten, Hierarchie, „Anzeigename"):
+**`docs/o11-o18-strukturvergleich-kontakt-tags.md`**
+
+| Odoo-11 (Prod) | Odoo-18-Ziel | Typ | Pflicht | Relation | Migrationsregel |
+|---|---|---|---|---|---|
+| `res.partner.category.name` | `name` | char (O18: `translate=True`/jsonb) | ja | – | Namen mit `lang=de_DE` schreiben (sonst falscher Sprachslot) |
+| `parent_id` (Hierarchie) | `parent_id` | many2one | nein | res.partner.category | Eltern vor Kindern importieren |
+| `parent_left`/`parent_right` (Nested-Set) | `parent_path` (Odoo 18 führt ihn selbst) | char | – | – | **nicht** migrieren |
+| `x_tag_anzeigename2` („Tag Anzeigename", Studio) | `display_name` (berechnet: voller Pfad) | char, nicht gespeichert | – | – | **nicht** migrieren (redundant/fehlerhaft, z. B. „False" in id 152) |
+| `color` | `color` | integer | nein | – | O11 durchgehend 0; O18-Default zufällig 1–11 |
+| `active` | `active` | boolean | nein | – | 1:1 |
+| `partner_ids` | `partner_ids` | many2many | nein | res.partner | Zuordnungen **erst** in der Datenmigration (O11: 5.307) |
+| `res.partner.category_id` (am Kontakt) | `category_id` | many2many | nein | res.partner.category | unverändert — in O11/O18 identisch konfiguriert, Label „Stichwörter" |
+
+**Umgesetzte Odoo-18-Struktur** (Modul `itk_partner_category` 18.0.1.0.0):
+
+- **Liste:** Spalte „Anzeigename" (voller Hierarchiepfad), Spalte „ID", Spalte „Tag Anzeigename"; Kategorie und Farbe technisch erhalten, aber `optional="hide"`.
+- **Formular:** Tag Anzeigename, Anzeigename (Pfad) **read-only**, Oberkategorie, untergeordnete Kategorien (Übersicht), Aktiv, Farbe.
+- **Suche:** Hierarchiesuche über `parent_id` (`child_of`) sowie Filter Hauptkategorien / Unterkategorien / Verwendete Tags / Unverwendete Tags / Mit Unterkategorien / Ohne Unterkategorien.
+- **Bewusst nicht gebaut:** `x_tag_anzeigename2`, `parent_left`/`parent_right`, jegliche Datenübernahme.
+
+**Status:** lokal installiert und verifiziert (`scripts/verify_s92_partner_category.py`: **36/36 OK**, inkl. Hierarchie-Test mit temporärem
+Eltern-/Kind-Paar und anschließender Löschung; Tag-Anzahl unverändert 15 → 15). **Keine Daten übernommen.**
+VM-Nachzug und Abschluss dokumentiert in PROJECT_KNOWLEDGE.md (Session 92).
+
 
 ---
 

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!--
+            Kontakt-Tags (res.partner.category): migrationsbereite Struktur wie Odoo 11 Prod.
+
+            Vorbild Odoo 11 Prod:
+              Liste    base.view_partner_category_list: display_name (voller Pfad), id, x_tag_anzeigename2
+              Formular base.view_partner_category_form: name, active, parent_id, create_date, x_tag_anzeigename2
+            x_tag_anzeigename2 wird NICHT nachgebaut (redundant/fehlerhaft) - der Pfad kommt in
+            Odoo 18 aus display_name (berechnet aus der parent_id-Kette), die Hierarchie aus
+            parent_id/parent_path. Es werden hier KEINE Datensaetze angelegt.
+            Siehe docs/o11-o18-strukturvergleich-kontakt-tags.md
+        -->
+
+        <!-- Listenansicht: Anzeigename (Pfad), ID, Tag Anzeigename; Kategorie/Farbe optional -->
+        <record id="view_partner_category_list_itk" model="ir.ui.view">
+            <field name="name">res.partner.category.list (ITK)</field>
+            <field name="model">res.partner.category</field>
+            <field name="inherit_id" ref="base.view_partner_category_list"/>
+            <field name="priority">16</field>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="string">Tag Anzeigename</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="display_name" string="Anzeigename"/>
+                    <field name="id" string="ID"/>
+                </xpath>
+
+                <!-- technisch vorhanden, in der Standardansicht ausgeblendet (Spaltenauswahl) -->
+                <xpath expr="//field[@name='parent_id']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+                <xpath expr="//field[@name='color']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- Formularansicht: Tag Anzeigename, Pfad read-only, Oberkategorie, untergeordnete Kategorien, Aktiv, Farbe -->
+        <record id="view_partner_category_form_itk" model="ir.ui.view">
+            <field name="name">res.partner.category.form (ITK)</field>
+            <field name="model">res.partner.category</field>
+            <field name="inherit_id" ref="base.view_partner_category_form"/>
+            <field name="priority">16</field>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="string">Tag Anzeigename</attribute>
+                </xpath>
+
+                <!-- vollstaendiger Hierarchiepfad, nur lesbar -->
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="display_name" string="Anzeigename" readonly="1"/>
+                </xpath>
+
+                <xpath expr="//field[@name='parent_id']" position="attributes">
+                    <attribute name="string">Oberkategorie</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='active']" position="attributes">
+                    <attribute name="string">Aktiv</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='color']" position="attributes">
+                    <attribute name="string">Farbe</attribute>
+                </xpath>
+
+                <!-- untergeordnete Kategorien als Uebersicht (kein Anlegen/Aendern/Loeschen) -->
+                <xpath expr="//sheet/group" position="after">
+                    <group string="Untergeordnete Kategorien">
+                        <field name="child_ids" nolabel="1" colspan="2">
+                            <list create="false" edit="false" delete="false">
+                                <field name="display_name" string="Anzeigename"/>
+                                <field name="name" string="Tag Anzeigename"/>
+                                <field name="active" string="Aktiv"/>
+                            </list>
+                        </field>
+                    </group>
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- Suchansicht: Hierarchie-Suche und Filter fuer Vor-/Nachkontrolle -->
+        <record id="res_partner_category_view_search_itk" model="ir.ui.view">
+            <field name="name">res.partner.category.search (ITK)</field>
+            <field name="model">res.partner.category</field>
+            <field name="inherit_id" ref="base.res_partner_category_view_search"/>
+            <field name="priority">16</field>
+            <field name="arch" type="xml">
+
+                <!-- Hierarchiesuche: findet auch Unterkategorien -->
+                <xpath expr="//field[@name='display_name']" position="after">
+                    <field name="parent_id" string="Oberkategorie" operator="child_of"/>
+                </xpath>
+
+                <xpath expr="//filter[@name='inactive']" position="after">
+                    <separator/>
+                    <filter name="itk_hauptkategorien" string="Hauptkategorien (oberste Ebene)"
+                            domain="[('parent_id', '=', False)]"/>
+                    <filter name="itk_unterkategorien" string="Unterkategorien (mit Oberkategorie)"
+                            domain="[('parent_id', '!=', False)]"/>
+                    <separator/>
+                    <filter name="itk_verwendet" string="Verwendete Tags"
+                            domain="[('partner_ids', '!=', False)]"/>
+                    <filter name="itk_unverwendet" string="Unverwendete Tags"
+                            domain="[('partner_ids', '=', False)]"/>
+                    <separator/>
+                    <filter name="itk_mit_kindern" string="Mit Unterkategorien"
+                            domain="[('child_ids', '!=', False)]"/>
+                    <filter name="itk_ohne_kinder" string="Ohne Unterkategorien (Blätter)"
+                            domain="[('child_ids', '=', False)]"/>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>
