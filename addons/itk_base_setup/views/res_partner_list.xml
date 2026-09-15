@@ -23,5 +23,64 @@
             </field>
         </record>
 
+        <!--
+            Kontaktliste: Spalten der Odoo-11-Produktivumgebung wiederherstellen.
+
+            Odoo 11 Prod zeigte (base.view_partner_tree + itk_crm.view_partner_itk_tree):
+              ref, display_name, function, phone, email, user_id, status_of_partner_id,
+              salutation, is_company, country_id, parent_id, active, category_id
+
+            In Odoo 18 fehlten function, is_company, parent_id, salutation und active vollständig,
+            category_id war standardmäßig ausgeblendet. Diese Spalten kommen hier als
+            optional="show" zurück — sichtbar wie in Odoo 11, aber über die Spaltenauswahl
+            abwählbar (Odoo-18-Technik statt fester Spalten). Spalten, die Odoo 18 zusätzlich
+            anbietet (mobile, Straße, PLZ/Ort, USt, EDI-Felder …), bleiben unverändert erhalten.
+
+            Die von itk_crm ergänzte zweite Namensspalte (display_name) wird ausgeblendet:
+            Odoo 18 hat mit complete_name bereits eine Namensspalte — Odoo 11 hatte genau eine.
+
+            Reine Ansichtsänderung, keine Datenänderung.
+        -->
+        <record id="view_partner_list_itk_o11_columns" model="ir.ui.view">
+            <field name="name">res.partner.list (itk_base_setup — O11-Spalten)</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="itk_crm.view_partner_itk_tree"/>
+            <field name="priority">30</field>
+            <field name="arch" type="xml">
+
+                <!-- zweite Namensspalte ausblenden (O18: complete_name) -->
+                <xpath expr="//field[@name='display_name']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+
+                <!-- Funktion (O11: function) direkt nach dem Namen -->
+                <xpath expr="//field[@name='display_name']" position="after">
+                    <field name="function" optional="show"/>
+                </xpath>
+
+                <!-- Anrede (O11: salutation) nach dem Status -->
+                <xpath expr="//field[@name='status_of_partner_id']" position="after">
+                    <field name="salutation" optional="show"/>
+                </xpath>
+
+                <!-- Ist ein Unternehmen (O11: is_company) vor dem Land -->
+                <xpath expr="//field[@name='country_id']" position="before">
+                    <field name="is_company" optional="show"/>
+                </xpath>
+
+                <!-- Zugehöriges Unternehmen und Aktiv (O11: parent_id, active) nach dem Land -->
+                <xpath expr="//field[@name='country_id']" position="after">
+                    <field name="parent_id" optional="show"/>
+                    <field name="active" optional="show"/>
+                </xpath>
+
+                <!-- Stichwörter war in Odoo 11 sichtbar -->
+                <xpath expr="//field[@name='category_id']" position="attributes">
+                    <attribute name="optional">show</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
     </data>
 </odoo>

@@ -5449,3 +5449,75 @@ Zuordnungen übernehmen; `x_tag_anzeigename2` nicht nachbauen; `parent_left/righ
 - **VM-Log-Gegenprobe (20–30 Minuten um den Deploy):** genau **1 ERROR** um 09:20:23 UTC — ein `FileNotFoundError` (bekanntes **F33**-Filestore-Thema),
   ausgelöst von einer Browser-Session (IP 213.90.116.139), also **vor** dem Modul-Deploy (09:28:01) und **nicht** durch das Modul verursacht.
 - **Ergebnis: lokal = GitHub = VM auf `64e6203`**, alle Arbeitsbäume sauber; die Tag-Struktur ist auf beiden Instanzen identisch und leer.
+## Session 93: Strukturvergleich Bereich Kontakte — Kontaktformular / Kontaktliste (15.09.2026)
+
+**Neuer Arbeitsmodus (Anna, 15.09.2026):** Ab jetzt je Bereich **nicht mehr nur analysieren**, sondern
+eindeutige Unterschiede zwischen Odoo 11 Prod und Odoo 18 **direkt migrationsgerecht anpassen**; Odoo-18-Technik
+verwenden, wo sie dieselbe Funktion sauberer abbildet; **keine** Produktivdaten/Datensätze übernehmen;
+fachlich Unklares ausdrücklich als **KLÄRUNG NÖTIG** offenlassen statt raten.
+
+### Analyse (read-only, Odoo 11 Prod + Odoo 18 lokal/VM)
+- **Odoo 11 Prod:** Formular (`fields_view_get`), Liste (`res.partner.tree` + `itk_crm.view_partner_itk_tree`),
+  Suche (`base.view_res_partner_filter` + `mail`- und `itk_crm`-Erweiterung), Aktionen, Felder/Labels (de_DE).
+  Ergebnis: 89 sichtbare Formularfelder (ohne XML-Kommentare), 14 Listenspalten (alle immer sichtbar),
+  6 Suchfelder + 16 Filter; **keine** Studio-`x_`-Felder auf `res.partner`.
+- **Odoo 18:** gleiche Auswertung (122 Formularfelder, 19 Listenspalten davon viele `optional`, 9 Suchfelder, 14 Filter).
+- **Methodik-Fehler (wichtig, korrigiert):** `get_views` liefert das Arch in der **Kontext-Sprache**. Ein erster
+  Vergleich ohne `lang=de_DE` erzeugte scheinbare Label-Abweichungen („Opportunities“, „Vendor Bills“, „Contacts & Adresses“, „Employees“).
+  Nach Korrektur (`context {'lang':'de_DE'}`) sind diese Strings **deutsch** („Verkaufschancen“, „Lieferantenrechnungen“,
+  „Kontakte & Adressen“, „Mitarbeiter“) — es waren Render-Artefakte, keine echten Lücken. **Lehre: Bei Textvergleichen
+  immer `lang` mitgeben und beide Sprachen gegenlesen.**
+
+### Umgesetzt (Modul `itk_base_setup`, Version 18.0.1.0.1; nur Ansichten, keine Daten)
+**Kontaktliste** (`views/res_partner_list.xml`, erbt `itk_crm.view_partner_itk_tree`, Priorität 30):
+- Spalten aus Odoo 11 wiederhergestellt, die in Odoo 18 ganz fehlten: **`function` (Stelle), `is_company`
+  (Ist ein Unternehmen), `parent_id` (Zugehöriges Unternehmen), `salutation` (Anrede), `active` (Aktiv)** —
+  alle mit `optional="show"` (sichtbar wie in Odoo 11, aber über die Spaltenauswahl abwählbar = Odoo-18-Technik).
+- **`category_id` (Stichwörter)** war in Odoo 18 standardmäßig ausgeblendet → wieder `optional="show"`.
+- Die von `itk_crm` ergänzte **zweite Namensspalte `display_name`** ist jetzt `optional="hide"` — Odoo 18 führt
+  mit `complete_name` bereits eine Namensspalte, Odoo 11 hatte genau eine.
+**Kontaktsuche** (neu: `views/res_partner_search.xml`, erbt `itk_crm.res_partner_searchview_customization_itk`, Priorität 100):
+- **„Meine Partner“** — Domain `[('user_id','=',uid)]` (Odoo 11: `filter_my_partners`, Label aus `help=„Meine Partner“`),
+  vor den Typ-Filtern wie in Odoo 11.
+- **„Meine Aktivitäten“** — Domain `[('activity_ids.user_id','=',uid)]` (Odoo 11: `activities_my`), vor den Aktivitätsfiltern.
+- Alle Odoo-18-Standardfilter (Personen, Unternehmen, Kunden, Lieferanten, Mitarbeiter, Aktivitäten, Archiviert,
+  Gruppierungen) bleiben unverändert erhalten.
+- Aufräumarbeit am Rand: `license: LGPL-3` im Manifest ergänzt (beseitigt die Odoo-Warnung „Missing `license` key“).
+
+### Bewusst NICHT nachgebaut (Odoo-18-Technik ist gleichwertig oder besser)
+| Odoo 11 | Odoo 18 | Begründung |
+|---|---|---|
+| `activity_ids` / `message_ids` / `message_follower_ids` im Formular | `<chatter/>` | Odoo 18 fügt den Chatter automatisch ein (identische Funktion) |
+| `image` | `image_1920` / `avatar_128` | Odoo-18-Bildfelder |
+| `customer` / `supplier` (Boolesch) | `customer_rank` / `supplier_rank`, `is_customer` / `is_supplier` | Odoo-18-Standard |
+| `picking_warn` / `picking_warn_msg` | `sale_warn` / `sale_warn_msg` | in Odoo 13+ umbenannt, im Formular vorhanden |
+| `purchase_warn` / `purchase_warn_msg` | **vorhanden** (Gruppe `purchase.group_warning_purchase`) | über die Einstellung „Warnungen“ steuerbar — deshalb im Render für Nicht-Berechtigte unsichtbar |
+| `property_account_receivable_id` / `_payable_id` | **vorhanden** in Gruppe „Buchungen“ (`accounting_entries`), `groups="account.group_account_readonly"` | Odoo 18 zeigt sie buchhaltergruppen-abhängig |
+| `property_stock_customer` / `_supplier` | entfallen (Odoo 18 nutzt Routen) | O11-Technik überholt |
+| `trust`, `message_bounce` | vorhanden, aber in O11 selbst `invisible="1"` | in O11 nicht sichtbar → kein Unterschied |
+| 6 eigene Aktionen („Andere Partner“, „Personal“ …) | Filter (Kunden/Lieferanten/Mitarbeiter) + ITK-Aktionen („Aktuelle Kunden“, „Ehemalige Kunden“, „Zielkunden“, „Alle Reseller“) | Odoo-18-Bedienkonzept |
+
+### KLÄRUNG NÖTIG (bewusst offen gelassen, keine Vermutungen)
+1. **Versandbereitschaft / `opt_out`:** Odoo 11 hatte den Filter „Für Massenversand von E-Mails verfügbar“
+   (`[('opt_out','=',False)]`) und das Feld „Mailing Opt-Out“ am Kontakt. In Odoo 18 gibt es `opt_out` nicht mehr
+   (Mailing nutzt Sperrlisten / `mailing.contact`). **Frage:** Soll ein Odoo-18-Äquivalent (z. B. Filter auf der
+   Sperrliste) eingebaut werden — oder entfällt der Punkt bewusst?
+2. **Website-Veröffentlichung am Kontakt:** Odoo 11 zeigte den Button „website_publish_button“ mit `website_published`.
+   In Odoo 18 nutzt **kein** View dieses Feld für Kontakte. **Frage:** wieder einbauen oder als O11-Eigenheit weglassen?
+3. **Wortlaute der Smart-Buttons:** Odoo 18 zeigt „Einkäufe“ / „Lieferantenrechnungen“, Odoo 11 „Einkauf“ / „Eingangsrechnungen“.
+   Rein redaktionell. **Frage:** Odoo-18-Wortlaut behalten oder auf O11-Wortlaut umstellen?
+4. **Tab „Abrechnung“ vs. „Rechnungsstellung“:** Odoo 11 hatte zwei Tabs „Abrechnung“, Odoo 18 „Abrechnung“ + „Rechnungsstellung“
+   (bessere deutsche Bezeichnung). Aktuell bewusst Odoo-18-Wortlaut. **Frage:** so lassen?
+5. **O11-Smart-Buttons ohne Odoo-18-Modul:** „Reklamation“ (`claim_count`), „Events“ (`event_count`),
+   „Kostenstellenkonten“ (`contracts_count`), `sla_id`, `stp_ids`, `population_thousands_factor`.
+   Die Felder existieren in Odoo 18 nicht (Module nicht migriert). **Frage:** bleiben diese Bereiche entfallen?
+
+### Tests und Git
+- **Lokal: 40/40 OK** (`scripts/verify_s93_contact_views.py --instanz lokal`) — Spalten vorhanden/sichtbar,
+  keine doppelten sichtbaren Spalten, beide Filter vorhanden, alle O18-Filter erhalten, Filter-Domains fehlerfrei.
+- **VM: 40/40 OK** (`--instanz vm`) nach Branch-Checkout, Container-Neustart, `update_list` und Einzel-Upgrade von
+  `itk_base_setup` auf **18.0.1.0.1** — identisches Ergebnis.
+- Kontrollzahlen unverändert: `res.partner` 70, `res.partner.category` 15; Abos/Aufträge 5/16 lokal bzw. 6/17 auf der VM (bekannte F30-Abweichung).
+- VM-Log 15 Minuten um das Upgrade: 4 ERROR-Zeilen = `FileNotFoundError` aus dem bekannten **F33**-Filestore-Thema
+  (Browser-Session), **keine** modulbedingten Fehler.
+- **Keine Datenübernahme**, keine Produktivdaten, keine Migration — ausschließlich Ansichten und Modulversion geändert.
