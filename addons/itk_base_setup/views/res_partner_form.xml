@@ -31,8 +31,8 @@
                     <field name="attention_of" position="move"/>
                 </xpath>
                 <xpath expr="//group[@name='group_1']//group[@name='group_1_right']//field[@name='user_id']" position="after">
-                    <field name="is_supplier" invisible="not is_company"/>
-                    <field name="is_customer" invisible="not is_company"/>
+                    <field name="is_supplier"/>
+                    <field name="is_customer"/>
                 </xpath>
 
                 <!-- 4. Feldbezeichnungen ändern (Odoo-11-Wortlaut) -->
@@ -101,11 +101,16 @@
                     <field name="official_email" position="move"/>
                 </xpath>
 
-                <!-- Titel und akademische Titel stehen in Odoo 11 NICHT im Hauptblock ->
-                     ans Ende des Kontaktblocks verschieben (fuer Firmen unsichtbar). -->
-                <xpath expr="//field[@name='official_email']" position="after">
-                    <field name="salutation" position="move"/>
-                    <field name="function" invisible="is_company == True" position="move"/>
+                <!-- Titel und akademische Titel stehen in Odoo 11 NICHT im Hauptblock.
+                     Session 98: eigene Gruppe UNTERHALB des Adressblocks.
+                     WICHTIG: die Gruppe LEER anlegen und die Felder danach mit einem zweiten
+                     xpath per position="inside" hineinverschieben. Ein Verschiebe-Platzhalter
+                     als Kind der neu eingefuegten Gruppe wird NICHT verschoben, sondern als
+                     zusaetzliche Feldkopie eingefuegt (Doppelung). -->
+                <xpath expr="//field[@name='vat']/ancestor::group[2]" position="after">
+                    <group name="itk_titel_person" string="Titel und akademische Titel"/>
+                </xpath>
+                <xpath expr="//group[@name='itk_titel_person']" position="inside">
                     <field name="title" options="{'no_open': True}" invisible="is_company == True" position="move"/>
                     <field name="title_put_in_front" position="move"/>
                     <field name="title_put_in_back" position="move"/>

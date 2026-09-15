@@ -139,6 +139,8 @@ def main():
         print("  Formular:", seite.title(), "|", seite.url)
 
         seite.screenshot(path=a.out + "_oben.png", full_page=False)
+        seite.screenshot(path=a.out + "_ganz.png", full_page=True)
+
         bericht["basis"] = seite.evaluate(EXTRAKT)
         print("  Felder sichtbar oben: %d | Gruppen: %d | Tabs: %d | Smart-Buttons: %d"
               % (len(bericht["basis"]["felder"]), len(bericht["basis"]["gruppen"]),
