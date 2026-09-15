@@ -22,7 +22,7 @@
                      links  = GKZ (ref), Multiplication Factor/Thsd, Lieferant, Kunde
                      rechts = Verkäufer, zu Handen, Organisationsbezeichnung, Status -->
                 <xpath expr="//group[@name='group_1']//group[@name='group_1_left']//field[@name='ref']" position="after">
-                    <field name="multi_factor" invisible="not is_company"/>
+                    <field name="multi_factor" invisible="not is_company" string="Multiplication Factor/Thsd"/>
                     <field name="is_supplier" invisible="not is_company"/>
                     <field name="is_customer" invisible="not is_company"/>
                 </xpath>
