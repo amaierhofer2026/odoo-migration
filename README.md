@@ -10,6 +10,23 @@ Migration aller Odoo-Module von **Version 11 nach Version 18** für ITK (IT Komm
 - Saubere Git-Historie, jeder Schritt nachvollziehbar
 - Odoo 18 läuft in Docker (Windows, erreichbar unter `localhost:8069`)
 
+## Verbindliche Arbeitsregel: VM = Abnahmeumgebung
+
+**Ab 15.09.2026 (Session 97) gilt für das gesamte Migrationsprojekt:**
+
+- **Lokal** (`C:\Odoo-Test`, `localhost:8069`) ist die **Entwicklungsumgebung**: entwickeln, analysieren, vorab testen.
+- **Die VM** (`https://k001959vsx.ipax.at`, `/opt/odoo18`, DB `odoo18_test`) ist die **maßgebliche Test- und Abnahmeumgebung**.
+- Ein Punkt ist erst **wirklich umgesetzt**, wenn die Änderung auf der VM deployed, in der VM-Datenbank geladen/aktiviert,
+  direkt gegen die VM geprüft und dort **im echten Browser** sichtbar bzw. funktional bestätigt ist.
+- Ein Git-Pull auf der VM genügt **nicht**: Moduländerungen brauchen ein gezieltes Upgrade in `odoo18_test`.
+- Bei UI-/View-Änderungen wird die **tatsächlich aktive View** und die **sichtbare Darstellung** auf der VM kontrolliert
+  (XML/DOM/RPC allein zählt nicht).
+- Nach Dokumentation, Commit, Push, PR und Merge wird die VM auf den finalen `main`-Stand gebracht und dort abschließend verifiziert.
+
+Prüfwerkzeug: `python scripts/vm_abnahme_check.py` · Detailregel: `docs/arbeitsregel-vm-abnahme.md`.
+
+---
+
 ## Migrations-Status
 
 | Modul | Status | Version |

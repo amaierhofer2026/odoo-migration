@@ -10,6 +10,14 @@
 > - **Feld-für-Feld-Vergleich O11→O18 (seit 15.09.2026, Session 92):** Referenz ist jetzt vorhanden — **lesender** Zugriff auf das produktive Odoo 11 (`https://portal.it-kommunal.at`) und der lokale Produktiv-Dump `ITK_V1_a` (03.09.2026, PostgreSQL 10.23). Der Vergleich läuft **bereichsweise** in Abschnitt 6 und hat mit Kontakte → Kontakt-Tags begonnen.
 > - **In dieser Phase wird nur die Odoo-18-Struktur vorbereitet.** Es werden **keine** Odoo-11-Daten, Tags oder Zuordnungen übernommen (keine der 5.307 Kontakt-Tag-Zuordnungen, keine Produktionsinhalte). Die Datenmigration folgt erst, wenn alle Bereiche in Odoo 18 angepasst und getestet sind.
 > - Kein `-u all`, keine Modul-Upgrades, keine Datenmigration, keine Testdaten, kein E-Mail-Server-Setup in dieser Phase.
+> - **VERBINDLICHE ABNAHMEREGEL (ab 15.09.2026, Session 97): Die VM https://k001959vsx.ipax.at ist die maßgebliche Test- und Abnahmeumgebung.**
+>   Lokal (`C:\Odoo-Test`, `localhost:8069`) dient der Entwicklung, Analyse und dem Vorabtest. Ein Punkt gilt erst als umgesetzt bzw.
+>   abgeschlossen, wenn er (1) auf der VM deployed, (2) in der VM-DB `odoo18_test` geladen/aktiviert, (3) direkt gegen die VM geprüft
+>   und (4) dort im echten Browser sichtbar bzw. funktional bestätigt ist. Ein Git-Pull allein genügt nicht: gezieltes Modul-Upgrade
+>   bzw. notwendige Aktivierung auf der VM immer prüfen. Bei UI-/View-Änderungen die tatsächlich aktive View und die sichtbare
+>   Darstellung auf der VM kontrollieren (nicht nur XML/DOM/RPC). Nach Doku/Commit/Push/PR/Merge die VM auf den finalen `main`-Stand
+>   bringen und dort abschließend verifizieren. Prüfwerkzeug: `python scripts/vm_abnahme_check.py` (Rückgabewert 1 = VM-Abnahme offen).
+>   Detail: `docs/arbeitsregel-vm-abnahme.md`.
 
 ## Status-Legende
 

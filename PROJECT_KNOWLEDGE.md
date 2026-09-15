@@ -12,6 +12,45 @@ Sie ist für Menschen lesbar (kein reiner Code), dient als "Long-Term Memory" f�
 
 ---
 
+## VERBINDLICHE ARBEITSREGEL (ab 15.09.2026, Session 97): Die VM ist die Abnahmeumgebung
+
+**Wortlaut (Anna):**
+
+> Die VM unter https://k001959vsx.ipax.at ist die maßgebliche Test- und Abnahmeumgebung. Die lokale Odoo-18-Installation
+> darf weiterhin für Entwicklung, Analyse und Vorabtests verwendet werden. Ein Punkt gilt aber erst dann als wirklich
+> umgesetzt bzw. abgeschlossen, wenn die Änderung:
+> 1. auf der VM deployed ist,
+> 2. in der VM-Datenbank `odoo18_test` geladen/aktiviert wurde,
+> 3. direkt gegen https://k001959vsx.ipax.at geprüft wurde,
+> 4. dort im echten Browser sichtbar bzw. funktional bestätigt wurde.
+>
+> Wenn ein Modul geändert wurde, reicht ein Git-Pull auf der VM nicht aus: immer prüfen, ob ein gezieltes Modul-Upgrade
+> bzw. eine andere notwendige Aktivierung auf der VM erforderlich ist. Bei UI-/View-Änderungen: nicht nur XML/DOM/RPC
+> prüfen, sondern die tatsächlich aktive View und die sichtbare Darstellung auf der VM kontrollieren.
+> Lokal = Entwicklungsumgebung. VM = verbindliche Test-/Abnahmeumgebung.
+> Dokumentation, Commit, Push, PR und Merge wie bisher. Danach VM auf den finalen main-Stand bringen und dort abschließend
+> verifizieren.
+
+**Kurzform:**
+
+| Umgebung | Rolle | Zählt als Nachweis |
+|---|---|---|
+| `C:\Odoo-Test`, `http://localhost:8069` | Entwicklung: bauen, analysieren, vorab testen | **nein** |
+| `/opt/odoo18`, https://k001959vsx.ipax.at, DB `odoo18_test` | Test/Abnahme: deployen, laden/aktivieren, prüfen, im Browser bestätigen | **ja** |
+
+**Abnahme-Reihenfolge je Aufgabe:** (1) Deploy auf die VM (Pull + Container-Neustart), (2) gezieltes Modul-Upgrade bzw.
+Aktivierung auf der VM (nie `-u all`) und Versionsabgleich Repo ↔ VM-DB, (3) Verifikationsskript mit `--instanz vm`,
+(4) Browser-Bestätigung gegen https://k001959vsx.ipax.at, (5) Dokumentation/Commit/Push/PR/Merge, (6) VM auf den finalen
+`main`-Stand bringen und dort abschließend verifizieren.
+
+**Werkzeug:** `python scripts/vm_abnahme_check.py` prüft automatisch Erreichbarkeit der VM, Git-Stand der VM gegen `main`
+und ob geänderte Module auf der VM die Repo-Version tragen (Rückgabewert 1 = auf der VM ist noch etwas zu tun).
+Detailregel: `docs/arbeitsregel-vm-abnahme.md`.
+
+**Sprachregelung in Berichten:** „erledigt/abgenommen“ nur mit VM-Nachweis; wurde nur lokal geprüft, heißt es
+ausdrücklich „lokal vorbereitet, VM-Abnahme offen“. Lokal und VM werden immer getrennt genannt.
+
+---
 ## README.md – Wozu?
 Die **README.md** ist die **Visitenkarte des Repos** für andere Menschen (oder dich selbst in 6 Monaten). Sie zeigt auf GitHub automatisch als Startseite an. Sie enthält nur:
 - Projektname & Kurzbeschreibung
@@ -5693,3 +5732,24 @@ rückgängig, auf beiden Instanzen ausgeführt (lokal + VM).
 - Smart Buttons der nicht migrierten O11-Module (Kostenstellenkonten, Website-Veröffentlichung, Aktiv-Status); „Abonnements“ liegt in O18
   im Menü „Mehr“.
 - `ref` im Tab „Verkauf & Einkauf“ heißt in O18 „Referenz“ (O11: „Interne Referenz“).
+## Session 97: Verbindliche Regel „VM = Abnahmeumgebung“ verankert (15.09.2026)
+
+**Auftrag (Anna):** Die VM https://k001959vsx.ipax.at ist ab jetzt die maßgebliche Test- und Abnahmeumgebung; lokal bleibt
+Entwicklung. Ein Punkt gilt erst als umgesetzt, wenn er auf der VM deployed, in `odoo18_test` geladen/aktiviert, direkt gegen
+die VM geprüft und dort im echten Browser sichtbar/funktional bestätigt ist. Ein Git-Pull allein genügt nicht (gezieltes
+Modul-Upgrade bzw. Aktivierung prüfen). Bei UI-/View-Änderungen werden die tatsächlich aktive View und die sichtbare
+Darstellung auf der VM kontrolliert. Die Regel gilt dauerhaft und wird ab jetzt bei jedem Bereich automatisch angewendet.
+
+**Umsetzung in diesem Commit:**
+- Neues Regel-Dokument `docs/arbeitsregel-vm-abnahme.md` (Wortlaut, Kurzform, Abnahme-Checkliste, Konsequenzen für Berichte).
+- Regel-Abschnitt oben in `PROJECT_KNOWLEDGE.md` (direkt nach der Einleitung) plus dieser Session-Eintrag.
+- `MIGRATION_READINESS_CHECKLIST.md`: Abnahmekriterien um die VM-Regel erweitert (Deploy + Aktivierung + VM-Prüfung + Browser).
+- `README.md`: Abschnitt „Verbindliche Arbeitsregel: VM = Abnahmeumgebung“.
+- Neues Werkzeug `scripts/vm_abnahme_check.py`: prüft VM-Erreichbarkeit, Git-Stand der VM gegen `main` und den Abgleich
+  Repo-Version ↔ VM-installierte Version je geändertem Modul; Rückgabewert 1 = VM-Abnahme noch offen.
+
+**Erste Anwendung (Bestandsaufnahme):** `vm_abnahme_check.py` gegen die VM:
+`Erreichbarkeit HTTP 200` · `Git-Stand lokal 2adf5eb = VM 2adf5eb` · `0 von 41 installierten Repo-Modulen mit abweichender
+Version` · VM-Arbeitsbaum sauber → **VM ist auf dem Stand**. Der Bereich Kontaktansicht (Session 96) ist damit auch formal
+über die VM abgenommen: Upgrade `itk_base_setup` 18.0.1.0.6 in der VM-DB geladen, Browser-Prüfung gegen die VM erfolgt
+(Screenshots `Desktop\Odoo18-Layoutvergleich-Session95\6_...`).
