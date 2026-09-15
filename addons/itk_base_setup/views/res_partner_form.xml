@@ -35,6 +35,14 @@
                     <field name="is_customer"/>
                 </xpath>
 
+                <!-- 3c. Tab Kontakte & Adressen: Odoo 18 legt neue Kind-Datensaetze mit default_type=other an
+                     (Andere Adresse), Odoo 11 mit contact (Kontakt). Fuer ITK soll ein neu angelegter
+                     Ansprechpartner ein Kontakt sein -> default_type aus dem Kontext entfernen
+                     (Feldstandard ist contact). Session 100. -->
+                <xpath expr="//field[@name='child_ids']" position="attributes">
+                    <attribute name="context">{'default_parent_id': id, 'default_street': street, 'default_street2': street2, 'default_city': city, 'default_state_id': state_id, 'default_zip': zip, 'default_country_id': country_id, 'default_lang': lang, 'default_user_id': user_id}</attribute>
+                </xpath>
+
                 <!-- 4. Feldbezeichnungen ändern (Odoo-11-Wortlaut) -->
                 <!-- Beide title-Vorkommen (Adressblock + Kontaktblock) -->
                 <xpath expr="//field[@name='title'][@invisible='is_company == True']" position="attributes">
