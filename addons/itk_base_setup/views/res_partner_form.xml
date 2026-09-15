@@ -10,7 +10,7 @@
             <field name="name">res.partner.form (itk_base_setup)</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="itk_crm.view_partner_form_itk"/>
-            <field name="priority">25</field>
+            <field name="priority">90</field>
             <field name="arch" type="xml">
 
                 <!-- 1. "Characteristics" → "Kenndaten" -->
@@ -29,7 +29,33 @@
                     <field name="is_customer" invisible="not is_company"/>
                 </xpath>
 
-                <!-- 4. Feldbezeichnungen ändern -->
+                <!-- 4. Feldbezeichnungen ändern (Odoo-11-Wortlaut) -->
+                <!-- Beide title-Vorkommen (Adressblock + Kontaktblock) -->
+                <xpath expr="//field[@name='title'][@invisible='is_company == True']" position="attributes">
+                    <attribute name="string">Titel</attribute>
+                </xpath>
+                <xpath expr="//field[@name='title'][@invisible=&quot;type != 'contact'&quot;]" position="attributes">
+                    <attribute name="string">Titel</attribute>
+                </xpath>
+
+                <!-- Beide street2-Vorkommen -->
+                <xpath expr="//field[@name='street2'][@readonly=&quot;type == 'contact' and parent_id != False&quot;]" position="attributes">
+                    <attribute name="string">Straße 2</attribute>
+                </xpath>
+                <xpath expr="//field[@name='street2'][not(@readonly)]" position="attributes">
+                    <attribute name="string">Straße 2</attribute>
+                </xpath>
+
+                <!-- child_ids: Odoo 18 "Kontakt" (Einzahl) -> Odoo 11 "Kontakte" -->
+                <xpath expr="//field[@name='child_ids']" position="attributes">
+                    <attribute name="string">Kontakte</attribute>
+                </xpath>
+
+                <!-- Verkäufer auch im Tab "Verkauf & Einkauf" (dort kam der Kernname "Vertriebsmitarbeiter") -->
+                <xpath expr="//page[@name='sales_purchases']//field[@name='user_id']" position="attributes">
+                    <attribute name="string">Verkäufer</attribute>
+                </xpath>
+
                 <xpath expr="//field[@name='attention_of']" position="attributes">
                     <attribute name="string">zu Handen</attribute>
                 </xpath>
@@ -96,7 +122,7 @@
             <field name="name">res.partner.form (itk_base_setup smart buttons)</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_form"/>
-            <field name="priority">30</field>
+            <field name="priority">91</field>
             <field name="arch" type="xml">
 
                 <!-- "Sales" → "Verkauf" -->

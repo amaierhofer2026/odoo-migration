@@ -265,6 +265,25 @@
 |---|---|---|---|---|---|---|
 | *siehe 6.1 ff. (bereichsweise befüllt)* | | | | | | |
 
+### 6.3 Kontakte → geöffnetes Kontaktformular / Detailansicht — UMGESETZT (Struktur), 15.09.2026 (Session 94)
+
+Vergleich: 64 gemeinsame Formularfelder, 19 abweichende Beschriftungen; Kenndaten-Bereich, Tabs und Smart Buttons geprüft.
+
+**Umgesetzt** (`itk_base_setup` 18.0.1.0.3, nur Ansichten/Übersetzungen):
+- `title` → **„Titel“** (O18 „Anrede“, kollidierte mit `salutation`) · `street2` → **„Straße 2“** (O18-Tippfehler „Straße2“)
+  · `child_ids` → **„Kontakte“** (O18 „Kontakt“) · `user_id` → **„Verkäufer“** in beiden Vorkommen (Tab „Verkauf & Einkauf“ zeigte „Vertriebsmitarbeiter“)
+- `i18n/de.po` (dauerhafte Repo-Quelle) + gezielte Overwrite-Ladung auf beiden Instanzen für die Feld-Metadaten
+- View-Prioritäten auf 90/91 angehoben, damit die Labels nach allen anderen Modul-Views greifen
+
+**Bewusst Odoo-18-Technik beibehalten:** `customer_rank`/`is_customer`/„supplier_rank“ statt `customer`/`supplier`; `image_1920`;
+`sale_warn` statt `picking_warn`; Konten in Gruppe „Buchungen“; `purchase_warn` über die O18-Einstellung; Archivieren statt `toggle_active`;
+Tab „Rechnungsstellung“.
+
+**Status:** lokal und VM verifiziert (`scripts/verify_s94_contact_form.py`: je **28/28 OK**), Kontrollzahlen unverändert. **Keine Daten übernommen.**
+**KLÄRUNG NÖTIG:** `vat`-Label (O11 „UID“ vs. O18 „USt“, aus Basisdaten — Option: `res.country` AT `vat_label`);
+`ref` „Referenz“ vs. „Interne Referenz“; Wortlaute (Einkäufe/Einkauf, Lieferantenrechnungen/Eingangsrechnungen, Zahlungstoken/Kreditkarte(n),
+Bank/Bankkonten, Zahlungsbedingungen); Website-Veröffentlichung; `opt_out`; Buttons nicht migrierter O11-Module (Reklamation, Events,
+Kostenstellenkonten). Details: PROJECT_KNOWLEDGE.md Session 94.
 ### 6.2 Kontakte → Kontaktformular / Kontaktliste — UMGESETZT (Struktur), 15.09.2026 (Session 93)
 
 Vergleichsbasis: produktives Odoo 11 (Formular `fields_view_get`, Liste `res.partner.tree` + `itk_crm.view_partner_itk_tree`,

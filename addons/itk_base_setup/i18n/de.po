@@ -131,3 +131,36 @@ msgstr "Aufgaben"
 #: model:ir.model.fields,field_description:project.field_res_partner__task_count
 msgid "# Tasks"
 msgstr "# Aufgaben"
+
+# ---------------------------------------------------------------------------
+# Kontakt-/Adressfelder im Odoo-11-Wortlaut (Bereich Kontakte, Session 94)
+#
+# Referenz: produktives Odoo 11 - dort heissen die Felder "Titel" (title),
+# "Strasse 2" (street2), "Kontakte" (child_ids) und "Verkaeufer" (user_id).
+# Odoo 18 lieferte "Anrede" (title, kollidiert mit salutation), "Strasse2"
+# (Tippfehler), "Kontakt" (Einzahl) und "Vertriebsmitarbeiter".
+#
+# Das USt-/UID-Label von vat ist hier bewusst NICHT enthalten: Odoo 18 setzt es
+# aus den Basisdaten (res.country.vat_label fuer Oesterreich = "USt", Python-Hook
+# FormatVATLabelMixin._get_view) - offene Klaerung, siehe PROJECT_KNOWLEDGE.md.
+# ---------------------------------------------------------------------------
+
+#. module: itk_base_setup
+#: model:ir.model.fields,field_description:base.field_res_partner__title
+msgid "Title"
+msgstr "Titel"
+
+#. module: itk_base_setup
+#: model:ir.model.fields,field_description:base.field_res_partner__street2
+msgid "Street 2"
+msgstr "Straße 2"
+
+#. module: itk_base_setup
+#: model:ir.model.fields,field_description:base.field_res_partner__child_ids
+msgid "Contact"
+msgstr "Kontakte"
+
+#. module: itk_base_setup
+#: model:ir.model.fields,field_description:base.field_res_partner__user_id
+msgid "Salesperson"
+msgstr "Verkäufer"
