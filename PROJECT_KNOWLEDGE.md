@@ -5849,3 +5849,30 @@ der in Session 98 umgestellte Kontakt 79 auf der VM wurde von Anna selbst auf �
 
 **Verifikation:** VM-Abnahmeprüfung `scripts/vm_abnahme_check.py` — Git-Stand lokal = VM, 0 Modulabweichungen;
 Browser-Prüfung Kontakt 79 auf der VM (Screenshots `11_VM_Kontakt79_main_*`).
+## Session 100: Bereich Kontakte → Firmen/Personen-Logik und Ansprechpartner (15.09.2026)
+
+**Auftrag (Anna):** nächster Bereich des Strukturvergleichs — Firmen/Personen-Logik und Ansprechpartner (child_ids, parent_id,
+Adresstypen), Referenz Odoo 11 Prod, Umsetzung + VM-Abnahme nach der Regel aus Session 97.
+
+**Datengrundlage Odoo 11 Prod:** 2.380 Unternehmen / 3.461 Personen / 3.355 Kontakte mit `parent_id` / 1.951 Firmen mit
+Kind-Datensätzen; Adresstypen 5.363 `contact`, 468 `invoice`, **0** `delivery`/`other`/`private` → die Ansprechpartner-Struktur
+ist für die Migration zentral.
+
+**Gefundener und behobener Unterschied (funktional):** Odoo 18 setzt im Kontext des Feldes `child_ids` `default_type: 'other'`
+— ein neu angelegter Ansprechpartner wurde damit zur „Anderen Adresse“. Odoo 11 setzt dort keinen Typ, es greift der
+Feldstandard `contact`. In `itk_base_setup` **18.0.1.1.0** ist der Kontext entsprechend angepasst (restliche Vorgaben bleiben).
+Nachweis: gerenderter Kontext ohne `default_type`; `default_get(['type'])` mit Tab-Kontext → `contact` (lokal und VM).
+
+**Weitere Befunde (dokumentiert, nicht geändert):**
+- Karten im Tab „Kontakte & Adressen“ zeigen in beiden Systemen dieselben Felder (Name, Funktion, E-Mail, PLZ/Ort, Bundesland,
+  Land, Telefon, Mobil); Odoo 18 bietet zusätzlich einen „Hinzufügen“-Button.
+- `parent_id`: gleiche Domain (nur Unternehmen); Odoo 18 nutzt das Widget `res_partner_many2one`.
+- Adresstyp „Privatadresse“: Odoo 11 führt den Auswahlwert, hat aber **0 Datensätze** damit; Odoo 18 bildet Privatadressen
+  über einen eigenen Datensatztyp ab → keine Migrationswirkung, kein Nachbau.
+- Wortlaute als KLÄRUNG: „Adressart“ vs. „Adresstyp“, „Verbundenes“ vs. „Zugehöriges Unternehmen“,
+  „Zustellungsadresse“ vs. „Lieferadresse“.
+- Beibehalten (Odoo-18-Technik, gleiche Funktion): Radio-Adresstyp im Adressformular, „Stelle“ statt englischem „Job Position“.
+
+**Dokument:** `docs/o11-o18-strukturvergleich-kontakte-personen-firmen.md`.
+**Verifikation (VM):** Modul 18.0.1.1.0 installiert, RPC-Prüfung grün, Browser-Render des Tabs auf der VM
+(`12_VM_Ansprechpartner_*`), Kontrollzahlen unverändert, **keine Datenänderung**.

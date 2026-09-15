@@ -279,6 +279,21 @@
 |---|---|---|---|---|---|---|
 | *siehe 6.1 ff. (bereichsweise befüllt)* | | | | | | |
 
+### 6.4 Kontakte → Firmen/Personen-Logik und Ansprechpartner — UMGESETZT (Struktur), 15.09.2026 (Session 100)
+
+Vergleich Odoo 11 Prod ↔ Odoo 18 (lokal + VM), Vergleichspaar Breitenbrunn (O11 5794 ↔ O18 72).
+
+**Umgesetzt (`itk_base_setup` 18.0.1.1.0):** Im Tab „Kontakte & Adressen“ wird ein neu angelegter Ansprechpartner wieder
+als **Kontakt** angelegt. Odoo 18 setzt im `child_ids`-Kontext `default_type: 'other'` (Andere Adresse), Odoo 11 setzt keinen
+Typ → Feldstandard `contact`. Nachweis: `default_get(['type'])` mit Tab-Kontext → `contact` (lokal und VM).
+
+**Gleich in beiden Systemen:** Firmen/Personen-Radio (`company_type`), `parent_id`-Domain (nur Unternehmen), Karten im Tab
+(Name, Funktion, E-Mail, PLZ/Ort, Bundesland, Land, Telefon, Mobil).
+**Kein Nachbau nötig:** Adresstyp „Privatadresse“ (Odoo 11: 0 Datensätze; Odoo 18 nutzt einen eigenen Datensatztyp).
+**KLÄRUNG NÖTIG:** Wortlaute „Adressart“/„Adresstyp“, „Verbundenes“/„Zugehöriges Unternehmen“, „Zustellungsadresse“/„Lieferadresse“.
+**Verifikation:** VM-Render des Tabs (`12_VM_Ansprechpartner_*`), Modulversion 18.0.1.1.0 auf der VM, keine Datenänderung.
+**Dokument:** `docs/o11-o18-strukturvergleich-kontakte-personen-firmen.md`.
+
 ### 6.3 Kontakte → geöffnetes Kontaktformular / Detailansicht — UMGESETZT (Struktur), 15.09.2026 (Session 94)
 
 Vergleich: 64 gemeinsame Formularfelder, 19 abweichende Beschriftungen; Kenndaten-Bereich, Tabs und Smart Buttons geprüft.
