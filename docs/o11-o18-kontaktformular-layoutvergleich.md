@@ -93,3 +93,35 @@ kann das nicht übersteuern. Lösung wäre das Setzen von `res.country` (AT) `va
 - Werkzeug `scripts/browser_form_layout.py` (echter Browser-/Layoutvergleich)
 
 **Verifiziert:** Browser-Render lokal und VM **identisch**, Tabs/Buttons/Kenndaten in Odoo-11-Reihenfolge. Keine Daten übernommen.
+
+## Nachtrag Session 96 (15.09.2026): die Ansicht war im Browser unveraendert - warum
+
+**Ursache:** Unsere Formular-View hing an der Erweiterungs-View `itk_crm.view_partner_form_itk` (id 2303, priority 16).
+Odoo wendet eine erbende View **unmittelbar nach ihrer Eltern-View** an - danach liefen noch
+`itk_multifactor` (2285), `partner_academic_title` (2340), Website (3598), Karte (3647), `view_partner_form` (3694)
+und Firstname (2329/2330) darueber. Aenderungen wurden zugedeckt, und `position="move"` auf spaeter eingefuegte Felder
+(z. B. akademische Titel) brach mit `Element ... cannot be located` ab.
+
+**Fix:** `inherit_id` = **`base.view_partner_form`** (Wurzel) + `priority 90` -> unsere Regeln greifen zuletzt.
+
+**Zweiter Stolperstein:** `position="move"`-Platzhalter duerfen keine uebersetzbaren Attribute als Selektor tragen
+(`TRANSLATED_ATTRS`: string, help, confirm, placeholder, alt, title, label ...) - sonst
+`ParseError: View inheritance may not use attribute 'placeholder' as a selector`.
+
+**UID:** Das Label des Feldes `vat` kommt aus `<company>.country_id.vat_label` (O18-Basisdaten fuer AT = "USt");
+View-`string` verliert immer. Gesetzt wird es jetzt mit `scripts/set_country_vat_label_de.py` (idempotent, `--revert`).
+
+### Sichtbare Zielanordnung (umgesetzt, lokal = VM verifiziert)
+
+| | links | rechts |
+|---|---|---|
+| Kenndaten | GKZ, Multiplication Factor/Thsd, zu Handen, Organisationsbezeichnung | Verkaeufer, Ist ein Lieferant, Ist ein Kunde, Status |
+| Adressblock | Adresse (Strasse, Strasse 2, PLZ, Ort, Bundesland, Land), UID, Stichwoerter | Telefon, Mobil, E-Mail, Website, Sprache |
+
+Titel/akademische Titel und "Email offiziell" stehen jetzt am Ende des Kontaktblocks. Tabs in Odoo-11-Reihenfolge.
+
+### Pruefung im echten Browser (Playwright/Chrome, beide Instanzen)
+
+Tabs, Smart-Button-Reihenfolge und die sichtbaren Felder inkl. **Spaltenzuordnung (Pixel-x)** sind lokal und auf der VM
+**identisch**; Reihenfolge wie in der Tabelle oben. Screenshots:
+`Desktop\Odoo18-Layoutvergleich-Session95\5_Odoo18_S96_NACHHER_lokal.png` und `6_Odoo18_S96_NACHHER_VM.png`.

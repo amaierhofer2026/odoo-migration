@@ -291,6 +291,17 @@ Tab „Rechnungsstellung“.
   Doku `docs/o11-o18-kontaktformular-layoutvergleich.md`.
 - Offen (KLÄRUNG): Kostenstellenkonten/Website-Veröffentlichung/Aktiv-Button (nicht migrierte O11-Module bzw. Odoo-18-Standardbedienung),
   zweiter "Abrechnung"-Tab (= Odoo-18-Seite `accounting_disabled` nur für Benutzer ohne Buchhaltungsrechte), `vat` "USt" vs. "UID".
+**Session 96 — View-Kette und sichtbares Layout (nur so ist es wirklich erledigt):**
+- Die Formular-View hing an der **Erweiterungs-View** `itk_crm` (prio 16) und wurde deshalb früh angewendet; spätere Views
+  (akademische Titel 2340, Website 3598, Karte 3647, `view_partner_form` 3694, Multifactor 2285, Firstname 2329/2330) liefen danach
+  darüber und deckten Änderungen zu → `inherit_id` jetzt **`base.view_partner_form`** (Wurzel) + `priority 90`.
+- `position="move"`-Platzhalter: keine übersetzbaren Attribute als Selektor (`placeholder`, `string`, `title` …) → ParseError.
+- Sichtbare Anordnung jetzt: Kenndaten links GKZ/Thsd/zu Handen/Organisationsbezeichnung, rechts Verkäufer/Lieferant/Kunde/Status;
+  Adressblock links Adresse/UID/Stichwörter, rechts Telefon/Mobil/E-Mail/Website/Sprache; Titel/akademische Titel am Blockende.
+- `vat`-Label „UID“ über `scripts/set_country_vat_label_de.py` (Basisdaten `res.country` AT; dokumentiert, `--revert` vorhanden).
+- Verifikation im echten Browser: **lokal = VM identisch** (Tabs, Buttons, Feldreihenfolge mit Spaltenzuordnung);
+  `verify_s94`: je 28/28 OK. Screenshots `Desktop\Odoo18-Layoutvergleich-Session95\5_/6_...`.
+
 - **Regel für alle weiteren Bereiche: "vorhanden" ≠ "erledigt"** — je Punkt sichtbar? richtige Position? gleiche fachliche Funktion? gleiche Bedienlogik?
 **KLÄRUNG NÖTIG:** `vat`-Label (O11 „UID“ vs. O18 „USt“, aus Basisdaten — Option: `res.country` AT `vat_label`);
 `ref` „Referenz“ vs. „Interne Referenz“; Wortlaute (Einkäufe/Einkauf, Lieferantenrechnungen/Eingangsrechnungen, Zahlungstoken/Kreditkarte(n),

@@ -5636,3 +5636,60 @@ Smart Buttons; Screenshots + JSON. Referenz: Odoo 11 Prod Kontakt 5792 ↔ Odoo 
 Browser-Render **lokal und VM deckungsgleich** (identische Tab-Reihenfolge, Button-Reihenfolge, Feldliste mit Labels und
 Positionen); Screenshots unter `Desktop\Odoo18-Layoutvergleich-Session95\`; Einzelheiten in
 `docs/o11-o18-kontaktformular-layoutvergleich.md`. Keine Daten übernommen, keine Datensatzmigration.
+## Session 96: Kontaktansicht WIRKLICH sichtbar gemacht — View-Kette analysiert, Layout exakt nach Vorgabe (15.09.2026)
+
+**Anlass (Anna):** „Die Kontaktansicht ist im echten Odoo-18-Browser weiterhin praktisch unverändert … analysiere exakt die von mir
+tatsächlich geöffnete Ansicht auf der VM … ermittle die aktive View-Kette, prüfe, welche Views danach darübergehen, und vergleiche die
+sichtbaren Pixelpositionen mit Odoo 11.“
+
+### Befund 1 (die eigentliche Ursache): unsere View lief ZU FRÜH
+Auf der VM sind **42 Views** an `res.partner`/`form` aktiv (Primär 126 + Erweiterungen, Anwendungsreihenfolge = Parent-Kette, dann
+`priority, id`). Unsere View hing an `itk_crm.view_partner_form_itk` (id **2303**, `mode=extension`, prio 16) — Odoo wendet eine
+erbende View **unmittelbar nach ihrer Eltern-View** an. Deshalb liefen danach noch darüber:
+`itk_multifactor` 2285, `partner_academic_title` 2340, Website 3598, Karte 3647, `view_partner_form` 3694, Firstname 2329/2330.
+
+Folgen, die genau Annas Beobachtung erklären:
+- Änderungen an Feldern, die diese Views später anfassen (z. B. die akademischen Titel), wurden **zugedeckt** bzw. waren zum
+  Zeitpunkt unserer View noch **nicht vorhanden** → `position="move"` brach mit „Element … cannot be located“ ab.
+- Die Ansicht wirkte im Browser deshalb „praktisch unverändert“.
+- **Fix:** `inherit_id` auf die **Wurzel-View `base.view_partner_form`** (126) umgestellt, `priority` bleibt **90** → unsere Regeln
+  greifen als letzte. (Die Smart-Button-View hing schon immer an der Wurzel mit prio 91 — deshalb funktionierte dort das Verschieben.)
+
+### Befund 2: `position="move"`-Platzhalter dürfen keine übersetzbaren Attribute als Selektor tragen
+`<field name="function" placeholder="e.g. Sales Director" position="move"/>` → `ParseError: View inheritance may not use attribute
+'placeholder' as a selector` (`TRANSLATED_ATTRS` in `odoo/tools/translate.py`: string, help, confirm, placeholder, alt, title, label …).
+Mehrfach vorkommende Felder (function 3×, title 2×) werden daher über **nicht-übersetzbare** Attribute eindeutig gemacht
+(`invisible="is_company == True"`, `options="{'no_open': True}"`).
+
+### Befund 3: `UID` ist kein View-Label
+Odoo 18 liest das Beschriftung des Feldes `vat` zur Renderzeit aus `<company>.country_id.vat_label` (Python-Hook
+`FormatVATLabelMixin._get_view`); für Österreich liefert Odoo 18 „USt“. Ein View-`string` kann das nicht übersteuern.
+Umgesetzt mit **`scripts/set_country_vat_label_de.py`** (idempotent, `--revert` setzt „USt“ zurück): setzt `vat_label` des Firmenlandes
+(res.country **base.at**) auf „UID“, Quelle und de_DE. **Das ist eine Datensicherung in den Basisdaten**, kein Code-Fix — dokumentiert,
+rückgängig, auf beiden Instanzen ausgeführt (lokal + VM).
+
+### Umgesetzte sichtbare Anordnung (`itk_base_setup` 18.0.1.0.6)
+| | links | rechts |
+|---|---|---|
+| Kenndaten | GKZ, Multiplication Factor/Thsd, zu Handen, Organisationsbezeichnung | Verkäufer, Ist ein Lieferant, Ist ein Kunde, Status |
+| Adressblock | Adresse (Straße, Straße 2, PLZ, Ort, Bundesland, Land), UID, Stichwörter | Telefon, Mobil, E-Mail, Website, Sprache |
+
+- „Titel“, „Title in Front/Back“ und die akademische-Titel-Felder stehen jetzt **am Ende** des Kontaktblocks (nicht mehr mitten im
+  Hauptblock); „Email offiziell“ (ITK-Zusatzfeld, in Odoo 11 nicht vorhanden) ebenfalls ans Ende → die sichtbare Reihenfolge für
+  Unternehmen entspricht exakt der Vorgabe.
+- Tabs in Odoo-11-Reihenfolge (sechs sichtbar; der zweite „Abrechnung“-Tab aus O11 ist in O18 die Seite `accounting_disabled`,
+  die nur Benutzern ohne Buchhaltungsrechte erscheint).
+- Beide Spalten wurden über `position="move"` auf stabile Anker gezogen (multi_factor in `group_1_left`, user_id in `group_1_right`,
+  `lang`/`official_email` im Kontaktblock).
+
+### Verifikation (echter Browser, nicht DOM-Zählung)
+- `scripts/browser_form_layout.py` gegen **lokal** und **VM**: Tabs, Smart-Button-Reihenfolge und die sichtbaren Felder **inklusive
+  Spaltenzuordnung (Pixel-x) sind auf beiden Instanzen **identisch**; Reihenfolge links = GKZ, Thsd, zu Handen, Organisationsbezeichnung,
+  Adresse, UID, Stichwörter; rechts = Verkäufer, Lieferant, Kunde, Status, Telefon, Mobil, E-Mail, Website, Sprache.
+- `scripts/verify_s94_contact_form.py`: lokal **28/28 OK**, VM **28/28 OK**; Kontrollzahlen unverändert (70 Kontakte, 15 Tags).
+- Screenshots: `Desktop\Odoo18-Layoutvergleich-Session95\5_...lokal.png` und `6_...VM.png` (plus O11-Referenz und Vorher-Stand).
+
+### Offen (KLÄRUNG NÖTIG)
+- Smart Buttons der nicht migrierten O11-Module (Kostenstellenkonten, Website-Veröffentlichung, Aktiv-Status); „Abonnements“ liegt in O18
+  im Menü „Mehr“.
+- `ref` im Tab „Verkauf & Einkauf“ heißt in O18 „Referenz“ (O11: „Interne Referenz“).
