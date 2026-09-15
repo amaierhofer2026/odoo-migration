@@ -101,6 +101,7 @@ def main():
     ap.add_argument("--partner", required=True)
     ap.add_argument("--out", required=True)
     ap.add_argument("--url", help="Basis-URL ueberschreiben (z. B. Hostname statt IP)")
+    ap.add_argument("--tab-text", action="store_true", help="sichtbaren Text + Knoepfe des aktiven Tabs ausgeben")
     ap.add_argument("--tab-klicks", action="store_true", help="jeden Tab anklicken und Felder je Tab erfassen")
     a = ap.parse_args()
     c = creds(a.instanz)
@@ -137,6 +138,28 @@ def main():
         seite.wait_for_selector(".o_form_view", timeout=90000)
         time.sleep(5)
         print("  Formular:", seite.title(), "|", seite.url)
+
+        if a.tab_text:
+            daten = seite.evaluate("""() => {
+              const sichtbar = e => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0; };
+              const txt = e => (e.innerText || '').replace(/\\s+/g, ' ').trim();
+              const pane = document.querySelector('.o_notebook .tab-pane.active') || document.querySelector('.o_notebook .tab-pane');
+              const knoepfe = [...document.querySelectorAll('.o_notebook .tab-pane.active button, .o_notebook .tab-pane.active a.btn, .o_notebook .tab-pane.active .btn')]
+                    .filter(sichtbar).map(txt);
+              const felder = [...document.querySelectorAll('.o_notebook .tab-pane.active .o_field_widget[name]')].filter(sichtbar)
+                    .map(e => [e.getAttribute('name'), (e.innerText || '').trim().slice(0, 30)]);
+              const badges = [...document.querySelectorAll('.o_notebook .tab-pane.active .badge, .o_notebook .tab-pane.active .o_kanban_record')]
+                    .filter(sichtbar).map(txt).slice(0, 12);
+              return { text: pane ? pane.innerText.slice(0, 2500) : '(kein Tab-Pane)', knoepfe: knoepfe.slice(0, 14), felder: felder.slice(0, 30), karten: badges };
+            }""")
+            print("  --- Tab-Inhalt ---")
+            for z in daten["text"].split("\n"):
+                if z.strip():
+                    print("     ", z.strip()[:120])
+            print("  Knoepfe:", daten["knoepfe"])
+            print("  Felder :", daten["felder"])
+            print("  Karten/Badges:", daten["karten"][:8])
+            seite.screenshot(path=a.out + "_tab.png", full_page=False)
 
         seite.screenshot(path=a.out + "_oben.png", full_page=False)
         seite.screenshot(path=a.out + "_ganz.png", full_page=True)
