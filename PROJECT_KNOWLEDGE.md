@@ -5326,3 +5326,41 @@ Aufruf: `python scripts/f33_filestore_scan.py <anhaenge.txt> <filestore.txt> <la
 Ausschliesslich **kopieren**, SHA-1-verifiziert, nichts ueberschreiben, nichts loeschen, vorher
 Filestore-Backup. Reihenfolge: (1) Modulgrafiken + falsch liegende Dateien, (2) Fotos aus dem O11-Backup,
 (3) Entscheidung zu PDFs/Dashboards.
+## Session 91: Odoo-11-Filestore-Backup geprueft - Zugehoerigkeit, Integritaet, Zuordnung (15.09.2026)
+
+**Auftrag (Anna, 15.09.2026):** (1) F33 sauber dokumentieren und `scripts/f33_filestore_scan.py` ueber Branch -> Commit -> Push -> PR -> Merge sichern. (2) Danach ausschliesslich die **Integritaet und Verwendbarkeit** des gefundenen lokalen Odoo-11-Filestores `ITK_V1_a_filestore.tar.gz` **read-only** pruefen: zugehoerige Odoo-11-DB feststellen, Struktur/Dateinamen pruefen, die ~25 restlichen Kontakt-/Mitarbeiterfotos eindeutig zuordnen, die 7 PDFs/Dashboards auf Auffindbarkeit pruefen. **Noch nichts in den Odoo-18-Filestore kopieren.**
+
+### Teil 1 - Doku und Analysewerkzeug gesichert
+- Commit `af3fe01` ("docs(f33): Filestore-Luecke dokumentiert + read-only Analysewerkzeug"), PR **#36** gemergt; VM per `git pull --ff-only origin main` nachgezogen.
+- Inhalt: Session-90-Abschnitt (F33-Bestandsaufnahme), Checkliste F33, README-Absatz, `scripts/f33_filestore_scan.py` (166 Zeilen, nimmt Anhangs- und Filestore-Listing, schreibt nichts).
+
+### Teil 2 - Read-only Pruefung des O11-Filestores (vier Fragen)
+
+**a) Zugehoerige Datenbank - bewiesen.** Der Dump-Kopf (`pg_restore --list`, Ordner nur `:ro` gemountet) nennt: `dbname: ITK_V1_a` | `Archive created at 2026-09-03 08:26:41 UTC` | `Dumped from/by: PostgreSQL 10.23 (Ubuntu 10.23-0ubuntu0.18.04.2)` | `TOC Entries: 10927` => klassischer Odoo-11-Produktiv-Stack (PG 10 auf Ubuntu 18.04).
+**Paarungsbeweis:** die `ir_attachment`-Datenzeilen des Dumps (26.802 Anhaenge, `db_datas` leer) enthalten **21.789 verschiedene `store_fname`** - das Archiv enthaelt **genau 21.789 Dateien**, und die Mengen sind **identisch** (Schnittmenge 21.789, kein Rest in beide Richtungen) => der Filestore gehoert zweifelsfrei zu `ITK_V1_a`; gleichzeitig gilt: **keine Datei ohne Metadaten, kein Anhang ohne Datei** (vollstaendiger, konsistenter Filestore).
+Hinweis zur Methodik (Analysefehler, korrigiert): der erste Vergleich ergab "0 % Deckung", weil `store_fname` in der DB das Praefix `<xx>/` traegt (`a3/a38e776...`), im Archiv aber nur der 40-Hex-Hash steht - ohne `basename()` vergleicht man zwei Namensraeume. **Gleiche Kardinalitaet + 0 Treffer heisst immer: erst den eigenen Vergleichscode pruefen, dann das Backup anzweifeln.**
+
+**b) Struktur und Dateinamen - normgerecht.** `filestore/ITK_V1_a/<xx>/<hash>` (Tiefe 4), **alle 256** 2-Hex-Buckets belegt, **0 Fremdnamen**, **0 leere Dateien**, 514 Verzeichnisse, 1,89 GB unkomprimiert; Groessen min 1 B | Median 89.783 B | Max 6.363.804 B.
+
+**c) Integritaet - 100 %.** Odoo benennt Filestore-Dateien nach dem SHA-1 des Inhalts; geprueft wurde `SHA-1(Inhalt) == Dateiname` fuer **jede** Datei: **21.789 von 21.789 intakt**, 0 Abweichungen, 0 Lesefehler (Pruefzeit 9,8 s) => **vollstaendiges, unversehrtes O11-Produktiv-Backup, direkt verwendbar**. Werkzeug im Repo: `scripts/filestore_archive_verify.py` (identisch mit dem Skill-Werkzeug gleichen Namens).
+
+**d) Foto-Zuordnung und PDF-/Dashboard-Gegenprobe.**
+- **70 betroffene Bild-Datensaetze** (46 Kontakte, 24 Mitarbeiter; gezaehlt **pro Datensatz**, weil dieselbe Person als Kontakt UND als Mitarbeiter existieren kann - dadurch entstehen sonst scheinbare Widerspruchslisten): **40 per Hash** direkt aus dem O11-Filestore, **12 semantisch** ueber `ir_attachment.res_name` (z. B. "Sallmann Ronald" <-> "Ronald Sallmann"), **18 lokal nicht vorhanden** - davon **12 reine Test-/Demo-Konten** (Administrator, OdooBot, CU A/B/C, Mustermann Max, TestLast TestFirst, TestUser Test, Test User A/B CU, IT-Kommunal GmbH) und **6 Datensaetze echter Personen** (Wuerrer Florian 2x, Soritz Gerd 3x, Breitenender Lorenz). Ohne Namensnormalisierung (Kleinschreibung, Tokens alphabetisch, `ausgeschieden/`-Praefix abgeschnitten, Sonderzeichen -> Leerzeichen) waren nur **1** statt 12 Treffer erzielbar.
+- **Die 7 Beleg-PDFs sind definitiv nicht vorhanden:** 0 Treffer auf `S00188`, `S00189`, `P00015`-`P00018` in `name`, `datas_fname` und `res_name`. Die O11-DB hat zwar 15.047 PDF-Anhaenge (8.965 `account.invoice`, 83 `sale.order`) - das sind aeltere Belege mit anderen Nummern.
+- **Die 4 Dashboard-Dateien sind dort ebenfalls nicht:** der Dump enthaelt **keine** `spreadsheet`-/`dashboard`-Tabellen (Spreadsheet-Dashboards sind eine Odoo-17+-Funktion) => diese Inhalte wurden in der Test-DB selbst erzeugt.
+
+### Bilanz (Antwort auf die vier Fragen)
+| Frage | Ergebnis |
+|---|---|
+| Wie viele der 513 ohne IPAX wiederherstellbar? | **502 von 513** - 432 Modulgrafiken (Odoo-Quellcode) + 18 Fotodateien (hash-identisch) + 12 Fotos semantisch (O11-Original) + 1 Website-Logo + 1 CSS-Asset + 25 Mini-Platzhalter (generierte Standardavatare) |
+| Definitiv nicht lokal vorhanden | **7 Beleg-PDFs**, **4 Dashboard-Dateien**, **6 Bild-Datensaetze** von 3 echten Personen (Wuerrer Florian, Soritz Gerd, Breitenender Lorenz) + 12 Test-/Demo-Konten |
+| Fuer die Testumgebung wirklich relevant? | Die PDFs sind Testbelege (10.07.2026 in der Test-DB gedruckt), die Dashboards Testinhalte, die Testkonto-Bilder bedeutungslos, die 3 Personenportraits kosmetisch => **fachlich nichts kritisch** |
+| Kann F33 in der Testphase bewusst offen bleiben? | **Ja.** Empfehlung: Stufe 1+2 ausfuehren (beseitigt alle 500er auf App-Icons/Logos/Flaggen/Avataren), Restluecke namentlich als Restposten dokumentieren; IPAX nur, wenn die 7 Belege 1:1 gebraucht werden |
+
+### Read-only-Zusage (nachweisbar)
+- Der O11-Ordner war nur **`:ro`** in Wegwerf-`postgres:16`-Container gemountet; extrahiert wurde ausschliesslich nach stdout in Analyse-Dateien unter `%TEMP%` (`o11_toc.txt`, `o11_attach.sql`, `o11_store_fnames.txt`).
+- Es wurde **nichts entpackt, nichts kopiert, nichts importiert, nichts verschoben, nichts geloescht**; am Odoo-18-Filestore und an beiden Instanzen wurde nichts geaendert.
+
+### Ausblick
+- Naechster Block (laut Anna): **Odoo 11 Prod -> Odoo 18 Feld-/Strukturvergleich vor der Datenmigration** - Basis: der jetzt lokal verfuegbare O11-Dump `ITK_V1_a` (read-only auswertbar, Werkzeuge vorhanden).
+- F33-Reparatur erst nach Freigabe: Stufe 1 (Modulgrafiken + die 19/20 falsch liegenden Dateien kopieren, SHA-1-verifiziert) und Stufe 2 (Fotos aus dem O11-Backup).
