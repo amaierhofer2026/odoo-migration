@@ -51,6 +51,24 @@ Detailregel: `docs/arbeitsregel-vm-abnahme.md`.
 ausdrücklich „lokal vorbereitet, VM-Abnahme offen“. Lokal und VM werden immer getrennt genannt.
 
 ---
+## VERBINDLICHE MIGRATIONSREGEL: Organisation = Unternehmen, Ansprechpartner = Person (ab 15.09.2026, Session 99)
+
+**Befund (Session 98):** In der Ansicht von Kontakt 79 (`[20201] Magistrat der Stadt Villach`) fehlten GKZ,
+Multiplication Factor/Thsd, Organisationsbezeichnung, Status und der Tab Gemeinde-Information. Ursache: der Datensatz war
+als **Person** angelegt, obwohl er eine Gemeinde vertritt. Die firmenbezogenen Kenndaten sind in Odoo 18 wie in Odoo 11 nur
+bei Unternehmen sichtbar (`invisible: is_company = False`). Nach dem Umschalten auf „Unternehmen“ ist alles sichtbar.
+Die gerenderten Arches lokal/VM sind byteidentisch — es war kein View-Fehler.
+
+**Regel (Anna, verbindlich):**
+1. **Gemeinden, Verbände, Firmen und sonstige Organisationen** werden in Odoo 18 als **Unternehmen** angelegt.
+2. **Natürliche Ansprechpartner** werden als **Person** angelegt.
+3. **Die Zuordnung darf bei der Migration nicht pauschal erfolgen** — jede Zuordnung wird geprüft, unklare Fälle
+   werden einzeln vorgelegt und entschieden.
+
+**Detail (Vorgehen beim Import, Gegenproben, Prüfhinweise):** `docs/migrationsregel-organisation-vs-person.md`.
+**An der aktuellen Testdatenstruktur wurde nichts geändert** (ausdrückliche Vorgabe).
+
+---
 ## README.md – Wozu?
 Die **README.md** ist die **Visitenkarte des Repos** für andere Menschen (oder dich selbst in 6 Monaten). Sie zeigt auf GitHub automatisch als Startseite an. Sie enthält nur:
 - Projektname & Kurzbeschreibung
@@ -5808,3 +5826,26 @@ Nachbesserung als VM-verifiziert.
   (Odoo-11-Parität). Für die spätere Datenmigration (viele Personenkontakte) wäre die Odoo-11-Variante die ruhigere Ansicht.
 - Datenstand-Verschiedenheit: VM-Kontakt 79 = Unternehmen (von Anna am 15.09. um 12:07 umgestellt), lokal = Person.
   Lokal wurde **nichts** geändert.
+## Session 99: Befund dokumentiert — Organisationen müssen in Odoo 18 Unternehmen sein (15.09.2026)
+
+**Auftrag (Anna):** Den geklärten Befund dokumentieren und für die spätere Datenmigration festhalten, dass Gemeinden,
+Verbände, Firmen und sonstige Organisationen als **Unternehmen** und natürliche Ansprechpartner als **Person** angelegt
+werden müssen und die Zuordnung **nicht pauschal** erfolgen darf. An der Testdatenstruktur nichts weiter ändern.
+
+**Umsetzung:**
+- Neues Dokument `docs/migrationsregel-organisation-vs-person.md`: Befund (Kontakt 79, Arch-Beweis lokal = VM), verbindliche
+  Regel (3 Punkte im Wortlaut), Auswirkungstabelle Unternehmen/Person, Vorgehen beim Import (Odoo-11-`is_company` übernehmen,
+  Gegenproben, Klärliste statt Massen-Umschlag), Prüfhinweis für die Abnahme.
+- Regelabschnitt oben in `PROJECT_KNOWLEDGE.md` und in den „WICHTIGEN REGELN“ der `MIGRATION_READINESS_CHECKLIST.md`.
+- `README.md`: kurzer Hinweis.
+
+**Zusätzlicher, unabhängiger Fix (Session 98, bleibt gültig):** `Ist ein Lieferant` / `Ist ein Kunde` hatten bei uns
+fälschlich `invisible="not is_company"`; Odoo 11 kennt dort keine Bedingung → beide Felder sind jetzt bei Firmen und
+Personen sichtbar (`itk_base_setup` 18.0.1.0.8). Titel/akademische Titel stehen in einer eigenen Gruppe unterhalb des
+Adressblocks (bei Firmen ausgeblendet).
+
+**Keine Datenänderung:** Die Testdatensätze (u. a. 76–79 als Personen mit Organisationsnamen) bleiben unverändert;
+der in Session 98 umgestellte Kontakt 79 auf der VM wurde von Anna selbst auf „Unternehmen“ gesetzt.
+
+**Verifikation:** VM-Abnahmeprüfung `scripts/vm_abnahme_check.py` — Git-Stand lokal = VM, 0 Modulabweichungen;
+Browser-Prüfung Kontakt 79 auf der VM (Screenshots `11_VM_Kontakt79_main_*`).

@@ -10,6 +10,12 @@
 > - **Feld-für-Feld-Vergleich O11→O18 (seit 15.09.2026, Session 92):** Referenz ist jetzt vorhanden — **lesender** Zugriff auf das produktive Odoo 11 (`https://portal.it-kommunal.at`) und der lokale Produktiv-Dump `ITK_V1_a` (03.09.2026, PostgreSQL 10.23). Der Vergleich läuft **bereichsweise** in Abschnitt 6 und hat mit Kontakte → Kontakt-Tags begonnen.
 > - **In dieser Phase wird nur die Odoo-18-Struktur vorbereitet.** Es werden **keine** Odoo-11-Daten, Tags oder Zuordnungen übernommen (keine der 5.307 Kontakt-Tag-Zuordnungen, keine Produktionsinhalte). Die Datenmigration folgt erst, wenn alle Bereiche in Odoo 18 angepasst und getestet sind.
 > - Kein `-u all`, keine Modul-Upgrades, keine Datenmigration, keine Testdaten, kein E-Mail-Server-Setup in dieser Phase.
+> - **VERBINDLICHE MIGRATIONSREGEL (ab 15.09.2026, Session 99): Organisationen werden in Odoo 18 als Unternehmen angelegt, natürliche Ansprechpartner als Person.**
+>   Gemeinden, Verbände, Firmen und sonstige Organisationen = `is_company = True`; Personen = `is_company = False`. Die Zuordnung darf bei der
+>   Migration **nicht pauschal** erfolgen — jede Zuordnung prüfen, unklare Fälle einzeln entscheiden. Anlass: Kontakt 79 war als Person angelegt,
+>   dadurch waren GKZ, Multiplication Factor/Thsd, Organisationsbezeichnung, Status und der Tab Gemeinde-Information unsichtbar (die Kenndaten hängen
+>   an `is_company`). Detail und Vorgehen beim Import: `docs/migrationsregel-organisation-vs-person.md`. Beim Testen immer auch `is_company`/`company_type`
+>   des Datensatzes mitprüfen — ein „fehlendes Feld“ kann eine Typisierungsfrage sein.
 > - **VERBINDLICHE ABNAHMEREGEL (ab 15.09.2026, Session 97): Die VM https://k001959vsx.ipax.at ist die maßgebliche Test- und Abnahmeumgebung.**
 >   Lokal (`C:\Odoo-Test`, `localhost:8069`) dient der Entwicklung, Analyse und dem Vorabtest. Ein Punkt gilt erst als umgesetzt bzw.
 >   abgeschlossen, wenn er (1) auf der VM deployed, (2) in der VM-DB `odoo18_test` geladen/aktiviert, (3) direkt gegen die VM geprüft

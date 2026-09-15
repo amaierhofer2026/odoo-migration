@@ -10,6 +10,20 @@ Migration aller Odoo-Module von **Version 11 nach Version 18** für ITK (IT Komm
 - Saubere Git-Historie, jeder Schritt nachvollziehbar
 - Odoo 18 läuft in Docker (Windows, erreichbar unter `localhost:8069`)
 
+## Verbindliche Migrationsregel: Organisation = Unternehmen, Ansprechpartner = Person
+
+**Ab 15.09.2026 (Session 99), gilt für die spätere Datenmigration und alle Testdaten in Odoo 18:**
+
+- **Gemeinden, Verbände, Firmen und sonstige Organisationen** werden als **Unternehmen** angelegt (`is_company = True`).
+- **Natürliche Ansprechpartner** werden als **Person** angelegt (`is_company = False`).
+- **Die Zuordnung darf nicht pauschal erfolgen** — jede Zuordnung prüfen, unklare Fälle einzeln entscheiden.
+
+Anlass: Kontakt 79 war als Person angelegt; dadurch fehlten GKZ, Multiplication Factor/Thsd, Organisationsbezeichnung,
+Status und der Tab Gemeinde-Information (die Kenndaten hängen an `is_company`). Detail:
+`docs/migrationsregel-organisation-vs-person.md`.
+
+---
+
 ## Verbindliche Arbeitsregel: VM = Abnahmeumgebung
 
 **Ab 15.09.2026 (Session 97) gilt für das gesamte Migrationsprojekt:**
