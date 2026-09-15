@@ -299,6 +299,15 @@ Tab „Rechnungsstellung“.
   Doku `docs/o11-o18-kontaktformular-layoutvergleich.md`.
 - Offen (KLÄRUNG): Kostenstellenkonten/Website-Veröffentlichung/Aktiv-Button (nicht migrierte O11-Module bzw. Odoo-18-Standardbedienung),
   zweiter "Abrechnung"-Tab (= Odoo-18-Seite `accounting_disabled` nur für Benutzer ohne Buchhaltungsrechte), `vat` "USt" vs. "UID".
+**Session 98 — Nachbesserung (Bereich war zu früh als abgenommen bezeichnet):**
+- `is_supplier`/`is_customer` hatten fälschlich `invisible="not is_company"` (Odoo 11 hat dort keine Bedingung) → behoben.
+- Titel/akademische Titel stehen jetzt in einer eigenen Gruppe unterhalb des Adressblocks; die Gruppe ist bei Firmen
+  selbst ausgeblendet.
+- Ursache der fehlenden Felder bei Kontakt 79: der Datensatz war ein Personendatensatz (firmenbezogene Kenndaten sind bei
+  Personen in beiden Systemen unsichtbar); auf der VM ist er seit 15.09. 12:07 als Unternehmen geführt.
+- Auf der VM verifiziert (`browser_form_layout.py --instanz vm --partner 79`), Screenshots `10_VM_Kontakt79_FINAL_*`.
+- Offen (KLÄRUNG): Sollen GKZ/Thsd/Organisationsbezeichnung auch bei Personen sichtbar sein?
+
 **Session 96 — View-Kette und sichtbares Layout (nur so ist es wirklich erledigt):**
 - Die Formular-View hing an der **Erweiterungs-View** `itk_crm` (prio 16) und wurde deshalb früh angewendet; spätere Views
   (akademische Titel 2340, Website 3598, Karte 3647, `view_partner_form` 3694, Multifactor 2285, Firstname 2329/2330) liefen danach

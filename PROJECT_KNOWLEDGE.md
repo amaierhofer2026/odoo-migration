@@ -5753,3 +5753,58 @@ Darstellung auf der VM kontrolliert. Die Regel gilt dauerhaft und wird ab jetzt 
 Version` · VM-Arbeitsbaum sauber → **VM ist auf dem Stand**. Der Bereich Kontaktansicht (Session 96) ist damit auch formal
 über die VM abgenommen: Upgrade `itk_base_setup` 18.0.1.0.6 in der VM-DB geladen, Browser-Prüfung gegen die VM erfolgt
 (Screenshots `Desktop\Odoo18-Layoutvergleich-Session95\6_...`).
+## Session 98: Kontakt 79 auf der VM — Ursache der fehlenden Felder gefunden und behoben (15.09.2026)
+
+**Anlass (Anna):** In ihrer Sicht auf https://k001959vsx.ipax.at/odoo/contacts/79 fehlten GKZ, Multiplication Factor/Thsd,
+Ist ein Lieferant, Ist ein Kunde und Organisationsbezeichnung; Titel/akademische Titel standen weiter prominent im
+Hauptbereich. Der Bereich wurde von ihr zu Recht **nicht** als abgenommen betrachtet.
+
+### Ursache 1 — mein Fehler in der View
+`is_supplier`/`is_customer` hatten bei uns `invisible="not is_company"`. **Odoo 11 hat an dieser Stelle KEINE Bedingung**
+(`<field name="supplier" modifiers="{}"/>`, `<field name="customer" modifiers="{}"/>`) — die Felder sind dort auch bei
+Personen sichtbar. Behoben: beide Felder jetzt ohne Sichtbarkeitsbedingung.
+
+### Ursache 2 — Datenlage des Datensatzes (nicht die View)
+Kontakt 79 war ein **Personendatensatz** (`is_company=False`, `company_type='person'`), angelegt 23.07.2026. Bei Personen
+blenden **beide Systeme** die firmenbezogenen Kenndaten aus (Arch-Beweis: In Odoo 11 haben `ref`, `multi_factor`,
+`community_salutation` und `status_of_partner_id` `invisible: is_company = False`).
+**Auf der VM steht der Datensatz heute seit 12:07 als Unternehmen** (`company_type='company'`, geändert 15.09.2026 12:07:46);
+lokal ist er weiterhin eine Person → daher sah die VM-Ansicht nach der Korrektur korrekt aus, die lokale nicht.
+Die gerenderten Formular-Arches sind **byteidentisch** (36.572 Zeichen, lokale vs. VM) — es gab also keinen View-Unterschied,
+nur eine Daten- und Bedingungsfrage.
+
+### Behoben (itk_base_setup 18.0.1.0.9)
+1. **Ist ein Lieferant / Ist ein Kunde** ohne `is_company`-Bedingung → auf Kontakt 79 (VM) sichtbar.
+2. **Titel und akademische Titel** (title, title_put_in_front, title_put_in_back, academic_title_display, academic_title_ids)
+   stehen nicht mehr im Kontaktblock, sondern in einer **eigenen Gruppe unterhalb des Adressblocks**.
+3. Diese Gruppe ist selbst `invisible="is_company"` — sonst erscheint bei Firmen ein leerer Block mit Überschrift.
+
+### Technische Lehre (kostete zwei Anläufe)
+`position="inside"` mit Verschiebe-Platzhaltern funktioniert — **aber nicht, wenn der Platzhalter als Kind eines NEU
+eingefügten Elements steht**: Odoo reicht den Platzhalter nicht durch den Extract-Pfad, das Feld wird als **Kopie** eingefügt
+(Doppelung; aufgefallen an zwei „Titel“-Feldern). Richtiges Muster: Gruppe **leer** einfügen, dann in einem **zweiten xpath**
+die Felder per `position="inside"` hineinverschieben. Ebenfalls wichtig: `position="move"`-Platzhalter dürfen keine
+übersetzbaren Attribute als Selektor tragen (`placeholder`, `string`, `title` …) → sonst ParseError.
+
+### Verifikation auf der VM (nach der Regel aus Session 97)
+`scripts/browser_form_layout.py --instanz vm --partner 79` (echter Chrome, Benutzerkonten-Kontext) ergibt:
+
+| | links | rechts |
+|---|---|---|
+| Kenndaten | GKZ, Multiplication Factor/Thsd, zu Handen, Organisationsbezeichnung | Verkäufer, Ist ein Lieferant, Ist ein Kunde, Status |
+| Adressblock | Adresse (Straße, Straße 2, PLZ, Ort, Bundesland, Land), UID, Stichwörter | Telefon, Mobil, E-Mail, Website, Sprache |
+
+Ein Gruppenblock (KENNDATEN — die Titel-Gruppe ist bei Firmen ausgeblendet), Tabs in Odoo-11-Reihenfolge
+(Kontakte & Adressen, Interne Notizen, Verkauf & Einkauf, Abrechnung, Gemeinde-Information, Support Ticket).
+Screenshots: `Desktop\Odoo18-Layoutvergleich-Session95\10_VM_Kontakt79_FINAL_oben.png` und `_ganz.png` (plus `8_`/`9_`).
+
+### Korrektur der Abnahme
+Die Aussage „Bereich Kontaktansicht abgenommen“ aus den Sessions 96/97 war **zu früh**: verifiziert wurde nur an einem
+Firmendatensatz und mit einer falschen `is_company`-Bedingung bei Lieferant/Kunde. Der Bereich gilt erst nach dieser
+Nachbesserung als VM-verifiziert.
+
+### Offen (KLÄRUNG NÖTIG)
+- Sollen **GKZ, Multiplication Factor/Thsd und Organisationsbezeichnung auch bei Personen** sichtbar sein? Aktuell nein
+  (Odoo-11-Parität). Für die spätere Datenmigration (viele Personenkontakte) wäre die Odoo-11-Variante die ruhigere Ansicht.
+- Datenstand-Verschiedenheit: VM-Kontakt 79 = Unternehmen (von Anna am 15.09. um 12:07 umgestellt), lokal = Person.
+  Lokal wurde **nichts** geändert.
