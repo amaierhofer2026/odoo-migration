@@ -108,7 +108,7 @@
                      als Kind der neu eingefuegten Gruppe wird NICHT verschoben, sondern als
                      zusaetzliche Feldkopie eingefuegt (Doppelung). -->
                 <xpath expr="//field[@name='vat']/ancestor::group[2]" position="after">
-                    <group name="itk_titel_person" string="Titel und akademische Titel"/>
+                    <group name="itk_titel_person" string="Titel und akademische Titel" invisible="is_company"/>
                 </xpath>
                 <xpath expr="//group[@name='itk_titel_person']" position="inside">
                     <field name="title" options="{'no_open': True}" invisible="is_company == True" position="move"/>
