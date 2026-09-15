@@ -265,6 +265,24 @@
 |---|---|---|---|---|---|---|
 | *siehe 6.1 ff. (bereichsweise befüllt)* | | | | | | |
 
+### 6.2 Kontakte → Kontaktformular / Kontaktliste — UMGESETZT (Struktur), 15.09.2026 (Session 93)
+
+Vergleichsbasis: produktives Odoo 11 (Formular `fields_view_get`, Liste `res.partner.tree` + `itk_crm.view_partner_itk_tree`,
+Suche `base.view_res_partner_filter` + Erweiterungen) gegen Odoo 18 lokal und VM.
+
+**Umgesetzt** (Modul `itk_base_setup` 18.0.1.0.1, nur Ansichten — keine Daten):
+- **Liste:** O11-Spalten ergänzt, die in O18 fehlten — `function`, `is_company`, `parent_id`, `salutation`, `active` (jeweils `optional="show"`);
+  `category_id` (Stichwörter) wieder sichtbar; zweite Namensspalte `display_name` auf `optional="hide"` (O18 nutzt `complete_name`).
+- **Suche:** Filter **„Meine Partner“** `[('user_id','=',uid)]` und **„Meine Aktivitäten“** `[('activity_ids.user_id','=',uid)]` aus Odoo 11 übernommen;
+  alle O18-Filter/Gruppierungen unverändert.
+- **Formular:** nichts zu ändern — die O11-Bestandteile sind in O18 vorhanden, nur teils moderner gelöst:
+  Chatter via `<chatter/>`, `image_1920`/`avatar_128`, `customer_rank`/`is_customer`, `sale_warn` (ex `picking_warn`),
+  `purchase_warn` (Gruppen-/Einstellungsgesteuert), Debitoren-/Kreditorenkonto in Gruppe „Buchungen“ (`account.group_account_readonly`).
+
+**Status:** lokal und auf der VM umgesetzt und verifiziert (`scripts/verify_s93_contact_views.py`: **je 40/40 OK**;
+Kontrollzahlen unverändert). **KLÄRUNG NÖTIG:** `opt_out`/Versandbereitschaft, Website-Veröffentlichung am Kontakt,
+Wortlaute „Einkäufe“/„Lieferantenrechnungen“, Tab „Rechnungsstellung“, O11-Smart-Buttons ohne O18-Modul
+(Reklamation, Events, Kostenstellenkonten, SLA, STP). Details: PROJECT_KNOWLEDGE.md Session 93.
 ### 6.1 Kontakte → Kontakt-Tags (`res.partner.category`) — STRUKTUR BEREIT (leer, lokal getestet)
 
 Vollständiger Struktur-/Funktionsvergleich (Felder, Ansichten, Hierarchie, „Anzeigename"):
