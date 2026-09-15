@@ -18,15 +18,22 @@
                     <attribute name="string">Kenndaten</attribute>
                 </xpath>
 
-                <!-- 2. multi_factor nach ref/GKZ in linker Spalte einfügen -->
-                <xpath expr="//group[@name='group_1']//group[@name='group_1_left']//field[@name='attention_of']" position="before">
-                    <field name="multi_factor" invisible="not is_company"/>
-                </xpath>
-
-                <!-- 3. is_supplier und is_customer in rechter Spalte nach user_id -->
-                <xpath expr="//group[@name='group_1']//group[@name='group_1_right']//field[@name='status_of_partner_id']" position="before">
+                <!-- 2. Kenndaten-Spalten wie Odoo 11:
+                     links  = GKZ (ref), Multiplication Factor/Thsd, Lieferant, Kunde
+                     rechts = Verkäufer, zu Handen, Organisationsbezeichnung, Status -->
+                <xpath expr="//group[@name='group_1']//group[@name='group_1_left']//field[@name='ref']" position="after">
+                    <field name="multi_factor" invisible="not is_company" string="Multiplication Factor/Thsd"/>
                     <field name="is_supplier" invisible="not is_company"/>
                     <field name="is_customer" invisible="not is_company"/>
+                </xpath>
+
+                <!-- "zu Handen" und "Organisationsbezeichnung" in die rechte Spalte holen (Odoo-11-Anordnung).
+                     Beide Anker zeigen auf user_id, damit die Verschiebung unabhaengig von der Reihenfolge greift. -->
+                <xpath expr="//group[@name='group_1']//group[@name='group_1_right']//field[@name='user_id']" position="after">
+                    <field name="community_salutation" position="move"/>
+                </xpath>
+                <xpath expr="//group[@name='group_1']//group[@name='group_1_right']//field[@name='user_id']" position="after">
+                    <field name="attention_of" position="move"/>
                 </xpath>
 
                 <!-- 4. Feldbezeichnungen ändern (Odoo-11-Wortlaut) -->
@@ -91,6 +98,11 @@
 
                 <!-- 5. Tab-Bezeichnungen an Odoo 11 anpassen -->
 
+                <!-- 5. Tab-Reihenfolge wie Odoo 11: "Interne Notizen" an zweiter Stelle -->
+                <xpath expr="//page[@name='contact_addresses']" position="after">
+                    <page name="internal_notes" position="move"/>
+                </xpath>
+
                 <!-- "Sales &amp; Purchase" → "Verkauf &amp; Einkauf" -->
                 <xpath expr="//page[@name='sales_purchases']" position="attributes">
                     <attribute name="string">Verkauf &amp; Einkauf</attribute>
@@ -138,6 +150,11 @@
                 <!-- "Subscriptions" → "Abonnements" -->
                 <xpath expr="//field[@name='subscription_count']" position="attributes">
                     <attribute name="string">Abonnements</attribute>
+                </xpath>
+
+                <!-- Smart-Button-Reihenfolge wie Odoo 11: Verkaufschancen, Verkauf, Meetings -->
+                <xpath expr="//button[@name='action_view_sale_order']" position="after">
+                    <button name="schedule_meeting" position="move"/>
                 </xpath>
 
                 <!-- Support-Ticket-Tab -->
