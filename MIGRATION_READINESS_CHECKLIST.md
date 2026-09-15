@@ -288,9 +288,9 @@ Vollständiger Struktur-/Funktionsvergleich (Felder, Ansichten, Hierarchie, „A
 - **Suche:** Hierarchiesuche über `parent_id` (`child_of`) sowie Filter Hauptkategorien / Unterkategorien / Verwendete Tags / Unverwendete Tags / Mit Unterkategorien / Ohne Unterkategorien.
 - **Bewusst nicht gebaut:** `x_tag_anzeigename2`, `parent_left`/`parent_right`, jegliche Datenübernahme.
 
-**Status:** lokal installiert und verifiziert (`scripts/verify_s92_partner_category.py`: **36/36 OK**, inkl. Hierarchie-Test mit temporärem
+**Status:** lokal **und auf der VM** installiert und verifiziert (`scripts/verify_s92_partner_category.py` — je **36/36 OK**, inkl. Hierarchie-Test mit temporärem
 Eltern-/Kind-Paar und anschließender Löschung; Tag-Anzahl unverändert 15 → 15). **Keine Daten übernommen.**
-VM-Nachzug und Abschluss dokumentiert in PROJECT_KNOWLEDGE.md (Session 92).
+VM-Nachzug und Abschluss dokumentiert in PROJECT_KNOWLEDGE.md (Session 92); lokal = GitHub = VM auf `64e6203` (VM-Tag-Anzahl nach Test unverändert 15, VM-Log ohne modulbedingte Fehler).
 
 
 ---
