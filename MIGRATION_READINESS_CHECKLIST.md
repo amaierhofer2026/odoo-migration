@@ -279,7 +279,7 @@
 |---|---|---|---|---|---|---|
 | *siehe 6.1 ff. (bereichsweise befüllt)* | | | | | | |
 
-### 6.6 Kontakte → Kontaktformular → Tab „Interne Notizen“ — UMGESETZT (Struktur), 15.09.2026 (Session 102)
+### 6.6 Kontakte → Kontaktformular → Tab „Interne Notizen“ — **ABGESCHLOSSEN** (VM-verifiziert), 15.09.2026 (Sessions 102/103/104)
 
 **Umgesetzt (`itk_base_setup` 18.0.1.2.0):** Abschnittstitel „Alarmierung bei Auftrag“ (sale) und „Warnung beim Einkaufsauftrag“
 (purchase) im Odoo-11-Wortlaut; Platzhalter des Notizfelds „Interner Hinweis ...“. Die Einkaufs-Warnung ist über die
@@ -297,6 +297,17 @@ linienbezogene Produktwarnungen; ein Partnerfeld für die Kommissionierung exist
 **Empfehlung: kein eigenes Feld** (Entscheidung bei Anna).
 **Einkaufs-Warnungen bleiben aktiv** (Anweisung Anna, `purchase.group_warning_purchase` auf lokal und VM).
 **Dokument:** `docs/o11-o18-strukturvergleich-kontakt-interne-notizen.md`.
+
+**Abschluss/Endstand (Session 104, verifiziert über HTTPS gegen die VM):**
+- `itk_base_setup` **18.0.1.2.0** installiert, `latest_version` identisch → kein offenes Upgrade
+- Einkaufs-Warn-Einstellung aktiv; gerenderter Arch: Platzhalter „Interner Hinweis ...“, Abschnitte „Alarmierung bei Auftrag“,
+  „Warnung zu Rechnung“, „Warnung beim Einkaufsauftrag“ (Felder `comment`, `sale_warn`, `invoice_warn`, `purchase_warn`)
+- Browser-Prüfung Tab „Interne Notizen“ auf der VM: alle drei Abschnitte sichtbar (`13_VM_InterneNotizen.png`)
+- 0 von 41 Repo-Modulen mit Versionsabweichung; Kontrollzahlen unverändert (70 Kontakte), keine Datenänderung
+- VM-Repo von Anna auf final main nachgezogen
+
+**Empfehlung zu `picking_warn` offen bei Anna** (kein eigenes Feld nötig, da 0 Datensätze); Feld ist **nicht** als entfallen
+festgeschrieben, sondern als „strukturell vorhanden, Datenbestand 0“ dokumentiert.
 
 ### 6.5 Kontakte → Adressblock / Adresstypen — MIGRATIONSBEREIT (abgeschlossen), 15.09.2026 (Session 101)
 

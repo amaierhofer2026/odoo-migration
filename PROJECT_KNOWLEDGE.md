@@ -5941,3 +5941,25 @@ damit „Warnung beim Einkaufsauftrag“ sichtbar und für die Migration verfüg
 Odoo neu gestartet, `/web/login` HTTP 200; Modul `itk_base_setup` 18.0.1.2.0 installiert, Einkaufs-Warn-Einstellung aktiv,
 Tab „Interne Notizen“ im Browser mit allen drei Abschnitten (Screenshot `13_VM_InterneNotizen.png`).
 **Dokument:** `docs/o11-o18-strukturvergleich-kontakt-interne-notizen.md` (Abschnitte 6 und 7).
+## Session 104: Bereich „Interne Notizen“ final abgeschlossen und VM-Endstand verifiziert (15.09.2026)
+
+**Abschluss des Bereichs Kontakte → Kontaktformular → Tab „Interne Notizen“.** Alle Punkte sind umgesetzt und
+dokumentiert; die VM (verbindliche Abnahmeumgebung) steht auf dem finalen main-Stand.
+
+**Endstand-Verifikation über HTTPS gegen https://k001959vsx.ipax.at:**
+- Erreichbarkeit HTTP 200, Anmeldung als `anna.maierhofer@it-kommunal.at` (uid 2) OK
+- `itk_base_setup` **18.0.1.2.0** installiert, `latest_version` identisch → kein offenes Modul-Upgrade
+- Einkaufs-Warn-Einstellung `purchase.group_warning_purchase` **aktiv**
+- Gerenderter Arch des Tabs: Platzhalter „Interner Hinweis ...“, Abschnitte „Alarmierung bei Auftrag“,
+  „Warnung zu Rechnung“, „Warnung beim Einkaufsauftrag“ mit `sale_warn`, `invoice_warn`, `purchase_warn`
+- Browser-Prüfung (echter Chrome) Tab „Interne Notizen“: alle drei Abschnitte sichtbar, Screenshot
+  `Desktop\Odoo18-Layoutvergleich-Session95\13_VM_InterneNotizen.png`
+- 0 von 41 installierten Repo-Modulen mit Versionsabweichung; Kontrollzahlen unverändert (70 Kontakte, 12 Unternehmen, 58 Personen)
+- Keine Datensätze angelegt, geändert oder gelöscht — die einzige Zustandsänderung ist die aktivierte Odoo-18-Einstellung
+  „Warnungen“ im Einkauf (auf ausdrücklichen Wunsch, jederzeit reversibel)
+
+**Offen (Entscheidung bei Anna, kein Blocker):** `picking_warn` — Datenbestand 0 in Odoo 11 Prod, Empfehlung „kein eigenes Feld“;
+das Feld ist bewusst **nicht** als entfallen festgeschrieben.
+
+**Dokumente:** `docs/o11-o18-strukturvergleich-kontakt-interne-notizen.md` (Vergleich, Ursache, Analyse, Entscheidungen),
+Checkliste Abschnitt 6.6 (ABGESCHLOSSEN), `scripts/verify_s102_interne_notizen.py` (Browser-Prüfwerkzeug).
