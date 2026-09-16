@@ -6025,3 +6025,20 @@ dokumentieren. Keine Preislisten, Benutzer oder Steuerpositionen jetzt anlegen; 
 
 **Verifikation:** Prüfwerkzeug lokal 50 OK / 0 FEHL, VM 50 OK / 0 FEHL; Browser-Prüfung des Tabs auf der VM;
 Deutsch-Label `ref` in beiden Datenbanken bestätigt.
+## Session 107: Bereich Kontakte → Verkauf & Einkauf final verifiziert und abgeschlossen (15.09.2026)
+
+**Verifikation auf der VM (nach dem Modul-Upgrade, alles über HTTPS):**
+- `itk_base_setup` **18.0.1.2.1** installiert, `latest_version` identisch → kein offenes Upgrade
+- Feldbeschreibung `ref` in de_DE: „Interne Referenz“
+- gerenderter Formular-Arch: Tab „Verkauf & Einkauf“ → `string="Interne Referenz"`; Kenndatenblock und Kontaktliste
+  weiterhin „GKZ“ (wie Odoo 11 Prod); Suche/Filter folgt der Feldbeschreibung
+- Prüfwerkzeug: lokal 50 OK / 0 FEHL, **VM 50 OK / 0 FEHL**
+- Browser-Prüfung (echter Chrome, Kontakt 69): „Interne Referenz“ sichtbar, kein alleinstehendes „Referenz“;
+  Screenshot `Desktop\Odoo18-Layoutvergleich-Session95\15_VM_VerkaufEinkauf_InterneReferenz.png`
+- Kontrollzahlen unverändert (70 Kontakte); keine Datensätze angelegt, geändert oder gelöscht
+- Preisliste „Preisliste 2026 + Valorisierung“ (EUR) aktiv, wie von Anna gewünscht
+
+**Bereich abgeschlossen und migrationsbereit.** Offen bleiben ausschließlich die verbindlich dokumentierten Vorgaben
+für die spätere Datenmigration (Preislisten anlegen/mappen, Benutzer-Mappingstrategie, Steuerpositionen zuordnen,
+opt_out in die Marketing-/Blacklist-Logik überführen) — dokumentiert in
+`docs/o11-o18-strukturvergleich-kontakt-verkauf-einkauf.md`, Abschnitt 5.

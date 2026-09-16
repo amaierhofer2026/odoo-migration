@@ -346,7 +346,10 @@ existiert in O18; O18-Standard-Preisliste ist USD) · 2) 46 von 61 O11-Benutzern
 - **opt_out:** kein Nachbau. Vor der Migration die 22 Kontakte in die Odoo-18-Marketing-/Blacklist-Logik überführen
   (`mail.blacklist` bzw. `mailing.subscription.opt_out` mit `opt_out_datetime`).
 
-**Nachweis final:** `scripts/verify_s105_verkauf_einkauf.py` → lokal 50 OK / 0 FEHL, VM 50 OK / 0 FEHL; Modul 18.0.1.2.1.
+**Nachweis final (Session 107, gegen die VM geprüft):** `scripts/verify_s105_verkauf_einkauf.py` → lokal 50 OK / 0 FEHL,
+VM 50 OK / 0 FEHL; `itk_base_setup` 18.0.1.2.1 auf der VM installiert; gerenderter Arch zeigt im Tab „Interne Referenz“,
+im Kenndatenblock/Kontaktliste weiterhin „GKZ“; Browser-Prüfung auf der VM bestätigt (kein alleinstehendes
+„Referenz“); 70 Kontakte unverändert. **Bereich abgeschlossen.**
 
 ### 6.5 Kontakte → Adressblock / Adresstypen — MIGRATIONSBEREIT (abgeschlossen), 15.09.2026 (Session 101)
 

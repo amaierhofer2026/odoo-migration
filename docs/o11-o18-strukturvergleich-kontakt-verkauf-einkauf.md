@@ -200,3 +200,21 @@ Der Tab „Verkauf & Einkauf“ ist **migrationsbereit und abgeschlossen** (Sess
 - Kein optischer Rückbau, keine Produktionsdaten übernommen.
 
 Nachweis: `scripts/verify_s105_verkauf_einkauf.py` (read-only) und Browser-Prüfung des Tabs auf der VM.
+## 7. Endstand-Verifikation auf der VM (Session 107)
+
+Verifikation über HTTPS gegen https://k001959vsx.ipax.at nach dem Modul-Upgrade:
+
+| Prüfung | Ergebnis |
+|---|---|
+| `itk_base_setup` | 18.0.1.2.1 installiert, `latest_version` identisch (kein offenes Upgrade) |
+| Feldbeschreibung `ref` (de_DE) | „Interne Referenz“ |
+| Formular, Tab „Verkauf & Einkauf“ | `<field name="ref" string="Interne Referenz"/>` |
+| Kenndatenblock / Kontaktliste | weiterhin „GKZ“ (wie Odoo 11) |
+| Suche/Filter | folgt der Feldbeschreibung → „Interne Referenz“ |
+| Prüfwerkzeug `verify_s105_verkauf_einkauf.py` | lokal 50 OK / 0 FEHL, **VM 50 OK / 0 FEHL** |
+| Browser-Prüfung (echter Chrome, Kontakt 69) | „Interne Referenz“ sichtbar, kein alleinstehendes „Referenz“ |
+| Screenshot | `Desktop\Odoo18-Layoutvergleich-Session95\15_VM_VerkaufEinkauf_InterneReferenz.png` |
+| Kontrollzahlen | 70 Kontakte, unverändert; keine Datensätze angelegt/geändert/gelöscht |
+| Aktive Preislisten | „Preisliste 2026 + Valorisierung“ (EUR) aktiv |
+
+**Bereich abgeschlossen.**
