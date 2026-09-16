@@ -309,6 +309,26 @@ linienbezogene Produktwarnungen; ein Partnerfeld für die Kommissionierung exist
 **Empfehlung zu `picking_warn` offen bei Anna** (kein eigenes Feld nötig, da 0 Datensätze); Feld ist **nicht** als entfallen
 festgeschrieben, sondern als „strukturell vorhanden, Datenbestand 0“ dokumentiert.
 
+### 6.7 Kontakte → Kontaktformular → Tab „Verkauf & Einkauf“ — **MIGRATIONSBEREIT (Struktur)**, 15.09.2026 (Session 105)
+
+Feld-Mapping Odoo 11 → Odoo 18 vollständig dokumentiert in `docs/o11-o18-strukturvergleich-kontakt-verkauf-einkauf.md`
+(23 Felder mit Bedeutung, Zielfeld, Typ, 1:1, Transformation, entfällt, neu).
+
+**Kein optischer Rückbau** (Anweisung Anna): Odoo 18 ist im Tab vollständiger als Odoo 11 (Zahlungsbedingungen,
+Zahlungsmethoden, Steuerposition, Käufer, Eingangserinnerung) — Tab unverändert gelassen.
+
+**Bereits korrekt vorhanden:** `is_customer`/`is_supplier` als compute+inverse auf `customer_rank`/`supplier_rank`
+(häkchengesteuerte Odoo-18-Logik, lokal + VM verifiziert). `multi_factor` und `ref` passen 1:1.
+
+**Behobener GAP:** beide Odoo-18-Preislisten waren inaktiv → EUR-Preisliste „Preisliste 2026 + Valorisierung" auf
+lokal und VM aktiviert (reversibel, keine Datensatzänderung).
+
+**Offen (Datenentscheidungen, KLÄRUNG NÖTIG):** 1) Preislisten-Zuordnung (50 vs. 2; keine der verwendeten O11-Preislisten
+existiert in O18; O18-Standard-Preisliste ist USD) · 2) 46 von 61 O11-Benutzern fehlen in O18 → 4.397 Verkäufer-Beziehungen
+· 3) Steuerpositionen 5 vs. 4 Namen (1 Kontakt) · 4) `opt_out` 22 Kontakte → Marketing-Abos · 5) `ref`-Beschriftung.
+
+**Nachweis:** `scripts/verify_s105_verkauf_einkauf.py` → lokal 50 OK / 0 FEHL, VM 50 OK / 0 FEHL.
+
 ### 6.5 Kontakte → Adressblock / Adresstypen — MIGRATIONSBEREIT (abgeschlossen), 15.09.2026 (Session 101)
 
 **Entscheidung von Anna: der Vergleich der Adressmaske passt funktional — kein Odoo-11-Nachbau.**

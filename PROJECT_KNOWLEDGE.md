@@ -5963,3 +5963,38 @@ das Feld ist bewusst **nicht** als entfallen festgeschrieben.
 
 **Dokumente:** `docs/o11-o18-strukturvergleich-kontakt-interne-notizen.md` (Vergleich, Ursache, Analyse, Entscheidungen),
 Checkliste Abschnitt 6.6 (ABGESCHLOSSEN), `scripts/verify_s102_interne_notizen.py` (Browser-Prüfwerkzeug).
+## Session 105: Bereich Kontakte → Verkauf & Einkauf — Feld-Mapping erstellt, migrationsbereit (15.09.2026)
+
+**Auftrag (Anna):** Odoo 11 Prod read-only gegen Odoo 18 vergleichen und je Feld dokumentieren (Bedeutung, Zielfeld,
+Typ, 1:1-Mapping, Transformation, entfällt, neu ohne O11-Quelle). **Kein optischer Rückbau** — Ziel ist nur, dass alle
+relevanten Felder bei der Datenmigration eindeutig in Odoo 18 landen. Keine Produktionsdaten migrieren.
+
+**Ergebnis (Dokument `docs/o11-o18-strukturvergleich-kontakt-verkauf-einkauf.md`):**
+- 23 Zielfelder in Odoo 18 geprüft — alle vorhanden, korrekter Typ, korrekte Relation
+- `customer`/`supplier` → Odoo 18 `customer_rank`/`supplier_rank`; unsere Felder `is_customer`/`is_supplier` sind
+  bereits als compute+inverse auf die Ränge definiert (Häkchen steuert Rang) — lokal und VM verifiziert
+- `multi_factor` (Modul `itk_multifactor`) und `ref` passen 1:1 (nur Beschriftungen weichen ab; bewusst unverändert)
+- entfallen in Odoo 18: `customer`, `supplier`, `opt_out`, `property_stock_customer/supplier`, `property_payment_method_id`
+- neu in Odoo 18 ohne O11-Quelle: `buyer_id`, `company_registry`, `website_id`, GLN, Eingangserinnerung,
+  Zahlungsmethoden-Zeilen (`property_inbound/outbound_payment_method_line_id`)
+- Tab ist in Odoo 18 **fachlich vollständiger** als in Odoo 11 (dort liegen Zahlungsbedingungen/Steuerposition im Tab
+  „Abrechnung") → **keine Änderung am Tab** (Anweisung: kein Rückbau)
+
+**Direkt behobener struktureller GAP:** In Odoo 18 waren **beide** Preislisten inaktiv (Standard-Preisliste USD,
+Preisliste 2026 + Valorisierung EUR) — das Feld `property_product_pricelist` braucht aber auswählbare Ziele.
+Die EUR-Preisliste wurde auf **lokal und VM** aktiviert (reversibel, keine Datensätze geändert).
+
+**Odoo-11-Datenlage (read-only):** 5.829 von 5.842 Kontakten sind Kunden, **0** Lieferanten; 4.397 mit Verkäufer
+(34 verschiedene); 3.751 Preislisten-Individualwerte (Public Pricelist 2.576, GSZ Kärnten 206, GemDat OÖ 165,
+GemDat NÖ 53); 619 Zahlungsbedingungen (alle „14 Tage", in Odoo 18 vorhanden); 2.281 `ref`; 2.663 `multi_factor`;
+2.129 Website; 1 Bankverbindung; 22 Opt-Out; Branchen 0; Steuerposition 1.
+
+**KLÄRUNG NÖTIG (Datenentscheidungen, keine Strukturprobleme):**
+1. Preislisten-Zuordnung (50 Odoo-11-Preislisten vs. 2 in Odoo 18; keine der verwendeten existiert in Odoo 18;
+   Odoo-18-Standard-Preisliste ist USD, Odoo-11-Entsprechung EUR)
+2. 46 der 61 Odoo-11-Benutzer fehlen in Odoo 18 → Verkäufer-Beziehungen (4.397 Kontakte) erst danach auflösbar
+3. Steuerpositionen: 5 Odoo-11-Namen vs. 4 Odoo-18-Namen → Inhalts-Zuordnung (1 Kontakt betroffen)
+4. `opt_out` (22 Kontakte) → Abbildung über Marketing-Abos in Odoo 18
+5. `ref`-Beschriftung „Interne Referenz" (O11) vs. „Referenz" (O18) — bewusst unverändert
+
+**Prüfwerkzeug:** `scripts/verify_s105_verkauf_einkauf.py` (read-only) → lokal 50 OK / 0 FEHL, VM 50 OK / 0 FEHL.
