@@ -43,9 +43,37 @@ Feldgruppen-Beschränkung (`groups = keine`). **Lösung: die Odoo-18-Standardein
   Screenshot: `Desktop\Odoo18-Layoutvergleich-Session95\13_VM_InterneNotizen.png`.
 - Kontrollzahlen unverändert (70 Kontakte); **keine Datensätze angelegt/geändert/gelöscht**.
 
-## 6. KLÄRUNG NÖTIG
-- **Warnung beim Kommissionieren** (`picking_warn`): in Odoo 18 ersatzlos entfallen. Die fachliche Funktion wird heute über die
-  Verkaufs- und Rechnungswarnung abgedeckt. Falls ITK eine eigene Lieferwarnung braucht, wäre das ein **neues, eigenes Feld**
-  (bewusst nicht gebaut — veraltete Odoo-11-Technik wird nicht nachgebaut).
-- Die Einstellung „Warnungen“ im Einkauf ist nun aktiv; sie wirkt instanzweit (auch in Einkaufsbelegen). Falls das nicht gewünscht
-  ist, lässt sie sich mit einem Klick wieder deaktivieren — der Abschnitt verschwindet dann erneut.
+## 6. Analyse „Warnung beim Kommissionieren“ (picking_warn) in Odoo 11 Prod - Session 103
+
+Read-only-Auswertung gegen `portal.it-kommunal.at` (DB `ITK_V1_a`):
+
+| Auswertung | Ergebnis |
+|---|---|
+| Kontakte gesamt | 5.842 |
+| `picking_warn = 'no-message'` | **5.842** (alle) |
+| `picking_warn = 'warning'` | 0 |
+| `picking_warn = 'block'` | 0 |
+| `picking_warn` leer/unbestimmt | 0 |
+| `picking_warn_msg` mit individuellem Text | **0** |
+| Kontakte mit `sale_warn` aktiv | 0 |
+| Kontakte mit `invoice_warn` aktiv | 0 |
+| Kontakte mit `purchase_warn` aktiv | 0 |
+| `stock.picking.note` gefüllt | 0 |
+
+**Ergebnis: Das Feld wird in Odoo 11 Prod von keinem einzigen Datensatz verwendet** (kein Wert gesetzt, kein Warntext).
+Das gilt auch für die übrigen Partner-Warnfelder (Verkauf, Rechnung, Einkauf): strukturell vorhanden, Datenbestand 0.
+
+**Vergleich mit den Odoo-18-Warnmechanismen (Feldinventar):** Odoo 18 hat auf dem Kontakt `sale_warn`, `invoice_warn`,
+`purchase_warn` (Wortlaute/Werte identisch zu Odoo 11) sowie zusätzlich **linienbezogene Warnungen am Produkt**
+(`product.template.sale_line_warn`, `purchase_line_warn`). Ein partnerbezogenes Kommissionier-/Lieferwarnfeld gibt es nicht mehr.
+
+**Empfehlung (Entscheidung bei Anna):**
+1. **Kein eigenes Feld nötig** — es existieren keine Daten, die migriert werden müssten (0 von 5.842).
+2. Ein Mapping auf bestehende Odoo-18-Funktionen ist möglich, aber **nicht erforderlich**, weil keine Werte zu übertragen sind.
+3. Falls ITK künftig eine Liefer-/Kommissionierwarnung benötigt, ist der Odoo-18-gerechte Weg ein **neues Feld an der Position**
+   (z. B. Linienwarnung am Produkt) — kein Nachbau des Odoo-11-Partnerfelds.
+
+## 7. Einkaufs-Warnungen bleiben aktiv
+
+Auf Anweisung von Anna bleibt die Odoo-18-Einstellung **Warnungen** (Einkauf, `purchase.group_warning_purchase`) auf lokal und
+VM **aktiviert**, damit der Abschnitt „Warnung beim Einkaufsauftrag“ sichtbar und für die spätere Migration verfügbar ist.

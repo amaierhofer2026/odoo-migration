@@ -290,7 +290,12 @@ Odoo-18-Einstellung `purchase.group_warning_purchase` („Warnungen“ im Einkau
 Auswahlwerte identisch (Keine Nachricht / Warnung / Blockierende Meldung).
 **Verifikation:** VM-Browser, Kontakt 69, Tab „Interne Notizen“ (Screenshot `13_VM_InterneNotizen.png`), Werkzeug
 `scripts/verify_s102_interne_notizen.py`; Modulversion 18.0.1.2.0 auf der VM; keine Datenänderung.
-**KLÄRUNG:** eigene Lieferwarnung gewünscht? (dann neues Feld) · Einkaufs-Einstellung wirkt instanzweit (jederzeit deaktivierbar).
+**picking_warn (Session 103, read-only in Odoo 11 Prod ausgewertet):** 5.842 Kontakte, davon **0** mit gesetztem Wert
+(`picking_warn = 'no-message'` bei allen) und **0** mit individuellem Warntext → **keine Daten zu migrieren**. Auch
+`sale_warn`/`invoice_warn`/`purchase_warn` sind in Odoo 11 bei 0 Kontakten aktiv. Odoo 18 hat diese drei Felder plus
+linienbezogene Produktwarnungen; ein Partnerfeld für die Kommissionierung existiert nicht mehr.
+**Empfehlung: kein eigenes Feld** (Entscheidung bei Anna).
+**Einkaufs-Warnungen bleiben aktiv** (Anweisung Anna, `purchase.group_warning_purchase` auf lokal und VM).
 **Dokument:** `docs/o11-o18-strukturvergleich-kontakt-interne-notizen.md`.
 
 ### 6.5 Kontakte → Adressblock / Adresstypen — MIGRATIONSBEREIT (abgeschlossen), 15.09.2026 (Session 101)

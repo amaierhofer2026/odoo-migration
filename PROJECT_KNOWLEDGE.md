@@ -5916,3 +5916,28 @@ Einstellung fehlerfrei.
 **KLÄRUNG NÖTIG:** „Warnung beim Kommissionieren“ (kein Odoo-18-Feld; falls benötigt, wäre es ein neues eigenes Feld) ·
 die jetzt aktive Einkaufs-Einstellung „Warnungen“ wirkt instanzweit und kann auf Wunsch wieder deaktiviert werden.
 **Dokument:** `docs/o11-o18-strukturvergleich-kontakt-interne-notizen.md`.
+## Session 103: picking_warn in Odoo 11 Prod ausgewertet — keine Migrationswirkung (15.09.2026)
+
+**Auftrag (Anna):** `picking_warn` (Warnung beim Kommissionieren) **noch nicht nachbauen** und nicht endgültig als entfallen
+markieren; zuerst in Odoo 11 Prod read-only prüfen, wie viele Kontakte das Feld nutzen, welche Werte vorkommen, ob
+`picking_warn_msg` individuelle Texte enthält und ob ein eindeutiges Mapping auf Odoo-18-Warnfunktionen möglich ist.
+
+**Ergebnis (read-only, DB `ITK_V1_a`):** von **5.842 Kontakten** steht bei **allen** `picking_warn = 'no-message'`; `warning`
+und `block` kommen **0-mal** vor, `picking_warn_msg` ist **nirgends** gefüllt. Auch `sale_warn`, `invoice_warn` und
+`purchase_warn` sind bei **0 Kontakten** aktiv, `stock.picking.note` ist leer.
+
+**Odoo-18-Feldinventar:** Kontakt hat `sale_warn`/`invoice_warn`/`purchase_warn` (Werte identisch zu Odoo 11) plus
+**linienbezogene Produktwarnungen** (`sale_line_warn`, `purchase_line_warn`); ein Partnerfeld für die Kommissionierung
+existiert nicht mehr.
+
+**Empfehlung an Anna (Entscheidung offen bei ihr):** **kein eigenes Feld nötig** — es sind keine Daten zu migrieren;
+ein Mapping auf Odoo-18-Standardlogik ist möglich, aber nicht erforderlich. Ein Nachbau des Odoo-11-Partnerfelds
+entfällt; falls künftig eine Lieferwarnung gebraucht wird, wäre das ein neues Feld (z. B. Linienwarnung am Produkt).
+
+**Einkaufs-Warnungen:** bleiben auf Anweisung **aktiv** (Einstellung `purchase.group_warning_purchase` auf lokal und VM),
+damit „Warnung beim Einkaufsauftrag“ sichtbar und für die Migration verfügbar bleibt.
+
+**Verifikation VM-Endstand (main `66b3736`):** von Anna gemeldet — HEAD = `66b3736` = origin/main, Arbeitsbaum sauber,
+Odoo neu gestartet, `/web/login` HTTP 200; Modul `itk_base_setup` 18.0.1.2.0 installiert, Einkaufs-Warn-Einstellung aktiv,
+Tab „Interne Notizen“ im Browser mit allen drei Abschnitten (Screenshot `13_VM_InterneNotizen.png`).
+**Dokument:** `docs/o11-o18-strukturvergleich-kontakt-interne-notizen.md` (Abschnitte 6 und 7).
