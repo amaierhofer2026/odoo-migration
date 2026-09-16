@@ -152,6 +152,16 @@
                     <attribute name="string">Verkauf &amp; Einkauf</attribute>
                 </xpath>
 
+                <!--
+                    Beschriftung "Referenz" → "Interne Referenz" (Odoo 11 Prod, Session 106).
+                    In Odoo 11 heisst das Feld "Interne Referenz"; Odoo 18 setzt in der
+                    Basis-Ansicht ausdruecklich "Referenz". Feld und Inhalt bleiben unveraendert.
+                    Die GKZ-Beschriftung im Kenndatenblock und in der Liste bleibt wie bisher.
+                -->
+                <xpath expr="//page[@name='sales_purchases']//field[@name='ref']" position="attributes">
+                    <attribute name="string">Interne Referenz</attribute>
+                </xpath>
+
                 <!-- "Invoicing" → "Abrechnung" -->
                 <xpath expr="//page[@name='accounting']" position="attributes">
                     <attribute name="string">Abrechnung</attribute>

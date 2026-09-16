@@ -5998,3 +5998,30 @@ GemDat NÖ 53); 619 Zahlungsbedingungen (alle „14 Tage", in Odoo 18 vorhanden)
 5. `ref`-Beschriftung „Interne Referenz" (O11) vs. „Referenz" (O18) — bewusst unverändert
 
 **Prüfwerkzeug:** `scripts/verify_s105_verkauf_einkauf.py` (read-only) → lokal 50 OK / 0 FEHL, VM 50 OK / 0 FEHL.
+## Session 106: Bereich Verkauf & Einkauf final abgeschlossen — Vorgaben für die Datenmigration (15.09.2026)
+
+**Auftrag (Anna):** die fünf offenen Punkte des Bereichs entscheiden und den Bereich final als migrationsbereit
+dokumentieren. Keine Preislisten, Benutzer oder Steuerpositionen jetzt anlegen; `opt_out` nicht nachbauen;
+`ref` auf „Interne Referenz“ umstellen.
+
+**Umgesetzt (Code, `itk_base_setup` 18.0.1.2.1):** `ref` heißt jetzt „Interne Referenz“ wie in Odoo 11:
+- `models/res_partner.py`: `ref = fields.Char(string='Interne Referenz', index=True)` (identische Felddefinition, nur Beschriftung)
+- `views/res_partner_form.xml`: XPath setzt die Beschriftung im Tab „Verkauf & Einkauf“
+- deutsche Übersetzung des Feldtitels in lokal und VM gesetzt (ir.model.fields id 908, `field_description` mit `lang=de_DE`);
+  Grund: der alte de_DE-Wert „Referenz“ bleibt sonst bestehen. „GKZ“ im Kenndatenblock/in der Liste bleibt (wie in O11).
+
+**Verbindliche Vorgaben für die spätere Datenmigration (dokumentiert in `docs/o11-o18-strukturvergleich-kontakt-verkauf-einkauf.md`, Abschnitt 5):**
+1. **Preislisten:** vor der Kontakt-/Verkaufsdatenmigration die tatsächlich verwendeten Odoo-11-Preislisten anlegen bzw.
+   mappen (Public Pricelist 2.576, GSZ Kärnten 206, GemDat OÖ 165, GemDat NÖ 53); Zuordnungstabelle O11-ID → O18-ID;
+   ohne Zuordnung kein Schreiben von `property_product_pricelist`. Die aktivierte EUR-Preisliste bleibt aktiv.
+2. **Benutzer/Verkäufer:** vorhandene aktive Odoo-18-Benutzer 1:1 zuordnen; ausgeschiedene Odoo-11-Benutzer deaktiviert
+   anlegen (kein aktiver Login) und die historische Verkäuferbeziehung erhalten; fachlich unklare Benutzer später
+   einzeln entscheiden. (46 der 61 Odoo-11-Benutzer fehlen; 4.397 Kontakte mit Verkäufer.)
+3. **Steuerpositionen:** die fünf Odoo-11-Positionen den Odoo-18-Positionen zuordnen bzw. fehlende Stammdaten vorbereiten
+   (1 Kontakt betroffen; endgültige Zuordnung über die Buchhaltung).
+4. **opt_out:** kein Nachbau; die 22 Kontakte in die Odoo-18-Marketing-/Blacklist-Logik überführen (`mail.blacklist`, ggf.
+   `mailing.subscription.opt_out` mit `opt_out_datetime`).
+5. **Beschriftung „Interne Referenz“** umgesetzt (Feld selbst unverändert).
+
+**Verifikation:** Prüfwerkzeug lokal 50 OK / 0 FEHL, VM 50 OK / 0 FEHL; Browser-Prüfung des Tabs auf der VM;
+Deutsch-Label `ref` in beiden Datenbanken bestätigt.
