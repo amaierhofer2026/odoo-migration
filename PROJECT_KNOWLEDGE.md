@@ -6042,3 +6042,32 @@ Deutsch-Label `ref` in beiden Datenbanken bestätigt.
 für die spätere Datenmigration (Preislisten anlegen/mappen, Benutzer-Mappingstrategie, Steuerpositionen zuordnen,
 opt_out in die Marketing-/Blacklist-Logik überführen) — dokumentiert in
 `docs/o11-o18-strukturvergleich-kontakt-verkauf-einkauf.md`, Abschnitt 5.
+## Session 108: Bereich Kontakte → Abrechnung verglichen, VOKZ geklärt, migrationsbereit (15.09.2026)
+
+**Auftrag (Anna):** Odoo 11 Prod read-only gegen Odoo 18 vergleichen (Zahlungsbedingungen Kunde/Lieferant, Steuerposition,
+Bankkonten, Debitoren-/Kreditorenbezug, Rechnungsversand, Format der elektronischen Rechnung, VOKZ, Automatisierung der
+Rechnungsbuchung), je Feld technischer Name, Bedeutung, Zielfeld, Typ und Zuordnungsart dokumentieren; zusätzlich prüfen,
+welche Felder in Odoo 18 in andere Reiter verschoben wurden. Kein optischer Rückbau, eindeutige strukturelle Lücken beheben.
+
+**Ergebnis:** Odoo 18 ist im Reiter „Abrechnung“ fachlich **vollständiger** als Odoo 11 (Bankkonten voll pflegbar inkl.
+„Geld senden“, Rechnungsversand, E-Rechnungsformat, Peppol, Kreditlimits, `autopost_bills`). **Keine strukturelle Lücke**,
+**keine Codeänderung** — Tab unverändert gelassen. Dokument: `docs/o11-o18-strukturvergleich-kontakt-abrechnung.md`.
+
+**Verschobene Felder (kein Informationsverlust):** `property_payment_term_id`, `property_supplier_payment_term_id`,
+`property_account_position_id` Odoo 11 „Abrechnung“ → Odoo 18 „Verkauf & Einkauf“; `bank_ids` Odoo 11 „Verkauf & Einkauf“
+(nur Statistik-Knopf) → Odoo 18 „Abrechnung“; `property_stock_customer/supplier` entfallen in Odoo 18.
+
+**VOKZ geklärt:** VOKZ = österreichische Peppol-Teilnehmerkennung; Odoo 18 führt sie als `peppol_eas` = **9915 „VOKZ für
+Österreich“** plus `peppol_endpoint`. In Odoo 11 Prod **kein VOKZ-Feld** (geprüft über alle Modelle, Feldbeschreibungen,
+Freitextfelder und Berichtsvorlagen inkl. „ebInterface“ → jeweils 0 Treffer) → nichts zu migrieren.
+
+**Odoo-11-Datenlage:** Zahlungsbedingungen 619 (alle „14 Tage“, in Odoo 18 vorhanden), Lieferanten-Zahlungsbedingungen 0,
+Steuerposition 1, Debitoren-/Kreditorenkonten 0 Individualwerte (Firmenstandard 295/401), Bankverbindungen 1,
+`trust` alle „normal“, `credit_limit` 0 Werte ungleich 0.
+
+**Offen (Entscheidungen):** E-Rechnungsformat (Odoo 18: UBL/CII → Peppol BIS 3; **kein ebInterface** im Standard),
+Peppol-Registrierung und VOKZ-Erhebung, Zuordnung der fünf Steuerpositionen, Kontenstandardwerte, Kreditlimits,
+Standardwert für den Rechnungsversand.
+
+**Nachweis:** `scripts/verify_s108_abrechnung.py` → lokal 44 OK / 0 FEHL, VM 44 OK / 0 FEHL; Browser-Prüfung des Reiters
+auf der VM (Screenshot `16_VM_Abrechnung.png`); Kontrollzahl 70 Kontakte unverändert.

@@ -351,6 +351,32 @@ VM 50 OK / 0 FEHL; `itk_base_setup` 18.0.1.2.1 auf der VM installiert; gerendert
 im Kenndatenblock/Kontaktliste weiterhin „GKZ“; Browser-Prüfung auf der VM bestätigt (kein alleinstehendes
 „Referenz“); 70 Kontakte unverändert. **Bereich abgeschlossen.**
 
+### 6.8 Kontakte → Kontaktformular → Tab „Abrechnung“ — **MIGRATIONSBEREIT (Struktur)**, 15.09.2026 (Session 108)
+
+Feld-Mapping dokumentiert in `docs/o11-o18-strukturvergleich-kontakt-abrechnung.md` (23 Felder mit Bedeutung, Zielfeld,
+Typ, Zuordnung; zusätzlich Liste der in andere Reiter verschobenen Felder).
+
+**Kein optischer Rückbau** (Anweisung Anna): Der Odoo-18-Tab ist deutlich vollständiger als in Odoo 11 (Bankkonten
+voll pflegbar, Rechnungsversand, E-Rechnungsformat, Peppol/VOKZ, Kreditlimits, Automatisierung der Rechnungsbuchung).
+Tab unverändert gelassen; **keine strukturelle Lücke** gefunden.
+
+**Verschobene Felder (kein Informationsverlust):** `property_payment_term_id`, `property_supplier_payment_term_id` und
+`property_account_position_id` liegen in Odoo 18 im Reiter „Verkauf & Einkauf“ (in Odoo 11 „Abrechnung“);
+`bank_ids` liegt in Odoo 18 im Reiter „Abrechnung“ (in Odoo 11 „Verkauf & Einkauf“, nur als Statistik-Knopf).
+`property_stock_customer`/`property_stock_supplier` entfallen in Odoo 18 (Funktion über Lager/Routen).
+
+**VOKZ geklärt:** VOKZ ist die österreichische Peppol-Kennung — in Odoo 18 `peppol_eas` = 9915 „VOKZ für Österreich“
+mit dem Wert in `peppol_endpoint`. In Odoo 11 Prod existiert kein VOKZ-Feld (0 Treffer in Feldern, Beschreibungen,
+Freitexten und Berichtsvorlagen) → nichts zu migrieren; Werte wären für den Peppol-Versand neu zu erheben.
+
+**Offen (Stammdaten-/Verfahrensentscheidungen):** 1) Format der elektronischen Rechnung (Odoo 18 bietet UBL/CII-Formate
+wie Peppol BIS 3; **kein ebInterface** im Standard — Entscheidung mit ITK) 2) Peppol-Registrierung/VOKZ-Erhebung
+3) Zuordnung der fünf Odoo-11-Steuerpositionen 4) Bestätigung der Odoo-18-Kontenstandardwerte 5) Kreditlimits-Funktion
+6) Standardwert für den Rechnungsversand.
+
+**Nachweis:** `scripts/verify_s108_abrechnung.py` → lokal 44 OK / 0 FEHL, VM 44 OK / 0 FEHL; Browser-Prüfung des Reiters
+auf der VM (Screenshot `16_VM_Abrechnung.png`).
+
 ### 6.5 Kontakte → Adressblock / Adresstypen — MIGRATIONSBEREIT (abgeschlossen), 15.09.2026 (Session 101)
 
 **Entscheidung von Anna: der Vergleich der Adressmaske passt funktional — kein Odoo-11-Nachbau.**
