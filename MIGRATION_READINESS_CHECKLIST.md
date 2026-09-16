@@ -279,6 +279,20 @@
 |---|---|---|---|---|---|---|
 | *siehe 6.1 ff. (bereichsweise befüllt)* | | | | | | |
 
+### 6.6 Kontakte → Kontaktformular → Tab „Interne Notizen“ — UMGESETZT (Struktur), 15.09.2026 (Session 102)
+
+**Umgesetzt (`itk_base_setup` 18.0.1.2.0):** Abschnittstitel „Alarmierung bei Auftrag“ (sale) und „Warnung beim Einkaufsauftrag“
+(purchase) im Odoo-11-Wortlaut; Platzhalter des Notizfelds „Interner Hinweis ...“. Die Einkaufs-Warnung ist über die
+Odoo-18-Einstellung `purchase.group_warning_purchase` („Warnungen“ im Einkauf) sichtbar gemacht — auf lokal und VM aktiviert.
+
+**Feldlage:** `comment` (O18 HTML statt Text — moderne Technik bleibt), `sale_warn`, `invoice_warn`, `purchase_warn` vorhanden;
+`picking_warn` (O11 „Warnung beim Kommissionieren“) **existiert in Odoo 18 nicht mehr** → kein Nachbau.
+Auswahlwerte identisch (Keine Nachricht / Warnung / Blockierende Meldung).
+**Verifikation:** VM-Browser, Kontakt 69, Tab „Interne Notizen“ (Screenshot `13_VM_InterneNotizen.png`), Werkzeug
+`scripts/verify_s102_interne_notizen.py`; Modulversion 18.0.1.2.0 auf der VM; keine Datenänderung.
+**KLÄRUNG:** eigene Lieferwarnung gewünscht? (dann neues Feld) · Einkaufs-Einstellung wirkt instanzweit (jederzeit deaktivierbar).
+**Dokument:** `docs/o11-o18-strukturvergleich-kontakt-interne-notizen.md`.
+
 ### 6.5 Kontakte → Adressblock / Adresstypen — MIGRATIONSBEREIT (abgeschlossen), 15.09.2026 (Session 101)
 
 **Entscheidung von Anna: der Vergleich der Adressmaske passt funktional — kein Odoo-11-Nachbau.**
