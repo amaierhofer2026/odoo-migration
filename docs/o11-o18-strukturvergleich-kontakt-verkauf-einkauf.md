@@ -95,38 +95,108 @@ Beschriftung weicht ab (Odoo 11 "Interne Referenz", Odoo 18 "Referenz"). Auf ein
 Anweisung verzichtet; die Umbenennung wäre auf Wunsch jederzeit möglich. Odoo 11 hat auf `res.partner` keine
 weiteren eigenen Felder.
 
-## 4. Umgesetzte Änderung (Session 105)
+## 4. Umgesetzte Änderungen (Sessions 105 und 106)
 
 **Ein struktureller GAP wurde direkt behoben:** In Odoo 18 waren **beide** Preislisten inaktiv
 (`Standard-Preisliste` USD, `Preisliste 2026 + Valorisierung` EUR). Das Feld `property_product_pricelist` verweist auf
 Preislisten, die im Zielsystem auswählbar sein müssen. Die inaktive EUR-Preisliste wurde daher auf **lokal und VM**
 aktiviert (reversibel, keine Produktionsdaten, keine Datensätze geändert).
 
-Am Tab selbst wurde **nichts** geändert: Odoo 18 ist dort vollständiger als Odoo 11 und bleibt unverändert.
+**Zweite Änderung (Anweisung Anna, Session 106): Beschriftung „Referenz“ → „Interne Referenz“**
+
+Odoo 11 Prod führt das Feld als „Interne Referenz“; Odoo 18 setzt in der Basis-Ansicht ausdrücklich „Referenz“.
+Umgesetzt in `itk_base_setup` 18.0.1.2.1:
+- Modell: `ref = fields.Char(string='Interne Referenz', index=True)` in `models/res_partner.py` (identische Felddefinition,
+  nur die Beschriftung) → gilt auch für Suche/Filter und alle Ansichten ohne eigene Beschriftung
+- Formular: XPath auf `//page[@name='sales_purchases']//field[@name='ref']` setzt die Beschriftung im Tab
+- Deutsche Übersetzung des Feldtitels in beiden Datenbanken auf „Interne Referenz“ gesetzt (`ir.model.fields` id 908,
+  `field_description` im Kontext `lang=de_DE`), weil der alte de_DE-Eintrag „Referenz“ sonst bestehen bleibt.
+  Eine frische Datenbank braucht das nicht, weil der Quelltext bereits deutsch ist.
+
+Das Feld selbst (`res.partner.ref`, char) und alle Inhalte bleiben unverändert. Die Beschriftung „GKZ“ im Kenndatenblock
+und in der Kontaktliste bleibt wie bisher (in Odoo 11 Prod ebenfalls „GKZ“) — dort ist die ITK-Bedeutung eine andere.
+
+Am übrigen Tab wurde **nichts** geändert: Odoo 18 ist dort vollständiger als Odoo 11 und bleibt unverändert.
 
 Prüfwerkzeug: `scripts/verify_s105_verkauf_einkauf.py` (read-only, prüft Felder, Typen, Odoo-18-Kundenlogik,
 Stammdaten, Arch des Tabs) → lokal **50 OK / 0 FEHL**, VM **50 OK / 0 FEHL**.
 
-## 5. KLÄRUNG NÖTIG (Entscheidung bei Anna)
+## 5. Entscheidungen von Anna und verbindliche Vorgaben für die Migration (Session 106)
 
-1. **Preislisten-Zuordnung:** Welche Odoo-11-Preislisten sollen in Odoo 18 angelegt werden und worauf zeigen sie?
-   Betroffen sind mindestens: "Public Pricelist" (2.576 Kontakte), "GSZ Kärnten 2019 + 2020 Valorisierung"
-   (206), "GemDat Oberösterreich BLFS oö" (165), "GemDat Niederösterreich alt" (53). Zusätzlich: die Odoo-18-Standard-
-   Preisliste (id 1) ist in **USD**, die Odoo-11-Entsprechung in **EUR** – hier ist eine Festlegung nötig.
-2. **Benutzer vor der Migration:** 46 der 61 Odoo-11-Benutzer fehlen in Odoo 18 (u. a. `it-kommunal (7)@it-kommunal.at`,
-   `martina.waiss@itkommunal.at`, `admin`, `noor.al-janabi@it-kommunal.at`, `guenter.horniak@it-kommunal.at`).
-   Ohne diese Zuordnung können 4.397 Verkäufer-Beziehungen nicht sauber gesetzt werden.
-3. **Steuerpositionen:** Odoo 11 hat 5 Positionen (Dienstleister/Geschäftspartner Ausland bzw. EU mit/ohne USt-ID),
-   Odoo 18 vier andere (National, Europäische Union, National + EU (ohne UID), Drittstaaten). Inhalts-Zuordnung
-   erforderlich; betroffen ist 1 Kontakt in Odoo 11.
-4. **`opt_out` (22 Kontakte):** Wie sollen "Keine Werbe-E-Mails"-Kennzeichnungen in Odoo 18 abgebildet werden
-   (Marketing-Abo/`mailing.contact.opt_out`)?
-5. **Beschriftung `ref`:** Odoo 18 zeigt "Referenz", Odoo 11 "Interne Referenz" – funktional identisch, bewusst
-   unverändert gelassen. Auf Wunsch wird auf "Interne Referenz" umgestellt.
+Alle fünf Punkte sind entschieden. **Nichts davon wird jetzt angelegt** — die folgenden Vorgaben sind bei der
+späteren Datenmigration verbindlich einzuhalten.
+
+### 5.1 Preislisten — VOR der Kontakt-/Verkaufsdatenmigration anzulegen bzw. zu mappen
+
+**Verbindlich:** Bevor Kontakt- oder Verkaufsdaten migriert werden, müssen die in Odoo 11 tatsächlich verwendeten
+Preislisten in Odoo 18 angelegt und in einer Zuordnungstabelle (Odoo-11-Preislisten-ID → Odoo-18-Preislisten-ID) gemappt
+sein. Ohne diese Zuordnung darf `property_product_pricelist` nicht geschrieben werden.
+
+Zu berücksichtigen (Stand Session 105/106):
+- Odoo 11: 50 Preislisten; tatsächlich am Kontakt verwendet: Public Pricelist (2.576), GSZ Kärnten 2019 + 2020
+  Valorisierung (206), GemDat Oberösterreich BLFS oö (165), GemDat Niederösterreich alt (53)
+- Odoo 18: zwei Preislisten, beide waren inaktiv — die EUR-Preisliste „Preisliste 2026 + Valorisierung“ wurde in
+  Session 105 aktiviert und **bleibt aktiv** (Anweisung Anna)
+- die Odoo-18-Standard-Preisliste (id 1) ist in **USD**, die Odoo-11-Entsprechung in **EUR** → bei der Zuordnung festlegen
+
+### 5.2 Benutzer / Verkäufer — Mapping- und Abfangstrategie
+
+**Verbindlich (Anweisung Anna):** keine fehlenden Odoo-11-Benutzer jetzt anlegen. Bei der Migration gilt:
+1. **Vorhandener aktiver Odoo-18-Benutzer** → 1:1 zuordnen (Abgleich über `login` bzw. E-Mail).
+2. **Ausgeschiedene oder nicht mehr benötigte Odoo-11-Benutzer** → historische Verkäuferbeziehung erhalten, ohne
+   zwingend einen aktiven Login anzulegen: Benutzer deaktiviert anlegen (`res.users.active = False`, ohne Passwort) und
+   `res.partner.user_id` darauf setzen; der Datensatz bleibt als Referenz erhalten und in Berichten sichtbar.
+   Hinweis für die Planung: auch deaktivierte interne Benutzer zählen in der Odoo-Lizenzierung.
+3. **Fachlich unklare Benutzer** → später einzeln entscheiden (Sammelliste bei der Migration vorlegen).
+
+Datenlage: 4.397 Kontakte mit Verkäufer, 34 verschiedene Verkäufer; Odoo 11 hat 61 Benutzer, in Odoo 18 existieren 15.
+
+### 5.3 Steuerpositionen — vor der Migration zuordnen
+
+**Verbindlich:** nichts jetzt anlegen. Vor der Migration sind die fünf in Odoo 11 vorhandenen Steuerpositionen den
+Odoo-18-Steuerpositionen zuzuordnen; fehlende Stammdaten sind vorher vorzubereiten.
+
+| Odoo 11 (5 Positionen) | mögliche Odoo-18-Entsprechung |
+|---|---|
+| Dienstleister Ausland | Drittstaaten (oder neu anzulegen) |
+| Geschäftspartner Ausland | Drittstaaten (oder neu anzulegen) |
+| Geschäftspartner EU (mit USt-ID) | Europäische Union |
+| Dienstleister EU (mit USt-ID) | Europäische Union (oder neu anzulegen) |
+| Geschäftspartner EU (ohne USt-ID) | National + EU (ohne UID) |
+
+Die endgültige Zuordnung ist fachlich über die Buchhaltung zu bestätigen. Betroffene Daten: 1 Kontakt in Odoo 11.
+
+### 5.4 opt_out (22 Kontakte) — in die Odoo-18-Marketing-/Blacklist-Logik überführen, nicht nachbauen
+
+**Verbindlich:** kein Nachbau des Odoo-11-Feldes `res.partner.opt_out`. In Odoo 18 liegt die Kennzeichnung nicht mehr
+am Kontakt, sondern in der Marketing-/Blacklist-Logik (Modul `mass_mailing`, bereits Abhängigkeit unseres Moduls):
+
+| Odoo-18-Objekt | Feld | Bedeutung |
+|---|---|---|
+| `mail.blacklist` | `email`, `opt_out_reason_id` | zentrale Sperrliste, wirkt auf alle Mailings |
+| `mailing.contact` | `opt_out`, `is_blacklisted`, `subscription_ids` | Empfänger-Datensatz der Mailinglisten |
+| `mailing.subscription` | `opt_out`, `opt_out_datetime`, `opt_out_reason_id`, `is_blacklisted` | Abo je Liste |
+| `mailing.list` | `contact_count_opt_out`, `contact_pct_opt_out` | Auswertung |
+
+Empfohlener Weg bei der Migration: für die 22 Kontakte mit „Keine Werbe-E-Mails“ die E-Mail-Adresse in
+`mail.blacklist` eintragen; existiert bereits ein Empfänger-Datensatz, zusätzlich `mailing.subscription.opt_out = True`
+mit `opt_out_datetime` setzen. Damit sind diese Adressen in Odoo 18 wirksam gegen Mailings gesperrt — ohne Altfeld-Nachbau.
+
+### 5.5 Beschriftung „Interne Referenz“
+
+Umgesetzt in Session 106 (siehe Abschnitt 4): Modellbeschriftung, Formular-XPath und deutsche Übersetzung.
 
 ## 6. Ergebnis
 
-Der Tab "Verkauf & Einkauf" ist **strukturell migrationsbereit**: alle 23 geprüften Zielfelder existieren in Odoo 18
-mit korrektem Typ und korrekter Relation, die Odoo-18-Kunden-/Lieferantenlogik greift, die bewusst entfallenden
-Odoo-11-Felder sind dokumentiert, und die Stammdaten-Zuordnung ist bis auf die Preislisten und Benutzer vollständig.
-Offen bleiben ausschließlich die fünf Punkte aus Abschnitt 5 – sie sind Datenentscheidungen, keine Strukturprobleme.
+Der Tab „Verkauf & Einkauf“ ist **migrationsbereit und abgeschlossen** (Session 106).
+
+- Alle 23 geprüften Zielfelder existieren in Odoo 18 mit korrektem Typ und korrekter Relation.
+- Die Odoo-18-Kunden-/Lieferantenlogik (`customer_rank`/`supplier_rank` mit `is_customer`/`is_supplier`) ist aktiv und
+  lokal sowie auf der VM verifiziert.
+- Bewusst entfallende Odoo-11-Felder sind dokumentiert, kein Nachbau.
+- Beschriftung „Interne Referenz“ wie in Odoo 11 umgesetzt.
+- Stammdaten: Währungen und Zahlungsbedingungen vollständig; Preislisten, Benutzer und Steuerpositionen sind als
+  verbindliche Vorgaben für die Datenmigration dokumentiert (Abschnitt 5).
+- Kein optischer Rückbau, keine Produktionsdaten übernommen.
+
+Nachweis: `scripts/verify_s105_verkauf_einkauf.py` (read-only) und Browser-Prüfung des Tabs auf der VM.

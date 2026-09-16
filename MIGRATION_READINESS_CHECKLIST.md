@@ -309,7 +309,7 @@ linienbezogene Produktwarnungen; ein Partnerfeld für die Kommissionierung exist
 **Empfehlung zu `picking_warn` offen bei Anna** (kein eigenes Feld nötig, da 0 Datensätze); Feld ist **nicht** als entfallen
 festgeschrieben, sondern als „strukturell vorhanden, Datenbestand 0“ dokumentiert.
 
-### 6.7 Kontakte → Kontaktformular → Tab „Verkauf & Einkauf“ — **MIGRATIONSBEREIT (Struktur)**, 15.09.2026 (Session 105)
+### 6.7 Kontakte → Kontaktformular → Tab „Verkauf & Einkauf“ — **ABGESCHLOSSEN, MIGRATIONSBEREIT**, 15.09.2026 (Sessions 105/106)
 
 Feld-Mapping Odoo 11 → Odoo 18 vollständig dokumentiert in `docs/o11-o18-strukturvergleich-kontakt-verkauf-einkauf.md`
 (23 Felder mit Bedeutung, Zielfeld, Typ, 1:1, Transformation, entfällt, neu).
@@ -328,6 +328,25 @@ existiert in O18; O18-Standard-Preisliste ist USD) · 2) 46 von 61 O11-Benutzern
 · 3) Steuerpositionen 5 vs. 4 Namen (1 Kontakt) · 4) `opt_out` 22 Kontakte → Marketing-Abos · 5) `ref`-Beschriftung.
 
 **Nachweis:** `scripts/verify_s105_verkauf_einkauf.py` → lokal 50 OK / 0 FEHL, VM 50 OK / 0 FEHL.
+
+**Abschluss Session 106 (Entscheidungen von Anna, verbindliche Vorgaben für die Datenmigration):**
+
+- **Beschriftung umgesetzt:** `ref` heißt jetzt „Interne Referenz“ wie in Odoo 11 (Modellbeschriftung in
+  `itk_base_setup` 18.0.1.2.1, Formular-XPath im Tab, deutsche Übersetzung in beiden Datenbanken). Feld und Inhalte unverändert;
+  „GKZ“ im Kenndatenblock und in der Liste bleibt.
+- **Preislisten:** jetzt nichts anlegen. Vor der Kontakt-/Verkaufsdatenmigration müssen die tatsächlich verwendeten
+  Odoo-11-Preislisten (Public Pricelist 2.576, GSZ Kärnten 206, GemDat OÖ 165, GemDat NÖ 53) angelegt bzw. gemappt sein
+  (Zuordnungstabelle O11-ID → O18-ID). Ohne Zuordnung darf `property_product_pricelist` nicht geschrieben werden.
+  Die aktivierte EUR-Preisliste bleibt aktiv.
+- **Benutzer/Verkäufer:** jetzt keine Benutzer anlegen. Strategie: vorhandene aktive Odoo-18-Benutzer 1:1 zuordnen;
+  ausgeschiedene Odoo-11-Benutzer deaktiviert anlegen (`active = False`, ohne Passwort) und als historische Verkäuferbeziehung
+  erhalten; fachlich unklare Benutzer später einzeln entscheiden. (4.397 Kontakte betroffen, 46 fehlende Benutzer.)
+- **Steuerpositionen:** jetzt nichts anlegen. Vor der Migration die fünf Odoo-11-Steuerpositionen den Odoo-18-Positionen
+  zuordnen bzw. fehlende Stammdaten vorbereiten; endgültige Zuordnung über die Buchhaltung bestätigen (1 Kontakt betroffen).
+- **opt_out:** kein Nachbau. Vor der Migration die 22 Kontakte in die Odoo-18-Marketing-/Blacklist-Logik überführen
+  (`mail.blacklist` bzw. `mailing.subscription.opt_out` mit `opt_out_datetime`).
+
+**Nachweis final:** `scripts/verify_s105_verkauf_einkauf.py` → lokal 50 OK / 0 FEHL, VM 50 OK / 0 FEHL; Modul 18.0.1.2.1.
 
 ### 6.5 Kontakte → Adressblock / Adresstypen — MIGRATIONSBEREIT (abgeschlossen), 15.09.2026 (Session 101)
 

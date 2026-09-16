@@ -4,6 +4,12 @@ from odoo import models, fields, api
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
+    # Beschriftung des Feldes "Interne Referenz" wie in Odoo 11 Prod (Session 106).
+    # Odoo 18 hat in der Basis-Ansicht ausdruecklich "Referenz" gesetzt; fachlich ist es
+    # dasselbe Feld (res.partner.ref, char), die Bedeutung soll aber sofort eindeutig sein.
+    # Damit gilt der Wortlaut auch in Suche, Filter und allen Ansichten ohne eigene Beschriftung.
+    ref = fields.Char(string='Interne Referenz', index=True)
+
     is_customer = fields.Boolean(
         string='Ist ein Kunde',
         compute='_compute_is_customer',
