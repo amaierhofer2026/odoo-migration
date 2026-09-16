@@ -5876,3 +5876,18 @@ Nachweis: gerenderter Kontext ohne `default_type`; `default_get(['type'])` mit T
 **Dokument:** `docs/o11-o18-strukturvergleich-kontakte-personen-firmen.md`.
 **Verifikation (VM):** Modul 18.0.1.1.0 installiert, RPC-Prüfung grün, Browser-Render des Tabs auf der VM
 (`12_VM_Ansprechpartner_*`), Kontrollzahlen unverändert, **keine Datenänderung**.
+## Session 101: Adressblock abgeschlossen — Entscheidungen dokumentiert, kein Odoo-11-Nachbau (15.09.2026)
+
+**Auftrag (Anna):** „Der Vergleich der Adressmaske (Kontakte) passt für mich funktional. Bitte hier keinen Odoo-11-Nachbau
+durchführen.“ Der Punkt soll dokumentiert und als migrationsbereit abgeschlossen werden.
+
+**Entscheidungen (verbindlich):**
+1. **Lieferadresse (Odoo 18) = Zustellungsadresse (Odoo 11)** — fachlich gleichwertig, **keine strukturelle Änderung**.
+2. **Privatadresse (Odoo 11) wird nicht nachgebaut** — in Odoo 11 nutzen **0 Datensätze** diesen Typ; Odoo 18 hat dafür eine
+   eigene, moderne Logik (separater Datensatztyp).
+3. **Adresstypen und Adressfelder sind funktional vorhanden** — keine weiteren Anpassungen.
+4. Wortlaut-Unterschiede („Adressart“/„Adresstyp“, „Verbundenes“/„Zugehöriges Unternehmen“) bleiben unverändert.
+
+**Status:** Kontakte → **Adressblock MIGRATIONSBEREIT** (abgeschlossen). Es waren dafür keine Code-Änderungen erforderlich;
+einzige Anpassung des Bereichs bleibt der `default_type`-Fix aus Session 100 (`itk_base_setup` 18.0.1.1.0).
+**Dokument:** `docs/o11-o18-strukturvergleich-kontakte-personen-firmen.md`, Abschnitt 6 (Nachtrag).

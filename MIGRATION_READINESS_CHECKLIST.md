@@ -279,6 +279,20 @@
 |---|---|---|---|---|---|---|
 | *siehe 6.1 ff. (bereichsweise befüllt)* | | | | | | |
 
+### 6.5 Kontakte → Adressblock / Adresstypen — MIGRATIONSBEREIT (abgeschlossen), 15.09.2026 (Session 101)
+
+**Entscheidung von Anna: der Vergleich der Adressmaske passt funktional — kein Odoo-11-Nachbau.**
+
+| Punkt | Entscheidung | Umsetzung |
+|---|---|---|
+| Lieferadresse (O18) vs. Zustellungsadresse (O11) | fachlich gleichwertig | keine |
+| Privatadresse (O11) | nicht nachbauen (O11: 0 Datensätze; O18 hat eigene moderne Logik) | keine |
+| „Adressart“/„Adresstyp“, „Verbundenes“/„Zugehöriges Unternehmen“ | funktional identisch | keine |
+| übrige Adresstypen und Adressfelder | funktional vorhanden | keine |
+
+**Status MIGRATIONSBEREIT.** Keine Code-Änderungen nötig. Dokument:
+`docs/o11-o18-strukturvergleich-kontakte-personen-firmen.md` (Abschnitt 6).
+
 ### 6.4 Kontakte → Firmen/Personen-Logik und Ansprechpartner — UMGESETZT (Struktur), 15.09.2026 (Session 100)
 
 Vergleich Odoo 11 Prod ↔ Odoo 18 (lokal + VM), Vergleichspaar Breitenbrunn (O11 5794 ↔ O18 72).

@@ -64,3 +64,20 @@ für `parent_id`, „Stelle“ statt des englischen „Job Position“, zusätzl
   (Name, Funktion, E-Mail, PLZ/Ort, Bundesland, Land, Telefon) und „Hinzufügen“-Button wie erwartet.
   Screenshot: `Desktop\Odoo18-Layoutvergleich-Session95\12_VM_Ansprechpartner_oben.png` (und `_tab.png`).
 - Kontrollzahlen unverändert (70 Kontakte, 5 mit `parent_id`); **keine Datensätze angelegt, geändert oder gelöscht**.
+
+## 6. Nachtrag Session 101: Adressblock und Adresstypen — Entscheidungen (migrationsbereit abgeschlossen)
+
+**Annas Entscheidung (15.09.2026):** „Der Vergleich der Adressmaske passt für mich funktional. Bitte hier keinen
+Odoo-11-Nachbau durchführen.“
+
+| Offener Punkt | Entscheidung | Umsetzung |
+|---|---|---|
+| „Zustellungsadresse“ (O11) vs. „Lieferadresse“ (O18) | fachlich **gleichwertig** — keine strukturelle Änderung nötig | **keine** — Odoo-18-Standardwortlaut bleibt |
+| Adresstyp „Privatadresse“ (O11) | **nicht nachbauen**: in Odoo 11 von 0 Datensätzen genutzt; Odoo 18 hat eine eigene, moderne Logik | **keine** |
+| „Adressart“ (O11) vs. „Adresstyp“ (O18) | funktional identisch, keine Änderung gewünscht | **keine** |
+| „Verbundenes Unternehmen“ (O11) vs. „Zugehöriges Unternehmen“ (O18) | funktional identisch, keine Änderung gewünscht | **keine** |
+| übrige Adresstypen und Adressfelder | funktional vorhanden | **keine** |
+
+**Status: MIGRATIONSBEREIT.** Alle Punkte des Adressblocks sind entschieden; es sind dafür **keine Code-/Strukturänderungen**
+erforderlich. Die einzige umgesetzte Anpassung in diesem Bereich bleibt der `default_type`-Fix aus Session 100
+(neue Ansprechpartner werden als Kontakt angelegt).
