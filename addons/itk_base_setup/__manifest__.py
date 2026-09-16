@@ -6,7 +6,7 @@
     'website': "http://www.alvarium-services.de",
     'category': 'ITK - Specific Industry Applications',
     'license': 'LGPL-3',
-    'version': '18.0.1.1.0',
+    'version': '18.0.1.2.0',
     'depends': [
         'base',
         'crm',

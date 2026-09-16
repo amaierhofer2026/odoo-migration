@@ -5891,3 +5891,28 @@ durchführen.“ Der Punkt soll dokumentiert und als migrationsbereit abgeschlos
 **Status:** Kontakte → **Adressblock MIGRATIONSBEREIT** (abgeschlossen). Es waren dafür keine Code-Änderungen erforderlich;
 einzige Anpassung des Bereichs bleibt der `default_type`-Fix aus Session 100 (`itk_base_setup` 18.0.1.1.0).
 **Dokument:** `docs/o11-o18-strukturvergleich-kontakte-personen-firmen.md`, Abschnitt 6 (Nachtrag).
+## Session 102: Bereich Kontakte → Tab „Interne Notizen“ (15.09.2026)
+
+**Auftrag (Anna):** Tab „Interne Notizen“ gegen Odoo 11 Prod vergleichen; eindeutige Unterschiede direkt
+migrationsgerecht anpassen; VM-Abnahme über Teleport.
+
+**Feldvergleich:** `comment` (O11 Text, O18 HTML — Odoo-18-Technik bleibt), `sale_warn`, `invoice_warn`, `purchase_warn`
+vorhanden; **`picking_warn` existiert in Odoo 18 nicht mehr** (Partner-Warnung für Kommissionierung abgeschafft) → kein Nachbau.
+Auswahlwerte aller Warnfelder identisch (Keine Nachricht / Warnung / Blockierende Meldung).
+
+**Ursache der fehlenden Einkaufs-Warnung:** Der Abschnitt liegt im Modul `purchase` in `res.partner.view.purchase.buttons`
+innerhalb von `purchase.group_warning_purchase` — in Odoo 18 der Einstellungsschalter **Warnungen** (Einkauf). Annas Benutzer
+hatte die Gruppe nicht. Felder sind vorhanden und ohne Feldgruppen-Beschränkung → **Lösung: Odoo-18-Standardeinstellung aktivieren**
+(auf lokal und VM geschehen, reversibel, keine Datenänderung).
+
+**Umgesetzt (`itk_base_setup` 18.0.1.2.0):** Abschnittstitel „Alarmierung bei Auftrag“ und „Warnung beim Einkaufsauftrag“
+(Odoo-11-Wortlaut), Platzhalter „Interner Hinweis ...“. Robustheit geprüft: Upgrade läuft auch bei ausgeschalteter
+Einstellung fehlerfrei.
+
+**Verifikation (VM):** Modul 18.0.1.2.0 installiert, Arch mit allen drei Abschnitten, Browser-Prüfung Kontakt 69 Tab 
+„Interne Notizen“ (Abschnitte + sichtbare Felder + Auswahlwerte), Screenshot `13_VM_InterneNotizen.png`, Werkzeug
+`scripts/verify_s102_interne_notizen.py`. Kontrollzahlen unverändert (70 Kontakte), keine Datenänderung.
+
+**KLÄRUNG NÖTIG:** „Warnung beim Kommissionieren“ (kein Odoo-18-Feld; falls benötigt, wäre es ein neues eigenes Feld) ·
+die jetzt aktive Einkaufs-Einstellung „Warnungen“ wirkt instanzweit und kann auf Wunsch wieder deaktiviert werden.
+**Dokument:** `docs/o11-o18-strukturvergleich-kontakt-interne-notizen.md`.
