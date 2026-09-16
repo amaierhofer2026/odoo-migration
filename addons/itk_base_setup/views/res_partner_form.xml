@@ -126,6 +126,20 @@
                     <field name="academic_title_ids" position="move"/>
                 </xpath>
 
+                <!-- 4b. Tab Interne Notizen: Wortlaute der Warnabschnitte wie in Odoo 11 (Session 102).
+                     Die Abschnitte selbst kommen aus base (Verkauf/Rechnung) und purchase (Einkauf);
+                     die Einkaufs-Warnung ist zusaetzlich an die Einstellung purchase.group_warning_purchase
+                     gebunden (in Odoo 18 der Schalter fuer Warnungen) und dort aktiviert. -->
+                <xpath expr="//page[@name='internal_notes']//field[@name='sale_warn']/preceding-sibling::separator[1]" position="attributes">
+                    <attribute name="string">Alarmierung bei Auftrag</attribute>
+                </xpath>
+                <xpath expr="//page[@name='internal_notes']//field[@name='purchase_warn']/preceding-sibling::separator[1]" position="attributes">
+                    <attribute name="string">Warnung beim Einkaufsauftrag</attribute>
+                </xpath>
+                <xpath expr="//page[@name='internal_notes']//field[@name='comment']" position="attributes">
+                    <attribute name="placeholder">Interner Hinweis ...</attribute>
+                </xpath>
+
                 <!-- 5. Tab-Bezeichnungen an Odoo 11 anpassen -->
 
                 <!-- 5. Tab-Reihenfolge wie Odoo 11: "Interne Notizen" an zweiter Stelle -->
