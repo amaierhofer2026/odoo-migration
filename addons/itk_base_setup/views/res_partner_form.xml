@@ -173,6 +173,22 @@
                      Der Tab-String wird dort auf "Gemeinde-Information" gesetzt.
                 -->
 
+                <!--
+                    6b. Reiter Gemeinde-Information: Organisationstyp vollstaendig lesbar (Session 110).
+                    Die Spalte war nur 26 px breit, der Wert wurde abgeschnitten (z. B. "Marktgemeinde",
+                    "Magistrat der Stadt"). Das Feld spannt jetzt beide Spalten der Gruppe "Andere" und
+                    bekommt damit die volle Gruppenbreite. Nur diese View/Feldbreite, keine globale UI-Aenderung.
+                -->
+                <!-- Die Gruppe "Andere" liegt doppelt verschachtelt und bekam dadurch nur ein Viertel der
+                     Reiterbreite (230 px). Dadurch war die Feldspalte nur 50 px breit und der Wert wurde
+                     abgeschnitten. colspan=2 auf der Gruppe gibt ihr die volle halbe Reiterbreite. -->
+                <xpath expr="//page[@name='community_info']//group[@name='other']" position="attributes">
+                    <attribute name="colspan">2</attribute>
+                </xpath>
+                <xpath expr="//page[@name='community_info']//field[@name='status_of_community']" position="attributes">
+                    <attribute name="colspan">2</attribute>
+                </xpath>
+
                 <!-- 6. Community-Info Feldbezeichnungen direkt in itk_crm/views/res_partner.xml -->
 
             </field>

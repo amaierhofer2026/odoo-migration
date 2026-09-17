@@ -43,9 +43,18 @@ ARCH_FELDER = {
     "member_of_city_alliance": "St\u00e4dtebund-Mitglied",
 }
 
-# Organisationstypen, die in Odoo 11 produktiv vorkommen (Vorgabe fuer die Migration)
-ORGANISATIONSTYPEN_11 = ["Marktgemeinde", "Gemeinde", "Stadtgemeinde", "Magistrat", "Magistrat der Stadt",
-                         "Gemeindeverband", "-"]
+# Organisationstypen aus Odoo 11 Prod (read-only verifiziert) -> Ziel-Stammdaten in Odoo 18
+# (Name, Code in Odoo 11, Kontakte in Odoo 11)
+ORGANISATIONSTYPEN_11 = [
+    ("Marktgemeinde", "M", 768),
+    ("Gemeinde", "G", 1122),
+    ("Stadtgemeinde", "ST", 188),
+    ("Magistrat", "SR", 13),
+    ("Magistrat der Stadt", "MAG", 2),
+    ("Gemeindeverband", "GV", 0),
+]
+# In Odoo 11 vorhanden, aber ohne Kontakte und daher nicht als Zielstammdaten angelegt
+NICHT_ANGELEGT = ["-"]
 
 
 def lade_env(pfad: str) -> dict:
@@ -129,6 +138,12 @@ def main() -> int:
             pruefe('string="%s"' % beschriftung in treffer.group(0),
                    "%s mit Beschriftung '%s'" % (feld, beschriftung))
             pruefe("is_company" in treffer.group(0), "%s nur fuer Unternehmen sichtbar" % feld)
+    gruppe = re.search(r'<group\b[^>]*name="other"[^>]*>', seg)
+    pruefe(bool(gruppe) and 'colspan="2"' in gruppe.group(0),
+           "Gruppe 'Andere' auf volle Breite gesetzt (colspan=2)")
+    status = re.search(r'<field\b[^>]*name="status_of_community"[^>]*/?>', seg)
+    pruefe(bool(status) and 'colspan="2"' in status.group(0),
+           "Feld Organisationstyp auf volle Gruppenbreite gesetzt (colspan=2)")
 
     print("\n4) Stammdaten")
     klassen = k.kw("itk_crm.communitymagnitude", "search_read", [[], ["name", "lower_limit", "upper_limit"]], order="seq")
@@ -136,11 +151,20 @@ def main() -> int:
     luecken = [p["name"] for p in k.kw("res.partner", "search_read", [[["population", "!=", False]], ["name"]], limit=1)]
     print("       Hinweis: Kontakte mit Einwohnerzahl im Testbestand: %d"
           % k.kw("res.partner", "search_count", [[["population", "!=", False]]]))
-    typen = [t["name"] for t in k.kw("itk_crm.statusofcommunity", "search_read", [[], ["name"]], context={"active_test": False})]
-    pruefe(len(typen) >= 1, "Organisationstypen vorhanden: %d" % len(typen))
-    fehlend = [t for t in ORGANISATIONSTYPEN_11 if t not in typen]
-    if fehlend:
-        print("       GAP (Vorgabe fuer die Datenmigration, noch nicht anzulegen): %s" % ", ".join(fehlend))
+    vorhanden = {p["name"]: p for p in k.kw("itk_crm.statusofcommunity", "search_read", [[], ["name", "code"]], context={"active_test": False})}
+    pruefe(len(vorhanden) >= len(ORGANISATIONSTYPEN_11),
+           "Organisationstypen-Stammdaten: %d angelegt (benoetigt: %d)" % (len(vorhanden), len(ORGANISATIONSTYPEN_11)))
+    print("       Mapping Odoo 11 -> Odoo 18 (Schluessel ist der Code):")
+    for name, code, kontakte11 in ORGANISATIONSTYPEN_11:
+        d = vorhanden.get(name)
+        if d:
+            pruefe(d.get("code") == code, "%-21s Code %-4s (Odoo 11: %s, %d Kontakte)" % (name, d.get("code"), code, kontakte11))
+        else:
+            pruefe(False, "%s fehlt in Odoo 18 (Odoo 11: %d Kontakte)" % (name, kontakte11))
+    for name in NICHT_ANGELEGT:
+        pruefe(name not in vorhanden, "Platzhalter '%s' bewusst nicht angelegt (0 Kontakte in Odoo 11)" % name)
+    print("       Kontakte mit Organisationstyp (unveraendert erwartet): %d"
+          % k.kw("res.partner", "search_count", [[["status_of_community", "!=", False]]]))
 
     print("\n5) Funktion: Groessenklasse wird aus der Einwohnerzahl berechnet")
     probe = k.kw("res.partner", "search_read", [[["population", "!=", False]], ["name", "population", "community_magnitude", "community_magnitude_id"]], limit=3)
