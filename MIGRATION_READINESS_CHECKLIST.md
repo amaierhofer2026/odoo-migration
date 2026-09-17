@@ -400,7 +400,12 @@ die Odoo-11-Werte Marktgemeinde (768), Gemeinde (1.122), Stadtgemeinde (188), Ma
 und Gemeindeverband bzw. „-“ (jeweils 0) sind vorher anzulegen bzw. zuzuordnen — sonst sind 2.093 Kontakte nicht zuordenbar.
 
 **Nachweis:** `scripts/verify_s109_gemeinde_info.py` (read-only) prüft Felder, Beschriftungen, Reiter-Arch, is_company-Regel,
-Stammdaten und die Größenklassen-Berechnung; Browser-Prüfung auf der VM.
+Stammdaten (inklusive Mapping über den Code) und die Größenklassen-Berechnung; lokal **45 OK / 0 FEHL**.
+**Nachweis (Session 110/111, gegen die VM geprüft):** `itk_crm` 18.0.1.5.1 und `itk_base_setup` 18.0.1.2.2 auf der VM
+installiert; alle 7 Modellbeschriftungen auf dem Odoo-11-Wortlaut; 6 Organisationstypen mit korrekten Codes (Mapping
+geprüft); Browser-Messung im echten Chrome: Feld **256 px** statt 26 px, kein Abschneiden (längster Wert
+„Magistrat der Stadt“ 119 px); Browser-Prüfung Kontakt 72 mit Screenshot; 70 Kontakte unverändert.
+**Bereich abgeschlossen.**
 
 **Session 110 — Organisationstypen als Ziel-Stammdaten vorbereitet (auf Anweisung von Anna):**
 Read-only verifizierter Odoo-11-Bestand (7 Datensätze, 2.093 zugeordnete Kontakte). In Odoo 18 angelegt bzw. ergänzt,

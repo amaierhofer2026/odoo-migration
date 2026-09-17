@@ -177,8 +177,24 @@ Feld `status_of_community`.
 In Odoo 18 gibt es einen zweiten, leeren Reiter „Rechnungsstellung“ (technisch `accounting_disabled`), der nur bei
 Personen sichtbar ist; in Odoo 11 hieß der entsprechende Reiter ebenfalls „Abrechnung“. Auf Anweisung nicht bearbeitet.
 
-## 10. Nachweis
+## 10. Endstand-Verifikation auf der VM (Session 110, verbindliche Abnahmeumgebung)
 
-- `scripts/verify_s109_gemeinde_info.py`: Felder, Typen, Relationen, Pflichtfelder, Modellbeschriftungen, Reiter-Arch,
-  Sichtbarkeitsregel, Breitenkorrektur, Stammdaten-Mapping (Code), Größenklassen-Berechnung
-- Browser-Prüfung des Reiters auf der VM mit Messung des Feldes und Screenshot
+Alle Prüfungen über HTTPS gegen https://k001959vsx.ipax.at nach den Modul-Upgrades:
+
+| Prüfung | Ergebnis |
+|---|---|
+| `itk_crm` | **18.0.1.5.1** installiert, `latest_version` identisch |
+| `itk_base_setup` | **18.0.1.2.2** installiert, `latest_version` identisch |
+| Modellbeschriftungen (7 Felder) | alle auf den Odoo-11-Wortlaut: Einwohnerzahl, Größenklasse (2x), Stand vom, Organisationstyp, Städtebund-Mitglied, Organisationsbezeichnung |
+| Reiter-Arch | Gruppe „Andere“ mit `colspan="2"`, Feld `status_of_community` mit `colspan="2"`, alle Beschriftungen deutsch, Regel „nur Unternehmen“ |
+| Organisationstypen auf der VM | 6 Datensätze: M Marktgemeinde, G Gemeinde, ST Stadtgemeinde, SR Magistrat, MAG Magistrat der Stadt, GV Gemeindeverband |
+| Mapping-Prüfung | alle Codes stimmen mit Odoo 11 überein (Mapping-Schlüssel Code) |
+| Browser-Messung Feldbreite | **256 px** (vorher 26 px), Client- und Scrollbreite identisch → **kein Abschneiden** |
+| Längster Wert | „Magistrat der Stadt“ benötigt 119 px → vollständig lesbar |
+| Browser-Prüfung Kontakt 72 | sichtbar: Einwohnerzahl 1.909, Größenklasse „1.501 bis 2.000“, Stand vom 31.10.2018, Organisationstyp „Marktgemeinde“, Städtebund-Mitglied |
+| Screenshots | `19_VM_GemeindeInfo_final.png`, `18_VM_GemeindeInfo_Messung.png` (Desktop\Odoo18-Layoutvergleich-Session95) |
+| Kontrollzahlen | 70 Kontakte unverändert; 1 Kontakt mit Organisationstyp (Testdatensatz); 14 Größenklassen |
+
+**Bereich Gemeinde-Information ist damit abgeschlossen und migrationsbereit.**
+
+Der zusätzliche leere Reiter „Rechnungsstellung“ wurde auf Anweisung **nicht** bearbeitet.
