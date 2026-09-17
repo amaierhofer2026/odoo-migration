@@ -6071,3 +6071,38 @@ Standardwert für den Rechnungsversand.
 
 **Nachweis:** `scripts/verify_s108_abrechnung.py` → lokal 44 OK / 0 FEHL, VM 44 OK / 0 FEHL; Browser-Prüfung des Reiters
 auf der VM (Screenshot `16_VM_Abrechnung.png`); Kontrollzahl 70 Kontakte unverändert.
+## Session 109: Bereich Gemeinde-Information — Feldbestand identisch, Beschriftungen korrigiert (15.09.2026)
+
+**Auftrag (Anna):** Reiter „Gemeinde-Information“ vergleichen (Felder, Labels, Typen, Relationen, Pflichtfelder,
+Auswahlwerte, Ansichten, Funktionen); prüfen, wie die Gemeinde-Felder in Odoo 11 technisch gespeichert sind und ob sie
+in Odoo 18 eindeutig abbildbar sind; eindeutige Unterschiede direkt beheben; kein Rückbau.
+
+**Ergebnis:** Der Reiter enthält in beiden Systemen **dieselben fünf Felder** (`population`, `community_magnitude`,
+`population_update`, `status_of_community`, `member_of_city_alliance`) mit identischen Typen, Relationen, Gruppierung
+und der Regel „nur Unternehmen“; keine Pflichtfelder; nichts entfällt oder ist neu.
+
+**Technische Speicherung in Odoo 11 Prod (Antwort auf die Kernfrage):** normale Felder des Moduls `itk_crm` auf
+`res.partner` — keine x_-Custom-Felder, kein eigenes Gemeinde-Modell. `status_of_community` ist many2one auf
+`itk_crm.statusofcommunity`; `community_magnitude` (char, compute, nicht gespeichert) und `community_magnitude_id`
+(many2one, compute + store) werden über `_get_community_magnitude()` **aus `population` berechnet** → für die Migration
+genügt `population`.
+
+**Behoben (`itk_crm` 18.0.1.5.1):** Modellbeschriftungen waren in Odoo 18 englisch bzw. abweichend — `status_of_community`
+(→ Organisationstyp), `community_magnitude` (→ Größenklasse), `community_magnitude_id` (→ Größenklasse),
+`population_update` (→ Stand vom), `member_of_city_alliance` (→ Städtebund-Mitglied), `community_salutation`
+(→ Organisationsbezeichnung). Im Formular waren die deutschen Strings bereits gesetzt (itk_crm/views/res_partner.xml),
+im Modell nicht — dadurch stimmen jetzt auch Suche, Filter, Export und Auswahllisten.
+
+**Odoo-11-Datenlage:** Einwohnerzahl 2.675 (2.280 Unternehmen), Stand vom 2.093, Organisationstyp 2.093,
+Städtebund-Mitglied 277; Größenklassen berechnet (16 verschiedene Werte produktiv).
+
+**Vorgabe für die Datenmigration:** Organisationstyp-Stammdaten vorher anlegen/zurordnen (Odoo 18 hat nur
+„Marktgemeinde“; Odoo 11: Marktgemeinde 768, Gemeinde 1.122, Stadtgemeinde 188, Magistrat 13, Magistrat der Stadt 2,
+Gemeindeverband 0, „-“ 0). Die 16 produktiven Größenklassen weichen von den 14 im Repo ab (u. a. getrennte Klassen
+20.001–30.000 / 30.001–50.000 und ein Tippfehler „500.0001“) — ohne Wirkung, weil die Klasse berechnet wird.
+
+**Beobachtung außerhalb des Bereichs:** Odoo 18 hat einen zweiten, leeren Reiter „Rechnungsstellung“
+(`accounting_disabled`, nur bei Personen sichtbar), in Odoo 11 hieß er ebenfalls „Abrechnung“ — unverändert gelassen.
+
+**Nachweis:** `scripts/verify_s109_gemeinde_info.py` — lokal 36 OK / 0 FEHL (GAP-Hinweis Organisationstypen erwartet);
+Browser-Prüfung des Reiters auf der VM.
