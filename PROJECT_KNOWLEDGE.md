@@ -6210,3 +6210,42 @@ Odoo-11-Statusnamen entsprechen den sechs Odoo-18-Stufen, nur „Open“ gegen �
 Spaltenköpfe, Buttons, Zeilen; löscht vorher das Browserprofil wegen des View-Caches ab Odoo 17).
 
 Der leere Reiter „Rechnungsstellung“ bleibt weiterhin unangetastet.
+## Session 114: CRM → Verkaufschancen vorbereitet — Stufen, Teams, Mapping (15.09.2026)
+
+**Auftrag (Anna):** CRM-Verkaufschancen migrationsgerecht vorbereiten (Stufen, Vertriebsteams, Verlustgründe, Felder der
+Verkaufschance), keine Datenmigration, eindeutige Unterschiede direkt beheben.
+
+**Zahlen-Korrektur:** Der Wert „6.966 Verkaufschancen“ aus Session 101 war die Gesamtzahl aller `crm.lead`. Live gegen
+Odoo 11 Prod: **6.967 gesamt = 6.608 Interessenten (`lead`) + 359 Verkaufschancen (`opportunity`)** (379 inkl. archivierter).
+
+**Stufen:** Odoo 11 hat 9 Stufen (New, Angebotsphase, On-Hold, **Angebot ausgesendet**, Positive Rückmeldung, Won,
+Verloren, Zur Verrechnung bereit, Verrechnet); Odoo 18 hatte 8 — **„Angebot ausgesendet“ fehlte bestätigt**. Nachgetragen
+und Reihenfolge an Odoo 11 angeglichen: `itk_crm/data/crm_stages.xml` + `setup_runtime._STAGES` + Migration
+`migrations/18.0.1.5.2/post-migration.py`, Modul **18.0.1.5.2**. Ergebnis: 9 Stufen, Sequenzen 1..9, Erfolgreich `is_won`,
+Verloren/Verrechnet `fold` (Odoo-18-Standard für abgeschlossene Stufen, beibehalten).
+
+**Wichtiger Technikunterschied:** Die Gewinnwahrscheinlichkeit liegt in Odoo 18 **nicht** an der Stufe, sondern am Datensatz
+(`crm.lead.probability`, float, beschreibbar) — die Odoo-11-Stufenwerte (10/100/0 %) haben kein Stufen-Gegenstück.
+`is_won` gibt es nur in Odoo 18.
+
+**Teams:** Odoo 11 hat 8 Teams, tatsächlich mit Chancen belegt sind 7 (Vertriebskanäle (Intern) 276, Interne Weitergabe 74,
+Persönlicher Kontakt 3, Webseite 2, Webinar 2, Newsletter 1, Telefon 1); „Suche / Liste“ hat 0 Chancen. In Odoo 18
+vorbereitet über `setup_runtime._setup_crm_teams()`: 5 Teams neu angelegt, Odoo-11-„Webseite“ entspricht dem Odoo-18-
+Standardteam „Website“ (aktiviert), Teamleiter „Breit Christiane” gesetzt wo in Odoo 11 hinterlegt, „Suche / Liste“ bewusst
+nicht angelegt. Keine Verkaufschance zugeordnet, keine Mitgliedschaften übernommen.
+
+**Verlustgründe:** Feld `lost_reason` ist in Odoo 11 bei **0 von 359** Chancen gesetzt (auch nicht bei den 130 in Stufe
+„Verloren“); alle fünf Odoo-11-Namen existieren in Odoo 18 bereits → nichts anzulegen. Feldname in Odoo 18: `lost_reason_id`.
+
+**Feld-Mapping (16 Felder dokumentiert):** 1:1 u. a. `partner_id`, `name`, `user_id`, `team_id`, `stage_id`, `probability`,
+`priority`, `date_deadline`, `active`, `type`; **Transformationen**: `planned_revenue` → `expected_revenue` (float → monetary),
+`lost_reason` → `lost_reason_id`, `tag_ids` `crm.lead.tag` → `crm.tag`, `description` text → html; **entfällt**: `kanban_state`,
+`date_action_last`; **schreibgeschützt in Odoo 18** (technischer Importweg): `date_closed`, `date_open`, `date_last_stage_update`.
+
+**Keine Datenübernahme:** 0 von 359 Chancen und 0 von 6.608 Interessenten migriert (Odoo 18: 0 Chancen, 1 Test-Lead).
+
+**Offen (KLÄRUNG):** Auswahlregel für die Chancen-Migration, Interessenten-Migration (eigene Entscheidung), `is_won`/`fold`
+für „Verrechnet“ (206 Chancen), Wahrscheinlichkeit je Chance, Team-Mitgliedschaften, Wortlaute, Tag-Mapping, Verlustgrund
+für die 130 „Verloren“-Chancen.
+
+**Nachweis:** `scripts/verify_s114_crm_chancen.py` → lokal 52 OK / 0 FEHL (Stufen, Teams, Verlustgründe, Felder, Umbenennungen).

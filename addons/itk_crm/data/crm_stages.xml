@@ -4,7 +4,8 @@
          bei jedem Upgrade uebernimmt der post_init_hook (_setup_stage_labels). -->
     <data noupdate="1">
         <!-- Odoo-11-kompatible CRM-Stages (Kundenverwaltung)
-             Persistierung der RPC-Arbeit vom 30.07.2026 (Session 6).
+             Persistierung der RPC-Arbeit vom 30.07.2026 (Session 6);
+             seit Session 114 inklusive Stufe "Angebot ausgesendet" (Odoo-11-Reihenfolge).
              Die 4 Default-Stages werden umbenannt (noupdate=0 -> bei jedem Upgrade
              erneut angewendet), 4 neue Stages kommen mit itk_crm-XML-IDs hinzu.
              Die Name-Übersetzungen (de_DE/en_US) sichert der post_init_hook. -->
@@ -23,17 +24,23 @@
         </record>
         <record id="crm.stage_lead4" model="crm.stage">
             <field name="name">Erfolgreich</field>
-            <field name="sequence">5</field>
+            <field name="sequence">6</field>
             <field name="is_won">True</field>
         </record>
 
         <record id="stage_positive_rueckmeldung" model="crm.stage">
             <field name="name">Positive Rückmeldung</field>
+            <field name="sequence">5</field>
+        </record>
+        <!-- Session 114: Odoo 11 Prod hat an dritter Stelle (nach On-Hold) die Stufe
+             "Angebot ausgesendet" (2 Chancen). Sie fehlte in Odoo 18 und ist hier ergaenzt. -->
+        <record id="stage_angebot_ausgesendet" model="crm.stage">
+            <field name="name">Angebot ausgesendet</field>
             <field name="sequence">4</field>
         </record>
         <record id="stage_zur_verrechnung" model="crm.stage">
             <field name="name">Zur Verrechnung bereit</field>
-            <field name="sequence">6</field>
+            <field name="sequence">8</field>
         </record>
         <record id="stage_verloren" model="crm.stage">
             <field name="name">Verloren</field>
@@ -42,7 +49,7 @@
         </record>
         <record id="stage_verrechnet" model="crm.stage">
             <field name="name">Verrechnet</field>
-            <field name="sequence">8</field>
+            <field name="sequence">9</field>
             <field name="fold">True</field>
         </record>
     </data>

@@ -115,6 +115,17 @@ Prüfwerkzeug: `python scripts/vm_abnahme_check.py` · Detailregel: `docs/arbeit
 - **F33 Filestore-Luecke untersucht (Session 90, 14.09.2026):** 895 Anhangsdatensaetze verweisen auf **513 fehlende Dateien** (432 Odoo-Standardgrafiken + 81 Datendateien: 43 echte Fotos, 7 Beleg-PDFs, 4 Dashboards, 1 Logo, 1 CSS, 25 Platzhalter) - in **keiner** lokalen Sicherung vorhanden (Abdruck: `dump.sql` mit `db_datas` leer; Details in `PROJECT_KNOWLEDGE.md` Session 90). Vollstaendiges **Odoo-11-Backup lokal gefunden** (`Desktop\Odoo_DB_Dump_2026_09_03` + byte-identische Kopie in `Nextcloud`: `ITK_V1_a.pg_dump` 48 MB + `ITK_V1_a_filestore.tar.gz` 1,61 GB / 21.789 Dateien), deckt aber nur 18 der 513 per Hash ab. Ohne IPAX machbar: 432 Modulgrafiken + 18 Fotos + ~25 Fotos semantisch ueber die O11-DB; offen: 7 PDFs + 4 Dashboards. Read-only Werkzeug: `scripts/f33_filestore_scan.py`. Noch **nichts** kopiert oder repariert.
 
 - - **Bereich Kontakte → Kontaktformular/Kontaktliste (Session 93, 15.09.2026 — Struktur umgesetzt):** Kontaktliste um die Odoo-11-Spalten erweitert, die in Odoo 18 fehlten (`function`, `is_company`, `parent_id`, `salutation`, `active` als `optional="show"`, `category_id` wieder sichtbar, doppelte Namensspalte ausgeblendet); Kontaktsuche um die Odoo-11-Filter **„Meine Partner“** und **„Meine Aktivitäten“** ergänzt. Modul `itk_base_setup` 18.0.1.0.1. **Formular:** keine Änderung nötig — die O11-Bestandteile sind in Odoo 18 vorhanden (Chatter, Bildfelder, Kundensperren, Warnungen, Konten gruppengesteuert). Verifiziert lokal **und** auf der VM: `scripts/verify_s93_contact_views.py` je **40/40 OK**. Offen als **KLÄRUNG NÖTIG**: `opt_out`/Versandbereitschaft, Website-Veröffentlichung am Kontakt, Wortlaute der Smart-Buttons, Tab „Rechnungsstellung“, O11-Buttons ohne O18-Modul (Reklamation, Events, Kostenstellenkonten). Keine Daten übernommen.
+- **Bereich CRM → Verkaufschancen vorbereitet (Session 114, 15.09.2026):**
+  `docs/o11-o18-strukturvergleich-crm-verkaufschancen.md`. **Zahlen-Korrektur:** 6.967 `crm.lead` = 6.608 Interessenten +
+  **359 Verkaufschancen** (der Wert „6.966“ aus Session 101 war die Gesamtzahl). **Stufe „Angebot ausgesendet“** war in Odoo 18
+  tatsächlich nicht vorhanden und ist ergänzt; die 9 Stufen stehen jetzt in der Odoo-11-Reihenfolge. **7 tatsächlich verwendete
+  Teams** als Stammdaten vorbereitet (5 neu, „Webseite“ → Odoo-18-„Website“ aktiviert; „Suche / Liste“ mit 0 Chancen nicht),
+  Teamleiter gesetzt. **Verlustgründe:** alle 5 Odoo-11-Namen schon vorhanden, in Odoo 11 bei 0 Chancen genutzt — nichts anzulegen.
+  Feld-Mapping (16 Felder) inkl. Umbenennungen `planned_revenue` → `expected_revenue`, `lost_reason` → `lost_reason_id`,
+  `crm.lead.tag` → `crm.tag`, `description` text → html. **Keine Verkaufschance migriert.** Gepflegt im Repo (
+  `itk_crm` 18.0.1.5.2: `data/crm_stages.xml`, `setup_runtime._setup_crm_teams`). Prüfung `scripts/verify_s114_crm_chancen.py`,
+  lokal 52 OK / 0 FEHL. Offene Fachfragen in Abschnitt 6 des Dokuments.
+
 - **Tab „Support Ticket“ MIGRATIONSBEREIT (Sessions 112/113, 15.09.2026, auf der VM verifiziert):**
   `docs/o11-o18-strukturvergleich-kontakt-support-ticket.md`. Odoo 11 nutzt `website_support`, Odoo 18 die OCA-Helpdesk-Funktion
   `helpdesk_mgmt` (+ SLA/Projekt/Timesheet) und ITKs `itk_helpdesk_compat`. Die beiden Odoo-11-Felder im Reiter (`sla_id`, `stp_ids`)
