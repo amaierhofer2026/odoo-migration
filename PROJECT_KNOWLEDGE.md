@@ -6182,3 +6182,31 @@ Odoo-18-Stufen** (nur „Open“ gegen „Offen“) → Status eindeutig zuorden
 (Spalten sind sichtbar). Keine Testdatenänderung ohne Freigabe.
 
 **Nachweis:** `scripts/verify_s112_support_ticket.py` → lokal 35 OK / 0 FEHL; Browser-Prüfung auf der VM.
+## Session 113: Support Ticket auf der VM verifiziert — Ticket-Migration verbindlich selektiv (15.09.2026)
+
+**Auf der VM durchgeführt:** `itk_base_setup` auf **18.0.1.2.3** upgegradet (latest_version identisch);
+`scripts/verify_s112_support_ticket.py` gegen die VM: **35 OK / 0 FEHL**; Browser-Test des Reiters im echten Chrome
+(Kontakt 72): Reiter gefunden, alle 7 Spalten sichtbar (Ticketnummer, Titel, Erstellt am, Stufe, Team, Kategorie,
+Zugewiesener Benutzer), keine Bearbeiten-Buttons, Reiterfolge korrekt, Screenshot `21_VM_SupportTicket.png`.
+70 Kontakte unverändert; 1 Ticket im Testbestand ohne Kontaktbezug (Liste daher leer, Spalten sichtbar).
+
+**Neue verbindliche Vorgabe von Anna (Ticket-Migration ist selektiv):** Die 1.210 Odoo-11-Tickets werden **nicht automatisch**
+migriert. Vor der eigentlichen Migration ist eine Auswahlregel zu definieren (Status, Alter / Erstell- bzw. Abschlussdatum,
+fachliche Relevanz, ggf. Kategorie); **alte, bereits abgeschlossene Tickets werden nicht automatisch übernommen**.
+**Keine Entscheidung** darüber, welche Tickets migriert werden — als offener Migrationspunkt dokumentiert.
+
+**Zahlen als Entscheidungsgrundlage (Odoo 11 Prod):** Geschlossen/Behoben 1.170, Open 26, in Bearbeitung 12, on Hold 1,
+Verrechnung mit Kunde geklärt 1, an Partner weitergeleitet 0; 483 Tickets mit Kontaktbezug (727 ohne), 1.131 mit Bearbeiter,
+1.202 mit Kategorie; 18 Kategorien; 1 SLA.
+
+**Strukturelle Aufnahmefähigkeit von `helpdesk.ticket` (auf der VM geprüft):** Kontaktbezug (`partner_id`), Bearbeiter
+(`user_id`), Stufe (`stage_id`), Kategorie (`category_id`), Team (`team_id`), Titel (`name`), Beschreibung (`description`),
+Chatter (`message_ids`) und Anhänge (`attachment_ids`) sind direkt beschreibbar. **Schreibgeschützt und daher nur über einen
+technischen Importweg zu setzen: Ticketnummer (`number`, automatische Sequenz), Erstellzeitpunkt (`create_date`), Ersteller
+(`create_uid`).** `closed` ist berechnet und ergibt sich aus der Stufe. **Status-Zuordnung nahezu 1:1** — die sechs
+Odoo-11-Statusnamen entsprechen den sechs Odoo-18-Stufen, nur „Open“ gegen „Offen“.
+
+**Neues Werkzeug:** `scripts/browser_reiter_pruef.py` (prüft einen Formular-Reiter im echten Browser: sichtbare Felder,
+Spaltenköpfe, Buttons, Zeilen; löscht vorher das Browserprofil wegen des View-Caches ab Odoo 17).
+
+Der leere Reiter „Rechnungsstellung“ bleibt weiterhin unangetastet.

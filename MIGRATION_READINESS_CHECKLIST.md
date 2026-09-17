@@ -442,7 +442,21 @@ Kategorie und Zugewiesenem Benutzer. Keine Daten migriert oder geändert.
 die sechs Odoo-11-Statusnamen entsprechen nahezu 1:1 den sechs Odoo-18-Stufen (nur „Open“ gegen „Offen“); 18 Odoo-11-Kategorien
 gegen 37 Odoo-18-Kategorien (Zuordnungstabelle nötig); 1 SLA („Standard SLA Support ITK Produkte“) → SLA am Team.
 
-**Nachweis:** `scripts/verify_s112_support_ticket.py` → lokal 35 OK / 0 FEHL; Browser-Prüfung des Reiters auf der VM.
+**Ticket-Migration ist SELEKTIV (verbindliche Vorgabe Session 113):** Die 1.210 Odoo-11-Tickets werden **nicht automatisch**
+migriert. Vor der Migration ist eine Auswahlregel zu definieren (Status, Alter/Erstell- bzw. Abschlussdatum, fachliche
+Relevanz, ggf. Kategorie); **alte, abgeschlossene Tickets werden nicht automatisch übernommen**. Keine Entscheidung
+darüber getroffen, welche Tickets migriert werden — offener Migrationspunkt. Zahlen als Grundlage: Geschlossen/Behoben 1.170,
+Open 26, in Bearbeitung 12, on Hold 1, Verrechnung mit Kunde geklärt 1; 483 Tickets mit Kontaktbezug.
+
+**Strukturelle Aufnahmefähigkeit geprüft (VM):** Kontaktbezug, Bearbeiter, Stufe, Kategorie, Team, Titel, Inhalte/Chatter und
+Anhänge sind direkt beschreibbar. **Ticketnummer, Erstellzeitpunkt und Ersteller sind schreibgeschützt** → falls diese
+Odoo-11-Werte erhalten bleiben sollen, ist ein technischer Importweg einzuplanen. **Status-Zuordnung nahezu 1:1** (nur
+„Open“ gegen „Offen“); Kategorien brauchen eine Zuordnungstabelle (Odoo 11: 18).
+
+**Nachweis (Session 113, gegen die VM geprüft):** `itk_base_setup` 18.0.1.2.3 auf der VM installiert;
+`scripts/verify_s112_support_ticket.py` lokal 35 OK / 0 FEHL und **VM 35 OK / 0 FEHL**; Browser-Test des Reiters im echten Chrome
+(alle 7 Spalten sichtbar, keine Bearbeiten-Buttons, Reiterfolge korrekt, Screenshot `21_VM_SupportTicket.png`);
+70 Kontakte unverändert, keine Ticketdaten übernommen. **Bereich strukturell migrationsbereit.**
 
 ### 6.5 Kontakte → Adressblock / Adresstypen — MIGRATIONSBEREIT (abgeschlossen), 15.09.2026 (Session 101)
 
