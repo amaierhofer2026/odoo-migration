@@ -6152,3 +6152,33 @@ Browserprofil, weil Odoo ab Version 17 Ansichten im Browser cached — sonst wir
 
 **Bereich Gemeinde-Information abgeschlossen** (Checkliste 6.9). Der leere Reiter „Rechnungsstellung“ bleibt auf
 Anweisung unangetastet.
+## Session 112: Bereich Support Ticket — Systemwechsel dokumentiert, leerer Reiter gefüllt (15.09.2026)
+
+**Auftrag (Anna):** Reiter „Support Ticket“ vergleichen (Felder, Labels, Typen, Relationen, Ansichten, Buttons,
+Funktionen); prüfen, ob alle Odoo-11-Informationen eindeutig abbildbar sind; eindeutige Unterschiede beheben;
+moderne Odoo-18-Funktionen beibehalten.
+
+**Kernbefund — Systemwechsel:** Odoo 11 nutzt `website_support` (installiert, +„billing“, +„analytic_timesheets“),
+Odoo 18 die OCA-Helpdesk-Funktion `helpdesk_mgmt` (+`helpdesk_mgmt_sla`, +„project“, +„timesheet“) und ITKs
+`itk_helpdesk_compat` / `itk_helpdesk_category_user`.
+
+**Odoo-11-Reiter:** `sla_id` (SLA, many2one `website.support.sla`) und `stp_ids` („Support Ticket Zugriffskonto“,
+many2many `res.partner`) — **beide 0 von 5.842 Kontakten** genutzt und ohne Odoo-18-Gegenstück → **entfallen**.
+**Ticket-Zugang:** Odoo 11 Smart-Button „Support Tickets“ (`support_ticket_string`) → Odoo 18
+`action_view_helpdesk_tickets` (`helpdesk_ticket_count`, `‑active_count`, `‑count_string`) — funktional gleichwertig.
+
+**Behoben (`itk_base_setup` 18.0.1.2.3):** Der Reiter enthielt nur den Platzhaltertext „Dem Kontakt zugeordnete
+Support-Tickets werden hier angezeigt.“ → zeigt jetzt die Odoo-18-Ticketliste des Kontakts (`helpdesk_ticket_ids`, nur
+lesend, 7 Spalten: Ticketnummer, Titel, Erstellt am, Stufe, Team, Kategorie, Zugewiesener Benutzer). Zusätzlich den
+Smart-Button auf „Support Tickets“ umbenannt. Keine Daten geändert.
+
+**Ticket-Umfang für den späteren eigenen Migrationsbereich:** Odoo 11: **1.210 Tickets** (483 mit Kontakt, 1.131 mit
+Bearbeiter, 1.202 mit Kategorie), 6 Status (Open 26, in Bearbeitung 12, on Hold 1, Geschlossen/Behoben 1.170,
+an Partner weitergeleitet 0, Verrechnung mit Kunde geklärt 1), 18 Kategorien, 1 SLA. Odoo 18: `helpdesk.ticket`
+(1 Testdatensatz), 6 Stufen, 37 Kategorien, 1 Team. **Die sechs Odoo-11-Statusnamen entsprechen nahezu 1:1 den
+Odoo-18-Stufen** (nur „Open“ gegen „Offen“) → Status eindeutig zuordenbar; Kategorien brauchen eine Zuordnungstabelle.
+
+**Hinweis:** Der Odoo-18-Testdatensatz `HT00051` hat keinen Kontaktbezug, deshalb ist die Reiterliste im Testsystem leer
+(Spalten sind sichtbar). Keine Testdatenänderung ohne Freigabe.
+
+**Nachweis:** `scripts/verify_s112_support_ticket.py` → lokal 35 OK / 0 FEHL; Browser-Prüfung auf der VM.
