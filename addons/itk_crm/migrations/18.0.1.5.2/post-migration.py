@@ -26,3 +26,7 @@ def migrate(cr, version):
     _logger.info("itk_crm post-migration 18.0.1.5.2: CRM-Stufen und Teams (Upgrade/Restore)")
     setup_runtime._setup_stage_labels(env)
     setup_runtime._setup_crm_teams(env)
+    # App-/Menue-Namen der Kundenverwaltung erneut setzen: Menue 143 ist
+    # crm.crm_menu_root mit noupdate=0, ein crm-Upgrade setzt die Quelle zurueck
+    # und laesst die alte de_DE-Uebersetzung 'CRM' stehen.
+    setup_runtime._setup_crm_menus(env)

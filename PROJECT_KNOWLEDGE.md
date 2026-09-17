@@ -6249,3 +6249,34 @@ für „Verrechnet“ (206 Chancen), Wahrscheinlichkeit je Chance, Team-Mitglied
 für die 130 „Verloren“-Chancen.
 
 **Nachweis:** `scripts/verify_s114_crm_chancen.py` → lokal 52 OK / 0 FEHL (Stufen, Teams, Verlustgründe, Felder, Umbenennungen).
+
+## Session 115: Kundenverwaltung / CRM vollstaendig abgeglichen - Menue, Ansichten, Suche, Funktionen (17.09.2026)
+
+Auftrag Anna: **Stopp der Datenmigration im CRM**. Ziel ist zuerst die vollstaendige funktionale und sichtbare Angleichung von
+Odoo 18 an Odoo 11 (Bereich "Kundenverwaltung"). Odoo 11 Prod strikt **read-only**.
+
+**Angepasst (itk_crm 18.0.1.5.4):**
+- App-Name: Menue `crm.crm_menu_root` heisst sichtbar jetzt **"Kundenverwaltung"** (vorher "CRM"). Ursache des Dauerfehlers: das
+  Menue ist Moduldaten mit **`noupdate=0`** - bei einem Upgrade des Moduls `crm` wird der Quelltext zurueckgesetzt, die alte
+  de_DE-Uebersetzung "CRM" bleibt in der Datenbank stehen. Fix: Quelle, de_DE und en_US gemeinsam schreiben (
+  `setup_runtime._setup_crm_menus`) und das Setup bei **jedem** itk_crm-Upgrade erneut laufen lassen (Migration 18.0.1.5.4).
+- Konfigurationsgruppe: Menue `crm.menu_crm_config_lead` heisst jetzt **"Interessenten und Chancen"** (Odoo-11-Wortlaut; vorher
+  "Pipeline", fachlich irrefuehrend, weil dort Stichwoerter und Verlustgruende haengen).
+- Team-Teamleiter und Doppelbefunde: `_rename` schreibt jetzt zusaetzlich die Quelle (nicht nur de_DE/en_US).
+
+**Befunde:** Menuebaum entspricht Odoo 11 (Aktivitaeten, Pipeline, Kunden, Berichtswesen, Konfiguration; Untermenues Pipeline/
+Interessenten/Angebote/Teams). Die ITK-Felder auf `crm.lead` (`x_Anrede_Lead`, `x_Lead_Quelle`, `x_Produktinteresse`,
+`x_lead_status`) sind in Odoo 18 in der Liste der Interessenten und im Formular eingebunden - die Liste der Verkaufschancen
+enthaelt sie in Odoo 11 ebenfalls nicht (gleiches Verhalten). Filter sind in Odoo 18 eine Obermenge (28 gegen 17); entfallen:
+"Archiviert" und "Opt Out exkludieren", fehlend: Gruppierung "Kunde" (`partner_id`). Formular Odoo 18: 67 Felder gegen 40 in
+Odoo 11, 13 Buttons gegen 2. Zugriffsrechte gleichwertig (Odoo 11 Manager/User, Odoo 18 Administrator/User).
+
+**Wichtige Zahlen (Odoo 11 Prod, read-only):** 359 Verkaufschancen, 6.608 Interessenten, 17 Favoriten auf `crm.lead`,
+13 aktive Benutzer in der ITK-Gruppe "Manager (edit)" mit eigener Zugriffsregel `access_itk_crm_lead_manager` (in Odoo 18 ohne
+Entsprechung). **Odoo 18: 0 Verkaufschancen, 1 Test-Interessent** - keine Datenmigration.
+
+**Nachweis:** `scripts/verify_s115_kundenverwaltung.py` (lokal 20 OK / 0 FEHL), Browser-Pruefung auf der VM.
+
+**Offen (KLAERUNG NOETIG):** Favoriten-Uebernahme, Gruppierung "Kunde", ITK-Zugriffsregel "Manager (edit)", Berichtsmenue
+"Vertriebskanaele", Wortlaute (Phase/Stufe, Vertriebsmitarbeiter/Verkaeufer, Verkaufsteam/Vertriebskanal, Stichwoerter/Lead Tags,
+Verlustgruende/Ablehnungsgruende), Datenmigration (Auswahlregel und Zeitpunkt).

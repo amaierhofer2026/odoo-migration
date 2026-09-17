@@ -190,6 +190,12 @@ def _setup_crm_menus(env):
     def _rename(menu_id, name):
         menu = Menu.browse(menu_id)
         if menu.exists():
+            # Quelle UND beide Sprachen schreiben. Hintergrund: Menue 143 ist
+            # crm.crm_menu_root mit noupdate=0 - bei einem crm-Upgrade wird die
+            # Quelle zurueckgesetzt, die alte de_DE-Uebersetzung ('CRM') bleibt
+            # aber in der Datenbank stehen (Session 114). Deshalb alle drei Werte
+            # setzen; das laeuft bei jedem itk_crm-Upgrade erneut.
+            menu.write({'name': name})
             menu.with_context(lang='de_DE').write({'name': name})
             menu.with_context(lang='en_US').write({'name': name})
 
@@ -215,6 +221,11 @@ def _setup_crm_menus(env):
     Menu.browse(143).write({'sequence': 25})
     Menu.browse(144).write({'parent_id': 143, 'sequence': 1})
     _rename(148, 'Kunden')
+    # Konfigurationsgruppe mit Stichwoertern und Verlustgruenden: in Odoo 11 hiess sie
+    # 'Interessenten und Chancen' (Odoo 18 stand 'Pipeline' - fachlich irrefuehrend).
+    _menu_ref = env.ref('crm.menu_crm_config_lead', raise_if_not_found=False)
+    if _menu_ref:
+        _rename(_menu_ref.id, 'Interessenten und Chancen')
     Menu.browse(148).write({'parent_id': 143, 'sequence': 5})
     _rename(150, 'Berichtswesen')
     Menu.browse(150).write({'sequence': 20})
