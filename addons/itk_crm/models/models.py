@@ -100,11 +100,11 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     firstname = fields.Char("First name", index=True)
-    status_of_community = fields.Many2one('itk_crm.statusofcommunity', string='Status of Community')
+    status_of_community = fields.Many2one('itk_crm.statusofcommunity', string='Organisationstyp')
     status_of_partner_id = fields.Many2one('itk_crm.statusofpartner', string='Status of Partner')
     population = fields.Integer('Einwohnerzahl')
-    population_update = fields.Date('Einwohnerzahl aktualisiert am')
-    member_of_city_alliance = fields.Boolean('Member of City Alliance')
+    population_update = fields.Date('Stand vom')
+    member_of_city_alliance = fields.Boolean('Städtebund-Mitglied')
     asset_partner = fields.Boolean('Asset Partner')
     attention_of = fields.Char("zu Handen")
     salutation = fields.Char("Anrede")
@@ -116,12 +116,12 @@ class ResPartner(models.Model):
     )
     community_magnitude_id = fields.Many2one(
         'itk_crm.communitymagnitude',
-        string='Community Magnitude',
+        string='Größenklasse',
         compute='_compute_communitymagnitude',
         store=True,
     )
-    community_magnitude = fields.Char("Magnitude", compute='_compute_communitymagnitude')
-    community_salutation = fields.Char("Salutation of Community")
+    community_magnitude = fields.Char("Größenklasse", compute='_compute_communitymagnitude')
+    community_salutation = fields.Char("Organisationsbezeichnung")
     official_email = fields.Char("Official Email")
     austria_wiki_url = fields.Char("Österreich-Wiki-URL")
     latitude = fields.Char("Latitude")

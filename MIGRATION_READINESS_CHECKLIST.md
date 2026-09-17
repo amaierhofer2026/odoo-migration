@@ -377,6 +377,31 @@ wie Peppol BIS 3; **kein ebInterface** im Standard — Entscheidung mit ITK) 2) 
 **Nachweis:** `scripts/verify_s108_abrechnung.py` → lokal 44 OK / 0 FEHL, VM 44 OK / 0 FEHL; Browser-Prüfung des Reiters
 auf der VM (Screenshot `16_VM_Abrechnung.png`).
 
+### 6.9 Kontakte → Kontaktformular → Tab „Gemeinde-Information“ — **MIGRATIONSBEREIT (Struktur)**, 15.09.2026 (Session 109)
+
+Feld-Mapping dokumentiert in `docs/o11-o18-strukturvergleich-kontakt-gemeinde-information.md`.
+
+**Feldbestand identisch:** In beiden Systemen dieselben fünf Felder im Reiter (`population` Einwohnerzahl,
+`community_magnitude` Größenklasse, `population_update` Stand vom, `status_of_community` Organisationstyp,
+`member_of_city_alliance` Städtebund-Mitglied), gleiche Gruppierung, gleiche Regel „nur Unternehmen“, keine Pflichtfelder,
+gleiche Typen und Relationen. Nichts entfällt, nichts ist neu.
+
+**Speicherung in Odoo 11 Prod:** normale Felder des Moduls `itk_crm` auf `res.partner` (keine x_-Felder, kein eigenes
+Modell); `status_of_community` → many2one auf `itk_crm.statusofcommunity`; `community_magnitude` (char) und
+`community_magnitude_id` (many2one) sind **berechnet** aus `population` und müssen nicht migriert werden.
+
+**Behoben (Session 109, `itk_crm` 18.0.1.5.1):** Modellbeschriftungen standen in Odoo 18 englisch bzw. abweichend
+(Magnitude, Status of Community, Member of City Alliance, Community Magnitude, Einwohnerzahl aktualisiert am,
+Salutation of Community) → auf die Odoo-11-Wortlaute gesetzt (Größenklasse, Organisationstyp, Städtebund-Mitglied,
+Einwohnerzahl, Stand vom, Organisationsbezeichnung). Wirkung auch in Suche, Filter und Export.
+
+**Vorgabe für die Datenmigration:** Organisationstyp-Stammdaten in Odoo 18 unvollständig (nur „Marktgemeinde“);
+die Odoo-11-Werte Marktgemeinde (768), Gemeinde (1.122), Stadtgemeinde (188), Magistrat (13), Magistrat der Stadt (2)
+und Gemeindeverband bzw. „-“ (jeweils 0) sind vorher anzulegen bzw. zuzuordnen — sonst sind 2.093 Kontakte nicht zuordenbar.
+
+**Nachweis:** `scripts/verify_s109_gemeinde_info.py` (read-only) prüft Felder, Beschriftungen, Reiter-Arch, is_company-Regel,
+Stammdaten und die Größenklassen-Berechnung; Browser-Prüfung auf der VM.
+
 ### 6.5 Kontakte → Adressblock / Adresstypen — MIGRATIONSBEREIT (abgeschlossen), 15.09.2026 (Session 101)
 
 **Entscheidung von Anna: der Vergleich der Adressmaske passt funktional — kein Odoo-11-Nachbau.**
