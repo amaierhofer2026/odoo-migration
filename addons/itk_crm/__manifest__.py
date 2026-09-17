@@ -5,7 +5,7 @@
     'author': "Alvarium Services, Andreas Vathroder, Fabian Vathroder",
     'website': "http://www.alvarium-services.de",
     'category': 'ITK - Specific Industry Applications',
-    'version': '18.0.1.5.2',
+    'version': '18.0.1.5.4',
     'license': 'LGPL-3',
     'depends': ['base', 'sale'],
     'data': [

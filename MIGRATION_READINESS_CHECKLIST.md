@@ -491,6 +491,38 @@ Chancen in Stufe „Verloren“ (in Odoo 11 nicht gepflegt).
 
 **Nachweis:** `scripts/verify_s114_crm_chancen.py` → lokal 52 OK / 0 FEHL; Browser-Prüfung auf der VM.
 
+### 6.12 Kundenverwaltung / CRM (Menue, Ansichten, Suche, Konfiguration, Funktionen) - MIGRATIONSBEREIT (Struktur/UI), 17.09.2026 (Session 115)
+
+Dokumentation: `docs/o11-o18-strukturvergleich-kundenverwaltung-crm.md` (ergaenzt 6.11).
+
+**Auftrag:** vollstaendiger Funktions- und UI-Abgleich Odoo 11 Kundenverwaltung gegen Odoo 18 CRM. Weiterhin keine
+Datenmigration: 0 der 359 Verkaufschancen und 0 der 6.608 Interessenten uebernommen; Odoo 11 Prod ausschliesslich read-only.
+
+**Angepasst (itk_crm 18.0.1.5.4):**
+1. Sichtbarer App-Name "CRM" -> **"Kundenverwaltung"** (Menue `crm.crm_menu_root`, Quelle + de_DE + en_US). Ursache:
+   Moduldaten mit `noupdate=0` - ein Upgrade des Moduls `crm` setzte die Quelle zurueck, die alte de_DE-Uebersetzung "CRM" blieb stehen.
+2. Konfigurationsgruppe "Pipeline" -> **"Interessenten und Chancen"** (Menue `crm.menu_crm_config_lead`, Wortlaut aus Odoo 11).
+3. Beide Namen werden bei jedem itk_crm-Upgrade erneut gesetzt (`setup_runtime.setup_all`, Migration 18.0.1.5.4).
+
+**Menuevergleich:** Hauptmenues Aktivitaeten, Pipeline, Kunden, Berichtswesen, Konfiguration (Reihenfolge = Odoo 11);
+Pipeline-Untermenues Pipeline, Interessenten, Angebote, Teams; Konfiguration: Einstellungen, Vertriebskanaele, Aktivitaeten
+-> Aktivitaetstypen/Aktivitaetsplaene, Wiederkehrende Plaene, Interessenten und Chancen -> Stichwoerter, Verlustgruende,
+Lead-Generierung. Wurzelmenue-Gruppen: Sales/Administrator + Sales/User (Odoo 11: Manager + User) - gleichwertig.
+
+**Bewusst Odoo-18-standardmaessig:** Klassifizierung, Prognose, Wiederkehrende Plaene, Aktivitaetsplaene, Lead-Generierung,
+Berichte aus `crm.lead` statt `crm.opportunity.report`, Smart Buttons.
+
+**Ansichten und Suche:** Die ITK-Felder (`x_Anrede_Lead`, `x_Lead_Quelle`, `x_Produktinteresse`, `x_lead_status`) stehen in
+Odoo 18 an denselben Stellen wie in Odoo 11 (Liste der Interessenten + Formular, nicht in der Liste der Verkaufschancen).
+Filter und Gruppierungen sind in Odoo 18 eine Obermenge; entfallen: Filter "Archiviert" (ueber Gewonnen/Verloren abgedeckt)
+und "Opt Out exkludieren" (Odoo 18 hat kein `opt_out` mehr); die Gruppierung "Kunde" (`partner_id`) fehlt.
+
+**Nachweis:** `scripts/verify_s115_kundenverwaltung.py` -> lokal 20 OK / 0 FEHL; VM-Pruefung und Browser-Test siehe Endbericht.
+
+**Offen (KLAERUNG NOETIG):** 1) 17 Odoo-11-Favoriten (2 Standard) - uebernehmen, neu aufbauen oder verwerfen 2) Gruppierung
+"Kunde" ergaenzen? 3) ITK-Zugriffsregel `access_itk_crm_lead_manager` (Gruppe "Manager (edit)", 13 aktive Benutzer in Prod)
+4) Odoo-11-Berichtsmenue "Vertriebskanaele" nachbauen? 5) Wortlaute (wie 6.11) 6) Datenmigration (Auswahlregel, Zeitpunkt).
+
 ### 6.5 Kontakte → Adressblock / Adresstypen — MIGRATIONSBEREIT (abgeschlossen), 15.09.2026 (Session 101)
 
 **Entscheidung von Anna: der Vergleich der Adressmaske passt funktional — kein Odoo-11-Nachbau.**
