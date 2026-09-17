@@ -51,16 +51,33 @@ _CUSTOM_FIELDS = {
     ),
 }
 
+# Reihenfolge und Namen wie in Odoo 11 Prod (Session 114 gegen Prod geprueft):
+# New, Angebotsphase, On-Hold, Angebot ausgesendet, Positive Rueckmeldung, Won,
+# Verloren, Zur Verrechnung bereit, Verrechnet.
 _STAGES = {
     'crm.stage_lead1': ('Neu', 1, False, False),
     'crm.stage_lead2': ('Angebotsphase', 2, False, False),
     'crm.stage_lead3': ('On-Hold', 3, False, False),
-    'crm.stage_lead4': ('Erfolgreich', 5, False, True),
-    'itk_crm.stage_positive_rueckmeldung': ('Positive Rückmeldung', 4, False, False),
-    'itk_crm.stage_zur_verrechnung': ('Zur Verrechnung bereit', 6, False, False),
+    'itk_crm.stage_angebot_ausgesendet': ('Angebot ausgesendet', 4, False, False),
+    'itk_crm.stage_positive_rueckmeldung': ('Positive Rückmeldung', 5, False, False),
+    'crm.stage_lead4': ('Erfolgreich', 6, False, True),
     'itk_crm.stage_verloren': ('Verloren', 7, True, False),
-    'itk_crm.stage_verrechnet': ('Verrechnet', 8, True, False),
+    'itk_crm.stage_zur_verrechnung': ('Zur Verrechnung bereit', 8, False, False),
+    'itk_crm.stage_verrechnet': ('Verrechnet', 9, True, False),
 }
+
+# Vertriebskanaele aus Odoo 11 Prod, die tatsaechlich Verkaufschancen enthalten (Session 114).
+# (Name in Odoo 11, Name des Odoo-18-Teams, Login des Teamleiters in Odoo 11 oder None)
+# Nicht enthalten: "Suche / Liste" (0 Chancen in Odoo 11) - kein Nachbau unbenutzter Teams.
+_TEAMS_11 = [
+    ('Vertriebskanäle (Intern)', 'Vertriebskanäle (Intern)', None),
+    ('Interne Weitergabe', 'Interne Weitergabe', None),
+    ('Persönlicher Kontakt', 'Persönlicher Kontakt', 'christiane.breit@it-kommunal.at'),
+    ('Webinar', 'Webinar', 'christiane.breit@it-kommunal.at'),
+    ('Telefon', 'Telefon', 'christiane.breit@it-kommunal.at'),
+    ('Newsletter', 'Newsletter', 'christiane.breit@it-kommunal.at'),
+    ('Webseite', 'Website', None),
+]
 
 
 def setup_all(env):
@@ -75,6 +92,7 @@ def setup_all(env):
     _setup_activity_kanban(env)
     _setup_activity_types(env)
     _setup_vertriebskanaele_labels(env)
+    _setup_crm_teams(env)
     _logger.info("itk_crm setup_runtime: Struktur-Setup abgeschlossen")
 
 
@@ -111,6 +129,36 @@ def _setup_stage_labels(env):
         stage.with_context(lang='en_US').write({'name': name})
         stage.write({'sequence': seq, 'fold': fold, 'is_won': is_won})
     _logger.info("itk_crm: 8 CRM-Stages (Kundenverwaltung) sichergestellt")
+
+
+def _setup_crm_teams(env):
+    """Vertriebskanaele aus Odoo 11 als Odoo-18-Teams vorbereiten (idempotent).
+
+    Es werden nur Teams angelegt, die in Odoo 11 tatsaechlich Verkaufschancen
+    enthalten. Teamleiter werden gesetzt, wenn der Odoo-11-Benutzer in Odoo 18
+    existiert. Verkaufschancen werden NICHT zugeordnet (reine Stammdaten).
+    """
+    Team = env['crm.team'].sudo()
+    Users = env['res.users'].sudo()
+    angelegt, aktiviert, leiter = [], [], []
+    for name_11, name_18, login in _TEAMS_11:
+        team = Team.with_context(active_test=False).search([('name', '=', name_18)], limit=1)
+        if not team:
+            team = Team.create({'name': name_18})
+            angelegt.append(name_18)
+        elif not team.active:
+            team.active = True
+            aktiviert.append(name_18)
+        if login:
+            user = Users.with_context(active_test=False).search([('login', '=', login)], limit=1)
+            if user and team.user_id != user:
+                team.user_id = user
+                leiter.append('%s -> %s' % (name_18, login))
+    if angelegt or aktiviert or leiter:
+        _logger.info("itk_crm: Teams vorbereitet (angelegt: %s | aktiviert: %s | Leiter: %s)",
+                     angelegt or '-', aktiviert or '-', leiter or '-')
+    else:
+        _logger.info("itk_crm: Teams bereits vollstaendig (keine Aenderung)")
 
 
 def _setup_app_name(env):

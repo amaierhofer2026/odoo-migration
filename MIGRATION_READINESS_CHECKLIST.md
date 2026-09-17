@@ -458,6 +458,39 @@ Odoo-11-Werte erhalten bleiben sollen, ist ein technischer Importweg einzuplanen
 (alle 7 Spalten sichtbar, keine Bearbeiten-Buttons, Reiterfolge korrekt, Screenshot `21_VM_SupportTicket.png`);
 70 Kontakte unverändert, keine Ticketdaten übernommen. **Bereich strukturell migrationsbereit.**
 
+### 6.11 CRM → Verkaufschancen — **Struktur und Stammdaten MIGRATIONSBEREIT**, 15.09.2026 (Session 114)
+
+Dokumentation: `docs/o11-o18-strukturvergleich-crm-verkaufschancen.md`.
+
+**Zahlen-Korrektur:** Der bisher notierte Wert „6.966 Verkaufschancen“ war die Gesamtzahl aller `crm.lead`-Datensätze.
+Live geprüft: **6.967** `crm.lead` gesamt = **6.608 Interessenten** (`lead`) + **359 Verkaufschancen** (`opportunity`).
+
+**Stufen (9, wie Odoo 11):** Neu, Angebotsphase, On-Hold, **Angebot ausgesendet (neu angelegt, id 21, Position 4)**,
+Positive Rückmeldung, Erfolgreich (is_won), Verloren, Zur Verrechnung bereit, Verrechnet. Die Reihenfolge entspricht jetzt
+Odoo 11. Gepflegt im Repo (`itk_crm/data/crm_stages.xml`, `setup_runtime._STAGES`, Migration `18.0.1.5.2`), Modul **18.0.1.5.2**.
+
+**Teams (7 tatsächlich verwendet):** Vertriebskanäle (Intern) 276 Chancen, Interne Weitergabe 74, Persönlicher Kontakt 3,
+Webseite 2 (→ Odoo-18-Standardteam **Website**, aktiviert), Webinar 2, Newsletter 1, Telefon 1. Neu angelegt: Vertriebskanäle
+(Intern), Interne Weitergabe, Persönlicher Kontakt, Webinar, Telefon; Teamleiter „Breit Christiane“ gesetzt, wo in Odoo 11
+hinterlegt. **„Suche / Liste“ (0 Chancen) bewusst nicht angelegt.** Keine Verkaufschance zugeordnet.
+
+**Verlustgründe:** Alle fünf Odoo-11-Namen existieren in Odoo 18 bereits — nichts anzulegen. Das Feld ist in Odoo 11 bei
+**keiner** Chance gesetzt (auch nicht bei den 130 in Stufe „Verloren“). Feldname: `lost_reason` → **`lost_reason_id`**.
+
+**Feld-Mapping (16 Felder dokumentiert):** u. a. `planned_revenue` → **`expected_revenue`** (float → monetary),
+`lost_reason` → **`lost_reason_id`**, `tag_ids` von `crm.lead.tag` → **`crm.tag`**, `description` text → **html**;
+`kanban_state` und `date_action_last` entfallen; `date_closed`/`date_open` in Odoo 18 schreibgeschützt (technischer Importweg).
+
+**Keine Datenübernahme:** 0 der 359 Verkaufschancen und 0 der 6.608 Interessenten migriert.
+
+**Offen (KLÄRUNG NÖTIG):** 1) Interessenten (6.608) — eigene Entscheidung 2) Auswahlregel für die Chancen-Migration
+3) Stufe „Verrechnet“: `is_won`/`fold` fachlich klären (206 von 359 Chancen) 4) Gewinnwahrscheinlichkeit je Chance setzen?
+5) Team-Mitgliedschaften 6) Wortlaute (Phase/Stufe, Vertriebsmitarbeiter/Verkäufer, Verkaufsteam/Vertriebskanal,
+Verlustgrund/Ablehnugsgrund) 7) Tag-Mapping `crm.lead.tag` → `crm.tag` (117 Chancen) 8) Verlustgrund für die 130
+Chancen in Stufe „Verloren“ (in Odoo 11 nicht gepflegt).
+
+**Nachweis:** `scripts/verify_s114_crm_chancen.py` → lokal 52 OK / 0 FEHL; Browser-Prüfung auf der VM.
+
 ### 6.5 Kontakte → Adressblock / Adresstypen — MIGRATIONSBEREIT (abgeschlossen), 15.09.2026 (Session 101)
 
 **Entscheidung von Anna: der Vergleich der Adressmaske passt funktional — kein Odoo-11-Nachbau.**
