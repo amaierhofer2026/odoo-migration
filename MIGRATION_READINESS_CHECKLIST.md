@@ -377,7 +377,7 @@ wie Peppol BIS 3; **kein ebInterface** im Standard — Entscheidung mit ITK) 2) 
 **Nachweis:** `scripts/verify_s108_abrechnung.py` → lokal 44 OK / 0 FEHL, VM 44 OK / 0 FEHL; Browser-Prüfung des Reiters
 auf der VM (Screenshot `16_VM_Abrechnung.png`).
 
-### 6.9 Kontakte → Kontaktformular → Tab „Gemeinde-Information“ — **MIGRATIONSBEREIT (Struktur)**, 15.09.2026 (Session 109)
+### 6.9 Kontakte → Kontaktformular → Tab „Gemeinde-Information“ — **ABGESCHLOSSEN, MIGRATIONSBEREIT**, 15.09.2026 (Sessions 109/110)
 
 Feld-Mapping dokumentiert in `docs/o11-o18-strukturvergleich-kontakt-gemeinde-information.md`.
 
@@ -401,6 +401,20 @@ und Gemeindeverband bzw. „-“ (jeweils 0) sind vorher anzulegen bzw. zuzuordn
 
 **Nachweis:** `scripts/verify_s109_gemeinde_info.py` (read-only) prüft Felder, Beschriftungen, Reiter-Arch, is_company-Regel,
 Stammdaten und die Größenklassen-Berechnung; Browser-Prüfung auf der VM.
+
+**Session 110 — Organisationstypen als Ziel-Stammdaten vorbereitet (auf Anweisung von Anna):**
+Read-only verifizierter Odoo-11-Bestand (7 Datensätze, 2.093 zugeordnete Kontakte). In Odoo 18 angelegt bzw. ergänzt,
+idempotent auf lokal und VM, **ohne** Kontakte umzustellen und **ohne** Odoo-11-Zuordnungen zu übernehmen:
+Marktgemeinde (Code M, vorhanden — Code ergänzt), Gemeinde (G), Stadtgemeinde (ST), Magistrat (SR),
+Magistrat der Stadt (MAG), Gemeindeverband (GV). Der Platzhalter „-“ (0 Kontakte) wurde bewusst nicht angelegt.
+Mapping-Schlüssel ist der **Code**, nicht die ID. Hinweis: „Magistrat“ (13 Kontakte) fehlte in der Aufstellung, wird aber
+produktiv verwendet und wurde mit angelegt.
+
+**Session 110 — Anzeige korrigiert:** Der Organisationstyp war im Browser abgeschnitten (Feldbreite 26 px bei 118 px
+Textbedarf). Ursache: die Gruppe „Andere“ war doppelt verschachtelt und hatte nur ein Viertel der Reiterbreite.
+Korrektur in `itk_base_setup` 18.0.1.2.2: `colspan="2"` auf der Gruppe „Andere“ und auf dem Feld
+`status_of_community` — gezielt in dieser View, keine globale UI-Änderung. Nachher: Feldbreite 256 px, längster Wert
+„Magistrat der Stadt“ (119 px) vollständig lesbar.
 
 ### 6.5 Kontakte → Adressblock / Adresstypen — MIGRATIONSBEREIT (abgeschlossen), 15.09.2026 (Session 101)
 

@@ -115,12 +115,14 @@ Prüfwerkzeug: `python scripts/vm_abnahme_check.py` · Detailregel: `docs/arbeit
 - **F33 Filestore-Luecke untersucht (Session 90, 14.09.2026):** 895 Anhangsdatensaetze verweisen auf **513 fehlende Dateien** (432 Odoo-Standardgrafiken + 81 Datendateien: 43 echte Fotos, 7 Beleg-PDFs, 4 Dashboards, 1 Logo, 1 CSS, 25 Platzhalter) - in **keiner** lokalen Sicherung vorhanden (Abdruck: `dump.sql` mit `db_datas` leer; Details in `PROJECT_KNOWLEDGE.md` Session 90). Vollstaendiges **Odoo-11-Backup lokal gefunden** (`Desktop\Odoo_DB_Dump_2026_09_03` + byte-identische Kopie in `Nextcloud`: `ITK_V1_a.pg_dump` 48 MB + `ITK_V1_a_filestore.tar.gz` 1,61 GB / 21.789 Dateien), deckt aber nur 18 der 513 per Hash ab. Ohne IPAX machbar: 432 Modulgrafiken + 18 Fotos + ~25 Fotos semantisch ueber die O11-DB; offen: 7 PDFs + 4 Dashboards. Read-only Werkzeug: `scripts/f33_filestore_scan.py`. Noch **nichts** kopiert oder repariert.
 
 - - **Bereich Kontakte → Kontaktformular/Kontaktliste (Session 93, 15.09.2026 — Struktur umgesetzt):** Kontaktliste um die Odoo-11-Spalten erweitert, die in Odoo 18 fehlten (`function`, `is_company`, `parent_id`, `salutation`, `active` als `optional="show"`, `category_id` wieder sichtbar, doppelte Namensspalte ausgeblendet); Kontaktsuche um die Odoo-11-Filter **„Meine Partner“** und **„Meine Aktivitäten“** ergänzt. Modul `itk_base_setup` 18.0.1.0.1. **Formular:** keine Änderung nötig — die O11-Bestandteile sind in Odoo 18 vorhanden (Chatter, Bildfelder, Kundensperren, Warnungen, Konten gruppengesteuert). Verifiziert lokal **und** auf der VM: `scripts/verify_s93_contact_views.py` je **40/40 OK**. Offen als **KLÄRUNG NÖTIG**: `opt_out`/Versandbereitschaft, Website-Veröffentlichung am Kontakt, Wortlaute der Smart-Buttons, Tab „Rechnungsstellung“, O11-Buttons ohne O18-Modul (Reklamation, Events, Kostenstellenkonten). Keine Daten übernommen.
-- - **Tab „Gemeinde-Information“ geprüft und MIGRATIONSBEREIT (Session 109, 15.09.2026):**
+- **Tab „Gemeinde-Information“ ABGESCHLOSSEN / MIGRATIONSBEREIT (Sessions 109/110, 15.09.2026):**
   `docs/o11-o18-strukturvergleich-kontakt-gemeinde-information.md`. Feldbestand in beiden Systemen identisch (Einwohnerzahl,
   Größenklasse, Stand vom, Organisationstyp, Städtebund-Mitglied); Gemeinde-Felder sind normale `itk_crm`-Felder auf dem
   Kontakt (keine x_-Felder, kein eigenes Modell); Größenklasse wird aus der Einwohnerzahl berechnet. Behoben: englische
-  Modellbeschriftungen auf die Odoo-11-Wortlaute gesetzt (`itk_crm` 18.0.1.5.1). Vorgabe für die Migration:
-  Organisationstyp-Stammdaten vorher anlegen. Prüfung `scripts/verify_s109_gemeinde_info.py`, lokal 36 OK / 0 FEHL.
+  Modellbeschriftungen auf die Odoo-11-Wortlaute gesetzt (`itk_crm` 18.0.1.5.1). Session 110: Organisationstypen als
+  Ziel-Stammdaten angelegt (Marktgemeinde M, Gemeinde G, Stadtgemeinde ST, Magistrat SR, Magistrat der Stadt MAG,
+  Gemeindeverband GV; Mapping-Schlüssel Code) und die Feldbreite im Reiter korrigiert (`itk_base_setup` 18.0.1.2.2,
+  colspan — vorher 26 px, jetzt 256 px). Prüfung `scripts/verify_s109_gemeinde_info.py`, lokal 45 OK / 0 FEHL.
 
 - **Tab „Abrechnung“ geprüft und MIGRATIONSBEREIT (Session 108, 15.09.2026):**
   `docs/o11-o18-strukturvergleich-kontakt-abrechnung.md`. Odoo 18 ist im Reiter vollständiger (Bankkonten, Rechnungsversand,

@@ -109,27 +109,76 @@ Die deutschen Übersetzungseinträge wurden in beiden Datenbanken geprüft; es b
 Nicht geändert wurden Beschriftungen außerhalb dieses Reiters (u. a. `asset_partner` "Asset Partner",
 `official_email` "Official Email", `firstname` "First name"), die in ihren eigenen Bereichen zu behandeln sind.
 
-## 7. Vorgaben für die spätere Datenmigration
+## 7. Organisationstypen als Ziel-Stammdaten vorbereitet (Session 110)
 
-1. **Organisationstyp-Stammdaten (verbindlich vor der Migration):** In Odoo 18 existiert nur "Marktgemeinde".
-   Die in Odoo 11 vorhandenen sieben Werte sind anzulegen bzw. zuzuordnen:
-   Marktgemeinde (768 Kontakte), Gemeinde (1.122), Stadtgemeinde (188), Magistrat (13), Magistrat der Stadt (2),
-   "-" (0), Gemeindeverband (0). Ohne diese Stammdaten können 2.093 Kontakte nicht zugeordnet werden.
-2. **`population` ist der Schlüssel:** Einwohnerzahl migrieren; Größenklasse und Größenklassen-Bezug werden in
-   Odoo 18 automatisch berechnet. Die in Odoo 11 produktiv vorhandenen **16** Größenklassen weichen von den im
-   Repo/Odoo 18 hinterlegten **14** ab (Odoo 11 hat u. a. "20.001 bis 30.000" und "30.001 bis 50.000" getrennt sowie
-   einen Tippfehler "500.0001 bis 1.000.000"); das ist ohne Wirkung, weil die Klasse nicht gespeichert migriert wird.
-3. **Städtebund-Mitglied:** 277 Kontakte (Boolean) – 1:1 übertragbar.
-4. **Stand vom:** 2.093 Daten – 1:1 übertragbar.
+Auf Anweisung von Anna wurden die in Odoo 11 Prod **tatsächlich verwendeten** Organisationstypen in Odoo 18 als
+Stammdaten angelegt — **ohne** Kontakte umzustellen und **ohne** Odoo-11-Zuordnungen zu übernehmen.
 
-## 8. Beobachtung außerhalb dieses Bereichs (nicht geändert)
+### 7.1 Read-only verifizierter Odoo-11-Bestand
 
-In Odoo 18 gibt es einen zweiten, leeren Reiter "Rechnungsstellung" (technisch `accounting_disabled`), der nur bei
-Personen sichtbar ist; in Odoo 11 hieß der entsprechende Reiter ebenfalls "Abrechnung". Auf einen optischen Rückbau
-wurde auf Anweisung verzichtet – auf Wunsch umbenennbar.
+| Odoo-11-ID | Code | Name | Kontakte in Odoo 11 | Ziel in Odoo 18 |
+|---|---|---|---|---|
+| 9 | M | Marktgemeinde | 768 | vorhanden (id 1), Code ergänzt auf **M** |
+| 10 | G | Gemeinde | 1.122 | **neu angelegt** (id 2) |
+| 7 | ST | Stadtgemeinde | 188 | **neu angelegt** (id 3) |
+| 8 | SR | Magistrat | 13 | **neu angelegt** (id 4) |
+| 12 | MAG | Magistrat der Stadt | 2 | **neu angelegt** (id 5) |
+| 13 | GV | Gemeindeverband | 0 | **neu angelegt** (id 6, Nummernfolge 10) |
+| 11 | - | - (Platzhalter) | 0 | **bewusst nicht angelegt** |
 
-## 9. Nachweis
+Summe der zugeordneten Kontakte in Odoo 11: **2.093** — alle fünf tatsächlich genutzten Typen sind damit vorhanden.
 
-`scripts/verify_s109_gemeinde_info.py` (read-only) prüft Feldnamen, Typen, Relationen, die Modellbeschriftungen auf
-die Odoo-11-Wortlaute, den gerenderten Arch des Reiters, die Sichtbarkeitsregel, die Stammdaten und die
-Größenklassen-Berechnung – lokal und gegen die VM. Zusätzlich Browser-Prüfung des Reiters auf der VM (Screenshot).
+**Hinweis:** Der von Anna genannte Wert „Magistrat der Stadt“ ist richtig, „Magistrat“ (13 Kontakte) fehlte in der
+Aufstellung, wird aber produktiv verwendet und wurde deshalb mit angelegt. Der Platzhalter „-“ hat 0 Kontakte und
+wurde nicht angelegt.
+
+**Mapping-Schlüssel ist der Code** (nicht die ID — IDs sind zwischen Datenbanken nicht stabil).
+
+### 7.2 Zustand nach der Vorbereitung
+
+| Odoo-18-ID | Code | Name |
+|---|---|---|
+| 1 | M | Marktgemeinde |
+| 2 | G | Gemeinde |
+| 3 | ST | Stadtgemeinde |
+| 4 | SR | Magistrat |
+| 5 | MAG | Magistrat der Stadt |
+| 6 | GV | Gemeindeverband |
+
+Angelegt auf **lokal und auf der VM**, idempotent (vorhandene Datensätze werden nicht doppelt erzeugt). Kontakte
+wurden nicht verändert: 70 Kontakte, davon weiterhin 1 mit einem Organisationstyp (bestehender Testdatensatz).
+
+### 7.3 Reihenfolge bei der späteren Datenmigration
+
+1. Organisationstypen sind vorhanden (dieser Schritt ist erledigt).
+2. Beim Übertragen der Kontakte `status_of_community` über den **Code** zuordnen (M, G, ST, SR, MAG, GV).
+3. `population` migrieren; Größenklasse und Größenklassen-Bezug werden automatisch berechnet.
+4. `population_update` (Stand vom) und `member_of_city_alliance` (Städtebund-Mitglied) 1:1 übernehmen.
+
+## 8. Anzeige des Organisationstyps: Feld war abgeschnitten (Session 110)
+
+**Befund (Browser auf der VM):** Der Wert wurde abgeschnitten — z. B. war von „Marktgemeinde“ nur ein Teil sichtbar.
+
+**Messung vorher (lokal und VM identisch):** Feldbreite **26 px**, benötigte Textbreite 118 px → abgeschnitten.
+
+**Ursache:** Der Reiter besteht aus zwei Gruppen. Die Gruppe „Andere“ ist doppelt verschachtelt und bekam dadurch
+nur ein Viertel der Reiterbreite (230 px). Davon nahm die Beschriftung „Organisationstyp“ 108 px ein, sodass für den
+Wert nur 26 px blieben.
+
+**Korrektur (gezielt, keine globale UI-Änderung):** In `itk_base_setup` (18.0.1.2.2) zwei Attribute im Reiter
+„Gemeinde-Information“: `colspan="2"` auf der Gruppe „Andere“ (volle halbe Reiterbreite) und `colspan="2"` auf dem
+Feld `status_of_community`.
+
+**Messung nachher:** Gruppe 461 px, Feldbreite **256 px**, benötigte Textbreite 119 px (längster Wert
+„Magistrat der Stadt“) → **vollständig lesbar**, kein Abschneiden.
+
+## 9. Beobachtung außerhalb dieses Bereichs (nicht geändert)
+
+In Odoo 18 gibt es einen zweiten, leeren Reiter „Rechnungsstellung“ (technisch `accounting_disabled`), der nur bei
+Personen sichtbar ist; in Odoo 11 hieß der entsprechende Reiter ebenfalls „Abrechnung“. Auf Anweisung nicht bearbeitet.
+
+## 10. Nachweis
+
+- `scripts/verify_s109_gemeinde_info.py`: Felder, Typen, Relationen, Pflichtfelder, Modellbeschriftungen, Reiter-Arch,
+  Sichtbarkeitsregel, Breitenkorrektur, Stammdaten-Mapping (Code), Größenklassen-Berechnung
+- Browser-Prüfung des Reiters auf der VM mit Messung des Feldes und Screenshot

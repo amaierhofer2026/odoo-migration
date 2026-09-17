@@ -6106,3 +6106,30 @@ Gemeindeverband 0, „-“ 0). Die 16 produktiven Größenklassen weichen von de
 
 **Nachweis:** `scripts/verify_s109_gemeinde_info.py` — lokal 36 OK / 0 FEHL (GAP-Hinweis Organisationstypen erwartet);
 Browser-Prüfung des Reiters auf der VM.
+## Session 110: Gemeinde-Information — Organisationstypen vorbereitet, Anzeige korrigiert (15.09.2026)
+
+**Auftrag (Anna):** (1) die in Odoo 11 Prod tatsächlich verwendeten Organisationstypen als Odoo-18-Stammdaten anlegen
+(keine Kontakte umstellen, keine Odoo-11-Zuordnungen übernehmen, Mapping dokumentieren); (2) den abgeschnittenen Wert im
+Reiter Gemeinde-Information lesbar machen (möglichst nur diese View/Feldbreite); danach VM-Abnahme und Abschluss.
+
+**1) Organisationstypen (read-only verifiziert, Odoo 11):** 7 Datensätze, davon 5 mit Kontakten (2.093 zugeordnet):
+Marktgemeinde (M, 768), Gemeinde (G, 1.122), Stadtgemeinde (ST, 188), Magistrat (SR, 13), Magistrat der Stadt (MAG, 2);
+ohne Kontakte: Gemeindeverband (GV, 0) und Platzhalter „-“ (0). → In Odoo 18 (lokal **und** VM, idempotent) angelegt:
+Gemeinde (id 2), Stadtgemeinde (3), Magistrat (4), Magistrat der Stadt (5), Gemeindeverband (6); beim vorhandenen
+Marktgemeinde (id 1) den fehlenden Code M ergänzt. „-“ bewusst nicht angelegt. **Mapping-Schlüssel = Code**
+(IDs sind zwischen Datenbanken nicht stabil). Kontakte unverändert: 70, davon 1 mit Organisationstyp (Testdatensatz).
+
+**2) Anzeige:** Messung im echten Browser (lokal = VM): Feldbreite **26 px**, Textbedarf 118 px → abgeschnitten.
+Ursache: die Gruppe „Andere“ ist doppelt verschachtelt (innere Gruppe `col-lg-6` in einer äußeren `col-lg-6`) und bekam
+dadurch nur 230 px; die Beschriftung nahm 108 px, dem Wert blieben 26 px. Korrektur in `itk_base_setup` **18.0.1.2.2**:
+`colspan="2"` auf der Gruppe „Andere“ und auf dem Feld `status_of_community`.
+Messung nachher: Gruppe 461 px, Feld **256 px** → längster Wert „Magistrat der Stadt“ (119 px) vollständig lesbar.
+
+**Wichtig für spätere Browser-Prüfungen:** Odoo 17+ cached Ansichten im Browser (Profil/IndexedDB). Bei View-Änderungen
+muss mit **frischem Browserprofil** geprüft werden, sonst wird die alte Ansicht gemessen. Der Server-Arch war korrekt,
+der Browser zeigte trotzdem die alte Ansicht.
+
+**Nachweis:** `scripts/verify_s109_gemeinde_info.py` erweitert (Stammdaten-Mapping über Code, Breitenkorrektur im Arch).
+
+**Bereich Gemeinde-Information damit abgeschlossen** (Checkliste 6.9). Offen und ausdrücklich nicht bearbeitet: der
+zusätzliche leere Reiter „Rechnungsstellung“.
