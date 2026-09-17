@@ -6133,3 +6133,22 @@ der Browser zeigte trotzdem die alte Ansicht.
 
 **Bereich Gemeinde-Information damit abgeschlossen** (Checkliste 6.9). Offen und ausdrücklich nicht bearbeitet: der
 zusätzliche leere Reiter „Rechnungsstellung“.
+## Session 111: Gemeinde-Information auf der VM final verifiziert und abgeschlossen (15.09.2026)
+
+**Auf der VM durchgeführt (alles über HTTPS):** Modul-Upgrades `itk_crm` **18.0.1.5.1** und `itk_base_setup` **18.0.1.2.2**
+(beide `latest_version` identisch → kein offenes Upgrade).
+
+| Prüfung | Ergebnis |
+|---|---|
+| Modellbeschriftungen (7 Felder) | alle auf dem Odoo-11-Wortlaut (Einwohnerzahl, Größenklasse 2x, Stand vom, Organisationstyp, Städtebund-Mitglied, Organisationsbezeichnung) |
+| Reiter-Arch | Gruppe „Andere“ `colspan="2"`, Feld `status_of_community` `colspan="2"`, Beschriftungen deutsch, `is_company`-Regel aktiv |
+| Organisationstypen | 6 Datensätze auf der VM: M, G, ST, SR, MAG, GV — Codes stimmen mit Odoo 11 überein |
+| Browser-Messung (echter Chrome, Kontakt 72) | Feldbreite **256 px** (vorher 26 px), Client = Scroll → kein Abschneiden; längster Wert „Magistrat der Stadt“ 119 px |
+| Sichtbare Werte | Einwohnerzahl 1.909, Größenklasse „1.501 bis 2.000“, Stand vom 31.10.2018, Organisationstyp „Marktgemeinde“, Städtebund-Mitglied |
+| Kontrollzahlen | 70 Kontakte, 1 mit Organisationstyp (Testdatensatz), 14 Größenklassen — keine Datensatzänderung |
+
+**Werkzeug für künftige Prüfungen:** `scripts/browser_feldbreite.py` (misst im echten Browser und löscht vorher das
+Browserprofil, weil Odoo ab Version 17 Ansichten im Browser cached — sonst wird die alte Ansicht gemessen).
+
+**Bereich Gemeinde-Information abgeschlossen** (Checkliste 6.9). Der leere Reiter „Rechnungsstellung“ bleibt auf
+Anweisung unangetastet.
