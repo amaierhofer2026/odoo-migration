@@ -421,6 +421,29 @@ Korrektur in `itk_base_setup` 18.0.1.2.2: `colspan="2"` auf der Gruppe „Andere
 `status_of_community` — gezielt in dieser View, keine globale UI-Änderung. Nachher: Feldbreite 256 px, längster Wert
 „Magistrat der Stadt“ (119 px) vollständig lesbar.
 
+### 6.10 Kontakte → Kontaktformular → Tab „Support Ticket“ — **MIGRATIONSBEREIT (Struktur)**, 15.09.2026 (Session 112)
+
+Feld-Mapping und Umfang dokumentiert in `docs/o11-o18-strukturvergleich-kontakt-support-ticket.md`.
+
+**Systemwechsel dokumentiert:** Odoo 11 nutzt `website_support` (Website Help Desk), Odoo 18 die OCA-Helpdesk-Funktion
+`helpdesk_mgmt` (+ SLA, Projekt, Timesheet) sowie ITKs `itk_helpdesk_compat`.
+
+**Odoo-11-Felder im Reiter:** `sla_id` (SLA je Kontakt) und `stp_ids` („Support Ticket Zugriffskonto“) — beide
+**entfallen** in Odoo 18 (kein Gegenstück) und **ohne Datenbestand** (0 von 5.842 Kontakten).
+
+**Smart-Button:** Odoo 11 „Support Tickets“ (`support_ticket_string`) → Odoo 18 `action_view_helpdesk_tickets` mit
+`helpdesk_ticket_count`/‑active_count/‑count_string — Beschriftung in Session 112 auf „Support Tickets“ gesetzt.
+
+**Behoben (Session 112, `itk_base_setup` 18.0.1.2.3):** Der Reiter enthielt nur einen Platzhaltertext und zeigt jetzt die
+Odoo-18-Ticketliste des Kontakts (`helpdesk_ticket_ids`, nur lesend) mit Ticketnummer, Titel, Erstellt am, Stufe, Team,
+Kategorie und Zugewiesenem Benutzer. Keine Daten migriert oder geändert.
+
+**Eigener Migrationsbereich (dokumentiert, nicht bearbeitet):** 1.210 Odoo-11-Tickets (483 mit Kontakt) → `helpdesk.ticket`;
+die sechs Odoo-11-Statusnamen entsprechen nahezu 1:1 den sechs Odoo-18-Stufen (nur „Open“ gegen „Offen“); 18 Odoo-11-Kategorien
+gegen 37 Odoo-18-Kategorien (Zuordnungstabelle nötig); 1 SLA („Standard SLA Support ITK Produkte“) → SLA am Team.
+
+**Nachweis:** `scripts/verify_s112_support_ticket.py` → lokal 35 OK / 0 FEHL; Browser-Prüfung des Reiters auf der VM.
+
 ### 6.5 Kontakte → Adressblock / Adresstypen — MIGRATIONSBEREIT (abgeschlossen), 15.09.2026 (Session 101)
 
 **Entscheidung von Anna: der Vergleich der Adressmaske passt funktional — kein Odoo-11-Nachbau.**

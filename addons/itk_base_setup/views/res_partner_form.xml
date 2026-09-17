@@ -227,15 +227,33 @@
                     <button name="schedule_meeting" position="move"/>
                 </xpath>
 
-                <!-- Support-Ticket-Tab -->
+                <!--
+                    Support-Ticket-Tab (Session 112).
+                    Odoo 11 zeigte hier Felder des Moduls website_support (SLA je Kontakt, Zugriffskonten) - beide
+                    ohne Datenbestand und ohne Odoo-18-Gegenstueck. Odoo 18 nutzt stattdessen die OCA-Helpdesk-Funktion
+                    (helpdesk_mgmt): der Kontakt ist ueber helpdesk_ticket_ids mit seinen Tickets verbunden, der
+                    Smart-Button "Support Tickets" oeffnet die Liste. Der Reiter zeigt diese Tickets jetzt direkt an
+                    (nur lesend, gepflegt werden sie in der Helpdesk-App) statt eines Platzhaltertexts.
+                -->
                 <xpath expr="//notebook" position="inside">
                     <page string="Support Ticket" name="support_ticket">
-                        <group>
-                            <div class="text-muted">
-                                Dem Kontakt zugeordnete Support-Tickets werden hier angezeigt.
-                            </div>
-                        </group>
+                        <field name="helpdesk_ticket_ids" readonly="1" nolabel="1">
+                            <list create="false" edit="false" delete="false">
+                                <field name="number" string="Ticketnummer"/>
+                                <field name="name" string="Titel"/>
+                                <field name="create_date" string="Erstellt am"/>
+                                <field name="stage_id" string="Stufe"/>
+                                <field name="team_id" string="Team"/>
+                                <field name="category_id" string="Kategorie"/>
+                                <field name="user_id" string="Zugewiesener Benutzer"/>
+                            </list>
+                        </field>
                     </page>
+                </xpath>
+
+                <!-- Odoo 11 nannte den Smart-Button "Support Tickets" -->
+                <xpath expr="//button[@name='action_view_helpdesk_tickets']//field[@name='helpdesk_ticket_count_string']" position="attributes">
+                    <attribute name="string">Support Tickets</attribute>
                 </xpath>
 
             </field>
