@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        Sichtbare Bezeichnungen in der Suche der Verkaufschancen und der
+        Interessenten auf die Odoo-11-Wortlaute setzen (Session 115, Vorgabe Anna).
+        Zusaetzlich: die in Odoo 11 vorhandene Gruppierung "Kunde" (partner_id).
+        Es werden nur View-Attribute gesetzt, keine Modelle/Felder umbenannt.
+    -->
+    <record id="crm_lead_search_bezeichnungen_opportunity" model="ir.ui.view">
+        <field name="name">crm.lead.search.bezeichnungen.opportunity</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.view_crm_case_opportunities_filter"/>
+        <field name="priority">99</field>
+        <field name="arch" type="xml">
+            <filter name="salesperson" position="attributes">
+                <attribute name="string">Verkäufer</attribute>
+            </filter>
+            <filter name="saleschannel" position="attributes">
+                <attribute name="string">Vertriebskanal</attribute>
+            </filter>
+            <filter name="stage" position="attributes">
+                <attribute name="string">Stufe</attribute>
+            </filter>
+            <filter name="lostreason" position="attributes">
+                <attribute name="string">Ablehnungsgrund</attribute>
+            </filter>
+            <filter name="date_deadline" position="attributes">
+                <attribute name="string">Erwartetes Abschlussdatum</attribute>
+            </filter>
+            <filter name="saleschannel" position="after">
+                <filter name="groupby_partner" string="Kunde" context="{'group_by': 'partner_id'}"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="crm_lead_search_bezeichnungen_leads" model="ir.ui.view">
+        <field name="name">crm.lead.search.bezeichnungen.leads</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.view_crm_case_leads_filter"/>
+        <field name="priority">99</field>
+        <field name="arch" type="xml">
+            <filter name="salesperson" position="attributes">
+                <attribute name="string">Verkäufer</attribute>
+            </filter>
+            <filter name="saleschannel" position="attributes">
+                <attribute name="string">Vertriebskanal</attribute>
+            </filter>
+            <filter name="saleschannel" position="after">
+                <filter name="groupby_partner" string="Kunde" context="{'group_by': 'partner_id'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>

@@ -29,7 +29,7 @@ ERWARTETE_HAUPTMENUES = ["Aktivitäten", "Pipeline", "Kunden", "Berichtswesen", 
 ERWARTETE_PIPELINE = ["Pipeline", "Interessenten", "Angebote", "Teams"]
 KONFIG_GRUPPE = "crm.menu_crm_config_lead"
 KONFIG_GRUPPE_NAME = "Interessenten und Chancen"
-KONFIG_KINDER = ["Stichwörter", "Verlustgründe"]
+KONFIG_KINDER = ["Lead Tags", "Ablehnungsgründe"]
 VERTRIEBSKANAELE = "crm.crm_team_config"
 ITK_FELDER = ["x_Anrede_Lead", "x_Lead_Quelle", "x_Produktinteresse", "x_lead_status"]
 STUFEN = ["Neu", "Angebotsphase", "On-Hold", "Angebot ausgesendet", "Positive Rückmeldung",
@@ -40,7 +40,7 @@ TEAM_NICHT = "Suche / Liste"
 VERLUSTGRUENDE = ["Too expensive", "Im Moment keinen Bedarf", "Bedarf zu gering",
                   "Später kontaktieren", "Mitbewerb"]
 ERWARTETE_GRUPPEN_XMLIDS = ["sales_team.group_sale_manager", "sales_team.group_sale_salesman"]
-VERSION = "18.0.1.5.4"
+VERSION = "18.0.1.5.5"
 
 
 def lade_env(pfad: str) -> dict:
@@ -196,6 +196,53 @@ def main() -> int:
     print("\n6) Modulversion")
     version = k.kw("ir.module.module", "search_read", [[["name", "=", "itk_crm"]], ["installed_version"]])[0]["installed_version"]
     pruefe(version == VERSION, "itk_crm %s (erwartet %s)" % (version, VERSION))
+
+    print("\n7) Odoo-11-Bezeichnungen (nur Oberflaeche) und Gruppierung Kunde")
+    LABELS = {"stage_id": "Stufe", "user_id": "Verkäufer", "team_id": "Vertriebskanal",
+              "lost_reason_id": "Ablehnungsgrund", "date_deadline": "Erwartetes Abschlussdatum"}
+    felder = k.kw("ir.model.fields", "search_read",
+                  [[["model", "=", "crm.lead"], ["name", "in", list(LABELS)]], ["name", "field_description"]],
+                  context={"lang": "de_DE"})
+    ist = {f["name"]: f["field_description"] for f in felder}
+    for feld, soll in LABELS.items():
+        pruefe(ist.get(feld) == soll, "Label %s = '%s' (erwartet '%s')" % (feld, ist.get(feld), soll))
+    MENUES = {"crm.menu_crm_lead_categ": "Lead Tags", "crm.menu_crm_lost_reason": "Ablehnungsgründe"}
+    for xmlid, soll in MENUES.items():
+        m = menue(xmlid)
+        if m:
+            name = k.kw("ir.ui.menu", "read", [[m[0]["id"]], ["name"]], context={"lang": "de_DE"})[0]["name"]
+            pruefe(name == soll, "Menue %s = '%s' (erwartet '%s')" % (xmlid, name, soll))
+        else:
+            pruefe(False, "Menue %s fehlt" % xmlid)
+    akt = k.kw("ir.model.data", "search_read", [[["module", "=", "crm"], ["name", "=", "crm_stage_action"]], ["res_id"]])
+    if akt:
+        an = k.kw("ir.actions.act_window", "read", [[akt[0]["res_id"]], ["name"]])[0]["name"]
+        pruefe(an == "Stufen", "Aktion Phasen -> '%s' (erwartet 'Stufen')" % an)
+
+    print("\n8) Menuepunkt Berichtswesen/Vertriebskanaele (wie Odoo 11)")
+    rm = menue("itk_crm.menu_report_vertriebskanaele")
+    if rm:
+        mid = rm[0]["id"]
+        name = k.kw("ir.ui.menu", "read", [[mid], ["name"]], context={"lang": "de_DE"})[0]["name"]
+        eltern = k.kw("ir.ui.menu", "read", [[mid], ["parent_id"]])[0]["parent_id"]
+        eltern_name = k.kw("ir.ui.menu", "read", [[eltern[0]], ["name"]], context={"lang": "de_DE"})[0]["name"] if eltern else ""
+        pruefe(name == "Vertriebskanäle", "Menue heisst '%s'" % name)
+        pruefe(eltern_name == "Berichtswesen", "haengt unter '%s'" % eltern_name)
+    else:
+        pruefe(False, "Menue Berichtswesen/Vertriebskanaele fehlt (Migration 18.0.1.5.5)")
+
+    print("\n9) Gruppierung Kunde in beiden Suchansichten")
+    for xid in ["crm.view_crm_case_opportunities_filter", "crm.view_crm_case_leads_filter"]:
+        d = k.kw("ir.model.data", "search_read", [[["module", "=", xid.split(".")[0]], ["name", "=", xid.split(".", 1)[1]]], ["res_id"]])
+        if not d:
+            pruefe(False, "Suchansicht %s nicht gefunden" % xid)
+            continue
+        vid = d[0]["res_id"]
+        kinder = k.kw("ir.ui.view", "search_read", [[["inherit_id", "=", vid], ["model", "=", "crm.lead"]], ["arch_db"]],
+                      context={"lang": "de_DE"}, limit=20)
+        arch = " ".join((v["arch_db"] or "") for v in kinder)
+        pruefe("groupby_partner" in arch and "group_by" in arch.replace(" ", "") or "groupby_partner" in arch,
+               "%s: Gruppierung Kunde ergaenzt" % xid)
 
     print("\nErgebnis: %d OK, %d FEHL" % (ok, fehler))
     return 0 if fehler == 0 else 1
