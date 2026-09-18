@@ -563,7 +563,17 @@ kein VM-Logzugang). Deshalb: neues Werkzeug `scripts/apply_crm_labels.py` (setzt
 lokal + VM, `--pruefen` nur lesend) - **verbindlich nach jedem itk_crm-Upgrade auf der VM** - sowie
 `addons/itk_crm/i18n/de.po` als Moduluebersetzung. Modulstand final **18.0.1.5.7**.
 
-**Nachweis:** `scripts/verify_s115_kundenverwaltung.py` -> lokal 35 OK / 0 FEHL, VM 35 OK / 0 FEHL;
+**Bundeslaender bereinigt (F35, Session 116):** In Odoo 18 waren 357 `res.country.state`-Namen als
+Mojibake gespeichert (UTF-8-Bytes als CP437 gelesen; China, Japan, Thailand, Lettland, Mongolei, Rumaenien,
+Tuerkei, Vietnam, Suedkorea, Litauen, Russland) - identisch lokal und auf der VM, in Odoo 11 Prod nicht
+vorhanden. Bereinigt mit `scripts/repair_state_names.py` (Sollwerte aus der Odoo-Moduldatei) - nur
+State-Stammdaten, keine Kontakte/Interessenten. Danach 0 Abweichungen, 0 verdaechtige Zeichen.
+Wichtig fuer die Migration: Odoo 11 fuehrt eigene AT-Codes (Bgld./Ktn./NOe/...), Odoo 18 die Codes 1-9 ->
+Mapping ueber Name und Land, nicht ueber Code. Werkzeug `scripts/verify_s115_kundenverwaltung.py`
+Abschnitt 11 prueft beschaedigte Zeichen, leere Namen, doppelte Land/Code-Kombinationen und Oesterreich.
+
+**Nachweis:** `scripts/verify_s115_kundenverwaltung.py` -> lokal 41 OK / 0 FEHL, VM 41 OK / 0 FEHL;
+Browser VM 38 OK / 0 FEHL (inkl. Bundesland-Suche 'Buc' -> București, '北' -> 北京市, Gegenprobe Mojibake).
 `scripts/browser_kundenverwaltung_pruef.py` -> lokal 27 OK / 0 FEHL (18.0.1.5.5), VM 22 OK mit den 5 erwarteten
 Wortlaut-Abweichungen vor dem Deploy von 18.0.1.5.5. Screenshots 31-38 im Desktop-Ordner.
 

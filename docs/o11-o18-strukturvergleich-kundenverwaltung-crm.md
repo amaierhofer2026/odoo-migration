@@ -513,3 +513,67 @@ Formular mit Reitern und Beschriftungen              ja (Verkaeufer, Vertriebska
 
 Screenshots 31 bis 42 als `..._VM_*.png` im Ordner Odoo18-Layoutvergleich-Session95 (Desktop).
 Beim Browser-Test wurden keine Datensaetze angelegt, geaendert oder geloescht.
+
+## 14. Befund und Behebung: beschaedigte Bundesland-Namen (F35)
+
+**Symptom (Anna, Browser):** Im Interessentenformular zeigt die Auswahlliste Bundesland mehrere
+unlesbare Eintraege.
+
+**Ursache und Umfang (systematisch geprueft):**
+
+```
+res.country.state Odoo 18: 1789 Datensaetze, davon 357 Namen mit Mojibake
+   Beispiele: 'Bucure╚Öti' statt 'București', 'Bac─âu' statt 'Bacău',
+              'Õîùõ║¼Õ©é' statt '北京市', 'KarachayÔÇôCherkess Republic' statt mit Gedankenstrich
+   betroffene Laender: China 34, Japan 46, Thailand 77, Lettland 57, Mongolei 30, Rumaenien 21,
+                       Tuerkei 24, Vietnam 41, Suedkorea 17, Litauen 6, Russland 2
+Odoo 18 lokal und VM: identisch 357 betroffene Datensaetze
+Odoo 11 Prod: 0 beschaedigte Namen (dort sind alle Staaten korrekt gespeichert)
+```
+
+Es ist **kein Rendering-Problem**: die Namen sind in der Odoo-18-Datenbank tatsaechlich falsch gespeichert.
+Muster: die UTF-8-Bytes wurden beim Anlegen der Odoo-18-Datenbank als CP437 gelesen (klassische
+Doppelkodierung). Lateinische Namen (z. B. Kärnten, Niederösterreich) sind nicht betroffen, weil sie dabei
+unveraendert bleiben.
+
+Sichtbar wurde es im Interessentenformular, weil ein Interessent **ohne Land** gespeichert ist - Odoo zeigt
+dann die Bundeslaender aller Laender an. Bei einem Kontakt mit hinterlegtem Land filtert Odoo auf dieses
+Land (deshalb war der Fehler dort nicht aufgefallen).
+
+**Pruefung der Verknuepfungen:** Land/State-Beziehungen sind technisch korrekt (`state_id` ->
+`res.country.state` -> `country_id` -> `res.country`), keine doppelten Land/Code-Kombinationen, keine
+leeren Namen. Oesterreich (Code AT) ist vorhanden, alle 9 Bundeslaender namentlich korrekt und eindeutig
+(Burgenland, Kärnten, Niederösterreich, Oberösterreich, Salzburg, Steiermark, Tirol, Vorarlberg, Wien).
+
+**Unterschied zu Odoo 11 (fuer die spaetere Datenmigration wichtig):** Odoo 11 Prod fuehrt bei den
+oesterreichischen Bundeslaendern eigene Codes (Bgld., Ktn., NOe, OOe, Sbg., Stmk., T, Vbg., W), Odoo 18
+die Standardcodes 1 bis 9. Beim Mapping darf deshalb **nicht ueber den Code**, sondern muss ueber Name und
+Land zugeordnet werden. Zusaetzlich haben sich in Odoo 18 acht State-Namen gegenueber Odoo 11 geaendert
+(z. B. 'Ente Ríos' -> 'Entre Ríos', 'Chobut' -> 'Chubut') - das sind Korrekturen der neueren
+Odoo-Basisdaten, kein Fehler.
+
+**Behebung:**
+
+```
+Werkzeug: scripts/repair_state_names.py   (Sollnamen aus der Odoo-Moduldatei base/data/res.country.state.csv,
+                                           Abgleich ueber die base-XML-ID, idempotent, --pruefen = nur lesen)
+Ergebnis: lokal 357 Namen korrigiert, VM 357 Namen korrigiert
+          Kontrolle danach: 0 Abweichungen zur Modulquelle, 0 verdaechtige Zeichen
+Umfang:   ausschliesslich res.country.state.name - keine Kontakte, keine Interessenten,
+          keine Verkaufschancen, keine Zuordnungen, keine Produktivdaten
+```
+
+**Browser-Nachweis auf der VM (`scripts/browser_kundenverwaltung_pruef.py`, 38 OK / 0 FEHL):**
+
+```
+Interessentenformular, Bundesland-Suche 'Buc'  -> 'București (RO)', Buckinghamshire (GB), Pernambuco (BR)
+Interessentenformular, Bundesland-Suche '北'   -> '北海道 (JP)', '北京市 (CN)', '河北省 (CN)', '湖北省 (CN)'
+Gegenprobe 'Õî' (alte Mojibake-Zeichen)      -> kein Eintrag mehr vorhanden
+Kontaktformular, Bundesland-Suche 'Buc'       -> 'București (RO)'
+```
+Screenshots `43_VM_Bundesland_Interessent.png` und `44_VM_Bundesland_Kontakt.png`.
+
+**Pruefwerkzeug ergaenzt:** Abschnitt 11 in `scripts/verify_s115_kundenverwaltung.py` prueft alle 1789
+State-Namen auf beschaedigte/unerwartete Zeichen (Box-Zeichen, Ersatzzeichen, Steuerzeichen, typische
+Doppelkodierungs-Muster), auf leere Namen, auf doppelte Land/Code-Kombinationen sowie die Vollstaendigkeit
+der oesterreichischen Bundeslaender. Auf der VM: 41 OK / 0 FEHL.

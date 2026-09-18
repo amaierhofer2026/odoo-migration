@@ -262,6 +262,52 @@ def main() -> int:
             kopf = sichtbarer_text(seite, ".o_breadcrumb") or sichtbarer_text(seite, ".o_control_panel")
             pruefe("Stufen" in kopf, "Aktionsname Stufen im Kopf: '%s'" % re.sub(r"\s+", " ", kopf)[:60])
 
+        print("\n6d) Bundesland-Auswahlliste (Interessent)")
+        if treffer:
+            oeffne("/web#id=%s&model=crm.lead&view_type=form" % treffer[0]["id"], ".o_form_view")
+            for begriff, erwartet, verboten in [("Buc", "Bucure", None), ("\u5317", "\u5317\u4eac", None),
+                                                ("\u00d5\u00ee", "\u5317\u4eac", "\u00d5\u00ee")]:
+                feld = seite.query_selector('.o_field_widget[name="state_id"] input')
+                if not feld:
+                    pruefe(False, "Feld Bundesland im Interessentenformular nicht gefunden")
+                    break
+                feld.click()
+                feld.fill(begriff)
+                seite.wait_for_timeout(2500)
+                vorschlaege = sichtbarer_text(seite, ".o_field_widget[name=\"state_id\"] .dropdown-menu") or \
+                              sichtbarer_text(seite, ".ui-autocomplete")
+                if verboten:
+                    echte = [z for z in seite.query_selector_all('.o_field_widget[name="state_id"] .dropdown-item')
+                             if "(" in (z.inner_text() or "")]
+                    pruefe(not echte, "Gegenprobe '%s': keine Mojibake-Eintraege mehr (%d echte Vorschlaege)"
+                           % (begriff, len(echte)))
+                else:
+                    pruefe(erwartet in vorschlaege, "Bundesland-Suche '%s' -> %r"
+                           % (begriff, re.sub(r"\s+", " ", vorschlaege)[:85]))
+                seite.keyboard.press("Escape")
+                seite.wait_for_timeout(600)
+            schuss("43_%s_Bundesland_Interessent.png" % a.instanz.upper())
+
+        print("\n6e) Bundesland-Auswahlliste (Kontakt)")
+        # Kontakt ohne Land waehlen: Odoo filtert die Bundeslaender sonst auf das Land des Kontakts
+        partner = kw("res.partner", "search_read", [[["is_company", "=", True], ["country_id", "=", False]],
+                                                    ["id", "name"]], limit=1)
+        if partner:
+            oeffne("/web#id=%s&model=res.partner&view_type=form" % partner[0]["id"], ".o_form_view")
+            feld = seite.query_selector('.o_field_widget[name="state_id"] input')
+            if feld:
+                feld.click()
+                feld.fill("Buc")
+                seite.wait_for_timeout(2500)
+                vorschlaege = sichtbarer_text(seite, ".o_field_widget[name=\"state_id\"] .dropdown-menu") or \
+                              sichtbarer_text(seite, ".ui-autocomplete")
+                pruefe("Bucure" in vorschlaege, "Kontaktformular Bundesland-Suche 'Buc' -> %r"
+                       % re.sub(r"\s+", " ", vorschlaege)[:90])
+                seite.keyboard.press("Escape")
+            else:
+                pruefe(False, "Feld Bundesland im Kontaktformular nicht gefunden")
+            schuss("44_%s_Bundesland_Kontakt.png" % a.instanz.upper())
+
         print("\n7) Berichtswesen: Vertriebskanaele")
         if "bericht" in aktionen:
             oeffne("/web#action=%s&model=crm.team&view_type=kanban" % aktionen["bericht"], ".o_kanban_view")

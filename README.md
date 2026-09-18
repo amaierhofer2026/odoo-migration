@@ -123,7 +123,9 @@ Prüfwerkzeug: `python scripts/vm_abnahme_check.py` · Detailregel: `docs/arbeit
   Ablehnungsgruende), Gruppierung "Kunde" ergaenzt, Berichtswesen/Vertriebskanaele hergestellt,
   Loeschrecht crm.lead fuer die bestehende ITK-Gruppe "Manager (edit)" ergaenzt (keine Benutzerzuordnung).
   **VM-abgenommen (17.09.2026):** Browser 34 OK, verify_s115 35 OK, verify_s114 52 OK. Nach jedem itk_crm-Upgrade
-  auf der VM `scripts/apply_crm_labels.py --instanz vm` ausfuehren (Odoo 18 setzt Feldbeschriftungen beim Upgrade zurueck). Menues, Ansichten, Suche/Filter,
+  auf der VM `scripts/apply_crm_labels.py --instanz vm` ausfuehren (Odoo 18 setzt Feldbeschriftungen beim Upgrade zurueck).
+  **Bundeslaender bereinigt (Session 116):** 357 `res.country.state`-Namen waren als Mojibake gespeichert (UTF-8 als CP437
+  gelesen); bereinigt mit `scripts/repair_state_names.py` (nur State-Stammdaten). Pruefung in `verify_s115` Abschnitt 11. Menues, Ansichten, Suche/Filter,
   Konfiguration und Funktionen verglichen: keine funktionale Luecke; ITK-Felder liegen wie in Odoo 11 in der Liste der Interessenten
   und im Formular. Weiterhin **keine Datenmigration** (0 von 359 Verkaufschancen, 0 von 6.608 Interessenten).
   Pruefwerkzeug `scripts/verify_s115_kundenverwaltung.py` (lokal 20 OK). Odoo 11 Prod nur lesend genutzt.
