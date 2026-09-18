@@ -600,6 +600,8 @@ _LABELS_MENUES = {
 # Teams). In Odoo 18 gibt es dieselbe Ansicht (sales_team.crm_team_action_pipeline).
 _LABELS_AKTIONEN = {
     'crm.crm_stage_action': 'Stufen',
+    'sales_team.sales_team_crm_tag_action': 'Lead Tags',
+    'crm.crm_lost_reason_action': 'Ablehnungsgründe',
 }
 
 
@@ -613,12 +615,17 @@ def _setup_crm_labels(env):
     """
     Field = env['ir.model.fields'].sudo()
     for (model, fname), label in _LABELS_FELDER.items():
-        feld = Field.search([('model', '=', model), ('name', '=', fname)], limit=1)
-        if not feld:
+        felder = Field.search([('model', '=', model), ('name', '=', fname)])
+        if not felder:
             _logger.warning("itk_crm: Feld %s.%s nicht gefunden - Label uebersprungen", model, fname)
             continue
-        feld.with_context(lang='de_DE').write({'field_description': label})
-        _logger.info("itk_crm: Label %s.%s -> %s", model, fname, label)
+        # alle Treffer schreiben (Robustheit) und das Ergebnis zuruecklesen
+        felder.with_context(lang='de_DE').write({'field_description': label})
+        ist = felder[0].with_context(lang='de_DE').field_description
+        _logger.info("itk_crm: Label %s.%s -> '%s' (%d Datensatz/Datensaetze, gelesen: '%s')",
+                     model, fname, label, len(felder), ist)
+        if ist != label:
+            _logger.error("itk_crm: Label %s.%s nicht gesetzt (Ist: '%s')", model, fname, ist)
 
     Menu = env['ir.ui.menu'].sudo()
     for xmlid, name in _LABELS_MENUES.items():

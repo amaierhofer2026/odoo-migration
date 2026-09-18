@@ -103,15 +103,20 @@ def main() -> int:
     aktionen = {}
     for label, name, parent in [("interessenten", "Interessenten", "Pipeline"),
                                 ("pipeline", "Pipeline", "Pipeline"),
+                                ("angebote", "Angebote", "Pipeline"),
+                                ("kunden", "Kunden", None),
                                 ("stufen", None, None),
                                 ("teams", None, None),
+                                ("verlustgruende", None, None),
+                                ("tags", None, None),
                                 ("bericht", None, None)]:
         if name:
             m = menue_id(name, parent)
             if m and m["action"]:
                 aktionen[label] = int(str(m["action"]).split(",")[1])
     for xmlid, label in [("crm.crm_stage_action", "stufen"), ("sales_team.crm_team_action_config", "teams"),
-                         ("sales_team.crm_team_action_pipeline", "bericht")]:
+                         ("sales_team.crm_team_action_pipeline", "bericht"),
+                         ("crm.crm_lost_reason_action", "verlustgruende"), ("sales_team.sales_team_crm_tag_action", "tags")]:
         d = kw("ir.model.data", "search_read", [[("module", "=", xmlid.split(".")[0]), ("name", "=", xmlid.split(".", 1)[1])], ["res_id"]])
         if d:
             aktionen[label] = d[0]["res_id"]
@@ -219,6 +224,35 @@ def main() -> int:
                                  "Telefon", "Newsletter", "Website"] if t in text]
             pruefe(len(teams) >= 5, "Vertriebskanaele sichtbar: %s" % teams)
             schuss("37_%s_Konfiguration_Vertriebskanaele.png" % a.instanz.upper())
+
+        print("\n6b) Angebote und Kunden")
+        if "angebote" in aktionen:
+            oeffne("/web#action=%s&model=sale.order&view_type=list" % aktionen["angebote"])
+            pruefe("Angebot" in seite.inner_text("body"), "Angebote-Ansicht geoeffnet")
+            schuss("39_%s_Angebote.png" % a.instanz.upper())
+        if "kunden" not in aktionen:
+            d = kw("ir.model.data", "search_read", [[("module", "=", "contacts"), ("name", "=", "action_contacts")], ["res_id"]])
+            if d:
+                aktionen["kunden"] = d[0]["res_id"]
+        if "kunden" in aktionen:
+            oeffne("/web#action=%s&model=res.partner&view_type=kanban" % aktionen["kunden"])
+            pruefe(len(seite.query_selector_all(".o_kanban_record")) >= 1,
+                   "Kunden-Ansicht geoeffnet (%d Karten)" % len(seite.query_selector_all(".o_kanban_record")))
+            schuss("40_%s_Kunden.png" % a.instanz.upper())
+
+        print("\n6c) Konfiguration: Ablehnungsgruende und Lead Tags")
+        if "verlustgruende" in aktionen:
+            oeffne("/web#action=%s&model=crm.lost.reason&view_type=list" % aktionen["verlustgruende"], ".o_list_view")
+            text = seite.inner_text(".o_list_view")
+            gruende = [g for g in ["Too expensive", "Im Moment keinen Bedarf", "Bedarf zu gering",
+                                   "Später kontaktieren", "Mitbewerb"] if g in text]
+            pruefe(len(gruende) >= 3, "Ablehnungsgruende-Liste zeigt %d von 5 (Listen-Virtualisierung)" % len(gruende))
+            schuss("41_%s_Konfiguration_Ablehnungsgruende.png" % a.instanz.upper())
+        if "tags" in aktionen:
+            oeffne("/web#action=%s&model=crm.tag&view_type=list" % aktionen["tags"], ".o_list_view")
+            pruefe(len(seite.query_selector_all(".o_data_row")) >= 1,
+                   "Lead Tags: %d Eintraege" % len(seite.query_selector_all(".o_data_row")))
+            schuss("42_%s_Konfiguration_LeadTags.png" % a.instanz.upper())
 
         print("\n7) Berichtswesen: Vertriebskanaele")
         if "bericht" in aktionen:

@@ -6309,3 +6309,24 @@ Bereichsdokument Abschnitt 10.5.
 **Nachweis:** `scripts/verify_s115_kundenverwaltung.py` lokal 32 OK / 0 FEHL;
 `scripts/browser_kundenverwaltung_pruef.py` lokal 27 OK / 0 FEHL, VM 22 OK / 5 FEHL (nur die neuen Wortlaute,
 die den Deploy von 18.0.1.5.5 auf der VM brauchen).
+### Abschluss Session 115 (17.09.2026): Entscheidungen, Berechtigungsgruppe, Browser-Abnahme
+
+**Entscheidungen von Anna:** Favoriten werden bewusst nicht uebernommen. Die 13 Benutzer der Odoo-11-Gruppe
+"Manager (edit)" werden nicht zu Sales/Administrator gemacht; die Funktion wird ueber eine gezielte Gruppe
+abgebildet - die ITK-Gruppen existieren in Odoo 18 bereits, ergaenzt wurde nur das Loeschrecht auf `crm.lead`
+(`access_itk_crm_lead_manager`, nur `perm_unlink=1`, Modul 18.0.1.5.6). Die Odoo-18-Standardfilter bleiben
+unveraendert (insbesondere "Meine Pipeline"); Wortlaut-Abweichungen sind dokumentiert. Datenmigration weiter
+gestoppt.
+
+**Module:** 18.0.1.5.6 (Berechtigung Loeschrecht), 18.0.1.5.7 (Aktionsnamen "Lead Tags", "Ablehnungsgruende").
+Neu: `_setup_crm_labels` schreibt Feldbeschriftungen mit Ruecklesekontrolle und Fehlerlog.
+
+**Browser-Abnahme VM 31 OK / 0 FEHL** (App-Name, Haupt-/Untermenues, Pipeline mit 9 Stufen, Interessenten,
+Angebote, Kunden 76 Karten, Berichtswesen/Vertriebskanaele 13 Team-Karten, Konfiguration Stufen 9/9,
+Vertriebskanaele 7, Ablehnungsgruende 5, Lead Tags 10, Suche/Gruppieren inkl. Kunde, Formular).
+Screenshots 31-42.
+
+**Befund zur VM:** Beim Upgrade auf 18.0.1.5.5 wurden Menuenamen und Aktionsname gesetzt, die
+Feldbeschriftungen aber nicht (Ursache nicht abschliessend geklaert, da kein VM-Logzugang). Die Labels
+wurden per RPC nachgesetzt und sind seither auf der VM korrekt; die Schreibfunktion wurde um eine
+Ruecklesekontrolle erweitert (Log ERROR bei Abweichung).
