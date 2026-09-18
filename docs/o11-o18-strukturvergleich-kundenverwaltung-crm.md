@@ -432,8 +432,62 @@ Opt Out exkludieren         entfaellt (kein opt_out)    Odoo 18 nutzt Blacklist-
 Weiterhin vollstaendig gestoppt: keine Interessenten, keine Verkaufschancen, keine Favoriten, keine
 Benutzerzuordnungen. Odoo 11 Prod wurde ausschliesslich lesend verwendet.
 
-## 12. Browser-Abnahme auf der VM (17.09.2026)
+## 12. Browser-Abnahme auf der VM - ABSCHLUSS (17.09.2026)
 
+```
+Werkzeug                                             lokal            VM
+scripts/browser_kundenverwaltung_pruef.py            28 OK / 0 FEHL   34 OK / 0 FEHL
+scripts/verify_s115_kundenverwaltung.py              35 OK / 0 FEHL   35 OK / 0 FEHL
+scripts/verify_s114_crm_chancen.py                   52 OK / 0 FEHL   52 OK / 0 FEHL
+```
+
+Auf der VM im echten Browser bestaetigt:
+
+```
+sichtbarer App-Name Kundenverwaltung          ja (Menueband: Kundenverwaltung | Aktivitaeten | Pipeline |
+                                                  Kunden | Berichtswesen | Konfiguration)
+Hauptmenues                                   ja, alle 5 in der Odoo-11-Reihenfolge
+Pipeline mit allen 9 Stufen                   ja (Neu, Angebotsphase, On-Hold, Angebot ausgesendet,
+                                                  Positive Rueckmeldung, Erfolgreich, Verloren,
+                                                  Zur Verrechnung bereit, Verrechnet)
+Interessenten                                 ja (Liste mit ITK-Spalten Lead Status, Anrede Lead,
+                                                  Lead Quelle, Produktinteresse)
+Angebote                                      ja
+Kunden                                        ja (76 Karten)
+Berichtswesen inkl. Vertriebskanaele          ja (13 Team-Karten)
+Konfiguration / Stufen                        ja (9 von 9, Aktionsname "Stufen")
+Konfiguration / Vertriebskanaele              ja (7 Teams)
+Konfiguration / Ablehnungsgruende             ja (Aktionsname "Ablehnungsgründe")
+Konfiguration / Lead Tags                     ja (10 Eintraege, Aktionsname "Lead Tags")
+Suche, Filter, Gruppieren nach                ja (Verkaeufer, Vertriebskanal, Kunde, Stufe, Ablehnungsgrund)
+Formulare                                     ja (Verkaeufer, Vertriebskanal, Stichwoerter, Statusleiste)
+Berechtigungsregel                            ja (Gruppe "Manager (edit)": nur Loeschrecht auf crm.lead,
+                                                  keine Sales-Administratorrechte, keine Benutzerzuordnung)
+```
+
+Kontrollzahlen: VM 0 Verkaufschancen, 1 Test-Interessent (Odoo 11 Prod: 359 und 6.608). Keine Datenmigration,
+kein Anlegen/Aendern/Loeschen im Browser-Test, Odoo 11 Prod ausschliesslich lesend.
+Screenshots 31 bis 42 als `..._VM_*.png` im Desktop-Ordner Odoo18-Layoutvergleich-Session95.
+
+## 13. Befund: deutsche Feldbeschriftungen werden beim Modul-Upgrade zurueckgesetzt
+
+Beobachtung (auf der VM reproduziert, lokal nicht): Nach einem Upgrade von `itk_crm` zeigen die fuenf
+Feldbeschriftungen auf `crm.lead` wieder die Quelltexte (Stage, Salesperson, Sales Team, Lost Reason,
+Expected Closing). Ursache: Odoo 18 gleicht die `ir.model.fields`-Datensaetze beim Modul-Laden mit den
+Felddefinitionen ab; dieser Abgleich laeuft nach dem Setup-Schritt des Moduls. Ein VM-Logzugang besteht
+nicht, daher konnte die Ursache nicht bis zur letzten Zeile geklaert werden.
+
+Loesung (zwei Ebenen, keine Datenänderung):
+
+1. `scripts/apply_crm_labels.py` setzt die Beschriftungen idempotent per RPC - lokal und auf der VM.
+   Aufruf: `python scripts/apply_crm_labels.py --instanz vm` (mit `--pruefen` nur lesend).
+   Das Skript ist der verbindliche Schritt **nach jedem itk_crm-Upgrade auf der VM** und reiht sich in die
+   bestehenden Fix-Skripte ein (`load_terms_de.py`, `set_country_vat_label_de.py`).
+2. `addons/itk_crm/i18n/de.po` fuehrt die fuenf Beschriftungen zusaetzlich als Moduluebersetzung
+   (Standardweg; wird beim naechsten Modul-Upgrade geladen).
+
+Zusaetzlich schreibt `setup_runtime._setup_crm_labels` die Werte bei jedem Upgrade und liest sie zurueck
+(ERROR im Log bei Abweichung), damit ein Zuruecksetzen nicht unbemerkt bleibt.
 ```
 Werkzeug: scripts/browser_kundenverwaltung_pruef.py --instanz vm       31 OK / 0 FEHL
 Werkzeug: scripts/browser_kundenverwaltung_pruef.py --instanz lokal    28 OK / 0 FEHL

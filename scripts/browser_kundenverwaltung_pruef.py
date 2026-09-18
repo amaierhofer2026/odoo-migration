@@ -247,12 +247,20 @@ def main() -> int:
             gruende = [g for g in ["Too expensive", "Im Moment keinen Bedarf", "Bedarf zu gering",
                                    "Später kontaktieren", "Mitbewerb"] if g in text]
             pruefe(len(gruende) >= 3, "Ablehnungsgruende-Liste zeigt %d von 5 (Listen-Virtualisierung)" % len(gruende))
+            kopf = sichtbarer_text(seite, ".o_breadcrumb") or sichtbarer_text(seite, ".o_control_panel")
+            pruefe("Ablehnungsgr" in kopf, "Aktionsname im Kopf: '%s'" % re.sub(r"\s+", " ", kopf)[:60])
             schuss("41_%s_Konfiguration_Ablehnungsgruende.png" % a.instanz.upper())
         if "tags" in aktionen:
             oeffne("/web#action=%s&model=crm.tag&view_type=list" % aktionen["tags"], ".o_list_view")
             pruefe(len(seite.query_selector_all(".o_data_row")) >= 1,
                    "Lead Tags: %d Eintraege" % len(seite.query_selector_all(".o_data_row")))
+            kopf = sichtbarer_text(seite, ".o_breadcrumb") or sichtbarer_text(seite, ".o_control_panel")
+            pruefe("Lead Tags" in kopf, "Aktionsname im Kopf: '%s'" % re.sub(r"\s+", " ", kopf)[:60])
             schuss("42_%s_Konfiguration_LeadTags.png" % a.instanz.upper())
+        if "stufen" in aktionen:
+            oeffne("/web#action=%s&model=crm.stage&view_type=list" % aktionen["stufen"], ".o_list_view")
+            kopf = sichtbarer_text(seite, ".o_breadcrumb") or sichtbarer_text(seite, ".o_control_panel")
+            pruefe("Stufen" in kopf, "Aktionsname Stufen im Kopf: '%s'" % re.sub(r"\s+", " ", kopf)[:60])
 
         print("\n7) Berichtswesen: Vertriebskanaele")
         if "bericht" in aktionen:
