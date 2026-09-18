@@ -6345,3 +6345,31 @@ Dauerloesung: neues Werkzeug `scripts/apply_crm_labels.py` (idempotent, lokal + 
 verbindlich nach jedem itk_crm-Upgrade auf der VM, plus `addons/itk_crm/i18n/de.po` als Moduluebersetzung.
 `_setup_crm_labels` schreibt zusaetzlich bei jedem Upgrade und liest zurueck (ERROR bei Abweichung).
 Modulstand final 18.0.1.5.7.
+
+## Session 116: Beschaedigte Bundesland-Namen bereinigt (17.09.2026)
+
+**Symptom (Anna):** Im Interessentenformular zeigt die Bundesland-Auswahlliste unlesbare Eintraege.
+
+**Ursache:** kein Rendering-Fehler, sondern in der Odoo-18-Datenbank falsch gespeicherte Namen - 357 von
+1789 `res.country.state`-Datensaetzen als Mojibake (UTF-8-Bytes als CP437 gelesen), z. B. 'Bucure╚Öti'
+statt 'București' oder 'Õîùõ║¼Õ©é' statt '北京市'. Lokal und VM identisch (357/357), in Odoo 11 Prod 0.
+Betroffene Laender: China 34, Japan 46, Thailand 77, Lettland 57, Mongolei 30, Rumaenien 21, Tuerkei 24,
+Vietnam 41, Suedkorea 17, Litauen 6, Russland 2.
+
+**Sichtbarkeit:** Der Interessent hat kein Land gespeichert; Odoo zeigt dann die Bundeslaender aller
+Laender. Bei Kontakten mit Land wird auf dieses Land gefiltert - daher dort nicht aufgefallen.
+
+**Behebung:** neues Werkzeug `scripts/repair_state_names.py` - liest die Sollnamen aus der Odoo-Moduldatei
+`base/data/res.country.state.csv` im Container, gleicht ueber die base-XML-ID ab und schreibt ausschliesslich
+`res.country.state.name` (en_US und de_DE). Ergebnis lokal 357 und VM 357 korrigiert, danach 0 Abweichungen
+und 0 verdaechtige Zeichen. Keine Kontakte, Interessenten, Verkaufschancen oder Zuordnungen angetastet.
+
+**Pruefwerkzeug:** Abschnitt 11 in `scripts/verify_s115_kundenverwaltung.py` prueft alle State-Namen auf
+beschaedigte/unerwartete Zeichen, leere Namen, doppelte Land/Code-Kombinationen und die 9 oesterreichischen
+Bundeslaender. VM 41 OK / 0 FEHL. Browser-Abnahme VM 38 OK / 0 FEHL mit Suchproben ('Buc' -> București,
+'北' -> 北京市) und Gegenprobe auf die alten Mojibake-Zeichen.
+
+**Wichtig fuer die spaetere Datenmigration:** Odoo 11 Prod fuehrt bei den AT-Bundeslaendern eigene Codes
+(Bgld., Ktn., NOe, OOe, Sbg., Stmk., T, Vbg., W), Odoo 18 die Codes 1-9 -> `state_id` ueber Name + Land
+mappen, nicht ueber den Code. Acht weitere State-Namen unterscheiden sich zwischen Odoo 11 und 18 (Korrekturen
+der neueren Basisdaten, z. B. 'Ente Ríos' -> 'Entre Ríos').

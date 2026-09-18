@@ -261,6 +261,37 @@ def main() -> int:
         benutzer = k.kw("res.users", "read", [gruppe[0]["users"], ["login"]]) if gruppe[0]["users"] else []
         pruefe(len(benutzer) <= 1, "der Gruppe sind noch keine Odoo-11-Benutzer zugeordnet (%s)" % [u["login"] for u in benutzer])
 
+    print("\n11) Bundeslaender (res.country.state): beschaedigte Zeichen")
+    import re as _re
+    import unicodedata as _ud
+    VERD = _re.compile("[\u2500-\u257f\u2580-\u259f\ufffd\u00a2\u00a3\u00a5\u00a9\u00ac\u00bb\u00bc\u00bd\u00d7]")
+    MUSTER = ["\u00e2\u0080", "\u00c3\u201a", "\u00c2\u00a0", "\u00c3\u0192", "\u00e2\u20ac"]
+    states = k.kw("res.country.state", "search_read", [[], ["id", "code", "name", "country_id"]],
+                  context={"lang": "en_US"}, limit=4000)
+    kaputt = [s for s in states
+              if VERD.search(s["name"] or "") or any(m in (s["name"] or "") for m in MUSTER)
+              or any(_ud.category(z) == "Cc" for z in (s["name"] or ""))]
+    pruefe(not kaputt, "keine beschaedigten State-Namen (%d von %d geprueft)%s"
+           % (len(states), len(states), "" if not kaputt else " - z. B. %r" % kaputt[0]["name"]))
+    leer = [s for s in states if not (s["name"] or "").strip()]
+    pruefe(not leer, "keine leeren State-Namen")
+    kombis = {}
+    for s in states:
+        kombis.setdefault((s["country_id"][0] if s["country_id"] else 0, s["code"]), []).append(s["id"])
+    dopp = {c: v for c, v in kombis.items() if len(v) > 1}
+    pruefe(not dopp, "keine doppelten Land/Code-Kombinationen%s" % ("" if not dopp else " - %s" % list(dopp)[:3]))
+    at = [s for s in states if s["country_id"] and s["country_id"][1] == "Austria"]
+    AT_NAMEN = ["Burgenland", "Kärnten", "Niederösterreich", "Oberösterreich", "Salzburg",
+                "Steiermark", "Tirol", "Vorarlberg", "Wien"]
+    pruefe(len(at) == 9, "Oesterreich hat 9 Bundeslaender (%d)" % len(at))
+    namen = sorted(s["name"] for s in at)
+    pruefe(namen == sorted(AT_NAMEN), "Oesterreichs Bundeslaender namentlich korrekt: %s" % namen)
+    at_id = k.kw("res.country", "search_read", [[["code", "=", "AT"]], ["id"]], context={"lang": "de_DE"})
+    pruefe(bool(at_id), "Land Oesterreich (Code AT) vorhanden")
+    gebraucht = k.kw("crm.lead", "search_count", [[["state_id", "!=", False]]])
+    gebraucht_p = k.kw("res.partner", "search_count", [[["state_id", "!=", False]]])
+    print("       (Kontrollzahl: crm.lead mit Bundesland %d, Kontakte mit Bundesland %d)" % (gebraucht, gebraucht_p))
+
     print("\nErgebnis: %d OK, %d FEHL" % (ok, fehler))
     return 0 if fehler == 0 else 1
 
