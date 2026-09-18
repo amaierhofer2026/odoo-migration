@@ -40,7 +40,7 @@ TEAM_NICHT = "Suche / Liste"
 VERLUSTGRUENDE = ["Too expensive", "Im Moment keinen Bedarf", "Bedarf zu gering",
                   "Später kontaktieren", "Mitbewerb"]
 ERWARTETE_GRUPPEN_XMLIDS = ["sales_team.group_sale_manager", "sales_team.group_sale_salesman"]
-VERSION = "18.0.1.5.5"
+VERSION = "18.0.1.5.7"
 
 
 def lade_env(pfad: str) -> dict:
@@ -243,6 +243,23 @@ def main() -> int:
         arch = " ".join((v["arch_db"] or "") for v in kinder)
         pruefe("groupby_partner" in arch and "group_by" in arch.replace(" ", "") or "groupby_partner" in arch,
                "%s: Gruppierung Kunde ergaenzt" % xid)
+
+    print("\n10) Berechtigungen (Loeschrecht aus Odoo 11, Gruppe Manager (edit))")
+    regel = k.kw("ir.model.access", "search_read", [[["name", "=", "access_itk_crm_lead_manager"]],
+                 ["group_id", "perm_read", "perm_write", "perm_create", "perm_unlink"]])
+    if regel:
+        r = regel[0]
+        pruefe(r["perm_unlink"] == 1 and r["perm_read"] == 0 and r["perm_write"] == 0 and r["perm_create"] == 0,
+               "Regel 'access_itk_crm_lead_manager': nur Loeschen (R%s W%s C%s D%s) fuer Gruppe '%s'"
+               % (r["perm_read"], r["perm_write"], r["perm_create"], r["perm_unlink"],
+                  r["group_id"][1] if r["group_id"] else "?"))
+    else:
+        pruefe(False, "Regel access_itk_crm_lead_manager fehlt")
+    gruppe = k.kw("res.groups", "search_read", [[["name", "=", "Manager (edit)"]], ["name", "users", "implied_ids"]], context={"lang": "de_DE"})
+    pruefe(bool(gruppe), "ITK-Gruppe 'Manager (edit)' vorhanden (Odoo-18-Gruppe, kein Nachbau)")
+    if gruppe:
+        benutzer = k.kw("res.users", "read", [gruppe[0]["users"], ["login"]]) if gruppe[0]["users"] else []
+        pruefe(len(benutzer) <= 1, "der Gruppe sind noch keine Odoo-11-Benutzer zugeordnet (%s)" % [u["login"] for u in benutzer])
 
     print("\nErgebnis: %d OK, %d FEHL" % (ok, fehler))
     return 0 if fehler == 0 else 1

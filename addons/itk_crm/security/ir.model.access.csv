@@ -1,4 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_itk_crm_lead_manager,access_itk_crm_lead_manager,crm.model_crm_lead,itk_crm.itk_group_manager,0,0,0,1
 access_itk_crm_statusofcommunity_user,access_itk_crm_statusofcommunity_user,model_itk_crm_statusofcommunity,itk_crm.itk_group_user,1,0,0,0
 access_itk_crm_statusofcommunity_manager,access_itk_crm_statusofcommunity_manager,model_itk_crm_statusofcommunity,itk_crm.itk_group_manager,1,1,1,1
 access_itk_crm_communitymagnitude_user,access_itk_crm_communitymagnitude_user,model_itk_crm_communitymagnitude,itk_crm.itk_group_user,1,0,0,0

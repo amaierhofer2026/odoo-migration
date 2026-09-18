@@ -368,3 +368,94 @@ naechsten VM-Deploy von 18.0.1.5.5. Geprueft und auf der VM bereits bestaetigt: 
 allen 9 Stufen, Interessenten-Liste mit den ITK-Spalten, Formular, Stufenliste (9 von 9),
 Vertriebskanaele (7 Teams), Berichtswesen/Vertriebskanaele (Team-Karten).
 Screenshots: `31_..38_<INSTANZ>_*.png` im Desktop-Ordner Odoo18-Layoutvergleich-Session95.
+
+## 11. Entscheidungen von Anna (17.09.2026) und Umsetzung
+
+### 11.1 Favoriten
+Die 17 gespeicherten Suchen aus Odoo 11 werden **bewusst nicht uebernommen**. Sie wirken wie konkrete
+historische Arbeitsfilter und gehoeren nicht zur Grundfunktion der Kundenverwaltung; 15 von 17 waren
+ohnehin benutzerspezifisch. Benutzer koennen in Odoo 18 jederzeit neue Favoriten anlegen. Dokumentiert,
+keine Aktion noetig.
+
+### 11.2 Berechtigungen: Loeschrecht auf crm.lead
+Vorgabe: die 13 Benutzer **nicht** pauschal zu Sales/Administrator machen; die alte Funktion ueber eine
+gezielte Gruppe abbilden.
+
+Befund: die Odoo-11-Gruppen "User (read only)" und "Manager (edit)" existieren in Odoo 18 bereits als
+ITK-Gruppen (`itk_crm.itk_group_user`, `itk_crm.itk_group_manager`, Kategorie ITK) - sie sind also kein
+Nachbau, sondern die Fortfuehrung. Es fehlte genau ein Recht: das Loeschen von `crm.lead`.
+
+Umsetzung (itk_crm ab 18.0.1.5.6, `security/ir.model.access.csv`):
+
+```
+access_itk_crm_lead_manager  ->  crm.model_crm_lead  ->  itk_crm.itk_group_manager
+                             perm_read=0 perm_write=0 perm_create=0 perm_unlink=1
+```
+
+Damit erhalten Mitglieder der ITK-Gruppe "Manager (edit)" **nur** das Loeschrecht auf Interessenten/
+Verkaufschancen. Lesen, Schreiben und Anlegen kommen weiterhin ausschliesslich ueber die normalen
+Verkaufsrollen (Sales/User) - keine vollstaendigen Administratorrechte.
+
+Berechtigungs-Mapping (Odoo 11 -> Odoo 18):
+
+```
+Odoo 11                                    Odoo 18                                            Status
+Gruppe User (read only) (id 74)            itk_crm.itk_group_user                             vorhanden
+Gruppe Manager (edit) (id 75)              itk_crm.itk_group_manager                          vorhanden
+access_itk_crm_lead_manager (R/W/C/D)      R/W/C ueber Sales-Rollen + D ueber ITK-Regel        ergaenzt (nur D)
+access_itk_crm_respartner_manager (R/W/C/D) base.group_partner_manager / Kontakt-Rechte        vorhanden (Standard)
+ITK-Stammdaten (Gemeinde, Produkt ...)     Schreibrechte der jeweiligen ITK-/Odoo-Module        vorhanden
+```
+
+Benutzerzuordnung: **nicht** vorgenommen. Mitglied der Gruppe ist derzeit nur der Administrator
+(so wie das Modul es anlegt). Die 13 Odoo-11-Benutzer werden erst bei der Benutzerbereinigung/-migration
+zugeordnet.
+
+### 11.3 Filterbezeichnungen
+Die Odoo-18-Standardfilter bleiben unveraendert. Insbesondere "Meine Pipeline" wird behalten, weil der
+Filterknoten technisch von Interessenten und Verkaufschancen gemeinsam verwendet wird - eine Umbenennung
+in "Meine Leads" waere irrefuehrend. Die fachlich notwendigen Filtermoeglichkeiten aus Odoo 11 sind
+vorhanden (siehe Abschnitt 4); fehlende Funktionen wurden ergaenzt (Gruppierung "Kunde").
+
+Wortlaut-Abweichungen, die bewusst bleiben (Dokumentation):
+
+```
+Odoo 11                     Odoo 18                     Bewertung
+Meine Leads                 Meine Pipeline              technisch gemeinsam genutzt, Odoo-18-Wortlaut bleibt
+-                           Offene Verkaufschancen      neu in Odoo 18, sinnvoll
+-                           Ueberfaellige Verkaufsch.   neu in Odoo 18, sinnvoll
+Archiviert (active=False)   ueber Gewonnen/Verloren     Funktion vorhanden
+Opt Out exkludieren         entfaellt (kein opt_out)    Odoo 18 nutzt Blacklist-Logik
+```
+
+### 11.4 Datenmigration
+Weiterhin vollstaendig gestoppt: keine Interessenten, keine Verkaufschancen, keine Favoriten, keine
+Benutzerzuordnungen. Odoo 11 Prod wurde ausschliesslich lesend verwendet.
+
+## 12. Browser-Abnahme auf der VM (17.09.2026)
+
+```
+Werkzeug: scripts/browser_kundenverwaltung_pruef.py --instanz vm       31 OK / 0 FEHL
+Werkzeug: scripts/browser_kundenverwaltung_pruef.py --instanz lokal    28 OK / 0 FEHL
+Werkzeug: scripts/verify_s115_kundenverwaltung.py --instanz lokal      35 OK / 0 FEHL
+Werkzeug: scripts/verify_s114_crm_chancen.py --instanz vm              52 OK / 0 FEHL
+```
+
+Auf der VM im echten Browser bestaetigt:
+
+```
+sichtbarer App-Name Kundenverwaltung                 ja (Menueband)
+Hauptmenues Aktivitaeten/Pipeline/Kunden/Berichtswesen/Konfiguration   ja
+Pipeline mit allen 9 Stufen                          ja (Kanban-Spalten)
+Interessenten (Liste mit ITK-Spalten)                ja
+Angebote                                             ja
+Kunden                                               ja (76 Karten)
+Berichtswesen inkl. Vertriebskanaele                 ja (13 Team-Karten)
+Konfiguration: Stufen 9/9, Vertriebskanaele 7        ja
+Konfiguration: Ablehnungsgruende 5, Lead Tags 10     ja
+Suche/Filter/Gruppieren inkl. Kunde                  ja (Verkaeufer, Vertriebskanal, Kunde, Stufe, Ablehnungsgrund)
+Formular mit Reitern und Beschriftungen              ja (Verkaeufer, Vertriebskanal, Stichwoerter, Statusleiste)
+```
+
+Screenshots 31 bis 42 als `..._VM_*.png` im Ordner Odoo18-Layoutvergleich-Session95 (Desktop).
+Beim Browser-Test wurden keine Datensaetze angelegt, geaendert oder geloescht.

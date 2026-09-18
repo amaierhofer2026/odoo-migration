@@ -537,7 +537,22 @@ analysiert und auf Odoo-18-Rollen gemappt - kein Nachbau. Einziger fachlicher Un
 **Favoriten:** 17 gespeicherte Suchen in Odoo 11 analysiert (2 geteilt, 15 benutzerindividuell, 2 als Standard
 je Benutzer). Keine Uebernahme; kein systemweit wichtiger Standardfilter festgestellt.
 
-**Nachweis:** `scripts/verify_s115_kundenverwaltung.py` -> lokal 32 OK / 0 FEHL;
+**Berechtigungen (Entscheidung Anna, umgesetzt):** Die Odoo-11-Gruppen existieren in Odoo 18 bereits als
+ITK-Gruppen (`itk_crm.itk_group_user`, `itk_crm.itk_group_manager`). Ergaenzt wurde genau ein Recht:
+`access_itk_crm_lead_manager` = Loeschen (nur `perm_unlink=1`) auf `crm.lead` fuer "Manager (edit)" -
+keine Sales-Administratorrechte. **Keine Benutzerzuordnung** (nur Administrator, wie vom Modul angelegt).
+Modulstand **18.0.1.5.7** (18.0.1.5.6 Berechtigung, 18.0.1.5.7 Aktionsnamen).
+
+**Favoriten:** bewusst nicht uebernommen (Entscheidung Anna); 15 von 17 waren benutzerspezifisch.
+**Filterbezeichnungen:** Odoo-18-Standardfilter bleiben unveraendert (u. a. "Meine Pipeline"),
+Abweichungen dokumentiert.
+
+**Browser-Abnahme auf der VM (31 OK / 0 FEHL):** App-Name Kundenverwaltung, Haupt- und Untermenues,
+Pipeline mit 9 Stufen, Interessenten, Angebote, Kunden, Berichtswesen inkl. Vertriebskanaele,
+Konfiguration (Stufen 9, Vertriebskanaele 7, Ablehnungsgruende 5, Lead Tags 10), Suche/Filter/Gruppieren
+inkl. Kunde, Formular mit Beschriftungen. Screenshots 31-42 (`_VM_`).
+
+**Nachweis:** `scripts/verify_s115_kundenverwaltung.py` -> lokal 35 OK / 0 FEHL;
 `scripts/browser_kundenverwaltung_pruef.py` -> lokal 27 OK / 0 FEHL (18.0.1.5.5), VM 22 OK mit den 5 erwarteten
 Wortlaut-Abweichungen vor dem Deploy von 18.0.1.5.5. Screenshots 31-38 im Desktop-Ordner.
 

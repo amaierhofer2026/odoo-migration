@@ -118,9 +118,10 @@ Prüfwerkzeug: `python scripts/vm_abnahme_check.py` · Detailregel: `docs/arbeit
 - **Kundenverwaltung / CRM vollstaendig abgeglichen (Session 115, 17.09.2026):**
   `docs/o11-o18-strukturvergleich-kundenverwaltung-crm.md`. Sichtbarer App-Name jetzt **"Kundenverwaltung"** (vorher "CRM"),
   Konfigurationsgruppe jetzt **"Interessenten und Chancen"** (vorher "Pipeline"); beide Namen werden bei jedem itk_crm-Upgrade
-  erneut gesetzt (`itk_crm` **18.0.1.5.5**), weil `crm.crm_menu_root` Moduldaten mit `noupdate=0` ist.
+  erneut gesetzt (`itk_crm` **18.0.1.5.7**), weil `crm.crm_menu_root` Moduldaten mit `noupdate=0` ist.
   Wortlaute auf Odoo 11 umgestellt (Stufe, Verkaeufer, Vertriebskanal, Ablehnungsgrund, Lead Tags,
-  Ablehnungsgruende), Gruppierung "Kunde" ergaenzt, Berichtswesen/Vertriebskanaele hergestellt. Menues, Ansichten, Suche/Filter,
+  Ablehnungsgruende), Gruppierung "Kunde" ergaenzt, Berichtswesen/Vertriebskanaele hergestellt,
+  Loeschrecht crm.lead fuer die bestehende ITK-Gruppe "Manager (edit)" ergaenzt (keine Benutzerzuordnung). Menues, Ansichten, Suche/Filter,
   Konfiguration und Funktionen verglichen: keine funktionale Luecke; ITK-Felder liegen wie in Odoo 11 in der Liste der Interessenten
   und im Formular. Weiterhin **keine Datenmigration** (0 von 359 Verkaufschancen, 0 von 6.608 Interessenten).
   Pruefwerkzeug `scripts/verify_s115_kundenverwaltung.py` (lokal 20 OK). Odoo 11 Prod nur lesend genutzt.
