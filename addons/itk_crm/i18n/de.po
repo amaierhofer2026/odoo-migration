@@ -1,0 +1,42 @@
+# Translation of ITK CRM-Bezeichnungen (Odoo 11 -> Odoo 18).
+# Session 115, Vorgabe Anna: sichtbare Odoo-11-Wortlaute beibehalten.
+# Nur Beschriftungen (field_description), keine Modell-/Feldnamen.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-17 12:00+0000\n"
+"PO-Revision-Date: 2026-09-17 12:00+0000\n"
+"Last-Translator: ITK <anna.maierhofer@it-kommunal.at>\n"
+"Language-Team: German <de@li.org>\n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: itk_crm
+#: model:ir.model.fields,field_description:crm.field_crm_lead__stage_id
+msgid "Stage"
+msgstr "Stufe"
+
+#. module: itk_crm
+#: model:ir.model.fields,field_description:crm.field_crm_lead__user_id
+msgid "Salesperson"
+msgstr "Verkäufer"
+
+#. module: itk_crm
+#: model:ir.model.fields,field_description:crm.field_crm_lead__team_id
+msgid "Sales Team"
+msgstr "Vertriebskanal"
+
+#. module: itk_crm
+#: model:ir.model.fields,field_description:crm.field_crm_lead__lost_reason_id
+msgid "Lost Reason"
+msgstr "Ablehnungsgrund"
+
+#. module: itk_crm
+#: model:ir.model.fields,field_description:crm.field_crm_lead__date_deadline
+msgid "Expected Closing"
+msgstr "Erwartetes Abschlussdatum"

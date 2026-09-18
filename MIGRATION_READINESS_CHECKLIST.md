@@ -491,7 +491,7 @@ Chancen in Stufe „Verloren“ (in Odoo 11 nicht gepflegt).
 
 **Nachweis:** `scripts/verify_s114_crm_chancen.py` → lokal 52 OK / 0 FEHL; Browser-Prüfung auf der VM.
 
-### 6.12 Kundenverwaltung / CRM (Menue, Ansichten, Suche, Konfiguration, Funktionen) - MIGRATIONSBEREIT (Struktur/UI), 17.09.2026 (Session 115)
+### 6.12 Kundenverwaltung / CRM (Menue, Ansichten, Suche, Konfiguration, Funktionen, Berechtigungen) - **ABGESCHLOSSEN, VM-ABGENOMMEN**, 17.09.2026 (Session 115)
 
 Dokumentation: `docs/o11-o18-strukturvergleich-kundenverwaltung-crm.md` (ergaenzt 6.11).
 
@@ -552,7 +552,18 @@ Pipeline mit 9 Stufen, Interessenten, Angebote, Kunden, Berichtswesen inkl. Vert
 Konfiguration (Stufen 9, Vertriebskanaele 7, Ablehnungsgruende 5, Lead Tags 10), Suche/Filter/Gruppieren
 inkl. Kunde, Formular mit Beschriftungen. Screenshots 31-42 (`_VM_`).
 
-**Nachweis:** `scripts/verify_s115_kundenverwaltung.py` -> lokal 35 OK / 0 FEHL;
+**Browser-Abnahme VM (34 OK / 0 FEHL):** App-Name, Haupt- und Untermenues, Pipeline mit 9 Stufen, Interessenten
+(ITK-Spalten), Angebote, Kunden (76 Karten), Berichtswesen/Vertriebskanaele (13 Team-Karten), Konfiguration
+(Stufen 9 mit Aktionsname "Stufen", Vertriebskanaele 7, Ablehnungsgruende mit Aktionsname, Lead Tags 10 mit
+Aktionsname), Suche/Filter/Gruppieren inkl. Kunde, Formular. Screenshots 31-42.
+
+**Befund und Dauerloesung (F34):** Auf der VM setzt ein itk_crm-Upgrade die deutschen Feldbeschriftungen auf
+die Quelltexte zurueck (Odoo 18 gleicht `ir.model.fields` nach dem Modul-Setup ab; lokal nicht reproduzierbar,
+kein VM-Logzugang). Deshalb: neues Werkzeug `scripts/apply_crm_labels.py` (setzt die Beschriftungen idempotent,
+lokal + VM, `--pruefen` nur lesend) - **verbindlich nach jedem itk_crm-Upgrade auf der VM** - sowie
+`addons/itk_crm/i18n/de.po` als Moduluebersetzung. Modulstand final **18.0.1.5.7**.
+
+**Nachweis:** `scripts/verify_s115_kundenverwaltung.py` -> lokal 35 OK / 0 FEHL, VM 35 OK / 0 FEHL;
 `scripts/browser_kundenverwaltung_pruef.py` -> lokal 27 OK / 0 FEHL (18.0.1.5.5), VM 22 OK mit den 5 erwarteten
 Wortlaut-Abweichungen vor dem Deploy von 18.0.1.5.5. Screenshots 31-38 im Desktop-Ordner.
 

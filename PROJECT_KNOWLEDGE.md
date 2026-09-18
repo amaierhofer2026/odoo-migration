@@ -6330,3 +6330,18 @@ Screenshots 31-42.
 Feldbeschriftungen aber nicht (Ursache nicht abschliessend geklaert, da kein VM-Logzugang). Die Labels
 wurden per RPC nachgesetzt und sind seither auf der VM korrekt; die Schreibfunktion wurde um eine
 Ruecklesekontrolle erweitert (Log ERROR bei Abweichung).
+### Abschluss Session 115 (17.09.2026): Bereich Kundenverwaltung VM-abgenommen
+
+**VM-Abnahme gruen:** Browser 34 OK / 0 FEHL, verify_s115 VM 35 OK / 0 FEHL, verify_s114 VM 52 OK / 0 FEHL.
+Bestaetigt: App-Name Kundenverwaltung, Haupt-/Untermenues, Pipeline mit 9 Stufen, Interessenten mit ITK-Spalten,
+Angebote, Kunden 76 Karten, Berichtswesen/Vertriebskanaele 13 Team-Karten, Konfiguration (Stufen 9 = "Stufen",
+Vertriebskanaele 7, Ablehnungsgruende, Lead Tags 10), Suche/Gruppieren inkl. Kunde, Formular.
+Berechtigung Gruppe "Manager (edit)": nur Loeschrecht auf crm.lead, keine Sales-Administratorrechte, keine
+Benutzerzuordnung. Keine Datenmigration (VM 0 Verkaufschancen, 1 Test-Interessent).
+
+**Neuer Befund F34:** Ein itk_crm-Upgrade setzt auf der VM die deutschen Feldbeschriftungen auf die Quelltexte
+zurueck (Odoo-18-Abgleich der ir.model.fields nach dem Modul-Setup; lokal nicht reproduzierbar, kein VM-Log).
+Dauerloesung: neues Werkzeug `scripts/apply_crm_labels.py` (idempotent, lokal + VM, `--pruefen` nur lesend),
+verbindlich nach jedem itk_crm-Upgrade auf der VM, plus `addons/itk_crm/i18n/de.po` als Moduluebersetzung.
+`_setup_crm_labels` schreibt zusaetzlich bei jedem Upgrade und liest zurueck (ERROR bei Abweichung).
+Modulstand final 18.0.1.5.7.
