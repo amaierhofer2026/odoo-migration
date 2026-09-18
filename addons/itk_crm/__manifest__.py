@@ -5,7 +5,7 @@
     'author': "Alvarium Services, Andreas Vathroder, Fabian Vathroder",
     'website': "http://www.alvarium-services.de",
     'category': 'ITK - Specific Industry Applications',
-    'version': '18.0.1.5.4',
+    'version': '18.0.1.5.5',
     'license': 'LGPL-3',
     'depends': ['base', 'sale'],
     'data': [
@@ -20,6 +20,7 @@
         'data/aktivitaeten_schedule.xml',
         'data/lost_reasons.xml',
         'data/interessenten_views.xml',
+        'data/crm_bezeichnungen_views.xml',
     ],
     'post_init_hook': 'post_init_hook',
     'installable': True,

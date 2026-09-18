@@ -248,3 +248,123 @@ aktivitaetsbasierte Ansichten, Prognose), die Funktionen sind vollstaendig vorha
    Odoo-18-Standard belassen?
 5. Wortlaute (siehe Abschnitt 8): Odoo-11-Begriffe wiederherstellen oder Odoo-18-Begriffe behalten?
 6. Datenmigration Interessenten/Verkaufschancen: Auswahlregel und Zeitpunkt (nicht Teil dieser Session).
+
+## 10. Nachtrag Session 115: Wortlaute, Gruppierung Kunde, Berichtsmenue, Berechtigungen
+
+### 10.1 Sichtbare Wortlaute auf Odoo 11 umgestellt (itk_crm 18.0.1.5.5)
+
+Quelle: Odoo 11 Prod, `fields_get(lang=de_DE)` und die Konfigurationsmenues (read-only).
+
+```
+Feld/Bereich            Odoo 11 sichtbar          Odoo 18 vorher            Odoo 18 jetzt
+crm.lead.stage_id       Stufe                     Phase                     Stufe
+crm.lead.user_id        Verkaeufer                Vertriebsmitarbeiter      Verkaeufer
+crm.lead.team_id        Vertriebskanal            Verkaufsteam              Vertriebskanal
+crm.lead.tag_ids        Stichwoerter              Stichwoerter              unveraendert
+crm.lead.lost_reason_id Ablehnugsgrund (Odoo-11-  Verlustgrund              Ablehnungsgrund
+                        Schreibfehler in Prod)
+crm.lead.date_deadline  Erwartetes Abschlussdatum Erwarteter Abschluss      Erwartetes Abschlussdatum
+Menue Konfiguration     Lead Tags                 Stichwoerter              Lead Tags
+Menue Konfiguration     Ablehnungsgruende         Verlustgruende            Ablehnungsgruende
+Aktion (Stufenliste)    (Odoo 11 ohne Menue)      Phasen                    Stufen
+```
+
+Umsetzung: `setup_runtime._setup_crm_labels` (Feldbeschreibungen in de_DE, Menue- und Aktionsnamen)
+sowie `data/crm_bezeichnungen_views.xml` (Suchfilter in beiden Suchansichten). Technische Modell- und
+Feldnamen bleiben unveraendert. Beide Stellen laufen bei jedem itk_crm-Upgrade erneut, damit die
+Odoo-Basismodule die deutschen Texte nicht wieder zuruecksetzen.
+
+### 10.2 Gruppierung "Kunde" ergaenzt
+
+Odoo 11 bietet unter "Gruppieren nach" die Gruppierung "Kunde" (`partner_id`). In Odoo 18 fehlte sie.
+Ergaenzt in beiden Suchansichten (`crm.view_crm_case_opportunities_filter`, `crm.view_crm_case_leads_filter`)
+als Filter `groupby_partner` mit `context={'group_by': 'partner_id'}`. Reine Suchansicht, keine Datenänderung.
+
+### 10.3 Berichtsmenue "Vertriebskanaele"
+
+In Odoo 11 hing unter Kundenverwaltung/Berichtswesen der Menuepunkt "Vertriebskänale" (Aktion "Sales Channels",
+Modell `crm.team`, Ansicht kanban,form). Das war kein Auswertungsbericht, sondern die Team-Kanbanansicht.
+Dieselbe Ansicht existiert in Odoo 18 (`sales_team.crm_team_action_pipeline`, "Teams", kanban,form).
+Umsetzung: Menuepunkt "Vertriebskanäle" unter Berichtswesen (Sequenz 10, wie Odoo 11) auf die vorhandene
+Odoo-18-Aktion. Kein eigener Bericht, kein historisches Modell nachgebaut.
+
+### 10.4 Zugriffsregel "Manager (edit)" (Odoo 11, Gruppe id 75) - Analyse und Mapping
+
+Odoo 11 (read-only): Die Gruppe "Manager (edit)" hat 24 Zugriffsregeln, ausschliesslich auf ITK-eigene
+Stammdatenmodelle (Status of Community, Community Magnitude, Community Code, Title put in Front/Back,
+Valorisierung, Product-Type, Product Template, Product, Project Category, Status of Partner), zusaetzlich
+auf Lead/Opportunity (`access_itk_crm_lead_manager`) und Contact. Sie impliziert eine weitere ITK-Gruppe,
+hat keine Datensatzregeln und keine Menues. 13 aktive Benutzer.
+
+Mapping auf Odoo 18 (kein Nachbau der Altgruppe):
+
+```
+Odoo 11 Regel                         Odoo 18 Entsprechung                          Status
+Lead/Opportunity R/W/C/D              Sales / Administrator (crm.lead.manager)      vorhanden (inkl. Loeschen)
+Contact R/W/C/D                       Sales / Administrator + Kontakt-Rechte        vorhanden
+ITK-Stammdaten (Gemeinde, Produkt)    Standard-Schreibrechte der jeweiligen Module  vorhanden
+```
+
+Bewertung: Fuer die ITK-Stammdaten deckt Odoo 18 die Rechte ueber die jeweiligen Modulgruppen ab. Ein
+fachlich relevanter Unterschied bleibt beim Loeschrecht auf `crm.lead`: In Odoo 11 hatten die 13 Benutzer
+dieses Recht, in Odoo 18 hat es nur Sales/Administrator. Das ist eine Rollenzuordnung und damit eine
+Datenentscheidung -> KLAERUNG NOETIG (siehe 10.6). Es wurde keine Altgruppe nachgebaut.
+
+### 10.5 Favoriten (gespeicherte Suchen) in Odoo 11 - Analyse
+
+(keine Uebernahme, wie von Anna vorgegeben)
+
+```
+Favorit                       Benutzer              Standard  Inhalt
+Aussendung Communex 11.05.26  Blagojevic Dejvid     nein      Namenssuche nach 'verband' (partner_name/email/name)
+Aussendung Hinweis 230307     ALLE (geteilt)        nein      x_Lead_Quelle = mail_hinweis_1
+Event/Webinar angemeldet      ALLE (geteilt)        nein      x_lead_status = event_angemeldet
+Gerd Webinar 30.01.24         Soritz Gerd           ja        Namenssuche 'Webinar 240130' bzw. 'webinar'
+IFG Webinar 3                 Czarnecki Clemens     nein      x_Lead_Quelle = 3 IFG-Webinar-Werte
+IFG Webinar 4                 Czarnecki Clemens     nein      x_Lead_Quelle = 4 IFG-Webinar-Werte
+Interessenten                 Soritz Gerd           nein      x_Produktinteresse = hinweisgeber
+Kontaktierte Leads            Sallmann Ronald       nein      x_lead_status = kontaktiert, gruppiert nach Verkaeufer
+Lead Angelegt                 Czarnecki Clemens     nein      user_id = Czarnecki, x_lead_status = angelegt
+Lead kontaktiert              Czarnecki Clemens     nein      user_id = Czarnecki, x_lead_status = kontaktiert
+Leads 230411                  Czarnecki Clemens     nein      user_id = Czarnecki, x_Lead_Quelle = web_hinweis_in_230411
+Leads verloren                Czarnecki Clemens     nein      user_id = Czarnecki, x_lead_status = leadverloren
+Meine Leads                   Czarnecki Clemens     ja        user_id = 63 (fest auf diesen Benutzer)
+Nicht Lead angelegt           Czarnecki Clemens     nein      user_id = Czarnecki, x_lead_status != angelegt
+Offene Leads                  Czarnecki Clemens     nein      user_id = Czarnecki, x_lead_status != leadverloren
+Online Formulare              Czarnecki Clemens     nein      user_id = Czarnecki, x_Produktinteresse = formulare
+Webinar 240130                Czarnecki Clemens     nein      Namenssuche 'webinar'
+```
+
+Bewertung: 2 der 17 sind benutzeruebergreifend geteilt, 15 gehoeren einzelnen Benutzern. Die beiden als
+Standard markierten Favoriten sind benutzerindividuell (Soritz, Czarnecki) und auf feste Benutzer-IDs
+gebunden - es gibt keinen systemweit wichtigen Standardfilter. Odoo 18 hat die Standardfilter
+"Meine Pipeline" / "Meine Leads" (dynamisch auf den angemeldeten Benutzer) sowie Filter je Stufe. Ein
+kuenstlicher Vorab-Nachbau ist daher nicht erforderlich. Wer die beiden geteilten Favoriten
+("Aussendung Hinweis 230307", "Event/Webinar angemeldet") wieder haben moechte, kann sie in Odoo 18 als
+geteilte Favoriten neu anlegen - Entscheidung bei Anna (10.6).
+
+### 10.6 Offene Entscheidungen nach dem Nachtrag
+
+1. Loeschrecht auf `crm.lead` fuer die 13 Benutzer der Odoo-11-Gruppe "Manager (edit)": in Odoo 18 ueber
+   Sales/Administrator abbilden oder Rollen anders vergeben?
+2. Die zwei geteilten Favoriten neu anlegen?
+3. Filterbezeichnungen des Odoo-18-Standards ("Meine Pipeline", "Offene Verkaufschancen",
+   "Ueberfaellige Verkaufschancen") auf Odoo-11-Wortlaute umstellen? Odoo 11 hatte "Meine Leads" - der
+   Filterknoten wird in Odoo 18 von Pipeline und Interessenten gemeinsam verwendet.
+4. Datenmigration (Auswahlregel, Zeitpunkt) - weiterhin gestoppt.
+
+### 10.7 Browser-Nachweis (Session 115)
+
+```
+Instanz   Werkzeug                                  Ergebnis
+lokal     scripts/browser_kundenverwaltung_pruef.py 27 OK / 0 FEHL   (itk_crm 18.0.1.5.5)
+VM        scripts/browser_kundenverwaltung_pruef.py 22 OK / 5 FEHL   (itk_crm 18.0.1.5.4)
+lokal     scripts/verify_s115_kundenverwaltung.py   32 OK / 0 FEHL
+```
+
+Auf der VM sind die 5 Abweichungen ausschliesslich die neuen Wortlaute: sie erscheinen erst nach dem
+naechsten VM-Deploy von 18.0.1.5.5. Geprueft und auf der VM bereits bestaetigt: App-Name
+"Kundenverwaltung", Menueband (Aktivitaeten, Pipeline, Kunden, Berichtswesen, Konfiguration), Pipeline mit
+allen 9 Stufen, Interessenten-Liste mit den ITK-Spalten, Formular, Stufenliste (9 von 9),
+Vertriebskanaele (7 Teams), Berichtswesen/Vertriebskanaele (Team-Karten).
+Screenshots: `31_..38_<INSTANZ>_*.png` im Desktop-Ordner Odoo18-Layoutvergleich-Session95.

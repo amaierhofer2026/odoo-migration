@@ -517,7 +517,29 @@ Odoo 18 an denselben Stellen wie in Odoo 11 (Liste der Interessenten + Formular,
 Filter und Gruppierungen sind in Odoo 18 eine Obermenge; entfallen: Filter "Archiviert" (ueber Gewonnen/Verloren abgedeckt)
 und "Opt Out exkludieren" (Odoo 18 hat kein `opt_out` mehr); die Gruppierung "Kunde" (`partner_id`) fehlt.
 
-**Nachweis:** `scripts/verify_s115_kundenverwaltung.py` -> lokal 20 OK / 0 FEHL; VM-Pruefung und Browser-Test siehe Endbericht.
+**Wortlaute (Nachtrag, itk_crm 18.0.1.5.5):** auf die in Odoo 11 sichtbaren Begriffe umgestellt - Stufe
+(statt Phase), Verkaeufer (statt Vertriebsmitarbeiter), Vertriebskanal (statt Verkaufsteam), Ablehnungsgrund
+(statt Verlustgrund; Odoo 11 Prod schreibt dort "Ablehnugsgrund" mit Schreibfehler), Erwartetes Abschlussdatum;
+Konfigurationsmenues "Lead Tags" (statt Stichwoerter) und "Ablehnungsgruende" (statt Verlustgruende),
+Stufenliste heisst "Stufen" (statt "Phasen"). Nur Oberflaeche, technische Namen unveraendert.
+
+**Gruppierung "Kunde":** in Odoo 11 vorhanden, in Odoo 18 ergaenzt - in beiden Suchansichten (Chancen und
+Interessenten) als Filter `groupby_partner` mit `context={'group_by': 'partner_id'}`. Keine Datenänderung.
+
+**Berichtswesen/Vertriebskanaele:** In Odoo 11 war das die Team-Kanbanansicht (Aktion "Sales Channels"), kein
+Auswertungsbericht. Odoo 18 hat dieselbe Ansicht; der Menuepunkt "Vertriebskanaele" wurde unter Berichtswesen
+(Sequenz 10) auf die vorhandene Odoo-18-Aktion gelegt. Kein Bericht nachgebaut.
+
+**Berechtigungen:** Die Odoo-11-Gruppe "Manager (edit)" (24 Regeln auf ITK-Stammdaten) wurde read-only
+analysiert und auf Odoo-18-Rollen gemappt - kein Nachbau. Einziger fachlicher Unterschied: Loeschrecht auf
+`crm.lead` (Odoo 11: 13 Benutzer, Odoo 18: nur Sales/Administrator) -> KLAERUNG NOETIG.
+
+**Favoriten:** 17 gespeicherte Suchen in Odoo 11 analysiert (2 geteilt, 15 benutzerindividuell, 2 als Standard
+je Benutzer). Keine Uebernahme; kein systemweit wichtiger Standardfilter festgestellt.
+
+**Nachweis:** `scripts/verify_s115_kundenverwaltung.py` -> lokal 32 OK / 0 FEHL;
+`scripts/browser_kundenverwaltung_pruef.py` -> lokal 27 OK / 0 FEHL (18.0.1.5.5), VM 22 OK mit den 5 erwarteten
+Wortlaut-Abweichungen vor dem Deploy von 18.0.1.5.5. Screenshots 31-38 im Desktop-Ordner.
 
 **Offen (KLAERUNG NOETIG):** 1) 17 Odoo-11-Favoriten (2 Standard) - uebernehmen, neu aufbauen oder verwerfen 2) Gruppierung
 "Kunde" ergaenzen? 3) ITK-Zugriffsregel `access_itk_crm_lead_manager` (Gruppe "Manager (edit)", 13 aktive Benutzer in Prod)

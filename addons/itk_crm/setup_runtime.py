@@ -93,6 +93,7 @@ def setup_all(env):
     _setup_activity_types(env)
     _setup_vertriebskanaele_labels(env)
     _setup_crm_teams(env)
+    _setup_crm_labels(env)
     _logger.info("itk_crm setup_runtime: Struktur-Setup abgeschlossen")
 
 
@@ -571,3 +572,104 @@ def _setup_activity_types(env):
                          call_type.id)
 
     _logger.info("itk_crm: Aktivitaetstypen-Setup abgeschlossen")
+
+
+
+# ---------------------------------------------------------------------------
+# Sichtbare Bezeichnungen aus Odoo 11 (Session 115)
+# ---------------------------------------------------------------------------
+# Anna-Vorgabe: die in Odoo 11 sichtbaren Begriffe beibehalten, technische
+# Odoo-18-Namen unveraendert. Quelle: Odoo 11 Prod, fields_get(lang=de_DE) und
+# die Konfigurationsmenues (read-only geprueft am 17.09.2026).
+_LABELS_FELDER = {
+    # (Modell, Feldname): deutscher Wortlaut aus Odoo 11
+    ('crm.lead', 'stage_id'): 'Stufe',
+    ('crm.lead', 'user_id'): 'Verkäufer',
+    ('crm.lead', 'team_id'): 'Vertriebskanal',
+    ('crm.lead', 'lost_reason_id'): 'Ablehnungsgrund',
+    ('crm.lead', 'date_deadline'): 'Erwartetes Abschlussdatum',
+}
+
+_LABELS_MENUES = {
+    # xmlid: deutscher Wortlaut aus Odoo 11
+    'crm.menu_crm_lead_categ': 'Lead Tags',
+    'crm.menu_crm_lost_reason': 'Ablehnungsgründe',
+}
+
+# Odoo 11 hatte im Berichtswesen den Menuepunkt "Vertriebskänale" (Kanban der
+# Teams). In Odoo 18 gibt es dieselbe Ansicht (sales_team.crm_team_action_pipeline).
+_LABELS_AKTIONEN = {
+    'crm.crm_stage_action': 'Stufen',
+}
+
+
+def _setup_crm_labels(env):
+    """Sichtbare Bezeichnungen (de_DE) auf die Odoo-11-Wortlaute setzen.
+
+    Betrifft ausschliesslich die Oberflaeche: Feldbeschreibungen (ir.model.fields),
+    Menue- und Aktionsnamen. Modell- und Feldnamen bleiben unveraendert.
+    Laeuft bei jedem itk_crm-Upgrade erneut, weil die Odoo-Basismodule ihre
+    eigenen Uebersetzungen bei einem Upgrade erneut laden.
+    """
+    Field = env['ir.model.fields'].sudo()
+    for (model, fname), label in _LABELS_FELDER.items():
+        feld = Field.search([('model', '=', model), ('name', '=', fname)], limit=1)
+        if not feld:
+            _logger.warning("itk_crm: Feld %s.%s nicht gefunden - Label uebersprungen", model, fname)
+            continue
+        feld.with_context(lang='de_DE').write({'field_description': label})
+        _logger.info("itk_crm: Label %s.%s -> %s", model, fname, label)
+
+    Menu = env['ir.ui.menu'].sudo()
+    for xmlid, name in _LABELS_MENUES.items():
+        menu = env.ref(xmlid, raise_if_not_found=False)
+        if menu:
+            menu.with_context(lang='de_DE').write({'name': name})
+            _logger.info("itk_crm: Menue %s -> %s", xmlid, name)
+
+    Action = env['ir.actions.act_window'].sudo()
+    for xmlid, name in _LABELS_AKTIONEN.items():
+        action = env.ref(xmlid, raise_if_not_found=False)
+        if action:
+            action.write({'name': name})
+            action.with_context(lang='de_DE').write({'name': name})
+            _logger.info("itk_crm: Aktion %s -> %s", xmlid, name)
+
+    _setup_report_menu_vertriebskanaele(env)
+
+
+def _setup_report_menu_vertriebskanaele(env):
+    """Menuepunkt "Vertriebskanäle" im Berichtswesen (wie Odoo 11).
+
+    Odoo 11 zeigte dort den Kanban der Teams (Aktion "Sales Channels",
+    Modell crm.team). Odoo 18 hat dieselbe Ansicht als
+    sales_team.crm_team_action_pipeline. Es wird nur der Zugang hergestellt,
+    kein eigener Bericht nachgebaut.
+    """
+    Menu = env['ir.ui.menu'].sudo()
+    Data = env['ir.model.data'].sudo()
+    xmlid_module, xmlid_name = 'itk_crm', 'menu_report_vertriebskanaele'
+
+    vorhandene = Data.search([('module', '=', xmlid_module), ('name', '=', xmlid_name)], limit=1)
+    if vorhandene:
+        if Menu.browse(vorhandene.res_id).exists():
+            return
+
+    wurzel = env.ref('crm.crm_menu_root', raise_if_not_found=False)
+    bericht = Menu.search([('name', '=', 'Berichtswesen'), ('parent_id', '=', wurzel.id)], limit=1) if wurzel else None
+    if not bericht:
+        _logger.warning("itk_crm: Berichtsmenue nicht gefunden - Vertriebskanaele uebersprungen")
+        return
+    action = env.ref('sales_team.crm_team_action_pipeline', raise_if_not_found=False)
+    if not action:
+        _logger.warning("itk_crm: Team-Kanban-Aktion nicht gefunden - Vertriebskanaele uebersprungen")
+        return
+    menu = Menu.create({
+        'name': 'Vertriebskanäle',
+        'parent_id': bericht.id,
+        'sequence': 10,
+        'action': 'ir.actions.act_window,%d' % action.id,
+    })
+    Data.create({'module': xmlid_module, 'name': xmlid_name, 'model': 'ir.ui.menu',
+                 'res_id': menu.id, 'noupdate': True})
+    _logger.info("itk_crm: Menue Berichtswesen/Vertriebskanaele angelegt (id %s)", menu.id)

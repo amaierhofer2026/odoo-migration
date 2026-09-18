@@ -6280,3 +6280,32 @@ Entsprechung). **Odoo 18: 0 Verkaufschancen, 1 Test-Interessent** - keine Datenm
 **Offen (KLAERUNG NOETIG):** Favoriten-Uebernahme, Gruppierung "Kunde", ITK-Zugriffsregel "Manager (edit)", Berichtsmenue
 "Vertriebskanaele", Wortlaute (Phase/Stufe, Vertriebsmitarbeiter/Verkaeufer, Verkaufsteam/Vertriebskanal, Stichwoerter/Lead Tags,
 Verlustgruende/Ablehnungsgruende), Datenmigration (Auswahlregel und Zeitpunkt).
+
+### Nachtrag Session 115 (17.09.2026): Wortlaute, Gruppierung Kunde, Berichtsmenue, Berechtigungen
+
+**Wortlaute wie Odoo 11 (itk_crm 18.0.1.5.5):** Stufe, Verkaeufer, Vertriebskanal, Ablehnungsgrund,
+Erwartetes Abschlussdatum, Menues "Lead Tags" und "Ablehnungsgruende", Stufenliste "Stufen". Quelle:
+`fields_get(lang=de_DE)` in Odoo 11 Prod. Umsetzung: `setup_runtime._setup_crm_labels` (Feldbeschreibungen,
+Menue-/Aktionsnamen) und `data/crm_bezeichnungen_views.xml` (Suchfilter in beiden Suchansichten).
+Wichtig: Odoo 11 Prod schreibt beim Feld selbst "Ablehnugsgrund" (Schreibfehler) - verwendet wird die
+korrekte Schreibweise, der Fehler ist dokumentiert.
+
+**Gruppierung "Kunde":** in beiden Suchansichten ergaenzt (`groupby_partner`, `group_by: partner_id`).
+
+**Menuepunkt Berichtswesen/Vertriebskanaele:** Die Odoo-11-Aktion war die Team-Kanbanansicht
+(`crm.team`, kanban,form) - kein Bericht. Odoo 18 hat dieselbe Ansicht
+(`sales_team.crm_team_action_pipeline`); der Menuepunkt wurde per Setup angelegt (id 899 lokal).
+
+**Berechtigungen:** Gruppe "Manager (edit)" (Odoo 11, id 75) = 24 Zugriffsregeln, ausschliesslich auf
+ITK-eigene Stammdatenmodelle + Lead/Opportunity + Contact, ohne Datensatzregeln/Menues, 13 aktive Benutzer.
+Mapping: ITK-Stammdaten -> Standard-Schreibrechte der jeweiligen Odoo-18-Module; Lead/Opportunity ->
+Sales/Administrator. Kein Nachbau. Offen: Loeschrecht auf `crm.lead` fuer die 13 Benutzer (KLAERUNG).
+
+**Favoriten:** 17 gespeicherte Suchen in Odoo 11 (2 geteilt: "Aussendung Hinweis 230307",
+"Event/Webinar angemeldet"; 15 benutzerspezifisch; 2 als Standard je Benutzer, beide an feste Benutzer-IDs
+gebunden). Keine Uebernahme - kein systemweit wichtiger Standardfilter. Die Detailtabelle steht im
+Bereichsdokument Abschnitt 10.5.
+
+**Nachweis:** `scripts/verify_s115_kundenverwaltung.py` lokal 32 OK / 0 FEHL;
+`scripts/browser_kundenverwaltung_pruef.py` lokal 27 OK / 0 FEHL, VM 22 OK / 5 FEHL (nur die neuen Wortlaute,
+die den Deploy von 18.0.1.5.5 auf der VM brauchen).
