@@ -491,7 +491,7 @@ Chancen in Stufe „Verloren“ (in Odoo 11 nicht gepflegt).
 
 **Nachweis:** `scripts/verify_s114_crm_chancen.py` → lokal 52 OK / 0 FEHL; Browser-Prüfung auf der VM.
 
-### 6.14 Abonnements / Subscriptions - TEIL 1 + TEIL 2 ERLEDIGT (Modulstatus, Grundstruktur, Feldinventar), 18.09.2026 (Session 118)
+### 6.14 Abonnements / Subscriptions - TEIL 1-3 ERLEDIGT (Modulstatus, Feldinventar, Formulare/Zustandslogik), 18.09.2026 (Session 118)
 
 Dokument: `docs/o11-o18-vergleich-abo-teil1.md`.
 
@@ -521,7 +521,17 @@ Rechnung"). Status- und Intervallwerte identisch. 42 Abos ohne Verkaufsauftrag =
 alle mit Produkt/Menge/Preis/ME und Multiplikationsfaktor (`qty_multiplication_factor`, ITK);
 Zeile->Abo ueber `analytic_account_id` ("Aboauftrag") in beiden Systemen.
 
-**Teil 3 (empfohlen):** Formulare, Reiter, Smart Buttons und Zustandslogik im Browser vergleichen,
+**Teil 3 erledigt:** `docs/o11-o18-vergleich-abo-teil3.md`. View-Vergleich: 37 gegen 36 Felder in gleicher
+Reihenfolge, gleiche Reiter, gleiche Statusleiste, gleiche Listenspalten, gleiche Suchfilter, gleiche
+Aktions- und Smart Buttons mit **identischen Sichtbarkeitsregeln**. Browser-Pruefung (Odoo 11 nur lesend,
+Odoo 18 VM): Zustaende Neu und Laufend sowie Abo ohne Auftrag. Smart Buttons/Zaehler arbeiten (1 Rechnungen,
+1 Verkauf bzw. 0/0). **Abos ohne Verkaufsauftrag laufen in Odoo 18 vollstaendig** (Abo 172 und 185 auf der VM).
+Einziger Unterschied: Odoo 11 hatte den Button "Abonnement-Zusatzverkäufe", Odoo 18 fuehrt dies ueber den
+Assistenten "Optionen hinzufügen" - funktional vorhanden. Beschriftung `recurring_next_date` bleibt
+(Entscheidung Anna). 42 Alt-Abos: keine Regel festgelegt, nur funktional geprueft.
+
+**Teil 4 (empfohlen):** Wortlaute der Reiter entscheiden, Abo-Bericht/Menue im Browser pruefen,
+Migrationsvorbereitung (Reihenfolge Auftraege vor Abos, Feldzuordnung 1:1 aus Teil 2).
 Wortlautentscheidung `recurring_next_date`, Auswahlregel fuer die 42 Alt-Abos - erst danach Anpassungen.
 Formulare/Smart Buttons/Zustandslogik im Browser, Zeilenmodell - erst danach Anpassungen.
 
