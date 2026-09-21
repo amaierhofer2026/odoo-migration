@@ -6431,3 +6431,24 @@ Endstand: `verify_s117_auftraege.py` 65 OK / 0 FEHL (lokal und VM), `browser_auf
 9 OK / 0 FEHL (lokal und VM), Fuenf-Zustaende-Browserpruefung auf der VM (Angebot, Angebot gesendet,
 bestaetigter Auftrag, storniert, mit Rechnung, mit Abonnement). Keine Datenmigration.
 Nach jedem VM-Modul-Upgrade `scripts/apply_sale_labels.py --instanz vm` ausfuehren.
+
+## Session 118, Teil 1: Abonnements - Modulstatus und Grundstruktur (18.09.2026)
+
+**Kernbefund:** `sale_subscription` ist ein Enterprise-Katalogeintrag (OEEL-1, Odoo S.A.) ohne Quellcode im
+System -> Zustand `uninstallable`; kein Blocker. Die Abo-Funktion liefert das ITK-eigene Modul
+`itk_subscription` (installiert, 18.0.1.1.0, Alvarium/LGPL-3) samt `itk_multifactor`. In Odoo 11 Prod ist
+dasselbe ITK-Modul im Einsatz (11.0.1.1) - die OCA-Vorlage `agreement_sale_subscription` ist dort vorhanden,
+aber nicht installiert.
+
+Modelle: sale.subscription, .template, .line, .report, .close.reason (+ Wizard), Abo-Menue als eigene App
+(Menue 586), 14 Aktionen, 2 aktive Cronjobs (wiederkehrende Rechnungen taeglich, Ablauf woechentlich).
+5 Test-Abos in Odoo 18 konsistent (3 mit Auftrag S00179/S00180/S00190).
+
+**Odoo 11 read-only:** 1.764 Abos (draft 3, open 1.482, close 48, cancel 231), 2.434 Zeilen, 1.722 mit
+Verkaufsauftrag, 5 Vorlagen. Feldnutzung: recurring_rule_type/interval/next_date/total, partner_id,
+template_id, pricelist_id, date_start je 1.764; user_id 1.763; sale_order_id 1.722; close_reason_id 291;
+date 52; tag_ids 0. Ohne Odoo-11-Entsprechung: payment_term_id, in_progress, team_id.
+
+**Offene Punkte:** 42 Abos ohne Auftragsbezug (Auswahlregel), Zustand `pending` nur in Odoo 18,
+Datensatz 185 mit Startdatum 2013. Teil 2: vollstaendiges Feldinventar, Selection-Werte, Formulare,
+Smart Buttons, Zeilenmodell - danach Anpassungen.
