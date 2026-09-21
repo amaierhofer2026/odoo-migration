@@ -6466,3 +6466,20 @@ Intervalle 1 (1.740x) und 3 (24x). 42 Abos ohne Verkaufsauftrag = Altbestand NV-
 (open 24, cancel 16, close 2). Zeilenmodell: 2.434 Zeilen, alle mit Produkt, Menge, Preis, ME und
 `qty_multiplication_factor` (ITK, pro 1.000); Zeile->Abo ueber `analytic_account_id` ("Aboauftrag").
 Auswahlregel fuer die 42 Alt-Abos und Wortlaut `recurring_next_date` offen. Keine Datenmigration.
+
+## Session 118, Teil 3: Abo-Formulare, Zustandslogik, Smart Buttons (18.09.2026)
+
+View-Vergleich Odoo 11 gegen Odoo 18: 37 gegen 36 Felder in gleicher Reihenfolge, gleiche Reiter
+(O11 "Wiederkehrende Buchungen"/"Einstellungen", O18 "Abonnement-Einträge"/"Einstellungen"), gleiche
+Statusleiste (5 Werte), gleiche Listenspalten, gleiche Suchfilter, gleiche Buttons mit **identischen
+Sichtbarkeitsregeln** (set_open, set_pending, Abo-Auftrag schließen/abbrechen, prepare_renewal_order,
+recurring_invoice) und gleiche Smart Buttons (Online-Vorschau, Rechnungen, Verkauf).
+
+Browser (Odoo 11 nur lesend, Odoo 18 VM): Neu und Laufend bestaetigt; Zaehler arbeiten (1 Rechnungen,
+1 Verkauf). **Abos ohne Verkaufsauftrag laufen in Odoo 18 vollstaendig** (Abo 172 draft und 185 open auf
+der VM; sale_order_id ist nicht required). pending/close/cancel haben in Odoo 18 keine Testdatensaetze -
+die Regeln sind dort aus dem View-Arch identisch.
+
+Unterschied: Odoo 11 hatte "Abonnement-Zusatzverkäufe", Odoo 18 fuehrt dies ueber "Optionen hinzufügen".
+Entscheidungen Anna: Beschriftung `recurring_next_date` bleibt; 42 Alt-Abos ohne Regel, nicht migrieren.
+Werkzeug: scripts/browser_abo_pruef.py (liest Odoo 11 nur oeffnend).
