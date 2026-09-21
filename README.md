@@ -119,7 +119,9 @@ Prüfwerkzeug: `python scripts/vm_abnahme_check.py` · Detailregel: `docs/arbeit
   Abo-Funktion kommt aus dem ITK-Modul `itk_subscription` (18.0.1.1.0, installiert); `sale_subscription` ist
   nur ein Enterprise-Katalogeintrag ohne Code (daher `uninstallable`, kein Blocker). Odoo 11: 1.764 Abos,
   2.434 Zeilen, 1.722 mit Verkaufsauftrag, 5 Vorlagen. Feldvergleich vorlaeufig (18 Felder, durchgehend 1:1).
-  Keine Datenmigration, Odoo 11 read-only.
+  **Teil 2 (Feldinventar):** `docs/o11-o18-vergleich-abo-teil2.md` - beide Modelle vollstaendig,
+  strukturell identisch (kein Feld ohne Ziel, keine Transformation), 42 Alt-Abos ohne Auftrag,
+  Zeilenmodell mit Multiplikationsfaktor. Keine Datenmigration, Odoo 11 read-only.
 
 - **Bereich Angebote / Verkaufsauftraege - Bestandsaufnahme (Session 117, 18.09.2026):**
   `docs/o11-o18-strukturvergleich-angebote-auftraege.md`. Odoo 11: 2.460 Auftraege, 1.764 Abonnements.

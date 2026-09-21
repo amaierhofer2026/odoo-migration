@@ -491,7 +491,7 @@ Chancen in Stufe „Verloren“ (in Odoo 11 nicht gepflegt).
 
 **Nachweis:** `scripts/verify_s114_crm_chancen.py` → lokal 52 OK / 0 FEHL; Browser-Prüfung auf der VM.
 
-### 6.14 Abonnements / Subscriptions - TEIL 1 ERLEDIGT (Modulstatus und Grundstruktur), 18.09.2026 (Session 118)
+### 6.14 Abonnements / Subscriptions - TEIL 1 + TEIL 2 ERLEDIGT (Modulstatus, Grundstruktur, Feldinventar), 18.09.2026 (Session 118)
 
 Dokument: `docs/o11-o18-vergleich-abo-teil1.md`.
 
@@ -509,7 +509,20 @@ partner_id, template_id, pricelist_id, date_start je 1.764; close_reason_id 291;
 **Vorlaeufiger Feldvergleich (18 Felder):** durchgehend 1:1 abbildbar; ohne Odoo-11-Quelle sind
 payment_term_id, in_progress (berechnet) und team_id. Keine Migration, keine Aenderung in Odoo 11.
 
-**Teil 2 (empfohlen):** vollstaendiges Feldinventar beider Abo-Modelle mit Einstufung, Selection-Werte,
+**Teil 2 erledigt:** `docs/o11-o18-vergleich-abo-teil2.md` - vollstaendiges Feldinventar beider Modelle
+(`sale.subscription`: 40 Felder, `sale.subscription.line`: 11 Felder) mit Typ/Relation/required/readonly/
+store-compute, Nutzung in Odoo 11 und Ziel in Odoo 18. Ergebnis: **Feldnamen, Typen, Relationen und
+Selection-Werte sind identisch**; kein Feld ohne Ziel, keine Transformation. Ohne Odoo-11-Nutzung:
+analytic_account_id, industry_id, minimum_contract_period, noticeperiod, payment_mandatory, payment_token_id,
+tag_ids. Nur in Odoo 18: `has_message`; obsolet: `__last_update`. Einziger Labelunterschied:
+`recurring_next_date` (Odoo 11 "Start-Datum des nächsten Leistungszeitraums" / Odoo 18 "Datum der nächsten
+Rechnung"). Status- und Intervallwerte identisch. 42 Abos ohne Verkaufsauftrag = Altbestand 2013/2014
+(open 24, cancel 16, close 2; yearly 39, monthly 3) -> Auswahlregel offen. Zeilenmodell: 2.434 Zeilen,
+alle mit Produkt/Menge/Preis/ME und Multiplikationsfaktor (`qty_multiplication_factor`, ITK);
+Zeile->Abo ueber `analytic_account_id` ("Aboauftrag") in beiden Systemen.
+
+**Teil 3 (empfohlen):** Formulare, Reiter, Smart Buttons und Zustandslogik im Browser vergleichen,
+Wortlautentscheidung `recurring_next_date`, Auswahlregel fuer die 42 Alt-Abos - erst danach Anpassungen.
 Formulare/Smart Buttons/Zustandslogik im Browser, Zeilenmodell - erst danach Anpassungen.
 
 
