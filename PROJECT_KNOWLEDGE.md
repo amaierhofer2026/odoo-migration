@@ -6452,3 +6452,17 @@ date 52; tag_ids 0. Ohne Odoo-11-Entsprechung: payment_term_id, in_progress, tea
 **Offene Punkte:** 42 Abos ohne Auftragsbezug (Auswahlregel), Zustand `pending` nur in Odoo 18,
 Datensatz 185 mit Startdatum 2013. Teil 2: vollstaendiges Feldinventar, Selection-Werte, Formulare,
 Smart Buttons, Zeilenmodell - danach Anpassungen.
+
+## Session 118, Teil 2: Abo-Feldinventar (18.09.2026)
+
+Vollstaendiges Inventar beider Modelle aus `fields_get` (Odoo 11 read-only) plus `search_count` je Feld:
+`sale.subscription` 40 Felder, `sale.subscription.line` 11 Felder. **Ergebnis: strukturell identisch** -
+gleiche Feldnamen, Typen, Relationen, Selection-Werte; kein Feld ohne Ziel, keine Transformation.
+Ohne Odoo-11-Nutzung (Datenbestand 0): analytic_account_id, industry_id, minimum_contract_period,
+noticeperiod, payment_mandatory, payment_token_id, tag_ids. Nur Odoo 18: has_message; obsolet: __last_update.
+Labelunterschied nur bei `recurring_next_date`. Statuswerte (draft/open/pending/close/cancel) und
+Abrechnungszeitraeume (daily/weekly/monthly/yearly) wortgleich; Odoo 11 nutzt yearly 1.736, monthly 28,
+Intervalle 1 (1.740x) und 3 (24x). 42 Abos ohne Verkaufsauftrag = Altbestand NV-0xxxx aus 2013/2014
+(open 24, cancel 16, close 2). Zeilenmodell: 2.434 Zeilen, alle mit Produkt, Menge, Preis, ME und
+`qty_multiplication_factor` (ITK, pro 1.000); Zeile->Abo ueber `analytic_account_id` ("Aboauftrag").
+Auswahlregel fuer die 42 Alt-Abos und Wortlaut `recurring_next_date` offen. Keine Datenmigration.
