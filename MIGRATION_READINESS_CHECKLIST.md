@@ -491,6 +491,34 @@ Chancen in Stufe „Verloren“ (in Odoo 11 nicht gepflegt).
 
 **Nachweis:** `scripts/verify_s114_crm_chancen.py` → lokal 52 OK / 0 FEHL; Browser-Prüfung auf der VM.
 
+### 6.13 Angebote / Verkaufsauftraege (sale.order) - BESTANDSAUFNAHME, 18.09.2026 (Session 117)
+
+Dokument: `docs/o11-o18-strukturvergleich-angebote-auftraege.md`.
+
+**Odoo 11 Prod (read-only):** 2.460 Auftraege (draft 5, sent 0, sale 2.308, done 0, cancel 147),
+1.764 Abonnements (open 1.482, cancel 231, close 48, draft 3). Zustands-Browserpruefung nutzt damit
+Angebot, bestaetigter Auftrag und storniert; "Angebot gesendet" und "Abgeschlossen" sind in Odoo 11 unbenutzt.
+
+**Feldvergleich:** Alle in Odoo 11 verwendeten Felder haben ein Odoo-18-Ziel. Die ITK-Kontaktfelder
+(Verkaufskontakt, Verwaltungskontakt, Technischer Kontakt, Endkunde, Produktkategorie) sind im Modul
+`itk_sale_management` vorhanden und im Formular eingebunden. Entfallen: `incoterm` (O11: 0 Nutzungen),
+`analytic_account_id` (Kostenstelle, O11: 0 -> Odoo 18 `sale.order.line.analytic_distribution`),
+`payment_tx_id/-ids` (O11: 0 -> `transaction_ids`). `confirmation_date` (O11: 2.436 Nutzungen) hat in
+Odoo 18 kein Feld -> KLAERUNG NOETIG.
+
+**Statusumwandlung:** Odoo 11 `draft/sent/sale/cancel` = 1:1; `done` (0 Datensaetze) entfaellt in Odoo 18
+und ist dort `state=sale` + `locked=True` (Feld und Buttons action_lock/action_unlock geprueft).
+
+**Beschriftungen angeglichen (apply_sale_labels.py):** team_id -> Vertriebskanal,
+administrative_contact_id -> Verwaltungskontakt, opportunity_id -> Chance, source_id -> Referenz.
+Bewusst Odoo-18-Wortlaut: Auftragsdatum, Gueltigkeit, Rechnungsstatus, Auftragspositionen.
+
+**Nachweis:** `scripts/verify_s117_auftraege.py` -> lokal 58 OK / 0 FEHL, VM 58 OK / 0 FEHL.
+Offen: Mehrzustands-Browserpruefung auf der VM, Abo-Modul `sale_subscription` (lokal `uninstallable`),
+Zielregel fuer `confirmation_date` (KLAERUNG). Keine Auftrags-/Rechnungs-/Abodaten uebernommen
+(Odoo 18 Teststand 16 Auftraege, 5 Abos).
+
+
 ### 6.12 Kundenverwaltung / CRM (Menue, Ansichten, Suche, Konfiguration, Funktionen, Berechtigungen) - **ABGESCHLOSSEN, VM-ABGENOMMEN**, 17.09.2026 (Session 115)
 
 Dokumentation: `docs/o11-o18-strukturvergleich-kundenverwaltung-crm.md` (ergaenzt 6.11).
