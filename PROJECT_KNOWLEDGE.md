@@ -6373,3 +6373,26 @@ Bundeslaender. VM 41 OK / 0 FEHL. Browser-Abnahme VM 38 OK / 0 FEHL mit Suchprob
 (Bgld., Ktn., NOe, OOe, Sbg., Stmk., T, Vbg., W), Odoo 18 die Codes 1-9 -> `state_id` ueber Name + Land
 mappen, nicht ueber den Code. Acht weitere State-Namen unterscheiden sich zwischen Odoo 11 und 18 (Korrekturen
 der neueren Basisdaten, z. B. 'Ente Ríos' -> 'Entre Ríos').
+
+## Session 117: Bereich Angebote / Verkaufsauftraege - Bestandsaufnahme (18.09.2026)
+
+**Odoo 11 Prod read-only:** 2.460 `sale.order` (draft 5, sent 0, sale 2.308, done 0, cancel 147) und
+1.764 `sale.subscription` (open 1.482, cancel 231, close 48, draft 3). Feldnutzung gezaehlt: team_id 2.460,
+confirmation_date 2.436, opportunity_id 128, product_category_id 47, origin 22, sale_contact_id 3,
+administrative_contact_id 2, validity_date 1, technical_contact_id 1, incoterm/analytic_account_id/
+payment_tx_id/client_order_ref/final_customer_id/source_id/medium_id/campaign_id je 0.
+
+**Odoo 18:** ITK-Kontaktfelder (sale_contact_id, administrative_contact_id, technical_contact_id,
+final_customer_id, product_category_id) kommen aus `itk_sale_management` und sind im Formular eingebunden.
+`confirmation_date` fehlt in Odoo 18 (2.436 Nutzungen in O11) -> KLAERUNG. `analytic_account_id` ->
+`sale.order.line.analytic_distribution`. `incoterm` und `payment_tx_id/-ids` entfallen (O11 unbenutzt).
+Status `done` entfaellt -> `sale` + `locked`.
+
+**Beschriftungen auf Odoo-11-Wortlaut gesetzt** (neues Werkzeug `scripts/apply_sale_labels.py`, lokal + VM
+ausgefuehrt): team_id Vertriebskanal, administrative_contact_id Verwaltungskontakt, opportunity_id Chance,
+source_id Referenz. Bewusst Odoo-18: Auftragsdatum, Gueltigkeit, Rechnungsstatus, Auftragspositionen.
+
+**Nachweis:** `scripts/verify_s117_auftraege.py` lokal 58 OK / 0 FEHL, VM 58 OK / 0 FEHL.
+Offen: Mehrzustands-Browserpruefung auf der VM (Angebot, bestaetigt, storniert, mit Rechnung, mit Abo),
+Abo-Modulstatus `sale_subscription` (lokal uninstallable), Zielregel fuer `confirmation_date`.
+Keine Datenmigration.
