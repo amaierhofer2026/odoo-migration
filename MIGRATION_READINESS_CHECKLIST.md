@@ -513,6 +513,10 @@ und ist dort `state=sale` + `locked=True` (Feld und Buttons action_lock/action_u
 administrative_contact_id -> Verwaltungskontakt, opportunity_id -> Chance, source_id -> Referenz.
 Bewusst Odoo-18-Wortlaut: Auftragsdatum, Gueltigkeit, Rechnungsstatus, Auftragspositionen.
 
+**Browser-Test (mehrere Zustaende):** `scripts/browser_auftraege_pruef.py` - Angebot, Angebot gesendet,
+bestaetigter Auftrag, storniert, Auftrag mit Rechnung, Auftrag mit Abonnement. Smart Buttons und Zaehler
+geprueft, Klicks oeffnen Rechnungs- und Abo-Ansicht. Lokal 9 OK / 0 FEHL.
+
 **Nachweis:** `scripts/verify_s117_auftraege.py` -> lokal 58 OK / 0 FEHL, VM 58 OK / 0 FEHL.
 Offen: Mehrzustands-Browserpruefung auf der VM, Abo-Modul `sale_subscription` (lokal `uninstallable`),
 Zielregel fuer `confirmation_date` (KLAERUNG). Keine Auftrags-/Rechnungs-/Abodaten uebernommen

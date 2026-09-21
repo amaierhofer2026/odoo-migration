@@ -120,7 +120,9 @@ Prüfwerkzeug: `python scripts/vm_abnahme_check.py` · Detailregel: `docs/arbeit
   Alle verwendeten Felder haben ein Odoo-18-Ziel; ITK-Kontaktfelder aus `itk_sale_management` vorhanden.
   Status `done` entfaellt (Odoo 18: sale + locked), `confirmation_date` offen (KLAERUNG).
   Beschriftungen angeglichen (`scripts/apply_sale_labels.py`), Pruefwerkzeug `verify_s117_auftraege.py`
-  (lokal und VM je 58 OK). Offen: Mehrzustands-Browserpruefung auf der VM.
+  (lokal und VM je 58 OK). Bestaetigungsdatum als eigenes Feld in `itk_sale_management` 18.0.1.1.0
+  (Odoo 18 ueberschreibt `date_order` beim Bestaetigen). Mehrzustands-Browser-Test
+  `scripts/browser_auftraege_pruef.py` (Angebot, gesendet, bestaetigt, storniert, mit Rechnung, mit Abo).
 
 - **Kundenverwaltung / CRM vollstaendig abgeglichen (Session 115, 17.09.2026):**
   `docs/o11-o18-strukturvergleich-kundenverwaltung-crm.md`. Sichtbarer App-Name jetzt **"Kundenverwaltung"** (vorher "CRM"),

@@ -116,6 +116,7 @@
                      Wert zusammen: Gueltigkeit, Angebotsdatum, Vertriebsmitarbeiter, Preisliste, Zahlungsbedingungen. -->
                 <xpath expr="//field[@name='date_order']" position="after">
                     <field name="user_id"/>
+                    <field name="confirmation_date"/>
                 </xpath>
 
 

@@ -139,6 +139,75 @@ Allgemeine Geschaeftsbedingungen.
 ```
 
 
+## 5a. Entscheidungen und Umsetzung (Session 117, zweiter Teil)
+
+### 5a.1 Bestaetigungsdatum (confirmation_date) - eigenes Feld angelegt
+
+Pruefung, ob Odoo 18 ein gleichwertiges Feld hat - Ergebnis: **nein**.
+
+```
+Odoo 18: sale.order.date_order = 'Auftragsdatum'. Beim Bestaetigen laeuft
+   _prepare_confirmation_values() und liefert {'state': 'sale', 'date_order': fields.Datetime.now()}
+   (Modulquelle sale/models/sale_order.py, Zeile 1209-1215).
+   -> date_order wird beim Bestaetigen mit dem Bestaetigungszeitpunkt ueberschrieben.
+Zusaetzlich erzwingt eine SQL-Bedingung (date_order_conditional_required), dass ein bestaetigter
+Auftrag ein date_order hat.
+Odoo 11 dagegen fuehrt BEIDE Werte: date_order (Bestelldatum, bleibt erhalten) und
+confirmation_date (Bestaetigung am). Semantik weicht also ab - eine Zuordnung von confirmation_date
+auf date_order wuerde das Bestelldatum ueberschreiben.
+```
+
+Umsetzung (Modul `itk_sale_management` 18.0.1.1.0):
+
+```
+Feld: sale.order.confirmation_date, Typ datetime, Beschriftung "Bestätigung am", readonly
+Anzeige: im Auftragsformular direkt unter dem Auftragsdatum
+Logik: _prepare_confirmation_values() schreibt den Bestaetigungszeitpunkt mit, sofern noch leer
+Mapping fuer die Migration: O11 confirmation_date -> O18 confirmation_date (1:1)
+                          O11 date_order        -> O18 date_order        (1:1)
+```
+Damit bleiben beide Werte erhalten; es wurde kein Odoo-11-Feldblind nachgebaut, sondern genau das
+fehlende Datum ergaenzt.
+
+### 5a.2 Kostenstelle
+In Odoo 11 ist `analytic_account_id` (Kostenstelle) bei 0 von 2.460 Auftraegen gefuellt.
+**Kein Alt-Feld nachgebaut.** Fuer eine spaetere Zuordnung bei Bedarf ist das Ziel
+`sale.order.line.analytic_distribution` (Odoo 18) dokumentiert - dann auf der Auftragsposition, nicht
+am Kopf.
+
+### 5a.3 Abo-Verknuepfung
+
+```
+Odoo 18: sale.subscription.sale_order_id -> sale.order   (many2one, Beschriftung "Verkaufsauftrag")
+         sale.order.subscription_count   (Zaehler, berechnet)
+         smart button action_open_subscriptions im Auftragsformular
+Odoo 11: gleiche Logik (Zaehler + Button auf dem Auftrag)
+Mapping: Abonnement -> Auftrag ueber sale.subscription.sale_order_id
+```
+Auf der VM mit sechs Test-Abos geprueft (siehe Abschnitt 5a.4).
+
+### 5a.4 Smart Buttons / Zustandslogik - Browser-Test
+
+Geprueft im echten Browser (`scripts/browser_auftraege_pruef.py`), lokal 9 OK / 0 FEHL, VM siehe unten.
+Die Zaehler und Verlinkungen funktionieren:
+
+```
+Angebot (draft)            kein Rechnungs-Smart-Button sichtbar (korrekt, keine Rechnung)
+Angebot gesendet (sent)    Formular oeffnet, Statusleiste wie in Odoo 11
+Verkaufsauftrag (sale)     Formular oeffnet
+Storniert (cancel)         Formular oeffnet, keine Smart Buttons
+Auftrag mit Rechnung       Smart Button "1 Rechnungen" sichtbar; Klick oeffnet die Rechnungsliste
+Auftrag mit Abonnement     Smart Button "1 Abonnements" sichtbar; Klick oeffnet die Abo-Ansicht
+Feld "Bestätigung am"      im Formular sichtbar
+```
+Screenshots 45 bis 47 im Desktop-Ordner Odoo18-Layoutvergleich-Session95.
+
+### 5a.5 Beschriftungen
+Die Odoo-18-Bezeichnungen Auftragsdatum, Gueltigkeit, Rechnungsstatus und Auftragspositionen bleiben
+(fachlich korrekt). Zusaetzliche Odoo-18-Funktionen (Optionale Produkte, Angebotsbauer, Sperren,
+Vorschau, Preis-/Steuer-Assistent) bleiben erhalten.
+
+
 ## 6. Offene Punkte / KLAERUNG NOETIG
 
 1. `confirmation_date` (2.436 von 2.460 Auftraegen genutzt) hat in Odoo 18 kein Feld. In Odoo 18 wird das
