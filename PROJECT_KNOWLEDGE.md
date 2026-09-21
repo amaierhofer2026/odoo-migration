@@ -6396,3 +6396,24 @@ source_id Referenz. Bewusst Odoo-18: Auftragsdatum, Gueltigkeit, Rechnungsstatus
 Offen: Mehrzustands-Browserpruefung auf der VM (Angebot, bestaetigt, storniert, mit Rechnung, mit Abo),
 Abo-Modulstatus `sale_subscription` (lokal uninstallable), Zielregel fuer `confirmation_date`.
 Keine Datenmigration.
+
+### Session 117, zweiter Teil: Bestaetigungsdatum, Abo-Verknuepfung, Browser-Test
+
+**confirmation_date:** Odoo 18 hat kein gleichwertiges Feld - `_prepare_confirmation_values()` ueberschreibt
+`date_order` beim Bestaetigen mit dem aktuellen Zeitpunkt (Modulquelle sale/models/sale_order.py). Odoo 11
+fuehrt dagegen Bestelldatum und Bestaetigungsdatum getrennt. Deshalb **eigenes Feld**
+`sale.order.confirmation_date` ("Bestätigung am", datetime, readonly) in `itk_sale_management` 18.0.1.1.0,
+Anzeige unter dem Auftragsdatum, Mitschnitt beim Bestaetigen. Mapping 1:1 fuer die Migration.
+
+**Kostenstelle:** Odoo 11 hat 0 Werte -> kein Nachbau; Ziel bei Bedarf `sale.order.line.analytic_distribution`.
+
+**Abo-Verknuepfung:** `sale.subscription.sale_order_id` -> `sale.order` (many2one "Verkaufsauftrag"),
+Zaehler `subscription_count` und Smart Button `action_open_subscriptions` im Auftragsformular; auf der VM
+mit 6 Test-Abos geprueft.
+
+**Browser-Test** `scripts/browser_auftraege_pruef.py`: Angebot (kein Rechnungs-Button), Angebot gesendet,
+bestaetigter Auftrag, storniert, Auftrag mit Rechnung (Button "1 Rechnungen", Klick oeffnet die Liste),
+Auftrag mit Abonnement (Button "1 Abonnements", Klick oeffnet die Abo-Ansicht). Lokal 9 OK / 0 FEHL,
+Screenshots 45-47.
+
+**Beschriftungen:** Auftragsdatum, Gueltigkeit, Rechnungsstatus, Auftragspositionen bleiben im Odoo-18-Wortlaut.

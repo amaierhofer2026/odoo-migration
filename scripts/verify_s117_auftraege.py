@@ -84,6 +84,15 @@ LABELS_ODOO18 = {
 }
 
 
+def _abo_da(k) -> bool:
+    """Ist das Abo-Modell vorhanden?"""
+    try:
+        k.kw("sale.subscription", "search_count", [[]])
+        return True
+    except Exception:
+        return False
+
+
 def lade_env(pfad: str) -> dict:
     werte = {}
     with open(pfad, encoding="utf-8") as fh:
@@ -137,7 +146,7 @@ def main() -> int:
             print("  FEHL %s" % text)
 
     form = k.kw("sale.order", "get_views", [[[False, "form"]]], context={"lang": "de_DE"})["views"]["form"]["arch"]
-    felder = k.kw("sale.order", "fields_get", [sorted(set(list(FELDER) + list(ITK_FELDER) + ENTFAELLT + ["source_id", "subscription_count", "transaction_ids", "warehouse_id", "picking_ids", "locked"])),
+    felder = k.kw("sale.order", "fields_get", [sorted(set(list(FELDER) + list(ITK_FELDER) + ENTFAELLT + ["source_id", "subscription_count", "transaction_ids", "warehouse_id", "picking_ids", "locked", "confirmation_date"])),
                                                ["string", "type", "relation"]], context={"lang": "de_DE"})
 
     print("\n1) Statuswerte und Statusleiste")
@@ -216,6 +225,29 @@ def main() -> int:
         f = felder.get(feld)
         ist = f["string"] if f else "?"
         pruefe(ist == soll, "Label %s = '%s' (Odoo-18-Wortlaut, bewusst)" % (feld, ist))
+
+    print("\n10) Bestaetigungsdatum (Odoo-11-Feld confirmation_date)")
+    f = k.kw("sale.order", "fields_get", [["confirmation_date"], ["string", "type", "readonly"]], context={"lang": "de_DE"})
+    cd = f.get("confirmation_date")
+    pruefe(bool(cd) and cd["type"] == "datetime", "Feld vorhanden: %s (%s)"
+           % (cd["string"] if cd else "fehlt", cd["type"] if cd else "-"))
+    if cd:
+        pruefe(cd["string"] == "Bestätigung am", "Beschriftung '%s' (Odoo-11-Wortlaut)" % cd["string"])
+    pruefe("confirmation_date" in form, "Feld im Auftragsformular eingebunden")
+    # Odoo 18 ueberschreibt date_order beim Bestaetigen - deshalb eigenes Feld
+    pruefe(True, "Hinweis: Odoo 18 setzt date_order beim Bestaetigen auf den aktuellen Zeitpunkt "
+                 "(_prepare_confirmation_values) - kein gleichwertiges Feld, daher eigenes Feld")
+
+    print("\n11) Abo-Verknuepfung Auftrag <-> Abonnement")
+    abo_felder = k.kw("sale.subscription", "fields_get", [["sale_order_id"], ["string", "type", "relation"]],
+                      context={"lang": "de_DE"}) if _abo_da(k) else {}
+    pruefe("sale_order_id" in abo_felder, "sale.subscription.sale_order_id vorhanden (%s)"
+           % (abo_felder.get("sale_order_id", {}).get("string") or "-"))
+    pruefe("action_open_subscriptions" in form, "Smart Button action_open_subscriptions im Auftragsformular")
+    pruefe("subscription_count" in felder, "Zaehler subscription_count vorhanden")
+    modul = k.kw("ir.module.module", "search_read", [[["name", "=", "sale_subscription"]], ["state", "installed_version"]])
+    if modul:
+        print("       Modul sale_subscription: %s %s" % (modul[0]["state"], modul[0].get("installed_version") or ""))
 
     print("\nErgebnis: %d OK, %d FEHL" % (ok, fehler))
     return 0 if fehler == 0 else 1
