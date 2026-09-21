@@ -491,7 +491,7 @@ Chancen in Stufe „Verloren“ (in Odoo 11 nicht gepflegt).
 
 **Nachweis:** `scripts/verify_s114_crm_chancen.py` → lokal 52 OK / 0 FEHL; Browser-Prüfung auf der VM.
 
-### 6.13 Angebote / Verkaufsauftraege (sale.order) - BESTANDSAUFNAHME, 18.09.2026 (Session 117)
+### 6.13 Angebote / Verkaufsauftraege (sale.order) - **ABGESCHLOSSEN, MIGRATIONSVORBEREITET**, 18.09.2026 (Session 117)
 
 Dokument: `docs/o11-o18-strukturvergleich-angebote-auftraege.md`.
 

@@ -211,7 +211,37 @@ Die Odoo-18-Bezeichnungen Auftragsdatum, Gueltigkeit, Rechnungsstatus und Auftra
 Vorschau, Preis-/Steuer-Assistent) bleiben erhalten.
 
 
-## 6. Offene Punkte / KLAERUNG NOETIG
+## 6. Abschluss (18.09.2026) - Bereich abgeschlossen
+
+Der Bereich Angebote / Verkaufsauftraege ist strukturell und funktional abgeschlossen und fuer die
+spaetere Datenmigration vorbereitet. Vorbereitet heisst: Struktur, Felder, Relationen, Zustaende,
+Beschriftungen und Pruefwerkzeuge sind fertig - **es wurden keine Daten uebernommen**.
+
+**Von Anna festgehaltene Punkte:**
+
+1. **Bestaetigungsdatum:** Mapping Odoo 11 `confirmation_date` -> Odoo 18 `confirmation_date` ist
+   vorbereitet (eigenes Feld "Bestätigung am" in `itk_sale_management` 18.0.1.1.0).
+   Die Datenuebernahme erfolgt erst bei der spaeteren Migration.
+2. **Kostenstelle:** keine Altwerte vorhanden (Odoo 11: 0 von 2.460 Auftraegen). Ziel bei kuenftigem
+   Bedarf: `sale.order.line.analytic_distribution`.
+3. **Odoo-18-Beschriftungen** Auftragsdatum, Gueltigkeit, Rechnungsstatus und Auftragspositionen
+   bleiben bestehen.
+4. **Abo-Modul:** `sale_subscription` ist als **Voraussetzung vor der spaeteren Abo-Migration**
+   dokumentiert (Status auf lokal und VM `uninstallable`, Modell mit Testdaten vorhanden).
+   Jetzt keine weitere Aktion und keine IPAX-Anfrage.
+
+**Pruefstand (Endstand):**
+
+```
+scripts/verify_s117_auftraege.py     lokal 65 OK / 0 FEHL    VM 65 OK / 0 FEHL
+scripts/browser_auftraege_pruef.py   lokal  9 OK / 0 FEHL    VM  9 OK / 0 FEHL
+Modul itk_sale_management            18.0.1.1.0
+Datenmigration                       keine (Odoo 18: 16 Testauftraege, 6 Test-Abos)
+Odoo 11 Prod                         ausschliesslich read-only
+```
+
+Nach jedem Modul-Upgrade auf der VM: `python scripts/apply_sale_labels.py --instanz vm` ausfuehren
+(die Beschriftungen der Odoo-Felder werden beim Upgrade zurueckgesetzt, Muster F34).
 
 1. `confirmation_date` (2.436 von 2.460 Auftraegen genutzt) hat in Odoo 18 kein Feld. In Odoo 18 wird das
    Bestaetigungsdatum ueber `date_order` gefuehrt. Zu klaeren: soll das Bestaetigungsdatum erhalten bleiben

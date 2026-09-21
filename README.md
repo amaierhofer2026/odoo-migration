@@ -123,6 +123,9 @@ Prüfwerkzeug: `python scripts/vm_abnahme_check.py` · Detailregel: `docs/arbeit
   (lokal und VM je 58 OK). Bestaetigungsdatum als eigenes Feld in `itk_sale_management` 18.0.1.1.0
   (Odoo 18 ueberschreibt `date_order` beim Bestaetigen). Mehrzustands-Browser-Test
   `scripts/browser_auftraege_pruef.py` (Angebot, gesendet, bestaetigt, storniert, mit Rechnung, mit Abo).
+  **Abgeschlossen und migrationsvorbereitet (18.09.2026):** Mapping Bestaetigungsdatum 1:1, Kostenstelle ohne
+  Altwerte (Ziel `sale.order.line.analytic_distribution`), Odoo-18-Beschriftungen bleiben, `sale_subscription`
+  als Voraussetzung vor der spaeteren Abo-Migration dokumentiert. Keine Datenmigration, Odoo 11 read-only.
 
 - **Kundenverwaltung / CRM vollstaendig abgeglichen (Session 115, 17.09.2026):**
   `docs/o11-o18-strukturvergleich-kundenverwaltung-crm.md`. Sichtbarer App-Name jetzt **"Kundenverwaltung"** (vorher "CRM"),
