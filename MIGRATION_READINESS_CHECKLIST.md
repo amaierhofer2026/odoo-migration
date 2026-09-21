@@ -491,6 +491,28 @@ Chancen in Stufe „Verloren“ (in Odoo 11 nicht gepflegt).
 
 **Nachweis:** `scripts/verify_s114_crm_chancen.py` → lokal 52 OK / 0 FEHL; Browser-Prüfung auf der VM.
 
+### 6.14 Abonnements / Subscriptions - TEIL 1 ERLEDIGT (Modulstatus und Grundstruktur), 18.09.2026 (Session 118)
+
+Dokument: `docs/o11-o18-vergleich-abo-teil1.md`.
+
+**Modulstatus:** `sale_subscription` ist ein Katalogeintrag von Odoo Enterprise (OEEL-1) ohne Quellcode
+-> Zustand `uninstallable`, kein Traeger der Funktion und kein Blocker. Traeger ist das ITK-eigene Modul
+**`itk_subscription` 18.0.1.1.0** (installiert, LGPL-3), zusaetzlich `itk_multifactor`. In Odoo 11 Prod ist
+genau dasselbe ITK-Modul im Einsatz (11.0.1.1). Modelle, Aktionen, Menues und 2 aktive Cronjobs aufgenommen;
+5 Test-Abos in Odoo 18 technisch konsistent (3 mit Verkaufsauftrag verknuepft).
+
+**Odoo 11 Prod (read-only):** 1.764 Abos (draft 3, open 1.482, close 48, cancel 231), 2.434 Zeilen,
+1.722 mit Verkaufsauftrag verknuepft, 5 Vorlagen (Jahres-, Monats-, Quartalsabrechnung, 5-Jahresabo,
+Jahresabo mit 12 Monaten Mindestlaufzeit). Feldnutzung gezaehlt (recurring_rule_type/interval/next_date/total,
+partner_id, template_id, pricelist_id, date_start je 1.764; close_reason_id 291; tag_ids 0).
+
+**Vorlaeufiger Feldvergleich (18 Felder):** durchgehend 1:1 abbildbar; ohne Odoo-11-Quelle sind
+payment_term_id, in_progress (berechnet) und team_id. Keine Migration, keine Aenderung in Odoo 11.
+
+**Teil 2 (empfohlen):** vollstaendiges Feldinventar beider Abo-Modelle mit Einstufung, Selection-Werte,
+Formulare/Smart Buttons/Zustandslogik im Browser, Zeilenmodell - erst danach Anpassungen.
+
+
 ### 6.13 Angebote / Verkaufsauftraege (sale.order) - **ABGESCHLOSSEN, MIGRATIONSVORBEREITET**, 18.09.2026 (Session 117)
 
 Dokument: `docs/o11-o18-strukturvergleich-angebote-auftraege.md`.
