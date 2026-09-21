@@ -161,7 +161,12 @@ def main() -> int:
             pruefe(False, "kein Auftrag mit Rechnung vorhanden")
 
         print("\n6) Auftrag mit Abonnement")
-        abo = kw("sale.order", "search_read", [[["subscription_count", ">", 0]], ["id", "name", "subscription_count"]], limit=1)
+        # bestaetigter Auftrag mit Abonnement (bei Entwuerfen ist der Smart Button zu Recht verborgen)
+        abo = kw("sale.order", "search_read",
+                 [[["subscription_count", ">", 0], ["state", "=", "sale"]], ["id", "name", "subscription_count"]], limit=1)
+        if not abo:
+            abo = kw("sale.order", "search_read",
+                     [[["subscription_count", ">", 0]], ["id", "name", "subscription_count"]], limit=1)
         if abo:
             text, knoepfe = oeffne_auftrag(abo[0]["id"], "MitAbo")
             pruefe(any("bonnement" in k for k in knoepfe),

@@ -188,7 +188,7 @@ Auf der VM mit sechs Test-Abos geprueft (siehe Abschnitt 5a.4).
 
 ### 5a.4 Smart Buttons / Zustandslogik - Browser-Test
 
-Geprueft im echten Browser (`scripts/browser_auftraege_pruef.py`), lokal 9 OK / 0 FEHL, VM siehe unten.
+Geprueft im echten Browser (`scripts/browser_auftraege_pruef.py`): **lokal 9 OK / 0 FEHL, VM 9 OK / 0 FEHL**.
 Die Zaehler und Verlinkungen funktionieren:
 
 ```
@@ -200,6 +200,9 @@ Auftrag mit Rechnung       Smart Button "1 Rechnungen" sichtbar; Klick oeffnet d
 Auftrag mit Abonnement     Smart Button "1 Abonnements" sichtbar; Klick oeffnet die Abo-Ansicht
 Feld "Bestätigung am"      im Formular sichtbar
 ```
+Auf der VM zusaetzlich bestaetigt: `verify_s117_auftraege.py` 65 OK / 0 FEHL;
+die Beschriftungen der Odoo-Felder muessen nach dem Modul-Upgrade erneut gesetzt werden
+(`scripts/apply_sale_labels.py`, Muster aus F34).
 Screenshots 45 bis 47 im Desktop-Ordner Odoo18-Layoutvergleich-Session95.
 
 ### 5a.5 Beschriftungen
