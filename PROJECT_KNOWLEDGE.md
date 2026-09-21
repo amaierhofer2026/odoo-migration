@@ -6417,3 +6417,17 @@ Auftrag mit Abonnement (Button "1 Abonnements", Klick oeffnet die Abo-Ansicht). 
 Screenshots 45-47.
 
 **Beschriftungen:** Auftragsdatum, Gueltigkeit, Rechnungsstatus, Auftragspositionen bleiben im Odoo-18-Wortlaut.
+
+### Session 117, Abschluss (18.09.2026): Bereich Angebote/Verkaufsauftraege abgeschlossen
+
+Von Anna festgehalten: (1) Bestaetigungsdatum - Mapping O11 `confirmation_date` -> O18 `confirmation_date`
+vorbereitet (Feld "Bestätigung am" in `itk_sale_management` 18.0.1.1.0), Datenuebernahme erst bei der
+spaeteren Migration. (2) Kostenstelle - keine Altwerte, Ziel bei kuenftigem Bedarf
+`sale.order.line.analytic_distribution`. (3) Odoo-18-Beschriftungen Auftragsdatum, Gueltigkeit,
+Rechnungsstatus, Auftragspositionen bleiben. (4) `sale_subscription` als Voraussetzung vor der spaeteren
+Abo-Migration dokumentiert (Status lokal und VM `uninstallable`) - jetzt keine weitere Aktion, keine IPAX-Anfrage.
+
+Endstand: `verify_s117_auftraege.py` 65 OK / 0 FEHL (lokal und VM), `browser_auftraege_pruef.py`
+9 OK / 0 FEHL (lokal und VM), Fuenf-Zustaende-Browserpruefung auf der VM (Angebot, Angebot gesendet,
+bestaetigter Auftrag, storniert, mit Rechnung, mit Abonnement). Keine Datenmigration.
+Nach jedem VM-Modul-Upgrade `scripts/apply_sale_labels.py --instanz vm` ausfuehren.
