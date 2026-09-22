@@ -530,7 +530,19 @@ Einziger Unterschied: Odoo 11 hatte den Button "Abonnement-Zusatzverkäufe", Odo
 Assistenten "Optionen hinzufügen" - funktional vorhanden. Beschriftung `recurring_next_date` bleibt
 (Entscheidung Anna). 42 Alt-Abos: keine Regel festgelegt, nur funktional geprueft.
 
-**Teil 11 erledigt (Smart Button Rechnungen + Endabnahme):** `docs/o11-o18-vergleich-abo-teil11.md`.
+**Teil 12 erledigt (manueller Rechnungsweg + Finanzposition):** `docs/o11-o18-vergleich-abo-teil12.md`.
+Ursache: Odoo 11 liefert IDs, Odoo 18 Recordsets; der Nachbau map_account/map_tax fuehrte zu
+psycopg2.ProgrammingError: can't adapt type 'account.fiscal.position'. Behoben durch die Odoo-18-native
+Loesung: Finanzposition nur noch als ID am Beleg, Konten-/Steuerzuordnung macht Odoo selbst.
+itk_subscription 18.0.1.2.5. Nachweise: Cron-Weg 13 OK / 0 FEHL, manueller Weg 16 OK / 0 FEHL
+(lokal und VM), Browser-Klick auf der VM 4 OK / 0 FEHL (genau eine neue Rechnung).
+
+**Neue Abnahmeregel:** Ein Button gilt erst als funktionsfaehig, wenn er auf der VM im echten Browser
+geklickt wurde und der Vorgang ohne RPC-/Serverfehler durchlaeuft.
+
+**STATUS: ABONNEMENTS = VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET.**
+
+**Teil 11 erledigt (Smart Button Rechnungen):** `docs/o11-o18-vergleich-abo-teil11.md`.
 account.action_invoice_tree1 (Odoo-11-XML-ID) durch account.action_move_out_invoice_type ersetzt,
 views im vom Client erwarteten Listenformat. Alle 38 XML-IDs des Moduls geprueft (scripts/pruefe_abo_xmlids.py):
 keine fehlende ID mehr. Funktionstest scripts/test_abo_smartbuttons.py lokal und VM 11 OK / 0 FEHL
