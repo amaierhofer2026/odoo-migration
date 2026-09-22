@@ -427,11 +427,18 @@ class SaleSubscription(models.Model):
             company = self.company_id
             self = self.with_context(force_company=company.id, company_id=company.id)
 
-        fpos_id = self.env['account.fiscal.position'].get_fiscal_position(self.partner_id.id)
+        # Odoo 18: Die Finanzposition wird als ID am Beleg uebergeben; die Konten- und Steuerzuordnung
+        # uebernimmt Odoo selbst (Odoo 11 musste das im Modul nachbauen: get_fiscal_position, map_account,
+        # map_tax). Der Aufruf von get_fiscal_position/map_account liefert in Odoo 18 ein Recordset und
+        # fuehrte bei Finanzpositionen mit Kontenzuordnung zu
+        # psycopg2.ProgrammingError: can't adapt type 'account.fiscal.position'.
+        fpos_id = self.partner_id.property_account_position_id
+
         journal = self.template_id.journal_id or self.env['account.journal'].search(
             [('type', '=', 'sale'), ('company_id', '=', company.id)], limit=1)
         if not journal:
             raise UserError(_('Please define a sale journal for the company "%s".') % (company.name or '',))
+
 
         next_date = fields.Date.from_string(self.recurring_next_date)
         if not next_date:
@@ -452,7 +459,7 @@ class SaleSubscription(models.Model):
             'currency_id': self.pricelist_id.currency_id.id,
             'journal_id': journal.id,
             'invoice_origin': self.code,
-            'fiscal_position_id': fpos_id,
+            'fiscal_position_id': fpos_id.id or False,
             'invoice_payment_term_id': self.partner_id.property_payment_term_id.id,
             'company_id': company.id,
             'invoice_line_ids': self._prepare_invoice_lines(fpos_id),
@@ -473,10 +480,12 @@ class SaleSubscription(models.Model):
         account = line.product_id.property_account_income_id
         if not account:
             account = line.product_id.categ_id.property_account_income_categ_id
-        account_id = fiscal_position.map_account(account).id
+        # Konten- und Steuerzuordnung erfolgen durch Odoo anhand der Finanzposition des Belegs
+        # (siehe _prepare_invoice_data). Kein Nachbau der Odoo-11-Methoden map_account/map_tax.
+        account_id = account.id
 
         tax = line.product_id.taxes_id.filtered(lambda r: r.company_id == company)
-        tax = fiscal_position.map_tax(tax, product=line.product_id, partner=self.partner_id)
+
         return {
             'name': line.name,
             'account_id': account_id,

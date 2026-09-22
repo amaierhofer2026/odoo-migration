@@ -20,18 +20,6 @@ class AccountFiscalPosition(models.Model):
                    if isinstance(partner_id, int) else partner_id)
         return self._get_fiscal_position(partner)
 
-    def map_tax(self, taxes, product=None, partner=None):
-        """Odoo-11-Aufruf (taxes, product, partner) auf die jeweilige Odoo-18-Signatur abbilden."""
-        for argumente in ({"product": product, "partner": partner},
-                          {"product": product},
-                          {"partner": partner},
-                          {}):
-            try:
-                return super().map_tax(taxes, **argumente)
-            except TypeError:
-                continue
-        return super().map_tax(taxes)
-
 
 class MailThread(models.AbstractModel):
     _inherit = 'mail.thread'
