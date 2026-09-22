@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Button "Abonnement-Zusatzverkaeufe" (Session 118): Odoo 11 hatte im Abo-Formular den Button
+         "Abonnement-Zusatzverkäufe" (Aktion 513 = Assistent sale.subscription.wizard). Odoo 18 fuehrt
+         denselben Assistenten als Aktion "Optionen hinzufügen" (itk_subscription.wizard_action).
+         Der Assistent bleibt unveraendert - hier wird er nur zusaetzlich direkt im Formular erreichbar.
+         Eigene View an der Wurzel-View mit hoher priority (Projektregel). -->
+    <record id="view_sale_subscription_form_zusatzverkaeufe" model="ir.ui.view">
+        <field name="name">sale.subscription.form.zusatzverkaeufe</field>
+        <field name="model">sale.subscription</field>
+        <field name="inherit_id" ref="itk_subscription.sale_subscription_view_form"/>
+        <field name="priority">99</field>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="%(itk_subscription.wizard_action)d" type="action"
+                        string="Abonnement-Zusatzverkäufe"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

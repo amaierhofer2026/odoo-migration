@@ -1,6 +1,6 @@
 {
     'name': 'ITK Abo-Management',
-    'version': '18.0.1.1.0',
+    'version': '18.0.1.2.0',
     'category': 'Sales',
     'summary': 'Management of Abos',
     'description': """
@@ -28,6 +28,7 @@ Features:
         'views/res_partner_views.xml',
         'views/account_analytic_account_views.xml',
         'views/sale_subscription_views.xml',
+        'views/sale_subscription_views_zusatzverkaeufe.xml',
         'views/subscription_portal_templates.xml',
         'views/res_config_settings_views.xml',
         'views/payment_views.xml',

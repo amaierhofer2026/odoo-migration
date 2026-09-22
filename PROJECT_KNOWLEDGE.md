@@ -6522,3 +6522,20 @@ vergleichen daher gegen die englischen Namen. Pruefwerkzeuge immer mit de_DE les
 **Status: ABONNEMENTS = VOLLSTAENDIG FUNKTIONSFAEHIG UND MIGRATIONSBEREIT** (keine Datenmigration).
 Offen (Datenschritte): Auswahlregel der Abos, Reihenfolge Auftraege vor Abos, Multiplikationsfaktor-Freigabe,
 Rechnungsstellung nach der Migration, Uebernahme der NV-Nummern.
+
+## Session 118, Teil 6: Zusatzverkaeufe und EUR (18.09.2026)
+
+Der Odoo-11-Button "Abonnement-Zusatzverkäufe" (Aktion 513) oeffnet denselben Assistenten wie die
+Odoo-18-Aktion 1101 "Optionen hinzufügen" (sale.subscription.wizard). In itk_subscription 18.0.1.2.0
+wurde ein Header-Button "Abonnement-Zusatzverkäufe" ergaenzt (eigene View an der Wurzel-Form-View,
+priority 99, Datei views/sale_subscription_views_zusatzverkaeufe.xml); die Odoo-18-Aktion bleibt erhalten.
+
+Waehrung: `scripts/fix_currency_eur.py` stellt Partner (70), Abos (4) und Angebote (7) auf die EUR-
+Preisliste um; die USD-Preisliste id 1 ist inaktiv. Bestaetigte Belege koennen ihre Waehrung nicht
+wechseln (Odoo-Constraint) - 8 Testauftraege und 4 Testrechnungen bleiben USD, Entscheidung offen.
+
+Wichtig fuer den Betrieb: neue Dateien unter C:\Odoo-Test\addons werden vom laufenden Container erst
+nach `docker restart odoo18` gesehen (Bind-Mount-Cache unter Windows) - sonst laeuft ein Upgrade
+fehlerfrei, laedt die Datei aber nicht.
+
+**Status: ABONNEMENTS = VOLLSTAENDIG FUNKTIONSFAEHIG UND MIGRATIONSBEREIT.**
