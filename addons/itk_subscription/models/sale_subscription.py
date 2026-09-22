@@ -364,7 +364,10 @@ class SaleSubscription(models.Model):
     def action_subscription_invoice(self):
         self.ensure_one()
         invoices = self.env['account.move'].search([('invoice_line_ids.subscription_id', 'in', self.ids)])
-        action = self.env.ref('account.action_invoice_tree1').read()[0]
+        # Odoo 18: 'account.action_invoice_tree1' existiert nicht mehr (Odoo-11-XML-ID).
+        # Korrekte Aktion fuer Kundenrechnungen ist 'account.action_move_out_invoice_type'
+        # (Modell account.move, Domain move_type in out_invoice/out_refund).
+        action = self.env['ir.actions.act_window']._for_xml_id('account.action_move_out_invoice_type')
         action["context"] = {"create": False}
         if len(invoices) > 1:
             action['domain'] = [('id', 'in', invoices.ids)]

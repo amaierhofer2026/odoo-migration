@@ -178,6 +178,37 @@ def main() -> int:
             seite.keyboard.press("Escape")
             seite.wait_for_timeout(1500)
             pruefe(seite.query_selector(".modal-content") is None, "Dialog ohne Speichern geschlossen")
+        print("\n### Smart Buttons funktional klicken ###")
+        rec = auswahl.get("open") or list(auswahl.values())[0]
+        for knopf_name, erwartung in [("Rechnungen", "account.move"), ("Verkauf", "sale.order")]:
+            seite.goto(URL + "/web#id=%s&model=sale.subscription&view_type=form" % rec["id"])
+            seite.wait_for_selector(".o_form_view", timeout=90000)
+            seite.wait_for_timeout(2500)
+            ziel = None
+            for b in seite.query_selector_all(".oe_stat_button"):
+                if knopf_name in (b.inner_text() or ""):
+                    ziel = b
+                    break
+            pruefe(ziel is not None, "Smart Button %s vorhanden" % knopf_name)
+            if not ziel:
+                continue
+            text_vorher = re.sub(r"\s+", " ", seite.inner_text("body"))
+            ziel.click()
+            seite.wait_for_timeout(5000)
+            adresse = seite.url
+            text = re.sub(r"\s+", " ", seite.inner_text("body"))
+            datei = os.path.join(SHOTS, "52_VM_Abo_SmartButton_%s.png" % knopf_name)
+            seite.screenshot(path=datei, full_page=True)
+            print("      %s -> URL %s" % (knopf_name, adresse[:110]))
+            print("      Screenshot: %s" % datei)
+            pruefe("kein Zugriff" not in text.lower() and "Traceback" not in text and "External ID" not in text,
+                   "Smart Button %s oeffnet sich ohne Fehlermeldung" % knopf_name)
+            pruefe(erwartung in adresse or "model=" + erwartung in adresse,
+                   "Smart Button %s oeffnet %s" % (knopf_name, erwartung))
+            if knopf_name == "Rechnungen":
+                pruefe("Rechnung" in text or "Entwurf" in text, "Rechnungsansicht mit Datensatz geladen")
+            seite.keyboard.press("Escape")
+            seite.wait_for_timeout(1200)
         ctx.close()
     print("\nErgebnis: %d OK, %d FEHL" % (ok, fehler))
     return 0 if fehler == 0 else 1
