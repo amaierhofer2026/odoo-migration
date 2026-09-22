@@ -6568,3 +6568,12 @@ Neue Abnahmeregel: Buttons gelten erst als funktionsfaehig, wenn sie auf der VM 
 geklickt wurden und fehlerfrei durchlaufen.
 
 **ABONNEMENTS = VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-12).
+
+## Session 118, Teil 13: Reiterbeschriftung (22.09.2026)
+
+Erster Reiter im Abo-Formular heisst wieder wie in Odoo 11: "Wiederkehrende Buchungen" (vorher
+"Abonnement-Einträge", Quelle war der englische Text "Subscription Lines" mit de.po-Uebersetzung).
+Die Beschriftung steht jetzt direkt im Modul-View (<page string="Wiederkehrende Buchungen" id="lines">)
+plus de.po-Eintrag; da es Moduldaten mit noupdate=0 sind, bleibt sie nach jedem Upgrade erhalten.
+itk_subscription 18.0.1.2.6. Browser auf der VM: beide Wege (normales Abo, Zu erneuernde Abonnements)
+zeigen den Reiter; 3 OK / 0 FEHL.
