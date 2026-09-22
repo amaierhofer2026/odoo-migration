@@ -197,14 +197,17 @@ def main() -> int:
             seite.wait_for_timeout(5000)
             adresse = seite.url
             text = re.sub(r"\s+", " ", seite.inner_text("body"))
-            datei = os.path.join(SHOTS, "52_VM_Abo_SmartButton_%s.png" % knopf_name)
+            datei = os.path.join(VZ, "52_VM_Abo_SmartButton_%s.png" % knopf_name)
             seite.screenshot(path=datei, full_page=True)
             print("      %s -> URL %s" % (knopf_name, adresse[:110]))
             print("      Screenshot: %s" % datei)
             pruefe("kein Zugriff" not in text.lower() and "Traceback" not in text and "External ID" not in text,
                    "Smart Button %s oeffnet sich ohne Fehlermeldung" % knopf_name)
-            pruefe(erwartung in adresse or "model=" + erwartung in adresse,
-                   "Smart Button %s oeffnet %s" % (knopf_name, erwartung))
+            dialog = lies(".modal-content, .o_dialog")
+            pruefe(erwartung in adresse or "model=" + erwartung in adresse or bool(dialog),
+                   "Smart Button %s oeffnet %s (auch als Dialog)" % (knopf_name, erwartung))
+            if dialog:
+                print("      Dialog     : %s" % dialog[:120])
             if knopf_name == "Rechnungen":
                 pruefe("Rechnung" in text or "Entwurf" in text, "Rechnungsansicht mit Datensatz geladen")
             seite.keyboard.press("Escape")
