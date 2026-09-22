@@ -6539,3 +6539,16 @@ nach `docker restart odoo18` gesehen (Bind-Mount-Cache unter Windows) - sonst la
 fehlerfrei, laedt die Datei aber nicht.
 
 **Status: ABONNEMENTS = VOLLSTAENDIG FUNKTIONSFAEHIG UND MIGRATIONSBEREIT.**
+
+## Session 118, Teil 11: Abschluss Abonnements (22.09.2026)
+
+Smart Button "Rechnungen" im Abo-Formular behoben: account.action_invoice_tree1 (Odoo 11) existiert in
+Odoo 18 nicht mehr -> account.action_move_out_invoice_type, views im Listenformat fuer den Client.
+itk_subscription 18.0.1.2.4. Alle 38 XML-IDs des Moduls geprueft (scripts/pruefe_abo_xmlids.py),
+keine fehlende ID mehr. Funktionstest scripts/test_abo_smartbuttons.py: lokal und VM 11 OK / 0 FEHL.
+Browsertest VM 54 OK / 1 FEHL; der letzte Nachweis wurde manuell erbracht (Abo 183 oeffnet die
+zugehoerigen Rechnungen, Abo 172 blendet den Button bei 0 Rechnungen aus).
+
+**ABONNEMENTS = VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-11).
+Offen nur noch Ausfuehrungsschritte der Migration, keine Entscheidungen:
+migration/abo_migrationsregeln.json.

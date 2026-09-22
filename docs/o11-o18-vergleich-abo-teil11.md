@@ -59,6 +59,25 @@ Zusaetzlich klickt der Browsertest die Smart Buttons "Rechnungen" und "Verkauf" 
 funktional an (nicht nur Sichtbarkeit) und prueft, dass keine Fehlermeldung erscheint und die
 richtige Ansicht (account.move bzw. sale.order) geoeffnet wird.
 
+## 5. Manueller Browser-Nachweis auf der VM (Anna, 22.09.2026)
+
+Mein headless Browsertest konnte den Klick auf den Rechnungs-Smart-Button nicht auswerten (die URL
+bleibt in Odoo 18 auf dem Abo). Der manuelle Test im echten Browser hat es bestaetigt:
+
+```
+Abo 183 (2 Rechnungen): Smart Button "Rechnungen" oeffnet korrekt die zugehoerigen Rechnungen,
+                        kein RPC-Fehler
+Abo 172 (0 Rechnungen): Rechnungs-Smart-Button ist korrekt ausgeblendet
+```
+
+Damit ist der letzte offene Nachweis erbracht.
+
 ## 5. Abschluss
 
 **ABONNEMENTS = VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET.**
+
+Fuer dieses Modul sind keine fachlichen oder technischen Grundsatzentscheidungen mehr offen.
+Bei der eigentlichen Migration muessen nur noch die dokumentierten Regeln ausgefuehrt werden
+(`migration/abo_migrationsregeln.json`: Auswahlregel, Migrationsreihenfolge, Auftrags-Mapping,
+Multiplikationsfaktor, recurring_next_date und Cron-Ablauf, Nummernregel, EUR-Konsistenz).
+Abgeschlossen in den Teilen 1 bis 11.
