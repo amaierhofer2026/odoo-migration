@@ -434,6 +434,10 @@ class SaleSubscription(models.Model):
         end_date = end_date - relativedelta(days=1)
         addr = self.partner_id.address_get(['delivery'])
         return {
+            # Odoo 18: ohne move_type legt Odoo einen Buchungssatz ('entry') an; dann berechnet es
+            # keine Rechnungssummen (price_subtotal und amount_total bleiben 0).
+            # In Odoo 11 kam der Belegtyp aus dem Modell account.invoice (type='out_invoice').
+            'move_type': 'out_invoice',
             'sale_order_confirmation_date': self.sale_order_confirmation_date,
             'invoice_date': self.recurring_next_date,
             'partner_id': self.partner_id.id,

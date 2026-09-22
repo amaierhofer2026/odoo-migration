@@ -20,7 +20,8 @@ import urllib.request
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 NAME = "TEST Rechnungslauf Nachweis"
-FELDER_RECHNUNG = ["name", "state", "amount_total", "currency_id", "invoice_date", "invoice_origin"]
+FELDER_RECHNUNG = ["name", "state", "move_type", "amount_untaxed", "amount_tax", "amount_total",
+                   "currency_id", "invoice_date", "invoice_origin"]
 
 
 def lade_env(pfad):
@@ -139,7 +140,12 @@ def main() -> int:
         print("   Rechnung %s | %s | %s %s | Datum %s | Herkunft %s"
               % (r["name"], r["state"], r["amount_total"], r["currency_id"][1], r["invoice_date"], r["invoice_origin"]))
         pruefe(r["currency_id"][1] == "EUR", "Rechnung laeuft in EUR")
-        pruefe(abs(r["amount_total"] - 65.0) < 0.01, "Rechnungsbetrag = wiederkehrender Abo-Preis (65,00)")
+        pruefe(r["move_type"] == "out_invoice", "Beleg ist eine Kundenrechnung (move_type out_invoice)")
+        pruefe(abs(r["amount_untaxed"] - 65.0) < 0.01,
+               "Nettobetrag = wiederkehrender Abo-Preis (65,00), Ist: %s" % r["amount_untaxed"])
+        pruefe(r["amount_total"] > r["amount_untaxed"],
+               "Bruttobetrag inkl. Steuer korrekt (%s netto + %s Steuer = %s)"
+               % (r["amount_untaxed"], r["amount_tax"], r["amount_total"]))
         pruefe(r["invoice_origin"] == d["code"], "Verknuepfung Abo <-> Rechnung ueber den Abo-Code vorhanden")
     print("\nErgebnis: %d OK, %d FEHL" % (ok, fehler))
     return 0 if fehler == 0 else 1
