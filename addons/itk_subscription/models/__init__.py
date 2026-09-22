@@ -8,3 +8,4 @@ from . import res_config_settings
 from . import account_invoice_line
 from . import itk_lookups
 from . import account_invoice
+from . import account_fiscal_position
