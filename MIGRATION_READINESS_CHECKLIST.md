@@ -530,6 +530,14 @@ Einziger Unterschied: Odoo 11 hatte den Button "Abonnement-Zusatzverkäufe", Odo
 Assistenten "Optionen hinzufügen" - funktional vorhanden. Beschriftung `recurring_next_date` bleibt
 (Entscheidung Anna). 42 Alt-Abos: keine Regel festgelegt, nur funktional geprueft.
 
+**Teil 6 erledigt (Abschluss Zusatzverkaeufe + EUR):** `docs/o11-o18-vergleich-abo-teil6.md`.
+Button "Abonnement-Zusatzverkäufe" im Abo-Formular ergaenzt (Odoo 11: Aktion 513 = derselbe Assistent
+`sale.subscription.wizard`; Odoo 18: Aktion 1101 `itk_subscription.wizard_action`) - Modulversion
+18.0.1.2.0, Odoo-18-Aktion bleibt erhalten. Waehrung: `scripts/fix_currency_eur.py` (Partner, Abos,
+Angebote auf die EUR-Preisliste; 0 USD-Abos). Offen: 8 bestaetigte Testauftraege + 4 Testrechnungen
+tragen noch USD (Odoo sperrt Waehrungsaenderungen bei bestaetigten Belegen) - Entscheidung Anna.
+Falle: neue Addon-Dateien erst nach `docker restart odoo18` sichtbar.
+
 **Teil 5 erledigt (Abschluss):** `docs/o11-o18-vergleich-abo-teil5.md`. Die in Odoo 11 referenzierten
 Stammdaten sind angelegt: 1 fehlende Vorlage ("J- Jahresabrechnungsabo-Mindestvertragsdauer 12 Monate",
 Odoo 11: 1 Abo) und 26 fehlende Beendigungsgruende (Odoo 11: 170 Verwendungen). Nicht angelegt: Vorlage
