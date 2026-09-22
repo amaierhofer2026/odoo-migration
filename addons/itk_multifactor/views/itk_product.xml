@@ -1,14 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <!-- Wurzel-Produktliste (product.product_template_tree_view) fuer den Bereich Abonnements.
+         Odoo-11-Vorgabe (Menue "Abonnement Produkte", Aktion 514):
+         sequence, Interne Referenz, Name, Mit Faktor multiplizieren, Verkaufspreis, Kosten,
+         Status, Interne Kategorie, Bestandsmenge, Geplante Bestandsmenge, Einheit.
+         Bestandsmenge/Geplante Bestandsmenge entfallen bewusst: in Odoo 11 ohne jede
+         Lagerbewegung (0 erledigte Bewegungen, 0 Bestaende) - siehe
+         docs/o11-o18-vergleich-abo-teil14.md. -->
     <record id="view_product_template_tree_itk_multi_factor" model="ir.ui.view">
         <field name="name">Product Template Tree ITK (multifactor)</field>
         <field name="model">product.template</field>
         <field name="inherit_id" ref="product.product_template_tree_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='list_price']" position="before">
-                <field name="is_multi_factor_product"/>
-            </xpath>
+            <data>
+                <xpath expr="//field[@name='list_price']" position="before">
+                    <field name="is_multi_factor_product" optional="show"/>
+                </xpath>
+                <xpath expr="//field[@name='categ_id']" position="attributes">
+                    <attribute name="string">Interne Kategorie</attribute>
+                    <attribute name="optional">show</attribute>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <!-- Suchansicht "Abonnement Produkte": Filter und Gruppierungen.
+         Die Odoo-11-Service-Type-Filter werden bewusst NICHT nachgebaut - sie haben dort
+         einzelne Werte der ITK-Produktart fest verdrahtet; in Odoo 18 leistet das die
+         Gruppierung nach product_type_id (Status). Bestandsfilter (Verfuegbare Produkte,
+         Bestandsaufloesung, Bestandsreichweite) kamen in Odoo 11 aus dem stock-Modul und
+         entfallen, weil kein Lager verwendet wurde. -->
+    <record id="view_product_template_search_abo_produkte" model="ir.ui.view">
+        <field name="name">product.template.search.abo.produkte</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//filter[@name='inactive']" position="after">
+                    <separator/>
+                    <filter name="filter_multi_factor" string="Mit Faktor multipliziert"
+                            domain="[('is_multi_factor_product', '=', True)]"/>
+                    <filter name="filter_abo_aktiv" string="Aktive Abonnement Produkte"
+                            domain="[('recurring_invoice', '=', True), ('active', '=', True)]"/>
+                </xpath>
+                <xpath expr="//filter[@name='categ_id']" position="after">
+                    <filter name="group_product_type_id" string="Status"
+                            context="{'group_by': 'product_type_id'}"/>
+                    <filter name="group_is_multi_factor" string="Mit Faktor multipliziert"
+                            context="{'group_by': 'is_multi_factor_product'}"/>
+                </xpath>
+            </data>
         </field>
     </record>
 
