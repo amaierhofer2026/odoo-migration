@@ -107,7 +107,9 @@ def main() -> int:
            "bei mehreren Rechnungen wird auf die Rechnungs-IDs dieses Abos gefiltert")
     ids = (erg.get("domain") or [[0, 0, []]])[0][2]
     pruefe(zusatz in ids, "die zusaetzliche Rechnung des Abos ist im Filter enthalten")
-    pruefe(len(ids) == 2, "genau die zwei Rechnungen dieses Abos sind im Filter (%s)" % len(ids))
+    erwartet = kw("account.move", "search_count", [[["invoice_line_ids.subscription_id", "=", abo["id"]]]])
+    pruefe(len(ids) == erwartet,
+           "alle %s Rechnungen dieses Abos im Filter, keine fremde (%s)" % (erwartet, len(ids)))
 
     print("\n--- Gegenprobe: Rechnung eines anderen Kunden darf nicht erscheinen ---")
     fremd = kw("account.move", "search_read", [[["move_type", "=", "out_invoice"], ["id", "not in", ids]],
