@@ -341,7 +341,9 @@
                         </group>
                     </group>
                     <notebook>
-                        <page string="Subscription Lines" id="lines">
+                        <!-- Sichtbare Beschriftung wie in Odoo 11: "Wiederkehrende Buchungen". Die Quelle steht direkt
+                 im Modul, damit auch ein Modul-Upgrade die Beschriftung nicht zuruecksetzt. -->
+                <page string="Wiederkehrende Buchungen" id="lines">
                             <div>
                                 <field name="recurring_invoice_line_ids">
                                     <list editable="bottom">
