@@ -6483,3 +6483,22 @@ die Regeln sind dort aus dem View-Arch identisch.
 Unterschied: Odoo 11 hatte "Abonnement-Zusatzverkäufe", Odoo 18 fuehrt dies ueber "Optionen hinzufügen".
 Entscheidungen Anna: Beschriftung `recurring_next_date` bleibt; 42 Alt-Abos ohne Regel, nicht migrieren.
 Werkzeug: scripts/browser_abo_pruef.py (liest Odoo 11 nur oeffnend).
+
+## Session 118, Teil 4: Abo-Abschlusspruefung und Migrationsvorbereitung (18.09.2026)
+
+Entscheidungen Anna: Beschriftung `recurring_next_date` bleibt; Button "Abonnement-Zusatzverkäufe" wird
+nicht nachgebaut (Funktion laeuft ueber "Optionen hinzufügen"); zusaetzliche Odoo-18-Funktionen bleiben;
+die 42 Abos ohne Verkaufsauftrag duerfen spaeter ohne Auftrag migriert werden (Auswahlregel offen).
+
+Geprueft: Reiter (gleich; O18 zeigt Positionen zusaetzlich inline), Vorlagen (O11 5 / O18 3),
+Beendigungsgruende (O11 33 / O18 5), Abonnementanalyse (neu in O18, bleibt), Menues (identisch),
+Cronjobs (identisch), Rechte (ITK-Abonnements Manager/User + Portal, identisch), Sequenzen (in beiden
+keine - Name/Code sind char-Felder), Rechnungsentstehung, Verlaengerung, Kuendigung, Abo ohne Auftrag.
+
+**Vollstaendige Migrations-Mapping-Tabelle** fuer Abo-Kopf und Abo-Zeilen mit Einstufung im Dokument
+`docs/o11-o18-vergleich-abo-teil4.md` (Abschnitte 4 und 5). Ergebnis: kein Feld ohne Ziel, keine
+Transformation; berechnet sind recurring_total, recurring_monthly, end_of_contract_date, price_subtotal.
+
+**Status: strukturell und funktional MIGRATIONSVORBEREITET.** Offen (Datenschritte): 2 fehlende Vorlagen,
+28 fehlende Beendigungsgruende, Auswahlregel der Abos, Reihenfolge Auftraege-vor-Abos,
+Multiplikationsfaktor-Freigabe, Rechnungsstellung nach der Migration, Uebernahme der NV-Nummern.
