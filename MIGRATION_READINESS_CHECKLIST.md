@@ -491,7 +491,7 @@ Chancen in Stufe „Verloren“ (in Odoo 11 nicht gepflegt).
 
 **Nachweis:** `scripts/verify_s114_crm_chancen.py` → lokal 52 OK / 0 FEHL; Browser-Prüfung auf der VM.
 
-### 6.14 Abonnements / Subscriptions - TEIL 1-3 ERLEDIGT (Modulstatus, Feldinventar, Formulare/Zustandslogik), 18.09.2026 (Session 118)
+### 6.14 Abonnements / Subscriptions - TEIL 1-4 ERLEDIGT, STRUKTURELL UND FUNKTIONAL **MIGRATIONSVORBEREITET** (Modulstatus, Feldinventar, Zustandslogik, Mapping), 18.09.2026 (Session 118)
 
 Dokument: `docs/o11-o18-vergleich-abo-teil1.md`.
 
@@ -530,7 +530,15 @@ Einziger Unterschied: Odoo 11 hatte den Button "Abonnement-Zusatzverkäufe", Odo
 Assistenten "Optionen hinzufügen" - funktional vorhanden. Beschriftung `recurring_next_date` bleibt
 (Entscheidung Anna). 42 Alt-Abos: keine Regel festgelegt, nur funktional geprueft.
 
-**Teil 4 (empfohlen):** Wortlaute der Reiter entscheiden, Abo-Bericht/Menue im Browser pruefen,
+**Teil 4 erledigt:** `docs/o11-o18-vergleich-abo-teil4.md` mit vollstaendiger Migrations-Mapping-Tabelle
+(Abo-Kopf, Abo-Zeilen) und Abschlusspruefung. Ergebnis: **keine strukturellen oder funktionalen Luecken**
+-> Bereich strukturell und funktional **MIGRATIONSVORBEREITET** (ohne Datenmigration).
+Reiter in beiden Systemen gleich (O18 zeigt Positionen zusaetzlich inline); Vorlagen-Felder, Menues,
+Cronjobs (2, identisch), Rechte (ITK-Abonnements Manager/User + Portal) und Rechnungsmechanik gleich.
+**Stammdaten-Luecken vor der Migration:** 2 Vorlagen fehlen in Odoo 18 (5-Jahresabo, Jahresabo mit
+12 Monaten Mindestlaufzeit) und 28 von 33 Beendigungsgruenden (Odoo 11: 33, in Odoo 18 5).
+Offen (Abschnitt 7 des Dokuments): Auswahlregel der Abos, Reihenfolge Auftraege vor Abos,
+Multiplikationsfaktor-Freigabe, Rechnungsstellung nach der Migration, Uebernahme der NV-Nummern.
 Migrationsvorbereitung (Reihenfolge Auftraege vor Abos, Feldzuordnung 1:1 aus Teil 2).
 Wortlautentscheidung `recurring_next_date`, Auswahlregel fuer die 42 Alt-Abos - erst danach Anpassungen.
 Formulare/Smart Buttons/Zustandslogik im Browser, Zeilenmodell - erst danach Anpassungen.
