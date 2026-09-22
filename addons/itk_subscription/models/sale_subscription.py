@@ -362,19 +362,23 @@ class SaleSubscription(models.Model):
         return res
 
     def action_subscription_invoice(self):
+        """Rechnungen dieses Abos oeffnen (Smart Button).
+
+        Odoo 11 nutzte die XML-ID account.action_invoice_tree1; diese existiert in Odoo 18 nicht mehr.
+        Verwendet wird die Odoo-18-Aktion account.action_move_out_invoice_type (Modell account.move).
+        Die Ansichtsliste wird in das vom Client erwartete Listenformat gebracht (Odoo liefert Tupel).
+        Gefiltert wird ausschliesslich auf Rechnungen, deren Position auf dieses Abo verweist.
+        """
         self.ensure_one()
         invoices = self.env['account.move'].search([('invoice_line_ids.subscription_id', 'in', self.ids)])
-        # Odoo 18: 'account.action_invoice_tree1' existiert nicht mehr (Odoo-11-XML-ID).
-        # Korrekte Aktion fuer Kundenrechnungen ist 'account.action_move_out_invoice_type'
-        # (Modell account.move, Domain move_type in out_invoice/out_refund).
         action = self.env['ir.actions.act_window']._for_xml_id('account.action_move_out_invoice_type')
+        action["views"] = [[vid, modus] for vid, modus in action.get("views", [])]
         action["context"] = {"create": False}
-        if len(invoices) > 1:
-            action['domain'] = [('id', 'in', invoices.ids)]
-        elif len(invoices) == 1:
-            action['views'] = [(self.env.ref('account.view_move_form').id, 'form')]
+        action["domain"] = [["id", "in", invoices.ids]]
+        if len(invoices) == 1:
+            action['views'] = [[self.env.ref('account.view_move_form').id, 'form']]
             action['res_id'] = invoices.ids[0]
-        else:
+        elif not invoices:
             action = {'type': 'ir.actions.act_window_close'}
         return action
 
