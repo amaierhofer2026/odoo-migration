@@ -59,7 +59,12 @@
         <field name="model">product.template</field>
         <field name="inherit_id" ref="product.product_template_form_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='list_price']" position="after">
+            <!-- 22.09.2026 (Teil 14): Anker auf die Preis-Zeile geaendert. Vorher wurde
+                 //field[@name='list_price'] verwendet - in Odoo 18 liegt das Feld in
+                 <div name="list_price_uom"/>; der Anker setzte die Auswahl damit IN die
+                 Preiszeile, wo sie nicht sichtbar war. Jetzt eine eigene Zeile unter dem
+                 Verkaufspreis, wie in Odoo 11 (group_standard_price). -->
+            <xpath expr="//div[@name='list_price_uom']" position="after">
                 <field name="is_multi_factor_product"/>
             </xpath>
         </field>
