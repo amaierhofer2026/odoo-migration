@@ -2356,3 +2356,9 @@ msgstr "Woche(n)"
 #: model_terms:ir.ui.view,arch_db:itk_subscription.subscription
 msgid "year(s)"
 msgstr "Jahr(e)"
+
+#. module: itk_subscription
+#: model_terms:ir.ui.view,arch_db:itk_subscription.sale_subscription_view_form
+#: Reiter im Abo-Formular - in Odoo 11 sichtbarer Wortlaut
+msgid "Wiederkehrende Buchungen"
+msgstr "Wiederkehrende Buchungen"
