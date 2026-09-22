@@ -530,6 +530,16 @@ Einziger Unterschied: Odoo 11 hatte den Button "Abonnement-Zusatzverkäufe", Odo
 Assistenten "Optionen hinzufügen" - funktional vorhanden. Beschriftung `recurring_next_date` bleibt
 (Entscheidung Anna). 42 Alt-Abos: keine Regel festgelegt, nur funktional geprueft.
 
+**Teil 11 erledigt (Smart Button Rechnungen + Endabnahme):** `docs/o11-o18-vergleich-abo-teil11.md`.
+account.action_invoice_tree1 (Odoo-11-XML-ID) durch account.action_move_out_invoice_type ersetzt,
+views im vom Client erwarteten Listenformat. Alle 38 XML-IDs des Moduls geprueft (scripts/pruefe_abo_xmlids.py):
+keine fehlende ID mehr. Funktionstest scripts/test_abo_smartbuttons.py lokal und VM 11 OK / 0 FEHL
+(0 / 1 / mehrere Rechnungen, Gegenprobe fremde Rechnung, Verkauf-Button). Browsertest VM 54 OK / 1 FEHL,
+der letzte Nachweis manuell durch Anna erbracht: Abo 183 oeffnet die zugehoerigen Rechnungen,
+Abo 172 blendet den Button bei 0 Rechnungen aus.
+**STATUS: ABONNEMENTS = VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET.**
+Keine offenen fachlichen oder technischen Grundsatzentscheidungen fuer dieses Modul.
+
 **Teil 10 erledigt (Abschluss Rechnungserzeugung):** `docs/o11-o18-vergleich-abo-teil10.md`.
 Vier Odoo-11-Kompatibilitaetsreste in itk_subscription behoben (get_fiscal_position,
 map_tax-Signatur, message_post_with_view, fehlendes move_type am account.move).
