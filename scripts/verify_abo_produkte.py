@@ -1,10 +1,12 @@
-"""Prueft die Umsetzung des Unterbereichs Abonnement Produkte (Session 118, Teil 14).
+"""Prueft die Umsetzung des Unterbereichs Abonnement Produkte (Session 118/119, Teil 14).
 
 Prueft read-only:
-  - Modulstatus und Version
-  - Produktliste: Spalten und Beschriftungen (Interne Kategorie, Bestandsmenge, geplante Bestandsmenge)
+  - Modulstatus und Versionen (itk_subscription, itk_product, itk_multifactor)
+  - Produktliste: Spalten und Beschriftungen (Interne Kategorie, Status, Einheit)
+  - Produktliste: Bestandsmenge/Geplante Bestandsmenge bewusst NICHT vorhanden
+    (in Odoo 11 nie benutzt - siehe docs/o11-o18-vergleich-abo-teil14.md)
   - Suchansicht: Filter und Gruppierungen
-  - Beschriftungen der Spaltenfelder (Status, Mit Faktor multiplizieren, Interne Kategorie)
+  - Produktformular: to_multiply_by_factor entfernt, is_multi_factor_product vorhanden
 
 Aufruf: python scripts/verify_abo_produkte.py --instanz lokal|vm
 """
@@ -19,11 +21,16 @@ import sys
 import urllib.request
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Odoo-11-Liste des Menuepunkts "Abonnement Produkte" (Aktion 514):
+#   sequence, default_code, name, is_multi_factor_product, list_price, standard_price,
+#   product_type_id (Status), categ_id, [type], qty_available, virtual_available, uom_id, active
 ERWARTET_SPALTEN = ["default_code", "name", "is_multi_factor_product", "list_price", "standard_price",
-                    "product_type_id", "categ_id", "qty_available", "virtual_available", "uom_id",
-                    "product_tag_ids", "type"]
-ERWARTET_FILTER = ["filter_recurring", "filter_multi_factor"]
+                    "product_type_id", "categ_id", "uom_id", "product_tag_ids", "type"]
+OHNE_STOCK = ["qty_available", "virtual_available"]
+ERWARTET_FILTER = ["filter_recurring", "filter_multi_factor", "filter_abo_aktiv"]
 ERWARTET_GRUPPEN = ["categ_id", "product_type_id", "type", "is_multi_factor_product"]
+ERWARTETE_MODULE = {"itk_subscription": None, "itk_product": None, "itk_multifactor": None}
 
 
 def main() -> int:
@@ -65,9 +72,16 @@ def main() -> int:
             fehler += 1
             print("  FEHL %s" % txt)
 
-    modul = kw("ir.module.module", "search_read", [[["name", "=", "itk_subscription"]], ["state", "latest_version"]])[0]
-    print("\nModul: %s %s" % (modul["state"], modul["latest_version"]))
-    pruefe(modul["state"] == "installed", "Modul installiert (kein Fehlerzustand)")
+    print("\n--- Module ---")
+    for name in ERWARTETE_MODULE:
+        treffer = kw("ir.module.module", "search_read",
+                     [[["name", "=", name]], ["name", "state", "installed_version", "latest_version"]])
+        if treffer:
+            m = treffer[0]
+            print("   %-18s %-10s installiert=%s latest=%s" % (name, m["state"], m["installed_version"], m["latest_version"]))
+            pruefe(m["state"] == "installed", "%s installiert (kein Fehlerzustand)" % name)
+        else:
+            pruefe(False, "%s gefunden" % name)
 
     print("\n--- Produktliste ---")
     arch = kw("product.template", "get_views", [[[False, "list"]]], context={"lang": "de_DE"})["views"]["list"]["arch"]
@@ -75,18 +89,22 @@ def main() -> int:
     print("   Spalten: %s" % spalten)
     for feld in ERWARTET_SPALTEN:
         pruefe(feld in spalten, "Spalte vorhanden: %s" % feld)
+    for feld in OHNE_STOCK:
+        pruefe(feld not in spalten, "Spalte bewusst nicht vorhanden (kein Lager): %s" % feld)
+    pruefe(len(spalten) == len(set(spalten)), "keine Spalte doppelt")
     beschriftungen = dict(re.findall(r"<field name=\"([^\"]+)\"[^>]*string=\"([^\"]*)\"", arch))
     print("   Beschriftungen: %s" % beschriftungen)
     pruefe(beschriftungen.get("categ_id") == "Interne Kategorie", "categ_id heisst 'Interne Kategorie'")
-    pruefe(beschriftungen.get("qty_available") == "Bestandsmenge", "qty_available heisst 'Bestandsmenge'")
-    pruefe(beschriftungen.get("virtual_available") == "Geplante Bestandsmenge",
-           "virtual_available heisst 'Geplante Bestandsmenge'")
-    pruefe("optional=\"show\"" in arch or "optional='show'" in arch, "Spalten sind sichtbar geschaltet (optional show)")
+    pruefe(beschriftungen.get("product_type_id") == "Status", "product_type_id heisst 'Status'")
+    pruefe(beschriftungen.get("uom_id") == "Einheit", "uom_id heisst 'Einheit'")
+    for feld in ("is_multi_factor_product", "categ_id"):
+        pruefe(bool(re.search(r"<field name=\"%s\"[^>]*optional=\"show\"" % feld, arch)),
+               "Spalte in der Spaltenauswahl sichtbar (optional show): %s" % feld)
 
     print("\n--- Suchansicht ---")
     suche = kw("product.template", "get_views", [[[False, "search"]]], context={"lang": "de_DE"})["views"]["search"]["arch"]
     filter_namen = re.findall(r"<filter[^>]*name=\"([^\"]+)\"", suche)
-    gruppen = re.findall(r"group_by': '(\w+)'", suche)
+    gruppen = re.findall(r"group_by'\s*:\s*'(\w+)'", suche)
     print("   Filter: %s" % filter_namen)
     print("   Gruppierungen: %s" % gruppen)
     for f in ERWARTET_FILTER:
@@ -94,6 +112,13 @@ def main() -> int:
     for g in ERWARTET_GRUPPEN:
         pruefe(g in gruppen, "Gruppierung vorhanden: %s" % g)
     pruefe("filter_products" in filter_namen or "categ_id" in filter_namen, "bestehende Odoo-18-Filter erhalten")
+    pruefe(not any(f.startswith("filter_c") for f in filter_namen), "keine nachgebauten Odoo-11-Service-Type-Filter")
+
+    print("\n--- Produktformular ---")
+    form = kw("product.template", "get_views", [[[False, "form"]]], context={"lang": "de_DE"})["views"]["form"]["arch"]
+    pruefe("to_multiply_by_factor" not in form, "to_multiply_by_factor ist aus dem Formular entfernt")
+    pruefe("is_multi_factor_product" in form, "is_multi_factor_product ist im Formular vorhanden")
+    pruefe("product_type_id" in form, "product_type_id (Status) ist im Formular vorhanden")
 
     print("\n--- Feldbeschriftungen ---")
     felder = kw("product.template", "fields_get", [["is_multi_factor_product", "to_multiply_by_factor", "product_type_id"],

@@ -62,9 +62,11 @@
                         <field name="product_type_id"/>
                     </group>
                 </xpath>
-                <xpath expr="//group[@name='group_standard_price']/field[last()]" position="after">
-                    <field name="to_multiply_by_factor"/>
-                </xpath>
+                <!-- 22.09.2026 (Teil 14): to_multiply_by_factor aus dem Formular entfernt.
+                     Das Feld hat keine Logik (0 Verwendungen im Code, kein Schreibzugriff)
+                     und ist das unbenutzte Duplikat von is_multi_factor_product
+                     (itk_multifactor). Das Feld bleibt in der Datenbank, es werden keine
+                     Daten geaendert. -->
             </field>
         </record>
 

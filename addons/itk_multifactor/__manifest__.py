@@ -5,9 +5,10 @@
     'author': "Alvarium Services, Andreas Vathroder, Fabian Vathroder",
     'website': "http://www.alvarium-services.de",
     'category': 'ITK - Specific Industry Applications',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.1.0',
     'license': 'LGPL-3',
-    'depends': ['base', 'product', 'sale', 'itk_saleorder_lines', 'itk_subscription'],
+    # itk_product wird fuer product_type_id (Status) in Liste und Suchansicht gebraucht.
+    'depends': ['base', 'product', 'sale', 'itk_saleorder_lines', 'itk_subscription', 'itk_product'],
     'data': [
         'security/ir.model.access.csv',
         'views/res_partner.xml',
