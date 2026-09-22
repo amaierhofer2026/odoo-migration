@@ -64,7 +64,8 @@ def main() -> int:
     if a.instanz == "vm":
         url, domain, db, user, pwd = "https://k001959vsx.ipax.at", "k001959vsx.ipax.at", env["ODOO18_DB"], env["ODOO18_USER"], env["ODOO18_PWD"]
     else:
-        url, domain, db, user, pwd = "https://portal.it-kommunal.at", "portal.it-kommunal.at", "ITK_V1_a", "anna.maierhofer@it-kommunal.at", "anma120126!"
+        url, domain, db, user = "https://portal.it-kommunal.at", "portal.it-kommunal.at", "ITK_V1_a", env["ODOO11_USER"]
+        pwd = env["ODOO11_PWD"]  # Zugangsdaten nur aus .env (gitignored), nie im Skript
     sid, kw = rpc(url, db, user, pwd)
     print("Instanz: %s (%s) - %s" % (a.instanz, url, "nur lesend" if a.instanz == "o11" else "Abnahme"))
     os.makedirs(VZ, exist_ok=True)
