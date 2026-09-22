@@ -6552,3 +6552,19 @@ zugehoerigen Rechnungen, Abo 172 blendet den Button bei 0 Rechnungen aus).
 **ABONNEMENTS = VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-11).
 Offen nur noch Ausfuehrungsschritte der Migration, keine Entscheidungen:
 migration/abo_migrationsregeln.json.
+
+## Session 118, Teil 12: manueller Rechnungsweg und Finanzposition (22.09.2026)
+
+Button "Rechnung manuell erstellen" brach bei Kunden mit Finanzposition ab (psycopg2.ProgrammingError:
+can't adapt type 'account.fiscal.position'). Ursache: Odoo 11 liefert fuer get_fiscal_position/map_account
+IDs, Odoo 18 Recordsets; der Odoo-11-Nachbau greift auf berechnete Felder der Finanzposition zu.
+Behoben (itk_subscription 18.0.1.2.5): Finanzposition nur noch als ID am Beleg uebergeben, Konten- und
+Steuerzuordnung durch Odoo; map_account/map_tax-Nachbau und map_tax-Bruecke entfernt; die Bruecke
+get_fiscal_position -> _get_fiscal_position bleibt (vier Aufrufstellen).
+
+Nachweise: Cron 13 OK/0 FEHL, manuell 16 OK/0 FEHL (lokal und VM), Browser-Klick VM 4 OK/0 FEHL.
+Merke: der manuelle Button rechnet sofort ab (wie in Odoo 11), der Cron ist datumsgefiltert.
+Neue Abnahmeregel: Buttons gelten erst als funktionsfaehig, wenn sie auf der VM im echten Browser
+geklickt wurden und fehlerfrei durchlaufen.
+
+**ABONNEMENTS = VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-12).
