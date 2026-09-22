@@ -491,7 +491,7 @@ Chancen in Stufe „Verloren“ (in Odoo 11 nicht gepflegt).
 
 **Nachweis:** `scripts/verify_s114_crm_chancen.py` → lokal 52 OK / 0 FEHL; Browser-Prüfung auf der VM.
 
-### 6.14 Abonnements / Subscriptions - TEIL 1-4 ERLEDIGT, STRUKTURELL UND FUNKTIONAL **MIGRATIONSVORBEREITET** (Modulstatus, Feldinventar, Zustandslogik, Mapping), 18.09.2026 (Session 118)
+### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND MIGRATIONSBEREIT** (Teile 1-5: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten), 18.09.2026 (Session 118)
 
 Dokument: `docs/o11-o18-vergleich-abo-teil1.md`.
 
@@ -529,6 +529,17 @@ Odoo 18 VM): Zustaende Neu und Laufend sowie Abo ohne Auftrag. Smart Buttons/Zae
 Einziger Unterschied: Odoo 11 hatte den Button "Abonnement-Zusatzverkäufe", Odoo 18 fuehrt dies ueber den
 Assistenten "Optionen hinzufügen" - funktional vorhanden. Beschriftung `recurring_next_date` bleibt
 (Entscheidung Anna). 42 Alt-Abos: keine Regel festgelegt, nur funktional geprueft.
+
+**Teil 5 erledigt (Abschluss):** `docs/o11-o18-vergleich-abo-teil5.md`. Die in Odoo 11 referenzierten
+Stammdaten sind angelegt: 1 fehlende Vorlage ("J- Jahresabrechnungsabo-Mindestvertragsdauer 12 Monate",
+Odoo 11: 1 Abo) und 26 fehlende Beendigungsgruende (Odoo 11: 170 Verwendungen). Nicht angelegt: Vorlage
+"5-Jahresabo" (0 Referenzen) und 2 Gruende ohne Verwendung. Werkzeug `scripts/apply_abo_stammdaten.py`
+(lokal + VM ausgefuehrt). Abschlusspruefung `scripts/verify_s118_abo.py`:
+**lokal 19 OK / 0 FEHL, VM 19 OK / 0 FEHL**. Damit hat jedes in Odoo 11 verwendete Feld, jede verwendete
+Vorlage und jeder verwendete Beendigungsgrund ein eindeutiges Ziel in Odoo 18.
+**Status: ABONNEMENTS = VOLLSTAENDIG FUNKTIONSFAEHIG UND MIGRATIONSBEREIT** (ohne Datenmigration).
+Offen nur noch Datenschritte: Auswahlregel, Reihenfolge Auftraege-vor-Abos, Multiplikationsfaktor-Freigabe,
+Rechnungsstellung nach der Migration, Uebernahme der NV-Nummern.
 
 **Teil 4 erledigt:** `docs/o11-o18-vergleich-abo-teil4.md` mit vollstaendiger Migrations-Mapping-Tabelle
 (Abo-Kopf, Abo-Zeilen) und Abschlusspruefung. Ergebnis: **keine strukturellen oder funktionalen Luecken**

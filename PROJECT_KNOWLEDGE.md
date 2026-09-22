@@ -6502,3 +6502,23 @@ Transformation; berechnet sind recurring_total, recurring_monthly, end_of_contra
 **Status: strukturell und funktional MIGRATIONSVORBEREITET.** Offen (Datenschritte): 2 fehlende Vorlagen,
 28 fehlende Beendigungsgruende, Auswahlregel der Abos, Reihenfolge Auftraege-vor-Abos,
 Multiplikationsfaktor-Freigabe, Rechnungsstellung nach der Migration, Uebernahme der NV-Nummern.
+
+## Session 118, Teil 5: Abo-Stammdaten angelegt, Bereich abgeschlossen (18.09.2026)
+
+Von Anna freigegeben und umgesetzt: In Odoo 18 angelegt wurden die in Odoo 11 tatsaechlich referenzierte
+Vorlage "J- Jahresabrechnungsabo-Mindestvertragsdauer 12 Monate" (Odoo 11: 1 Abo; Intervall monthly/1,
+Mindestlaufzeit 12 monthly) und 26 fehlende Beendigungsgruende (Odoo 11: 170 Verwendungen; Odoo 18 hat
+jetzt 31 Gruende). Nicht angelegt: Vorlage "5-Jahresabo" (0 Referenzen) und 2 Gruende ohne Verwendung
+("wird noch Intrakommuna abgelöst", "Maria Saal").
+
+Werkzeuge: `scripts/apply_abo_stammdaten.py` (idempotent, lokal + VM ausgefuehrt) und
+`scripts/verify_s118_abo.py` (Abschlusspruefung: Vorlagen, Gruende, Felder, Status, Intervalle, Cronjobs,
+Verlaengerung, Kuendigung, Abo ohne Auftrag, keine Datenmigration) - lokal 19 OK / 0 FEHL, VM 19 OK / 0 FEHL.
+
+**Falle:** Die fuenf urspruenglich in Odoo 18 vorhandenen Beendigungsgruende haben ENGLISCHE Quelltexte
+("Subscription is too expensive") mit deutscher Uebersetzung - Abfragen ohne `context={'lang':'de_DE'}`
+vergleichen daher gegen die englischen Namen. Pruefwerkzeuge immer mit de_DE lesen.
+
+**Status: ABONNEMENTS = VOLLSTAENDIG FUNKTIONSFAEHIG UND MIGRATIONSBEREIT** (keine Datenmigration).
+Offen (Datenschritte): Auswahlregel der Abos, Reihenfolge Auftraege vor Abos, Multiplikationsfaktor-Freigabe,
+Rechnungsstellung nach der Migration, Uebernahme der NV-Nummern.

@@ -126,7 +126,10 @@ Prüfwerkzeug: `python scripts/vm_abnahme_check.py` · Detailregel: `docs/arbeit
   laufen in Odoo 18 vollstaendig. **Teil 4:** `docs/o11-o18-vergleich-abo-teil4.md` -
   Abschlusspruefung und Migrations-Mapping-Tabelle -> Bereich strukturell und funktional
   **MIGRATIONSVORBEREITET**; offen nur Stammdaten (2 Vorlagen, 28 Beendigungsgruende) und Auswahlregel.
-  Keine Datenmigration, Odoo 11 read-only.
+  **Teil 5 (Abschluss):** `docs/o11-o18-vergleich-abo-teil5.md` - fehlende Vorlage und 26 Beendigungs-
+  gruende angelegt (`scripts/apply_abo_stammdaten.py`), Abschlusspruefung 19 OK / 0 FEHL (lokal + VM)
+  -> **ABONNEMENTS = VOLLSTAENDIG FUNKTIONSFAEHIG UND MIGRATIONSBEREIT**. Keine Datenmigration,
+  Odoo 11 read-only.
 
 - **Bereich Angebote / Verkaufsauftraege - Bestandsaufnahme (Session 117, 18.09.2026):**
   `docs/o11-o18-strukturvergleich-angebote-auftraege.md`. Odoo 11: 2.460 Auftraege, 1.764 Abonnements.
