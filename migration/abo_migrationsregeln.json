@@ -1,0 +1,129 @@
+{
+  "modul": "itk_subscription (Odoo 11 -> Odoo 18)",
+  "stand": "22.09.2026, Session 118 Teil 8",
+  "quellen": "Odoo 11 Prod portal.it-kommunal.at, DB ITK_V1_a, ausschliesslich lesend",
+  "bestand_odoo11": {
+    "abos_gesamt": 1764,
+    "zeilen": 2434,
+    "status": {
+      "draft": 3,
+      "open": 1482,
+      "pending": 0,
+      "close": 48,
+      "cancel": 231
+    },
+    "mit_verkaufsauftrag": 1722,
+    "ohne_verkaufsauftrag": 42
+  },
+  "auswahlregel": {
+    "beschreibung": "Alle Abos werden uebernommen AUSSER abgebrochenen Abos ohne Verkaufsauftrag.",
+    "regeln": [
+      {
+        "nr": 1,
+        "bedingung": "state in (open, pending)",
+        "aktion": "uebernehmen",
+        "anzahl": 1482
+      },
+      {
+        "nr": 2,
+        "bedingung": "state = close",
+        "aktion": "uebernehmen",
+        "anzahl": 48,
+        "begruendung": "Historien- und Belegwert; Beendigungsgrund vorhanden"
+      },
+      {
+        "nr": 3,
+        "bedingung": "state = cancel und sale_order_id gesetzt",
+        "aktion": "uebernehmen",
+        "anzahl": 215
+      },
+      {
+        "nr": 4,
+        "bedingung": "state = draft",
+        "aktion": "uebernehmen",
+        "anzahl": 3
+      },
+      {
+        "nr": 5,
+        "bedingung": "state = cancel und sale_order_id leer",
+        "aktion": "NICHT uebernehmen",
+        "anzahl": 16,
+        "begruendung": "kein Auftrags- und kein Rechnungsbezug, abgebrochener Altbestand"
+      }
+    ],
+    "uebernehmen_gesamt": 1748,
+    "nicht_uebernehmen_gesamt": 16,
+    "alter": "Alter und letzte Aktivitaet sind kein Ausschlusskriterium (ein offenes Abo von 2008 wird uebernommen)."
+  },
+  "reihenfolge": [
+    {
+      "schritt": 1,
+      "was": "Kontakte/Kunden (res.partner)",
+      "schluessel": "Odoo-11-ID -> neue ID, Tabelle partner_mapping"
+    },
+    {
+      "schritt": 2,
+      "was": "Produkte und Preislisten",
+      "schluessel": "default_code bzw. Name+Land"
+    },
+    {
+      "schritt": 3,
+      "was": "Verkaufsauftraege (sale.order)",
+      "schluessel": "sale.order.name ist in Odoo 11 eindeutig",
+      "hinweis": "1463 Auftraege tragen 1722 Abos, ein Auftrag kann bis zu 41 Abos tragen"
+    },
+    {
+      "schritt": 4,
+      "was": "Abos (sale.subscription)",
+      "schluessel": "code (in Odoo 11 eindeutig, ohne Duplikate)",
+      "hinweis": "name ist NICHT eindeutig (1.082 Abos heissen 'Jahresabrechnung-Abonnement')"
+    },
+    {
+      "schritt": 5,
+      "was": "Abo-Zeilen (sale.subscription.line)",
+      "schluessel": "Abo-Mapping, Verknuepfung ueber analytic_account_id"
+    },
+    {
+      "schritt": 6,
+      "was": "Auftragsverknuepfung der Abos",
+      "schluessel": "Auftragsmapping aus Schritt 3"
+    },
+    {
+      "schritt": 7,
+      "was": "Beendigungsgruende",
+      "schluessel": "Name, 31 Ziele vorhanden"
+    },
+    {
+      "schritt": 8,
+      "was": "Rechnungsbezug",
+      "schluessel": "nur informativ, Odoo 11 Rechnungen werden NICHT migriert"
+    }
+  ],
+  "auftrags_mapping": "Waehrend der Migration wird je Auftrag die Odoo-11-ID und die neue Odoo-18-ID in eine Tabelle geschrieben (CSV/Datenbank); die Abos werden in einem zweiten Lauf ueber diese Tabelle verknuepft. Schluessel fuer die Kontrolle ist sale.order.name.",
+  "multiplikationsfaktor": {
+    "feld": "qty_multiplication_factor",
+    "odoo11_werte": "kleine ganze Zahlen (Haeufigkeit: 1 = 1875, 2 = 102, 6 = 61, 3 = 41, 8 = 40, ...) - nicht 1000-basiert",
+    "wirkung_odoo11": "kein Einfluss auf quantity, price_unit oder price_subtotal der Abo-Zeile (geprueft an 2.434 Zeilen, Stichproben: Summe = Menge x Preis)",
+    "wirkung_odoo18": "kein Einfluss auf quantity, price_unit oder price_subtotal (4 Testfaelle: 1x1000, 2x500, 1x250, 3x100 - Summe jeweils Menge x Preis)",
+    "regel": "1:1 uebernehmen. Beide Systeme nutzen dasselbe ITK-Modul und dasselbe Feld; die Wirkung ist daher identisch."
+  },
+  "recurring_next_date": {
+    "regel": "Wert aus Odoo 11 unveraendert uebernehmen (1:1). Er bestimmt die naechste Rechnung fachlich korrekt.",
+    "cronjob": "Vor der Migration pausieren, nach Abschluss und Kontrolle wieder aktivieren.",
+    "doppelte_rechnungen": "Der Cron erzeugt je Abo eine Rechnung und setzt recurring_next_date weiter; ein zweiter Lauf erzeugt keine zweite Rechnung.",
+    "hinweis": "Unmittelbar nach der Migration zuerst die Datumsfelder pruefen, dann den Cron freigeben - so entsteht die erste Rechnung kontrolliert."
+  },
+  "nummern": {
+    "schluessel": "code (in Odoo 11 eindeutig: 1.764 Datensaetze, 0 Duplikate, 0 leer)",
+    "name": "1:1 uebernehmen; Duplikate sind vorhanden und fachlich korrekt (1.082 x 'Jahresabrechnung-Abonnement')",
+    "nv_nummern": "619 Abos tragen eine NV-Nummer im Feld name (open 527, cancel 112, close 19, draft 1) - unveraendert uebernehmen",
+    "konflikte_odoo18": "Die Odoo-18-Testabos (Test Monatsabo, Monatsabrechnung-Abonnement, NV-00962) sind Testdaten und werden vor der Migration entfernt.",
+    "neue_abos": "Neue Abos erhalten weiterhin den Vorlagennamen als name; der code wird fortlaufend aus dem NV-Nummernkreis vergeben (NV-xxxxx, naechste freie Nummer)."
+  },
+  "usd_testdaten": {
+    "acht_bestaetigte_testauftraege": "S00190, S00180, S00179, S00176, S00173, S00040, S00007, A-1900011",
+    "status": "reine Odoo-18-Testdaten in USD; Odoo verhindert Waehrungsaenderung und Loeschen bestaetigter Belege",
+    "regel": "Von der Migration und von Abnahmetests ausgeschlossen; keine Datenbankmanipulation.",
+    "nachweis": "Neue Angebote, Rechnungen und Abos entstehen ausschliesslich in EUR (geprueft am 22.09.2026)."
+  }
+}
