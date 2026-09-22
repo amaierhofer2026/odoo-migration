@@ -37,7 +37,15 @@ Uebersetzungen beruhen). Die Uebersetzungsdatei sichert die Anzeige zusaetzlich 
 lokal, Ansicht ueber RPC gelesen:
    lang=de_DE -> Seiten: ['Wiederkehrende Buchungen', 'Einstellungen']
    lang=en_US -> Seiten: ['Wiederkehrende Buchungen', 'Settings']
-Browser auf der VM (scripts/browser_abo_reiter.py): beide Wege, siehe Bericht.
+Browser auf der VM (scripts/browser_abo_reiter.py), echte Klicks:
+```
+Weg 1 normales Abonnement (Abo 172)      : Reiter ['Wiederkehrende Buchungen', 'Einstellungen']  OK
+Weg 2 Zu erneuernde Abonnements          : Reiter ['Wiederkehrende Buchungen', 'Einstellungen']  OK
+   (Menuepunkt id 589 -> Aktion 1107, Abo 182)
+alter Name 'Abonnement-Einträge' nicht mehr sichtbar                                             OK
+ERGEBNIS 3 OK / 0 FEHL, Screenshots 54_VM_Abo_Reiter_normales_Abo.png,
+   55_VM_Abo_Reiter_Zu_erneuern.png
+```
 Alle Funktionstests unveraendert gruen (verify_s118_abo 19 OK/0 FEHL, Cron 13 OK/0 FEHL,
 manueller Weg 16 OK/0 FEHL).
 ```

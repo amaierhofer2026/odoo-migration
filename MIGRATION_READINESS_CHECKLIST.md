@@ -530,6 +530,13 @@ Einziger Unterschied: Odoo 11 hatte den Button "Abonnement-Zusatzverkäufe", Odo
 Assistenten "Optionen hinzufügen" - funktional vorhanden. Beschriftung `recurring_next_date` bleibt
 (Entscheidung Anna). 42 Alt-Abos: keine Regel festgelegt, nur funktional geprueft.
 
+**Teil 13 erledigt (Reiterbeschriftung):** `docs/o11-o18-vergleich-abo-teil13.md`. Erster Reiter im
+Abo-Formular heisst wie in Odoo 11 "Wiederkehrende Buchungen" (vorher "Abonnement-Einträge").
+Gesetzt im Modul selbst (views/sale_subscription_views.xml, <page string=...>) plus de.po-Eintrag,
+damit ein Modul-Upgrade die Beschriftung nicht zuruecksetzt. itk_subscription 18.0.1.2.6.
+Browser auf der VM: normales Abo und Zu erneuernde Abonnements je mit dem Reiter
+"Wiederkehrende Buchungen" bestaetigt (3 OK / 0 FEHL, Screenshots 54/55).
+
 **Teil 12 erledigt (manueller Rechnungsweg + Finanzposition):** `docs/o11-o18-vergleich-abo-teil12.md`.
 Ursache: Odoo 11 liefert IDs, Odoo 18 Recordsets; der Nachbau map_account/map_tax fuehrte zu
 psycopg2.ProgrammingError: can't adapt type 'account.fiscal.position'. Behoben durch die Odoo-18-native

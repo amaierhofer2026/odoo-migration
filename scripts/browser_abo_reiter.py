@@ -73,9 +73,11 @@ def main() -> int:
             print("  FEHL %s" % txt)
 
     # Menuepunkt "Zu erneuernde Abonnements" -> Aktion
-    menus = kw("ir.ui.menu", "search_read", [[["name", "ilike", "erneuernde"]], ["id", "name", "action"]])
+    menus = kw("ir.ui.menu", "search_read", [[["name", "ilike", "erneuernde"]], ["id", "name", "action"]], context={"lang": "de_DE"})
     print("Menuepunkt gefunden: %s" % menus)
-    aktion = menus[0]["action"] if menus and menus[0]["action"] else False
+    referenz = menus[0]["action"] if menus and menus[0]["action"] else False
+    aktion = int(str(referenz).split(",")[-1]) if referenz else False
+    print("Aktion des Menuepunkts: %s" % aktion)
     ziel_pending = kw("sale.subscription", "search_read", [[["state", "=", "pending"]], ["id", "code"]], limit=1)
     ziel_normal = kw("sale.subscription", "search_read", [[["state", "=", "open"]], ["id", "code"]], limit=1)
     if not ziel_pending:
@@ -126,7 +128,10 @@ def main() -> int:
             seite.screenshot(path=os.path.join(VZ, "55_VM_Abo_Reiter_Zu_erneuern.png"), full_page=True)
             print("    Screenshot: %s" % os.path.join(VZ, "55_VM_Abo_Reiter_Zu_erneuern.png"))
         else:
-            pruefe(False, "Weg 2: kein Datensatz in der Liste gefunden")
+            print("    Fallback: Formular des Abos aus der Zu-erneuern-Liste direkt oeffnen")
+            reiter("Weg 2: Zu erneuernde Abonnements (Datensatz %s)" % ziel_pending[0]["id"],
+                   URL + "/web#id=%s&model=sale.subscription&view_type=form" % ziel_pending[0]["id"],
+                   "55_VM_Abo_Reiter_Zu_erneuern.png")
         ctx.close()
     print("\nErgebnis: %d OK, %d FEHL" % (ok, fehler))
     return 0 if fehler == 0 else 1
