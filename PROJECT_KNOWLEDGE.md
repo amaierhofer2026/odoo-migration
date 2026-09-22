@@ -6577,3 +6577,20 @@ Die Beschriftung steht jetzt direkt im Modul-View (<page string="Wiederkehrende 
 plus de.po-Eintrag; da es Moduldaten mit noupdate=0 sind, bleibt sie nach jedem Upgrade erhalten.
 itk_subscription 18.0.1.2.6. Browser auf der VM: beide Wege (normales Abo, Zu erneuernde Abonnements)
 zeigen den Reiter; 3 OK / 0 FEHL.
+
+## Session 118, Teil 14: Abonnement Produkte (Zwischenstand, Bereich noch offen)
+
+Faktor-Felder geklaert: is_multi_factor_product (itk_multifactor) ist das fachliche Feld und wird in
+der Logik verwendet; to_multiply_by_factor (itk_product) ist ein unbenutztes Duplikat ohne Logik.
+qty_multiplication_factor auf den Abo-Zeilen bleibt unveraendert.
+
+Zwei harte Befunde: (1) is_multi_factor_product/product_type_id gehoeren zu Modulen, die von
+itk_subscription abhaengen - Ansichten mit diesen Feldern muessen in itk_multifactor/itk_product
+liegen, sonst schlaegt das Upgrade mit 'Feld existiert nicht im Modell' fehl. (2) qty_available und
+virtual_available existieren in der Odoo-18-Instanz nicht (kein stock-Modul installiert).
+
+Die Suchansicht product.template.search.abo.produkte ist fertig und validiert (Filter
+filter_multi_factor, filter_abo_aktiv, Gruppierungen categ_id, product_type_id, type,
+is_multi_factor_product), aber noch nicht ausgeliefert. Listenansicht und Produktformular offen.
+
+**ABONNEMENTS = NOCH NICHT ABGESCHLOSSEN.** Uebergabe: docs/uebergabe-session-118-abonnements.md.
