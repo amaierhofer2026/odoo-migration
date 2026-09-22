@@ -1,6 +1,6 @@
 {
     'name': 'ITK Abo-Management',
-    'version': '18.0.1.2.0',
+    'version': '18.0.1.2.1',
     'category': 'Sales',
     'summary': 'Management of Abos',
     'description': """

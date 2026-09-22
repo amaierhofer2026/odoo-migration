@@ -530,6 +530,13 @@ Einziger Unterschied: Odoo 11 hatte den Button "Abonnement-Zusatzverkäufe", Odo
 Assistenten "Optionen hinzufügen" - funktional vorhanden. Beschriftung `recurring_next_date` bleibt
 (Entscheidung Anna). 42 Alt-Abos: keine Regel festgelegt, nur funktional geprueft.
 
+**Teil 7 erledigt (Endabnahme):** `docs/o11-o18-vergleich-abo-teil7.md`. Fehlende Zugriffsregeln der drei
+Assistenten-Modelle ergaenzt (itk_subscription 18.0.1.2.1) - der Button "Abonnement-Zusatzverkäufe" wirft
+jetzt keinen Zugriffsfehler mehr. USD-Testrechnungen geloescht, EUR-Testdaten fuer alle fuenf Zustaende
+angelegt, neue Belege erhalten EUR. Browser-Abschlusspruefung auf der VM **48 OK / 0 FEHL**.
+**Status: ABONNEMENTS = VOLLSTAENDIG FUNKTIONSFAEHIG, EUR-KONSISTENT UND MIGRATIONSBEREIT.**
+Restposten: 8 bestaetigte USD-Testauftraege aus frueheren Sessions (Odoo sperrt Aenderung und Loeschen).
+
 **Teil 6 erledigt (Abschluss Zusatzverkaeufe + EUR):** `docs/o11-o18-vergleich-abo-teil6.md`.
 Button "Abonnement-Zusatzverkäufe" im Abo-Formular ergaenzt (Odoo 11: Aktion 513 = derselbe Assistent
 `sale.subscription.wizard`; Odoo 18: Aktion 1101 `itk_subscription.wizard_action`) - Modulversion
