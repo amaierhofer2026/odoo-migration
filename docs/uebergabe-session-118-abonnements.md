@@ -3,6 +3,22 @@
 Diese Datei ist die Arbeitsgrundlage fuer die naechste Session. Sie fasst zusammen, was im Bereich
 Abonnements fertig ist, was offen ist und wie die offenen Punkte technisch anzugehen sind.
 
+> **Korrektur Session 119 (22.09.2026)** - die folgenden Angaben dieser Uebergabe sind nicht
+> belegbar und wurden in Session 119 richtiggestellt:
+> 1. Abschnitt 8 nennt `itk_subscription` 18.0.1.2.6 (so auch in den Teilen 7-13). Git-Historie und
+>    Datenbank stehen auf **18.0.1.2.1** (1.0.0 -> 1.1.0 -> 1.2.0 -> 1.2.1); die Code-Aenderungen
+>    der Teile 10-13 sind vorhanden, die Versionsnummer wurde nie hochgesetzt.
+> 2. Abschnitt 4/5: die Suchansicht "product.template.search.abo.produkte" war **nicht** als
+>    Moduldaten vorhanden (kein Vorkommen im Repo). Sie wurde in Session 119 neu in
+>    `itk_multifactor/views/itk_product.xml` angelegt und ausgeliefert.
+> 3. Abschnitt 4b: Lager wurde geprueft - in Odoo 11 nie fachlich genutzt (0 erledigte
+>    Lagerbewegungen, 0 Bestandszeilen, 0 Produkte mit Bestand, 0 Lagerartikel, 1 Standard-
+>    Lagerhaus, 0 Bestellvorschlaege). `stock` wird deshalb **nicht** installiert; Bestandsmenge
+>    und Geplante Bestandsmenge entfallen begruendet.
+> 4. Teil 14 ist abgeschlossen: `docs/o11-o18-vergleich-abo-teil14.md`, Abnahme auf der VM im
+>    echten Browser (Screenshots 60-66). Damit ist der Bereich **vollstaendig funktionsfaehig und
+>    vollstaendig migrationsvorbereitet** (Checkliste Abschnitt 6.14).
+
 ## 1. Gesamtstatus
 
 ```

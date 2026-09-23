@@ -6594,3 +6594,84 @@ filter_multi_factor, filter_abo_aktiv, Gruppierungen categ_id, product_type_id, 
 is_multi_factor_product), aber noch nicht ausgeliefert. Listenansicht und Produktformular offen.
 
 **ABONNEMENTS = NOCH NICHT ABGESCHLOSSEN.** Uebergabe: docs/uebergabe-session-118-abonnements.md.
+
+## Session 119, Teil 14: Abonnement Produkte abgeschlossen (22.09.2026)
+
+Arbeitsgrundlage: docs/uebergabe-session-118-abonnements.md. Odoo 11 Prod ausschliesslich read-only,
+keine Produktivdaten migriert. Bereichsdokument: docs/o11-o18-vergleich-abo-teil14.md.
+
+**Entscheidung Lager (stock wird NICHT installiert).** Read-only in Odoo 11 gemessen
+(scripts/analyse_o11_lager.py, analyse_o11_lager_teil2.py): stock ist dort installiert (11.0.1.1),
+aber nie genutzt - 327 stock.move (288 assigned, 39 storniert, 0 erledigt), 252 Lieferauftraege
+(224 assigned, 28 storniert, 0 erledigt, alle aus dem Bestaetigen von Verkaufsauftraegen),
+0 stock.quant, 0 Bestellvorschlaege, 1 Standard-Lagerhaus (WH "My Company"), 13 Standard-Lagerorte,
+0 Produkte mit Bestand != 0 (von 649), 0 Produkte vom Typ "Lagerartikel", 82 Produkte mit
+negativer "Geplanter Bestandsmenge" - reine Ableitung aus nie ausgefuehrten Lieferauftraegen.
+Deshalb entfallen Bestandsmenge und Geplante Bestandsmenge in Odoo 18 mit Begruendung; stock nur
+fuer zwei leere Spalten zu installieren waere unverhaeltnismaessig (neue Menues, Lagerorte,
+Bewertung, Produktformular- und Auftragslogik-Aenderungen).
+
+**to_multiply_by_factor ist keine Odoo-11-Dublette aus Altdaten, sondern eine Migrationsdublette:**
+das Feld existiert in Odoo 11 weder auf product.template noch auf product.product (fields_get
+liefert es nicht; is_multi_factor_product existiert dort, 1 Produkt true). Es hat 0 Verwendungen
+im Code und wurde aus dem Produktformular entfernt (itk_product 18.0.1.0.1); das Feld bleibt in
+der Datenbank. qty_multiplication_factor auf den Zeilen ist unberuehrt (Odoo 11: 1.366
+Auftragszeilen und 560 Abo-Zeilen != 1).
+
+**Umsetzung:** itk_multifactor 18.0.1.1.1 - Wurzel-Produktliste: categ_id als "Interne Kategorie"
+und is_multi_factor_product in der Spaltenauswahl (optional="show"); neue Suchansicht
+product.template.search.abo.produkte mit den Filtern "Mit Faktor multipliziert" und
+"Aktive Abonnement Produkte" sowie den Gruppierungen "Status" (product_type_id) und
+"Mit Faktor multipliziert"; das Modul haengt jetzt von itk_product ab (product_type_id). Die
+Odoo-11-Filter "Service Type ..." wurden nicht nachgebaut (sie hatten dort Einzelwerte der
+ITK-Produktart fest verdrahtet; in Odoo 18 leistet das die Gruppierung nach product_type_id).
+Bestandsfilter des stock-Moduls entfallen. Odoo-18-Zusatzspalten bleiben erhalten.
+
+**Befunde dieser Session:**
+- F35: Das Faktor-Feld war im Produktformular unsichtbar. Der Anker
+  //field[@name='list_price'] trifft in Odoo 18 das Feld INNERHALB von
+  <div name="list_price_uom"/> - is_multi_factor_product landete in der Preiszeile und wurde nicht
+  gerendert (auf der VM im Browser belegt). Behoben mit Anker //div[@name='list_price_uom'].
+  Merke: in Odoo 18 immer die benannten Bausteine (div/group name) als Anker verwenden, nicht das
+  Feld selbst - Felder liegen oft in einem Layout-div.
+- F36: pruefe_abo_xmlids.py meldete 12 "fehlende XML-IDs", die keine sind: das Muster ref="..."
+  traf auch href="..." (u.a. www.odoo.com in Mail-Templates). Werkzeug korrigiert (Wortgrenze
+  \bref, Filter auf modul.name); Ergebnis jetzt 0 fehlende IDs.
+- F37: test_abo_smartbuttons.py waehlte den Fall "keine Rechnung" per Suche auf invoice_count -
+  ein NICHT gespeichertes Berechnungsfeld. Odoo 18 liefert dabei keinen belastbaren Treffer (es
+  kam Abo 172 zurueck, das tatsaechlich 4 Rechnungen hat) und der Test schlug fehl, obwohl die
+  Anwendung richtig arbeitet (Abo 185 liefert korrekt ir.actions.act_window_close). Merke: Suche
+  auf nicht gespeicherte Berechnungsfelder meiden, ueber read() auswaehlen.
+- F38: Die Versionsangaben 18.0.1.2.3 bis 18.0.1.2.6 in den Session-118-Dokumenten (Teile 7-13)
+  sind im Repo nicht belegt. Git-Historie und DB stehen auf itk_subscription 18.0.1.2.1
+  (1.0.0 -> 1.1.0 -> 1.2.0 -> 1.2.1); die Code-Aenderungen der Teile 10-13 sind vorhanden, die
+  Versionsnummer wurde nie hochgesetzt. Korrektur in der Checkliste (Abschnitt 6.14) und als
+  datierter Hinweis im Uebergabedokument.
+- F39: scripts/browser_abo_pruef.py enthielt das Kennwort der Odoo-11-Prod-Instanz im Klartext
+  (bereits getrackt). Entfernt; Zugangsdaten kommen aus der gitignorierten .env (ODOO11_USER/
+  ODOO11_PWD). Keine History-Umschreibung, kein Eingriff in Odoo 11.
+- Beschriftungsabweichungen (dokumentiert, nicht umbenannt): default_code heisst im Odoo-18-Formular
+  "Referenz" (Basismodul product), in der Liste wie Odoo 11 "Interne Referenz"; product_type_id
+  heisst im Formular "Produkttyp" (Odoo 11: "Product-Type"), in der Liste "Status".
+- Odoo 18 blendet Listenspalten nicht mehr ueber invisible="1" aus (dafuer column_invisible);
+  die in itk_product gesetzte Ausblendung des Feldes type wirkt daher nicht mehr, die Spalte
+  "Produktart" ist sichtbar (Dienstleistung/Verbrauchsgüter). Bewusst als Odoo-18-Zusatzspalte
+  belassen.
+
+**Pruefungen - lokal:** RNG beider XML VALID; pruefe_view_render.py 19 OK/0 FEHL (nach Ankerfix
+12 OK/0 FEHL); upgrade_modules itk_product 18.0.1.0.1 und itk_multifactor 18.0.1.1.0/1.1.1 ohne
+Fehler; verify_abo_produkte 34 OK/0 FEHL; browser_abo_produkte 47 OK/0 FEHL.
+
+**Pruefungen - VM (k001959vsx.ipax.at):** Deploy a07b1d8 -> 4b7389a -> ec2c896 (git pull
+--ff-only, Container-Neustart, Module EINZELN upgegradet). verify_abo_produkte 34 OK/0 FEHL;
+browser_abo_produkte 47 OK/0 FEHL mit echten Klicks (Liste, Spalten, Spaltenauswahl ab- und
+wiederanwaehlen, Suche, 9 Filter, 4 Gruppierungen, Produktformular, EUR, 0 JS-/RPC-Fehler,
+Screenshots 60-66 auf dem Desktop). Gegenpruefung Gesamtbereich: verify_s118_abo 19 OK/0 FEHL,
+pruefe_abo_xmlids 0 fehlende XML-IDs, test_abo_rechnungslauf 13 OK/0 FEHL,
+test_abo_manuelle_rechnung 16 OK/0 FEHL, test_abo_smartbuttons 11 OK/0 FEHL.
+
+Merke (Windows/Docker): Aenderungen am __manifest__.py werden vom laufenden Container nicht
+gesehen - ohne docker restart bleibt die alte Version installiert und das Upgrade meldet
+"alte Version -> alte Version". Erst Neustart, dann upgrade_modules.py --update-list.
+
+**ABONNEMENTS = VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-14).

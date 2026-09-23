@@ -491,9 +491,34 @@ Chancen in Stufe „Verloren“ (in Odoo 11 nicht gepflegt).
 
 **Nachweis:** `scripts/verify_s114_crm_chancen.py` → lokal 52 OK / 0 FEHL; Browser-Prüfung auf der VM.
 
-### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND MIGRATIONSBEREIT** (Teile 1-5: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten), 18.09.2026 (Session 118)
+### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-14: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte), 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119) abgenommen
 
-Dokument: `docs/o11-o18-vergleich-abo-teil1.md`.
+Dokument: `docs/o11-o18-vergleich-abo-teil1.md`; Teil 14: `docs/o11-o18-vergleich-abo-teil14.md`.
+
+> Hinweis (Session 119): Die in den Teilen 7-13 genannten Fassungen `itk_subscription`
+> 18.0.1.2.3 bis 18.0.1.2.6 sind im Repo nicht belegt. Die Git-Historie und die Datenbank
+> stehen auf **18.0.1.2.1** (1.0.0 -> 1.1.0 -> 1.2.0 -> 1.2.1); die Code-Aenderungen der Teile
+> 10-13 sind vorhanden, nur die Versionsnummer wurde nie hochgesetzt.
+
+**Teil 14 erledigt (Abonnement Produkte) - 22.09.2026 (Session 119):** `docs/o11-o18-vergleich-abo-teil14.md`.
+Listenansicht: `categ_id` als "Interne Kategorie" und `is_multi_factor_product` als sichtbare
+Spalten in der Spaltenauswahl (`itk_multifactor` 18.0.1.1.1, Modul haengt jetzt von `itk_product`
+ab). Neue Suchansicht `product.template.search.abo.produkte` mit den Filtern
+"Mit Faktor multipliziert" und "Aktive Abonnement Produkte" sowie den Gruppierungen
+"Status" (`product_type_id`) und "Mit Faktor multipliziert"; die Odoo-18-Filter und
+-Gruppierungen bleiben erhalten. Die Odoo-11-Filter "Service Type ..." wurden bewusst nicht
+nachgebaut - sie hatten dort Einzelwerte der ITK-Produktart fest verdrahtet, in Odoo 18 leistet
+das die Gruppierung nach `product_type_id`. `to_multiply_by_factor` ist aus dem Produktformular
+entfernt (`itk_product` 18.0.1.0.1; Feld bleibt in der DB) - es existiert in Odoo 11 nicht und ist
+eine Dublette zu `is_multi_factor_product`. **Lager:** `stock` wird NICHT installiert; read-only
+belegt (0 erledigte Lagerbewegungen, 0 Bestandszeilen, 0 Produkte mit Bestand, 0 Lagerartikel,
+1 Standard-Lagerhaus, 0 Bestellvorschlaege), daher entfallen Bestandsmenge und Geplante
+Bestandsmenge begruendet. Nachweise VM: `verify_abo_produkte.py` 34 OK / 0 FEHL,
+`browser_abo_produkte.py` 47 OK / 0 FEHL (Screenshots 60-66), dazu die Gegenpruefung des
+Gesamtbereichs `verify_s118_abo` 19 OK / 0 FEHL, `pruefe_abo_xmlids` 0 fehlende XML-IDs,
+`test_abo_rechnungslauf` 13 OK / 0 FEHL, `test_abo_manuelle_rechnung` 16 OK / 0 FEHL,
+`test_abo_smartbuttons` 11 OK / 0 FEHL.
+**STATUS: ABONNEMENTS = VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET.**
 
 **Modulstatus:** `sale_subscription` ist ein Katalogeintrag von Odoo Enterprise (OEEL-1) ohne Quellcode
 -> Zustand `uninstallable`, kein Traeger der Funktion und kein Blocker. Traeger ist das ITK-eigene Modul
