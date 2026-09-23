@@ -117,8 +117,14 @@ def main() -> int:
     pruefe(not fremd or fremd[0]["id"] not in ids, "fremde Rechnung ist nicht im Filter")
 
     print("\n--- Fall: keine Rechnung ---")
-    ohne = kw("sale.subscription", "search_read", [[["invoice_count", "=", 0]], ["id", "code"]], limit=1)
+    # invoice_count ist ein NICHT gespeichertes Berechnungsfeld - eine Suche darauf liefert
+    # Odoo 18 keine belastbaren Treffer (Session 119: die Suche lieferte Abo 172, das
+    # tatsaechlich 4 Rechnungen hat). Deshalb ueber read() auswaehlen: dort laeuft die
+    # Berechnung wirklich.
+    kandidaten = kw("sale.subscription", "search_read", [[], ["id", "code", "invoice_count"]], limit=100)
+    ohne = [k for k in kandidaten if not k["invoice_count"]]
     if ohne:
+        print("   Abo ohne Rechnungen laut Zaehler: %s" % [(k["id"], k["code"]) for k in ohne][:5])
         erg = kw("sale.subscription", "action_subscription_invoice", [[ohne[0]["id"]]])
         print("   Abo %s: Aktion type=%s" % (ohne[0]["id"], erg.get("type")))
         pruefe(erg.get("type") == "ir.actions.act_window_close",

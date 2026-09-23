@@ -85,7 +85,9 @@ def main() -> int:
         t = kw("sale.subscription", "search_read", [[["state", "=", st]], ["id", "name", "state", "sale_order_id", "currency_id", "pricelist_id"]], limit=1)
         if t:
             auswahl[st] = t[0]
-    mit = [a for a in auswahl.values() if a["state"] == "open" and a["sale_order_id"]]
+    mit = kw("sale.subscription", "search_read",
+             [[["state", "=", "open"], ["sale_order_id", "!=", False]],
+              ["id", "name", "state", "sale_order_id", "currency_id", "pricelist_id"]], limit=1)
     ohne = kw("sale.subscription", "search_read", [[["sale_order_id", "=", False]], ["id", "name", "state", "currency_id", "pricelist_id"]], limit=1)
     for st, a in auswahl.items():
         print("   %-8s id=%-5s %-26s Auftrag=%-8s Waehrung=%s Preisliste=%s"
@@ -204,8 +206,15 @@ def main() -> int:
             pruefe("kein Zugriff" not in text.lower() and "Traceback" not in text and "External ID" not in text,
                    "Smart Button %s oeffnet sich ohne Fehlermeldung" % knopf_name)
             dialog = lies(".modal-content, .o_dialog")
-            pruefe(erwartung in adresse or "model=" + erwartung in adresse or bool(dialog),
-                   "Smart Button %s oeffnet %s (auch als Dialog)" % (knopf_name, erwartung))
+            # Odoo 18 nutzt sprechende URLs (/odoo/sale.subscription/172/invoicing) - die
+            # Zielmodell-Pruefung ueber die URL greift daher nicht mehr. Geprueft wird jetzt
+            # zusaetzlich die tatsaechlich angezeigte Ansicht (Brotkrumen/Inhalt).
+            brot = lies(".o_breadcrumb")
+            erwartete_ansicht = {"Rechnungen": ("Ausgangsrechnung", "Rechnung"),
+                                 "Verkauf": ("Verkaufsauftrag", "Angebot", "Auftrag")}
+            treffer = [t for t in erwartete_ansicht.get(knopf_name, (erwartung,)) if t in brot or t in text]
+            pruefe(erwartung in adresse or "model=" + erwartung in adresse or bool(dialog) or bool(treffer),
+                   "Smart Button %s oeffnet die Zielansicht (Ansicht: %s)" % (knopf_name, (brot or adresse)[:70]))
             if dialog:
                 print("      Dialog     : %s" % dialog[:120])
             if knopf_name == "Rechnungen":
