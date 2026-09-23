@@ -57,6 +57,18 @@ def client(url):
     return kw
 
 
+def ist_xmlid(kennung):
+    """XML-IDs sind 'modul.name'. Alles mit Pfad-/Ausdruckszeichen ist ein URL- oder
+    Template-Rest und keine XML-ID (z.B. href="www.odoo.com" traf frueher das Muster ref=")."""
+    if not kennung or " " in kennung:
+        return False
+    if any(zeichen in kennung for zeichen in "/\\$?&#{}%'+()"):
+        return False
+    if kennung.count(".") < 1 or kennung.startswith(("http", "www.")):
+        return False
+    return True
+
+
 def sammle_ids():
     treffer = {}
     for pfad in glob.glob(os.path.join(MODUL, "**", "*.*"), recursive=True):
@@ -64,17 +76,17 @@ def sammle_ids():
             continue
         text = open(pfad, encoding="utf-8", errors="replace").read()
         for nr, zeile in enumerate(text.splitlines(), 1):
-            for muster in (r"env\.ref\(\s*['\"]([^'\"]+)['\"]", r"ref\(\s*['\"]([^'\"]+)['\"]",
-                           r"ref=\"([^\"]+)\"", r"get_object_reference\(\s*['\"]([^'\"]+)['\"]\s*,\s*['\"]([^'\"]+)['\"]",
-                           r"selectvalue[^>]*ref=\"([^\"]+)\""):
+            # \bref(...) / \bref="..." - ohne Wortgrenze wuerde href="..." mitgelesen.
+            for muster in (r"env\.ref\(\s*['\"]([^'\"]+)['\"]", r"\bref\(\s*['\"]([^'\"]+)['\"]",
+                           r"\bref=\"([^\"]+)\"",
+                           r"get_object_reference\(\s*['\"]([^'\"]+)['\"]\s*,\s*['\"]([^'\"]+)['\"]",
+                           r"selectvalue[^>]*\bref=\"([^\"]+)\""):
                 for m in re.finditer(muster, zeile):
-                    if len(m.groups()) == 2:
-                        kennung = "%s.%s" % (m.group(1), m.group(2))
-                    else:
-                        kennung = m.group(1)
-                    if "." not in kennung or kennung.startswith(("http", "mail.", "web.")) is None:
-                        pass
-                    treffer.setdefault(kennung, []).append("%s:%s" % (os.path.relpath(pfad, REPO).replace("\\", "/"), nr))
+                    kennung = "%s.%s" % (m.group(1), m.group(2)) if len(m.groups()) == 2 else m.group(1)
+                    if not ist_xmlid(kennung):
+                        continue
+                    treffer.setdefault(kennung, []).append(
+                        "%s:%s" % (os.path.relpath(pfad, REPO).replace("\\", "/"), nr))
     return treffer
 
 
