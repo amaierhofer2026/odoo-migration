@@ -145,6 +145,16 @@ Prüfwerkzeug: `python scripts/vm_abnahme_check.py` · Detailregel: `docs/arbeit
   Migration und kein Nachbau, Teil 1 damit ohne offene Punkte abgeschlossen); Odoo-18-Zusatzfunktionen
   bleiben.
 
+- **Bereich Verkauf - Teil 2 Feldinventar (Session 121, 24.09.2026):**
+  `docs/o11-o18-vergleich-verkauf-teil2.md`. sale.order Odoo 11 89 Felder gegen Odoo 18 110
+  (gemeinsam 58), sale.order.line 53 gegen 80 (gemeinsam 39); jedes verwendete Feld mit Typ,
+  Relation, Pflicht/readonly, belegten Datensaetzen, Selection-Werten und Odoo-18-Ziel.
+  5 Typ-/Relationsabweichungen, alle Umbenennungen (account.invoice -> account.move,
+  crm.lead.tag -> crm.tag, product.uom -> uom.uom, note text -> html). ITK-Felder vollstaendig
+  vorhanden. Felder aus sale_stock/sale_timesheet entfallen begruendet; Felder ohne Ziel und
+  obsolet sind getrennt ausgewiesen. Nachweis `scripts/verify_s121_verkauf_teil2.py`
+  111 OK / 0 FEHL (Odoo 11 read-only, lokal und VM). Keine Aenderung an Odoo 18.
+
 - **Bereich Angebote / Verkaufsauftraege - Bestandsaufnahme (Session 117, 18.09.2026):**
   `docs/o11-o18-strukturvergleich-angebote-auftraege.md`. Odoo 11: 2.460 Auftraege, 1.764 Abonnements.
   Alle verwendeten Felder haben ein Odoo-18-Ziel; ITK-Kontaktfelder aus `itk_sale_management` vorhanden.

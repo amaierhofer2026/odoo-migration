@@ -560,6 +560,33 @@ Bereich Verkauf insgesamt weiterhin in Arbeit, noch nicht migrationsbereit.
 **TEIL 1 ENDGUELTIG ABGESCHLOSSEN (24.09.2026): keine offenen Punkte.**
 Offen im Bereich Verkauf nur noch die Teile 2 bis 5.
 
+**Teil 2 - Feldinventar sale.order und sale.order.line (24.09.2026, Session 121): ANALYSIERT.**
+
+Dokument: `docs/o11-o18-vergleich-verkauf-teil2.md`. Nur Analyse, keine Aenderung an Odoo 18,
+keine Datenmigration, Odoo 11 read-only.
+
+```
+sale.order        Odoo 11 89 Felder | Odoo 18 110 | gemeinsam 58 | nur O11 31 | nur O18 52
+sale.order.line   Odoo 11 53 Felder | Odoo 18  80 | gemeinsam 39 | nur O11 14 | nur O18 41
+Typ-/Relationsabweichungen 5, alle Odoo-18-Umbenennungen (account.invoice -> account.move,
+crm.lead.tag -> crm.tag, product.uom -> uom.uom, note text -> html, invoice_lines
+account.invoice.line -> account.move.line)
+ITK-Felder: 8 auf sale.order, 4 auf sale.order.line, alle mit gleichem Namen/Typ/Relation vorhanden
+Uebersetzungs-/Feldbefunde: activity_state heisst in Odoo 11 auf Deutsch faelschlich "Bundesland";
+tag_ids hat 1 von 2.461 Auftraegen belegt (Korrektur der Angabe aus Session 117)
+Stammdaten vor der Migration: Zahlungsbedingungen (613 belegt; "30 Tage netto" mit 2 Auftraegen
+fehlt in Odoo 18), Preisliste, Verkaeufer (31 verschiedene), Vertriebskanal (4 genutzt),
+Stichwoerter (Odoo 18 derzeit 0 crm.tag)
+```
+
+Nachweise: `scripts/verify_s121_verkauf_teil2.py` -> 111 OK / 0 FEHL (Odoo 11 read-only,
+Odoo 18 lokal und VM in einem Lauf); `scripts/analyse_verkauf_teil2_felder.py`,
+`scripts/baue_verkauf_teil2_doku.py`. Gegenprobe: `ir.model.fields` und `fields_get` liefern
+dieselben Feldmengen (je Modell und Instanz).
+
+**TEIL 2 ANALYSIERT (lokal und VM); offene Entscheidungen liegen bei Anna (siehe Dokument
+Abschnitt 13). Bereich Verkauf noch nicht migrationsbereit.**
+
 ### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-15: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte, Produktformular), erste Abnahme 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119), Teil 15 am 24.09.2026 (Session 120) auf der VM im Browser abgenommen
 
 Dokument: `docs/o11-o18-vergleich-abo-teil1.md`; Teil 14: `docs/o11-o18-vergleich-abo-teil14.md`; Teil 15: `docs/o11-o18-vergleich-abo-teil15-produktformular.md`; Uebergabe und Vollstaendigkeitsbestaetigung: `docs/uebergabe-session-120-abonnements.md` (24.09.2026: jedes in Odoo 11 verwendete Feld, Reiter, Button, Smart Button, Statuswechsel, Filter, Gruppierung und jeder Geschaeftsprozess ist gleich vorhanden, funktional gleichwertig an anderer Stelle vorhanden oder bewusst dokumentiert; keine offene funktionale Abweichung).
