@@ -212,14 +212,30 @@ Reklamationen (Aktion 508): Modell crm.claim aus Modul bi_crm_claim, 0 Datensaet
 
 ## 4. Nutzung durch die Benutzer: gespeicherte Filter (Odoo 11)
 
-16 gespeicherte Filter auf `sale.order`/`sale.order.line` in Odoo 11, davon 15 benutzerindividuell
-(14 x Waiss Martina, 1 x Wuerrer Florian) und 1 fuer Administrator. Als Standard je Benutzer gesetzt
-(is_default True): "Angebote" (Waiss Martina) und "Angebote nach Verkaeufer" (Administrator).
-Inhaltlich: Auswertungen nach A-Tool/Gemdat/Kufgem/Comm-Unity/Gemeindecloud/IFG - also
-Auftragssammlungen je Projekt, keine Systemfilter.
+16 gespeicherte Filter auf `sale.order`/`sale.order.line` in Odoo 11, alle benutzergebunden
+(keiner systemweit, keiner ohne Benutzer): 15 x Waiss Martina (darunter 14 Auftragssammlungen je
+Projekt: A-Tool, Gemdat, Kufgem, Comm-Unity, Gemeindecloud, Hinweisgeber, IFG), 1 x Wuerrer Florian.
+**3** davon sind als Benutzerstandard gesetzt (is_default = True) - das sind die einzigen, die einen
+Menueaufruf vorbelegen:
 
-Entscheidung wie in Session 115 (Kundenverwaltung): keine Uebernahme von Favoriten, kein Nachbau.
-Die Odoo-18-Standardfilter bleiben. Bei Bedarf in Teil 3 als KLAERUNG vorlegen.
+```
+"Angebote"                            Benutzer Martina Waiss, Modell sale.order, Aktion 429 (Angebote)
+                                      Domain leer, Kontext group_by state
+                                      -> nur Gruppierung nach Status, keine Dateneinschraenkung
+"Angebote nach Verkaeufer"            Benutzer Administrator, Modell sale.order, Aktion 429
+                                      Domain leer, Kontext group_by user_id
+                                      -> nur Gruppierung nach Verkaeufer
+"Verkaufsauftraege A-Tool Comm-Unity" Benutzer Martina Waiss, Modell sale.order, Aktion 426
+                                      Domain order_line ilike 'A-Tool' UND user_id ilike 'Comm-un'
+                                      -> persoenliche Auftragssammlung, Dateneinschraenkung
+```
+
+Bewertung (read-only geprueft): Kein Filter ist systemweit (0 Datensaetze ohne Benutzer), Odoo 18
+hat auf sale.order/sale.order.line ebenfalls 0 gespeicherte Filter. Die beiden Gruppierungs-
+Voreinstellungen (Status, Verkaeufer) sind in Odoo 18 ueber die Standard-Suchfunktion "Gruppieren
+nach" abbildbar, ohne Nachbau. Der dritte Filter ist eine persoenliche Projektauswahl, die ueber
+Teiltextsuche in Zeilen und Verkaeuferkennung arbeitet und an Odoo-11-Projektnamen haengt; er hat
+keine Systemwirkung. Empfehlung: keine Migration; Entscheidung von Anna noch offen.
 
 ## 5. Vorschlag fuer den Teil-Schnitt (Bereich Verkauf)
 
@@ -245,18 +261,27 @@ abgenommen (Checkliste 6.13; `verify_s117_auftraege.py` 65 OK, `browser_auftraeg
 betrachteten Teile offen: Feldinventar der Auftragszeilen, Listen-/Suchansichten,
 Konfigurations- und Berichtsmenues, Stammdaten des Verkaufs.
 
-## 6. Offene Punkte aus Teil 1 (KLAERUNG NOETIG, Entscheidung Anna)
+## 6. Entscheidungen von Anna (24.09.2026) und verbindliche Vorgaben
 
 ```
-1. Menuepunkt "Verkaufsauftraege aller Kanaele" (Odoo 11, Pivot-Auswertung ueber 3.772 Zeilen)
-   in Odoo 18 nachbauen (Auswertung sale.report, Gruppierung nach Vertriebskanal, Filter
-   aktuelles Verkaufsjahr) oder entfallen lassen?
-2. Default-Filter "Meine Angebote" im Menue Auftraege/Angebote belassen oder auf das
-   Odoo-11-Verhalten (alle Angebote) umstellen?
-3. Favoriten aus Odoo 11 (16 gespeicherte Filter) uebernehmen: nein, wie in Session 115?
-4. Angebotsvorlagen (sale.order.template) und Kopf-/Fusszeilen (quotation.document) sind
-   Odoo-18-Zusatzfunktionen ohne Odoo-11-Vorlage (0 Datensaetze). Belassen als Zusatzfunktion?
+1. "Verkaufsauftraege aller Kanaele" WIRD in Odoo 18 nachgebaut (der Bericht enthaelt in Odoo 11
+   tatsaechlich Daten, 3.772 Zeilen). Umsetzung Odoo-18-konform: Auswertung auf sale.report mit
+   Gruppierung nach Vertriebskanal (team_id) und Filter "aktuelles Verkaufsjahr" - kein Nachbau des
+   Odoo-11-Modells report.all.channels.sales und keine Odoo-11-Pivot-Technik. Einordnung: Teil 4.
+2. Der automatische Default-Filter "Meine Angebote" im Menue Auftraege/Angebote WIRD ENTFERNT
+   (der Menueaufruf verhaelt sich dann wie in Odoo 11). Der Filter selbst bleibt in der Suchleiste
+   auswaehlbar. Einordnung: Teil 3 (Aenderung an der Menueaktion, mit Deploy und Browser-Abnahme
+   auf der VM).
+3. Die 15 benutzerspezifischen gespeicherten Filter werden NICHT migriert. Die 3 als Standard
+   markierten Favoriten wurden am 24.09.2026 read-only geprueft (Abschnitt 4): keiner ist
+   systemweit, zwei setzen nur eine Gruppierung (in Odoo 18 ueber "Gruppieren nach" abbildbar),
+   einer ist eine persoenliche Projektauswahl. Empfehlung: keine Migration. Entscheidung offen.
+4. Odoo-18-Zusatzfunktionen (Angebotsvorlagen, Kopf-/Fusszeilen, Verkaufsteams, Produktvarianten,
+   zusaetzliche Auswertungen) bleiben erhalten.
 ```
+
+Daraus folgt als offener Punkt nur noch Entscheidung 3 (Standardfavoriten). Alles andere ist
+entschieden und den Teilen 3 und 4 zugeordnet.
 
 Nicht mehr offen (in Teil 1 gegengeprueft und korrigiert):
 

@@ -138,6 +138,10 @@ Prüfwerkzeug: `python scripts/vm_abnahme_check.py` · Detailregel: `docs/arbeit
   Ein Odoo-11-Menue fehlt in Odoo 18: Berichtswesen/Verkaufsauftraege aller Kanaele (3.772 Zeilen).
   Zwei tote Odoo-11-Menues dokumentiert (Reportlayout Kategorien, Reklamationen). Odoo 11 read-only,
   keine Datenmigration. Checkliste 6.15 (in Arbeit).
+  **Entscheidungen Anna (24.09.2026):** Bericht "Verkaufsauftraege aller Kanaele" wird in Odoo 18
+  nachgebaut (als `sale.report`-Auswertung, Teil 4); Default-Filter "Meine Angebote" wird aus dem
+  Menue entfernt, bleibt aber auswaehlbar (Teil 3); benutzerspezifische Filter werden nicht migriert
+  (die 3 Benutzerstandards wurden read-only geprueft, 0 systemweit); Odoo-18-Zusatzfunktionen bleiben.
 
 - **Bereich Angebote / Verkaufsauftraege - Bestandsaufnahme (Session 117, 18.09.2026):**
   `docs/o11-o18-strukturvergleich-angebote-auftraege.md`. Odoo 11: 2.460 Auftraege, 1.764 Abonnements.

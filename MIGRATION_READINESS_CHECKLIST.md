@@ -544,6 +544,17 @@ an das Ende des Body; Sichtbarkeitspruefungen ueber `offsetParent` schlagen dort
 **STATUS: TEIL 1 ABGESCHLOSSEN (lokal und VM, im Browser abgenommen).**
 Bereich Verkauf insgesamt weiterhin in Arbeit, noch nicht migrationsbereit.
 
+**Entscheidungen von Anna (24.09.2026):**
+1. "Verkaufsauftraege aller Kanaele" wird in Odoo 18 nachgebaut, Odoo-18-konform als Auswertung auf
+   `sale.report` (Gruppierung Vertriebskanal, Filter aktuelles Verkaufsjahr) - kein Nachbau des
+   Odoo-11-Modells `report.all.channels.sales`. Einordnung: Teil 4.
+2. Default-Filter "Meine Angebote" wird aus dem Menue Auftraege/Angebote entfernt; der Filter bleibt
+   in der Suchleiste auswaehlbar. Einordnung: Teil 3 (mit Deploy und Browser-Abnahme auf der VM).
+3. Die 15 benutzerspezifischen Filter werden nicht migriert. Die 3 als Standard markierten Favoriten
+   wurden read-only geprueft: 0 systemweit, zwei nur Gruppierung (Status, Verkaeufer), einer
+   persoenliche Projektauswahl (A-Tool/Comm-Unity). Empfehlung: keine Migration, Entscheidung offen.
+4. Odoo-18-Zusatzfunktionen (Angebotsvorlagen, Kopf-/Fusszeilen und weitere) bleiben erhalten.
+
 ### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-15: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte, Produktformular), erste Abnahme 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119), Teil 15 am 24.09.2026 (Session 120) auf der VM im Browser abgenommen
 
 Dokument: `docs/o11-o18-vergleich-abo-teil1.md`; Teil 14: `docs/o11-o18-vergleich-abo-teil14.md`; Teil 15: `docs/o11-o18-vergleich-abo-teil15-produktformular.md`; Uebergabe und Vollstaendigkeitsbestaetigung: `docs/uebergabe-session-120-abonnements.md` (24.09.2026: jedes in Odoo 11 verwendete Feld, Reiter, Button, Smart Button, Statuswechsel, Filter, Gruppierung und jeder Geschaeftsprozess ist gleich vorhanden, funktional gleichwertig an anderer Stelle vorhanden oder bewusst dokumentiert; keine offene funktionale Abweichung).

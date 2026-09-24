@@ -6740,3 +6740,26 @@ Abschnittstitel, ihre Eintraege sind flach klickbar.
 
 **STATUS: TEIL 1 = ABGESCHLOSSEN (lokal und VM). Bereich Verkauf weiterhin in Arbeit.**
 Naechster Schritt: Teil 2 Feldinventar sale.order und sale.order.line (nach Freigabe von Anna).
+
+## Session 121, Teil 1 (Abschluss 2): Entscheidungen von Anna (24.09.2026)
+
+```
+1. "Verkaufsauftraege aller Kanaele" wird in Odoo 18 nachgebaut (der Odoo-11-Bericht enthaelt
+   tatsaechlich Daten: 3.772 Zeilen). Odoo-18-konform als Auswertung auf sale.report, Gruppierung
+   nach Vertriebskanal (team_id), Filter "aktuelles Verkaufsjahr" - kein Nachbau des Modells
+   report.all.channels.sales, keine Odoo-11-Pivot-Technik. Umsetzung: Teil 4.
+2. Default-Filter "Meine Angebote" wird aus dem Menue Auftraege/Angebote entfernt (Odoo-11-Verhalten);
+   der Filter bleibt in der Suchleiste auswaehlbar. Umsetzung: Teil 3, mit Deploy und
+   Browser-Abnahme auf der VM.
+3. Die 15 benutzerspezifischen gespeicherten Filter werden nicht migriert. Vorher geprueft (read-only):
+   Odoo 11 hat 16 Filter, 3 als Benutzerstandard, 0 systemweit; Odoo 18 hat 0. Die drei Standards:
+   "Angebote" (Martina Waiss, nur Gruppierung Status), "Angebote nach Verkaeufer" (Administrator, nur
+   Gruppierung Verkaeufer), "Verkaufsauftraege A-Tool Comm-Unity" (Martina Waiss, Domain mit
+   Zeilentext "A-Tool" und Verkaeufer "Comm-un" - persoenliche Projektauswahl). Empfehlung: keine
+   Migration, Entscheidung von Anna noch offen.
+4. Odoo-18-Zusatzfunktionen bleiben erhalten.
+```
+
+**Endstand Teil 1:** lokal = GitHub = VM auf dem finalen main-Stand; Nachweise 41 OK / 0 FEHL
+(Verify, Odoo 11 read-only + lokal + VM) und 43 OK / 0 FEHL (Browser, lokal und VM).
+Odoo 11 Prod ausschliesslich lesend, keine Datenmigration.
