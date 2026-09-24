@@ -67,6 +67,23 @@
                      und ist das unbenutzte Duplikat von is_multi_factor_product
                      (itk_multifactor). Das Feld bleibt in der Datenbank, es werden keine
                      Daten geaendert. -->
+                <!-- 24.09.2026 (Session 120, Teil 15): "Verantwortlich" neben dem Produkttyp
+                     sichtbar machen. In Odoo 11 stand das Feld im Reiter "Lager", der in beiden
+                     Versionen bei Dienstleistungen ausgeblendet ist - deshalb hier im ersten
+                     Reiter, damit der Wert auch beim Abonnement Produkt sichtbar und pflegbar ist. -->
+                <xpath expr="//group[@name='product_type']" position="after">
+                    <group name="itk_responsible">
+                        <field name="responsible_id"/>
+                    </group>
+                </xpath>
+                <!-- 24.09.2026 (Session 120, Teil 15): sichtbarer Wortlaut wie in Odoo 11
+                     ("Notizen" statt "Interne Notizen"). Inhalt unveraendert - die Feldgruppe
+                     enthaelt weiterhin das Beschreibungsfeld; Odoo-18-Zusatzfunktionen der
+                     Gruppe werden nicht entfernt. Quelle steht im Modul, damit ein Upgrade
+                     die Beschriftung nicht zuruecksetzt. -->
+                <xpath expr="//group[@name='internal_notes']" position="attributes">
+                    <attribute name="string">Notizen</attribute>
+                </xpath>
             </field>
         </record>
 

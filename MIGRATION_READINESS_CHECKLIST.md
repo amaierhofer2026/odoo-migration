@@ -491,9 +491,49 @@ Chancen in Stufe „Verloren“ (in Odoo 11 nicht gepflegt).
 
 **Nachweis:** `scripts/verify_s114_crm_chancen.py` → lokal 52 OK / 0 FEHL; Browser-Prüfung auf der VM.
 
-### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-14: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte), 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119) abgenommen
+### 6.14 Abonnements / Subscriptions - **IN ARBEIT** (Teile 1-14 abgeschlossen, Teil 14 am 22.09.2026 (Session 119) abgenommen; **Teil 15 "Produktformular vollstaendig" vom 24.09.2026 (Session 120) hat den Unterbereich "Abonnement Produkte" wieder geoeffnet** - Umsetzung lokal fertig und geprueft, VM-Abnahme offen), erste Abnahme 18.09.2026 (Session 118)
 
-Dokument: `docs/o11-o18-vergleich-abo-teil1.md`; Teil 14: `docs/o11-o18-vergleich-abo-teil14.md`.
+Dokument: `docs/o11-o18-vergleich-abo-teil1.md`; Teil 14: `docs/o11-o18-vergleich-abo-teil14.md`; Teil 15: `docs/o11-o18-vergleich-abo-teil15-produktformular.md`.
+
+**STATUS (24.09.2026, Session 120): ABONNEMENTS = IN ARBEIT.**
+Der Unterbereich "Abonnement Produkte" ist wieder offen. Grund: Teil 14 hatte Liste, Suche und
+Formularbereinigung abgenommen, aber nicht das vollstaendige Produktformular. Teil 15 hat alle
+Reiter, Felder, Bezeichnungen, Typen/Relationen, Sichtbarkeitsregeln, Buttons, Pflichtfelder und
+funktionalen Zusammenhaenge gemessen (Odoo 11 Prod read-only; 649 Produkte, 209 davon in Abos).
+
+Umgesetzt auf der lokalen Odoo-18-Instanz (`itk_product` 18.0.1.0.2):
+
+```
+1. "Verantwortlich" (responsible_id, many2one res.users) neu im Modul - gleicher Feldname und
+   gleiche Relation wie Odoo 11, daher 1:1 migrierbar. In Odoo 11 stand das Feld im Reiter
+   "Lager" (bei Dienstleistungen ausgeblendet), in Odoo 18 in eigener Gruppe im ersten Reiter.
+   Anlass: das Feld ist in Odoo 11 auf allen 649 Produkten gepflegt, Odoo 17/18 hat es entfernt.
+2. Gruppe "Interne Notizen" heisst sichtbar wieder "Notizen" (Odoo-11-Wortlaut), Inhalt
+   unveraendert, Odoo-18-Zusatzfunktionen bleiben erhalten.
+3. Reiter "Buchhaltung": KEINE Aenderung. In Odoo 11 waren die Kontofelder dieses Reiters selbst
+   ausgeblendet (invisible="1") und 0 von 649 Produkten hatte ein eigenes Konto; der Reiter
+   zeigte nur Steuern, Dienstleistungslogik und Kontrollrichtlinie. Diese sind in Odoo 18 alle
+   an anderer Stelle erreichbar. Keine Gruppenaufnahme, keine zusaetzlichen Rechte, keine
+   Ersatzseite (Entscheidung Anna, 24.09.2026).
+4. Zeiterfassung: sale_timesheet bleibt uninstalliert. Festlegung: service_type wird NICHT
+   uebernommen (51 Produkte, 40 in Abos; 0 Stundenzettelzeilen dieser Produkte von 12.601
+   Zeilen gesamt, 246 Auftragszeilen, 0 mit gelieferter Menge). In Odoo 18 normale
+   Dienstleistung mit manueller Menge, keine Aufgaben und keine Projekte.
+5. Reiter "Bilder": kein Nachbau (product_image_ids in Odoo 11 mit 0 Datensaetzen belegt;
+   in Odoo 18 Hauptbild, Dokumente-Smart-Button, Chatter).
+```
+
+Nachweise lokal: `verify_produktformular.py` 27 OK / 0 FEHL, `pruefe_view_render.py` 8 OK / 0 FEHL
+(itk_product) und 12 OK / 0 FEHL (itk_multifactor, Gegenprobe), `verify_abo_produkte.py`
+34 OK / 0 FEHL (keine Regression), `pruefe_abo_xmlids.py` 0 fehlende XML-IDs, Modul-Upgrade
+18.0.1.0.1 -> 18.0.1.0.2 ohne Fehler, Odoo-Log fehlerfrei.
+
+**Offen bis zur Ruecknahme auf "ABGESCHLOSSEN":** VM-Deploy, Modul-Upgrade und Browser-Abnahme
+auf der VM (Feld "Verantwortlich" sehen und speichern, Gruppe "Notizen", Produktformular
+funktionsfaehig, keine Regression bei Abonnement-Produkten). Aus Teil 15 weiterhin offen:
+F42 Datenmigration "Verantwortlich", F43 Zeiterfassung (Festlegung oben), F48
+Preislisten-Smart-Button in der Abnahme pruefen. Neue Befunde: F49 (Pruefwerkzeug
+`pruefe_view_render.py`, korrigiert), F51 (Format der de.po-Datei, dokumentiert).
 
 > Hinweis (Session 119): Die in den Teilen 7-13 genannten Fassungen `itk_subscription`
 > 18.0.1.2.3 bis 18.0.1.2.6 sind im Repo nicht belegt. Die Git-Historie und die Datenbank
@@ -518,7 +558,7 @@ Bestandsmenge begruendet. Nachweise VM: `verify_abo_produkte.py` 34 OK / 0 FEHL,
 Gesamtbereichs `verify_s118_abo` 19 OK / 0 FEHL, `pruefe_abo_xmlids` 0 fehlende XML-IDs,
 `test_abo_rechnungslauf` 13 OK / 0 FEHL, `test_abo_manuelle_rechnung` 16 OK / 0 FEHL,
 `test_abo_smartbuttons` 11 OK / 0 FEHL.
-**STATUS: ABONNEMENTS = VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET.**
+**STATUS (Stand zum jeweiligen Teil-Abschluss): ABONNEMENTS WAREN VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET - seit Session 120 (24.09.2026) ueberholt, siehe Status am Abschnittsanfang: IN ARBEIT.**
 
 **Modulstatus:** `sale_subscription` ist ein Katalogeintrag von Odoo Enterprise (OEEL-1) ohne Quellcode
 -> Zustand `uninstallable`, kein Traeger der Funktion und kein Blocker. Traeger ist das ITK-eigene Modul
@@ -572,7 +612,7 @@ itk_subscription 18.0.1.2.5. Nachweise: Cron-Weg 13 OK / 0 FEHL, manueller Weg 1
 **Neue Abnahmeregel:** Ein Button gilt erst als funktionsfaehig, wenn er auf der VM im echten Browser
 geklickt wurde und der Vorgang ohne RPC-/Serverfehler durchlaeuft.
 
-**STATUS: ABONNEMENTS = VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET.**
+**STATUS (Stand zum jeweiligen Teil-Abschluss): ABONNEMENTS WAREN VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET - seit Session 120 (24.09.2026) ueberholt, siehe Status am Abschnittsanfang: IN ARBEIT.**
 
 **Teil 11 erledigt (Smart Button Rechnungen):** `docs/o11-o18-vergleich-abo-teil11.md`.
 account.action_invoice_tree1 (Odoo-11-XML-ID) durch account.action_move_out_invoice_type ersetzt,
@@ -581,7 +621,7 @@ keine fehlende ID mehr. Funktionstest scripts/test_abo_smartbuttons.py lokal und
 (0 / 1 / mehrere Rechnungen, Gegenprobe fremde Rechnung, Verkauf-Button). Browsertest VM 54 OK / 1 FEHL,
 der letzte Nachweis manuell durch Anna erbracht: Abo 183 oeffnet die zugehoerigen Rechnungen,
 Abo 172 blendet den Button bei 0 Rechnungen aus.
-**STATUS: ABONNEMENTS = VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET.**
+**STATUS (Stand zum jeweiligen Teil-Abschluss): ABONNEMENTS WAREN VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET - seit Session 120 (24.09.2026) ueberholt, siehe Status am Abschnittsanfang: IN ARBEIT.**
 Keine offenen fachlichen oder technischen Grundsatzentscheidungen fuer dieses Modul.
 
 **Teil 10 erledigt (Abschluss Rechnungserzeugung):** `docs/o11-o18-vergleich-abo-teil10.md`.

@@ -1,0 +1,28 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* itk_product
+#
+# Stand: 24.09.2026 (Session 120, Teil 15)
+# Hinweis: die sichtbaren Wortlaute stehen direkt im Modul (Ansicht bzw. Felddefinition) und
+# sind damit die Quelle. Diese Datei haelt denselben Wortlaut zusaetzlich als Uebersetzung fest.
+# Formatvorgabe von Odoo: je Eintrag eine Zeile "#. module: <modulname>" als erster Kommentar,
+# danach die Fundstelle "#: model..."; Freitext in Kommentarzeilen bricht den PO-Parser.
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de_DE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: itk_product
+#: model:ir.model.fields,field_description:itk_product.field_product_template__responsible_id
+msgid "Verantwortlich"
+msgstr "Verantwortlich"
+
+#. module: itk_product
+#: model_terms:ir.ui.view,arch_db:itk_product.view_product_template_form_itk
+msgid "Notizen"
+msgstr "Notizen"
