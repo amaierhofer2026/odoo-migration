@@ -493,7 +493,7 @@ Chancen in Stufe „Verloren“ (in Odoo 11 nicht gepflegt).
 
 ### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-15: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte, Produktformular), erste Abnahme 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119), Teil 15 am 24.09.2026 (Session 120) auf der VM im Browser abgenommen
 
-Dokument: `docs/o11-o18-vergleich-abo-teil1.md`; Teil 14: `docs/o11-o18-vergleich-abo-teil14.md`; Teil 15: `docs/o11-o18-vergleich-abo-teil15-produktformular.md`.
+Dokument: `docs/o11-o18-vergleich-abo-teil1.md`; Teil 14: `docs/o11-o18-vergleich-abo-teil14.md`; Teil 15: `docs/o11-o18-vergleich-abo-teil15-produktformular.md`; Uebergabe und Vollstaendigkeitsbestaetigung: `docs/uebergabe-session-120-abonnements.md` (24.09.2026: jedes in Odoo 11 verwendete Feld, Reiter, Button, Smart Button, Statuswechsel, Filter, Gruppierung und jeder Geschaeftsprozess ist gleich vorhanden, funktional gleichwertig an anderer Stelle vorhanden oder bewusst dokumentiert; keine offene funktionale Abweichung).
 
 **STATUS (24.09.2026, Session 120): ABONNEMENTS = VOLLSTAENDIG FUNKTIONSFAEHIG UND MIGRATIONSVORBEREITET (Teile 1-15).**
 Der Unterbereich "Abonnement Produkte" wurde in Teil 15 vollstaendig gegengeprueft (alle Reiter,
