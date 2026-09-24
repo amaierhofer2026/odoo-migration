@@ -1,6 +1,6 @@
 {
     'name': "ITK Produkterweiterung",
-    'version': '18.0.1.0.1',
+    'version': '18.0.1.0.2',
     'category': 'Uncategorized',
     'summary': 'ITK Product extensions',
     'author': "My Company",
