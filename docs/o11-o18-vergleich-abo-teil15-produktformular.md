@@ -10,9 +10,9 @@ Reiter des Produktformulars (Auftrag dieser Session) foerdert Punkte zutage, die
 gemessen waren. Abschnitt 8 nennt sie.
 
 **Stand nach der Umsetzung (Abschnitte 11-13):** Die Punkte Buchhaltung, Verantwortlich,
-Notizen und Zeiterfassung sind auf der **lokalen** Odoo-18-Instanz umgesetzt und geprueft.
-Auf der VM ist noch nichts ausgerollt; die verbindliche Browser-Abnahme auf der VM steht aus
-(Arbeitsregel VM = Abnahmeumgebung). Der Bereich bleibt bis dahin offen.
+Notizen und Zeiterfassung sind umgesetzt und am 24.09.2026 auf der **VM** ausgerollt und im
+**echten Browser abgenommen** (Abschnitt 12.6). Der Bereich Abonnements ist damit auf
+"abgeschlossen" zurueckgesetzt (Checkliste 6.14).
 
 ## 1. Auftrag
 
@@ -366,37 +366,49 @@ belegt; die vier Felder des Odoo-11-Reiters waren product_image_ids, message_fol
 activity_ids, message_ids. In Odoo 18 gibt es das Hauptbild (image_1920), den
 Dokumente-Smart-Button und den Chatter. Es geht damit kein produktiv genutzter Inhalt verloren.
 
-### 12.6 Pruefungen (lokal, nach docker restart odoo18 und Modul-Upgrade)
+### 12.6 Pruefungen (lokal und VM, jeweils 0 FEHL)
 
 ```
-upgrade_modules.py --instanz lokal --update-list          ohne Fehler
-upgrade_modules.py --instanz lokal --module itk_product   18.0.1.0.1 -> 18.0.1.0.2, ohne Fehler
-verify_produktformular.py --instanz lokal                 27 OK / 0 FEHL
-pruefe_view_render.py --instanz lokal --datei addons/itk_product/views/itk_product.xml
-                                                          8 OK / 0 FEHL (Anker gueltig, rendert)
-pruefe_view_render.py ... addons/itk_multifactor/views/itk_product.xml
-                                                          12 OK / 0 FEHL (Gegenprobe)
-verify_abo_produkte.py --instanz lokal                    34 OK / 0 FEHL (keine Regression)
-pruefe_abo_xmlids.py --instanz lokal                      0 fehlende XML-IDs
-Schreibtest product.template                              13 Produkte vorher, 13 nachher
-                                                          (Testdatensatz angelegt und geloescht)
-Odoo-Log nach dem Upgrade                                 keine Fehler, keine Tracebacks
-upgrade_modules.py (zweiter Lauf nach PO-Korrektur)       ohne Fehler
+                                       lokal             VM
+itk_product-Modulversion               18.0.1.0.2        18.0.1.0.2      (Upgrade ohne Fehler)
+verify_produktformular.py              27 OK / 0 FEHL    27 OK / 0 FEHL
+verify_abo_produkte.py                 34 OK / 0 FEHL    34 OK / 0 FEHL (keine Regression)
+test_abo_smartbuttons.py               11 OK / 0 FEHL    11 OK / 0 FEHL (F52 korrigiert)
+browser_produktformular.py             20 OK / 0 FEHL    20 OK / 0 FEHL (echte Klicks)
+pruefe_view_render.py                   8 OK / 0 FEHL     8 OK / 0 FEHL
+verify_s118_abo.py                          -            19 OK / 0 FEHL
+pruefe_abo_xmlids.py                        -             0 fehlende XML-IDs
+Schreibtest product.template           13 Produkte vorher, 13 nachher (Testdatensatz entfernt)
+Odoo-Log nach dem Upgrade              keine Fehler, keine Tracebacks
+/web/login auf der VM                  HTTP 200 (0,46 s)
 ```
 
-Gerenderter Arch nach der Umsetzung: Reiter unveraendert
-(Allgemeine Informationen, Attribute & Varianten, Verkauf, Einkauf, Lager);
-`responsible_id` und die Gruppe `internal_notes` mit `string="Notizen"` liegen im ersten Reiter.
-
-### 12.7 Noch offen (naechster kleiner Schritt)
+Browser-Abnahme auf der VM (echte Klicks, Playwright + Chrome; 20 OK / 0 FEHL):
 
 ```
-1. Deploy auf der VM (git pull --ff-only), docker restart, Modul-Upgrade itk_product
-2. Verbindliche Browser-Abnahme auf der VM: Feld "Verantwortlich" sehen und speichern,
-   Gruppe "Notizen" sehen, Kontofelder weiterhin nicht im Formular - echte Klicks, kein DOM-Check
-3. Checklisten-Eintrag "Abonnement Produkte" auf "in Arbeit" zuruecksetzen (Empfehlung 7,
-   Freigabe offen)
-4. Freigabe, dann Commit/PR
+Aktion "Abonnement Produkte" aufgerufen (9 Eintraege in der Kanban-Ansicht)
+Klick auf "TEST Abo Produkt Monatlich" oeffnet das Formular
+Reiter: Allgemeine Informationen, Attribute & Varianten, Verkauf, Einkauf, Lager (kein Buchhaltung)
+Abschnitt "NOTIZEN" sichtbar (Odoo stellt Abschnittstitel gross dar), "Interne Notizen" verschwunden
+Feld "Verantwortlich" sichtbar, Eingabefeld, Auswahlliste, "Administrator" gewaehlt, Speichern geklickt
+   -> danach per RPC gelesen: responsible_id = [2, 'Administrator'] (Schreibzugriff wirkt)
+Reiter Verkauf und Einkauf lassen sich oeffnen
+Filter "Mit Faktor multipliziert" wirkt (Bedingung in der Suchleiste)
+keine JavaScript-Fehler (0), keine RPC-Fehler (0)
+Testwert danach entfernt; Produkte auf der VM 13 vorher wie nachher
+Screenshots: Desktop\Odoo18-Abnahme-Session120\01..06_*.png
+```
+
+### 12.7 Ergebnis und Rest
+
+Der Bereich ist abgeschlossen (Checkliste 6.14 wieder auf "ABGESCHLOSSEN"). Offen sind nur noch
+Schritte der Datenmigration, keine Funktion dieses Bereichs:
+
+```
+1. F42 "Verantwortlich": Wert aus Odoo 11 (649 Produkte) in das neue Feld uebernehmen.
+2. F43 Zeiterfassung: service_type wird nicht uebernommen (Festlegung oben).
+3. F48 Datenpakete aus dem Produktumfeld: Bestandsmenge entfaellt begruendet,
+   Preislistenpositionen (1.872 auf 321 Produkten) sind zu uebernehmen.
 ```
 
 ## 13. Befunde Session 120 (neu)
@@ -420,5 +432,23 @@ F51  Formatfalle bei der Uebersetzungsdatei: Odoo 18 liest je PO-Eintrag die Zei
      und Odoo meldet je Wort "malformed po file: unknown occurrence" (so in
      addons/itk_subscription/i18n/de.po vorhanden, harmlos, aber laut). In itk_product korrekt
      umgesetzt: "#. module: itk_product" + "#: model...", kein Freitext im Eintrag.
+F52  test_abo_smartbuttons.py setzte voraus, dass das Nachweis-Abo "TEST Rechnungslauf Nachweis"
+     genau eine Rechnung hat, und prueft dann, ob der Smart Button direkt diese Rechnung oeffnet.
+     Nach den Nachweisen der Session 119 hat dieses Abo 3 Entwurfsrechnungen (angelegt am
+     22.09.2026, 12:38 und 12:39) - der Test meldete 10 OK / 1 FEHL, obwohl die Anwendung richtig
+     arbeitet (Gegenprobe: fuer Abo 222 mit genau einer Rechnung liefert
+     action_subscription_invoice res_model=account.move, res_id=57, Ansicht form). Werkzeug
+     korrigiert: der Fall "genau eine Rechnung" wird jetzt selbst hergestellt - ein Abo ohne
+     Rechnung wird gesucht, genau eine Testrechnung dazu angelegt, geprueft und wieder geloescht.
+     Ergebnis danach lokal und VM je 11 OK / 0 FEHL.
+F53  Suchen mit 'ilike' auf uebersetzten Feldern (z. B. ir.ui.menu.name, in Odoo 18 jsonb)
+     liefern ohne Sprachkontext keinen Treffer. Aufgefallen beim Menueaufruf "Abonnement
+     Produkte" im neuen Browserwerkzeug (Ergebnis leer, obwohl das Menue existiert). Behelf:
+     context lang=de_DE. Im Browserwerkzeug laufen alle Leseaufrufe jetzt mit de_DE
+     (Helfer kwl), der Rueckfallpfad in browser_abo_produkte.py ebenso.
+F54  Odoo 18 stellt Abschnittsueberschriften im Formular per CSS in Grossbuchstaben dar
+     (o_horizontal_separator, text-uppercase): im DOM steht "NOTIZEN", im Arch "Notizen".
+     Eine DOM-Pruefung mit exaktem Wortlaut meldet sonst einen Fehlalarm; Vergleiche muessen die
+     Schreibweise ignorieren.
 ```
 
