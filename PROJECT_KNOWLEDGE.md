@@ -6763,3 +6763,9 @@ Naechster Schritt: Teil 2 Feldinventar sale.order und sale.order.line (nach Frei
 **Endstand Teil 1:** lokal = GitHub = VM auf dem finalen main-Stand; Nachweise 41 OK / 0 FEHL
 (Verify, Odoo 11 read-only + lokal + VM) und 43 OK / 0 FEHL (Browser, lokal und VM).
 Odoo 11 Prod ausschliesslich lesend, keine Datenmigration.
+
+**Endgueltige Entscheidung zu den Standardfavoriten (24.09.2026, Anna):** Keine Migration und kein
+Nachbau der drei Odoo-11-Benutzerstandard-Favoriten. "Angebote" (group_by state) und "Angebote nach
+Verkaeufer" (group_by user_id) brauchen keinen Nachbau, weil die Gruppierungen in Odoo 18 direkt
+ueber "Gruppieren nach" verfuegbar sind; "Verkaufsauftraege A-Tool Comm-Unity" ist ein persoenlicher
+bzw. projektspezifischer Benutzerfilter. Damit ist Teil 1 ohne offene Punkte abgeschlossen.

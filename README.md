@@ -141,7 +141,9 @@ Prüfwerkzeug: `python scripts/vm_abnahme_check.py` · Detailregel: `docs/arbeit
   **Entscheidungen Anna (24.09.2026):** Bericht "Verkaufsauftraege aller Kanaele" wird in Odoo 18
   nachgebaut (als `sale.report`-Auswertung, Teil 4); Default-Filter "Meine Angebote" wird aus dem
   Menue entfernt, bleibt aber auswaehlbar (Teil 3); benutzerspezifische Filter werden nicht migriert
-  (die 3 Benutzerstandards wurden read-only geprueft, 0 systemweit); Odoo-18-Zusatzfunktionen bleiben.
+  (die 3 Benutzerstandards wurden read-only geprueft, 0 systemweit; endgueltig entschieden: keine
+  Migration und kein Nachbau, Teil 1 damit ohne offene Punkte abgeschlossen); Odoo-18-Zusatzfunktionen
+  bleiben.
 
 - **Bereich Angebote / Verkaufsauftraege - Bestandsaufnahme (Session 117, 18.09.2026):**
   `docs/o11-o18-strukturvergleich-angebote-auftraege.md`. Odoo 11: 2.460 Auftraege, 1.764 Abonnements.

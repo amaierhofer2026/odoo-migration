@@ -283,6 +283,20 @@ Konfigurations- und Berichtsmenues, Stammdaten des Verkaufs.
 Daraus folgt als offener Punkt nur noch Entscheidung 3 (Standardfavoriten). Alles andere ist
 entschieden und den Teilen 3 und 4 zugeordnet.
 
+### 6.1 Nachtrag 24.09.2026: Standardfavoriten - endgueltige Entscheidung
+
+```
+Punkt 3 ist entschieden. Keine Migration der drei Odoo-11-Benutzerstandard-Favoriten:
+- "Angebote" (Martina Waiss, group_by state): kein Nachbau. Die Gruppierung nach Status ist in
+  Odoo 18 direkt ueber "Gruppieren nach" verfuegbar.
+- "Angebote nach Verkaeufer" (Administrator, group_by user_id): kein Nachbau, gleiche Begruendung
+  (Gruppierung nach Verkaeufer in Odoo 18 vorhanden).
+- "Verkaufsauftraege A-Tool Comm-Unity" (Martina Waiss, Domain mit Zeilentext "A-Tool" und
+  Verkaeufer "Comm-un"): persoenlicher bzw. projektspezifischer Benutzerfilter, keine Migration.
+Alle drei werden ausdruecklich NICHT nachgebaut (keine Aktion in Odoo 18). Damit ist Teil 1
+vollstaendig abgeschlossen, offene Punkte gibt es in Teil 1 nicht mehr.
+```
+
 Nicht mehr offen (in Teil 1 gegengeprueft und korrigiert):
 
 ```

@@ -552,8 +552,13 @@ Bereich Verkauf insgesamt weiterhin in Arbeit, noch nicht migrationsbereit.
    in der Suchleiste auswaehlbar. Einordnung: Teil 3 (mit Deploy und Browser-Abnahme auf der VM).
 3. Die 15 benutzerspezifischen Filter werden nicht migriert. Die 3 als Standard markierten Favoriten
    wurden read-only geprueft: 0 systemweit, zwei nur Gruppierung (Status, Verkaeufer), einer
-   persoenliche Projektauswahl (A-Tool/Comm-Unity). Empfehlung: keine Migration, Entscheidung offen.
+   persoenliche Projektauswahl (A-Tool/Comm-Unity). **Entschieden am 24.09.2026: keine Migration und
+   kein Nachbau - die beiden Gruppierungen sind in Odoo 18 ueber "Gruppieren nach" verfuegbar, der
+   dritte ist ein persoenlicher bzw. projektspezifischer Benutzerfilter.**
 4. Odoo-18-Zusatzfunktionen (Angebotsvorlagen, Kopf-/Fusszeilen und weitere) bleiben erhalten.
+
+**TEIL 1 ENDGUELTIG ABGESCHLOSSEN (24.09.2026): keine offenen Punkte.**
+Offen im Bereich Verkauf nur noch die Teile 2 bis 5.
 
 ### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-15: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte, Produktformular), erste Abnahme 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119), Teil 15 am 24.09.2026 (Session 120) auf der VM im Browser abgenommen
 
