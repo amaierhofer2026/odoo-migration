@@ -78,6 +78,12 @@ def main() -> int:
         modell = (werte["model"].text or "").strip()
         arch_xml = (werte["arch"].text or "") + "".join(
             etree.tostring(kind, encoding="unicode") for kind in werte["arch"])
+        # 24.09.2026 (Session 120, F49): eine Ansicht darf mehrere Wurzelelemente haben
+        # (xpath/xpath/...). Ohne Umhuellung in <data> lehnt ir.ui.view.create den Text mit
+        # "Extra content at the end of the document" ab - der Test schlug dann fehl, obwohl
+        # die Anker gueltig sind. Deshalb hier in <data> kapseln (Odoo-18-Standardform).
+        if not (len(werte["arch"]) == 1 and werte["arch"][0].tag == "data"):
+            arch_xml = "<data>%s</data>" % arch_xml
         typ = "search" if "search" in ref else ("form" if "form" in ref else "list")
         print("\n--- %s (%s, inherit %s) ---" % (rid, typ, ref))
 
