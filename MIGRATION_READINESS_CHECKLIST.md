@@ -575,7 +575,7 @@ Bestandsmenge begruendet. Nachweise VM: `verify_abo_produkte.py` 34 OK / 0 FEHL,
 Gesamtbereichs `verify_s118_abo` 19 OK / 0 FEHL, `pruefe_abo_xmlids` 0 fehlende XML-IDs,
 `test_abo_rechnungslauf` 13 OK / 0 FEHL, `test_abo_manuelle_rechnung` 16 OK / 0 FEHL,
 `test_abo_smartbuttons` 11 OK / 0 FEHL.
-**STATUS (Stand zum jeweiligen Teil-Abschluss): ABONNEMENTS WAREN VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET - seit Session 120 (24.09.2026) ueberholt, siehe Status am Abschnittsanfang: IN ARBEIT.**
+**STATUS (Stand zum jeweiligen Teil-Abschluss): ABONNEMENTS WAREN VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET - massgeblich ist der Status am Abschnittsanfang (zuletzt Session 120: Teile 1-15 abgeschlossen).**
 
 **Modulstatus:** `sale_subscription` ist ein Katalogeintrag von Odoo Enterprise (OEEL-1) ohne Quellcode
 -> Zustand `uninstallable`, kein Traeger der Funktion und kein Blocker. Traeger ist das ITK-eigene Modul
@@ -629,7 +629,7 @@ itk_subscription 18.0.1.2.5. Nachweise: Cron-Weg 13 OK / 0 FEHL, manueller Weg 1
 **Neue Abnahmeregel:** Ein Button gilt erst als funktionsfaehig, wenn er auf der VM im echten Browser
 geklickt wurde und der Vorgang ohne RPC-/Serverfehler durchlaeuft.
 
-**STATUS (Stand zum jeweiligen Teil-Abschluss): ABONNEMENTS WAREN VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET - seit Session 120 (24.09.2026) ueberholt, siehe Status am Abschnittsanfang: IN ARBEIT.**
+**STATUS (Stand zum jeweiligen Teil-Abschluss): ABONNEMENTS WAREN VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET - massgeblich ist der Status am Abschnittsanfang (zuletzt Session 120: Teile 1-15 abgeschlossen).**
 
 **Teil 11 erledigt (Smart Button Rechnungen):** `docs/o11-o18-vergleich-abo-teil11.md`.
 account.action_invoice_tree1 (Odoo-11-XML-ID) durch account.action_move_out_invoice_type ersetzt,
@@ -638,7 +638,7 @@ keine fehlende ID mehr. Funktionstest scripts/test_abo_smartbuttons.py lokal und
 (0 / 1 / mehrere Rechnungen, Gegenprobe fremde Rechnung, Verkauf-Button). Browsertest VM 54 OK / 1 FEHL,
 der letzte Nachweis manuell durch Anna erbracht: Abo 183 oeffnet die zugehoerigen Rechnungen,
 Abo 172 blendet den Button bei 0 Rechnungen aus.
-**STATUS (Stand zum jeweiligen Teil-Abschluss): ABONNEMENTS WAREN VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET - seit Session 120 (24.09.2026) ueberholt, siehe Status am Abschnittsanfang: IN ARBEIT.**
+**STATUS (Stand zum jeweiligen Teil-Abschluss): ABONNEMENTS WAREN VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET - massgeblich ist der Status am Abschnittsanfang (zuletzt Session 120: Teile 1-15 abgeschlossen).**
 Keine offenen fachlichen oder technischen Grundsatzentscheidungen fuer dieses Modul.
 
 **Teil 10 erledigt (Abschluss Rechnungserzeugung):** `docs/o11-o18-vergleich-abo-teil10.md`.

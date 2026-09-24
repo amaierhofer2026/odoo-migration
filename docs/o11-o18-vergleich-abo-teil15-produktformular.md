@@ -237,6 +237,10 @@ F48  Preislisten: 321 Produkte tragen 1.872 Preislistenpositionen. In Odoo 18 si
 
 ## 9. Aenderungsvorschlaege (Reihenfolge = Prioritaet)
 
+*Stand: Vorschlaege aus der Analysephase, vor der Umsetzung. Was davon umgesetzt wurde und was
+sich geaendert hat, steht in Abschnitt 11 (Korrektur zu Punkt 1) und Abschnitt 12 (Umsetzung,
+Ergebnis).*
+
 ```
 1  F41 Buchhaltungsreiter: NICHTS am Formular aendern. Der Reiter ist vorhanden und zeigt sich,
    sobald ein Benutzer die Gruppe account.group_account_readonly hat. Vorschlag:
