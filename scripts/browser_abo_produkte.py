@@ -97,7 +97,8 @@ def main() -> int:
                  [[("module", "=", "itk_subscription"), ("name", "=", "product_action_subscription")],
                   ["res_id"]], limit=1)
     if not treffer:
-        menue = kw("ir.ui.menu", "search_read", [[("name", "ilike", "Abonnement Produkte")], ["id", "action"]], limit=1)
+        menue = kw("ir.ui.menu", "search_read", [[("name", "ilike", "Abonnement Produkte")], ["id", "action"]],
+                   limit=1, context={"lang": "de_DE"})
         treffer = [{"res_id": int(str(menue[0]["action"]).split(",")[1])}] if menue and menue[0]["action"] else []
     if not treffer:
         raise SystemExit("Aktion 'Abonnement Produkte' nicht gefunden - Abbruch.")

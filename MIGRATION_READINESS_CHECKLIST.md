@@ -491,17 +491,17 @@ Chancen in Stufe „Verloren“ (in Odoo 11 nicht gepflegt).
 
 **Nachweis:** `scripts/verify_s114_crm_chancen.py` → lokal 52 OK / 0 FEHL; Browser-Prüfung auf der VM.
 
-### 6.14 Abonnements / Subscriptions - **IN ARBEIT** (Teile 1-14 abgeschlossen, Teil 14 am 22.09.2026 (Session 119) abgenommen; **Teil 15 "Produktformular vollstaendig" vom 24.09.2026 (Session 120) hat den Unterbereich "Abonnement Produkte" wieder geoeffnet** - Umsetzung lokal fertig und geprueft, VM-Abnahme offen), erste Abnahme 18.09.2026 (Session 118)
+### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-15: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte, Produktformular), erste Abnahme 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119), Teil 15 am 24.09.2026 (Session 120) auf der VM im Browser abgenommen
 
 Dokument: `docs/o11-o18-vergleich-abo-teil1.md`; Teil 14: `docs/o11-o18-vergleich-abo-teil14.md`; Teil 15: `docs/o11-o18-vergleich-abo-teil15-produktformular.md`.
 
-**STATUS (24.09.2026, Session 120): ABONNEMENTS = IN ARBEIT.**
-Der Unterbereich "Abonnement Produkte" ist wieder offen. Grund: Teil 14 hatte Liste, Suche und
-Formularbereinigung abgenommen, aber nicht das vollstaendige Produktformular. Teil 15 hat alle
-Reiter, Felder, Bezeichnungen, Typen/Relationen, Sichtbarkeitsregeln, Buttons, Pflichtfelder und
-funktionalen Zusammenhaenge gemessen (Odoo 11 Prod read-only; 649 Produkte, 209 davon in Abos).
+**STATUS (24.09.2026, Session 120): ABONNEMENTS = VOLLSTAENDIG FUNKTIONSFAEHIG UND MIGRATIONSVORBEREITET (Teile 1-15).**
+Der Unterbereich "Abonnement Produkte" wurde in Teil 15 vollstaendig gegengeprueft (alle Reiter,
+Felder, Bezeichnungen, Typen/Relationen, Sichtbarkeitsregeln, Buttons, Pflichtfelder,
+funktionale Zusammenhaenge; Odoo 11 Prod read-only) und danach auf der VM abgenommen.
 
-Umgesetzt auf der lokalen Odoo-18-Instanz (`itk_product` 18.0.1.0.2):
+Umgesetzt und auf der VM ausgerollt (`itk_product` 18.0.1.0.2; VM: git pull auf f41b2c6,
+Container-Neustart, Modul-Upgrade, Browser-Abnahme am 24.09.2026):
 
 ```
 1. "Verantwortlich" (responsible_id, many2one res.users) neu im Modul - gleicher Feldname und
@@ -523,17 +523,34 @@ Umgesetzt auf der lokalen Odoo-18-Instanz (`itk_product` 18.0.1.0.2):
    in Odoo 18 Hauptbild, Dokumente-Smart-Button, Chatter).
 ```
 
-Nachweise lokal: `verify_produktformular.py` 27 OK / 0 FEHL, `pruefe_view_render.py` 8 OK / 0 FEHL
-(itk_product) und 12 OK / 0 FEHL (itk_multifactor, Gegenprobe), `verify_abo_produkte.py`
-34 OK / 0 FEHL (keine Regression), `pruefe_abo_xmlids.py` 0 fehlende XML-IDs, Modul-Upgrade
-18.0.1.0.1 -> 18.0.1.0.2 ohne Fehler, Odoo-Log fehlerfrei.
+Nachweise lokal und VM (jeweils 0 FEHL):
 
-**Offen bis zur Ruecknahme auf "ABGESCHLOSSEN":** VM-Deploy, Modul-Upgrade und Browser-Abnahme
-auf der VM (Feld "Verantwortlich" sehen und speichern, Gruppe "Notizen", Produktformular
-funktionsfaehig, keine Regression bei Abonnement-Produkten). Aus Teil 15 weiterhin offen:
-F42 Datenmigration "Verantwortlich", F43 Zeiterfassung (Festlegung oben), F48
-Preislisten-Smart-Button in der Abnahme pruefen. Neue Befunde: F49 (Pruefwerkzeug
-`pruefe_view_render.py`, korrigiert), F51 (Format der de.po-Datei, dokumentiert).
+```
+                                    lokal              VM
+verify_produktformular.py          27 OK / 0 FEHL     27 OK / 0 FEHL
+verify_abo_produkte.py             34 OK / 0 FEHL     34 OK / 0 FEHL
+test_abo_smartbuttons.py           11 OK / 0 FEHL     11 OK / 0 FEHL
+browser_produktformular.py         20 OK / 0 FEHL     20 OK / 0 FEHL (echte Klicks, Screenshots)
+pruefe_view_render.py               8 OK / 0 FEHL      8 OK / 0 FEHL
+verify_s118_abo.py                      -             19 OK / 0 FEHL
+pruefe_abo_xmlids.py                    -              0 fehlende XML-IDs
+```
+
+Modul-Upgrade `itk_product` 18.0.1.0.1 -> 18.0.1.0.2 (lokal und VM) ohne Fehler, Odoo-Log
+fehlerfrei, `/web/login` auf der VM HTTP 200. Browser-Abnahme auf der VM am 24.09.2026:
+Klick auf ein Abo-Produkt, Feld "Verantwortlich" gesetzt und gespeichert (danach per RPC gelesen:
+[2, 'Administrator']), Gruppe "Notizen" sichtbar, Reiter Verkauf/Einkauf funktionsfaehig, Filter
+"Mit Faktor multipliziert" wirkt, keine JavaScript- und keine RPC-Fehler. Der Testwert wurde
+danach wieder entfernt (Feld steht auf dem Testprodukt leer). Screenshots:
+`Desktop\Odoo18-Abnahme-Session120\01..06_*.png`.
+
+**Offen bleiben nur die Datenschritte der Migration** (keine Funktion dieses Bereichs):
+F42 Datenmigration "Verantwortlich" (Wert liegt in Odoo 11 auf 649 Produkten, Feld und Ziel stehen
+in Odoo 18 bereit), F43 Zeiterfassung (Festlegung oben: nicht uebernehmen), F48 Bestandsmenge /
+Preislistenpositionen als Datenpaket, 8 USD-Testauftraege, NV-Nummern, Cron vor der Migration
+pausieren. Werkzeugbefunde dieser Session: F49 (`pruefe_view_render.py`, korrigiert),
+F51 (Format der de.po-Datei), F52 (Testfall in `test_abo_smartbuttons.py`, korrigiert),
+F53 (Sprachkontext bei Suchen auf uebersetzten Feldern).
 
 > Hinweis (Session 119): Die in den Teilen 7-13 genannten Fassungen `itk_subscription`
 > 18.0.1.2.3 bis 18.0.1.2.6 sind im Repo nicht belegt. Die Git-Historie und die Datenbank
