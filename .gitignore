@@ -57,3 +57,5 @@ recovery_phase3_v7.ps1
 # Temporaere Analyse-Artefakte
 form_arch.xml
 list_arch.xml
+docs/_*_daten.json
+

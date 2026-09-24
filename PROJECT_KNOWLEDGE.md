@@ -6675,3 +6675,91 @@ gesehen - ohne docker restart bleibt die alte Version installiert und das Upgrad
 "alte Version -> alte Version". Erst Neustart, dann upgrade_modules.py --update-list.
 
 **ABONNEMENTS = VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-14).
+
+## Session 121, Teil 1: Bereich Verkauf begonnen (Grundstruktur, 24.09.2026)
+
+Neuer Bereich auf Vorgabe von Anna: Modul Verkauf. Odoo 11 Prod ausschliesslich read-only
+(portal.it-kommunal.at, DB ITK_V1_a; nur Leseaufrufe), keine Datenmigration, Anpassungen nur in
+Odoo 18. Bereichsdokument docs/o11-o18-vergleich-verkauf-teil1.md, Checkliste 6.15 (IN ARBEIT).
+Teil-Schnitt: 1 Grundstruktur, 2 Feldinventar sale.order/-line, 3 Formulare/Buttons/Status/
+Filter im Browser, 4 Listen-, Such- und Berichtsansichten plus Preislisten-/Stammdaten,
+5 Abschluss und Mapping-Tabelle.
+
+Read-only Befunde (Werkzeuge scripts/analyse_verkauf_menue.py, scripts/analyse_verkauf_teil1.py,
+scripts/_o11o18_client.py):
+
+```
+Module     O11: sale 11.0.1.1, sale_management, sales_team, sale_stock, sale_timesheet, account,
+           product, crm, itk_sale_management 11.0.0.2, itk_saleorder_lines 11.0.0.4, itk_product,
+           itk_multifactor, itk_reports, sale_order_line_number, account_invoice_line_number,
+           mass_editing; merge_sale_order und sale_merge_draft_invoice NICHT installiert.
+           O18: sale 18.0.1.2, itk_sale_management 18.0.1.1.0, itk_saleorder_lines 18.0.1.0.0;
+           sale_stock und sale_timesheet nicht installiert (Entscheidungen S119/S120);
+           merge_sale_order und sale_merge_draft_invoice vorhanden (Zusatz).
+Menues     O11 Wurzelmenue Verkauf (id 294, Sequenz 7) mit 23 Menues; O18 (id 255, Sequenz 30) mit 37.
+           Fehlt in O18: Berichtswesen/Verkaufsauftraege aller Kanaele (Aktion 424, Pivot ueber
+           report.all.channels.sales, 3.772 Zeilen) -> KLAERUNG (nachbauen in Teil 4 oder entfallen).
+           Tote O11-Menues: Reportlayout Kategorien (Modell sale.layout.category in O11 nicht
+           registriert, Feld layout_category_id auf 2 von 4.007 Zeilen) und Reklamationen
+           (crm.claim aus bi_crm_claim, 0 Datensaetze).
+Nutzung    sale.order 2.461 (draft 5, sale 2.309, cancel 147), sale.order.line 4.007,
+           sale.report 3.984, product.template 649, product.pricelist 50 (Positionen 1.872),
+           crm.team 8, account.payment.term 4, account.tax 77, report.all.channels.sales 3.772.
+           Auftraege je Kanal: Vertriebskanaele (Intern) 2.443, Interne Weitergabe 13,
+           Persoenlicher Kontakt 4, Newsletter 1. 40 der 57 aktiven Benutzer in Verkauf/User.
+Sichtbar   O18 startet Auftraege/Angebote mit Default-Filter "Meine Angebote"; O11 hatte keinen
+           Vorgabefilter -> KLAERUNG. O11 hat 16 gespeicherte Filter (15 benutzerindividuell).
+```
+
+Zwei Korrekturen an aelteren Dokumenten (gegengeprueft, read-only): (1) confirmation_date ist
+geloest - Odoo 11 "Bestätigung am" (datetime, 2.437 von 2.461 Auftraegen) hat in Odoo 18 ein Feld
+gleichen Namens/Typs, umgesetzt in itk_sale_management 18.0.1.1.0; (2) die
+Mehrzustands-Browserpruefung auf der VM wurde in Session 117 durchgefuehrt
+(browser_auftraege_pruef.py lokal 9 OK / VM 9 OK, verify_s117_auftraege.py 65 OK). Die Hinweise
+"KLAERUNG NOETIG" bzw. "steht aus" in Checkliste 6.13 und im Bereichsdokument zu Angebote/Auftraege
+sind damit veraltet; in 6.15 mit Datum richtiggestellt.
+
+**STATUS: Bereich Verkauf in Arbeit. Teil 1 analysiert - VM-Abnahme im naechsten Abschnitt.**
+
+## Session 121, Teil 1 (Abschluss): VM-Abnahme im Browser (24.09.2026)
+
+Nachweise fuer Teil 1 (reine Bestandsaufnahme, keine Aenderung an Odoo 18 - daher kein Deploy und
+kein Modul-Upgrade):
+
+```
+scripts/verify_s121_verkauf_menue.py   Odoo 11 read-only + Odoo 18 lokal + VM in einem Lauf: 41 OK / 0 FEHL
+scripts/browser_verkauf_menue.py       lok 43 OK / 0 FEHL, VM 43 OK / 0 FEHL (echte Klicks, 0 JS-/RPC-Fehler)
+Menuebaum Verkauf auf der VM           37 Menues, identisch zu lokal
+Screenshots                            Desktop\Odoo18-Abnahme-Session121\01_App_Verkauf.png bis 02_Menue_Konfiguratio.png
+```
+
+**Befund F55:** Odoo 18 haengt das Menue-Popover als `.o-popover o-dropdown--menu` an das Ende des
+Body. Sichtbarkeitspruefungen mit `offsetParent` schlagen dort fehl (position: fixed), richtig ist
+`getClientRects()`. Ausserdem: die Odoo-11-Untergruppe "Verkaufsauftraege" ist in Odoo 18 nur noch
+Abschnittstitel, ihre Eintraege sind flach klickbar.
+
+**STATUS: TEIL 1 = ABGESCHLOSSEN (lokal und VM). Bereich Verkauf weiterhin in Arbeit.**
+Naechster Schritt: Teil 2 Feldinventar sale.order und sale.order.line (nach Freigabe von Anna).
+
+## Session 121, Teil 1 (Abschluss 2): Entscheidungen von Anna (24.09.2026)
+
+```
+1. "Verkaufsauftraege aller Kanaele" wird in Odoo 18 nachgebaut (der Odoo-11-Bericht enthaelt
+   tatsaechlich Daten: 3.772 Zeilen). Odoo-18-konform als Auswertung auf sale.report, Gruppierung
+   nach Vertriebskanal (team_id), Filter "aktuelles Verkaufsjahr" - kein Nachbau des Modells
+   report.all.channels.sales, keine Odoo-11-Pivot-Technik. Umsetzung: Teil 4.
+2. Default-Filter "Meine Angebote" wird aus dem Menue Auftraege/Angebote entfernt (Odoo-11-Verhalten);
+   der Filter bleibt in der Suchleiste auswaehlbar. Umsetzung: Teil 3, mit Deploy und
+   Browser-Abnahme auf der VM.
+3. Die 15 benutzerspezifischen gespeicherten Filter werden nicht migriert. Vorher geprueft (read-only):
+   Odoo 11 hat 16 Filter, 3 als Benutzerstandard, 0 systemweit; Odoo 18 hat 0. Die drei Standards:
+   "Angebote" (Martina Waiss, nur Gruppierung Status), "Angebote nach Verkaeufer" (Administrator, nur
+   Gruppierung Verkaeufer), "Verkaufsauftraege A-Tool Comm-Unity" (Martina Waiss, Domain mit
+   Zeilentext "A-Tool" und Verkaeufer "Comm-un" - persoenliche Projektauswahl). Empfehlung: keine
+   Migration, Entscheidung von Anna noch offen.
+4. Odoo-18-Zusatzfunktionen bleiben erhalten.
+```
+
+**Endstand Teil 1:** lokal = GitHub = VM auf dem finalen main-Stand; Nachweise 41 OK / 0 FEHL
+(Verify, Odoo 11 read-only + lokal + VM) und 43 OK / 0 FEHL (Browser, lokal und VM).
+Odoo 11 Prod ausschliesslich lesend, keine Datenmigration.
