@@ -6769,3 +6769,54 @@ Nachbau der drei Odoo-11-Benutzerstandard-Favoriten. "Angebote" (group_by state)
 Verkaeufer" (group_by user_id) brauchen keinen Nachbau, weil die Gruppierungen in Odoo 18 direkt
 ueber "Gruppieren nach" verfuegbar sind; "Verkaufsauftraege A-Tool Comm-Unity" ist ein persoenlicher
 bzw. projektspezifischer Benutzerfilter. Damit ist Teil 1 ohne offene Punkte abgeschlossen.
+
+## Session 121, Teil 2: Feldinventar sale.order und sale.order.line (24.09.2026)
+
+Zweiter Schritt des Bereichs Verkauf auf Vorgabe von Anna: nur systematisch analysieren und
+dokumentieren, keine Aenderung an Odoo 18, keine Datenmigration, Odoo 11 read-only.
+Bereichsdokument docs/o11-o18-vergleich-verkauf-teil2.md (erzeugt aus den Messdaten).
+
+Werkzeuge (alle read-only):
+  scripts/analyse_verkauf_teil2_felder.py   Feldinventar je Modell und Instanz + Nutzungszaehlung
+  scripts/baue_verkauf_teil2_doku.py        baut das Bereichsdokument aus den Messdaten
+  scripts/verify_s121_verkauf_teil2.py      Abnahmepruefung (Odoo 11 + lokal + VM): 111 OK / 0 FEHL
+
+Ergebnis:
+
+```
+sale.order        Odoo 11 89 Felder | Odoo 18 110 | gemeinsam 58 | nur O11 31 | nur O18 52
+sale.order.line   Odoo 11 53 Felder | Odoo 18  80 | gemeinsam 39 | nur O11 14 | nur O18 41
+Jedes Odoo-11-Feld hat ein Ziel oder ist dokumentiert (mit Ziel 97, dokumentiert ohne Ziel 45).
+Typ-/Relationsabweichungen 5, alle Umbenennungen: account.invoice -> account.move,
+crm.lead.tag -> crm.tag, product.uom -> uom.uom, note (text -> html),
+account.invoice.line -> account.move.line.
+Selection-Werte identisch; einzige Abweichung: Odoo 11 kennt den Status "done" (0 Datensaetze),
+Odoo 18 fuehrt "sale" + locked.
+ITK-Felder: 8 auf sale.order (u. a. Verkaufskontakt, Verwaltungskontakt, Produktkategorie,
+subscription_management, confirmation_date), 4 auf sale.order.line (qty_multiplication_factor,
+subscription_id, partner_id, salesperson_id) - alle in Odoo 18 mit gleichem Namen/Typ/Relation.
+Belegung in Odoo 11: confirmation_date 2.437, subscription_management 2.461,
+qty_multiplication_factor 1.366 von 4.007, subscription_id 2.307, product_category_id 47,
+sale_contact_id 3, administrative_contact_id 2, technical_contact_id 1, final_customer_id 0.
+Die Felder aus sale_stock (Lager) und sale_timesheet (Zeiterfassung) entfallen begruendet
+(Entscheidungen Session 119/120).
+```
+
+Befunde und Korrekturen:
+
+```
+1. activity_state heisst in Odoo 11 auf Deutsch faelschlich "Bundesland" (englisch "State");
+   Odoo 18 zeigt "Status der Aktivität". Kein Handlungsbedarf, im Dokument festgehalten.
+2. tag_ids: die Angabe "0 Verwendungen" aus Session 117 ist zu korrigieren - genau 1 von 2.461
+   Auftraegen traegt ein Stichwort ("Up-Sell", Auftrag A-1900710). Odoo 18 hat derzeit 0 crm.tag.
+3. Stammdaten mit Zuordnungsbedarf vor der Migration: Zahlungsbedingungen (613 Auftraege belegt,
+   davon "30 Tage netto" 2 Auftraege ohne Odoo-18-Entsprechung), Preisliste (2.461 belegt),
+   Verkaeufer (31 verschiedene, groesster Anteil IT-Kommunal 1.644), Vertriebskanal (4 genutzt).
+4. Felder ohne Pflege in Odoo 11 (0 belegt): source_id/campaign_id/medium_id (utm),
+   fiscal_position_id, final_customer_id, sale_contact_id nur 3.
+```
+
+Offene Entscheidungen (Dokument Abschnitt 13): note text->html (Zeilenumbrueche), "30 Tage netto",
+Stichwort "Up-Sell", Bestaetigung der entfallenden Lager-/Zeiterfassungsfelder.
+**STATUS: TEIL 2 ANALYSIERT (lokal und VM), keine Aenderung an Odoo 18. Warten auf die
+Entscheidungen von Anna, danach Teil 3 (Formulare, Buttons, Filter im Browser).**
