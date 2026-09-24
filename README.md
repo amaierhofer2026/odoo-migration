@@ -131,6 +131,14 @@ Prüfwerkzeug: `python scripts/vm_abnahme_check.py` · Detailregel: `docs/arbeit
   -> **ABONNEMENTS = VOLLSTAENDIG FUNKTIONSFAEHIG UND MIGRATIONSBEREIT**. Keine Datenmigration,
   Odoo 11 read-only.
 
+- **Bereich Verkauf - Teil 1 Grundstruktur (Session 121, 24.09.2026):**
+  `docs/o11-o18-vergleich-verkauf-teil1.md`. Menuebaum Odoo 11 (23 Menues unter Wurzelmenue `Verkauf`)
+  gegen Odoo 18 (37 Menues), Modulinventar beider Systeme und Nutzungszahlen der Menueziele
+  (sale.order 2.461, sale.order.line 4.007, sale.report 3.984, product.pricelist 50, crm.team 8).
+  Ein Odoo-11-Menue fehlt in Odoo 18: Berichtswesen/Verkaufsauftraege aller Kanaele (3.772 Zeilen).
+  Zwei tote Odoo-11-Menues dokumentiert (Reportlayout Kategorien, Reklamationen). Odoo 11 read-only,
+  keine Datenmigration. Checkliste 6.15 (in Arbeit).
+
 - **Bereich Angebote / Verkaufsauftraege - Bestandsaufnahme (Session 117, 18.09.2026):**
   `docs/o11-o18-strukturvergleich-angebote-auftraege.md`. Odoo 11: 2.460 Auftraege, 1.764 Abonnements.
   Alle verwendeten Felder haben ein Odoo-18-Ziel; ITK-Kontaktfelder aus `itk_sale_management` vorhanden.

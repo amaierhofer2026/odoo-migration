@@ -491,6 +491,59 @@ Chancen in Stufe „Verloren“ (in Odoo 11 nicht gepflegt).
 
 **Nachweis:** `scripts/verify_s114_crm_chancen.py` → lokal 52 OK / 0 FEHL; Browser-Prüfung auf der VM.
 
+### 6.15 Verkauf (Menues, Module, Auftragsansichten) - **IN ARBEIT** (Teil 1: Grundstruktur), begonnen 24.09.2026 (Session 121)
+
+Dokument: `docs/o11-o18-vergleich-verkauf-teil1.md`. Odoo 11 Prod ausschliesslich read-only.
+
+**Teil 1 (Grundstruktur, read-only):** Modulinventar beider Systeme, Menuebaum Odoo 11 (23 Menues
+unter Wurzelmenue `Verkauf`, id 294) gegen Odoo 18 (37 Menues, id 255), Nutzungszahlen der
+Menueziele (sale.order 2.461, sale.order.line 4.007, sale.report 3.984, product.pricelist 50,
+product.pricelist.item 1.872, crm.team 8, report.all.channels.sales 3.772).
+
+Befunde:
+
+```
+1. Ein Odoo-11-Menuepunkt fehlt in Odoo 18: Berichtswesen/Verkaufsauftraege aller Kanaele
+   (Aktion 424, Pivot ueber report.all.channels.sales, 3.772 Zeilen) -> KLAERUNG: nachbauen oder
+   entfallen lassen (siehe Teil 4).
+2. Tote Odoo-11-Menues ohne Migration: Reportlayout Kategorien (Modell sale.layout.category ist in
+   Odoo 11 nicht registriert; Feld layout_category_id auf 2 von 4.007 Zeilen gesetzt) und
+   Reklamationen (crm.claim, Modul bi_crm_claim, 0 Datensaetze).
+3. Sichtbarkeitsunterschied: Odoo 18 startet das Menue Auftraege/Angebote mit dem Default-Filter
+   "Meine Angebote"; Odoo 11 hatte keinen Vorgabefilter -> KLAERUNG.
+4. 16 gespeicherte Filter in Odoo 11 (15 benutzerindividuell, 2 als Benutzerstandard) - Vorschlag wie
+   Session 115: nicht uebernehmen.
+5. sale_stock und sale_timesheet sind in Odoo 18 nicht installiert (Entscheidungen Session 119/120):
+   Bestands- und Lieferfelder der Auftragszeilen werden in Teil 2 als "entfaellt" mit Begruendung
+   gefuehrt.
+6. mass_editing (Odoo 11) -> server_action_mass_edit (Odoo 18, installiert); merge_sale_order und
+   sale_merge_draft_invoice waren in Odoo 11 nicht installiert, in Odoo 18 vorhanden.
+```
+
+**Teil-Schnitt:** Teil 1 Grundstruktur (erledigt, dieses Dokument), Teil 2 Feldinventar sale.order
+und sale.order.line, Teil 3 Formulare/Reiter/Buttons/Statuswechsel/Filter und Menue-Defaults im
+Browser, Teil 4 Listen-, Such- und Berichtsansichten plus Preislisten-/Stammdatenpruefung,
+Teil 5 Abschluss und Mapping-Tabelle.
+
+**Nachtrag (Session 121, 24.09.2026):** Zur Klarstellung gegengeprueft - `confirmation_date`
+("Bestätigung am", Odoo 11: 2.437 von 2.461 Auftraegen) ist in Odoo 18 vorhanden und in
+`itk_sale_management` 18.0.1.1.0 umgesetzt, und die Mehrzustands-Browserpruefung auf der VM wurde
+in Session 117 durchgefuehrt (`browser_auftraege_pruef.py` lokal 9 OK / VM 9 OK). Die
+entsprechenden Hinweise in Abschnitt 6.13 sind damit veraltet.
+
+**Nachweise (Teil 1):** `scripts/verify_s121_verkauf_menue.py` -> 41 OK / 0 FEHL (prueft in einem
+Lauf Odoo 11 read-only, Odoo 18 lokal und Odoo 18 VM); `scripts/browser_verkauf_menue.py` ->
+lokal 43 OK / 0 FEHL, VM 43 OK / 0 FEHL (echte Klicks auf Auftraege, Abzurechnen, Produkte,
+Berichtswesen, Konfiguration; 0 JS-/RPC-Fehler; Screenshots `Desktop\Odoo18-Abnahme-Session121`).
+Teil 1 aendert nichts an Odoo 18, daher kein Deploy und kein Modul-Upgrade noetig.
+
+**Befund F55 (Session 121):** Odoo 18 haengt das Menue-Popover als `.o-popover o-dropdown--menu`
+an das Ende des Body; Sichtbarkeitspruefungen ueber `offsetParent` schlagen dort fehl
+(position: fixed) - `getClientRects()` verwenden.
+
+**STATUS: TEIL 1 ABGESCHLOSSEN (lokal und VM, im Browser abgenommen).**
+Bereich Verkauf insgesamt weiterhin in Arbeit, noch nicht migrationsbereit.
+
 ### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-15: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte, Produktformular), erste Abnahme 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119), Teil 15 am 24.09.2026 (Session 120) auf der VM im Browser abgenommen
 
 Dokument: `docs/o11-o18-vergleich-abo-teil1.md`; Teil 14: `docs/o11-o18-vergleich-abo-teil14.md`; Teil 15: `docs/o11-o18-vergleich-abo-teil15-produktformular.md`; Uebergabe und Vollstaendigkeitsbestaetigung: `docs/uebergabe-session-120-abonnements.md` (24.09.2026: jedes in Odoo 11 verwendete Feld, Reiter, Button, Smart Button, Statuswechsel, Filter, Gruppierung und jeder Geschaeftsprozess ist gleich vorhanden, funktional gleichwertig an anderer Stelle vorhanden oder bewusst dokumentiert; keine offene funktionale Abweichung).
