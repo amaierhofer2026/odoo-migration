@@ -154,6 +154,12 @@ Prüfwerkzeug: `python scripts/vm_abnahme_check.py` · Detailregel: `docs/arbeit
   vorhanden. Felder aus sale_stock/sale_timesheet entfallen begruendet; Felder ohne Ziel und
   obsolet sind getrennt ausgewiesen. Nachweis `scripts/verify_s121_verkauf_teil2.py`
   111 OK / 0 FEHL (Odoo 11 read-only, lokal und VM). Keine Aenderung an Odoo 18.
+  **Entscheidungen Anna (24.09.2026):** `note` vollstaendig uebernehmen (Zeilenumbrueche als HTML);
+  "30 Tage netto" auf das vorhandene Odoo-18-"30 Tage" mappen (keine Dublette); Stichwort "Up-Sell"
+  als Stammdaten-Schritt vorbereiten; Felder aus `sale_stock`/`sale_timesheet` entfallen begruendet;
+  alle 25 Odoo-11-Preislisten auf die Odoo-18-Preisliste id 34 (EUR). Regeln:
+  `migration/verkauf_migrationsregeln.json`. Neuer Befund: Odoo 18 fuehrt "14 Tage" mit 0 Tagen
+  (515 Auftraege betroffen) - Entscheidung offen.
 
 - **Bereich Angebote / Verkaufsauftraege - Bestandsaufnahme (Session 117, 18.09.2026):**
   `docs/o11-o18-strukturvergleich-angebote-auftraege.md`. Odoo 11: 2.460 Auftraege, 1.764 Abonnements.

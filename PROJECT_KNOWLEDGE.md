@@ -6820,3 +6820,30 @@ Offene Entscheidungen (Dokument Abschnitt 13): note text->html (Zeilenumbrueche)
 Stichwort "Up-Sell", Bestaetigung der entfallenden Lager-/Zeiterfassungsfelder.
 **STATUS: TEIL 2 ANALYSIERT (lokal und VM), keine Aenderung an Odoo 18. Warten auf die
 Entscheidungen von Anna, danach Teil 3 (Formulare, Buttons, Filter im Browser).**
+
+## Session 121, Teil 2 (Abschluss): Entscheidungen von Anna (24.09.2026)
+
+```
+1. note: Inhalt vollstaendig uebernehmen, Zeilenumbrueche fuer das Odoo-18-HTML-Feld korrekt in
+   HTML umsetzen.
+2. "30 Tage netto" (2 Auftraege): keine Dublette anlegen, auf das vorhandene Odoo-18-"30 Tage"
+   (id 4) mappen - fachlich identisch (100 % nach 30 Tagen ab Rechnungsdatum).
+3. Stichwort "Up-Sell" (1 Auftrag A-1900710): nicht verlieren, als spaeterer Stammdaten-/
+   Migrationsschritt vorbereitet (Odoo 18 hat derzeit 0 crm.tag).
+4. Felder aus sale_stock und sale_timesheet duerfen entfallen (Module bewusst nicht installiert),
+   kein Nachbau, weiterhin dokumentiert.
+5. Preislisten: spaeterer Datenmigrationsschritt, Zuordnungen vollstaendig vorbereitet -
+   alle 25 in Odoo 11 verwendeten Preislisten (Summe 2.461 Auftraege) auf die Odoo-18-Preisliste
+   id 34 ("Preisliste 2026 + Valorisierung", EUR, aktiv). EUR bleibt verbindlich.
+```
+
+Neu angelegt: migration/verkauf_migrationsregeln.json (erzeugt mit
+scripts/baue_verkauf_migrationsregeln.py, alle Zahlen read-only gemessen; enthaelt note-Regel,
+Zahlungsbedingungen mit Zeilenvergleich, Stichwort "Up-Sell", Preislisten-Zuordnung, Verkaeufer
+(31), Kanaele (4), entfallende Felder).
+
+**Neuer Befund (KLAERUNG NOETIG):** Odoo 18 fuehrt die Zahlungsbedingung "14 Tage" (id 12) mit
+nb_days = 0 (Zahlung sofort); Odoo 11 fuehrt sie mit 14 Tagen ab Rechnungsdatum. Betroffen sind
+515 Auftraege. Empfehlung: Odoo-18-Eintrag auf 14 Tage korrigieren. Bisher wurde nichts geaendert.
+
+**TEIL 2 ABGESCHLOSSEN (24.09.2026).** Danach Teil 3, Schritt 1: Formulare und Reiter.

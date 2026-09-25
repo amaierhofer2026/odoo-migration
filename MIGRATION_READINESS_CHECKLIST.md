@@ -584,8 +584,30 @@ Odoo 18 lokal und VM in einem Lauf); `scripts/analyse_verkauf_teil2_felder.py`,
 `scripts/baue_verkauf_teil2_doku.py`. Gegenprobe: `ir.model.fields` und `fields_get` liefern
 dieselben Feldmengen (je Modell und Instanz).
 
-**TEIL 2 ANALYSIERT (lokal und VM); offene Entscheidungen liegen bei Anna (siehe Dokument
-Abschnitt 13). Bereich Verkauf noch nicht migrationsbereit.**
+**Entscheidungen von Anna (24.09.2026) zu Teil 2:**
+1. `note` (2.439 Auftraege): Inhalt vollstaendig uebernehmen, Zeilenumbrueche fuer das Odoo-18-HTML-Feld
+   korrekt in HTML umsetzen.
+2. Zahlungsbedingung "30 Tage netto" (2 Auftraege): keine Dublette anlegen, Zuordnung auf das
+   vorhandene Odoo-18-"30 Tage" (id 4), fachlich identisch (100 % nach 30 Tagen ab Rechnungsdatum).
+3. Stichwort "Up-Sell" (1 Auftrag A-1900710): nicht verlieren, als spaeterer Stammdaten-/
+   Migrationsschritt vorbereitet (Odoo 18 hat derzeit 0 `crm.tag`).
+4. Felder aus `sale_stock` und `sale_timesheet` duerfen entfallen (Module bewusst nicht installiert),
+   kein Nachbau, weiterhin dokumentiert.
+5. Preislisten: spaeterer Datenmigrationsschritt, Zuordnung vollstaendig vorbereitet - alle 25 in
+   Odoo 11 verwendeten Preislisten (Summe 2.461 Auftraege) auf die Odoo-18-Preisliste id 34
+   ("Preisliste 2026 + Valorisierung", EUR, aktiv). EUR bleibt verbindlich.
+
+Verbindliche Regeln: `migration/verkauf_migrationsregeln.json` (Werkzeug
+`scripts/baue_verkauf_migrationsregeln.py`, Zahlen read-only gemessen).
+
+**Neuer Befund (KLAERUNG NOETIG):** Odoo 18 fuehrt die Zahlungsbedingung "14 Tage" (id 12) mit
+`nb_days = 0` (Zahlung sofort), Odoo 11 mit 14 Tagen ab Rechnungsdatum. Betroffen sind 515 Auftraege.
+Vor der Migration entscheiden: Odoo-18-Eintrag auf 14 Tage korrigieren (empfohlen) oder andere
+Zuordnung waehlen. Bisher wurde nichts geaendert.
+
+**TEIL 2 ABGESCHLOSSEN (24.09.2026, lokal und VM). Keine Aenderung an Odoo 18.**
+Offen im Bereich Verkauf: Teile 3 bis 5 (Formulare/Reiter begonnen; Buttons, Filter, Ansichten,
+Berichte, Abschluss).
 
 ### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-15: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte, Produktformular), erste Abnahme 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119), Teil 15 am 24.09.2026 (Session 120) auf der VM im Browser abgenommen
 

@@ -362,15 +362,21 @@ Read-only in Odoo 11 gemessen, mit Odoo 18 abgeglichen (Stand 24.09.2026):
 
 ```
 Zahlungsbedingungen (Feld sale.order.payment_term_id, 613 von 2.461 Auftraegen belegt)
-  Odoo 11 "Sofortige Zahlung"   96 Auftraege   -> Odoo 18 vorhanden (id 1)
-  Odoo 11 "14 Tage"            515 Auftraege   -> Odoo 18 vorhanden (id 12)
-  Odoo 11 "30 Tage netto"        2 Auftraege   -> Odoo 18 hat "30 Tage" (id 4), aber keinen
-                                                  Eintrag "30 Tage netto" -> Zuordnung entscheiden
+  Odoo 11 "Sofortige Zahlung"   96 Auftraege   -> Odoo 18 vorhanden (id 1, 0 Tage ab Rechnungsdatum)
+  Odoo 11 "14 Tage"            515 Auftraege   -> Odoo 18 hat "14 Tage" (id 12), aber mit
+                                                  nb_days = 0 (sofort) statt 14 Tagen -> KLAERUNG
+  Odoo 11 "30 Tage netto"        2 Auftraege   -> Odoo 18 "30 Tage" (id 4), 100 % nach 30 Tagen:
+                                                  fachlich identisch -> kein neuer Eintrag
   Odoo 11 "15 Tage"              0 Auftraege   -> Odoo 18 vorhanden (id 2), nicht noetig
 
 Preisliste (sale.order.pricelist_id, 2.461 von 2.461 belegt)
-  Zuordnung der Odoo-11-Preislisten auf die Odoo-18-Preisliste "Preisliste 2026 + Valorisierung"
-  (id 34, EUR, aktiv) ist ein Datenmigrationsschritt (offen seit Session 105/117).
+  Odoo 11 verwendet 25 Preislisten mit Auftraegen (Summe 2.461 Auftraege), darunter
+  "Allgemeine Preisliste" (1.120), "Preisliste 2025 Preiserhoehung und Valorisierung" (345),
+  "Preisliste 2026 + Valorisierung" (256), "Preisliste amtsweg-Basis 2020 Neukunden" (155),
+  "GSZ Kaernten 2019 + 2020 Valorisierung" (117), viele mit dem Zusatz "nicht mehr verwenden".
+  Odoo 18 hat genau eine Preisliste: "Preisliste 2026 + Valorisierung" (id 34, EUR, aktiv).
+  Verbindliche Regel: alle Odoo-11-Preislisten werden auf id 34 (EUR) abgebildet, keine neuen
+  Preislisten in Odoo 18.
 
 Verkaeufer (sale.order.user_id, 2.461 belegt, 31 verschiedene Verkaeufer)
   Groesste Gruppen: IT-Kommunal 1.644, Oberoesterreich GemDAT 205, Waiss Martina 115,
@@ -406,26 +412,41 @@ Weitere Felder ohne Pflege in Odoo 11
    berechnet sie. Kein Datenverlust: die Werte entstehen bei der Migration aus den Auftragszeilen.
 ```
 
-## 13. Offene Punkte und Entscheidungen (Vorschlag)
+## 13. Entscheidungen von Anna (24.09.2026) und verbindliche Vorgaben
 
 ```
-1. note (Geschaeftsbedingungen, 2.439 Auftraege): Odoo 11 speichert reinen Text, Odoo 18 HTML.
-   Vorschlag fuer die Migration: Zeilenumbrueche in <br> umwandeln, sonst Inhalt 1:1 uebernehmen.
-2. Zahlungsbedingung "30 Tage netto" (2 Auftraege): auf Odoo 18 "30 Tage" abbilden oder
-   "30 Tage netto" in Odoo 18 anlegen?
-3. Stichwort "Up-Sell" (1 Auftrag): das Tag fehlt in Odoo 18 (0 Datensaetze). Im Rahmen der
-   Tag-Stammdaten des CRM-Bereichs anlegen oder den Auftrag ohne Stichwort migrieren?
-4. Preislisten-, Verkaeufer- und Vertriebskanal-Zuordnung bleiben Datenmigrationsschritte
-   (wie in Session 105/117 dokumentiert), keine Aenderung an Odoo 18 in diesem Teil.
-5. Bestaetigung erbeten, dass die entfallenden Felder (Abschnitt 7 und 8) so akzeptiert werden,
-   insbesondere die Felder aus sale_stock (Lager) und sale_timesheet (Zeiterfassung).
+1. note (Geschaeftsbedingungen, 2.439 Auftraege): Inhalt aus Odoo 11 vollstaendig uebernehmen.
+   Zeilenumbrueche fuer das Odoo-18-HTML-Feld korrekt in HTML umsetzen (keine weitere
+   Formatierung erfinden, Sonderzeichen escapen).
+2. Zahlungsbedingung "30 Tage netto" (2 Auftraege): keine Dublette anlegen. Zuordnung auf die
+   vorhandene Odoo-18-Zahlungsbedingung "30 Tage" (id 4) - fachlich identisch (100 % nach
+   30 Tagen ab Rechnungsdatum).
+3. Stichwort "Up-Sell" (1 Auftrag A-1900710): nicht verlieren. Als spaeterer Stammdaten-/
+   Migrationsschritt vorbereitet: Odoo 18 hat derzeit 0 crm.tag, anzulegen ist "Up-Sell".
+4. Felder aus sale_stock und sale_timesheet duerfen entfallen (Module in Odoo 18 bewusst nicht
+   installiert). Kein Nachbau, weiterhin dokumentiert (Abschnitt 7).
+5. Preislisten: Zuordnung als spaeterer Datenmigrationsschritt vollstaendig vorbereitet - alle
+   25 in Odoo 11 verwendeten Preislisten auf die Odoo-18-Preisliste id 34
+   ("Preisliste 2026 + Valorisierung", EUR, aktiv). EUR bleibt verbindlich.
+
+Verbindliche Regeln als Datei: migration/verkauf_migrationsregeln.json
+(erzeugt mit scripts/baue_verkauf_migrationsregeln.py, Zahlen read-only gemessen).
 ```
+
+**Neuer Befund zur Zahlungsbedingung "14 Tage" (KLAERUNG NOETIG):** In Odoo 18 traegt der Eintrag
+"14 Tage" (id 12) den Wert `nb_days = 0`, also Zahlung sofort; Odoo 11 fuehrt "14 Tage" mit
+14 Tagen ab Rechnungsdatum. Betroffen sind 515 Auftraege. Vor der Migration muss entschieden
+werden: den Odoo-18-Eintrag auf 14 Tage korrigieren (empfohlen, Name und Fachlichkeit sprechen
+dafuer) oder eine andere Zuordnung waehlen. Geaendert wurde bisher nichts.
 
 ## 14. Nachweise
 
 ```
 scripts/verify_s121_verkauf_teil2.py       111 OK / 0 FEHL
                                            (prueft Odoo 11 read-only, Odoo 18 lokal und VM in einem Lauf)
+scripts/baue_verkauf_migrationsregeln.py   erzeugt migration/verkauf_migrationsregeln.json
+                                           (Preislisten, Zahlungsbedingungen, Stichworte, Verkaeufer,
+                                            Kanaele, entfallende Felder - Zahlen read-only gemessen)
 Datenlage                                   Odoo 11: sale.order 2.461, sale.order.line 4.007
                                             Odoo 18: 18 Auftraege / 28 Zeilen (lokal),
                                             20 Auftraege / 29 Zeilen (VM)
