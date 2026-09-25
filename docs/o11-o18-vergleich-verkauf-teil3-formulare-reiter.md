@@ -240,4 +240,24 @@ Odoo 11 Prod blieb read-only:
             5 OK / 0 FEHL, Screenshot 05_Zahlungsbedingung_14_Tage_lokal.png
 ```
 
-VM-Deploy und Browser-Abnahme der Punkte 1 und 3 folgen (siehe Checkliste 6.15).
+### 8.1 VM-Abnahme der Umsetzung (24.09.2026)
+
+```
+Ablauf auf der VM: git pull --ff-only + docker restart odoo18 (Anna, ueber Teleport),
+danach per RPC: Modul-Upgrade itk_sale_management einzeln (18.0.1.2.0) und
+apply_verkauf_stammdaten.py --instanz vm.
+
+Ergebnisse auf der VM:
+  itk_sale_management              18.0.1.2.0 installiert (Upgrade ohne Fehler)
+  apply_verkauf_stammdaten.py       3 OK / 0 FEHL (nb_days 0 -> 14); Prueflauf 3 OK / 0 FEHL
+  verify_s121_verkauf_teil3_reiter  64 OK / 0 FEHL (Reiter lokal = VM = "Auftragszeilen")
+  Browser Reiter                    16 OK / 0 FEHL ("Auftragszeilen" sichtbar und anklickbar)
+  Browser Zahlungsbedingung          5 OK / 0 FEHL ("100,000000 Prozent 14 Tage nach Rechnungsdatum")
+  apply_sale_labels.py --instanz vm  3 Labels gesetzt (F34-Ruecksetzer nach dem Modul-Upgrade)
+  verify_s117_auftraege.py vm       65 OK / 0 FEHL (nach dem Label-Nachzug)
+Testdaten                          keine angelegt oder geaendert
+```
+
+VM-Deploy und Browser-Abnahme der Punkte 1 und 3 sind am 24.09.2026 auf der VM erfolgt
+(Abschnitt 8.1): Pull, Container-Neustart, Modul-Upgrade, Stammdatenkorrektur, Browser-Abnahme
+von Reiter und Zahlungsbedingung - alle gruen.
