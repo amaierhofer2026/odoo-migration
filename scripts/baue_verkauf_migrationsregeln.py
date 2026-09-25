@@ -86,6 +86,14 @@ def main() -> int:
                                          "nicht installiert). Kein Nachbau, weiterhin dokumentieren.",
             "preislisten": "Spaeterer Datenmigrationsschritt; Zuordnungen vollstaendig vorbereiten, "
                            "EUR bleibt verbindlich.",
+            "reiterbezeichnung": "Der erste Reiter des Auftragsformulars heisst in Odoo 18 wieder "
+                                 "'Auftragszeilen' (Odoo-11-Wortlaut). Umgesetzt am 24.09.2026 in "
+                                 "itk_sale_management 18.0.1.2.0 (View an der Wurzel, priority 99).",
+            "gruppe_lieferadresse": "Die Odoo-11-Gruppe 'Lieferadresse' wird nicht nachgebaut; ihre "
+                                    "Felder stammen aus sale_stock, das bewusst nicht installiert wird.",
+            "zahlungsbedingung_14_tage": "Odoo 18 '14 Tage' ist am 24.09.2026 auf 14 Tage ab "
+                                         "Rechnungsdatum korrigiert worden (nb_days war 0). "
+                                         "'Sofortige Zahlung' und '30 Tage' bleiben unveraendert.",
         },
         "note_feld": {
             "o11_feld": "sale.order.note (text)",
@@ -103,11 +111,12 @@ def main() -> int:
                 "Sofortige Zahlung": {"ziel_id": o18_terme.get("Sofortige Zahlung", {}).get("id"),
                                       "identisch": True, "auftraege": 96},
                 "14 Tage": {"ziel_id": o18_terme.get("14 Tage", {}).get("id"),
-                            "identisch": False,
-                            "befund": "Odoo 18 fuehrt '14 Tage' mit nb_days = 0 (Zahlung sofort), "
-                                      "Odoo 11 mit 14 Tagen (day_after_invoice_date). "
-                                      "ENTSCHEIDUNG NOETIG: Odoo-18-Eintrag auf 14 Tage korrigieren "
-                                      "oder Zuordnung anpassen.",
+                            "identisch": (o18_terme.get("14 Tage", {}).get("zeilen") or [{}])[0].get("tage") == 14,
+                            "befund": "Odoo 18 fuehrte '14 Tage' zunaechst mit nb_days = 0 (Zahlung sofort); "
+                                      "Odoo 11 fuehrt 14 Tage ab Rechnungsdatum (day_after_invoice_date). "
+                                      "Am 24.09.2026 auf Entscheidung von Anna korrigiert: nb_days = 14. "
+                                      "Werkzeug: scripts/apply_verkauf_stammdaten.py (idempotent, lokal und VM).",
+                            "ist_werte_o18": (o18_terme.get("14 Tage", {}).get("zeilen") or [None])[0],
                             "auftraege": 515},
                 "30 Tage netto": {"ziel_id": o18_terme.get("30 Tage", {}).get("id"),
                                   "identisch": True,

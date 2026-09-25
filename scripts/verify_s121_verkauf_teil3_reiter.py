@@ -19,7 +19,9 @@ from _o11o18_client import o11, o18
 from analyse_verkauf_teil3_formulare import formular_arch, seiten, hauptbereich
 
 REITER_O11 = ["Auftragszeilen", "Weitere Informationen"]
-REITER_O18 = ["Auftragspositionen", "Optionale Produkte", "Angebotsbauer", "Weitere Informationen"]
+# Seit 24.09.2026 (Session 121) heisst der erste Reiter in Odoo 18 wieder wie in Odoo 11
+# ("Auftragszeilen"); vorher "Auftragspositionen" (Entscheidung von Anna).
+REITER_O18 = ["Auftragszeilen", "Optionale Produkte", "Angebotsbauer", "Weitere Informationen"]
 
 # Odoo-11-Reiter/Gruppe -> Odoo-18-Reiter/Gruppe
 GRUPPEN_MAPPING = {

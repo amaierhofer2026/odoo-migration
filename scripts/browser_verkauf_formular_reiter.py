@@ -18,7 +18,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from browser_verkauf_menue import lade_env, rpc_client, REPO
 
 VZ = os.path.join(os.path.expanduser("~"), "Desktop", "Odoo18-Abnahme-Session121")
-REITER = ["Auftragspositionen", "Optionale Produkte", "Angebotsbauer", "Weitere Informationen"]
+REITER = ["Auftragszeilen", "Optionale Produkte", "Angebotsbauer", "Weitere Informationen"]
 GRUPPEN = ["Verkauf", "Rechnungsstellung", "Versand", "Nachverfolgung"]
 
 
@@ -32,7 +32,7 @@ def erwartete_reiter(k, auftrag: dict) -> list:
     daten = k("sale.order", "read", [[auftrag["id"]],
                                      ["state", "partner_id", "is_pdf_quote_builder_available"]],
               context={"lang": "de_DE"})[0]
-    sichtbar = ["Auftragspositionen"]
+    sichtbar = ["Auftragszeilen"]
     if daten["state"] in ("draft", "sent"):
         sichtbar.append("Optionale Produkte")
     if daten["partner_id"] and daten["is_pdf_quote_builder_available"]:

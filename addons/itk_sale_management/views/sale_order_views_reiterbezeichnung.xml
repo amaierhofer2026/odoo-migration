@@ -1,0 +1,20 @@
+<odoo>
+    <data>
+        <!-- Beschriftung des ersten Reiters auf den Odoo-11-Wortlaut zurueckfuehren.
+             Entscheidung von Anna (24.09.2026, Session 121): "Auftragspositionen" -> "Auftragszeilen".
+             Die Erweiterung haengt an der WURZEL-View (sale.view_order_form) mit hoher priority,
+             damit keine spaetere Ansicht die Aenderung ueberdeckt.
+             position="attributes" auf die Seite mit name="order_lines" (nicht auf ein Feld). -->
+        <record id="view_saleorder_reiter_bezeichnung" model="ir.ui.view">
+            <field name="name">sale.order.form (itk) - Reiterbezeichnung</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="priority">99</field>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='order_lines']" position="attributes">
+                    <attribute name="string">Auftragszeilen</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
