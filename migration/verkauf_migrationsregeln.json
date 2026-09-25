@@ -1,0 +1,642 @@
+{
+ "bereich": "Verkauf",
+ "erstellt": "2026-09-24",
+ "grundlage": {
+  "odoo11": "portal.it-kommunal.at / ITK_V1_a (nur lesend verwendet)",
+  "odoo18": "odoo18_test (lokal und VM k001959vsx.ipax.at)",
+  "auftraege_odoo11": 2461
+ },
+ "entscheidungen_anna": {
+  "note": "Inhalt aus Odoo 11 vollstaendig uebernehmen; Zeilenumbrueche fuer das HTML-Feld in Odoo 18 korrekt in HTML umsetzen.",
+  "zahlungsbedingung_30_tage_netto": "Keine Dublette anlegen; auf die vorhandene, fachlich identische Zahlungsbedingung in Odoo 18 mappen.",
+  "stichwort_up_sell": "Nicht verlieren; als spaeterer Stammdaten-/Migrationsschritt eindeutig vorbereiten und dokumentieren.",
+  "sale_stock_sale_timesheet": "Felder duerfen entfallen (Module werden in Odoo 18 bewusst nicht installiert). Kein Nachbau, weiterhin dokumentieren.",
+  "preislisten": "Spaeterer Datenmigrationsschritt; Zuordnungen vollstaendig vorbereiten, EUR bleibt verbindlich."
+ },
+ "note_feld": {
+  "o11_feld": "sale.order.note (text)",
+  "o18_feld": "sale.order.note (html)",
+  "belegt_in_o11": 2439,
+  "regel": "Klartext uebernehmen, Zeilenumbrueche in <br> wandeln, Sonderzeichen escapen, keine weitere Formatierung erfinden."
+ },
+ "zahlungsbedingungen": {
+  "regel": "Zuordnung Odoo-11-Zahlungsbedingung auf Odoo-18-Zahlungsbedingung; keine Dubletten anlegen.",
+  "o11": [
+   {
+    "o11_id": 1,
+    "name": "Sofortige Zahlung",
+    "o11_zeilen": [
+     {
+      "wert": "balance",
+      "tage": 0,
+      "option": "day_after_invoice_date"
+     }
+    ],
+    "auftraege": 96
+   },
+   {
+    "o11_id": 2,
+    "name": "15 Tage",
+    "o11_zeilen": [
+     {
+      "wert": "balance",
+      "tage": 15,
+      "option": "day_after_invoice_date"
+     }
+    ],
+    "auftraege": 0
+   },
+   {
+    "o11_id": 3,
+    "name": "30 Tage netto",
+    "o11_zeilen": [
+     {
+      "wert": "balance",
+      "tage": 30,
+      "option": "day_after_invoice_date"
+     }
+    ],
+    "auftraege": 2
+   },
+   {
+    "o11_id": 4,
+    "name": "14 Tage",
+    "o11_zeilen": [
+     {
+      "wert": "balance",
+      "tage": 14,
+      "option": "day_after_invoice_date"
+     }
+    ],
+    "auftraege": 515
+   }
+  ],
+  "o18_vorhanden": {
+   "Sofortige Zahlung": {
+    "id": 1,
+    "zeilen": [
+     {
+      "wert": "percent",
+      "anteil": 100.0,
+      "tage": 0,
+      "verzoegerung": "days_after"
+     }
+    ]
+   },
+   "15 Tage": {
+    "id": 2,
+    "zeilen": [
+     {
+      "wert": "percent",
+      "anteil": 100.0,
+      "tage": 15,
+      "verzoegerung": "days_after"
+     }
+    ]
+   },
+   "21 Tage": {
+    "id": 3,
+    "zeilen": [
+     {
+      "wert": "percent",
+      "anteil": 100.0,
+      "tage": 21,
+      "verzoegerung": "days_after"
+     }
+    ]
+   },
+   "30 Tage": {
+    "id": 4,
+    "zeilen": [
+     {
+      "wert": "percent",
+      "anteil": 100.0,
+      "tage": 30,
+      "verzoegerung": "days_after"
+     }
+    ]
+   },
+   "45 Tage": {
+    "id": 5,
+    "zeilen": [
+     {
+      "wert": "percent",
+      "anteil": 100.0,
+      "tage": 45,
+      "verzoegerung": "days_after"
+     }
+    ]
+   },
+   "Am Ende des Folgemonats": {
+    "id": 6,
+    "zeilen": [
+     {
+      "wert": "percent",
+      "anteil": 100.0,
+      "tage": 0,
+      "verzoegerung": "days_after_end_of_next_month"
+     }
+    ]
+   },
+   "10 Tage nach Ende des nächsten Monats": {
+    "id": 7,
+    "zeilen": [
+     {
+      "wert": "percent",
+      "anteil": 100.0,
+      "tage": 10,
+      "verzoegerung": "days_after_end_of_next_month"
+     }
+    ]
+   },
+   "30 % sofort, Rest in 60 Tagen": {
+    "id": 8,
+    "zeilen": [
+     {
+      "wert": "percent",
+      "anteil": 30.0,
+      "tage": 0,
+      "verzoegerung": "days_after"
+     },
+     {
+      "wert": "percent",
+      "anteil": 70.0,
+      "tage": 60,
+      "verzoegerung": "days_after"
+     }
+    ]
+   },
+   "2/7 Netto 30": {
+    "id": 9,
+    "zeilen": [
+     {
+      "wert": "percent",
+      "anteil": 100.0,
+      "tage": 30,
+      "verzoegerung": "days_after"
+     }
+    ]
+   },
+   "90 Tage, am 10.": {
+    "id": 10,
+    "zeilen": [
+     {
+      "wert": "percent",
+      "anteil": 100.0,
+      "tage": 90,
+      "verzoegerung": "days_end_of_month_on_the"
+     }
+    ]
+   },
+   "14 Tage": {
+    "id": 12,
+    "zeilen": [
+     {
+      "wert": "percent",
+      "anteil": 100.0,
+      "tage": 0,
+      "verzoegerung": "days_after"
+     }
+    ]
+   }
+  },
+  "zuordnung": {
+   "Sofortige Zahlung": {
+    "ziel_id": 1,
+    "identisch": true,
+    "auftraege": 96
+   },
+   "14 Tage": {
+    "ziel_id": 12,
+    "identisch": false,
+    "befund": "Odoo 18 fuehrt '14 Tage' mit nb_days = 0 (Zahlung sofort), Odoo 11 mit 14 Tagen (day_after_invoice_date). ENTSCHEIDUNG NOETIG: Odoo-18-Eintrag auf 14 Tage korrigieren oder Zuordnung anpassen.",
+    "auftraege": 515
+   },
+   "30 Tage netto": {
+    "ziel_id": 4,
+    "identisch": true,
+    "begruendung": "Odoo 11: Restbetrag nach 30 Tagen ab Rechnungsdatum; Odoo 18 '30 Tage': 100 % nach 30 Tagen (days_after). Fachlich identisch.",
+    "auftraege": 2
+   },
+   "15 Tage": {
+    "ziel_id": 2,
+    "identisch": true,
+    "auftraege": 0,
+    "hinweis": "in Odoo 11 nie verwendet"
+   }
+  }
+ },
+ "stichworte": {
+  "regel": "Stichwoerter vor der Migration in Odoo 18 anlegen (Odoo 11 crm.lead.tag -> Odoo 18 crm.tag); im Verkauf ist genau ein Auftrag betroffen.",
+  "o18_crm_tag_anzahl": 0,
+  "o18_crm_tag_namen": [],
+  "betroffene_auftraege": [
+   {
+    "auftrag": "A-1900710",
+    "o11_tags": [
+     1
+    ]
+   }
+  ],
+  "vorzubereiten": [
+   "Up-Sell"
+  ]
+ },
+ "preislisten": {
+  "regel": "Alle Odoo-11-Preislisten werden auf die eine verbindliche Odoo-18-Preisliste abgebildet (EUR). Keine neuen Preislisten in Odoo 18.",
+  "o18_ziel": {
+   "id": 34,
+   "name": "Preisliste 2026 + Valorisierung",
+   "waehrung": "EUR",
+   "aktiv": true
+  },
+  "o11_preislisten_mit_auftraegen": [
+   {
+    "o11_id": 1,
+    "o11_name": "Allgemeine Preisliste",
+    "waehrung": "EUR",
+    "aktiv_in_o11": true,
+    "auftraege": 1120
+   },
+   {
+    "o11_id": 2,
+    "o11_name": "GemDat Niederösterreich alt/nicht mehr verwenden",
+    "waehrung": "EUR",
+    "aktiv_in_o11": true,
+    "auftraege": 31
+   },
+   {
+    "o11_id": 3,
+    "o11_name": "GemDat Oberösterreich BLFS oö/nicht mehr verwenden",
+    "waehrung": "EUR",
+    "aktiv_in_o11": true,
+    "auftraege": 20
+   },
+   {
+    "o11_id": 4,
+    "o11_name": "GSZ Kärnten 2019 + 2020 Valorisierung/nicht mehr verwenden",
+    "waehrung": "EUR",
+    "aktiv_in_o11": true,
+    "auftraege": 117
+   },
+   {
+    "o11_id": 6,
+    "o11_name": "ÖSTB Burgenland/nicht mehr verwenden",
+    "waehrung": "EUR",
+    "aktiv_in_o11": true,
+    "auftraege": 15
+   },
+   {
+    "o11_id": 9,
+    "o11_name": "Preisliste 2019 (Valorisierung amtsweg-Produkte/nicht mehr verwenden",
+    "waehrung": "EUR",
+    "aktiv_in_o11": true,
+    "auftraege": 7
+   },
+   {
+    "o11_id": 10,
+    "o11_name": "Preisliste 2020 inkl. Valorisierung/nicht mehr verwenden",
+    "waehrung": "EUR",
+    "aktiv_in_o11": true,
+    "auftraege": 45
+   },
+   {
+    "o11_id": 11,
+    "o11_name": "Preisliste amtsweg-Basis 2020 Neukunden/nicht mehr verwenden",
+    "waehrung": "EUR",
+    "aktiv_in_o11": true,
+    "auftraege": 155
+   },
+   {
+    "o11_id": 14,
+    "o11_name": "Preisliste 2021 inkl. Valorisierung",
+    "waehrung": "EUR",
+    "aktiv_in_o11": true,
+    "auftraege": 24
+   },
+   {
+    "o11_id": 16,
+    "o11_name": "GemDat OÖ BLFS OÖ 2021/nicht mehr verwenden",
+    "waehrung": "EUR",
+    "aktiv_in_o11": true,
+    "auftraege": 1
+   },
+   {
+    "o11_id": 21,
+    "o11_name": "Gemdat NÖ 2021/nicht mehr verwenden",
+    "waehrung": "EUR",
+    "aktiv_in_o11": true,
+    "auftraege": 7
+   },
+   {
+    "o11_id": 23,
+    "o11_name": "Preisliste 2022 inkl. Valorisierung",
+    "waehrung": "EUR",
+    "aktiv_in_o11": true,
+    "auftraege": 42
+   },
+   {
+    "o11_id": 24,
+    "o11_name": "Preisliste 2021 Korrektur help-altverträge bis 12/2018/nicht mehr verwenden",
+    "waehrung": "EUR",
+    "aktiv_in_o11": true,
+    "auftraege": 1
+   },
+   {
+    "o11_id": 25,
+    "o11_name": "ÖSTB Steiermark 2022",
+    "waehrung": "EUR",
+    "aktiv_in_o11": true,
+    "auftraege": 14
+   },
+   {
+    "o11_id": 31,
+    "o11_name": "Preisliste 2022-1 inkl. Valorisierung",
+    "waehrung": "EUR",
+    "aktiv_in_o11": true,
+    "auftraege": 12
+   },
+   {
+    "o11_id": 32,
+    "o11_name": "Gemdat NÖ 2021/nicht mehr verwenden",
+    "waehrung": "EUR",
+    "aktiv_in_o11": true,
+    "auftraege": 2
+   },
+   {
+    "o11_id": 33,
+    "o11_name": "Gemdat NÖ 2022",
+    "waehrung": "EUR",
+    "aktiv_in_o11": true,
+    "auftraege": 3
+   },
+   {
+    "o11_id": 38,
+    "o11_name": "Preisliste 2023 Preiserhöhung",
+    "waehrung": "EUR",
+    "aktiv_in_o11": true,
+    "auftraege": 9
+   },
+   {
+    "o11_id": 43,
+    "o11_name": "Preisliste 2023 Preiserhöhung + Valorisierung",
+    "waehrung": "EUR",
+    "aktiv_in_o11": true,
+    "auftraege": 88
+   },
+   {
+    "o11_id": 47,
+    "o11_name": "ÖSTB Steiermark 2023",
+    "waehrung": "EUR",
+    "aktiv_in_o11": true,
+    "auftraege": 1
+   },
+   {
+    "o11_id": 48,
+    "o11_name": "Preisliste 2023 Preiserhöhung + Valorisierung",
+    "waehrung": "EUR",
+    "aktiv_in_o11": true,
+    "auftraege": 1
+   },
+   {
+    "o11_id": 49,
+    "o11_name": "Preisliste 2023 Preiserhöhung + Valorisierung",
+    "waehrung": "EUR",
+    "aktiv_in_o11": true,
+    "auftraege": 24
+   },
+   {
+    "o11_id": 51,
+    "o11_name": "Preisliste 2024 + Valorisierung",
+    "waehrung": "EUR",
+    "aktiv_in_o11": true,
+    "auftraege": 121
+   },
+   {
+    "o11_id": 54,
+    "o11_name": "Preisliste 2025 Preiserhöhung und Valorisierung",
+    "waehrung": "EUR",
+    "aktiv_in_o11": true,
+    "auftraege": 345
+   },
+   {
+    "o11_id": 56,
+    "o11_name": "Preisliste 2026 + Valorisierung",
+    "waehrung": "EUR",
+    "aktiv_in_o11": true,
+    "auftraege": 256
+   }
+  ],
+  "summe_auftraege": 2461,
+  "hinweis": "Die Odoo-11-Preisliste 'Preisliste 2026 + Valorisierung' (id 56, 256 Auftraege) entspricht namentlich der Odoo-18-Zielpreisliste."
+ },
+ "verkaeufer": {
+  "regel": "Benutzerzuordnung vor der Migration; ausgeschiedene Benutzer deaktiviert anlegen, historische Verkaeuferbeziehung erhalten.",
+  "anzahl_verschiedene_verkaeufer_auf_auftraegen": 31,
+  "verteilung": [
+   {
+    "o11_id": 21,
+    "name": "IT-Kommunal",
+    "auftraege": 1644
+   },
+   {
+    "o11_id": 7,
+    "name": "Oberösterreich GemDAT",
+    "auftraege": 205
+   },
+   {
+    "o11_id": 10,
+    "name": "Waiss Martina",
+    "auftraege": 115
+   },
+   {
+    "o11_id": 12,
+    "name": "Sales GSZ Kärnten",
+    "auftraege": 113
+   },
+   {
+    "o11_id": 6,
+    "name": "Niederösterreich GemDAT",
+    "auftraege": 96
+   },
+   {
+    "o11_id": 73,
+    "name": "Kufgem",
+    "auftraege": 71
+   },
+   {
+    "o11_id": 63,
+    "name": "Czarnecki Clemens",
+    "auftraege": 44
+   },
+   {
+    "o11_id": 75,
+    "name": "Comm-Unity EDV GmbH",
+    "auftraege": 30
+   },
+   {
+    "o11_id": 15,
+    "name": "Würrer Florian",
+    "auftraege": 30
+   },
+   {
+    "o11_id": 31,
+    "name": "GVA Mödling",
+    "auftraege": 20
+   },
+   {
+    "o11_id": 33,
+    "name": "Abfallverband Schwechat",
+    "auftraege": 18
+   },
+   {
+    "o11_id": 14,
+    "name": "Sales ÖSTB  Burgenland",
+    "auftraege": 15
+   },
+   {
+    "o11_id": 55,
+    "name": "Sales ÖSTB Steiermark",
+    "auftraege": 13
+   },
+   {
+    "o11_id": 80,
+    "name": "ACO-Market",
+    "auftraege": 10
+   },
+   {
+    "o11_id": 42,
+    "name": "PSC",
+    "auftraege": 5
+   },
+   {
+    "o11_id": 27,
+    "name": "GVA Baden",
+    "auftraege": 4
+   },
+   {
+    "o11_id": 29,
+    "name": "GV Krems ",
+    "auftraege": 4
+   },
+   {
+    "o11_id": 26,
+    "name": "Gemeinde Dienstleistungsverband Region Amstetten",
+    "auftraege": 3
+   },
+   {
+    "o11_id": 34,
+    "name": "GVA Waidhofen/Thaya",
+    "auftraege": 3
+   },
+   {
+    "o11_id": 35,
+    "name": "GV Zwettl",
+    "auftraege": 3
+   },
+   {
+    "o11_id": 32,
+    "name": "GVU Scheibbs",
+    "auftraege": 2
+   },
+   {
+    "o11_id": 60,
+    "name": "Mobilitätsverbünde Österreich",
+    "auftraege": 2
+   },
+   {
+    "o11_id": 23,
+    "name": "RIS",
+    "auftraege": 2
+   },
+   {
+    "o11_id": 36,
+    "name": "rubicon IT GmbH",
+    "auftraege": 2
+   },
+   {
+    "o11_id": 1,
+    "name": "Administrator",
+    "auftraege": 1
+   },
+   {
+    "o11_id": 16,
+    "name": "ausgeschieden/Koch Katharina",
+    "auftraege": 1
+   },
+   {
+    "o11_id": 89,
+    "name": "Blagojevic Dejvid",
+    "auftraege": 1
+   },
+   {
+    "o11_id": 28,
+    "name": "Gemeindeverband für Abfallbehandlung Bezirk Bruck/Leitha",
+    "auftraege": 1
+   },
+   {
+    "o11_id": 37,
+    "name": "GV Horn",
+    "auftraege": 1
+   },
+   {
+    "o11_id": 30,
+    "name": "GVU Melk",
+    "auftraege": 1
+   },
+   {
+    "o11_id": 57,
+    "name": "VVT Tirol",
+    "auftraege": 1
+   }
+  ]
+ },
+ "vertriebskanaele": {
+  "regel": "Zuordnung der Odoo-11-Kanaele auf die Odoo-18-Verkaufsteams.",
+  "o11_verwendet": [
+   {
+    "o11_id": 8,
+    "name": "Interne Weitergabe",
+    "auftraege": 13
+   },
+   {
+    "o11_id": 4,
+    "name": "Newsletter",
+    "auftraege": 1
+   },
+   {
+    "o11_id": 6,
+    "name": "Persönlicher Kontakt",
+    "auftraege": 4
+   },
+   {
+    "o11_id": 1,
+    "name": "Vertriebskanäle (Intern)",
+    "auftraege": 2443
+   }
+  ]
+ },
+ "entfallende_felder": {
+  "sale_stock": [
+   "picking_policy",
+   "warehouse_id",
+   "procurement_group_id",
+   "picking_ids",
+   "delivery_count",
+   "move_ids",
+   "product_packaging",
+   "route_id",
+   "incoterm"
+  ],
+  "sale_timesheet": [
+   "project_ids",
+   "project_project_id",
+   "tasks_ids",
+   "tasks_count",
+   "timesheet_ids",
+   "timesheet_count",
+   "task_id"
+  ],
+  "begruendung": "Module werden in Odoo 18 bewusst nicht installiert (Sessions 119/120); Felder bleiben dokumentiert, kein Nachbau."
+ }
+}
