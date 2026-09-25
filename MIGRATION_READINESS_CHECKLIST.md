@@ -609,6 +609,39 @@ Zuordnung waehlen. Bisher wurde nichts geaendert.
 Offen im Bereich Verkauf: Teile 3 bis 5 (Formulare/Reiter begonnen; Buttons, Filter, Ansichten,
 Berichte, Abschluss).
 
+**Teil 3, Schritt 1 - Formulare und Reiter (24.09.2026, Session 121): ANALYSIERT UND ABGENOMMEN.**
+
+Dokument: `docs/o11-o18-vergleich-verkauf-teil3-formulare-reiter.md`. Nur Analyse, keine Aenderung
+an Odoo 18, keine Datenmigration, Odoo 11 read-only. Buttons, Smart Buttons, Statuswechsel, Filter,
+Gruppierungen und Suche sind ausdruecklich noch nicht bearbeitet.
+
+```
+Formularansichten sale.order       Odoo 11 12 | Odoo 18 8 (lokal = VM)
+Formularansichten sale.order.line  Odoo 11  0 (eingebettet) | Odoo 18 1 (form.readonly)
+Reiter Odoo 11 (2)   Auftragszeilen, Weitere Informationen
+Reiter Odoo 18 (4)   Auftragspositionen, Optionale Produkte, Angebotsbauer, Weitere Informationen
+  Sichtbarkeit: Optionale Produkte nur bei Status Angebot/gesendet; Angebotsbauer nur bei Kunde und
+  is_pdf_quote_builder_available (im gesamten Testbestand False -> nicht sichtbar)
+Gruppen "Weitere Informationen": Odoo 11 Lieferadresse, Information Umsatz, Abrechnung,
+  Berichtswesen -> Odoo 18 Versand, Verkauf, Rechnungsstellung, Nachverfolgung
+Hauptbereich: Odoo 11 25 Feldverweise -> Odoo 18 32; alle fachlichen Odoo-11-Bestandteile
+  vorhanden, weggefallen nur Zaehler aus sale_stock/sale_timesheet/sale_payment/website_sale
+ITK-Erweiterung (itk_sale_management "sale.order.form (itk)"): Kundenfeld ersetzt und ITK-Kontakte
+  (Verkaufskontakt, Verwaltungskontakt, Technischer Kontakt, Produktkategorie) direkt danach;
+  user_id und confirmation_date nach date_order
+```
+
+Nachweise: `scripts/verify_s121_verkauf_teil3_reiter.py` 64 OK / 0 FEHL (Odoo 11 read-only, lokal
+und VM); `scripts/browser_verkauf_formular_reiter.py` VM 16 OK / 0 FEHL, lokal 16 OK / 0 FEHL mit
+echten Klicks (Reiter sichtbar, Reiterwechsel, Gruppen VERKAUF/RECHNUNGSSTELLUNG/VERSAND/
+NACHVERFOLGUNG, 0 JS-/RPC-Fehler; Screenshots `Desktop\Odoo18-Abnahme-Session121\03_Reiter_*`).
+
+**Offen (KLAERUNG):** Wortlaut des ersten Reiters - Odoo 11 "Auftragszeilen" gegen Odoo 18
+"Auftragspositionen". Vorschlag: auf den Odoo-11-Wortlaut umstellen (View-Erweiterung an der Wurzel,
+mit Deploy und Browser-Abnahme auf der VM).
+
+**TEIL 3, SCHRITT 1 ABGENOMMEN (lokal und VM).** Naechster Schritt: Buttons und Smart Buttons.
+
 ### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-15: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte, Produktformular), erste Abnahme 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119), Teil 15 am 24.09.2026 (Session 120) auf der VM im Browser abgenommen
 
 Dokument: `docs/o11-o18-vergleich-abo-teil1.md`; Teil 14: `docs/o11-o18-vergleich-abo-teil14.md`; Teil 15: `docs/o11-o18-vergleich-abo-teil15-produktformular.md`; Uebergabe und Vollstaendigkeitsbestaetigung: `docs/uebergabe-session-120-abonnements.md` (24.09.2026: jedes in Odoo 11 verwendete Feld, Reiter, Button, Smart Button, Statuswechsel, Filter, Gruppierung und jeder Geschaeftsprozess ist gleich vorhanden, funktional gleichwertig an anderer Stelle vorhanden oder bewusst dokumentiert; keine offene funktionale Abweichung).

@@ -161,6 +161,17 @@ Prüfwerkzeug: `python scripts/vm_abnahme_check.py` · Detailregel: `docs/arbeit
   `migration/verkauf_migrationsregeln.json`. Neuer Befund: Odoo 18 fuehrt "14 Tage" mit 0 Tagen
   (515 Auftraege betroffen) - Entscheidung offen.
 
+- **Bereich Verkauf - Teil 3 Schritt 1 Formulare und Reiter (Session 121, 24.09.2026):**
+  `docs/o11-o18-vergleich-verkauf-teil3-formulare-reiter.md`. Formularansichten sale.order Odoo 11
+  12 gegen Odoo 18 8; Reiter Odoo 11 2 ("Auftragszeilen", "Weitere Informationen") gegen Odoo 18 4
+  ("Auftragspositionen", "Optionale Produkte", "Angebotsbauer", "Weitere Informationen", die beiden
+  mittleren regelabhaengig). Gruppen des Reiters "Weitere Informationen" zugeordnet
+  (Lieferadresse/Information Umsatz/Abrechnung/Berichtswesen -> Versand/Verkauf/Rechnungsstellung/
+  Nachverfolgung), Hauptbereich und ITK-Erweiterung dokumentiert. Nachweise
+  `scripts/verify_s121_verkauf_teil3_reiter.py` 64 OK / 0 FEHL (Odoo 11 read-only, lokal und VM)
+  und `scripts/browser_verkauf_formular_reiter.py` je 16 OK / 0 FEHL mit echten Klicks (lokal und VM).
+  Offen (Klaerung): Wortlaut des ersten Reiters. Buttons, Filter und Suche folgen in eigenen Schritten.
+
 - **Bereich Angebote / Verkaufsauftraege - Bestandsaufnahme (Session 117, 18.09.2026):**
   `docs/o11-o18-strukturvergleich-angebote-auftraege.md`. Odoo 11: 2.460 Auftraege, 1.764 Abonnements.
   Alle verwendeten Felder haben ein Odoo-18-Ziel; ITK-Kontaktfelder aus `itk_sale_management` vorhanden.

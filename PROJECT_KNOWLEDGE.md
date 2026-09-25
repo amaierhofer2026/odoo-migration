@@ -6847,3 +6847,37 @@ nb_days = 0 (Zahlung sofort); Odoo 11 fuehrt sie mit 14 Tagen ab Rechnungsdatum.
 515 Auftraege. Empfehlung: Odoo-18-Eintrag auf 14 Tage korrigieren. Bisher wurde nichts geaendert.
 
 **TEIL 2 ABGESCHLOSSEN (24.09.2026).** Danach Teil 3, Schritt 1: Formulare und Reiter.
+
+## Session 121, Teil 3 Schritt 1: Formulare und Reiter (24.09.2026)
+
+Nur Analyse, keine Aenderung an Odoo 18. Dokument: docs/o11-o18-vergleich-verkauf-teil3-formulare-reiter.md.
+Buttons, Smart Buttons, Statuswechsel, Filter, Gruppierungen und Suche bleiben ausdruecklich
+separaten Schritten vorbehalten.
+
+```
+Formularansichten sale.order        O11 12 | O18 8 (lokal = VM)
+Formularansichten sale.order.line   O11  0 (eingebettet) | O18 1 (sale.order.line.form.readonly)
+Reiter O11 (2)  Auftragszeilen, Weitere Informationen
+Reiter O18 (4)  Auftragspositionen, Optionale Produkte (nur Status Angebot/gesendet),
+                Angebotsbauer (nur bei is_pdf_quote_builder_available, im Testbestand ueberall
+                False -> nicht sichtbar), Weitere Informationen
+Gruppen O11     Lieferadresse, Information Umsatz, Abrechnung, Berichtswesen
+Gruppen O18     Versand, Verkauf, Rechnungsstellung, Nachverfolgung
+Hauptbereich    O11 25 Feldverweise | O18 32 Feldverweise; alle fachlichen O11-Bestandteile
+                vorhanden, entfallen nur Zaehler aus sale_stock/sale_timesheet/sale_payment/
+                website_sale
+ITK             itk_sale_management "sale.order.form (itk)": Kundenfeld ersetzt, danach
+                Verkaufskontakt/Verwaltungskontakt/Technischer Kontakt/Produktkategorie;
+                user_id und confirmation_date nach date_order eingefuegt (position="after", weil
+                Odoo 18 das Datumsfeld als Label-Div plus Feld rendert)
+```
+
+Nachweise: verify_s121_verkauf_teil3_reiter.py 64 OK / 0 FEHL (Odoo 11 read-only, lokal und VM);
+browser_verkauf_formular_reiter.py VM 16 OK / 0 FEHL und lokal 16 OK / 0 FEHL mit echten Klicks
+(Reiter sichtbar, Reiterwechsel, Gruppen sichtbar, 0 JS-/RPC-Fehler); Screenshots
+Desktop\Odoo18-Abnahme-Session121\03_Reiter_* und 04_Reiter_Weitere_Informationen_*.
+Neue Werkzeuge: scripts/analyse_verkauf_teil3_formulare.py, scripts/verify_s121_verkauf_teil3_reiter.py,
+scripts/browser_verkauf_formular_reiter.py.
+
+**Offen (KLAERUNG):** Reiterbeschriftung "Auftragspositionen" (O18) gegen "Auftragszeilen" (O11).
+**STATUS: TEIL 3 SCHRITT 1 ABGENOMMEN (lokal und VM). Naechster Schritt: Buttons und Smart Buttons**
