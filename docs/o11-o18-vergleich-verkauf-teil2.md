@@ -539,11 +539,26 @@ Verbindliche Regeln als Datei: migration/verkauf_migrationsregeln.json
 (erzeugt mit scripts/baue_verkauf_migrationsregeln.py, Zahlen read-only gemessen).
 ```
 
-**Neuer Befund zur Zahlungsbedingung "14 Tage" (KLAERUNG NOETIG):** In Odoo 18 traegt der Eintrag
-"14 Tage" (id 12) den Wert `nb_days = 0`, also Zahlung sofort; Odoo 11 fuehrt "14 Tage" mit
-14 Tagen ab Rechnungsdatum. Betroffen sind 515 Auftraege. Vor der Migration muss entschieden
-werden: den Odoo-18-Eintrag auf 14 Tage korrigieren (empfohlen, Name und Fachlichkeit sprechen
-dafuer) oder eine andere Zuordnung waehlen. Geaendert wurde bisher nichts.
+**Umsetzung dieser Entscheidungen (24.09.2026, lokal; VM folgt):**
+
+```
+1. Zahlungsbedingung "14 Tage" korrigiert: nb_days war 0 (Zahlung sofort), ist jetzt 14
+   (14 Tage nach Rechnungsdatum). "Sofortige Zahlung" (0) und "30 Tage" (30) unveraendert.
+   Werkzeug: scripts/apply_verkauf_stammdaten.py --instanz lokal|vm [--pruefen], idempotent,
+   jeweils 3 OK / 0 FEHL nach dem Schreiben.
+   Vorher/nachher belegt: nb_days 0 -> 14 (account.payment.term.line id 12).
+2. Reiterbeschriftung: "Auftragspositionen" -> "Auftragszeilen" (Odoo-11-Wortlaut), umgesetzt in
+   itk_sale_management 18.0.1.2.0 mit einer eigenen Ansicht an der Wurzel-View
+   (sale.view_order_form, priority 99, xpath //page[@name='order_lines'], position="attributes").
+   Nach dem Modul-Upgrade zeigt der Reiter in de_DE "Auftragszeilen".
+3. Die Gruppe "Lieferadresse" wird nicht nachgebaut (Felder aus sale_stock).
+```
+
+**Befund zur Zahlungsbedingung "14 Tage" (entschieden und umgesetzt am 24.09.2026):** In Odoo 18
+trug der Eintrag "14 Tage" (id 12) den Wert `nb_days = 0`, also Zahlung sofort; Odoo 11 fuehrt
+"14 Tage" mit 14 Tagen ab Rechnungsdatum. Betroffen sind 515 Auftraege. Auf Entscheidung von Anna
+wurde der Odoo-18-Eintrag auf 14 Tage korrigiert (nb_days 0 -> 14); die Eintraege "Sofortige
+Zahlung" und "30 Tage" blieben unveraendert.
 
 ## 14. Nachweise
 

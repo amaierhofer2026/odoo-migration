@@ -194,7 +194,7 @@
      {
       "wert": "percent",
       "anteil": 100.0,
-      "tage": 0,
+      "tage": 14,
       "verzoegerung": "days_after"
      }
     ]
@@ -208,8 +208,14 @@
    },
    "14 Tage": {
     "ziel_id": 12,
-    "identisch": false,
-    "befund": "Odoo 18 fuehrt '14 Tage' mit nb_days = 0 (Zahlung sofort), Odoo 11 mit 14 Tagen (day_after_invoice_date). ENTSCHEIDUNG NOETIG: Odoo-18-Eintrag auf 14 Tage korrigieren oder Zuordnung anpassen.",
+    "identisch": true,
+    "befund": "Odoo 18 fuehrte '14 Tage' zunaechst mit nb_days = 0 (Zahlung sofort); Odoo 11 fuehrt 14 Tage ab Rechnungsdatum (day_after_invoice_date). Am 24.09.2026 auf Entscheidung von Anna korrigiert: nb_days = 14. Werkzeug: scripts/apply_verkauf_stammdaten.py (idempotent, lokal und VM).",
+    "ist_werte_o18": {
+     "wert": "percent",
+     "anteil": 100.0,
+     "tage": 14,
+     "verzoegerung": "days_after"
+    },
     "auftraege": 515
    },
    "30 Tage netto": {

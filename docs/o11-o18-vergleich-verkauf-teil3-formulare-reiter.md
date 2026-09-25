@@ -185,17 +185,17 @@ Odoo-18-Spalten (Details folgen im Schritt "Filter und Listenansichten").
 ## 6. Befunde und offene Entscheidungen
 
 ```
-1. Wortlaut des ersten Reiters: Odoo 11 "Auftragszeilen", Odoo 18 "Auftragspositionen".
-   Die Odoo-11-Bezeichnung ist fachlich weiterhin passend; nach der Arbeitsregel "sichtbare
-   Odoo-11-Bezeichnungen beibehalten, wo fachlich passend" wird eine Umbenennung auf
-   "Auftragszeilen" zur Entscheidung vorgelegt. Technisch waere es eine Aenderung im Modul
-   (View-Erweiterung an der Wurzel) mit Deploy und Browser-Abnahme auf der VM.
+1. Wortlaut des ersten Reiters: ENTSCHIEDEN am 24.09.2026 (Anna) und umgesetzt - der Reiter heisst
+   in Odoo 18 wieder "Auftragszeilen" (Odoo-11-Wortlaut). Umsetzung: itk_sale_management 18.0.1.2.0,
+   eigene Ansicht an der Wurzel-View sale.view_order_form (priority 99,
+   xpath //page[@name='order_lines'], position="attributes"). Lokal nach dem Modul-Upgrade geprueft;
+   VM-Deploy und Browser-Abnahme folgen.
 2. Der Reiter "Angebotsbauer" erscheint wegen is_pdf_quote_builder_available = False in keinem
    Testauftrag; der Reiter "Optionale Produkte" nur bei Angebot/gesendet. Beide bleiben als
    Odoo-18-Standardfunktion erhalten, die Sichtbarkeitsregeln sind oben dokumentiert.
-3. Kein Nachbau noetig fuer die Odoo-11-Gruppe "Lieferadresse": die enthaltenen Felder stammen
-   ausschliesslich aus `sale_stock` (bewusst nicht installiert). Die Odoo-18-Gruppe "Versand"
-   bleibt mit ihren eigenen Feldern erhalten.
+3. ENTSCHIEDEN am 24.09.2026 (Anna): Die Odoo-11-Gruppe "Lieferadresse" wird nicht nachgebaut -
+   ihre Felder stammen ausschliesslich aus `sale_stock` (bewusst nicht installiert). Die
+   Odoo-18-Gruppe "Versand" bleibt mit ihren eigenen Feldern erhalten.
 4. Felder, die in Odoo 18 den Platz gewechselt haben (date_order, company_id in den Hauptbereich),
    sind funktional gleichwertig; keine Anpassung vorgeschlagen.
 ```
@@ -217,3 +217,27 @@ des ersten Reiters.
 
 Naechste Schritte (ausdruecklich noch nicht bearbeitet): Buttons, Smart Buttons, Statuswechsel,
 Filter, Gruppierungen, Suche.
+
+## 8. Umsetzung der Entscheidungen (24.09.2026)
+
+Auf Entscheidung von Anna (alle drei Punkte) umgesetzt; geaendert wurde ausschliesslich Odoo 18,
+Odoo 11 Prod blieb read-only:
+
+```
+1. Reiterbeschriftung "Auftragspositionen" -> "Auftragszeilen"
+   Modul: itk_sale_management 18.0.1.2.0 (vorher 18.0.1.1.0)
+   Datei: addons/itk_sale_management/views/sale_order_views_reiterbezeichnung.xml
+   Technik: eigene Ansicht an der WURZEL-View sale.view_order_form, priority 99,
+            xpath //page[@name='order_lines'], position="attributes", string="Auftragszeilen"
+   Nachweis lokal: get_views(de_DE) liefert als ersten Reiter "Auftragszeilen";
+            Browser-Abnahme lokal 16 OK / 0 FEHL (Reiter sichtbar und anklickbar)
+2. Gruppe "Lieferadresse": kein Nachbau (Felder aus sale_stock). Nur dokumentiert.
+3. Zahlungsbedingung "14 Tage": nb_days von 0 auf 14 korrigiert (14 Tage nach Rechnungsdatum).
+   Werkzeug: scripts/apply_verkauf_stammdaten.py --instanz lokal|vm [--pruefen] (idempotent)
+   Nachweis lokal: 3 OK / 0 FEHL nach dem Schreiben, Prueflauf danach 3 OK / 0 FEHL;
+            "Sofortige Zahlung" (nb_days 0) und "30 Tage" (nb_days 30) unveraendert
+   Browser lokal: Zahlungsbedingung zeigt "100,000000 Prozent 14 Tage nach Rechnungsdatum",
+            5 OK / 0 FEHL, Screenshot 05_Zahlungsbedingung_14_Tage_lokal.png
+```
+
+VM-Deploy und Browser-Abnahme der Punkte 1 und 3 folgen (siehe Checkliste 6.15).

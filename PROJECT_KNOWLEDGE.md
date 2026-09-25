@@ -6881,3 +6881,26 @@ scripts/browser_verkauf_formular_reiter.py.
 
 **Offen (KLAERUNG):** Reiterbeschriftung "Auftragspositionen" (O18) gegen "Auftragszeilen" (O11).
 **STATUS: TEIL 3 SCHRITT 1 ABGENOMMEN (lokal und VM). Naechster Schritt: Buttons und Smart Buttons**
+
+## Session 121, Teil 3 Schritt 1 (Umsetzung): Entscheidungen von Anna (24.09.2026)
+
+```
+1. Reiter "Auftragspositionen" -> "Auftragszeilen": umgesetzt in itk_sale_management 18.0.1.2.0
+   (neue Datei views/sale_order_views_reiterbezeichnung.xml; eigene Ansicht an der WURZEL-View
+   sale.view_order_form, priority 99, xpath //page[@name='order_lines'], position="attributes").
+   Lokal: docker restart odoo18, update-list, Upgrade einzeln; danach get_views(de_DE) mit erstem
+   Reiter "Auftragszeilen"; Browser lokal 16 OK / 0 FEHL.
+2. Gruppe "Lieferadresse" wird nicht nachgebaut (Felder aus sale_stock, Modul bewusst nicht
+   installiert). Nur dokumentiert.
+3. Zahlungsbedingung "14 Tage": nb_days 0 -> 14 (14 Tage nach Rechnungsdatum). Werkzeug
+   scripts/apply_verkauf_stammdaten.py (idempotent, --pruefen lesend), lokal 3 OK / 0 FEHL;
+   "Sofortige Zahlung" und "30 Tage" unveraendert; Browser lokal 5 OK / 0 FEHL.
+4. migration/verkauf_migrationsregeln.json neu erzeugt: Entscheidungen und Korrektur enthalten,
+   Preislisten-Zuordnung (25 Listen -> Odoo-18-Preisliste 34), Stichwort "Up-Sell", Verkaeufer (31),
+   Kanaele (4), entfallende Felder (sale_stock, sale_timesheet).
+```
+
+Werkzeuge neu: scripts/apply_verkauf_stammdaten.py, scripts/browser_verkauf_zahlungsbedingung.py.
+**Offen bis zur VM-Abnahme: VM-Pull, Container-Neustart, Modul-Upgrade itk_sale_management,
+apply_verkauf_stammdaten.py --instanz vm, Browser-Abnahme auf der VM.**
+Danach Teil 3, Schritt 2: Buttons und Smart Buttons.

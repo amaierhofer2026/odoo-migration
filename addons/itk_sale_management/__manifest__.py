@@ -5,12 +5,13 @@
     'author': "Alvarium Services, Andreas Väthröder, Fabian Väthröder",
     'website': "http://www.alvarium-services.de",
     'category': 'ITK - Specific Industry Applications',
-    'version': '18.0.1.1.0',
+    'version': '18.0.1.2.0',
     'depends': ['base', 'sale'],
     'data': [
         'views/views.xml',
         'views/templates.xml',
         'views/sale_order.xml',
+        'views/sale_order_views_reiterbezeichnung.xml',
     ],
     'demo': [
         'demo/demo.xml',

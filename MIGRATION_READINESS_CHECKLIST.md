@@ -636,11 +636,21 @@ und VM); `scripts/browser_verkauf_formular_reiter.py` VM 16 OK / 0 FEHL, lokal 1
 echten Klicks (Reiter sichtbar, Reiterwechsel, Gruppen VERKAUF/RECHNUNGSSTELLUNG/VERSAND/
 NACHVERFOLGUNG, 0 JS-/RPC-Fehler; Screenshots `Desktop\Odoo18-Abnahme-Session121\03_Reiter_*`).
 
-**Offen (KLAERUNG):** Wortlaut des ersten Reiters - Odoo 11 "Auftragszeilen" gegen Odoo 18
-"Auftragspositionen". Vorschlag: auf den Odoo-11-Wortlaut umstellen (View-Erweiterung an der Wurzel,
-mit Deploy und Browser-Abnahme auf der VM).
+**Entscheidungen von Anna (24.09.2026) und Umsetzung (lokal; VM-Deploy offen):**
+1. Reiter "Auftragspositionen" auf **"Auftragszeilen"** umbenannt (Odoo-11-Wortlaut). Umgesetzt in
+   `itk_sale_management` **18.0.1.2.0**, eigene Ansicht an der Wurzel-View `sale.view_order_form`
+   (priority 99, `xpath //page[@name='order_lines']`, `position="attributes"`). Lokal nach
+   Modul-Upgrade geprueft: erster Reiter zeigt "Auftragszeilen"; Browser lokal 16 OK / 0 FEHL.
+2. Odoo-11-Gruppe "Lieferadresse" wird **nicht nachgebaut** (Felder aus `sale_stock`).
+3. Zahlungsbedingung **"14 Tage" korrigiert**: `nb_days` von 0 (Zahlung sofort) auf 14
+   (14 Tage nach Rechnungsdatum). Werkzeug `scripts/apply_verkauf_stammdaten.py --instanz lokal|vm
+   [--pruefen]`, idempotent; lokal 3 OK / 0 FEHL, Prueflauf 3 OK / 0 FEHL. "Sofortige Zahlung"
+   (nb_days 0) und "30 Tage" (nb_days 30) unveraendert. Browser lokal 5 OK / 0 FEHL
+   (Screenshot 05_Zahlungsbedingung_14_Tage_lokal.png).
 
 **TEIL 3, SCHRITT 1 ABGENOMMEN (lokal und VM).** Naechster Schritt: Buttons und Smart Buttons.
+**Offen bis zur VM-Abnahme:** VM-Pull, Container-Neustart, Modul-Upgrade `itk_sale_management`,
+`apply_verkauf_stammdaten.py --instanz vm`, Browser-Abnahme auf der VM.
 
 ### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-15: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte, Produktformular), erste Abnahme 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119), Teil 15 am 24.09.2026 (Session 120) auf der VM im Browser abgenommen
 

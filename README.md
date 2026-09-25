@@ -171,6 +171,11 @@ Prüfwerkzeug: `python scripts/vm_abnahme_check.py` · Detailregel: `docs/arbeit
   `scripts/verify_s121_verkauf_teil3_reiter.py` 64 OK / 0 FEHL (Odoo 11 read-only, lokal und VM)
   und `scripts/browser_verkauf_formular_reiter.py` je 16 OK / 0 FEHL mit echten Klicks (lokal und VM).
   Offen (Klaerung): Wortlaut des ersten Reiters. Buttons, Filter und Suche folgen in eigenen Schritten.
+  **Umsetzung 24.09.2026 (nur Odoo 18):** erster Reiter heisst wieder "Auftragszeilen"
+  (`itk_sale_management` 18.0.1.2.0, eigene Ansicht an der Wurzel-View, priority 99); Gruppe
+  "Lieferadresse" wird nicht nachgebaut; Zahlungsbedingung "14 Tage" von `nb_days` 0 auf 14
+  korrigiert (`scripts/apply_verkauf_stammdaten.py`, idempotent). Nachweise lokal: Reiter-Browser
+  16 OK / 0 FEHL, Zahlungsbedingung-Browser 5 OK / 0 FEHL; VM-Abnahme offen.
 
 - **Bereich Angebote / Verkaufsauftraege - Bestandsaufnahme (Session 117, 18.09.2026):**
   `docs/o11-o18-strukturvergleich-angebote-auftraege.md`. Odoo 11: 2.460 Auftraege, 1.764 Abonnements.
