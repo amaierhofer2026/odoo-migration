@@ -79,13 +79,20 @@ def main() -> int:
             fehler += 1
             print("  FEHL %s" % text)
 
-    # Testauftraege je Zustand auswaehlen
+    # Testauftraege je Zustand auswaehlen.
+    # Wichtig (Befund F37, Lehre aus Session 119): invoice_count/subscription_count sind NICHT
+    # gespeicherte Berechnungsfelder. Suchen mit search_read auf solchen Feldern liefern keinen
+    # belastbaren Treffer. Deshalb alle Auftraege per read() holen und in Python auswaehlen.
+    alle = kw("sale.order", "read",
+              [[t["id"] for t in kw("sale.order", "search_read", [[], ["id"]], order="id desc")],
+               ["id", "name", "state", "invoice_count", "subscription_count"]])
     auftraege = {}
     for state in ["draft", "sent", "sale", "cancel"]:
-        treffer = kw("sale.order", "search_read", [[["state", "=", state]], ["id", "name", "invoice_count", "subscription_count"]], limit=1)
-        if treffer:
-            auftraege[state] = treffer[0]
-    mit_rechnung = kw("sale.order", "search_read", [[["invoice_ids", "!=", False]], ["id", "name", "invoice_count", "subscription_count"]], limit=1)
+        for t in alle:
+            if t["state"] == state:
+                auftraege[state] = t
+                break
+    mit_rechnung = [t for t in alle if t["invoice_count"] > 0][:1]
     print("Testauftraege:", {k: (v["id"], v["name"]) for k, v in auftraege.items()},
           "| mit Rechnung:", [(m["id"], m["name"]) for m in mit_rechnung])
 
@@ -161,12 +168,10 @@ def main() -> int:
             pruefe(False, "kein Auftrag mit Rechnung vorhanden")
 
         print("\n6) Auftrag mit Abonnement")
-        # bestaetigter Auftrag mit Abonnement (bei Entwuerfen ist der Smart Button zu Recht verborgen)
-        abo = kw("sale.order", "search_read",
-                 [[["subscription_count", ">", 0], ["state", "=", "sale"]], ["id", "name", "subscription_count"]], limit=1)
-        if not abo:
-            abo = kw("sale.order", "search_read",
-                     [[["subscription_count", ">", 0]], ["id", "name", "subscription_count"]], limit=1)
+        # bestaetigter Auftrag mit Abonnement (bei Entwuerfen ist der Smart Button zu Recht verborgen).
+        # Auswahl per read() (subscription_count ist ein nicht gespeichertes Berechnungsfeld, F37).
+        abo = [t for t in alle if t["subscription_count"] > 0 and t["state"] == "sale"][:1] \
+            or [t for t in alle if t["subscription_count"] > 0][:1]
         if abo:
             text, knoepfe = oeffne_auftrag(abo[0]["id"], "MitAbo")
             pruefe(any("bonnement" in k for k in knoepfe),

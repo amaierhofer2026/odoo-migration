@@ -6904,3 +6904,38 @@ Werkzeuge neu: scripts/apply_verkauf_stammdaten.py, scripts/browser_verkauf_zahl
 **Offen bis zur VM-Abnahme: VM-Pull, Container-Neustart, Modul-Upgrade itk_sale_management,
 apply_verkauf_stammdaten.py --instanz vm, Browser-Abnahme auf der VM.**
 Danach Teil 3, Schritt 2: Buttons und Smart Buttons.
+
+## Session 121, Teil 3 Schritt 1 (VM-Abnahme) und Schritt 2 (Buttons und Smart Buttons)
+
+VM-Abnahme der Umsetzung (24.09.2026, Anna hat Pull und Container-Neustart per Teleport ausgefuehrt):
+
+```
+itk_sale_management Upgrade auf der VM   18.0.1.2.0, ohne Fehler (einzeln, kein -u all)
+apply_verkauf_stammdaten.py --instanz vm 3 OK / 0 FEHL (nb_days 0 -> 14), Prueflauf 3 OK / 0 FEHL
+verify_s121_verkauf_teil3_reiter.py      64 OK / 0 FEHL (Reiter = "Auftragszeilen", lokal = VM)
+Browser Reiter auf der VM                16 OK / 0 FEHL
+Browser Zahlungsbedingung auf der VM      5 OK / 0 FEHL
+apply_sale_labels.py --instanz vm         3 Labels nachgezogen (F34-Ruecksetzer nach dem Upgrade)
+verify_s117_auftraege.py (lokal und VM)  65 OK / 0 FEHL
+verify_s121_verkauf_teil2.py            111 OK / 0 FEHL
+verify_s118_abo.py (VM)                  19 OK / 0 FEHL (Abos unberuehrt)
+browser_auftraege_pruef.py (VM)           7 OK / 1 FEHL (Testdatenmangel: kein Auftrag mit
+                                          Rechnung vorhanden, lokal identisch - kein Regressionsbefund)
+Testdaten                                 keine angelegt oder geaendert
+```
+
+Teil 3 Schritt 2 - Buttons und Smart Buttons vollstaendig verglichen und mit echten Klicks
+abgenommen: Klicktest lokal 26 OK / 0 FEHL und VM 26 OK / 0 FEHL (E-Mail-Assistent, Vorschau,
+Bestaetigen mit automatischer Sperre, Entsperren, Smart-Button-Zaehler, Storno-Dialog mit
+"Verwerfen", "Auf Angebot setzen", 0 JS-/RPC-Fehler). Testauftrag jeweils angelegt und geloescht
+(lokal 18 Auftraege, VM 20 Auftraege wie vorher). Dokument:
+docs/o11-o18-vergleich-verkauf-teil3-buttons.md.
+
+Befunde: Odoo 18 storniert ueber den Assistenten sale.order.cancel (Bestaetigungsdialog mit
+optionalem E-Mail-Versand) statt direkt; "Bestellungen automatisch sperren" ist in Odoo 18 aktiv,
+bestaetigte Auftraege sind sofort gesperrt. Beides dokumentiert, keine Anpassung vorgeschlagen.
+Werkzeugfix: scripts/browser_auftraege_pruef.py waehlt Testauftraege jetzt per read() statt per
+Suche auf nicht gespeicherten Berechnungsfeldern (Lehre F37).
+
+**STATUS: TEIL 3 SCHRITT 1 UND SCHRITT 2 ABGENOMMEN (lokal und VM).**
+Offen in Teil 3: Statuswechsel, Filter, Gruppierungen, Suche (ausdruecklich in eigenen Schritten).

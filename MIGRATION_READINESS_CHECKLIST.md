@@ -648,9 +648,51 @@ NACHVERFOLGUNG, 0 JS-/RPC-Fehler; Screenshots `Desktop\Odoo18-Abnahme-Session121
    (nb_days 0) und "30 Tage" (nb_days 30) unveraendert. Browser lokal 5 OK / 0 FEHL
    (Screenshot 05_Zahlungsbedingung_14_Tage_lokal.png).
 
-**TEIL 3, SCHRITT 1 ABGENOMMEN (lokal und VM).** Naechster Schritt: Buttons und Smart Buttons.
-**Offen bis zur VM-Abnahme:** VM-Pull, Container-Neustart, Modul-Upgrade `itk_sale_management`,
-`apply_verkauf_stammdaten.py --instanz vm`, Browser-Abnahme auf der VM.
+**TEIL 3, SCHRITT 1 ABGENOMMEN (lokal und VM), Umsetzung auf der VM verifiziert.**
+Offen in Teil 3: Statuswechsel, Filter, Gruppierungen, Suche.
+
+**Teil 3, Schritt 2 - Buttons und Smart Buttons (24.09.2026, Session 121): ABGENOMMEN.**
+
+Dokument: `docs/o11-o18-vergleich-verkauf-teil3-buttons.md`. Buttons und Smart Buttons vollstaendig
+verglichen (Odoo 11 gegen Odoo 18), Klicktests mit echtem Browser lokal und auf der VM.
+
+```
+Kopf-Buttons  Odoo 11 10 verschiedene | Odoo 18 11 verschiedene
+  zugeordnet: Bestaetigen, Stornieren, Auf Angebot setzen, Sperren (action_lock statt action_done),
+  Entsperren, Drucken (Odoo 18 im Zahnrad), Rechnung erstellen (Aktion 428 statt 425, gleicher
+  Assistent sale.advance.payment.inv), Per E-Mail versenden, Pro-forma-Rechnung senden
+  entfaellt:   Wiederherstellungs-E-Mail senden (Website; in Odoo 11 0 Warenkoerbe)
+  neu in O18:  Vorschau, Transaktion erfassen, Transaktion stornieren
+Smart Buttons Odoo 11 7 | Odoo 18 3 (Abonnements, Rechnungen, Einkauf)
+  entfaellt:   Warenauslieferung (sale_stock), Zeiterfassung/Projekte/Aufgaben (sale_timesheet),
+               Zahlungen als Zaehler (Odoo 18 ueber transaction_ids)
+Zeilenbereich Odoo 11 keine | Odoo 18 vier Zusatzbuttons (Katalog, Rabatt, Zum Auftrag, Steuern)
+Druckberichte mit Bindung an sale.order: Odoo 18 PDF-Angebot, Angebot/Auftrag, ITK-Angebot/Auftrag,
+  PRO-FORMA-Rechnung (im Klicktest alle erreichbar)
+```
+
+Nachweise: Klicktest `scripts/browser_verkauf_buttons_klicktest.py` lokal 26 OK / 0 FEHL und
+VM 26 OK / 0 FEHL (E-Mail-Assistent, Vorschau, Bestaetigen mit automatischer Sperre, Entsperren,
+Smart-Button-Zaehler gegen 0 geprueft, Storno-Dialog mit "Verwerfen", "Auf Angebot setzen",
+0 JS-/RPC-Fehler); Testauftrag jeweils angelegt und wieder geloescht. Inventar:
+`scripts/analyse_verkauf_teil3_buttons.py`.
+
+Regressionpruefung nach dem VM-Deploy: `verify_s121_verkauf_teil3_reiter.py` 64 OK,
+`verify_s121_verkauf_teil2.py` 111 OK, `verify_s117_auftraege.py` 65 OK (lokal und VM),
+`verify_s118_abo.py` 19 OK (VM), Browser Reiter 16 OK, Browser Zahlungsbedingung 5 OK,
+`browser_auftraege_pruef.py` 7 OK / 1 FEHL (Testdatenmangel: kein Auftrag mit Rechnung vorhanden,
+lokal identisch - kein Regressionsbefund).
+
+**Befunde:** Odoo 18 storniert ueber den Assistenten `sale.order.cancel` (Bestaetigungsdialog mit
+optionalem E-Mail-Versand) statt direkt. "Bestellungen automatisch sperren" ist in Odoo 18 aktiv,
+ein bestaetigter Auftrag ist sofort gesperrt. Beides dokumentiert, keine Anpassung vorgeschlagen.
+
+**Merke (F34 erneut bestaetigt):** Nach jedem Upgrade von `itk_sale_management` auf der VM muessen
+die Feldbeschriftungen mit `scripts/apply_sale_labels.py --instanz vm` nachgezogen werden
+(vorher 3 Abweichungen, danach 65 OK / 0 FEHL).
+
+**TEIL 3, SCHRITT 2 ABGENOMMEN (lokal und VM).** Offen in Teil 3: Statuswechsel, Filter,
+Gruppierungen, Suche. Danach Teil 4 (Ansichten und Berichte) und Teil 5 (Abschluss).
 
 ### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-15: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte, Produktformular), erste Abnahme 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119), Teil 15 am 24.09.2026 (Session 120) auf der VM im Browser abgenommen
 

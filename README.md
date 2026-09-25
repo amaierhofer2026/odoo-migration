@@ -177,6 +177,20 @@ Prüfwerkzeug: `python scripts/vm_abnahme_check.py` · Detailregel: `docs/arbeit
   korrigiert (`scripts/apply_verkauf_stammdaten.py`, idempotent). Nachweise lokal: Reiter-Browser
   16 OK / 0 FEHL, Zahlungsbedingung-Browser 5 OK / 0 FEHL; VM-Abnahme offen.
 
+- **Bereich Verkauf - Teil 3 Schritt 2 Buttons und Smart Buttons (Session 121, 24.09.2026):**
+  `docs/o11-o18-vergleich-verkauf-teil3-buttons.md`. Kopf-Buttons Odoo 11 (10) gegen Odoo 18 (11)
+  zugeordnet (Sperren = action_lock, Rechnung erstellen = Aktion 428 auf demselben Assistenten,
+  Drucken liegt in Odoo 18 im Zahnradmenue), Smart Buttons Odoo 11 (7) gegen Odoo 18 (3:
+  Abonnements, Rechnungen, Einkauf), vier Odoo-18-Zusatzbuttons im Zeilenbereich. Klicktest mit
+  echtem Browser: lokal 26 OK / 0 FEHL, VM 26 OK / 0 FEHL (E-Mail-Assistent, Vorschau, Bestaetigen,
+  Sperre/Entsperren, Smart-Button-Zaehler, Storno-Dialog, Auf Angebot setzen).
+  **VM-Abnahme der Umsetzung aus Schritt 1:** `itk_sale_management` 18.0.1.2.0 upgegradet (einzeln),
+  Zahlungsbedingung "14 Tage" auf 14 Tage korrigiert, Reiter "Auftragszeilen" und Zahlungsbedingung
+  im VM-Browser bestaetigt (16 bzw. 5 OK / 0 FEHL). Regressionpruefung gruen:
+  verify_s121_teil3_reiter 64 OK, verify_s121_teil2 111 OK, verify_s117_auftraege 65 OK (lokal und
+  VM), verify_s118_abo 19 OK. Merke: nach jedem `itk_sale_management`-Upgrade auf der VM
+  `scripts/apply_sale_labels.py --instanz vm` nachziehen (F34).
+
 - **Bereich Angebote / Verkaufsauftraege - Bestandsaufnahme (Session 117, 18.09.2026):**
   `docs/o11-o18-strukturvergleich-angebote-auftraege.md`. Odoo 11: 2.460 Auftraege, 1.764 Abonnements.
   Alle verwendeten Felder haben ein Odoo-18-Ziel; ITK-Kontaktfelder aus `itk_sale_management` vorhanden.

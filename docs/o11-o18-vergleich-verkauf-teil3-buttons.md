@@ -137,9 +137,15 @@ Ergebnis lokal (24.09.2026): 26 OK / 0 FEHL
   - 0 JavaScript-Fehler, 0 RPC-Fehler
   - Testauftrag wieder geloescht (0 verbleibend)
 
-Ergebnis VM: folgt nach dem Deploy (Pull, Container-Neustart, Modul-Upgrade).
+Ergebnis VM (24.09.2026, nach Deploy und Modul-Upgrade): 26 OK / 0 FEHL
+  - gleicher Ablauf wie lokal, echter Browser gegen https://k001959vsx.ipax.at
+  - Reiter im Formular heisst "Auftragszeilen", Angebots- und Auftragsformular unveraendert
+  - 0 JavaScript-Fehler, 0 RPC-Fehler
+  - Testauftrag angelegt und wieder geloescht; Bestand auf der VM danach wie vorher
+    (20 Auftraege, 29 Auftragszeilen)
 Screenshots: Desktop\Odoo18-Abnahme-Session121\06_Buttons_Angebot_*.png,
 07_Button_Email_Assistent_*.png, 08_Button_Bestaetigt_*.png, 09_Button_Storno_Dialog_*.png
+(lokal und _vm)
 ```
 
 **Befund (Funktionsunterschied):** In Odoo 18 storniert `action_cancel` nicht mehr direkt, sondern
@@ -157,10 +163,35 @@ Anwenderschulung dokumentiert.
 
 ```
 scripts/analyse_verkauf_teil3_buttons.py       Button-Inventar Odoo 11 / Odoo 18 lokal / VM
-scripts/browser_verkauf_buttons_klicktest.py   lokaler Klicktest 26 OK / 0 FEHL
-Testdaten                                     Testauftrag angelegt und wieder geloescht
-Odoo 11 Prod                                  ausschliesslich lesend
+scripts/browser_verkauf_buttons_klicktest.py   Klicktest lokal 26 OK / 0 FEHL, VM 26 OK / 0 FEHL
+Testdaten                                      Testauftrag angelegt und wieder geloescht
+                                               (lokal 18 Auftraege, VM 20 Auftraege wie vorher)
+Odoo 11 Prod                                   ausschliesslich lesend
 ```
 
-**STATUS: TEIL 3, SCHRITT 2 - Buttons und Smart Buttons verglichen (Analyse lokal und VM-Daten),
-Klicktest lokal erfolgreich. Klicktest auf der VM offen (nach dem Deploy).**
+### 5.1 Regressionpruefung nach dem VM-Deploy (24.09.2026)
+
+```
+verify_s121_verkauf_teil3_reiter.py  64 OK / 0 FEHL   Reiter (Odoo 11 + lokal + VM, lokal = VM)
+verify_s121_verkauf_teil2.py        111 OK / 0 FEHL   Feldinventar (Odoo 11 + lokal + VM)
+verify_s117_auftraege.py             65 OK / 0 FEHL   Bereich Angebote/Auftraege (lokal und VM)
+verify_s118_abo.py                   19 OK / 0 FEHL   Abonnements (nur VM gegengeprueft)
+browser_verkauf_formular_reiter.py   16 OK / 0 FEHL   Reiter im Browser (VM): "Auftragszeilen"
+browser_verkauf_zahlungsbedingung.py  5 OK / 0 FEHL   Zahlungsbedingung "14 Tage" (VM)
+browser_auftraege_pruef.py            7 OK / 1 FEHL   Mehrzustandspruefung (VM)
+   der eine FEHL ist ein Testdatenmangel: es gibt in Odoo 18 derzeit keinen Auftrag mit Rechnung
+   (die Testrechnungen wurden in Session 120 entfernt), lokal identisch. Kein Regressionsbefund.
+   Der Abo-Fall ("1 Abonnements", Klick oeffnet die Abo-Ansicht) ist gruen.
+apply_verkauf_stammdaten.py           3 OK / 0 FEHL   Zahlungsbedingungen (lokal und VM)
+```
+
+**Wichtig (bestätigt Session 117, erneut aufgetreten):** Ein Upgrade von `itk_sale_management` setzt
+die deutschen Feldbeschriftungen auf die Quelltexte zurueck (F34). Nach dem Upgrade auf der VM
+meldete `verify_s117_auftraege.py` 3 Abweichungen (team_id "Sales Team", opportunity_id
+"Opportunity", source_id "Source"). Nach `scripts/apply_sale_labels.py --instanz vm` waren es wieder
+65 OK / 0 FEHL. **Merke: nach jedem Upgrade von `itk_sale_management` (und `itk_crm`) auf der VM
+`apply_sale_labels.py` bzw. `apply_crm_labels.py` nachziehen.**
+
+**STATUS: TEIL 3, SCHRITT 2 - Buttons und Smart Buttons VOLLSTAENDIG ABGENOMMEN (lokal und VM).**
+Keine offenen Punkte aus diesem Schritt. Statuswechsel, Filter, Gruppierungen und Suche sind
+bewusst noch nicht bearbeitet.
