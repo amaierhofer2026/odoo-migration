@@ -135,7 +135,8 @@ Prüfwerkzeug: `python scripts/vm_abnahme_check.py` · Detailregel: `docs/arbeit
   `docs/o11-o18-vergleich-verkauf-teil1.md`. Menuebaum Odoo 11 (23 Menues unter Wurzelmenue `Verkauf`)
   gegen Odoo 18 (37 Menues), Modulinventar beider Systeme und Nutzungszahlen der Menueziele
   (sale.order 2.461, sale.order.line 4.007, sale.report 3.984, product.pricelist 50, crm.team 8).
-  Ein Odoo-11-Menue fehlt in Odoo 18: Berichtswesen/Verkaufsauftraege aller Kanaele (3.772 Zeilen).
+  Ein Odoo-11-Menue fehlt in Odoo 18: Berichtswesen/Verkaufsauftraege aller Kanaele (3.772 Zeilen)
+  - inzwischen nachgebaut, siehe Teil 4 Schritt 2 (Modul 18.0.1.6.0).
   Zwei tote Odoo-11-Menues dokumentiert (Reportlayout Kategorien, Reklamationen). Odoo 11 read-only,
   keine Datenmigration. Checkliste 6.15 (in Arbeit).
   **Entscheidungen Anna (24.09.2026):** Bericht "Verkaufsauftraege aller Kanaele" wird in Odoo 18
@@ -257,6 +258,18 @@ Prüfwerkzeug: `python scripts/vm_abnahme_check.py` · Detailregel: `docs/arbeit
   (Domain ohne stornierte, Kontext Gruppierung Kanal + aktuelles Verkaufsjahr + Mass Total,
   eigene Pivotansicht, Menuepunkt unter Verkauf/Berichtswesen). Die drei Odoo-11-Druckberichte
   sind in Odoo 18 vollstaendig vorhanden (vier Eintraege). Umsetzung erst nach Freigabe.
+  **UMGESETZT UND ABGENOMMEN (28.09.2026, Modul 18.0.1.6.0):** Freigabe Annas lag vor, daher
+  `addons/itk_sale_management/views/sale_report_views_kanaele.xml` mit eigener Pivotansicht
+  (Zeile Auftragsreferenz, Spalte Vertriebskanal, Mass Total), Suchansicht-Ergaenzung
+  ("Aktuelles Verkaufsjahr", Gruppierung "Vertriebskanal"), Aktion "Verkaufsauftraege aller
+  Kanaele" auf `sale.report` (Domain ohne stornierte, Kontext aktuelles Verkaufsjahr + Mass
+  price_total) und Menuepunkt unter Verkauf/Berichtswesen (Reihenfolge 15). Prueflauf
+  `verify_s121_verkauf_teil4_bericht_kanaele.py` 84 OK / 0 FEHL (O11 lesend, lokal, VM);
+  Browser `browser_verkauf_bericht_kanaele.py` lokal 18 OK / 0 FEHL und VM 18 OK / 0 FEHL,
+  0 JS-/RPC-Fehler. Belegwerte VM: Pivot-Summe 863,80 = Summe price_total nicht stornierter
+  Positionen 2026 (mit stornierten waeren es 1.055,80) -> stornierte ausgeschlossen, lokal
+  835,00/1.027,00; Odoo-18-Filter, -Gruppierungen und die Aktionen 416/417 unveraendert;
+  VM-Bestand unveraendert 20 Auftraege / 29 Zeilen; PR #116 -> main 98585b4.
   Keine Datenmigration: zur Sperre bestaetigter Auftraege wurde nur dokumentiert, dass sie in
   Odoo 11 bearbeitbar waren und Odoo 18 zusaetzlich `locked` verwendet.
 
