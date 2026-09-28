@@ -254,3 +254,67 @@ stornierte Auftraege.
 
 **STATUS: TEIL 4, SCHRITT 2 - Analyse, Mapping und Umsetzungsvorschlag fertig.
 Es wurde nichts umgebaut; Umsetzung erst nach Freigabe.**
+
+## 9. Umsetzung (28.09.2026, Freigabe durch Anna)
+
+Freigabe: Basis `sale.report`, Odoo-11-Modell `report.all.channels.sales` nicht nachbauen,
+nur nicht stornierte Auftraege, Filter "aktuelles Verkaufsjahr" wie in Odoo 11, Gruppierung
+"Vertriebskanal" zusaetzlich anbieten, Pivot-Standard Zeile Auftragsreferenz und Mass Total,
+Menuepunkt unter Verkauf/Berichtswesen, bestehende Odoo-18-Berichte/Filter/Gruppierungen
+vollstaendig erhalten.
+
+Neue Moduldatei `addons/itk_sale_management/views/sale_report_views_kanaele.xml`
+(Modulversion 18.0.1.6.0):
+
+```
+Pivotansicht  itk_sale_management.view_sale_report_pivot_kanaele
+              <pivot string="Verkaufsaufträge aller Kanäle">
+                <field name="name" type="row"/>        Auftragsreferenz (wie Odoo 11)
+                <field name="team_id" type="col"/>      Vertriebskanal als Spalte (wie Odoo 11)
+                <field name="price_total" type="measure"/>  Mass Total (wie Odoo 11)
+
+Suchansicht   itk_sale_management.view_sale_report_search_kanaele
+              erbt sale.view_order_product_search; ergaenzt additiv:
+              Filter      itk_current_year  "Aktuelles Verkaufsjahr"
+                          Domain [('date','>=',01.01. des laufenden Jahres)]
+              Gruppierung itk_channel       "Vertriebskanal"  (group_by team_id)
+
+Aktion        itk_sale_management.action_sale_report_all_channels
+              "Verkaufsaufträge aller Kanäle", sale.report, view_mode pivot,graph,list,
+              Domain [('state','!=','cancel')]  (nur nicht stornierte Auftraege)
+              Kontext {'search_default_itk_current_year': 1,
+                       'pivot_measures': ['price_total']}
+              Ansichten ueber view_ids: eigene Pivot -> sale.report.graph -> sale.report.view.list
+
+Menue         itk_sale_management.menu_sale_report_all_channels
+              Verkauf/Berichtswesen/Verkaufsaufträge aller Kanäle, Reihenfolge 15
+              (direkt nach "Verkauf", vor "Vertriebsmitarbeiter")
+```
+
+Befund waehrend der Umsetzung: Eine aktive Gruppenfilter-Facette macht in Odoo 18 den Kanal zur
+**Zeile** und verdraengt die Auftragsreferenz; Odoo 11 hatte `search_default_team_id` im
+Default-Kontext und stellte den Kanal dadurch als Spalte dar. Deshalb liefert die Pivotansicht die
+Odoo-11-Anordnung ueber `type="row"`/`type="col"`, und der Filter "Vertriebskanal" bleibt zum
+Umschalten im Suchmenue waehlbar (dann gruppiert der Pivot nach Kanal, Summe unveraendert).
+
+Pruefergebnisse (28.09.2026):
+
+```
+Prueflauf  scripts/verify_s121_verkauf_teil4_bericht_kanaele.py
+           lokal 100 % OK; VM 100 % OK (nach dem Upgrade)
+Werkzeug   scripts/browser_verkauf_bericht_kanaele.py
+           lokal 18 OK / 0 FEHL, VM 18 OK / 0 FEHL, 0 JavaScript-Fehler, 0 RPC-Fehler
+Pruefpunkte Menüpunkt öffnet (Titel "Verkaufsaufträge aller Kanäle"), Facette
+           "Aktuelles Verkaufsjahr" gesetzt, Zeilen = Auftragsreferenzen (lokal S00007 ... S00200),
+           Spalte = Kanal, Mass "Gesamt" (price_total) gesetzt, Gruppierung "Vertriebskanal"
+           unter "Gruppieren nach" vorhanden und per Klick wirksam, Summe = 835,00 lokal
+           (= Summe price_total über nicht stornierte Positionen 2026), mit stornierten
+           Aufträgen waeren es 1.027,00 -> stornierte sind ausgeschlossen
+Erhalt     Odoo-18-Filter (Angebote, Verkaufsaufträge, Auftragsdatum, Abzurechnen, Komplett
+           abgerechnet) und Gruppierungen (Vertriebsmitarbeiter, Verkaufsteam, Kunde, Kundenland,
+           Kundenbranche, Produkt, Produktvariante, Produktkategorie, Status) unveraendert;
+           Aktionen 416 und 417 der Verkaufsanalyse oeffnen unveraendert
+```
+
+Odoo 11 Prod wurde ausschliesslich lesend gelesen; es wurden keine Daten migriert oder
+uebernommen.

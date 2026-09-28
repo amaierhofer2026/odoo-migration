@@ -1,0 +1,83 @@
+<odoo>
+    <data>
+        <!-- Session 121, Teil 4, Schritt 2: Bericht "Verkaufsaufträge aller Kanäle"
+             (Entscheidung Anna, 28.09.2026: Option auf Basis sale.report, das Odoo-11-Modell
+             report.all.channels.sales wird bewusst NICHT nachgebaut).
+
+             Odoo 11 hatte diesen Bericht als eigene SQL-Sicht (report.all.channels.sales) mit
+             - Pivot: Zeile Auftragsreferenz (name), Maß Total (price_total)
+             - Filter "Aktuelles Verkaufsjahr"  [date_order >= 01.01. des laufenden Jahres]
+             - Gruppierung "Vertriebskanal"      (group_by team_id, Spalte)
+             - Default-Kontext {'search_default_team_id': 1, 'search_default_current_year': 1}
+             - nur nicht stornierte Aufträge
+
+             In Odoo 18 wird dieselbe Funktion über sale.report abgebildet: eigene Pivotansicht,
+             eigene Suchansicht mit Odoo-11-Wortlaut und eigene Aktion. Bestehende Ansichten,
+             Filter, Gruppierungen und Aktionen von Odoo 18 bleiben vollständig erhalten. -->
+
+        <!-- Pivot-Standard wie in Odoo 11: Zeile Auftragsreferenz, Maß Total -->
+        <record id="view_sale_report_pivot_kanaele" model="ir.ui.view">
+            <field name="name">sale.report.pivot (itk) - Verkaufsaufträge aller Kanäle</field>
+            <field name="model">sale.report</field>
+            <field name="priority">99</field>
+            <field name="arch" type="xml">
+                <pivot string="Verkaufsaufträge aller Kanäle">
+                    <field name="name" type="row"/>
+                    <field name="team_id" type="col"/>
+                    <field name="price_total" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <!-- Suchansicht: Odoo-11-Filter und Odoo-11-Gruppierung zusätzlich anbieten.
+             Die Odoo-18-Filter (Zeitraum/Datum, Angebote, Verkaufsaufträge, Verkaufsteam, ...)
+             bleiben unverändert. -->
+        <record id="view_sale_report_search_kanaele" model="ir.ui.view">
+            <field name="name">sale.report.search (itk) - aktuelle Verkaufsjahr und Vertriebskanal</field>
+            <field name="model">sale.report</field>
+            <field name="inherit_id" ref="sale.view_order_product_search"/>
+            <field name="priority">99</field>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='Sales']" position="after">
+                    <filter name="itk_current_year" string="Aktuelles Verkaufsjahr"
+                            domain="[('date', '&gt;=', datetime.datetime(context_today().year, 1, 1).strftime('%Y-%m-%d'))]"/>
+                </xpath>
+                <xpath expr="//filter[@name='sales_channel']" position="after">
+                    <filter name="itk_channel" string="Vertriebskanal"
+                            context="{'group_by': 'team_id'}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Eigene Aktion: nur nicht stornierte Aufträge, aktuelles Verkaufsjahr,
+             Pivot-Standard wie Odoo 11 (Zeile Auftragsreferenz, Spalte Vertriebskanal, Maß Total).
+             Hinweis: Odoo 11 setzte im Default-Kontext zusätzlich search_default_team_id, wodurch
+             der Kanal zur Spalte wurde. In Odoo 18 macht eine aktive Gruppenfilter-Facette den
+             Kanal zur Zeile und verdrängt die Auftragsreferenz; deshalb liefert die Pivotansicht
+             die Odoo-11-Anordnung (Zeile Auftragsreferenz, Spalte Vertriebskanal) über
+             type="row"/type="col". Der Filter "Vertriebskanal" bleibt zum Umschalten wählbar. -->
+        <record id="action_sale_report_all_channels" model="ir.actions.act_window">
+            <field name="name">Verkaufsaufträge aller Kanäle</field>
+            <field name="res_model">sale.report</field>
+            <field name="view_mode">pivot,graph,list</field>
+            <field name="domain">[('state', '!=', 'cancel')]</field>
+            <field name="context">{'search_default_itk_current_year': 1,
+                                   'pivot_measures': ['price_total']}</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'sequence': 1, 'view_mode': 'pivot', 'view_id': ref('view_sale_report_pivot_kanaele')}),
+                (0, 0, {'sequence': 2, 'view_mode': 'graph', 'view_id': ref('sale.view_order_product_graph')}),
+                (0, 0, {'sequence': 3, 'view_mode': 'list', 'view_id': ref('sale.sale_report_view_tree')})]"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Keine Verkaufsaufträge im aktuellen
+                    Verkaufsjahr</p>
+                <p>Der Bericht zeigt Auftragspositionen nicht stornierter Aufträge, gruppiert nach
+                    Vertriebskanal, mit dem Maß Total.</p>
+            </field>
+        </record>
+
+        <menuitem id="menu_sale_report_all_channels" name="Verkaufsaufträge aller Kanäle"
+                  parent="sale.menu_sale_report"
+                  action="action_sale_report_all_channels"
+                  sequence="15"/>
+    </data>
+</odoo>

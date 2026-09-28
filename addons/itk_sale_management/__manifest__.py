@@ -5,7 +5,7 @@
     'author': "Alvarium Services, Andreas Väthröder, Fabian Väthröder",
     'website': "http://www.alvarium-services.de",
     'category': 'ITK - Specific Industry Applications',
-    'version': '18.0.1.5.0',
+    'version': '18.0.1.6.0',
     'depends': ['base', 'sale'],
     'data': [
         'views/views.xml',
@@ -14,6 +14,7 @@
         'views/sale_order_views_reiterbezeichnung.xml',
         'views/sale_order_views_suche.xml',
         'views/sale_order_views_kalender.xml',
+        'views/sale_report_views_kanaele.xml',
         'data/sale_actions_kontext.xml',
     ],
     'demo': [
