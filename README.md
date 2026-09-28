@@ -218,6 +218,18 @@ Prüfwerkzeug: `python scripts/vm_abnahme_check.py` · Detailregel: `docs/arbeit
   (Odoo 11 43 + lokal 78 + VM 78), Browserabnahme auf der VM 19 OK / 0 FEHL; Vorher/Nachher-Vergleich
   `scripts/vergleiche_verkauf_suche_vorher_nachher.py` belegt, dass keine Odoo-18-Funktion entfernt
   wurde (nur Ergaenzungen der Odoo-11-Filter).
+
+- **Bereich Verkauf - Teil 4 Schritt 1 Listen/Kanban/Pivot/Graph/Kalender (Session 121, 28.09.2026):**
+  `docs/o11-o18-vergleich-verkauf-teil4-ansichten.md`. Je Menueaktion Ansichtsarten, Spalten,
+  Kanban-Kartenfelder, Pivot/Graph-Felder, Kalender und Default-Gruppierungen verglichen
+  (Odoo 11 nur lesend). Luecke geschlossen: die Odoo-11-Spalte "Bestelldatum" (`confirmation_date`)
+  fehlte in Odoo 18 und ist jetzt in beiden ITK-Listenansichten ergaenzt
+  (`itk_sale_management` 18.0.1.4.0, `optional="show"`, Odoo-11-Wortlaut). Nachweise lokal:
+  `verify_s121_verkauf_teil4_ansichten.py` Odoo 11 36 OK / lokal 55 OK (je 0 FEHL),
+  `browser_verkauf_ansichten.py` 11 OK / 0 FEHL mit 0 JS-/RPC-Fehlern. Unterschied dokumentiert:
+  der Odoo-11-Kalender (Auftragsdatum) hat in Odoo 18 keinen gleichwertigen Standard
+  (dort Aktivitaetenkalender); drei Optionen zur Entscheidung im Dokument, nichts geaendert.
+  Offen: VM-Upgrade 18.0.1.4.0 und VM-Abnahme.
   Keine Datenmigration: zur Sperre bestaetigter Auftraege wurde nur dokumentiert, dass sie in
   Odoo 11 bearbeitbar waren und Odoo 18 zusaetzlich `locked` verwendet.
 
