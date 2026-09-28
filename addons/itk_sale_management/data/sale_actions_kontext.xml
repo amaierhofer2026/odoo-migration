@@ -1,0 +1,22 @@
+<odoo>
+    <data>
+        <!-- Session 121, Teil 3, Schritt 4 (Default-Filter):
+             Odoo 11 oeffnete die Angebotslisten ohne voreingestellten Filter
+             (Aktion "Angebote", context = {}). Odoo 18 setzt in beiden Aktionen
+             search_default_my_quotation = 1, wodurch beim Menueaufruf automatisch nur die
+             eigenen Angebote angezeigt werden.
+
+             Anna-Entscheidung (24.09.2026, Session 121 Teil 1, hier umgesetzt): den
+             automatischen Default-Filter entfernen, damit der Menueaufruf dem Odoo-11-Verhalten
+             entspricht. Der Filter selbst bleibt in der Suchansicht auswaehlbar
+             ("Meine Angebote").
+        -->
+        <record id="sale.action_quotations_with_onboarding" model="ir.actions.act_window">
+            <field name="context">{}</field>
+        </record>
+
+        <record id="sale.action_quotations" model="ir.actions.act_window">
+            <field name="context">{}</field>
+        </record>
+    </data>
+</odoo>

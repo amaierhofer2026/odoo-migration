@@ -1,0 +1,54 @@
+<odoo>
+    <data>
+        <!-- Session 121, Teil 3, Schritt 4 (Filter, Gruppierungen, Suche):
+             In Odoo 11 vorhandene Filter, die Odoo 18 in der Verkaufsliste nicht mehr anbietet.
+             Anna-Entscheidung 28.09.2026: fehlende fachlich relevante Odoo-11-Funktionen in
+             Odoo 18 ergaenzen, Odoo-18-Zusatzfunktionen unveraendert lassen (nur ergaenzen,
+             nichts entfernen).
+
+             1) "Ungelesene Nachrichten" (message_needaction) und "Meine Aktivitaeten"
+                (activity_ids.user_id = uid): in Odoo 11 auf allen vier Verkaufslisten
+                (Angebote, Auftraege, Abzurechnen, Upselling) vorhanden, in Odoo 18 fehlend.
+                Anker: Basis-Suchansicht sale.view_sales_order_filter, damit die Filter
+                in allen davon abgeleiteten Suchansichten erscheinen.
+
+             2) "Angebote (Entwurf)" (state=draft) und "Kostenvoranschlag gesendet" (state=sent):
+                Odoo 11 hatte zwei getrennte Filter fuer diese beiden Zustandsstufen, Odoo 18
+                fasst sie in "Angebote" (draft und sent) zusammen. Die feinere Odoo-11-Auswahl
+                wird zusaetzlich angeboten; die Odoo-18-Filter bleiben unveraendert.
+                Anker: Suchansicht der Angebotsliste sale.sale_order_view_search_inherit_quotation,
+                direkt nach dem Odoo-18-Filter "Angebote" (name="draft").
+                Abweichung im Wortlaut: Odoo 11 nannte den Entwurfsfilter "Angebote"; da dieser
+                Name in Odoo 18 bereits belegt ist, lautet die Beschriftung "Angebote (Entwurf)".
+        -->
+        <record id="view_saleorder_suche_itk" model="ir.ui.view">
+            <field name="name">sale.order.search (itk) - fehlende Odoo-11-Filter</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+            <field name="priority">99</field>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='my_sale_orders_filter']" position="after">
+                    <filter name="message_needaction" string="Ungelesene Nachrichten"
+                            domain="[('message_needaction','=',True)]"/>
+                    <filter name="activities_my" string="Meine Aktivitäten"
+                            domain="[('activity_ids.user_id','=',uid)]"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_saleorder_suche_angebote_itk" model="ir.ui.view">
+            <field name="name">sale.order.search (itk) - Zustandsfilter Angebote</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.sale_order_view_search_inherit_quotation"/>
+            <field name="priority">99</field>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='draft']" position="after">
+                    <filter name="itk_state_draft" string="Angebote (Entwurf)"
+                            domain="[('state','=','draft')]"/>
+                    <filter name="itk_state_sent" string="Kostenvoranschlag gesendet"
+                            domain="[('state','=','sent')]"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

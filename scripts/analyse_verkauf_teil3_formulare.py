@@ -26,12 +26,17 @@ MODELLE = ["sale.order", "sale.order.line"]
 KEIN_STRING = re.compile(r"<field\s+[^>]*name=\"([^\"]+)\"[^>]*>")
 
 
-def formular_arch(k, modell: str, odoo18: bool) -> str:
+def ansicht_arch(k, modell: str, view_type: str, odoo18: bool) -> str:
+    """Kombinierte Ansicht (inklusive Vererbungen), wie sie der Webclient sieht."""
     if odoo18:
-        daten = k.kw(modell, "get_views", [[[False, "form"]]], context={"lang": "de_DE"})
-        return daten["views"]["form"]["arch"]
+        daten = k.kw(modell, "get_views", [[[False, view_type]]], context={"lang": "de_DE"})
+        return daten["views"][view_type]["arch"]
     # Odoo 11: fields_view_get(view_id, view_type, fields) - bewaehrtes Aufrufmuster dieses Repos
-    return k.kw(modell, "fields_view_get", [False, "form", "form"], context={"lang": "de_DE"})["arch"]
+    return k.kw(modell, "fields_view_get", [False, view_type, view_type], context={"lang": "de_DE"})["arch"]
+
+
+def formular_arch(k, modell: str, odoo18: bool) -> str:
+    return ansicht_arch(k, modell, "form", odoo18)
 
 
 def gruppen_im_block(block: str) -> dict:

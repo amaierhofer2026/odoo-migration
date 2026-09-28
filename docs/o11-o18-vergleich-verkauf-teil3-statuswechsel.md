@@ -147,10 +147,11 @@ Praktischer Hinweis: Ein direktes Schreiben von `state=sale` (Import/RPC) loest 
 **nicht** aus, deshalb greift auch die automatische Sperre nicht. `locked` muss beim Import also
 ausdruecklich mitgeschrieben werden.
 
-**OFFENE ENTSCHEIDUNG:** Sollen die 2311 uebernommenen Verkaufsauftraege als entsperrt
-(`locked=False`, wie in Odoo 11 bearbeitbar - Empfehlung) oder als gesperrt (`locked=True`,
-schreibgeschuetzt, wie ein Neubelegungsschutz) migriert werden? Die 147 stornierten Auftraege
-werden in beiden Faellen entsperrt uebernommen.
+**ENTSCHIEDEN (Anna, 28.09.2026): nur dokumentieren.** Bestaetigte Verkaufsauftraege waren in
+Odoo 11 bearbeitbar, Odoo 18 verwendet zusaetzlich das Feld `locked`. Es wird derzeit keine
+Importregel auf Produktivdaten angewendet; die 2311 Auftraege werden nicht uebernommen und nicht
+veraendert. Der Abschnitt `statuswechsel` in `migration/verkauf_migrationsregeln.json` ist reine
+Vorbereitung.
 
 ## 7. Nachweise
 

@@ -6970,3 +6970,36 @@ oder gesperrt migriert werden?
 
 **STATUS: TEIL 3 SCHRITT 1, 2 UND 3 ABGENOMMEN (lokal und VM).**
 Offen in Teil 3: Filter, Gruppierungen, Suche.
+
+## Session 121, Teil 3 Schritt 4 (Suchfelder, Filter, Gruppierungen, Suche)
+
+Umsetzung nur in Odoo 18, Modul itk_sale_management 18.0.1.3.0 (lokal upgegradet, VM offen).
+Dokument: docs/o11-o18-vergleich-verkauf-teil3-filter-suche.md.
+
+```
+Neu (nur ergaenzt, nichts entfernt):
+  views/sale_order_views_suche.xml   geerbte Suchansichten (Wurzel, priority 99):
+    sale.view_sales_order_filter                -> "Ungelesene Nachrichten", "Meine Aktivitaeten"
+    sale.sale_order_view_search_inherit_quotation -> "Angebote (Entwurf)",
+                                                   "Kostenvoranschlag gesendet"
+  data/sale_actions_kontext.xml      sale.action_quotations und
+    sale.action_quotations_with_onboarding: Kontext ohne search_default_my_quotation
+                                      (Default-Filter "Meine Angebote" damit entfernt;
+                                       Filter bleibt auswaehlbar)
+Nachweise lokal: verify_s121_verkauf_teil3_filter.py 78 OK / 0 FEHL (Odoo 11 43 OK / 0 FEHL),
+  browser_verkauf_filter_suche.py 19 OK / 0 FEHL, 0 JS- / 0 RPC-Fehler
+Werkzeuge: scripts/analyse_verkauf_teil3_suche.py (je Aktion Suchansicht, Felder, Filter,
+  Gruppierungen, Default-Kontext), scripts/verify_s121_verkauf_teil3_filter.py,
+  scripts/browser_verkauf_filter_suche.py
+Bewusst nicht nachgebaut: "Von Website" und "Zu sendende Wiederherstellungs-E-Mail" (Website nicht
+  migriert), Odoo-11-Filter "Verkauf" (Domain enthaelt den ungueltigen Zustand progress),
+  "Bestaetigte Auftraege" (durch "Verkaufsauftraege" abgedeckt), Suchfeld analytic_account_id
+  (Odoo 11: 0 belegte Auftraege; Feld in Odoo 18 nicht mehr vorhanden)
+```
+
+**Sperre nur dokumentiert (Entscheidung Anna, 28.09.2026):** Bestaetigte Auftraege waren in
+Odoo 11 bearbeitbar, Odoo 18 verwendet zusaetzlich `locked`. Keine Importregel anwenden, keine
+Auftraege uebernehmen oder veraendern (weiterhin Funktions- und Migrationsvorbereitung).
+
+**STATUS: TEIL 3 SCHRITT 1-4 lokal abgenommen; Schritt 4 auf der VM offen
+(Pull, Container-Neustart, Modul-Upgrade 18.0.1.3.0, Browserabnahme).**
