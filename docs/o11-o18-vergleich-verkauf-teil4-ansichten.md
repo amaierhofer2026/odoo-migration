@@ -162,7 +162,22 @@ Browser: Angebotsliste zeigt "Bestelldatum" (12 sichtbare Spalten), Spaltenauswa
 Screenshots: Desktop\Odoo18-Abnahme-Session121\22_Liste_Bestelldatum_*.png bis 26_Kalender_*.png
 ```
 
-**VM-Abnahme offen** (Modul 18.0.1.4.0 muss auf der VM noch upgegradet werden).
+**VM-Abnahme (28.09.2026, Buer-Zugang, Git-Stand 02de950):**
+
+```
+git pull --ff-only + docker restart odoo18 auf der VM
+Modul-Upgrade itk_sale_management 18.0.1.4.0 ueber RPC                       ohne Fehler
+Prueflauf verify_s121_verkauf_teil4_ansichten.py  Odoo 11 36 + lokal 55 + VM 55 = 146 OK / 0 FEHL
+Browserabnahme browser_verkauf_ansichten.py       VM 11 OK / 0 FEHL, 0 JS- und 0 RPC-Fehler
+  - Angebotsliste zeigt 12 sichtbare Spalten inklusive "Bestelldatum"
+  - Spaltenauswahl enthaelt "Bestelldatum"
+  - Kanban, Pivot, Graph und Kalender oeffnen fehlerfrei, zurueck zur Liste ok
+  - keine Schreibvorgaenge: Bestand unveraendert 20 Auftraege / 29 Auftragszeilen
+Label-Ruecksetzer (bekanntes Muster F34) nach dem Modul-Upgrade: 3 Feldbeschriftungen auf der VM
+  nachgezogen mit scripts/apply_sale_labels.py --instanz vm; Kontrolle
+  verify_s117_auftraege.py --instanz vm = 65 OK / 0 FEHL
+Screenshots: Desktop\Odoo18-Abnahme-Session121\22_Liste_Bestelldatum_vm.png bis 26_Kalender_vm.png
+```
 
 ## 7. Offene Entscheidung: Kalenderansicht
 

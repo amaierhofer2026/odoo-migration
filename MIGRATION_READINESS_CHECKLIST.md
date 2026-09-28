@@ -778,7 +778,11 @@ Unterschied: Odoo 11 hatte einen Monatskalender nach Auftragsdatum; Odoo 18 lief
 Nachweise lokal: Prueflauf Odoo 11 36 OK / 0 FEHL, lokal 55 OK / 0 FEHL;
   Browserabnahme 11 OK / 0 FEHL (Liste mit Bestelldatum, Spaltenauswahl, Kanban, Pivot, Graph,
   Kalender, 0 JS-/RPC-Fehler)
-Offen: VM-Pull, Container-Neustart, Modul-Upgrade 18.0.1.4.0, Browserabnahme auf der VM
+Offen: Entscheidung zur Kalenderansicht (Abschnitt 7)
+VM-Abnahme 28.09.2026: Modul 18.0.1.4.0 auf der VM upgegradet, Prueflauf 146 OK / 0 FEHL
+  (Odoo 11 36 + lokal 55 + VM 55), Browserabnahme VM 11 OK / 0 FEHL, keine Schreibvorgaenge
+  (Bestand unveraendert 20 Auftraege / 29 Zeilen), Feldbeschriftungen per
+  apply_sale_labels.py --instanz vm nachgezogen (verify_s117_auftraege VM 65 OK / 0 FEHL)
 ```
 
 ### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-15: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte, Produktformular), erste Abnahme 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119), Teil 15 am 24.09.2026 (Session 120) auf der VM im Browser abgenommen
