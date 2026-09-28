@@ -191,6 +191,18 @@ Prüfwerkzeug: `python scripts/vm_abnahme_check.py` · Detailregel: `docs/arbeit
   VM), verify_s118_abo 19 OK. Merke: nach jedem `itk_sale_management`-Upgrade auf der VM
   `scripts/apply_sale_labels.py --instanz vm` nachziehen (F34).
 
+- **Bereich Verkauf - Teil 3 Schritt 3 Statuswechsel (Session 121, 24.09.2026):**
+  `docs/o11-o18-vergleich-verkauf-teil3-statuswechsel.md`. Zustaende Odoo 11 (draft, sent, sale,
+  done, cancel) gegen Odoo 18 (draft, sent, sale, cancel plus Feld `locked`); Statusleiste in
+  beiden Systemen draft,sent,sale. Odoo 11 Sperre war der Zustand `done` (0 Datensaetze), in
+  Odoo 18 ist es `locked` (`action_lock`/`action_unlock` statt `action_done`). Storno laeuft in
+  Odoo 18 ueber den Assistenten `sale.order.cancel` mit Rueckfrage und nur bei entsperrtem
+  Auftrag. Klicktest mit echtem Browser: lokal 35 OK / 0 FEHL, VM 35 OK / 0 FEHL (Testauftrag
+  angelegt und geloescht). Prueflauf `verify_s121_verkauf_teil3_status.py`: 53 OK / 0 FEHL
+  (Odoo 11 lesend, lokal, VM). Mapping fuer die Migration im Abschnitt `statuswechsel` von
+  `migration/verkauf_migrationsregeln.json`; offen ist die Entscheidung, ob die 2311
+  uebernommenen Verkaufsauftraege entsperrt oder gesperrt migriert werden.
+
 - **Bereich Angebote / Verkaufsauftraege - Bestandsaufnahme (Session 117, 18.09.2026):**
   `docs/o11-o18-strukturvergleich-angebote-auftraege.md`. Odoo 11: 2.460 Auftraege, 1.764 Abonnements.
   Alle verwendeten Felder haben ein Odoo-18-Ziel; ITK-Kontaktfelder aus `itk_sale_management` vorhanden.
