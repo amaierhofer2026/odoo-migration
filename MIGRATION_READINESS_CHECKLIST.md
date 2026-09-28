@@ -694,6 +694,34 @@ die Feldbeschriftungen mit `scripts/apply_sale_labels.py --instanz vm` nachgezog
 **TEIL 3, SCHRITT 2 ABGENOMMEN (lokal und VM).** Offen in Teil 3: Statuswechsel, Filter,
 Gruppierungen, Suche. Danach Teil 4 (Ansichten und Berichte) und Teil 5 (Abschluss).
 
+**Teil 3, Schritt 3 - Statuswechsel (24.09.2026, Session 121): ABGENOMMEN (lokal und VM).**
+
+Dokument: `docs/o11-o18-vergleich-verkauf-teil3-statuswechsel.md`.
+
+```
+Zustaende Odoo 11: draft, sent, sale, done, cancel (5); Statusleiste draft,sent,sale
+Zustaende Odoo 18: draft, sent, sale, cancel (4); Statusleiste draft,sent,sale
+  Odoo 11 Sperre = Zustand done (nie benutzt, 0 Datensaetze)
+  Odoo 18 Sperre = Feld locked (in der Testdatenbank ist "Bestellungen automatisch sperren" aktiv)
+Bestand Odoo 11 (lesend): draft 5, sent 0, sale 2311, done 0, cancel 147, gesamt 2463
+Uebergaenge Odoo 18: Bestätigen (draft/sent -> sale, danach automatisch gesperrt),
+  Sperren/Entsperren (action_lock/action_unlock statt action_done),
+  Stornieren (draft/sent/sale entsperrt -> cancel, ueber den Assistenten sale.order.cancel mit
+  "Senden und stornieren"/"Stornieren"/"Verwerfen"; im gesperrten Auftrag nicht sichtbar),
+  Auf Angebot setzen (cancel -> draft), sent wird ueber den E-Mail-Versand gesetzt
+Klicktest echtes Browser: lokal 35 OK / 0 FEHL, VM 35 OK / 0 FEHL, je 0 JS-/RPC-Fehler
+  Testauftrag angelegt und geloescht (lokal 18, VM 20 Auftraege wie vorher)
+Prueflauf: scripts/verify_s121_verkauf_teil3_status.py 53 OK / 0 FEHL (Odoo 11 lesend, lokal, VM)
+Mapping fuer die Datenmigration in migration/verkauf_migrationsregeln.json (Abschnitt statuswechsel)
+```
+
+**OFFENE FACHFRAGE:** Sollen die 2311 aus Odoo 11 uebernommenen Verkaufsauftraege entsperrt
+(Empfehlung, wie in Odoo 11 bearbeitbar) oder gesperrt uebernommen werden? Die 147 stornierten
+Auftraege werden in beiden Faellen entsperrt uebernommen.
+
+**Merke:** Odoo 18 storniert nur ueber Rueckfrage und nur bei entsperrtem Auftrag; ein Import mit
+`state=sale` loest `action_confirm` nicht aus, `locked` muss ausdruecklich gesetzt werden.
+
 ### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-15: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte, Produktformular), erste Abnahme 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119), Teil 15 am 24.09.2026 (Session 120) auf der VM im Browser abgenommen
 
 Dokument: `docs/o11-o18-vergleich-abo-teil1.md`; Teil 14: `docs/o11-o18-vergleich-abo-teil14.md`; Teil 15: `docs/o11-o18-vergleich-abo-teil15-produktformular.md`; Uebergabe und Vollstaendigkeitsbestaetigung: `docs/uebergabe-session-120-abonnements.md` (24.09.2026: jedes in Odoo 11 verwendete Feld, Reiter, Button, Smart Button, Statuswechsel, Filter, Gruppierung und jeder Geschaeftsprozess ist gleich vorhanden, funktional gleichwertig an anderer Stelle vorhanden oder bewusst dokumentiert; keine offene funktionale Abweichung).

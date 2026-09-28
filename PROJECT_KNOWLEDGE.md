@@ -6939,3 +6939,34 @@ Suche auf nicht gespeicherten Berechnungsfeldern (Lehre F37).
 
 **STATUS: TEIL 3 SCHRITT 1 UND SCHRITT 2 ABGENOMMEN (lokal und VM).**
 Offen in Teil 3: Statuswechsel, Filter, Gruppierungen, Suche (ausdruecklich in eigenen Schritten).
+
+## Session 121, Teil 3 Schritt 3 (Statuswechsel)
+
+Verglichen und mit echten Browserklicks abgenommen. Dokument:
+docs/o11-o18-vergleich-verkauf-teil3-statuswechsel.md.
+
+```
+Odoo 11: draft, sent, sale, done, cancel | Odoo 18: draft, sent, sale, cancel (+ Feld locked)
+Statusleiste in beiden Systemen draft,sent,sale
+Odoo 11 Sperre = Zustand done (0 Datensaetze), Odoo 18 Sperre = locked
+Uebergaenge Odoo 18: Bestätigen -> sale (automatisch gesperrt), Sperren/Entsperren,
+  Stornieren ueber den Assistenten sale.order.cancel (nur entsperrt), Auf Angebot setzen -> draft
+Klicktest: lokal 35 OK / 0 FEHL, VM 35 OK / 0 FEHL, 0 JS- und 0 RPC-Fehler,
+  Testauftrag angelegt und geloescht (lokal 18, VM 20 Auftraege wie vorher)
+Prueflauf: scripts/verify_s121_verkauf_teil3_status.py 53 OK / 0 FEHL
+Werkzeuge: scripts/analyse_verkauf_teil3_status.py, scripts/sichtbarkeit_bedingungen.py
+           (werter attrs/states aus Odoo 11 und invisible-Ausdruecke aus Odoo 18 aus),
+           scripts/browser_verkauf_statuswechsel_klicktest.py
+```
+
+Befunde: Odoo 18 storniert nur mit Rueckfrage und nur bei entsperrtem Auftrag; ein gesperrter
+Auftrag zeigt keinen Storno-Button. Bestaetigen fuehrt wegen "Bestellungen automatisch sperren"
+direkt zu sale + locked=True. Ein Import mit state=sale loest action_confirm nicht aus, locked
+muss ausdruecklich mitgeschrieben werden. Mapping fuer die Migration steht in
+migration/verkauf_migrationsregeln.json (Abschnitt statuswechsel).
+
+**OFFENE FACHFRAGE:** Sollen die 2311 uebernommenen Verkaufsauftraege entsperrt (Empfehlung)
+oder gesperrt migriert werden?
+
+**STATUS: TEIL 3 SCHRITT 1, 2 UND 3 ABGENOMMEN (lokal und VM).**
+Offen in Teil 3: Filter, Gruppierungen, Suche.
