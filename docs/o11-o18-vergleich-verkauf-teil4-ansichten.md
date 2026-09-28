@@ -195,3 +195,46 @@ C) Nichts aendern und den Odoo-11-Kalender als nicht uebernommen dokumentieren.
 ```
 
 Bisher wurde **keine** dieser Varianten umgesetzt; der Kalender ist unveraendert.
+
+## 8. Umsetzung Option A: Auftragskalender nach Auftragsdatum (Entscheidung Anna, 28.09.2026)
+
+Modul `itk_sale_management`, Version 18.0.1.5.0, Datei `views/sale_order_views_kalender.xml`:
+
+```
+1) Neue Kalenderansicht  itk_sale_management.view_saleorder_kalender_itk
+   "sale.order.calendar (itk) - Auftragsdatum", Modell sale.order, priority 99:
+     <calendar string="Auftragskalender" date_start="date_order" color="state"
+               mode="month" quick_create="false">
+       Felder partner_id, amount_total, state
+   -> Basis ist das Auftragsdatum (date_order), Farbe nach Status, wie in Odoo 11.
+
+2) Neue Aktion  itk_sale_management.action_saleorder_kalender_itk
+   "Auftragskalender", res_model sale.order, view_mode calendar,list,form,
+   view_ids: calendar -> view_saleorder_kalender_itk (erste Ansicht), list -> sale.view_order_tree,
+             form -> sale.view_order_form
+   Hinweis: In Odoo 18 ist das Feld `views` nicht gespeichert; die Zuordnung laeuft ueber view_ids.
+
+3) Neuer Menuepunkt  itk_sale_management.menu_saleorder_kalender_itk
+   "Auftragskalender" unter Verkauf/Auftraege (parent sale.sale_order_menu), Reihenfolge 25
+   -> steht damit direkt nach "Auftraege".
+```
+
+Es wurde nichts an bestehenden Ansichten, Aktionen, Menues oder Rechten geaendert; der
+Odoo-18-Aktivitaetenkalender (`sale.view_sale_order_calendar`, date_start = activity_date_deadline)
+bleibt unveraendert der Kalender der Verkaufsmenues.
+
+Nachweis der Datumsbasis (Browser, Monat September 2026):
+
+```
+Auftraege mit Auftragsdatum im Monat (per RPC): S00198, S00200
+Im Auftragskalender angezeigt:                 S00198, S00200  -> identisch
+Kontrolle: Auftraege mit fruehrerem Auftragsdatum (S00180, S00182, S00188, S00189, S00190)
+           erscheinen nicht
+Gegenprobe Bestaetigungsdatum: im Testbestand kein Auftrag mit Bestaetigung im Monat und
+           abweichendem Auftragsdatum vorhanden (daher nicht pruefbar, dokumentiert)
+Aktivitaetenkalender der Angebotsliste: anderer Ereignissatz (Aktivitaetsdatum) - unveraendert
+```
+
+Lokales Ergebnis: `browser_verkauf_kalender.py` 16 OK / 0 FEHL, 0 JavaScript- und 0 RPC-Fehler;
+`verify_s121_verkauf_kalender.py` (Odoo 11 lesend + lokal) 0 FEHL.
+Screenshots: 27_Auftragskalender_*.png, 28_Aktivitaetenkalender_*.png.

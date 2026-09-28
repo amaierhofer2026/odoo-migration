@@ -785,6 +785,24 @@ VM-Abnahme 28.09.2026: Modul 18.0.1.4.0 auf der VM upgegradet, Prueflauf 146 OK 
   apply_sale_labels.py --instanz vm nachgezogen (verify_s117_auftraege VM 65 OK / 0 FEHL)
 ```
 
+**Kalenderergaenzung Option A (Entscheidung Anna, 28.09.2026): Auftragskalender nach Auftragsdatum.**
+
+```
+itk_sale_management 18.0.1.5.0, views/sale_order_views_kalender.xml, nur ergaenzt:
+  Kalenderansicht view_saleorder_kalender_itk (date_start=date_order, color=state, Monat)
+  Aktion action_saleorder_kalender_itk (Auftragskalender, view_mode calendar,list,form,
+    Zuordnung ueber view_ids; in Odoo 18 ist `views` nicht gespeichert)
+  Menuepunkt menu_saleorder_kalender_itk unter Verkauf/Auftraege (Reihenfolge 25)
+Odoo-18-Aktivitaetenkalender (sale.view_sale_order_calendar) unveraendert; Verkaufsmenues
+  unveraendert (Ansichtsarten und Kontexte geprueft)
+Browserabnahme lokal: 16 OK / 0 FEHL, 0 JS-/RPC-Fehler. Datumsbasis belegt: im Monat
+  September 2026 zeigt der Kalender genau S00198 und S00200 (Auftragsdatum im Monat),
+  Auftraege mit fruehrerem Auftragsdatum erscheinen nicht; der Aktivitaetenkalender zeigt
+  einen anderen Ereignissatz.
+Prueflauf: scripts/verify_s121_verkauf_kalender.py (Odoo 11 lesend + lokal + VM)
+Offen: VM-Upgrade 18.0.1.5.0 + VM-Browserabnahme
+```
+
 ### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-15: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte, Produktformular), erste Abnahme 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119), Teil 15 am 24.09.2026 (Session 120) auf der VM im Browser abgenommen
 
 Dokument: `docs/o11-o18-vergleich-abo-teil1.md`; Teil 14: `docs/o11-o18-vergleich-abo-teil14.md`; Teil 15: `docs/o11-o18-vergleich-abo-teil15-produktformular.md`; Uebergabe und Vollstaendigkeitsbestaetigung: `docs/uebergabe-session-120-abonnements.md` (24.09.2026: jedes in Odoo 11 verwendete Feld, Reiter, Button, Smart Button, Statuswechsel, Filter, Gruppierung und jeder Geschaeftsprozess ist gleich vorhanden, funktional gleichwertig an anderer Stelle vorhanden oder bewusst dokumentiert; keine offene funktionale Abweichung).
