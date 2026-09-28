@@ -7053,3 +7053,38 @@ VM-Abnahme 28.09.2026: Modul 18.0.1.5.0 upgegradet (ohne Fehler), Prueflauf 33 O
 
 **STATUS: TEIL 4 SCHRITT 1 INKLUSIVE KALENDERERGAENZUNG ABGENOMMEN (lokal und VM).**
 Naechster Schritt: Teil 4, Schritt 2 (Berichte, u. a. Nachbau "Verkaufsauftraege aller Kanaele").
+
+## Session 121, Teil 4 Schritt 2 (Verkaufsberichte - Analyse, noch keine Umsetzung)
+
+Dokument: docs/o11-o18-vergleich-verkauf-teil4-berichte.md (Analyse, Mapping,
+Umsetzungsvorschlag; es wurde nichts umgebaut).
+
+```
+Odoo 11 Berichtswesen (3 Menues): Verkauf (423 sale.report), Verkaufsauftraege aller Kanaele
+  (424 report.all.channels.sales), Vertriebskaenale (171 crm.team)
+Odoo 18 Berichtswesen (4 Menues): Verkauf (416), Kunden (419), Produkte (418),
+  Vertriebsmitarbeiter (417) - alle sale.report; der Kanaele-Bericht fehlt
+O11 report.all.channels.sales: SQL-Sicht auf Auftragszeilen, 18 Felder, Korn = Auftragszeile;
+  3775 Saetze = alle nicht stornierten Auftragszeilen (4010 - 235 stornierte);
+  Pivot 1024 (name Zeile, price_total Mass), Suchansicht 1025 (Filter "Aktuelles Verkaufsjahr"
+  [date_order >= Jahresanfang], Gruppierung "Vertriebskanal" team_id);
+  Aktion 424 Kontext {'search_default_team_id': 1, 'search_default_current_year': 1}, view_mode pivot
+  Belegung: pricelist_id/team_id/product_id je 3775, product_qty 3726,
+  analytic_account_id 0 (nie verwendet)
+O11 sale.report: 31 Felder (u. a. confirmation_date, product_uom_qty, amt_*), 3987 Saetze;
+  Pivot 1016 (team_id Spalte, confirmation_date Zeile, price_subtotal Mass), Aktion 423
+O18 sale.report: 41 Felder, date statt date_order, product_uom_qty statt product_qty,
+  kein confirmation_date, kein analytic_account_id; Suchansicht 1206 mit Datumsfilter
+  (name="year", date=date, default_period="year" = aktuelles Verkaufsjahr) und Gruppierung
+  "Verkaufsteam" (team_id); Aktion 416 mit Domain [state != cancel]
+Druckberichte: O11 3 (Angebot/Auftrag und Angebot / Auftrag ORG -> sale.report_itk_saleorder,
+  Proformarechnung -> sale.report_itk_saleorder_proforma); O18 4 (Angebot/Auftrag,
+  PDF-Angebot, ITK-Angebot/Auftrag, PRO-FORMA-Rechnung) - alle O11-Berichte abgedeckt
+Bewertung: sale.report kann die Funktion vollstaendig uebernehmen -> report.all.channels.sales
+  NICHT nachbauen. Vorschlag: eigene Aktion auf sale.report (Domain [state != cancel],
+  Kontext {'search_default_sales_channel': 1, 'search_default_year': 1,
+  'pivot_measures': ['price_total']}), eigene Pivotansicht (name Zeile, price_total Mass),
+  Menuepunkt unter Verkauf/Berichtswesen; optional zusaetzlicher Filter "Vertriebskanal"
+Offene Entscheidungen: Label Vertriebskanal vs Verkaufsteam, Mass/Zeile der Pivotvorgabe,
+  Menueplatzierung, Beibehaltung der vier Odoo-18-Berichtsmenues
+```

@@ -242,6 +242,21 @@ Prüfwerkzeug: `python scripts/vm_abnahme_check.py` · Detailregel: `docs/arbeit
   Prueflauf 33 OK / 0 FEHL, Browserabnahme auf der VM 16 OK / 0 FEHL, Datumsbasis belegt
   (angezeigt: S00198, S00199, S00201, S00203), Aktivitaetenkalender unveraendert, keine
   Schreibvorgaenge.
+
+- **Bereich Verkauf - Teil 4 Schritt 2 Verkaufsberichte (Session 121, 28.09.2026, Analyse):**
+  `docs/o11-o18-vergleich-verkauf-teil4-berichte.md`. Bestandsaufnahme und Mapping ohne Umbau.
+  Odoo 11 hatte im Berichtswesen drei Menuepunkte (Verkauf/Statistik Verkaufsauftraege auf
+  `sale.report`, Verkaufsauftraege aller Kanaele auf `report.all.channels.sales`,
+  Vertriebskaenale auf `crm.team`); Odoo 18 hat vier Berichtsmenues (Verkauf, Kunden, Produkte,
+  Vertriebsmitarbeiter) - der Kanaele-Bericht fehlt. Befund: `report.all.channels.sales` ist eine
+  SQL-Sicht auf Auftragszeilen (3.775 Saetze = alle nicht stornierten Auftragszeilen,
+  2018-2026) mit Default-Gruppierung nach Vertriebskanal, Filter "Aktuelles Verkaufsjahr" und
+  Pivot Mass Total; `sale.report` in Odoo 18 liefert Korn, Felder und Gruppierungen gleichwertig
+  (date statt date_order, product_uom_qty statt product_qty; analytic_account_id in Odoo 11 nie
+  belegt). Empfehlung: nicht nachbauen, sondern eigene Aktion auf `sale.report` anlegen
+  (Domain ohne stornierte, Kontext Gruppierung Kanal + aktuelles Verkaufsjahr + Mass Total,
+  eigene Pivotansicht, Menuepunkt unter Verkauf/Berichtswesen). Die drei Odoo-11-Druckberichte
+  sind in Odoo 18 vollstaendig vorhanden (vier Eintraege). Umsetzung erst nach Freigabe.
   Keine Datenmigration: zur Sperre bestaetigter Auftraege wurde nur dokumentiert, dass sie in
   Odoo 11 bearbeitbar waren und Odoo 18 zusaetzlich `locked` verwendet.
 

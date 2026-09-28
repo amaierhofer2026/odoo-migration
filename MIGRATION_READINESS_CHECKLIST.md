@@ -808,6 +808,44 @@ VM-Abnahme 28.09.2026: Modul 18.0.1.5.0 auf der VM upgegradet (ohne Fehler), Pru
   Feldbeschriftungen per apply_sale_labels.py --instanz vm nachgezogen
 ```
 
+**Teil 4, Schritt 2 - Verkaufsberichte (28.09.2026, Session 121): ANALYSE UND MAPPING FERTIG,
+noch keine Umsetzung.**
+
+Dokument: `docs/o11-o18-vergleich-verkauf-teil4-berichte.md`.
+
+```
+Bestandsaufnahme Odoo 11 (lesend):
+  Menue Verkauf/Berichtswesen: Verkauf (Aktion 423 sale.report), Verkaufsauftraege aller
+    Kanaele (Aktion 424 report.all.channels.sales), Vertriebskaenale (Aktion 171 crm.team)
+  report.all.channels.sales: SQL-Sicht, 18 Felder, Korn = Auftragszeile;
+    3.775 Saetze = alle nicht stornierten Auftragszeilen (4.010 gesamt - 235 storniert);
+    Zeitraum 2018-02 bis 2026-09; Kanaele: Vertriebskaene (Intern) 3.747, Interne Weitergabe 20,
+    Persoenlicher Kontakt 5, Newsletter 3; 2026 = 406 Zeilen
+    Pivot 1024 (name Zeile, price_total Mass, Vertriebskanal als Spalte),
+    Suchansicht 1025 (Filter "Aktuelles Verkaufsjahr" [date_order >= Jahresanfang],
+    Gruppierung "Vertriebskanal"), Default-Kontext
+    {'search_default_team_id': 1, 'search_default_current_year': 1}
+    analytic_account_id auf 0 Zeilen belegt -> nicht nachzubauen
+  sale.report (O11): 31 Felder, 3.987 Saetze, Pivot 1016, Aktion 423 mit Default "Verkauf"
+  Druckberichte (3): Angebot/Auftrag und Angebot / Auftrag ORG (sale.report_itk_saleorder),
+    Proformarechnung (sale.report_itk_saleorder_proforma)
+Bestandsaufnahme Odoo 18:
+  Menue Verkauf/Berichtswesen: Verkauf (416), Kunden (419), Produkte (418),
+    Vertriebsmitarbeiter (417) - alle sale.report; "Verkaufsauftraege aller Kanaele" fehlt,
+    report.all.channels.sales existiert nicht
+  sale.report: 41 Felder (date statt date_order, product_uom_qty statt product_qty,
+    kein confirmation_date/analytic_account_id), Suchansicht 1206 mit Datumsfilter
+    (name="year", default_period="year" = aktuelles Verkaufsjahr) und Gruppierung
+    "Verkaufsteam" (team_id)
+  Druckberichte (4): Angebot/Auftrag, PDF-Angebot, ITK-Angebot/Auftrag, PRO-FORMA-Rechnung
+Mapping/Bewertung: sale.report uebernimmt die Funktion vollstaendig; Vorschlag eigener Aktion
+  (Domain [('state','!=','cancel')], Kontext {'search_default_sales_channel': 1,
+  'search_default_year': 1, 'pivot_measures': ['price_total']}), eigener Pivotansicht
+  (name Zeile, price_total Mass) und Menuepunkt unter Verkauf/Berichtswesen.
+Offene Entscheidungen: Label "Vertriebskanal" zusaetzlich anbieten, Vorgabemass/-zeile,
+  Menueplatzierung, Beibehaltung der vier Odoo-18-Berichtsmenues
+```
+
 ### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-15: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte, Produktformular), erste Abnahme 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119), Teil 15 am 24.09.2026 (Session 120) auf der VM im Browser abgenommen
 
 Dokument: `docs/o11-o18-vergleich-abo-teil1.md`; Teil 14: `docs/o11-o18-vergleich-abo-teil14.md`; Teil 15: `docs/o11-o18-vergleich-abo-teil15-produktformular.md`; Uebergabe und Vollstaendigkeitsbestaetigung: `docs/uebergabe-session-120-abonnements.md` (24.09.2026: jedes in Odoo 11 verwendete Feld, Reiter, Button, Smart Button, Statuswechsel, Filter, Gruppierung und jeder Geschaeftsprozess ist gleich vorhanden, funktional gleichwertig an anderer Stelle vorhanden oder bewusst dokumentiert; keine offene funktionale Abweichung).
