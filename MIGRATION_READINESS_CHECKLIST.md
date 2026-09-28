@@ -757,6 +757,30 @@ Keine Odoo-18-Funktion entfernt (Vorher/Nachher-Vergleich, nur Ergaenzungen); ke
   Schreibvorgaenge, keine Datenmigration
 ```
 
+**Teil 4, Schritt 1 - Listen-, Kanban-, Pivot-, Graph- und Kalenderansichten (28.09.2026,
+Session 121): lokal umgesetzt und abgenommen, VM-Abnahme offen.**
+
+Dokument: `docs/o11-o18-vergleich-verkauf-teil4-ansichten.md`.
+
+```
+Verglichen je Menueaktion (Angebote, Auftraege, Pipeline, Abzurechnen, Upselling):
+  Ansichtsarten, Listenspalten mit Reihenfolge und optional-Kennzeichnung, Kanban-Kartenfelder,
+  Pivot- und Graph-Felder, Kalenderfelder, Default-Gruppierungen; Odoo 11 nur lesend
+Odoo 11 (alle vier Menues): tree, kanban, form, calendar, pivot, graph; eine Listenansicht mit
+  11 festen Spalten (u.a. name "Auftragsnummer", confirmation_date "Bestelldatum")
+Odoo 18: list, kanban, form, calendar, pivot, graph, activity; 22 bzw. 24 Spalten mit
+  optionalen Spalten; Kanban/Pivot/Graph gleichwertig; Aktivitaetenansicht als Odoo-18-Zusatz
+Luecke: Spalte "Bestelldatum" (confirmation_date) fehlte in Odoo 18 -> ergaenzt
+  (itk_sale_management 18.0.1.4.0, views/sale_order.xml, optional="show", Odoo-11-Wortlaut)
+Unterschied: Odoo 11 hatte einen Monatskalender nach Auftragsdatum; Odoo 18 liefert den
+  Aktivitaetenkalender (sale.view_sale_order_calendar, date_start=activity_date_deadline).
+  Nichts geaendert; offene Entscheidung mit drei Optionen im Dokument (Abschnitt 7)
+Nachweise lokal: Prueflauf Odoo 11 36 OK / 0 FEHL, lokal 55 OK / 0 FEHL;
+  Browserabnahme 11 OK / 0 FEHL (Liste mit Bestelldatum, Spaltenauswahl, Kanban, Pivot, Graph,
+  Kalender, 0 JS-/RPC-Fehler)
+Offen: VM-Pull, Container-Neustart, Modul-Upgrade 18.0.1.4.0, Browserabnahme auf der VM
+```
+
 ### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-15: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte, Produktformular), erste Abnahme 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119), Teil 15 am 24.09.2026 (Session 120) auf der VM im Browser abgenommen
 
 Dokument: `docs/o11-o18-vergleich-abo-teil1.md`; Teil 14: `docs/o11-o18-vergleich-abo-teil14.md`; Teil 15: `docs/o11-o18-vergleich-abo-teil15-produktformular.md`; Uebergabe und Vollstaendigkeitsbestaetigung: `docs/uebergabe-session-120-abonnements.md` (24.09.2026: jedes in Odoo 11 verwendete Feld, Reiter, Button, Smart Button, Statuswechsel, Filter, Gruppierung und jeder Geschaeftsprozess ist gleich vorhanden, funktional gleichwertig an anderer Stelle vorhanden oder bewusst dokumentiert; keine offene funktionale Abweichung).

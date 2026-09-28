@@ -7005,3 +7005,25 @@ Auftraege uebernehmen oder veraendern (weiterhin Funktions- und Migrationsvorber
 Teil 3 ist damit vollstaendig (Formulare/Reiter, Buttons/Smart Buttons, Statuswechsel,
 Suchfelder/Filter/Gruppierungen/Suche). Naechster Schritt: Teil 4 (Ansichten und Berichte,
 inklusive Nachbau "Verkaufsauftraege aller Kanaele") und Teil 5 (Abschluss).
+
+## Session 121, Teil 4 Schritt 1 (Listen-, Kanban-, Pivot-, Graph- und Kalenderansichten)
+
+Dokument: docs/o11-o18-vergleich-verkauf-teil4-ansichten.md.
+Umsetzung: itk_sale_management 18.0.1.4.0 (views/sale_order.xml).
+
+```
+Odoo 11: tree, kanban, form, calendar, pivot, graph je Menue; eine ITK-Listenansicht mit
+  11 festen Spalten (name "Auftragsnummer", confirmation_date "Bestelldatum", Partnerfelder,
+  user_id, amount_untaxed "Total Net", currency_id, invoice_status, state)
+Odoo 18: list, kanban, form, calendar, pivot, graph, activity; 22 Spalten (Auftraege) bzw.
+  24 (Angebote) mit optionalen Spalten; Kanban/Pivot/Graph gleichwertig
+Luecke geschlossen: confirmation_date "Bestelldatum" in beiden ITK-Listenansichten ergaenzt
+  (optional="show", direkt hinter der Datumsspalte)
+Unterschied dokumentiert: Kalender Odoo 11 = Auftragsdatum, Odoo 18 = Aktivitaetsdatum
+  (sale.view_sale_order_calendar). Keine Aenderung; drei Optionen zur Entscheidung im Dokument
+Nachweise lokal: verify_s121_verkauf_teil4_ansichten.py Odoo 11 36 OK / lokal 55 OK, je 0 FEHL;
+  browser_verkauf_ansichten.py 11 OK / 0 FEHL, 0 JS- / 0 RPC-Fehler
+Werkzeuge: scripts/analyse_verkauf_teil4_ansichten.py, scripts/verify_s121_verkauf_teil4_ansichten.py,
+  scripts/browser_verkauf_ansichten.py
+Offen: VM-Upgrade 18.0.1.4.0 + VM-Abnahme; Entscheidung zur Kalenderansicht
+```

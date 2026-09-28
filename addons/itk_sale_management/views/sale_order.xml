@@ -28,6 +28,12 @@
                 <!--<xpath expr="//field[@name='date_order']" position="attributes">
                     <attribute name="widget">date</attribute> 
                 </xpath> -->
+                <xpath expr="//field[@name='create_date']" position="after">
+                    <!-- Odoo 11 zeigte in der Angebots-/Auftragsliste die Spalte "Bestelldatum"
+                         (confirmation_date). Session 121, Teil 4, Schritt 1: Spalte wieder
+                         anbieten; optional="show" entspricht der Sichtbarkeit in Odoo 11. -->
+                    <field name="confirmation_date" string="Bestelldatum" optional="show"/>
+                </xpath>
                 <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="partner_invoice_id"/>
                     <field name="sale_contact_id"/>
@@ -75,6 +81,11 @@
                 <!-- <xpath expr="//field[@name='date_order']" position="attributes">
                     <attribute name="widget">date</attribute>
                 </xpath> -->
+                <xpath expr="//field[@name='date_order']" position="after">
+                    <!-- Odoo 11 zeigte in der Auftragsliste die Spalte "Bestelldatum"
+                         (confirmation_date). Session 121, Teil 4, Schritt 1. -->
+                    <field name="confirmation_date" string="Bestelldatum" optional="show"/>
+                </xpath>
                 <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="partner_invoice_id"/>
                     <field name="sale_contact_id"/>
