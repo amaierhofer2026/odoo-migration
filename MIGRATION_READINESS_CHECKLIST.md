@@ -715,12 +715,44 @@ Prueflauf: scripts/verify_s121_verkauf_teil3_status.py 53 OK / 0 FEHL (Odoo 11 l
 Mapping fuer die Datenmigration in migration/verkauf_migrationsregeln.json (Abschnitt statuswechsel)
 ```
 
-**OFFENE FACHFRAGE:** Sollen die 2311 aus Odoo 11 uebernommenen Verkaufsauftraege entsperrt
-(Empfehlung, wie in Odoo 11 bearbeitbar) oder gesperrt uebernommen werden? Die 147 stornierten
-Auftraege werden in beiden Faellen entsperrt uebernommen.
+**ENTSCHIEDEN (Anna, 28.09.2026): nur dokumentieren.** Bestaetigte Auftraege waren in Odoo 11
+bearbeitbar, Odoo 18 nutzt zusaetzlich `locked`. Keine Importregel auf Produktivdaten, keine
+Uebernahme oder Aenderung der 2311 Auftraege.
 
 **Merke:** Odoo 18 storniert nur ueber Rueckfrage und nur bei entsperrtem Auftrag; ein Import mit
 `state=sale` loest `action_confirm` nicht aus, `locked` muss ausdruecklich gesetzt werden.
+
+**Nur dokumentiert (Entscheidung Anna, 28.09.2026):** Bestaetigte Verkaufsauftraege waren in
+Odoo 11 bearbeitbar; Odoo 18 verwendet zusaetzlich das Feld `locked`. Keine Importregel auf
+Produktivdaten anwenden, keine Auftraege uebernehmen oder veraendern - weiterhin
+Funktions- und Migrationsvorbereitung.
+
+**Teil 3, Schritt 4 - Suchfelder, Filter, Gruppierungen, Suche (28.09.2026, Session 121):
+lokal umgesetzt und abgenommen, VM-Abnahme offen.**
+
+Dokument: `docs/o11-o18-vergleich-verkauf-teil3-filter-suche.md`.
+
+```
+Verglichen je Menue (Angebote, Auftraege, Abzurechnende Auftraege, Upselling) aus dem Arch:
+  Suchfelder, Filter, Gruppierungen, Default-Kontext; Odoo 11 nur lesend
+Suchfelder: name/partner_id/user_id/team_id/final_customer_id/product_category_id in beiden gleich;
+  Produkt ueber Auftragszeilen gleichwertig; analytic_account_id in Odoo 11 auf 0 Auftraegen belegt
+  und in Odoo 18 nicht mehr vorhanden -> kein Nachbau; Odoo-18-Zusatz campaign_id bleibt
+Filter: in Odoo 18 ergaenzt (Modul itk_sale_management 18.0.1.3.0, nur ergaenzt, nichts entfernt):
+  "Ungelesene Nachrichten" (message_needaction), "Meine Aktivitaeten" (activity_ids.user_id = uid),
+  "Angebote (Entwurf)" (state = draft), "Kostenvoranschlag gesendet" (state = sent)
+Default-Filter: search_default_my_quotation aus sale.action_quotations und
+  sale.action_quotations_with_onboarding entfernt (Odoo 11 oeffnete ohne Voreinstellung);
+  Filter bleibt auswaehlbar (Entscheidung aus Teil 1 damit umgesetzt)
+Gruppierungen: Verkaeufer, Kunde, Endkunde, Produktkategorie, Auftragsmonat alle vorhanden
+  (Odoo-18-Label Vertriebsmitarbeiter/Auftragsdatum); Odoo-18-Zusatzgruppen bleiben
+Bewusst nicht nachgebaut: "Von Website", "Zu sendende Wiederherstellungs-E-Mail" (Website nicht
+  migriert), Odoo-11-Filter "Verkauf" mit ungueltigem Zustand progress (defekt), Bestaetigte
+  Auftraege (durch Verkaufsauftraege abgedeckt)
+Nachweise lokal: verify_s121_verkauf_teil3_filter.py 78 OK / 0 FEHL (Odoo 11 43 OK als Ausgangslage),
+  browser_verkauf_filter_suche.py 19 OK / 0 FEHL, 0 JS-/RPC-Fehler
+Offen: VM-Pull, Container-Neustart, Modul-Upgrade 18.0.1.3.0, Browserabnahme auf der VM
+```
 
 ### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-15: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte, Produktformular), erste Abnahme 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119), Teil 15 am 24.09.2026 (Session 120) auf der VM im Browser abgenommen
 

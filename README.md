@@ -200,8 +200,23 @@ Prüfwerkzeug: `python scripts/vm_abnahme_check.py` · Detailregel: `docs/arbeit
   Auftrag. Klicktest mit echtem Browser: lokal 35 OK / 0 FEHL, VM 35 OK / 0 FEHL (Testauftrag
   angelegt und geloescht). Prueflauf `verify_s121_verkauf_teil3_status.py`: 53 OK / 0 FEHL
   (Odoo 11 lesend, lokal, VM). Mapping fuer die Migration im Abschnitt `statuswechsel` von
-  `migration/verkauf_migrationsregeln.json`; offen ist die Entscheidung, ob die 2311
-  uebernommenen Verkaufsauftraege entsperrt oder gesperrt migriert werden.
+  `migration/verkauf_migrationsregeln.json`. Entscheidung vom 28.09.2026: dazu wird nur
+  dokumentiert, dass bestaetigte Auftraege in Odoo 11 bearbeitbar waren und Odoo 18 zusaetzlich
+  `locked` verwendet (keine Importregel, keine Datenmigration).
+
+- **Bereich Verkauf - Teil 3 Schritt 4 Filter, Gruppierungen, Suche (Session 121, 28.09.2026):**
+  `docs/o11-o18-vergleich-verkauf-teil3-filter-suche.md`. Suchfelder, Filter, Gruppierungen und
+  Default-Kontexte der vier Verkaufslisten je Menue verglichen (Odoo 11 nur lesend). In Odoo 18
+  ergaenzt (`itk_sale_management` 18.0.1.3.0, nur ergaenzt, nichts entfernt): Filter "Ungelesene
+  Nachrichten" (`message_needaction`), "Meine Aktivitaeten" (`activity_ids.user_id = uid`),
+  "Angebote (Entwurf)" (`state = draft`), "Kostenvoranschlag gesendet" (`state = sent`);
+  Default-Filter `search_default_my_quotation` aus `sale.action_quotations` und
+  `sale.action_quotations_with_onboarding` entfernt (Odoo 11 oeffnete ohne Voreinstellung, Filter
+  bleibt auswaehlbar). Nachweise lokal: `verify_s121_verkauf_teil3_filter.py` 78 OK / 0 FEHL
+  (Odoo 11 43 OK / 0 FEHL), `browser_verkauf_filter_suche.py` 19 OK / 0 FEHL mit 0 JS-/RPC-Fehlern.
+  Offen: VM-Pull, Container-Neustart, Modul-Upgrade 18.0.1.3.0 und Browserabnahme auf der VM.
+  Keine Datenmigration: zur Sperre bestaetigter Auftraege wurde nur dokumentiert, dass sie in
+  Odoo 11 bearbeitbar waren und Odoo 18 zusaetzlich `locked` verwendet.
 
 - **Bereich Angebote / Verkaufsauftraege - Bestandsaufnahme (Session 117, 18.09.2026):**
   `docs/o11-o18-strukturvergleich-angebote-auftraege.md`. Odoo 11: 2.460 Auftraege, 1.764 Abonnements.

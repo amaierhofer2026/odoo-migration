@@ -42,6 +42,7 @@
   "o18_feld": "sale.order.note (html)",
   "regel": "Klartext uebernehmen, Zeilenumbrueche in <br> wandeln, Sonderzeichen escapen, keine weitere Formatierung erfinden."
  },
+ "phase": "Funktions- und Migrationsvorbereitung (keine Datenmigration)",
  "preislisten": {
   "hinweis": "Die Odoo-11-Preisliste 'Preisliste 2026 + Valorisierung' (id 56, 256 Auftraege) entspricht namentlich der Odoo-18-Zielpreisliste.",
   "o11_preislisten_mit_auftraegen": [
@@ -236,7 +237,9 @@
    "draft": 5,
    "sale": 2311
   },
+  "entscheidung_anna_28_09_2026": "Nur dokumentieren: bestätigte Auftraege waren in Odoo 11 bearbeitbar, Odoo 18 nutzt zusaetzlich locked. Keine Importregel auf Produktivdaten anwenden, keine Auftraege veraendern oder uebernehmen.",
   "hinweis": "Ein direktes Schreiben von state=sale loest action_confirm nicht aus; die automatische Sperre greift beim Import daher nicht, locked muss ausdruecklich mitgeschrieben werden.",
+  "hinweis_datenmigration": "KEINE Datenmigration. Es wird derzeit nichts aus Odoo 11 uebernommen und kein Datensatz in Odoo 18 angelegt oder geaendert. Die Zuordnung ist reine Vorbereitung und wird erst unmittelbar vor einer freigegebenen Datenmigration als Importregel festgelegt.",
   "nachweise": {
    "dokument": "docs/o11-o18-vergleich-verkauf-teil3-statuswechsel.md",
    "klicktest": "scripts/browser_verkauf_statuswechsel_klicktest.py (lokal 35 OK, VM 35 OK)",
@@ -257,8 +260,8 @@
    "sale",
    "cancel"
   ],
-  "offene_entscheidung": "Sollen die uebernommenen Verkaufsauftraege (Odoo 11 state=sale, 2311 Stueck) entsperrt (Empfehlung, wie in Odoo 11 bearbeitbar) oder gesperrt uebernommen werden?",
   "regel": "Zustand 1:1 uebernehmen; die Odoo-11-Sperre (state=done) gibt es in Odoo 18 nicht mehr, dort wird sie durch state=sale plus locked=True abgebildet.",
+  "stand_odoo18": "Bestätigte Verkaufsauftraege waren in Odoo 11 bearbeitbar (Zustand sale); Odoo 18 verwendet zusaetzlich das Feld locked (\"Bestellungen automatisch sperren\" ist in der Testdatenbank aktiv). Eine Sperre wird beim Import nicht gesetzt - dazu ist noch keine Regel vereinbart und es werden keine der 2.463 Odoo-11-Auftraege uebernommen oder veraendert.",
   "zuordnung": {
    "cancel": {
     "o18_locked": false,
