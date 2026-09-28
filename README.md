@@ -214,7 +214,10 @@ Prüfwerkzeug: `python scripts/vm_abnahme_check.py` · Detailregel: `docs/arbeit
   `sale.action_quotations_with_onboarding` entfernt (Odoo 11 oeffnete ohne Voreinstellung, Filter
   bleibt auswaehlbar). Nachweise lokal: `verify_s121_verkauf_teil3_filter.py` 78 OK / 0 FEHL
   (Odoo 11 43 OK / 0 FEHL), `browser_verkauf_filter_suche.py` 19 OK / 0 FEHL mit 0 JS-/RPC-Fehlern.
-  Offen: VM-Pull, Container-Neustart, Modul-Upgrade 18.0.1.3.0 und Browserabnahme auf der VM.
+  VM-Abnahme am 28.09.2026 erfolgt: Modul-Upgrade 18.0.1.3.0 ohne Fehler, Prueflauf 199 OK / 0 FEHL
+  (Odoo 11 43 + lokal 78 + VM 78), Browserabnahme auf der VM 19 OK / 0 FEHL; Vorher/Nachher-Vergleich
+  `scripts/vergleiche_verkauf_suche_vorher_nachher.py` belegt, dass keine Odoo-18-Funktion entfernt
+  wurde (nur Ergaenzungen der Odoo-11-Filter).
   Keine Datenmigration: zur Sperre bestaetigter Auftraege wurde nur dokumentiert, dass sie in
   Odoo 11 bearbeitbar waren und Odoo 18 zusaetzlich `locked` verwendet.
 

@@ -132,22 +132,45 @@ Ergebnisse lokal (28.09.2026):
 
 ```
 Modul-Upgrade itk_sale_management 18.0.1.3.0 (nach docker restart odoo18)  ohne Fehler
-verify_s121_verkauf_teil3_filter.py    lokal 0 FEHL (Odoo 11 als Ausgangslage mitgeprueft)
+verify_s121_verkauf_teil3_filter.py    lokal 78 OK / 0 FEHL (Odoo 11 als Ausgangslage 43 OK / 0 FEHL)
 browser_verkauf_filter_suche.py        lokal 19 OK / 0 FEHL, 0 JavaScript- und 0 RPC-Fehler
+```
+
+Ergebnisse VM (28.09.2026, Buer-Zugang, Git-Stand 3e15474, Container-Neustart durch Anna):
+
+```
+Modul-Upgrade itk_sale_management 18.0.1.3.0 auf der VM ueber RPC   ohne Fehler
+verify_s121_verkauf_teil3_filter.py    Odoo 11 43 OK + lokal 78 OK + VM 78 OK = 199 OK / 0 FEHL
+browser_verkauf_filter_suche.py        VM 19 OK / 0 FEHL, 0 JavaScript- und 0 RPC-Fehler
   - Menueaufruf "Angebote" oeffnet ohne Facette (kein Default-Filter)
   - Suchmenue zeigt: Meine Angebote, Angebote, Angebote (Entwurf), Kostenvoranschlag gesendet,
     Verkaufsauftraege, Erstellt am, Ungelesene Nachrichten, Meine Aktivitaeten
   - Gruppieren nach: Vertriebsmitarbeiter, Kunde, Endkunde, Produktkategorie, Auftragsdatum
   - Filter "Kostenvoranschlag gesendet" per Klick gesetzt (2 Auftraege) und wieder entfernt
   - Gruppierung "Vertriebsmitarbeiter" per Klick gesetzt (gruppierte Liste)
-  - Suchfeld: Eingabe der Auftragsnummer liefert den Auftrag, Begriff erscheint als Facette
+  - Suchfeld: Eingabe der Auftragsnummer S00203 liefert den Auftrag, Begriff erscheint als Facette
+  - keine Schreibvorgaenge: nur Suchen, Filtern, Gruppieren in der Ansicht
 Screenshots: Desktop\Odoo18-Abnahme-Session121\16_Filter_Angebote_ohne_Default_lokal.png bis
-             21_Suchfeld_lokal.png
+             21_Suchfeld_lokal.png (lokal) und _vm.png (VM)
 ```
 
-**VM-Abnahme offen** (Modul-Upgrade auf der VM noch nicht gelaufen, die VM hat 18.0.1.2.0):
-nach `git pull --ff-only` und `docker restart odoo18` auf der VM wird das Modul per RPC upgegradet
-und dieselben Pruefungen laufen dort erneut.
+### 6.1 Nachweis, dass keine Odoo-18-Funktion entfernt wurde
+
+`scripts/vergleiche_verkauf_suche_vorher_nachher.py` vergleicht die Suchansichten je Menueaktion
+vor und nach der Ergaenzung (Rohdaten `docs/_verkauf_teil3_suche_vorher.json` und
+`docs/_verkauf_teil3_suche.json`, beide gitignoriert). Ergebnis fuer Odoo 18 lokal und VM:
+
+```
+Aktion 429 Verkaufsauftraege     +2 Filter, Gruppierungen 5 unveraendert, Suchfelder 6 unveraendert
+Aktion 430/431 Angebote          +4 Filter, Gruppierungen 5 unveraendert, Suchfelder 8 unveraendert
+                                 Kontext: {'search_default_my_quotation': 1} -> {} (gewollt)
+Aktion 432/433 Abzurechnen/Upsell +2 Filter, Gruppierungen 3 unveraendert, Suchfelder 5 unveraendert
+ERGEBNIS: keine Odoo-18-Funktion entfernt, nur Ergaenzungen.
+Zusaetzlich geprueft: Ansichtsarten (list, kanban, calendar, pivot, graph, activity) und Domains
+  der Menueaktionen unveraendert; das Odoo-18-Suchfeld "Kampagne" und die Datumsfilter
+  ("Erstellt am", "Auftragsdatum") weiterhin vorhanden; benutzerdefinierte Filter und
+  Gruppierungen (Suche speichern) unberuehrt.
+```
 
 ## 7. Hinweis zur Sperre (Entscheidung von Anna, 28.09.2026)
 
@@ -160,4 +183,15 @@ Nur dokumentarisch festgehalten, keine Datenmigration:
   Odoo-11-Auftraege uebernommen oder veraendert. Die Zuordnung in
   `migration/verkauf_migrationsregeln.json` (Abschnitt `statuswechsel`) ist reine Vorbereitung.
 
-**STATUS: TEIL 3, SCHRITT 4 - lokal umgesetzt und im Browser abgenommen. VM-Abnahme offen.**
+**STATUS: TEIL 3, SCHRITT 4 - Suchfelder, Filter, Gruppierungen und Suche ABGENOMMEN
+(lokal und VM).**
+
+```
+VM-Abnahme 28.09.2026 (Buer-Zugang, Git-Stand 3e15474):
+  Modul-Upgrade itk_sale_management 18.0.1.3.0 auf der VM          ohne Fehler
+  verify_s121_verkauf_teil3_filter.py  Odoo 11 43 + lokal 78 + VM 78 = 199 OK / 0 FEHL
+  browser_verkauf_filter_suche.py      VM 19 OK / 0 FEHL, 0 JS- / 0 RPC-Fehler
+  Vorher/Nachher-Vergleich             keine Odoo-18-Funktion entfernt, nur Ergaenzungen
+                                       (scripts/vergleiche_verkauf_suche_vorher_nachher.py)
+  keine Schreibvorgaenge auf der VM: nur Suchen, Filtern, Gruppieren in der Ansicht
+```

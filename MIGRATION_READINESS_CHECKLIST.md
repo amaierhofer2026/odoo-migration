@@ -751,7 +751,10 @@ Bewusst nicht nachgebaut: "Von Website", "Zu sendende Wiederherstellungs-E-Mail"
   Auftraege (durch Verkaufsauftraege abgedeckt)
 Nachweise lokal: verify_s121_verkauf_teil3_filter.py 78 OK / 0 FEHL (Odoo 11 43 OK als Ausgangslage),
   browser_verkauf_filter_suche.py 19 OK / 0 FEHL, 0 JS-/RPC-Fehler
-Offen: VM-Pull, Container-Neustart, Modul-Upgrade 18.0.1.3.0, Browserabnahme auf der VM
+Nachweise VM (28.09.2026): Modul-Upgrade 18.0.1.3.0 ohne Fehler, Prueflauf 199 OK / 0 FEHL
+  (Odoo 11 43 + lokal 78 + VM 78), Browserabnahme 19 OK / 0 FEHL, 0 JS-/RPC-Fehler
+Keine Odoo-18-Funktion entfernt (Vorher/Nachher-Vergleich, nur Ergaenzungen); keine
+  Schreibvorgaenge, keine Datenmigration
 ```
 
 ### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-15: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte, Produktformular), erste Abnahme 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119), Teil 15 am 24.09.2026 (Session 120) auf der VM im Browser abgenommen
