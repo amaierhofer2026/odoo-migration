@@ -808,12 +808,45 @@ VM-Abnahme 28.09.2026: Modul 18.0.1.5.0 auf der VM upgegradet (ohne Fehler), Pru
   Feldbeschriftungen per apply_sale_labels.py --instanz vm nachgezogen
 ```
 
-**Teil 4, Schritt 2 - Verkaufsberichte (28.09.2026, Session 121): ANALYSE UND MAPPING FERTIG,
-noch keine Umsetzung.**
+**Teil 4, Schritt 2 - Verkaufsberichte (28.09.2026, Session 121): UMGESETZT UND ABGENOMMEN
+(lokal und VM).**
 
 Dokument: `docs/o11-o18-vergleich-verkauf-teil4-berichte.md`.
 
 ```
+UMGESETZT in itk_sale_management 18.0.1.6.0 (neue Datei views/sale_report_views_kanaele.xml):
+  Aktion "Verkaufsaufträge aller Kanäle" auf sale.report, view_mode pivot,graph,list,
+    Domain [('state','!=','cancel')] (nur nicht stornierte Auftraege),
+    Kontext {'search_default_itk_current_year': 1, 'pivot_measures': ['price_total']},
+    Ansichten ueber view_ids (eigene Pivot, sale.report.graph, sale.report.view.list)
+  Pivotansicht: Zeile Auftragsreferenz (name), Spalte Vertriebskanal (team_id),
+    Mass Total (price_total) - Anordnung wie Odoo 11
+  Suchansicht (erbt sale.view_order_product_search, nur Ergaenzungen):
+    Filter "Aktuelles Verkaufsjahr" (itk_current_year), Gruppierung "Vertriebskanal" (itk_channel)
+  Menuepunkt Verkauf/Berichtswesen/Verkaufsaufträge aller Kanäle, Reihenfolge 15
+  Modul nicht nachgebaut: report.all.channels.sales existiert in Odoo 18 weiterhin nicht
+Befund: aktive Gruppenfilter-Facette macht in Odoo 18 den Kanal zur Zeile und verdraengt die
+  Auftragsreferenz; deshalb liefert die Pivotansicht die Odoo-11-Anordnung ueber
+  type="row"/type="col", der Filter "Vertriebskanal" bleibt zum Umschalten verfuegbar.
+ABNAHME 28.09.2026:
+  Prueflauf scripts/verify_s121_verkauf_teil4_bericht_kanaele.py: 84 OK / 0 FEHL
+    (Odoo 11 lesend + Odoo 18 lokal + Odoo 18 VM)
+  Browser scripts/browser_verkauf_bericht_kanaele.py: lokal 18 OK / 0 FEHL,
+    VM 18 OK / 0 FEHL, 0 JavaScript-Fehler, 0 RPC-Fehler
+  Belegwerte VM: Menuepunkt oeffnet, Facette "Aktuelles Verkaufsjahr" aktiv, Zeilen sind
+    Auftragsreferenzen (S00007 ... S00203), Spalte "Verkauf" (Vertriebskanal), Mass "Gesamt"
+    (price_total), Pivot-Summe 863,80 = Summe price_total nicht stornierter Positionen 2026
+    (mit stornierten 1.055,80) -> stornierte ausgeschlossen; lokal 835,00 (mit stornierten 1.027,00)
+  Erhalt: Odoo-18-Filter (Angebote, Verkaufsauftraege, Auftragsdatum, Abzurechnen, Komplett
+    abgerechnet) und Gruppierungen (Vertriebsmitarbeiter, Verkaufsteam, Kunde, Kundenland,
+    Kundenbranche, Produkt, Produktvariante, Produktkategorie, Status) unveraendert;
+    Aktionen 416/417 der Verkaufsanalyse oeffnen unveraendert
+  Bestand unveraendert: lokal 18 Auftraege / 28 Zeilen, VM 20 Auftraege / 29 Zeilen;
+    verify_s117_auftraege.py VM 65 OK / 0 FEHL (nach apply_sale_labels.py --instanz vm)
+Git: PR #116 -> main 98585b4 (lokal = GitHub = VM).
+Noch keine Datenmigration; Odoo 11 wurde ausschliesslich lesend gelesen.
+```
+
 Bestandsaufnahme Odoo 11 (lesend):
   Menue Verkauf/Berichtswesen: Verkauf (Aktion 423 sale.report), Verkaufsauftraege aller
     Kanaele (Aktion 424 report.all.channels.sales), Vertriebskaenale (Aktion 171 crm.team)
