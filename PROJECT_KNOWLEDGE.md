@@ -7025,5 +7025,8 @@ Nachweise lokal: verify_s121_verkauf_teil4_ansichten.py Odoo 11 36 OK / lokal 55
   browser_verkauf_ansichten.py 11 OK / 0 FEHL, 0 JS- / 0 RPC-Fehler
 Werkzeuge: scripts/analyse_verkauf_teil4_ansichten.py, scripts/verify_s121_verkauf_teil4_ansichten.py,
   scripts/browser_verkauf_ansichten.py
-Offen: VM-Upgrade 18.0.1.4.0 + VM-Abnahme; Entscheidung zur Kalenderansicht
+Offen: Entscheidung zur Kalenderansicht (drei Optionen im Dokument, Abschnitt 7)
+VM-Abnahme 28.09.2026: Modul 18.0.1.4.0 auf der VM upgegradet (ohne Fehler), Prueflauf
+  146 OK / 0 FEHL (Odoo 11 36 + lokal 55 + VM 55), Browserabnahme auf der VM 11 OK / 0 FEHL,
+  0 JS-/RPC-Fehler, keine Schreibvorgaenge (Bestand unveraendert 20 Auftraege / 29 Zeilen)
 ```

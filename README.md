@@ -229,7 +229,8 @@ Prüfwerkzeug: `python scripts/vm_abnahme_check.py` · Detailregel: `docs/arbeit
   `browser_verkauf_ansichten.py` 11 OK / 0 FEHL mit 0 JS-/RPC-Fehlern. Unterschied dokumentiert:
   der Odoo-11-Kalender (Auftragsdatum) hat in Odoo 18 keinen gleichwertigen Standard
   (dort Aktivitaetenkalender); drei Optionen zur Entscheidung im Dokument, nichts geaendert.
-  Offen: VM-Upgrade 18.0.1.4.0 und VM-Abnahme.
+  VM-Abnahme am 28.09.2026: Modul 18.0.1.4.0 upgegradet, Prueflauf 146 OK / 0 FEHL
+  (Odoo 11 36 + lokal 55 + VM 55), Browserabnahme auf der VM 11 OK / 0 FEHL.
   Keine Datenmigration: zur Sperre bestaetigter Auftraege wurde nur dokumentiert, dass sie in
   Odoo 11 bearbeitbar waren und Odoo 18 zusaetzlich `locked` verwendet.
 
