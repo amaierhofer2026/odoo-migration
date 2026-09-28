@@ -1,0 +1,49 @@
+<odoo>
+    <data>
+        <!-- Session 121, Teil 4, Schritt 1: Kalender nach Auftragsdatum (Option A, Entscheidung Anna
+             28.09.2026).
+
+             Odoo 11 hatte im Verkaufsmenue einen Monatskalender nach Auftragsdatum
+             (sale.order.calendar, date_start="date_order", color="state"). Odoo 18 liefert an dieser
+             Stelle den Aktivitaetenkalender (sale.view_sale_order_calendar,
+             date_start="activity_date_deadline"). Damit die Odoo-11-Funktion erhalten bleibt und der
+             Odoo-18-Aktivitaetenkalender unveraendert bleibt, wird hier eine eigene Kalenderansicht
+             mit eigenem Menuepunkt "Auftragskalender" unter Verkauf/Auftraege angelegt.
+             Es wird nichts an bestehenden Ansichten, Aktionen oder Menues geaendert. -->
+
+        <record id="view_saleorder_kalender_itk" model="ir.ui.view">
+            <field name="name">sale.order.calendar (itk) - Auftragsdatum</field>
+            <field name="model">sale.order</field>
+            <field name="priority">99</field>
+            <field name="arch" type="xml">
+                <calendar string="Auftragskalender" date_start="date_order" color="state"
+                          mode="month" quick_create="false">
+                    <field name="partner_id"/>
+                    <field name="amount_total"/>
+                    <field name="state"/>
+                </calendar>
+            </field>
+        </record>
+
+        <record id="action_saleorder_kalender_itk" model="ir.actions.act_window">
+            <field name="name">Auftragskalender</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_mode">calendar,list,form</field>
+            <!-- Hinweis: 'views' ist in Odoo 18 ein nicht gespeichertes Feld; die Zuordnung
+                 Ansichtsart -> Ansicht wird ueber view_ids gesetzt. -->
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'sequence': 1, 'view_mode': 'calendar', 'view_id': ref('view_saleorder_kalender_itk')}),
+                (0, 0, {'sequence': 2, 'view_mode': 'list', 'view_id': ref('sale.view_order_tree')}),
+                (0, 0, {'sequence': 3, 'view_mode': 'form', 'view_id': ref('sale.view_order_form')})]"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Keine Verkaufsauftraege im Kalender</p>
+                <p>Der Kalender zeigt Verkaufsauftraege nach Auftragsdatum (wie in Odoo 11).</p>
+            </field>
+        </record>
+
+        <menuitem id="menu_saleorder_kalender_itk" name="Auftragskalender"
+                  parent="sale.sale_order_menu"
+                  action="action_saleorder_kalender_itk"
+                  sequence="25"/>
+    </data>
+</odoo>
