@@ -238,3 +238,27 @@ Aktivitaetenkalender der Angebotsliste: anderer Ereignissatz (Aktivitaetsdatum) 
 Lokales Ergebnis: `browser_verkauf_kalender.py` 16 OK / 0 FEHL, 0 JavaScript- und 0 RPC-Fehler;
 `verify_s121_verkauf_kalender.py` (Odoo 11 lesend + lokal) 0 FEHL.
 Screenshots: 27_Auftragskalender_*.png, 28_Aktivitaetenkalender_*.png.
+
+### 8.1 VM-Abnahme (28.09.2026, Buer-Zugang, Git-Stand 2416b2c)
+
+```
+git pull --ff-only + docker restart odoo18 auf der VM
+Modul-Upgrade itk_sale_management 18.0.1.5.0 ueber RPC                     ohne Fehler
+Prueflauf verify_s121_verkauf_kalender.py     Odoo 11 + lokal + VM = 33 OK / 0 FEHL
+Browserabnahme browser_verkauf_kalender.py    VM 16 OK / 0 FEHL, 0 JS- und 0 RPC-Fehler
+  - Menuepunkt Verkauf/Auftraege/Auftragskalender auf der VM vorhanden
+  - Kalender oeffnet fehlerfrei (Monat September 2026)
+  - Datumsbasis Auftragsdatum: erwartet S00198, S00199, S00201, S00203 (Auftragsdatum im Monat),
+    im Kalender angezeigt genau diese vier -> identisch
+  - Kontrolle: Auftraege mit fruehrerem Auftragsdatum (S00180, S00182, S00188, S00189, S00190)
+    erscheinen nicht
+  - Umschaltung Kalender/Liste funktioniert, Liste zeigt "Bestelldatum"
+  - Odoo-18-Aktivitaetenkalender der Angebotsliste oeffnet weiterhin, zeigt einen anderen
+    Ereignissatz; Kanban, Pivot, Graph, Liste und Aktivitaeten weiterhin in der Umschaltung
+  - Feldbeschriftungen nach dem Upgrade per apply_sale_labels.py --instanz vm nachgezogen
+    (verify_s117_auftraege.py --instanz vm = 65 OK / 0 FEHL)
+  - keine Schreibvorgaenge: Bestand unveraendert 20 Auftraege / 29 Auftragszeilen
+Screenshots: 27_Auftragskalender_vm.png, 28_Aktivitaetenkalender_vm.png
+```
+
+**STATUS: KALENDERERGAENZUNG (OPTION A) ABGENOMMEN, lokal und auf der VM.**

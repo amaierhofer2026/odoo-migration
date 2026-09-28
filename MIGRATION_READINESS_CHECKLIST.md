@@ -800,7 +800,12 @@ Browserabnahme lokal: 16 OK / 0 FEHL, 0 JS-/RPC-Fehler. Datumsbasis belegt: im M
   Auftraege mit fruehrerem Auftragsdatum erscheinen nicht; der Aktivitaetenkalender zeigt
   einen anderen Ereignissatz.
 Prueflauf: scripts/verify_s121_verkauf_kalender.py (Odoo 11 lesend + lokal + VM)
-Offen: VM-Upgrade 18.0.1.5.0 + VM-Browserabnahme
+VM-Abnahme 28.09.2026: Modul 18.0.1.5.0 auf der VM upgegradet (ohne Fehler), Prueflauf
+  33 OK / 0 FEHL (Odoo 11 + lokal + VM), Browserabnahme auf der VM 16 OK / 0 FEHL,
+  0 JS-/RPC-Fehler; Menuepunkt Verkauf/Auftraege/Auftragskalender auf der VM vorhanden;
+  Datumsbasis belegt (erwartet und angezeigt: S00198, S00199, S00201, S00203);
+  Aktivitaetenkalender unveraendert; keine Schreibvorgaenge (20 Auftraege / 29 Zeilen);
+  Feldbeschriftungen per apply_sale_labels.py --instanz vm nachgezogen
 ```
 
 ### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-15: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte, Produktformular), erste Abnahme 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119), Teil 15 am 24.09.2026 (Session 120) auf der VM im Browser abgenommen

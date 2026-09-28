@@ -231,6 +231,17 @@ Prüfwerkzeug: `python scripts/vm_abnahme_check.py` · Detailregel: `docs/arbeit
   (dort Aktivitaetenkalender); drei Optionen zur Entscheidung im Dokument, nichts geaendert.
   VM-Abnahme am 28.09.2026: Modul 18.0.1.4.0 upgegradet, Prueflauf 146 OK / 0 FEHL
   (Odoo 11 36 + lokal 55 + VM 55), Browserabnahme auf der VM 11 OK / 0 FEHL.
+
+- **Bereich Verkauf - Kalenderergaenzung Option A (Session 121, 28.09.2026):**
+  Auf Entscheidung von Anna: Odoo-11-Kalender nach Auftragsdatum zusaetzlich anbieten, ohne den
+  Odoo-18-Aktivitaetenkalender anzutasten. `itk_sale_management` 18.0.1.5.0,
+  `views/sale_order_views_kalender.xml`: eigene Kalenderansicht (`date_start=date_order`,
+  `color=state`), eigene Aktion (`view_mode calendar,list,form`, Zuordnung ueber `view_ids`) und
+  Menuepunkt "Auftragskalender" unter Verkauf/Auftraege (Reihenfolge 25). Lokale Abnahme
+  `browser_verkauf_kalender.py` 16 OK / 0 FEHL; VM-Abnahme 28.09.2026: Modul 18.0.1.5.0,
+  Prueflauf 33 OK / 0 FEHL, Browserabnahme auf der VM 16 OK / 0 FEHL, Datumsbasis belegt
+  (angezeigt: S00198, S00199, S00201, S00203), Aktivitaetenkalender unveraendert, keine
+  Schreibvorgaenge.
   Keine Datenmigration: zur Sperre bestaetigter Auftraege wurde nur dokumentiert, dass sie in
   Odoo 11 bearbeitbar waren und Odoo 18 zusaetzlich `locked` verwendet.
 
