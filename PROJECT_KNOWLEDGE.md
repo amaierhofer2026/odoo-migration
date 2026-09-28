@@ -7030,3 +7030,26 @@ VM-Abnahme 28.09.2026: Modul 18.0.1.4.0 auf der VM upgegradet (ohne Fehler), Pru
   146 OK / 0 FEHL (Odoo 11 36 + lokal 55 + VM 55), Browserabnahme auf der VM 11 OK / 0 FEHL,
   0 JS-/RPC-Fehler, keine Schreibvorgaenge (Bestand unveraendert 20 Auftraege / 29 Zeilen)
 ```
+
+## Session 121, Kalenderergaenzung Option A (Auftragskalender nach Auftragsdatum)
+
+Entscheidung Anna 28.09.2026. Umsetzung: itk_sale_management 18.0.1.5.0,
+views/sale_order_views_kalender.xml.
+
+```
+Neu (nur ergaenzt): Kalenderansicht view_saleorder_kalender_itk (date_start=date_order,
+  color=state, Monat), Aktion action_saleorder_kalender_itk (Auftragskalender,
+  view_mode calendar,list,form, Zuordnung ueber view_ids - in Odoo 18 ist `views` nicht
+  gespeichert), Menuepunkt menu_saleorder_kalender_itk unter Verkauf/Auftraege (Reihenfolge 25)
+Odoo-18-Aktivitaetenkalender (sale.view_sale_order_calendar) unveraendert; bestehende Menues,
+  Aktionen und Rechte unveraendert
+Nachweise lokal: browser_verkauf_kalender.py 16 OK / 0 FEHL, 0 JS-/RPC-Fehler
+VM-Abnahme 28.09.2026: Modul 18.0.1.5.0 upgegradet (ohne Fehler), Prueflauf 33 OK / 0 FEHL
+  (Odoo 11 + lokal + VM), Browserabnahme auf der VM 16 OK / 0 FEHL, Datumsbasis belegt
+  (angezeigt: S00198, S00199, S00201, S00203 = Auftragsdatum im Monat), Aktivitaetenkalender
+  unveraendert, keine Schreibvorgaenge (20 Auftraege / 29 Zeilen), Labelnachzug per
+  apply_sale_labels.py --instanz vm (verify_s117_auftraege VM 65 OK / 0 FEHL)
+```
+
+**STATUS: TEIL 4 SCHRITT 1 INKLUSIVE KALENDERERGAENZUNG ABGENOMMEN (lokal und VM).**
+Naechster Schritt: Teil 4, Schritt 2 (Berichte, u. a. Nachbau "Verkaufsauftraege aller Kanaele").
