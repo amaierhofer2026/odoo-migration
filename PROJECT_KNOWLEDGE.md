@@ -7001,5 +7001,7 @@ Bewusst nicht nachgebaut: "Von Website" und "Zu sendende Wiederherstellungs-E-Ma
 Odoo 11 bearbeitbar, Odoo 18 verwendet zusaetzlich `locked`. Keine Importregel anwenden, keine
 Auftraege uebernehmen oder veraendern (weiterhin Funktions- und Migrationsvorbereitung).
 
-**STATUS: TEIL 3 SCHRITT 1-4 lokal abgenommen; Schritt 4 auf der VM offen
-(Pull, Container-Neustart, Modul-Upgrade 18.0.1.3.0, Browserabnahme).**
+**STATUS: TEIL 3 SCHRITT 1-4 ABGENOMMEN (lokal und VM).**
+Teil 3 ist damit vollstaendig (Formulare/Reiter, Buttons/Smart Buttons, Statuswechsel,
+Suchfelder/Filter/Gruppierungen/Suche). Naechster Schritt: Teil 4 (Ansichten und Berichte,
+inklusive Nachbau "Verkaufsauftraege aller Kanaele") und Teil 5 (Abschluss).
