@@ -907,7 +907,13 @@ Nachtrag 29.09.2026 - Stammdaten "30 Tage netto" und View-Gesundheit:
     (Zahlungsbedingung vollstaendig, 11 bisherige Bedingungen unveraendert, 0 Auftraege und
     0 Kunden umgestellt, View-Gesundheit ueber alle je Modell existierenden Ansichtstypen,
     project_stock-Erweiterung des Lagerbelegs gueltig, 0 Logmeldungen zu ungueltigen Ansichten).
-Offen: Block 3 (Browserpruefung auf der VM als Gesamtdurchgang) und Block 4 (Abschlussmarkierung Verkauf).
+Block 3 Browser-Gesamtabnahme auf der VM (29.09.2026): Aggregatlauf ueber 11 Browser-Werkzeuge
+  243 OK / 0 FEHL, durchgehender Klickpfad 15 Stationen 43 OK / 0 FEHL, je 0 JavaScript- und
+  0 RPC-Fehler, Bestand vor/nach dem Lauf unveraendert; Regression Verkauf + Abonnements
+  886 OK / 0 FEHL. Werkzeuge: scripts/abschluss_verkauf_browser_gesamtabnahme.py,
+  scripts/browser_verkauf_gesamtdurchgang.py; Doku docs/o11-o18-verkauf-teil5-block3-browserabnahme.md.
+
+Offen: Block 4 (Abschlussmarkierung Verkauf).
 ```
 
 **Teil 4 endgueltig abgeschlossen (29.09.2026).** Entscheidung Anna zur ITK-Proformavorlage:

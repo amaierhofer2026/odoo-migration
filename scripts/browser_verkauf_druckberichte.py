@@ -142,13 +142,40 @@ def main() -> int:
             seite.wait_for_timeout(1800)
             return seite.evaluate(JS_POPOVER_EINTRAEGE)
 
-        def hole_pdf(eintrag):
-            with seite.expect_download(timeout=90000) as dl:
-                seite.click(".o_popover *:text-is('%s')" % eintrag, timeout=20000)
-            d = dl.value
+        def hole_pdf(eintrag, versuche=3):
+            """PDF ueber das Drucken-Menue holen; bei Abbruechen erneut versuchen und die
+            Datei notfalls aus dem Download-Zwischenspeicher kopieren."""
             pfad = os.path.join(VZ, "%s_%s.pdf" % (re.sub(r"[^A-Za-z0-9]+", "_", eintrag), a.instanz))
-            d.save_as(pfad)
-            return d.url, pfad
+            letzter = None
+            for versuch in range(versuche):
+                try:
+                    with seite.expect_download(timeout=90000) as dl:
+                        seite.click(".o_popover *:text-is('%s')" % eintrag, timeout=20000)
+                    d = dl.value
+                    try:
+                        d.save_as(pfad)
+                    except Exception:
+                        # Fallback: Playwright legt die Datei bereits im Temp-Verzeichnis ab
+                        quelle = d.path()
+                        if quelle:
+                            import shutil
+                            shutil.copyfile(quelle, pfad)
+                    if os.path.exists(pfad) and os.path.getsize(pfad) > 3000:
+                        return d.url, pfad
+                    letzter = Exception("PDF zu klein oder nicht gespeichert")
+                except Exception as ex:
+                    letzter = ex
+                    print("       Hinweis: Druckversuch %d fuer '%s' fehlgeschlagen (%s)"
+                          % (versuch + 1, eintrag, str(ex)[:90]))
+                    seite.wait_for_timeout(2500)
+                    try:
+                        if not seite.query_selector(".o_form_view"):
+                            oeffne_auftrag(g["id"])
+                        if not seite.query_selector(".o_popover"):
+                            oeffne_drucken()
+                    except Exception:
+                        pass
+            raise letzter if letzter else Exception("PDF nicht erzeugt")
 
         print()
         print("--- 1. Menue Drucken im Formular ---")

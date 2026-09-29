@@ -25,7 +25,9 @@ ERWARTET = {
     "Aufträge": ["Alle Auftragszeilen", "Angebote", "Aufträge", "Verkaufsteams", "Kunden"],
     "Abzurechnen": ["Abzurechnende Aufträge", "Aufträge für Upselling"],
     "Produkte": ["Produkte", "Produktvarianten", "Preislisten"],
-    "Berichtswesen": ["Verkauf", "Vertriebsmitarbeiter", "Produkte", "Kunden"],
+    # "Verkaufsauftraege aller Kanaele" wurde in Teil 4 Schritt 2 nachgebaut (Modul 18.0.1.6.0)
+    "Berichtswesen": ["Verkauf", "Vertriebsmitarbeiter", "Produkte", "Kunden",
+                      "Verkaufsaufträge aller Kanäle"],
     "Konfiguration": ["Einstellungen", "Verkaufsteams", "Angebotsvorlagen", "Kopf-/Fußzeilen",
                       "Stichwörter", "Attribute", "Produktkategorien", "Zahlungsanbieter",
                       "Zahlungsmethoden"],
@@ -33,7 +35,8 @@ ERWARTET = {
 # Odoo 11 hatte diese Untergruppe; in Odoo 18 erscheint sie im Menue nur als Abschnittstitel
 # (nicht als klickbarer Eintrag). Deshalb wird sie im Text des geoeffneten Menues geprueft.
 GRUPPENTEXT = {"Konfiguration": ["Verkaufsaufträge"]}
-NICHT_ERWARTET = ["Verkaufsaufträge aller Kanäle", "Reportlayout Kategorien", "Reklamationen"]
+# "Verkaufsauftraege aller Kanaele" ist seit Teil 4 Schritt 2 vorhanden und wird oben erwartet.
+NICHT_ERWARTET = ["Reportlayout Kategorien", "Reklamationen"]
 
 
 def lade_env(pfad):

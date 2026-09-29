@@ -19,7 +19,10 @@ from browser_verkauf_menue import lade_env, rpc_client, REPO
 
 VZ = os.path.join(os.path.expanduser("~"), "Desktop", "Odoo18-Abnahme-Session121")
 REITER = ["Auftragszeilen", "Optionale Produkte", "Angebotsbauer", "Weitere Informationen"]
-GRUPPEN = ["Verkauf", "Rechnungsstellung", "Versand", "Nachverfolgung"]
+# Die Gruppe hiess vor Teil 5 "Versand"; nach der Installation von sale_stock (Lageranbindung,
+# 29.09.2026) traegt sie in Odoo 18 den Standardnamen "Lieferung" und enthaelt wieder die
+# Lager-/Lieferfelder.
+GRUPPEN = ["Verkauf", "Rechnungsstellung", "Lieferung", "Nachverfolgung"]
 
 
 def erwartete_reiter(k, auftrag: dict) -> list:
