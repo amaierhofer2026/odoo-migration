@@ -847,6 +847,44 @@ Git: PR #116 -> main 98585b4 (lokal = GitHub = VM).
 Noch keine Datenmigration; Odoo 11 wurde ausschliesslich lesend gelesen.
 ```
 
+**Teil 4, Schritt 3 - Druckberichte (29.09.2026, Session 121): VERGLEICHEN UND ABGENOMMEN
+(lokal und VM). Teil 4 damit abgeschlossen.**
+
+Dokument: `docs/o11-o18-vergleich-verkauf-teil4-druckberichte.md`.
+
+```
+Odoo 11 (lesend) - drei Report-Aktionen auf sale.order:
+  Angebot/Auftrag (sale.report_itk_saleorder, gebunden), Angebot / Auftrag ORG
+  (gleicher Reportname, NICHT gebunden -> Altlast), Proformarechnung
+  (sale.report_itk_saleorder_proforma, gebunden). Formular: zwei Drucken-Knoepfe
+  (print_quotation, states draft bzw. sent,sale).
+  Dokumentvorlage sale.report_itk_saleorder_document: 24.198 Zeichen aktiv; Spaltenkoepfe
+  Pos/Leistungsgegenstand/Menge/Einzelpreis/Rabatt/Gesamtpreis; Summenblock
+  Nettosumme/Steuerzeilen (amount_by_group "20,00 % auf ...")/Gesamtsumme; Titel und
+  Texte abhaengig von state. Nicht sichtbarer Code (alte Spalten "Steuern"/"Preis",
+  Layoutkategorien) war in Odoo 11 auskommentiert.
+Odoo 18 (unveraendert, vier gebundene Aktionen):
+  Angebot/Auftrag (sale.report_saleorder_raw), ITK-Angebot/Auftrag
+  (itk_reports.report_itk_saleorder), PDF-Angebot (sale.report_saleorder),
+  PRO-FORMA-Rechnung (sale.report_saleorder_pro_forma)
+  ITK-Vorlage 7.169 Zeichen aktiv, gleicher Aufbau; Summen ueber account.document_tax_totals,
+  Firmenadresse ueber das externe Layout.
+Befunde (nur dokumentiert, nichts geaendert):
+  Summenbeschriftung "Nettobetrag"/"Gesamt" (Odoo-18-Standard) statt "Nettosumme"/"Gesamtsumme";
+  Datum ohne Beschriftung; Proforma laeuft ueber den Odoo-18-Standardbericht, die
+  ITK-Proformavorlage ist vorhanden, aber nicht gebunden (offene, nicht blockierende Entscheidung).
+Abnahme 29.09.2026 im echten Browser (PDF-Download, Inhaltspruefung):
+  scripts/browser_verkauf_druckberichte.py lokal 41 OK / 0 FEHL, VM 41 OK / 0 FEHL,
+  0 JavaScript-Fehler, 0 RPC-Fehler
+  VM: Menue Drucken (Zahnrad) zeigt Angebot/Auftrag, ITK-Angebot/Auftrag, PDF-Angebot,
+  PRO-FORMA-Rechnung; Report-Aktion je Eintrag ueber die Server-Anfrage belegt; ITK-Auftrag
+  S00203 -> "Auftrag S00203", Kunde/PLZ, Position Abo_Amtssignatur Test, Nettobetrag 24,00,
+  20% 4,80, Gesamt 28,80, Datum 22.09.2026; S00189 (gesendet) -> "Angebot S00189", Gesamt 72,00;
+  PRO-FORMA-Rechnung -> "Pro-forma-Rechnung", Gesamt 28,80
+  Prueflauf scripts/verify_s121_verkauf_teil4_druckberichte.py: 69 OK / 0 FEHL
+Keine Modulaenderung noetig (keine Odoo-11-Funktion fehlt); Odoo 11 nur lesend, keine Datenmigration.
+```
+
 Bestandsaufnahme Odoo 11 (lesend):
   Menue Verkauf/Berichtswesen: Verkauf (Aktion 423 sale.report), Verkaufsauftraege aller
     Kanaele (Aktion 424 report.all.channels.sales), Vertriebskaenale (Aktion 171 crm.team)
