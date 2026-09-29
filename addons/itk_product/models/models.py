@@ -24,7 +24,13 @@ class ProductTemplate(models.Model):
     # aber auf allen 649 Produkten gepflegt (Administrator 394, Waiss Martina 252,
     # Breiteneder Lorenz 3). Es wird hier mit demselben Feldnamen und derselben Relation
     # neu angelegt, damit der Wert bei der Migration 1:1 uebernommen werden kann.
-    responsible_id = fields.Many2one('res.users', string='Verantwortlich')
+    # 29.09.2026 (Session 121, Teil 5 Block 2): Das Modul stock (Odoo 18) definiert dasselbe
+    # Feld ebenfalls, dort unternehmensabhaengig (company_dependent=True, jsonb-Speicherung).
+    # Zwei unterschiedliche Speicherarten fuehrten beim Installieren von sale_stock zu
+    # "cannot cast type integer to jsonb". Das Feld wird daher identisch zum Odoo-18-Standard
+    # definiert; die Beschriftung "Verantwortlich" bleibt erhalten.
+    responsible_id = fields.Many2one('res.users', string='Verantwortlich',
+                                     company_dependent=True, check_company=True)
 
 
 class ProductType(models.Model):
