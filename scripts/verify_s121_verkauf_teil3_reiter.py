@@ -25,7 +25,9 @@ REITER_O18 = ["Auftragszeilen", "Optionale Produkte", "Angebotsbauer", "Weitere 
 
 # Odoo-11-Reiter/Gruppe -> Odoo-18-Reiter/Gruppe
 GRUPPEN_MAPPING = {
-    "Lieferadresse": "Versand",              # Lagerfelder entfallen, Gruppe bleibt erhalten
+    # Seit Teil 5 (29.09.2026, Installation von stock/sale_stock) heisst die Gruppe in Odoo 18
+    # "Lieferung" (Odoo-18-Standard) und enthaelt wieder die Lager-/Lieferfelder; vorher "Versand".
+    "Lieferadresse": "Lieferung",
     "Information Umsatz": "Verkauf",
     "Abrechnung": "Rechnungsstellung",
     "Berichtswesen": "Nachverfolgung",

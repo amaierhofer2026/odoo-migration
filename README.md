@@ -244,6 +244,25 @@ Prüfwerkzeug: `python scripts/vm_abnahme_check.py` · Detailregel: `docs/arbeit
   (angezeigt: S00198, S00199, S00201, S00203), Aktivitaetenkalender unveraendert, keine
   Schreibvorgaenge.
 
+- **Bereich Verkauf - Teil 5 Block 1 und 2 (Session 121, 29.09.2026): Regressionstest und
+  Lueckenanalyse; Luecke "Lageranbindung" geschlossen.** Dokumente
+  `docs/o11-o18-vergleich-verkauf-teil5-abschluss.md`, `...teil5-luecken.md`,
+  `docs/o11-o18-verkauf-teil5-lageranbindung.md`. Regressionstest 884 OK / 0 FEHL (11 Prueflaeufe).
+  Die Lueckenanalyse (Felder, Menueziele, Automatismen, Mailvorlagen, Stammdaten, Module,
+  Nutzungsspuren) ergab genau eine echte strukturelle Luecke: die Lageranbindung des Verkaufs
+  (in Odoo 11 mit 2.463 Auftraegen mit Lager, 235 Lieferungen, 238 Lagerbelegen in Verwendung).
+  Geschlossen durch Installation von `stock` 18.0.1.1, `stock_account` 18.0.1.1 und
+  `sale_stock` 18.0.1.0 (lokal und VM); `delivery` bleibt wie in Odoo 11 uninstalliert.
+  Nebenschritte: `itk_product` 18.0.1.0.3 (product.template.responsible_id auf die
+  Odoo-18-Standarddefinition company_dependent umgestellt, sonst bricht die Installation mit
+  "cannot cast type integer to jsonb" ab), `l10n_at` auf der VM aktualisiert (Odoo verlangte das
+  vor der Installation), `project_stock` auf der VM installiert (Datenrest einer Ansicht fuehrte
+  zu einem Client-Fehler in der Lieferansicht). Nachweis: pruefe_verkauf_lieferung.py lokal und VM
+  je 26 OK / 0 FEHL (Testauftrag -> Lieferbeleg mit Position und Verkaufsbezug, danach bereinigt),
+  browser_verkauf_lieferung.py lokal und VM je 14 OK / 0 FEHL ohne JS-/RPC-Fehler (Smart Button
+  "1 Lieferung", Lieferbeleg im Formular), Regressionstest Verkauf und Abonnements 886 OK / 0 FEHL.
+  Keine Datenuebernahme, Testdaten vollstaendig entfernt. Offen: Block 3 (Browserpruefung VM) und
+  Block 4 (Abschlussmarkierung).
 - **Bereich Verkauf - Teil 4 Schritt 3 Druckberichte (Session 121, 29.09.2026): ABGENOMMEN.
   Teil 4 damit abgeschlossen.** Dokument `docs/o11-o18-vergleich-verkauf-teil4-druckberichte.md`.
   Odoo 11 hatte drei Report-Aktionen auf `sale.order` ("Angebot/Auftrag" und "Proformarechnung"

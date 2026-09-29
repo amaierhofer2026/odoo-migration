@@ -98,6 +98,10 @@ TRANSFORMATION = {
     ("sale.order", "tag_ids"): "Odoo 11 `crm.lead.tag` -> Odoo 18 `crm.tag` (in Odoo 11 traegt genau 1 von 2.461 Auftraegen ein Stichwort: A-1900710).",
     ("sale.order.line", "invoice_lines"): "Odoo 11 `account.invoice.line` -> Odoo 18 `account.move.line`.",
     ("sale.order.line", "product_uom"): "Odoo 11 `product.uom` -> Odoo 18 `uom.uom` (Modell umbenannt).",
+    # Seit Teil 5 (29.09.2026, Lageranbindung) sind diese Felder in Odoo 18 wieder vorhanden;
+    # nur das Zielmodell der Relation heisst anders.
+    ("sale.order", "incoterm"): "Odoo 11 `stock.incoterms` -> Odoo 18 `account.incoterms` (Modell umbenannt; Feld seit Teil 5 wieder vorhanden).",
+    ("sale.order.line", "route_id"): "Odoo 11 `stock.location.route` -> Odoo 18 `stock.route` (Modell umbenannt; Feld seit Teil 5 wieder vorhanden).",
 }
 
 # Zusaetzliche Hinweise je Feld (Herkunft, Beschriftung, Bedeutung)

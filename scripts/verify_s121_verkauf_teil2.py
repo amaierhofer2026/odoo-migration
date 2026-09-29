@@ -35,6 +35,15 @@ ITK_FELDER = {
     "sale.order.line": ["qty_multiplication_factor", "subscription_id", "partner_id", "salesperson_id"],
 }
 
+# Seit Teil 5 (29.09.2026, Lageranbindung des Verkaufs) sind stock, stock_account und sale_stock
+# in Odoo 18 installiert. Diese Felder standen in Odoo 11 und waren in Odoo 18 zunaechst nicht
+# vorhanden (damals dokumentiert als "kein Ziel"); sie sind jetzt vorhanden.
+NEU_SEIT_TEIL5 = {
+    "sale.order": ["picking_policy", "warehouse_id", "procurement_group_id", "picking_ids",
+                   "delivery_count", "incoterm"],
+    "sale.order.line": ["move_ids", "route_id"],
+}
+
 
 def inventar(k, modell, mit_nutzung=False):
     fg = k.kw(modell, "fields_get", [[], ["string", "type", "relation", "selection", "required", "store"]],
@@ -65,7 +74,7 @@ def main() -> int:
         a = inventar(k11, modell)
         b = inventar(k18, modell)
         v = inventar(kvm, modell)
-        ohne = OHNE_ZIEL[modell]
+        ohne = [n for n in OHNE_ZIEL[modell] if n not in NEU_SEIT_TEIL5.get(modell, [])]
         print("       Felder: Odoo 11 %d | Odoo 18 lokal %d | VM %d" % (len(a), len(b), len(v)))
 
         pruefe(set(b) == set(v), "Odoo 18 lokal und VM haben dieselben Felder")
@@ -96,6 +105,10 @@ def main() -> int:
         for n in ohne:
             pruefe(n not in b, "dokumentiert entfallen: '%s' fehlt in Odoo 18 wirklich" % n)
             pruefe(n in a, "dokumentiert entfallen: '%s' existiert in Odoo 11" % n)
+
+        for n in NEU_SEIT_TEIL5.get(modell, []):
+            pruefe(n in a, "seit Teil 5 (Lageranbindung) vorhanden: '%s' existiert in Odoo 11" % n)
+            pruefe(n in b, "seit Teil 5 (Lageranbindung) vorhanden: '%s' in Odoo 18 vorhanden" % n)
 
         sel = [n for n in a if a[n]["selection"] and n in b]
         ungleich = []

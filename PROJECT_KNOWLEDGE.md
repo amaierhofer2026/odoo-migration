@@ -7056,6 +7056,48 @@ aller Kanaele", Schritt 3 Druckberichte) - lokal und VM abgenommen.**
 TEIL 4 ENDGUELTIG ABGESCHLOSSEN, keine offenen Punkte.
 Naechster Bereich: Teil 5 (Abschlusspruefung Modul Verkauf).
 
+## Session 121, Teil 5 (Abschlusspruefung Verkauf): Block 1 und Block 2
+
+Dokumente: docs/o11-o18-vergleich-verkauf-teil5-abschluss.md (Blockplan und Ergebnisse),
+docs/o11-o18-vergleich-verkauf-teil5-luecken.md (Lueckenanalyse),
+docs/o11-o18-verkauf-teil5-lageranbindung.md (Schliessung der Luecke).
+
+```
+Block 1 (Regressionstest): scripts/abschluss_verkauf_regression.py fuehrt alle Verkaufs-Prueflaeufe
+  der Teile 1-4 sowie s117/s118 aus. Ergebnis 884 OK / 0 FEHL; nachgezogen: Menueumfang 37 -> 39
+  (Auftragskalender, Bericht aller Kanaele) und der Kanaele-Bericht gilt als vorhanden.
+Block 2 (Lueckenanalyse): Felder, Menueziele/Modelle, Automatismen, Mailvorlagen, Stammdaten,
+  Module und Nutzungsspuren gegen Odoo 18 geprueft. Genau eine echte strukturelle Luecke:
+  die Lageranbindung des Verkaufs (in Odoo 11 stock/stock_account/sale_stock installiert,
+  2.463 Auftraege mit Lager, 235 mit Lieferungen, 238 Lagerbelege mit Verkaufsbezug).
+  Scheinbefunde bzw. dokumentiert: Feldumbenennungen (amt_invoiced -> amount_invoiced, ...),
+  Reportlayout-Kategorien (alle Werte 0, totes Menue), crm.claim (0 Datensaetze), crm.lead.tag ->
+  crm.tag, report.all.channels.sales (in Teil 4 ersetzt), Mailvorlagen ohne Nutzungsspur,
+  Stammdaten (Datenmigrationsthema), website_*/helpdesk/contract-Bereiche.
+Block 2, Schliessung: stock 18.0.1.1 + stock_account 18.0.1.1 + sale_stock 18.0.1.0 in Odoo 18
+  installiert (lokal und VM); delivery bleibt wie in Odoo 11 uninstalliert.
+  Nebenschritte (nur Odoo 18):
+    itk_product 18.0.1.0.3 - product.template.responsible_id auf die Odoo-18-Standarddefinition
+      umgestellt (company_dependent=true, jsonb); vorher brach die Installation mit
+      "cannot cast type integer to jsonb" ab (Konflikt mit dem Feld aus dem Modul stock)
+    Spalte product_template.responsible_id in den Testdatenbanken entfernt (0 belegte Werte),
+      damit Odoo sie als jsonb neu anlegt
+    l10n_at auf der VM aktualisiert (Odoo verlangte "update your localization app first",
+      fehlender Steuer-Tag +KZ 124 Bemessungsgrundlage)
+    project_stock auf der VM installiert (Datenrest der Ansicht
+      stock.picking.form.inherit.project_stock fuehrte zu einem Client-Fehler in der Lieferansicht)
+  Nachweis: pruefe_verkauf_lieferung.py lokal 26 OK / 0 FEHL und VM 26 OK / 0 FEHL (Testauftrag ->
+    Lieferbeleg mit Position und Verkaufsbezug, danach bereinigt); browser_verkauf_lieferung.py
+    lokal 14 OK / 0 FEHL und VM 14 OK / 0 FEHL mit 0 JS-/RPC-Fehlern (Smart Button "1 Lieferung",
+    Gruppe "Lieferung" mit Lagerhaus und Versandbedingungen, Lieferbeleg WH/OUT/xxxxx im Browser);
+    Regressionstest Verkauf und Abonnements 886 OK / 0 FEHL.
+  Nachgezogene Prueferwartungen (Folge der geschlossenen Luecke): teil2 NEU_SEIT_TEIL5 (8 Felder
+    jetzt vorhanden), teil3_reiter Gruppe "Lieferadresse" -> "Lieferung", s117 SEIT_TEIL5_VORHANDEN
+    (incoterm, warehouse_id, picking_ids), Referenzwert s117 65 -> 67.
+  Testdaten vollstaendig entfernt, Odoo-11 weiterhin nur lesend, keine Datenmigration.
+Offen: Block 3 (Browserpruefung auf der VM, Gesamtdurchgang) und Block 4 (Abschlussmarkierung).
+```
+
 ## Session 121, Teil 4 Schritt 3 (Druckberichte) und Abschluss Teil 4
 
 Dokument: docs/o11-o18-vergleich-verkauf-teil4-druckberichte.md
