@@ -101,3 +101,60 @@ Odoo-18-Zusatzfunktionen blieben erhalten (u. a. vier Druckberichte, Auftrags- u
 Aktivitaetenkalender, Abo-Funktionen, zusaetzliche Lager-/Lieferfunktionen).
 Odoo 11 Prod wurde ausschliesslich lesend verwendet.
 ```
+
+## 7. Nachtrag (29.09.2026): Stammdaten "30 Tage netto" und View-Gesundheit
+
+### 7.1 Ausgangslage in Odoo 11 (ausschliesslich lesend gemessen)
+
+```
+Odoo 11 Prod fuehrt genau 4 Zahlungsbedingungen (alle mit Firmenbezug IT-Kommunal GmbH):
+  Sofortige Zahlung   1 Zeile: value=balance, value_amount=0.0, days=0,  option=day_after_invoice_date
+  14 Tage             1 Zeile: value=balance, value_amount=0.0, days=14, option=day_after_invoice_date
+  15 Tage             1 Zeile: value=balance, value_amount=0.0, days=15, option=day_after_invoice_date
+  30 Tage netto       1 Zeile: value=balance, value_amount=0.0, days=30, option=day_after_invoice_date
+                      Hinweistext: "Zahlungsbedingungen: 30 Tage netto"
+Nutzung von "30 Tage netto": 2 Verkaufsauftraege, 0 Kunden als Standardbedingung,
+  0 Rechnungen.
+Odoo 18 (lokal und VM) fuehrte 11 Zahlungsbedingungen (Odoo-Standardliste aus der
+  Erstinstallation); "30 Tage netto" war nicht darunter ("30 Tage" ist vorhanden und
+  fachlich deckungsgleich, aber mit anderer Bezeichnung).
+```
+
+### 7.2 Anlage in Odoo 18 (keine Datenmigration, keine Zuordnungen)
+
+```
+Werkzeug: scripts/apply_verkauf_stammdaten.py --instanz lokal|vm (idempotent, legt nur an,
+  was fehlt; bestehende Zahlungsbedingungen, Auftraege und Kunden werden nicht beruehrt)
+
+Angelegt: "30 Tage netto"
+  Hinweistext "Zahlungsbedingungen: 30 Tage netto"
+  eine Zeile: value=percent, value_amount=100.0, nb_days=30, delay_type=days_after
+  aktiv, ohne Firmenbezug (wie alle Zahlungsbedingungen in Odoo 18)
+  lokal id 16, VM id 14
+
+Umbenennungen Odoo 11 -> Odoo 18: days -> nb_days, option=day_after_invoice_date ->
+  delay_type=days_after; die Odoo-11-Auswahl "balance" (0 %) gibt es in Odoo 18 nicht mehr,
+  fachlich entspricht ihr percent mit 100 %.
+Ergebnis: keine Zuordnung zu Auftraegen oder Kunden (0 Auftraege, 0 Kunden), bestehende
+  11 Bedingungen unveraendert, jetzt insgesamt 12 Bedingungen je Instanz.
+```
+
+### 7.3 Pruefung Zahlungsbedingung und View-Gesundheit
+
+```
+Werkzeug: scripts/verify_s121_verkauf_teil5_zahlungsbedingung_views.py
+Ergebnis: 113 OK / 0 FEHL (Odoo 11 lesend, lokal, VM)
+  Zahlungsbedingung vorhanden, aktiv, Hinweistext, eine Zeile mit 30 Tagen ab Rechnungsdatum
+  und 100 % (wie Odoo 11)
+  alle 11 bisherigen Odoo-18-Zahlungsbedingungen unveraendert vorhanden, insgesamt 12
+  kein Auftrag und kein Kunde auf die neue Bedingung umgestellt
+  Bestand unveraendert: lokal 18 Auftraege / 70 Kunden, VM 20 Auftraege / 70 Kunden
+View-Gesundheit (alle Ansichtstypen je Modell, die tatsaechlich existieren):
+  sale.order (form, list, search, kanban, pivot, graph, calendar), sale.order.line,
+  stock.picking (form, list, search, kanban, calendar), product.template, product.product,
+  account.move, res.partner - lokal und VM fehlerfrei ladbar
+  Lagerbeleg-Formular enthaelt die project_stock-Erweiterung, Feld stock.picking.project_id
+  ist dem Modul project_stock zugeordnet (kein Datenrest mehr)
+  Server-Logs beider Instanzen (seit den Installationen): 0 Meldungen zu ungueltigen Ansichten
+  (invalid view / Error while validating / view not found / ParseError)
+```

@@ -7096,6 +7096,33 @@ Block 2, Schliessung: stock 18.0.1.1 + stock_account 18.0.1.1 + sale_stock 18.0.
     (incoterm, warehouse_id, picking_ids), Referenzwert s117 65 -> 67.
   Testdaten vollstaendig entfernt, Odoo-11 weiterhin nur lesend, keine Datenmigration.
 Offen: Block 3 (Browserpruefung auf der VM, Gesamtdurchgang) und Block 4 (Abschlussmarkierung).
+
+## Session 121, Teil 5: Nachtrag Stammdaten "30 Tage netto" und View-Gesundheit (29.09.2026)
+
+```
+Odoo 11 (lesend): genau 4 Zahlungsbedingungen, alle firmenbezogen und mit einer Zeile
+  (value=balance, value_amount=0.0, option=day_after_invoice_date):
+  Sofortige Zahlung (0 Tage), 14 Tage, 15 Tage, 30 Tage netto (30 Tage,
+  Hinweis "Zahlungsbedingungen: 30 Tage netto")
+  Nutzung "30 Tage netto": 2 Verkaufsauftraege, 0 Kunden-Standardbedingung, 0 Rechnungen
+Odoo 18 hatte 11 Zahlungsbedingungen, "30 Tage netto" fehlte.
+Angelegt (Werkzeug apply_verkauf_stammdaten.py, idempotent, keine Zuordnungen, nichts entfernt):
+  "30 Tage netto", Hinweis wie in Odoo 11, eine Zeile percent/100 %, nb_days 30,
+  delay_type days_after; lokal id 16, VM id 14 -> je 12 Zahlungsbedingungen
+  Feldnamen Odoo 11 -> Odoo 18: days -> nb_days, option day_after_invoice_date -> delay_type
+  days_after; die Odoo-11-Auswahl "balance" existiert in Odoo 18 nicht mehr (Entsprechung:
+  percent 100 %)
+Pruefung (verify_s121_verkauf_teil5_zahlungsbedingung_views.py): 113 OK / 0 FEHL
+  Zahlungsbedingung vorhanden/aktiv/Hinweis/Zeilenkonfiguration; alle 11 bisherigen
+  Bedingungen unveraendert; kein Auftrag und kein Kunde umgestellt; Bestand unveraendert
+  (lokal 18 Auftraege, VM 20 Auftraege, je 70 Kunden)
+View-Gesundheit: alle je Modell existierenden Ansichtstypen laden fehlerfrei
+  (sale.order form/list/search/kanban/pivot/graph/calendar, sale.order.line, stock.picking
+  form/list/search/kanban/calendar, product.template, product.product, account.move,
+  res.partner) - lokal und VM; Lagerbeleg-Formular enthaelt die project_stock-Erweiterung,
+  stock.picking.project_id ist dem Modul project_stock zugeordnet; 0 Meldungen zu ungueltigen
+  Ansichten in den Server-Logs beider Instanzen seit den Installationen.
+Offen: Block 3 und Block 4.
 ```
 
 ## Session 121, Teil 4 Schritt 3 (Druckberichte) und Abschluss Teil 4
