@@ -491,39 +491,83 @@ Chancen in Stufe „Verloren“ (in Odoo 11 nicht gepflegt).
 
 **Nachweis:** `scripts/verify_s114_crm_chancen.py` → lokal 52 OK / 0 FEHL; Browser-Prüfung auf der VM.
 
-### 6.15 Verkauf (Menues, Module, Auftragsansichten) - **IN ARBEIT** (Teil 1: Grundstruktur), begonnen 24.09.2026 (Session 121)
+### 6.15 Verkauf (Menues, Module, Auftragsansichten) - **ABGESCHLOSSEN: VERKAUF VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET**, 29.09.2026 (Session 121, Teile 1-5)
 
-Dokument: `docs/o11-o18-vergleich-verkauf-teil1.md`. Odoo 11 Prod ausschliesslich read-only.
+Dokumente: `docs/o11-o18-vergleich-verkauf-teil1.md` bis `...teil5-luecken.md`,
+`docs/o11-o18-verkauf-teil5-lageranbindung.md`, `docs/o11-o18-verkauf-teil5-block3-browserabnahme.md`,
+Abschlussdokument **`docs/o11-o18-verkauf-abschluss.md`**.
+Odoo 11 Prod `portal.it-kommunal.at` (DB `ITK_V1_a`) ausschliesslich read-only verwendet.
 
 **Teil 1 (Grundstruktur, read-only):** Modulinventar beider Systeme, Menuebaum Odoo 11 (23 Menues
-unter Wurzelmenue `Verkauf`, id 294) gegen Odoo 18 (37 Menues, id 255), Nutzungszahlen der
-Menueziele (sale.order 2.461, sale.order.line 4.007, sale.report 3.984, product.pricelist 50,
-product.pricelist.item 1.872, crm.team 8, report.all.channels.sales 3.772).
+unter Wurzelmenue `Verkauf`, id 294) gegen Odoo 18 (37, spaeter 38 Menues mit dem neuen
+Kanalbericht), Nutzungszahlen der Menueziele (sale.order 2.461, sale.order.line 4.007,
+sale.report 3.984, product.pricelist 50, product.pricelist.item 1.872, crm.team 8,
+report.all.channels.sales 3.772). Befunde: fehlender Bericht "Verkaufsauftraege aller Kanaele"
+(in Teil 4 geloest), tote Menues (Reportlayout Kategorien, Reklamationen), abweichender
+Default-Filter, 16 gespeicherte Filter (nicht uebernommen), fehlende Lageranbindung (in Teil 5
+geschlossen).
 
-Befunde:
+**Teile 2 bis 5 - Kurzuebersicht und Nachweise:**
 
 ```
-1. Ein Odoo-11-Menuepunkt fehlt in Odoo 18: Berichtswesen/Verkaufsauftraege aller Kanaele
-   (Aktion 424, Pivot ueber report.all.channels.sales, 3.772 Zeilen) -> KLAERUNG: nachbauen oder
-   entfallen lassen (siehe Teil 4).
-2. Tote Odoo-11-Menues ohne Migration: Reportlayout Kategorien (Modell sale.layout.category ist in
-   Odoo 11 nicht registriert; Feld layout_category_id auf 2 von 4.007 Zeilen gesetzt) und
-   Reklamationen (crm.claim, Modul bi_crm_claim, 0 Datensaetze).
-3. Sichtbarkeitsunterschied: Odoo 18 startet das Menue Auftraege/Angebote mit dem Default-Filter
-   "Meine Angebote"; Odoo 11 hatte keinen Vorgabefilter -> KLAERUNG.
-4. 16 gespeicherte Filter in Odoo 11 (15 benutzerindividuell, 2 als Benutzerstandard) - Vorschlag wie
-   Session 115: nicht uebernehmen.
-5. sale_stock und sale_timesheet sind in Odoo 18 nicht installiert (Entscheidungen Session 119/120):
-   Bestands- und Lieferfelder der Auftragszeilen werden in Teil 2 als "entfaellt" mit Begruendung
-   gefuehrt.
-6. mass_editing (Odoo 11) -> server_action_mass_edit (Odoo 18, installiert); merge_sale_order und
-   sale_merge_draft_invoice waren in Odoo 11 nicht installiert, in Odoo 18 vorhanden.
+Teil 2  Feldinventar sale.order / sale.order.line
+        verify_s121_verkauf_teil2.py ................. 111 OK / 0 FEHL
+Teil 3  Formulare/Reiter .............................  64 OK / 0 FEHL
+        Statuswechsel ................................  53 OK / 0 FEHL
+        Suche/Filter/Gruppierungen ................... 199 OK / 0 FEHL
+Teil 4  Ansichten (Liste/Kanban/Kalender/Pivot/Graph)  146 OK / 0 FEHL
+        Auftrags-/Aktivitaetenkalender ...............  33 OK / 0 FEHL
+        Bericht "Verkaufsauftraege aller Kanaele" ....  84 OK / 0 FEHL
+        Druckberichte ................................  69 OK / 0 FEHL
+Teil 5  Block 1 Regression (11 Laeufe, lokal+VM) ..... 886 OK / 0 FEHL
+        Block 2 Lueckenanalyse ....................... 1 echte Luecke (Lageranbindung)
+        Lueckenschluss Lageranbindung ................ lokal 26 OK, VM 26 OK (RPC)
+                                                       lokal 14 OK, VM 14 OK (Browser)
+        Stammdaten "30 Tage netto" ................... 113 OK / 0 FEHL, in Odoo 18 angelegt
+        Block 3 Browser-Gesamtabnahme VM ............. 243 OK / 0 FEHL (11 Werkzeuge)
+                                                       + 43 OK / 0 FEHL (15 Stationen)
+        Block 4 Endstand ............................. keine offenen View-Fehler,
+                                                       keine offenen Punkte
 ```
 
-**Teil-Schnitt:** Teil 1 Grundstruktur (erledigt, dieses Dokument), Teil 2 Feldinventar sale.order
-und sale.order.line, Teil 3 Formulare/Reiter/Buttons/Statuswechsel/Filter und Menue-Defaults im
-Browser, Teil 4 Listen-, Such- und Berichtsansichten plus Preislisten-/Stammdatenpruefung,
-Teil 5 Abschluss und Mapping-Tabelle.
+**Umgesetzt in Odoo 18:** `itk_sale_management` 18.0.1.6.0 (u. a. Bericht "Verkaufsauftraege aller
+Kanaele" auf `sale.report` mit Aktion, Menuepunkt, Filter "Aktuelles Verkaufsjahr", Gruppierung
+Vertriebskanal), `itk_product` 18.0.1.0.3 (`responsible_id` auf Odoo-18-Standard), Neuinstallation
+`stock` 18.0.1.1 / `stock_account` 18.0.1.1 / `sale_stock` 18.0.1.0 (VM zusaetzlich `project_stock`,
+`l10n_at` aktualisiert), Zahlungsbedingung "30 Tage netto" angelegt (ohne Zuordnung).
+
+**Bewusste Abweichungen und bewusst nicht migrierte Punkte:** vollstaendig dokumentiert in
+`docs/o11-o18-verkauf-abschluss.md` Abschnitt 3 und 4 (u. a. Bericht auf `sale.report` statt
+`report.all.channels.sales`, Default-Filter "Meine Angebote" bleibt, keine Uebernahme der 16
+Benutzerfilter, ITK-Proformavorlage als dokumentierte Altvorlage, Gruppe "Versand" heisst in
+Odoo 18 "Lieferung", Sperre ueber Feld `locked`, tote Menues Reportlayout/Reklamationen,
+Preislisten/Produkte als Datenmigrationsthema).
+
+**Rahmenbedingungen eingehalten:** keine Datenmigration (alle Testdaten entfernt, Bestand nach
+jedem Lauf unveraendert; VM 20 Auftraege / 29 Auftragszeilen / 13 Produkte / 0 Lagerbelege,
+lokal 18 / 28 / 13 / 0), Odoo 11 ausschliesslich read-only, Odoo-18-Zusatzfunktionen unveraendert
+erhalten (Standardfilter, Standardansichten, vier Druckberichte, Auftrags- und Aktivitaetenkalender,
+Massenbearbeitung, Zusammenfuehren von Auftraegen, transaction_ids).
+
+**View-Gesundheit (lokal und VM):** alle vorhandenen Ansichtstypen von `sale.order`,
+`sale.order.line`, `stock.picking` (inklusive `project_stock`-Erweiterung), `product.template`,
+`product.product`, `account.move`, `res.partner`, `account.payment.term`, `product.pricelist`,
+`crm.team` laden fehlerfrei; Server-Logs ohne Meldungen zu ungueltigen Ansichten.
+
+**Befund F55 (Session 121):** Odoo 18 haengt das Menue-Popover als `.o-popover o-dropdown--menu`
+an das Ende des Body; Sichtbarkeitspruefungen ueber `offsetParent` schlagen dort fehl
+(position: fixed) - `getClientRects()` verwenden.
+
+**STATUS: VERKAUF ABGESCHLOSSEN - VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG
+MIGRATIONSVORBEREITET (lokal und VM, im echten Browser auf der Abnahmeumgebung abgenommen).**
+Keine offenen funktionalen oder strukturellen Punkte. Naechstes Modul noch nicht begonnen.
+
+
+**Historie Teil 1 (24.09.2026):** Nachweise damals `scripts/verify_s121_verkauf_menue.py`
+41 OK / 0 FEHL (ein Lauf: Odoo 11 read-only, Odoo 18 lokal und VM) und
+`scripts/browser_verkauf_menue.py` lokal 43 OK / VM 43 OK; seit Block 3 fuehrt das Menuewerkzeug
+42 OK, weil der Bericht "Verkaufsauftraege aller Kanaele" jetzt als sichtbarer Menuepunkt
+geprueft wird.
 
 **Nachtrag (Session 121, 24.09.2026):** Zur Klarstellung gegengeprueft - `confirmation_date`
 ("Bestätigung am", Odoo 11: 2.437 von 2.461 Auftraegen) ist in Odoo 18 vorhanden und in
@@ -531,18 +575,15 @@ Teil 5 Abschluss und Mapping-Tabelle.
 in Session 117 durchgefuehrt (`browser_auftraege_pruef.py` lokal 9 OK / VM 9 OK). Die
 entsprechenden Hinweise in Abschnitt 6.13 sind damit veraltet.
 
-**Nachweise (Teil 1):** `scripts/verify_s121_verkauf_menue.py` -> 41 OK / 0 FEHL (prueft in einem
-Lauf Odoo 11 read-only, Odoo 18 lokal und Odoo 18 VM); `scripts/browser_verkauf_menue.py` ->
-lokal 43 OK / 0 FEHL, VM 43 OK / 0 FEHL (echte Klicks auf Auftraege, Abzurechnen, Produkte,
-Berichtswesen, Konfiguration; 0 JS-/RPC-Fehler; Screenshots `Desktop\Odoo18-Abnahme-Session121`).
-Teil 1 aendert nichts an Odoo 18, daher kein Deploy und kein Modul-Upgrade noetig.
-
-**Befund F55 (Session 121):** Odoo 18 haengt das Menue-Popover als `.o-popover o-dropdown--menu`
-an das Ende des Body; Sichtbarkeitspruefungen ueber `offsetParent` schlagen dort fehl
-(position: fixed) - `getClientRects()` verwenden.
-
-**STATUS: TEIL 1 ABGESCHLOSSEN (lokal und VM, im Browser abgenommen).**
-Bereich Verkauf insgesamt weiterhin in Arbeit, noch nicht migrationsbereit.
+**Entscheidungen von Anna (24.09.2026):**
+1. "Verkaufsauftraege aller Kanaele" wird in Odoo 18 nachgebaut, Odoo-18-konform als Auswertung auf
+   `sale.report` (Gruppierung Vertriebskanal, Filter aktuelles Verkaufsjahr) - kein Nachbau des
+   Odoo-11-Modells `report.all.channels.sales`. Umgesetzt in Teil 4.
+2. Default-Filter "Meine Angebote": siehe bewusste Abweichungen (Abschnitt 3 des Abschlussdokuments).
+3. Die 15 benutzerspezifischen Filter werden nicht migriert; die 3 als Standard markierten Favoriten
+   wurden read-only geprueft (0 systemweit, zwei nur Gruppierung, einer persoenliche Projektauswahl)
+   - keine Migration, kein Nachbau.
+4. Odoo-18-Zusatzfunktionen (Angebotsvorlagen, Kopf-/Fusszeilen und weitere) bleiben erhalten.
 
 **Entscheidungen von Anna (24.09.2026):**
 1. "Verkaufsauftraege aller Kanaele" wird in Odoo 18 nachgebaut, Odoo-18-konform als Auswertung auf
