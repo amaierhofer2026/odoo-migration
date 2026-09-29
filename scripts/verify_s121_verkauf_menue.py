@@ -33,10 +33,20 @@ MAPPING = {
 
 # In Odoo 11 vorhanden, in Odoo 18 bewusst nicht (dokumentiert)
 NICHT_IN_O18 = [
-    "Berichtswesen/Verkaufsaufträge aller Kanäle",
     "Konfiguration/Verkaufsaufträge/Reportlayout Kategorien",
     "Konfiguration/Verkaufsaufträge/Kundendienst/Dienstleistungen/Reklamationen",
 ]
+
+# In Odoo 11 vorhanden, in Odoo 18 nachgebaut (Teil 4, Session 121)
+IN_O18_SEIT_TEIL4 = [
+    "Berichtswesen/Verkaufsaufträge aller Kanäle",   # Teil 4 Schritt 2, Modul 18.0.1.6.0
+]
+
+# Menueumfang Odoo 18 unter "Verkauf":
+#   37 aus Teil 1
+#  + 1 "Auftragskalender" (Teil 4 Schritt 1, Uebernahme der Odoo-11-Kalenderfunktion)
+#  + 1 "Verkaufsaufträge aller Kanäle" (Teil 4 Schritt 2, Nachbau des Odoo-11-Berichts)
+MENU_SOLL_O18 = 39
 
 
 def pfade(knoten, pfad="", ergebnis=None):
@@ -85,11 +95,12 @@ def main() -> int:
             print("       Unterschied: %s" % (x,))
 
     print("\n2) Wurzelmenue und Umfang")
-    for name, kl, baum, soll in (("lokal", k18, b18, 37), ("VM", kvm, bvm, 37)):
+    for name, kl, baum, soll in (("lokal", k18, b18, MENU_SOLL_O18), ("VM", kvm, bvm, MENU_SOLL_O18)):
         w = kl.kw("ir.ui.menu", "search_read", [[["parent_id", "=", False], ["name", "=", "Verkauf"]],
                                                 ["name", "sequence"]], context={"lang": "de_DE"})
         pruefe(bool(w), "%s: Wurzelmenue 'Verkauf' vorhanden (Sequenz %s)" % (name, w[0]["sequence"] if w else "?"))
-    pruefe(len(pfade(b18)) == 37, "Odoo-18-Menues unter Verkauf: %d (erwartet 37)" % len(pfade(b18)))
+    pruefe(len(pfade(b18)) == MENU_SOLL_O18,
+           "Odoo-18-Menues unter Verkauf: %d (erwartet %d)" % (len(pfade(b18)), MENU_SOLL_O18))
     pruefe(len(pfade(b11)) == 23, "Odoo-11-Menues unter Verkauf: %d (erwartet 23)" % len(pfade(b11)))
 
     print("\n3) Zuordnung der Odoo-11-Menues")
@@ -101,6 +112,9 @@ def main() -> int:
     for p in NICHT_IN_O18:
         pruefe(p in p11, "Odoo 11 hatte %s" % p)
         pruefe(p not in p18, "Odoo 18 hat %s nicht (dokumentiert)" % p)
+    for p in IN_O18_SEIT_TEIL4:
+        pruefe(p in p11, "Odoo 11 hatte %s" % p)
+        pruefe(p in p18, "Odoo 18 hat %s (nachgebaut in Teil 4)" % p)
 
     print("\n5) Nutzungszahlen Odoo 11 (read-only)")
     for modell, domain, soll_min in (("sale.order", [], 2400),
