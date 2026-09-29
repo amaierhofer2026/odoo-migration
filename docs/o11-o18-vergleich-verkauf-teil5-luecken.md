@@ -114,5 +114,26 @@ Odoo-18-Zusatzfunktionen: unveraendert vorhanden (u. a. vier Druckberichte, Auft
 Aktivitaetenkalender, Angebots-/Auftragsvorlagen, transaction_ids).
 ```
 
-Offene Entscheidung: Soll die Lageranbindung des Verkaufs in Odoo 18 hergestellt werden
-(Installation von stock, stock_account und sale_stock - Struktur, keine Datenuebernahme)?
+## 5. Schliessung der Luecke (29.09.2026, Freigabe Anna)
+
+Die Luecke wurde geschlossen: `stock`, `stock_account` und `sale_stock` sind in Odoo 18 installiert
+(lokal und VM), die Felder `warehouse_id`, `picking_ids`, `delivery_count`, `picking_policy`,
+`procurement_group_id` und `move_ids` sind vorhanden, und die Lieferfunktion ist im echten Browser
+auf der VM geprueft (Testauftrag mit Lieferbeleg, danach bereinigt).
+
+Details: `docs/o11-o18-verkauf-teil5-lageranbindung.md`.
+
+```
+Dabei noetige Nebenschritte (nur Odoo 18):
+  itk_product 18.0.1.0.3: product.template.responsible_id auf die Odoo-18-Standarddefinition
+    umgestellt (company_dependent, jsonb) - vorher Abbruch "cannot cast type integer to jsonb"
+  Lokalisierung l10n_at auf der VM aktualisiert (Odoo verlangte das vor der Installation)
+  project_stock auf der VM installiert (Datenrest einer Ansicht fuehrte zu einem Client-Fehler
+    in der Lieferansicht; lokal war das Modul bereits installiert)
+Ergebnis: RPC-Pruefung lokal 26 OK / 0 FEHL und VM 26 OK / 0 FEHL,
+  Browserpruefung lokal 14 OK / 0 FEHL und VM 14 OK / 0 FEHL (0 JS-/RPC-Fehler),
+  Regressionstest Verkauf und Abonnements 886 OK / 0 FEHL
+Testdaten vollstaendig entfernt, keine Odoo-11-Daten uebernommen.
+```
+
+Offene Punkte in Block 2: keine.

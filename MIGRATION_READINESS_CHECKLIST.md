@@ -850,6 +850,52 @@ Noch keine Datenmigration; Odoo 11 wurde ausschliesslich lesend gelesen.
 **Teil 4, Schritt 3 - Druckberichte (29.09.2026, Session 121): VERGLEICHEN UND ABGENOMMEN
 (lokal und VM).**
 
+**Teil 5, Block 1 und 2 (29.09.2026, Session 121): Regressionstest und Lueckenanalyse;
+Luecke "Lageranbindung des Verkaufs" geschlossen.**
+
+Dokumente: `docs/o11-o18-vergleich-verkauf-teil5-abschluss.md`,
+`docs/o11-o18-vergleich-verkauf-teil5-luecken.md`, `docs/o11-o18-verkauf-teil5-lageranbindung.md`.
+
+```
+Block 1 Regressionstest: scripts/abschluss_verkauf_regression.py, 11 Prueflaeufe ueber
+  lokal und VM: 884 OK / 0 FEHL; nachgezogen: Menueumfang Odoo 18 37 -> 39 (Auftragskalender
+  und Bericht "Verkaufsauftraege aller Kanaele"), Kanaele-Bericht gilt als vorhanden.
+Block 2 Lueckenanalyse: Felder, Menueziele/Modelle, Automatismen, Server-Aktionen, Mailvorlagen,
+  Stammdaten (Zahlungsbedingungen, Preislisten, Teams, UTM, Produkte, Steuern), Module und
+  Nutzungsspuren (Lagerbelege, gelieferte Mengen, Zeiterfassungen, Zahlungstransaktionen).
+  Ergebnis: genau eine echte strukturelle Luecke - Lageranbindung des Verkaufs.
+  Odoo 11: stock/stock_account/sale_stock installiert, 2.463 Auftraege mit Lager,
+  235 mit Lieferungen, 238 Lagerbelege mit Verkaufsbezug. Odoo 18: Module und Felder fehlten.
+  Keine Luecke (dokumentiert): Feldumbenennungen (amt_invoiced -> amount_invoiced,
+  amt_to_invoice -> amount_to_invoice, price_reduce -> price_reduce_taxexcl/taxinc),
+  Reportlayout-Kategorien (alle 1.367 Werte 0, Modell in Odoo 11 nicht registriert),
+  crm.claim (0 Datensaetze), crm.lead.tag -> crm.tag, crm.opportunity.report -> crm.lead,
+  report.all.channels.sales (in Teil 4 ersetzt), Mailvorlagen ohne Nutzungsspur in Odoo 11
+  (2.271 E-Mail-Nachrichten, aber 0 Anhaenge an Nachrichten), Stammdaten (Datenmigrationsthema),
+  Zeiterfassung und Online-Zahlung (0 Verwendungen), uebrige Module gehoeren zu anderen Bereichen.
+Schliessung der Luecke (Freigabe Anna): stock 18.0.1.1, stock_account 18.0.1.1 und sale_stock
+  18.0.1.0 in Odoo 18 installiert (lokal und VM); delivery bleibt wie in Odoo 11 uninstalliert.
+  Nebenschritte: itk_product 18.0.1.0.3 (product.template.responsible_id auf die
+  Odoo-18-Standarddefinition company_dependent umgestellt; vorher Abbruch "cannot cast type
+  integer to jsonb"), leere Spalte product_template.responsible_id in den Testdatenbanken
+  entfernt, l10n_at auf der VM aktualisiert (fehlender Steuer-Tag +KZ 124 Bemessungsgrundlage),
+  project_stock auf der VM installiert (Datenrest der Ansicht
+  stock.picking.form.inherit.project_stock verursachte einen Client-Fehler in der Lieferansicht).
+Nachweis: pruefe_verkauf_lieferung.py lokal 26 OK / 0 FEHL und VM 26 OK / 0 FEHL (Testprodukt und
+  Testauftrag angelegt, bestaetigt, Lieferbeleg mit Position und Verkaufsbezug geprueft, danach
+  alles geloescht; Bestand unveraendert); browser_verkauf_lieferung.py lokal 14 OK / 0 FEHL und
+  VM 14 OK / 0 FEHL mit 0 JavaScript- und 0 RPC-Fehlern (Smart Button "1 Lieferung", Gruppe
+  "Lieferung" mit Lagerhaus und Versandbedingungen, Lieferbeleg im Formular mit Referenzbeleg);
+  Regressionstest Verkauf und Abonnements 886 OK / 0 FEHL.
+Nachgezogene Prueferwartungen: verify_s121_verkauf_teil2.py (NEU_SEIT_TEIL5: picking_policy,
+  warehouse_id, procurement_group_id, picking_ids, delivery_count, incoterm, move_ids, route_id),
+  verify_s121_verkauf_teil3_reiter.py (Gruppe "Lieferadresse" heisst in Odoo 18 jetzt "Lieferung"),
+  verify_s117_auftraege.py (SEIT_TEIL5_VORHANDEN: incoterm, warehouse_id, picking_ids),
+  abschluss_verkauf_regression.py (Referenzwert s117 65 -> 67).
+Keine Odoo-11-Daten uebernommen, Testdaten vollstaendig entfernt. Offen: Block 3 (Browserpruefung
+auf der VM als Gesamtdurchgang) und Block 4 (Abschlussmarkierung Verkauf).
+```
+
 **Teil 4 endgueltig abgeschlossen (29.09.2026).** Entscheidung Anna zur ITK-Proformavorlage:
 kein zusaetzlicher Menueeintrag "ITK-Proformarechnung"; die bestehende Odoo-18-Funktion
 "PRO-FORMA-Rechnung" (sale.report_saleorder_pro_forma) bleibt bestehen und wird verwendet; die

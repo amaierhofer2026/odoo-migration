@@ -32,7 +32,7 @@ PRUEFUNGEN = [
     ("scripts/verify_s121_verkauf_kalender.py", 33, "Teil 4.1 Kalender"),
     ("scripts/verify_s121_verkauf_teil4_bericht_kanaele.py", 84, "Teil 4.2 Bericht aller Kanaele"),
     ("scripts/verify_s121_verkauf_teil4_druckberichte.py", 69, "Teil 4.3 Druckberichte"),
-    ("scripts/verify_s117_auftraege.py", 65, "Bestand Auftraege"),
+    ("scripts/verify_s117_auftraege.py", 67, "Bestand Auftraege/Lageranbindung"),
     ("scripts/verify_s118_abo.py", 19, "Bestand Abonnements"),
 ]
 MUSTER = re.compile(r"(?:Ergebnis:\s*)?(\d+)\s*OK\s*[,/]\s*(\d+)\s*FEHL")

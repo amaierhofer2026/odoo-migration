@@ -66,7 +66,10 @@ ITK_FELDER = {
 }
 
 # In Odoo 18 bewusst entfallen (in Odoo 11 unbenutzt bzw. ersetzt)
-ENTFAELLT = ["incoterm", "analytic_account_id", "payment_tx_id", "payment_tx_ids"]
+ENTFAELLT = ["analytic_account_id", "payment_tx_id", "payment_tx_ids"]
+# Seit Teil 5 (29.09.2026, Installation von stock/sale_stock) sind diese Odoo-11-Felder in
+# Odoo 18 wieder vorhanden (Lageranbindung des Verkaufs).
+SEIT_TEIL5_VORHANDEN = ["incoterm", "warehouse_id", "picking_ids"]
 
 # Sichtbare Beschriftungen: Odoo-11-Wortlaut -> in Odoo 18 erwartet
 LABELS_ANGEGLICHEN = {
@@ -146,7 +149,7 @@ def main() -> int:
             print("  FEHL %s" % text)
 
     form = k.kw("sale.order", "get_views", [[[False, "form"]]], context={"lang": "de_DE"})["views"]["form"]["arch"]
-    felder = k.kw("sale.order", "fields_get", [sorted(set(list(FELDER) + list(ITK_FELDER) + ENTFAELLT + ["source_id", "subscription_count", "transaction_ids", "warehouse_id", "picking_ids", "locked", "confirmation_date"])),
+    felder = k.kw("sale.order", "fields_get", [sorted(set(list(FELDER) + list(ITK_FELDER) + ENTFAELLT + SEIT_TEIL5_VORHANDEN + ["source_id", "subscription_count", "transaction_ids", "warehouse_id", "picking_ids", "locked", "confirmation_date"])),
                                                ["string", "type", "relation"]], context={"lang": "de_DE"})
 
     print("\n1) Statuswerte und Statusleiste")
@@ -195,6 +198,8 @@ def main() -> int:
     print("\n6) Bewusst entfallene Odoo-11-Felder")
     for name in ENTFAELLT:
         pruefe(name not in felder, "Feld '%s' in Odoo 18 nicht mehr vorhanden (Odoo 11: unbenutzt/ersetzt)" % name)
+    for name in SEIT_TEIL5_VORHANDEN:
+        pruefe(name in felder, "Feld '%s' seit Teil 5 (Lageranbindung) in Odoo 18 vorhanden" % name)
     zeile = k.kw("sale.order.line", "fields_get", [["analytic_distribution"], ["string", "type"]], context={"lang": "de_DE"})
     pruefe("analytic_distribution" in zeile,
            "Ersatz fuer Kostenstelle vorhanden: sale.order.line.analytic_distribution (%s)"

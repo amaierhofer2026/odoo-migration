@@ -74,6 +74,31 @@ Bestand unveraendert: lokal 18 Auftraege / 28 Positionen / 28 Berichtszeilen,
                       VM 20 Auftraege / 29 Positionen / 29 Berichtszeilen
 ```
 
-## Offene Punkte nach Block 1
+## Block 2 - Lueckenanalyse und Schliessung der Luecke (29.09.2026)
 
-Keine. Block 2 (Lueckenanalyse) folgt.
+```
+Block 2 durchgefuehrt: systematischer Abgleich aller in Odoo 11 verwendeten Verkaufsfunktionen
+  (Felder, Menueziele/Modelle, Automatismen, Mailvorlagen, Stammdaten, Module, Ansichten,
+  Berichte, Druckberichte, Nutzungsspuren) gegen Odoo 18.
+Ergebnis: eine echte strukturelle Luecke - die Lageranbindung des Verkaufs (sale_stock/stock/
+  stock_account fehlten in Odoo 18, in Odoo 11 mit 238 Lagerbelegen aus Verkaeufen in Verwendung).
+  Alle uebrigen Kandidaten waren Scheinbefunde (Feldumbenennungen, tote Funktionen mit
+  0 Verwendung) oder dokumentierte Abweichungen.
+Dokumente: docs/o11-o18-vergleich-verkauf-teil5-luecken.md,
+           docs/o11-o18-verkauf-teil5-lageranbindung.md
+
+Luecke geschlossen (29.09.2026, Freigabe Anna):
+  stock 18.0.1.1, stock_account 18.0.1.1, sale_stock 18.0.1.0 in Odoo 18 installiert (lokal und VM)
+  Nebenschritte: itk_product 18.0.1.0.3 (responsible_id auf Odoo-18-Standarddefinition),
+    l10n_at auf der VM aktualisiert, project_stock auf der VM installiert
+  Pruefung: pruefe_verkauf_lieferung.py lokal 26 OK / 0 FEHL, VM 26 OK / 0 FEHL
+    (Testauftrag -> Lieferbeleg mit Position und Verkaufsbezug, danach bereinigt)
+  Browserpruefung: browser_verkauf_lieferung.py lokal 14 OK / 0 FEHL, VM 14 OK / 0 FEHL,
+    0 JavaScript-Fehler, 0 RPC-Fehler (Smart Button "1 Lieferung", Lieferbeleg im Formular)
+  Regressionstest Verkauf und Abonnements: 886 OK / 0 FEHL (11 Prueflaeufe, lokal und VM)
+  Testdaten vollstaendig entfernt; keine Odoo-11-Daten uebernommen
+```
+
+## Offene Punkte nach Block 2
+
+Keine. Block 3 (Browserpruefung auf der VM) folgt.
