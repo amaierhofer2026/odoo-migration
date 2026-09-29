@@ -59,6 +59,7 @@ def main() -> int:
     }], context=SP)
     auftrag_id = auftrag[0] if isinstance(auftrag, list) else auftrag
     daten = kw("sale.order", "read", [[auftrag_id], ["name", "state"]], context=SP)[0]
+    testauftrag_name = daten["name"]   # fuer die Bereinigung der Lagerbelege merken
     print("Instanz: %s (%s)" % (a.instanz, url))
     print("Testauftrag: %s (id %s, Status %s, Kunde %s, Produkt %s)"
           % (daten["name"], auftrag_id, daten["state"], kunde["name"], prod["name"]))
@@ -352,6 +353,20 @@ def main() -> int:
 
     if not a.behalten:
         try:
+            # Lagerbelege zuerst entfernen (seit Teil 5 erzeugt ein bestaetigter Auftrag eine
+            # Lieferung; ein Auftrag mit Lieferung laesst sich sonst nicht loeschen)
+            belege = kw("stock.picking", "search_read",
+                        [[("origin", "=", testauftrag_name)], ["name", "state"]], context=SP)
+            for b in belege:
+                try:
+                    if b["state"] not in ("cancel", "done"):
+                        kw("stock.picking", "action_cancel", [[b["id"]]], context=SP)
+                    kw("stock.picking", "unlink", [[b["id"]]], context=SP)
+                except Exception:
+                    pass
+            if belege:
+                print("       Lagerbelege des Testauftrags entfernt: %s"
+                      % [b["name"] for b in belege])
             for versuch in range(2):
                 stand = kw("sale.order", "read", [[auftrag_id], ["state", "locked"]], context=SP)
                 if not stand:

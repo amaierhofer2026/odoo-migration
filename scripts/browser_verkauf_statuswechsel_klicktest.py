@@ -54,8 +54,9 @@ def main() -> int:
         return kw("sale.order", "read", [[auftrag_id], ["name", "state", "locked", "invoice_status"]],
                   context=SP)[0]
 
+    testauftrag_name = stand()["name"]   # fuer die Bereinigung der Lagerbelege merken
     print("Instanz: %s (%s)" % (a.instanz, url))
-    print("Testauftrag: %s (id %s, Status %s)" % (stand()["name"], auftrag_id, stand()["state"]))
+    print("Testauftrag: %s (id %s, Status %s)" % (testauftrag_name, auftrag_id, stand()["state"]))
 
     from playwright.sync_api import sync_playwright
     os.makedirs(VZ, exist_ok=True)
@@ -251,6 +252,20 @@ def main() -> int:
 
         js_fehler[:] = seite.evaluate("() => window.__errs") or []
         if not a.behalten:
+            # Lagerbelege zuerst entfernen (seit Teil 5 erzeugt ein bestaetigter Auftrag eine
+            # Lieferung; ein Auftrag mit Lieferung laesst sich sonst nicht loeschen)
+            belege = kw("stock.picking", "search_read",
+                        [[("origin", "=", testauftrag_name)], ["name", "state"]], context=SP)
+            for b in belege:
+                try:
+                    if b["state"] not in ("cancel", "done"):
+                        kw("stock.picking", "action_cancel", [[b["id"]]], context=SP)
+                    kw("stock.picking", "unlink", [[b["id"]]], context=SP)
+                except Exception:
+                    pass
+            if belege:
+                print("       Lagerbelege des Testauftrags entfernt: %s"
+                      % [b["name"] for b in belege])
             for versuch in range(2):
                 s = stand()
                 if s["locked"]:
@@ -269,6 +284,20 @@ def main() -> int:
                     break
                 except Exception as fehlertext:
                     print("       Hinweis Loeschen (Versuch %d): %s" % (versuch + 1, str(fehlertext)[:120]))
+            # Lagerbelege des Testauftrags mitentfernen (seit Teil 5 erzeugt ein bestaetigter
+            # Auftrag eine Lieferung; sie bleibt nach dem Loeschen des Auftrags sonst liegen)
+            belege = kw("stock.picking", "search_read",
+                        [[("origin", "=", testauftrag_name)], ["name", "state"]], context=SP)
+            for b in belege:
+                try:
+                    if b["state"] not in ("cancel", "done"):
+                        kw("stock.picking", "action_cancel", [[b["id"]]], context=SP)
+                    kw("stock.picking", "unlink", [[b["id"]]], context=SP)
+                except Exception:
+                    pass
+            if belege:
+                print("       Lagerbelege des Testauftrags entfernt: %s"
+                      % [b["name"] for b in belege])
             rest = kw("sale.order", "search_count", [[("id", "=", auftrag_id)]], context=SP)
             print("       Testauftrag geloescht: %s (vorhanden: %d)" % (rest == 0, rest))
         ctx.close()

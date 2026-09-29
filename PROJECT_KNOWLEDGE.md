@@ -7122,7 +7122,28 @@ View-Gesundheit: alle je Modell existierenden Ansichtstypen laden fehlerfrei
   res.partner) - lokal und VM; Lagerbeleg-Formular enthaelt die project_stock-Erweiterung,
   stock.picking.project_id ist dem Modul project_stock zugeordnet; 0 Meldungen zu ungueltigen
   Ansichten in den Server-Logs beider Instanzen seit den Installationen.
-Offen: Block 3 und Block 4.
+
+## Session 121, Teil 5 Block 3: Browser-Gesamtabnahme Verkauf auf der VM (29.09.2026)
+
+```
+Aggregatlauf scripts/abschluss_verkauf_browser_gesamtabnahme.py --instanz vm:
+  11 Browser-Werkzeuge, 243 OK / 0 FEHL, 0 JavaScript-Fehler, 0 RPC-Fehler,
+  Bestand vorher = nachher (20 Auftraege / 13 Produkte / 0 Lagerbelege)
+Durchgehender Klickpfad scripts/browser_verkauf_gesamtdurchgang.py --instanz vm:
+  15 Stationen, 43 OK / 0 FEHL, 0 JavaScript-Fehler, 0 RPC-Fehler
+  Screenshots Desktop/Odoo18-Abnahme-Session121/gesamtdurchgang/01..15_*_vm.png
+Regression scripts/abschluss_verkauf_regression.py: 886 OK / 0 FEHL (11 Prueflaeufe, lokal+VM)
+Nachgezogene Werkzeugerwartungen (keine Odoo-Aenderung):
+  Menue "Verkaufsauftraege aller Kanaele" jetzt erwartet sichtbar (Berichtswesen)
+  Formulargruppe "Versand" heisst seit der Lageranbindung "Lieferung"
+  Buttons-/Statuswechselwerkzeug entfernen die Lagerbelege des Testauftrags mit
+  (sonst blieben Lieferungen als Waisen zurueck: WH/OUT/00007-00011, Auftrag S00214,
+  bereinigt mit scripts/aufraeumen_verkauf_testdaten.py)
+Doku: docs/o11-o18-verkauf-teil5-block3-browserabnahme.md
+Offen: Block 4 (Abschlussmarkierung Verkauf).
+```
+
+Offen: Block 4 (Abschlussmarkierung Verkauf).
 ```
 
 ## Session 121, Teil 4 Schritt 3 (Druckberichte) und Abschluss Teil 4
