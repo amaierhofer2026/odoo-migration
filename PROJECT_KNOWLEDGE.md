@@ -7140,10 +7140,30 @@ Nachgezogene Werkzeugerwartungen (keine Odoo-Aenderung):
   (sonst blieben Lieferungen als Waisen zurueck: WH/OUT/00007-00011, Auftrag S00214,
   bereinigt mit scripts/aufraeumen_verkauf_testdaten.py)
 Doku: docs/o11-o18-verkauf-teil5-block3-browserabnahme.md
-Offen: Block 4 (Abschlussmarkierung Verkauf).
 ```
 
-Offen: Block 4 (Abschlussmarkierung Verkauf).
+## Session 121, Teil 5 Block 4: Abschluss Bereich Verkauf (29.09.2026)
+
+```
+Endstand scripts/abschluss_verkauf_endstand.py (lokal und VM):
+  itk_sale_management 18.0.1.6.0, itk_product 18.0.1.0.3, itk_reports 18.0.1.0.0,
+  itk_subscription 18.0.1.2.1, sale_management 18.0.1.0, sale 18.0.1.2,
+  stock 18.0.1.1, stock_account 18.0.1.1, sale_stock 18.0.1.0, account 18.0.1.3
+  Bestand lokal 18 Auftraege / 28 Zeilen / 13 Produkte / 0 Lagerbelege
+  Bestand VM    20 Auftraege / 29 Zeilen / 13 Produkte / 0 Lagerbelege
+  Zahlungsbedingungen 12 (inkl. "30 Tage netto"), Verkaufsteams 8
+  View-Gesundheit: alle vorhandenen Ansichtstypen je Modell laden fehlerfrei,
+    0 offene View-Fehler, keine fehlenden Module aus der Pruefliste
+Nachweise: Regression 886 OK / 0 FEHL (11 Prueflaeufe, lokal+VM),
+  Browser-Gesamtabnahme VM 243 OK / 0 FEHL (11 Werkzeuge) + 43 OK / 0 FEHL (15 Stationen),
+  0 JavaScript- / 0 RPC-Fehler, Bestand vor/nach jedem Lauf unveraendert
+STATUS: VERKAUF VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET
+Rahmenbedingungen: keine Datenmigration, Odoo 11 ausschliesslich read-only,
+  Odoo-18-Zusatzfunktionen unveraendert erhalten
+Dokumente: docs/o11-o18-verkauf-abschluss.md (Abschlussdokument mit allen bewussten
+  Abweichungen und den bewusst nicht migrierten Punkten), Checkliste Abschnitt 6.15
+  finalisiert, README um Statusabschnitt ergaenzt
+Offen: keine. Naechstes Modul noch nicht begonnen.
 ```
 
 ## Session 121, Teil 4 Schritt 3 (Druckberichte) und Abschluss Teil 4

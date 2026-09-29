@@ -10,6 +10,17 @@ Migration aller Odoo-Module von **Version 11 nach Version 18** für ITK (IT Komm
 - Saubere Git-Historie, jeder Schritt nachvollziehbar
 - Odoo 18 läuft in Docker (Windows, erreichbar unter `localhost:8069`)
 
+## Status: Bereich Verkauf abgeschlossen
+
+**VERKAUF VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (29.09.2026,
+Session 121, Teile 1-5). Abschlussdokument: `docs/o11-o18-verkauf-abschluss.md`.
+Nachweise: Regression 886 OK / 0 FEHL (11 Prueflaeufe, lokal+VM), Browser-Gesamtabnahme auf der
+Abnahmeumgebung 243 OK / 0 FEHL (11 Werkzeuge) und 43 OK / 0 FEHL (15 Stationen im
+durchgehenden Klickpfad), 0 JavaScript- und 0 RPC-Fehler, keine offenen View-Fehler.
+Keine Datenmigration, Odoo 11 ausschliesslich read-only, Odoo-18-Zusatzfunktionen erhalten.
+
+---
+
 ## Verbindliche Migrationsregel: Organisation = Unternehmen, Ansprechpartner = Person
 
 **Ab 15.09.2026 (Session 99), gilt für die spätere Datenmigration und alle Testdaten in Odoo 18:**
@@ -271,7 +282,23 @@ Prüfwerkzeug: `python scripts/vm_abnahme_check.py` · Detailregel: `docs/arbeit
   (`verify_s121_verkauf_teil5_zahlungsbedingung_views.py`): 113 OK / 0 FEHL - alle je Modell
   existierenden Ansichtstypen laden fehlerfrei (auch stock.picking mit der project_stock-
   Erweiterung), 0 Meldungen zu ungueltigen Ansichten in den Server-Logs beider Instanzen.
-  Offen: Block 3 (Browserpruefung VM) und Block 4 (Abschlussmarkierung).
+  Damit waren die Bloecke 1 und 2 abgeschlossen (siehe naechster Eintrag fuer Block 3 und 4).
+- **Bereich Verkauf - Teil 5 Block 3 und 4 (Session 121, 29.09.2026): ABGESCHLOSSEN. VERKAUF
+  VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET.** Dokumente
+  `docs/o11-o18-verkauf-teil5-block3-browserabnahme.md` und
+  **`docs/o11-o18-verkauf-abschluss.md`** (Abschlussdokument mit allen bewussten Abweichungen,
+  den bewusst nicht migrierten Punkten und den eingehaltenen Rahmenbedingungen).
+  Block 3 Browser-Gesamtabnahme auf der Abnahmeumgebung k001959vsx.ipax.at:
+  Aggregatlauf aller elf Browser-Abnahmewerkzeuge 243 OK / 0 FEHL, durchgehender Klickpfad
+  (15 Stationen von Menues bis Lieferfunktion) 43 OK / 0 FEHL, je 0 JavaScript- und 0
+  RPC-Fehler, Bestand vor/nach dem Lauf unveraendert. Werkzeuge
+  `scripts/abschluss_verkauf_browser_gesamtabnahme.py`, `scripts/browser_verkauf_gesamtdurchgang.py`;
+  Screenshots `Desktop\Odoo18-Abnahme-Session121\gesamtdurchgang\`. Block 4 Endstand
+  (`scripts/abschluss_verkauf_endstand.py`): Module `itk_sale_management` 18.0.1.6.0,
+  `itk_product` 18.0.1.0.3, `stock` 18.0.1.1, `stock_account` 18.0.1.1, `sale_stock` 18.0.1.0,
+  `itk_subscription` 18.0.1.2.1; alle vorhandenen Ansichtstypen je Modell laden fehlerfrei,
+  keine offenen View-Fehler; Regression Verkauf und Abonnements 886 OK / 0 FEHL. Checkliste
+  Abschnitt 6.15 finalisiert, README und PROJECT_KNOWLEDGE aktualisiert.
 - **Bereich Verkauf - Teil 4 Schritt 3 Druckberichte (Session 121, 29.09.2026): ABGENOMMEN.
   Teil 4 damit abgeschlossen.** Dokument `docs/o11-o18-vergleich-verkauf-teil4-druckberichte.md`.
   Odoo 11 hatte drei Report-Aktionen auf `sale.order` ("Angebot/Auftrag" und "Proformarechnung"
