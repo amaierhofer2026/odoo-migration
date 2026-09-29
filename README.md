@@ -261,8 +261,17 @@ Prüfwerkzeug: `python scripts/vm_abnahme_check.py` · Detailregel: `docs/arbeit
   je 26 OK / 0 FEHL (Testauftrag -> Lieferbeleg mit Position und Verkaufsbezug, danach bereinigt),
   browser_verkauf_lieferung.py lokal und VM je 14 OK / 0 FEHL ohne JS-/RPC-Fehler (Smart Button
   "1 Lieferung", Lieferbeleg im Formular), Regressionstest Verkauf und Abonnements 886 OK / 0 FEHL.
-  Keine Datenuebernahme, Testdaten vollstaendig entfernt. Offen: Block 3 (Browserpruefung VM) und
-  Block 4 (Abschlussmarkierung).
+  Keine Datenuebernahme, Testdaten vollstaendig entfernt.
+  Nachtrag 29.09.2026 (Stammdaten und View-Gesundheit): die in Odoo 11 verwendete
+  Zahlungsbedingung "30 Tage netto" (Odoo 11: eine Zeile balance/0 %, 30 Tage ab Rechnungsdatum,
+  Hinweis "Zahlungsbedingungen: 30 Tage netto", 2 Auftraege) fehlte in Odoo 18 und wurde
+  angelegt (eine Zeile percent/100 %, nb_days 30, delay_type days_after; lokal id 16, VM id 14).
+  Keine Zuordnung zu Auftraegen oder Kunden, keine bestehende Bedingung entfernt (je 12
+  Bedingungen). Pruefung Zahlungsbedingung und View-Gesundheit
+  (`verify_s121_verkauf_teil5_zahlungsbedingung_views.py`): 113 OK / 0 FEHL - alle je Modell
+  existierenden Ansichtstypen laden fehlerfrei (auch stock.picking mit der project_stock-
+  Erweiterung), 0 Meldungen zu ungueltigen Ansichten in den Server-Logs beider Instanzen.
+  Offen: Block 3 (Browserpruefung VM) und Block 4 (Abschlussmarkierung).
 - **Bereich Verkauf - Teil 4 Schritt 3 Druckberichte (Session 121, 29.09.2026): ABGENOMMEN.
   Teil 4 damit abgeschlossen.** Dokument `docs/o11-o18-vergleich-verkauf-teil4-druckberichte.md`.
   Odoo 11 hatte drei Report-Aktionen auf `sale.order` ("Angebot/Auftrag" und "Proformarechnung"

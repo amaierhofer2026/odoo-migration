@@ -75,8 +75,10 @@ Odoo 18 (Struktur), ohne Datenuebernahme.
     Ergebnis: dokumentierte Abweichung, kein Handlungsbedarf; die Odoo-18-Vorlagen bleiben
     unveraendert erhalten.
 3.8 Stammdaten (Datenmigrationsthema, keine Strukturluecke):
-    Zahlungsbedingungen: 3 verwendet, "14 Tage" und "Sofortige Zahlung" in Odoo 18 vorhanden,
-      "30 Tage netto" (2 Verwendungen) fehlt in Odoo 18.
+    Zahlungsbedingungen: 3 verwendet; "14 Tage" und "Sofortige Zahlung" in Odoo 18 vorhanden,
+      "30 Tage netto" fehlte in Odoo 18 -> am 29.09.2026 in Odoo 18 angelegt
+      (siehe docs/o11-o18-verkauf-teil5-lageranbindung.md Abschnitt 7; Odoo-11-Konfiguration
+      eine Zeile, 30 Tage ab Rechnungsdatum, 100 %). Keine Zuordnung zu Auftraegen oder Kunden.
     Preislisten: 25 verwendet, in Odoo 18 (Testbestand) nicht vorhanden.
     Produkte: 403 verwendet, 401 davon in Odoo 18 nicht vorhanden (Testbestand).
     Teams/Vertriebskanaele: 4 verwendet, alle in Odoo 18 vorhanden.

@@ -892,8 +892,22 @@ Nachgezogene Prueferwartungen: verify_s121_verkauf_teil2.py (NEU_SEIT_TEIL5: pic
   verify_s121_verkauf_teil3_reiter.py (Gruppe "Lieferadresse" heisst in Odoo 18 jetzt "Lieferung"),
   verify_s117_auftraege.py (SEIT_TEIL5_VORHANDEN: incoterm, warehouse_id, picking_ids),
   abschluss_verkauf_regression.py (Referenzwert s117 65 -> 67).
-Keine Odoo-11-Daten uebernommen, Testdaten vollstaendig entfernt. Offen: Block 3 (Browserpruefung
-auf der VM als Gesamtdurchgang) und Block 4 (Abschlussmarkierung Verkauf).
+Keine Odoo-11-Daten uebernommen, Testdaten vollstaendig entfernt.
+Nachtrag 29.09.2026 - Stammdaten "30 Tage netto" und View-Gesundheit:
+  Odoo 11 (lesend): genau 4 Zahlungsbedingungen, alle firmenbezogen mit einer Zeile
+    (value=balance, value_amount=0.0, option=day_after_invoice_date); "30 Tage netto" mit
+    Hinweis "Zahlungsbedingungen: 30 Tage netto" und 30 Tagen, genutzt auf 2 Auftraegen,
+    0 Kunden-Standardbedingung, 0 Rechnungen.
+  Odoo 18 hatte 11 Zahlungsbedingungen ohne "30 Tage netto"; angelegt mit
+    apply_verkauf_stammdaten.py (idempotent): eine Zeile percent/100 %, nb_days 30,
+    delay_type days_after, Hinweis wie in Odoo 11; lokal id 16, VM id 14 -> je 12 Bedingungen.
+    Feldnamen Odoo 11 -> Odoo 18: days -> nb_days, option -> delay_type; "balance" gibt es in
+    Odoo 18 nicht mehr (Entsprechung percent 100 %). Keine Zuordnung, nichts entfernt.
+  Pruefung verify_s121_verkauf_teil5_zahlungsbedingung_views.py: 113 OK / 0 FEHL
+    (Zahlungsbedingung vollstaendig, 11 bisherige Bedingungen unveraendert, 0 Auftraege und
+    0 Kunden umgestellt, View-Gesundheit ueber alle je Modell existierenden Ansichtstypen,
+    project_stock-Erweiterung des Lagerbelegs gueltig, 0 Logmeldungen zu ungueltigen Ansichten).
+Offen: Block 3 (Browserpruefung auf der VM als Gesamtdurchgang) und Block 4 (Abschlussmarkierung Verkauf).
 ```
 
 **Teil 4 endgueltig abgeschlossen (29.09.2026).** Entscheidung Anna zur ITK-Proformavorlage:
