@@ -7051,8 +7051,46 @@ VM-Abnahme 28.09.2026: Modul 18.0.1.5.0 upgegradet (ohne Fehler), Prueflauf 33 O
   apply_sale_labels.py --instanz vm (verify_s117_auftraege VM 65 OK / 0 FEHL)
 ```
 
-**STATUS: TEIL 4 SCHRITT 1 INKLUSIVE KALENDERERGAENZUNG ABGENOMMEN (lokal und VM).**
-Naechster Schritt: Teil 4, Schritt 2 (Berichte, u. a. Nachbau "Verkaufsauftraege aller Kanaele").
+**STATUS: TEIL 4 ABGESCHLOSSEN (Schritt 1 Ansichten + Kalender, Schritt 2 Bericht "Verkaufsauftraege
+aller Kanaele", Schritt 3 Druckberichte) - lokal und VM abgenommen.**
+Naechster Bereich: Teil 5 (Abschluss Verkauf).
+
+## Session 121, Teil 4 Schritt 3 (Druckberichte) und Abschluss Teil 4
+
+Dokument: docs/o11-o18-vergleich-verkauf-teil4-druckberichte.md
+
+```
+Odoo 11 (lesend): drei Report-Aktionen auf sale.order
+  "Angebot/Auftrag"            -> sale.report_itk_saleorder            (im Menue gebunden)
+  "Angebot / Auftrag ORG"      -> sale.report_itk_saleorder            (NICHT gebunden -> Altlast)
+  "Proformarechnung"           -> sale.report_itk_saleorder_proforma   (im Menue gebunden)
+  Formular: zwei "Drucken"-Knoepfe (print_quotation, states draft bzw. sent,sale)
+  Dokumentvorlage sale.report_itk_saleorder_document: 24.198 Zeichen aktiv
+    (27.140 inkl. auskommentiertem Code des alten Standardberichts; Spalte "Steuern" war
+     nur auskommentiert -> nie sichtbar). Summenblock mit Nettosumme/Steuerzeilen/Gesamtsumme,
+    Titel und Texte abhaengig von state (Angebot/Auftrag/Proformarechnung).
+Odoo 18 (unveraendert): vier gebundene Report-Aktionen
+  Angebot/Auftrag (sale.report_saleorder_raw), ITK-Angebot/Auftrag
+  (itk_reports.report_itk_saleorder), PDF-Angebot (sale.report_saleorder),
+  PRO-FORMA-Rechnung (sale.report_saleorder_pro_forma)
+  itk_reports.report_itk_saleorder_document: 7.169 Zeichen aktiv, gleicher fachlicher Aufbau;
+  Summen ueber den Standardbaustein account.document_tax_totals, Firmenadresse ueber das
+  externe Layout
+Befunde (dokumentiert, nichts geaendert):
+  Summenbeschriftungen Odoo 18 "Nettobetrag"/"Gesamt" statt "Nettosumme"/"Gesamtsumme"
+  Datum ohne Beschriftung (Odoo 11: "Angebotsdatum"/"Auftragsdatum"/"Datum Proformarechnung")
+  Proforma: Odoo 18 nutzt den Standardbericht; die ITK-Proformavorlage ist vorhanden, aber
+  nicht an eine Report-Aktion gebunden (offene Entscheidung, nicht blockierend)
+Abnahme 29.09.2026 (echter Browser, PDF-Download und Inhaltspruefung):
+  browser_verkauf_druckberichte.py  lokal 41 OK / 0 FEHL, VM 41 OK / 0 FEHL, 0 JS-/RPC-Fehler
+  VM-Belege: Menue Drucken zeigt alle vier Berichte; Report-Aktion je Eintrag ueber die
+  Server-Anfrage belegt; ITK-Auftrag S00203 -> Titel "Auftrag S00203", Kunde, Position
+  "Abo_Amtssignatur Test", Nettobetrag 24,00, Steuer 20% 4,80, Gesamt 28,80, Datum 22.09.2026;
+  Entwurf/gesendet S00189 -> Titel "Angebot S00189", Gesamt 72,00; PRO-FORMA-Rechnung ->
+  Titel "Pro-forma-Rechnung", Gesamt 28,80; Angebot/Auftrag und PDF-Angebot unveraendert nutzbar
+  Prueflauf verify_s121_verkauf_teil4_druckberichte.py: 69 OK / 0 FEHL (O11 lesend + lokal + VM)
+Keine Modulaenderung noetig; Odoo 11 weiterhin ausschliesslich lesend; keine Datenmigration.
+```
 
 ## Session 121, Teil 4 Schritt 2 (Verkaufsberichte - Analyse, Umsetzung und Abnahme)
 

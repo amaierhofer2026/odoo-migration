@@ -244,6 +244,27 @@ Prüfwerkzeug: `python scripts/vm_abnahme_check.py` · Detailregel: `docs/arbeit
   (angezeigt: S00198, S00199, S00201, S00203), Aktivitaetenkalender unveraendert, keine
   Schreibvorgaenge.
 
+- **Bereich Verkauf - Teil 4 Schritt 3 Druckberichte (Session 121, 29.09.2026): ABGENOMMEN.
+  Teil 4 damit abgeschlossen.** Dokument `docs/o11-o18-vergleich-verkauf-teil4-druckberichte.md`.
+  Odoo 11 hatte drei Report-Aktionen auf `sale.order` ("Angebot/Auftrag" und "Proformarechnung"
+  im Drucken-Menue gebunden, "Angebot / Auftrag ORG" ohne Bindung und ohne eigenen Inhalt), und
+  die Dokumentvorlage `sale.report_itk_saleorder_document` (aktiv 24.198 Zeichen) mit
+  Briefkopf, "Zu Handen", Positionsspalten Pos/Leistungsgegenstand/Menge/Einzelpreis/Rabatt/
+  Gesamtpreis, Summenblock (Nettosumme, Steuerzeilen mit Steuersatz, Gesamtsumme) und
+  statusabhaengigem Titel/Text. Odoo 18 hat vier gebundene Berichte: Angebot/Auftrag
+  (`sale.report_saleorder_raw`), ITK-Angebot/Auftrag (`itk_reports.report_itk_saleorder`),
+  PDF-Angebot (`sale.report_saleorder`), PRO-FORMA-Rechnung (`sale.report_saleorder_pro_forma`).
+  Abnahme im echten Browser auf der VM mit PDF-Download und Inhaltspruefung: Menue Drucken zeigt
+  alle vier Berichte, die Report-Aktion je Eintrag wurde ueber die Server-Anfrage belegt, der
+  ITK-Auftrag S00203 rendert Titel "Auftrag S00203", Kunde, Position, Nettobetrag 24,00,
+  Steuer 20% 4,80, Gesamt 28,80, Datum 22.09.2026; S00189 ergibt "Angebot S00189" (72,00);
+  Proforma ergibt "Pro-forma-Rechnung" (28,80). Ergebnis 41 OK / 0 FEHL je Instanz und
+  0 JS-/RPC-Fehler; Prueflauf `verify_s121_verkauf_teil4_druckberichte.py` 69 OK / 0 FEHL.
+  Dokumentierte Abweichungen (nichts geaendert): Summenbeschriftung "Nettobetrag"/"Gesamt"
+  (Odoo-18-Standardblock) statt "Nettosumme"/"Gesamtsumme", Datum ohne Beschriftung, Proforma
+  laeuft ueber den Odoo-18-Standardbericht (ITK-Proformavorlage vorhanden, aber nicht gebunden).
+  Offene, nicht blockierende Entscheidung: ITK-Proformavorlage zusaetzlich an einen Menueeintrag
+  binden? Keine Modulaenderung noetig, Odoo 11 nur lesend, keine Datenmigration.
 - **Bereich Verkauf - Teil 4 Schritt 2 Verkaufsberichte (Session 121, 28.09.2026, Analyse):**
   `docs/o11-o18-vergleich-verkauf-teil4-berichte.md`. Bestandsaufnahme und Mapping ohne Umbau.
   Odoo 11 hatte im Berichtswesen drei Menuepunkte (Verkauf/Statistik Verkaufsauftraege auf
