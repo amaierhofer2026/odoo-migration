@@ -139,6 +139,20 @@ Odoo-18-Zusatzfunktionen wurden nicht entfernt; es wurde in diesem Schritt nicht
 Odoo 11 Prod wurde ausschliesslich lesend verwendet, keine Datenmigration.
 ```
 
-Offen zur Entscheidung (nicht blockierend): Punkt 4.3 - soll die vorhandene ITK-Proformavorlage
-zusaetzlich an einen Menueeintrag "ITK-Proformarechnung" gebunden werden (der Odoo-18-Eintrag
-"PRO-FORMA-Rechnung" bleibt dabei erhalten)?
+## 7. Entscheidung zur ITK-Proformavorlage (29.09.2026)
+
+Entscheidung Anna: Es wird **kein** zusätzlicher Menüeintrag „ITK-Proformarechnung" angelegt. Die
+bestehende Odoo-18-Funktion „PRO-FORMA-Rechnung" (`sale.report_saleorder_pro_forma`) bleibt
+bestehen und wird verwendet. Die Vorlage `itk_reports.report_itk_saleorder_proforma` bleibt als
+dokumentierte Alt-/Zusatzvorlage im Modul, ohne Menübindung – sie wird für keinen tatsächlich
+verwendeten Odoo-11-Prozess zwingend benötigt.
+
+Begründung (Belege aus Abschnitt 1): In Odoo 11 war die Proforma im ITK-Layout druckbar; die
+Odoo-18-Variante erzeugt dasselbe Dokument fachlich korrekt (Kunde, Positionen, Nettobetrag,
+Steuern, Gesamt, Statusbezug) und ist damit für den Verkaufsprozess ausreichend. Es erfolgt
+daher keine Änderung an Odoo 18.
+
+**TEIL 4 ENDGÜLTIG ABGESCHLOSSEN (29.09.2026).** Keine offenen Punkte in Teil 4.
+
+Nächster Bereich: Teil 5 – Abschlussprüfung Modul Verkauf (Gesamtprüfung Teile 1–4,
+Regressionstest, Browserprüfung auf der VM, Abschlussmarkierung).

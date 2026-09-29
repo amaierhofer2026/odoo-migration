@@ -7053,7 +7053,8 @@ VM-Abnahme 28.09.2026: Modul 18.0.1.5.0 upgegradet (ohne Fehler), Prueflauf 33 O
 
 **STATUS: TEIL 4 ABGESCHLOSSEN (Schritt 1 Ansichten + Kalender, Schritt 2 Bericht "Verkaufsauftraege
 aller Kanaele", Schritt 3 Druckberichte) - lokal und VM abgenommen.**
-Naechster Bereich: Teil 5 (Abschluss Verkauf).
+TEIL 4 ENDGUELTIG ABGESCHLOSSEN, keine offenen Punkte.
+Naechster Bereich: Teil 5 (Abschlusspruefung Modul Verkauf).
 
 ## Session 121, Teil 4 Schritt 3 (Druckberichte) und Abschluss Teil 4
 
@@ -7081,6 +7082,9 @@ Befunde (dokumentiert, nichts geaendert):
   Datum ohne Beschriftung (Odoo 11: "Angebotsdatum"/"Auftragsdatum"/"Datum Proformarechnung")
   Proforma: Odoo 18 nutzt den Standardbericht; die ITK-Proformavorlage ist vorhanden, aber
   nicht an eine Report-Aktion gebunden (offene Entscheidung, nicht blockierend)
+Entscheidung Anna (29.09.2026): kein zusaetzlicher Menueeintrag "ITK-Proformarechnung"; die
+  Odoo-18-Funktion "PRO-FORMA-Rechnung" bleibt bestehen und wird verwendet; die ITK-Proformavorlage
+  bleibt als dokumentierte Alt-/Zusatzvorlage ohne Menuebindung im Modul.
 Abnahme 29.09.2026 (echter Browser, PDF-Download und Inhaltspruefung):
   browser_verkauf_druckberichte.py  lokal 41 OK / 0 FEHL, VM 41 OK / 0 FEHL, 0 JS-/RPC-Fehler
   VM-Belege: Menue Drucken zeigt alle vier Berichte; Report-Aktion je Eintrag ueber die

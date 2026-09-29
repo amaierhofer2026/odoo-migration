@@ -848,7 +848,14 @@ Noch keine Datenmigration; Odoo 11 wurde ausschliesslich lesend gelesen.
 ```
 
 **Teil 4, Schritt 3 - Druckberichte (29.09.2026, Session 121): VERGLEICHEN UND ABGENOMMEN
-(lokal und VM). Teil 4 damit abgeschlossen.**
+(lokal und VM).**
+
+**Teil 4 endgueltig abgeschlossen (29.09.2026).** Entscheidung Anna zur ITK-Proformavorlage:
+kein zusaetzlicher Menueeintrag "ITK-Proformarechnung"; die bestehende Odoo-18-Funktion
+"PRO-FORMA-Rechnung" (sale.report_saleorder_pro_forma) bleibt bestehen und wird verwendet; die
+Vorlage itk_reports.report_itk_saleorder_proforma bleibt als dokumentierte Alt-/Zusatzvorlage ohne
+Menuebindung im Modul, da sie fuer keinen tatsaechlich verwendeten Odoo-11-Prozess zwingend
+benoetigt wird. Aenderung an Odoo 18: keine.
 
 Dokument: `docs/o11-o18-vergleich-verkauf-teil4-druckberichte.md`.
 

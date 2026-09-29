@@ -263,8 +263,11 @@ Prüfwerkzeug: `python scripts/vm_abnahme_check.py` · Detailregel: `docs/arbeit
   Dokumentierte Abweichungen (nichts geaendert): Summenbeschriftung "Nettobetrag"/"Gesamt"
   (Odoo-18-Standardblock) statt "Nettosumme"/"Gesamtsumme", Datum ohne Beschriftung, Proforma
   laeuft ueber den Odoo-18-Standardbericht (ITK-Proformavorlage vorhanden, aber nicht gebunden).
-  Offene, nicht blockierende Entscheidung: ITK-Proformavorlage zusaetzlich an einen Menueeintrag
-  binden? Keine Modulaenderung noetig, Odoo 11 nur lesend, keine Datenmigration.
+  Entscheidung Anna (29.09.2026): kein zusaetzlicher Menueeintrag "ITK-Proformarechnung"; die
+  Odoo-18-Funktion "PRO-FORMA-Rechnung" bleibt bestehen und wird verwendet; die ITK-Proformavorlage
+  bleibt als dokumentierte Alt-/Zusatzvorlage ohne Menuebindung im Modul (fuer keinen tatsaechlich
+  verwendeten Odoo-11-Prozess zwingend noetig). Keine Modulaenderung noetig, Odoo 11 nur lesend,
+  keine Datenmigration. TEIL 4 DAMIT ENDGUELTIG ABGESCHLOSSEN (keine offenen Punkte).
 - **Bereich Verkauf - Teil 4 Schritt 2 Verkaufsberichte (Session 121, 28.09.2026, Analyse):**
   `docs/o11-o18-vergleich-verkauf-teil4-berichte.md`. Bestandsaufnahme und Mapping ohne Umbau.
   Odoo 11 hatte im Berichtswesen drei Menuepunkte (Verkauf/Statistik Verkaufsauftraege auf
