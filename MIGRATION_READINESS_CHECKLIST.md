@@ -1475,6 +1475,24 @@ Browser-Nachweis VM (Liste): Spalten Nummer, Kunde, Rechnungsdatum, Faelligkeit,
   Referenz, Exklusive Steuern, Total, Zu Bezahlen, Status -> 19 OK / 0 FEHL.
 ```
 
+UPGRADE-VERFAHREN MIT AUTOMATISCHEM LABEL-ABGLEICH (30.09.2026, UMGESETZT):
+```
+scripts/upgrade_modules.py fuehrt nach jedem Modul-Upgrade automatisch aus:
+  1) scripts/apply_abrechnung_labels.py --instanz <lokal|vm>   (Odoo-11-Bezeichnungen setzen)
+  2) scripts/check_abrechnung_labels.py --instanz <...>        (Feldbeschriftungen pruefen)
+  3) scripts/check_abrechnung_viewlabels.py --instanz <...>    (View-Bezeichnungen pruefen)
+Eine unbegruendete Abweichung oder ein fehlendes Feld markiert den Lauf als Fehler
+  (Rueckgabewert ungleich 0). Die drei bewusst dokumentierten Ausnahmen (account.move.ref,
+  account.move.payment_reference, account.move.name) und die begruendete Spalte Kunde/Lieferant
+  sind in den Pruefskripten hinterlegt und zaehlen nicht als Abweichung.
+Abschaltbar mit --ohne-labels.
+Pruefung lokal: Upgrade itk_reports -> apply "0 gesetzt, 0 Abweichungen", beide Checks OK,
+  Rueckgabewert 0. Pruefung VM: Upgrade itk_reports -> apply "20 gesetzt" (Upgrade hatte die
+  deutschen Beschriftungen zurueckgesetzt), beide Checks OK, Rueckgabewert 0.
+Verbindlich: nach jedem Upgrade der Odoo-18-Module laeuft dieser Abgleich mit; im Fehlerfall
+  ist der Lauf zu wiederholen bzw. die Ursache zu klaeren.
+```
+
 ### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-15: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte, Produktformular), erste Abnahme 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119), Teil 15 am 24.09.2026 (Session 120) auf der VM im Browser abgenommen
 
 Dokument: `docs/o11-o18-vergleich-abo-teil1.md`; Teil 14: `docs/o11-o18-vergleich-abo-teil14.md`; Teil 15: `docs/o11-o18-vergleich-abo-teil15-produktformular.md`; Uebergabe und Vollstaendigkeitsbestaetigung: `docs/uebergabe-session-120-abonnements.md` (24.09.2026: jedes in Odoo 11 verwendete Feld, Reiter, Button, Smart Button, Statuswechsel, Filter, Gruppierung und jeder Geschaeftsprozess ist gleich vorhanden, funktional gleichwertig an anderer Stelle vorhanden oder bewusst dokumentiert; keine offene funktionale Abweichung).

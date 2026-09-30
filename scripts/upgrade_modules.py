@@ -17,6 +17,7 @@ import http.cookiejar
 import json
 import os
 import time
+import subprocess
 import sys
 import urllib.request
 
@@ -69,6 +70,8 @@ def main():
     ap.add_argument("--liste", default="")
     ap.add_argument("--install", action="store_true", help="installieren statt upgraden (neue Module)")
     ap.add_argument("--update-list", action="store_true", help="vorab ir.module.module.update_list() ausfuehren")
+    ap.add_argument("--ohne-labels", action="store_true",
+                    help="Label-Abgleich (apply + check) nach dem Upgrade ueberspringen")
     args = ap.parse_args()
 
     module = list(args.module)
@@ -135,6 +138,30 @@ def main():
     print("\nErgebnis: %d von %d ohne Fehler" % (len(module) - len(fehler), len(module)))
     if fehler:
         print("Fehlerhaft:", fehler)
+
+    # --- Label-Abgleich (verbindliche Regel Anna, 30.09.2026) ------------------------------
+    # Nach jedem Modul-Upgrade setzt Odoo die deutschen Feldbeschriftungen auf die Quelltexte
+    # zurueck. Deshalb laufen hier automatisch: Bezeichnungen setzen, danach pruefen. Eine
+    # unbegruendete Abweichung markiert den Lauf als Fehler (Rueckgabewert ungleich 0).
+    if not args.ohne_labels and not fehler:
+        skripte = [
+            ("scripts/apply_abrechnung_labels.py", ["--instanz", args.instanz]),
+            ("scripts/check_abrechnung_labels.py", ["--instanz", args.instanz]),
+            ("scripts/check_abrechnung_viewlabels.py", ["--instanz", args.instanz]),
+        ]
+        print("\n--- Label-Abgleich (%s) ---" % args.instanz)
+        for skript, zusatz in skripte:
+            pfad = os.path.join(BASIS, skript)
+            print("  > %s %s" % (skript, " ".join(zusatz)))
+            r = subprocess.run([sys.executable, pfad] + zusatz, capture_output=True, text=True)
+            for zeile in (r.stdout or "").strip().splitlines()[-3:]:
+                print("    %s" % zeile)
+            if r.returncode != 0:
+                print("  FEHL %s meldet Abweichungen (Rueckgabewert %d)" % (skript, r.returncode))
+                fehler.append(skript)
+            else:
+                print("  OK   %s ohne unbegruendete Abweichung" % skript)
+
     return 0 if not fehler else 2
 
 
