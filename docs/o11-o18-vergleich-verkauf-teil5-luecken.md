@@ -54,9 +54,12 @@ Odoo 18 (Struktur), ohne Datenuebernahme.
 3.1 Felder sale.order.line: amt_invoiced -> amount_invoiced, amt_to_invoice -> amount_to_invoice,
     price_reduce -> price_reduce_taxexcl/taxinc; qty_invoiced/qty_to_invoice weiterhin vorhanden.
     Reine Umbenennungen der Odoo-Standardfelder; alle Werte sind in Odoo 18 berechnet verfuegbar.
-3.2 Felder layout_category_id / layout_category_sequence: in Odoo 11 sind alle 1.367 belegten
-    Werte 0 und das Modell sale.layout.category ist in Odoo 11 nicht registriert (totes Menue,
-    bereits in Teil 1 dokumentiert) -> kein Nachbau noetig.
+3.2 Felder layout_category_id / layout_category_sequence: KORREKTUR 29.09.2026 - nicht "alle
+    1.367 Werte 0", sondern: von 4.011 Auftragszeilen tragen genau 2 eine Sektion
+    (layout_category_id id 1 "Dienstleistungen": Zeilen zu A-1900915 und A-1900906);
+    layout_category_sequence ist immer 0. Das Modell sale.layout.category ist in Odoo 11 nicht
+    registriert (totes Menue, bereits in Teil 1 dokumentiert) -> kein Nachbau noetig.
+    Einzelheiten: docs/o11-o18-verkauf-r7-layout-category.md
 3.3 Reklamationen (crm.claim, crm.claim.category, crm.claim.stage): Modelle existieren in Odoo 11,
     Datenbestand crm.claim = 0 (nur 3 Kategorien, 4 Phasen); die Menues waren bereits in Teil 1
     als tot dokumentiert -> keine Funktion in Verwendung.
