@@ -1513,6 +1513,24 @@ Kernpunkte je Feld: Belegnummer 1:1 (Kontrolle K2a), Zustand Offen -> gebucht + 
 Es wurde nichts migriert und nichts in Odoo 18 geaendert.
 ```
 
+ENTSCHEIDUNGEN UND UMSETZUNG 30.09.2026 (Teil 6 / Label-Regel):
+```
+1) Kein Enterprise-Berichtsmodul: Odoo 18 Community bleibt; fehlende Odoo-11-Berichte werden bei
+   tatsaechlichem Bedarf mit Community-/ITK-Mitteln nachgebaut (nicht pauschal).
+2) Zahlungsart des Bankjournals sichtbar "Manuelle Zahlung (Bank)" (statt "Manual Payment"),
+   gesetzt ueber scripts/apply_abrechnung_labels.py (Zeile 1 und 2 des Journals BNK1).
+3) Journal BNK1 sichtbar "Bank fuer Tirol und Vorarlberg AG (EUR)", technischer Code BNK1
+   unveraendert - ebenfalls ueber den Apply-Lauf.
+4) Bericht "ITK-Rechnung mit Zahlung" (Odoo 11: Bericht 538 "Rechnung mit Zahlung") als
+   Community-/ITK-Bericht nachgebaut: itk_reports 18.0.1.4.0,
+   Vorlage report_itk_invoice_document_with_payments mit Zahlungsblock ("Bezahlt am <Datum>" +
+   Betrag, danach offener Betrag), Aktion action_report_itk_invoices_with_payments gebunden an
+   account.move. Nachweis lokal (HTML/PDF mit Zahlungsblock, Vergleich gegen die Variante ohne
+   Zahlungen) und VM (Drucken-Menue zeigt vier Berichte, Klick erzeugt PDF; 4 OK / 0 FEHL).
+5) Die uebrigen alten Odoo-11-Berichte werden nicht pauschal nachgebaut.
+Der Apply-Lauf setzt die Punkte 2 und 3 nach jedem Upgrade erneut und prueft sie.
+```
+
 ### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-15: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte, Produktformular), erste Abnahme 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119), Teil 15 am 24.09.2026 (Session 120) auf der VM im Browser abgenommen
 
 Dokument: `docs/o11-o18-vergleich-abo-teil1.md`; Teil 14: `docs/o11-o18-vergleich-abo-teil14.md`; Teil 15: `docs/o11-o18-vergleich-abo-teil15-produktformular.md`; Uebergabe und Vollstaendigkeitsbestaetigung: `docs/uebergabe-session-120-abonnements.md` (24.09.2026: jedes in Odoo 11 verwendete Feld, Reiter, Button, Smart Button, Statuswechsel, Filter, Gruppierung und jeder Geschaeftsprozess ist gleich vorhanden, funktional gleichwertig an anderer Stelle vorhanden oder bewusst dokumentiert; keine offene funktionale Abweichung).

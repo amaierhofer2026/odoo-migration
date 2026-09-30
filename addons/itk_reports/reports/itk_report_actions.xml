@@ -49,4 +49,16 @@
         <field name="binding_type">report</field>
     </record>
 
+    <!-- ITK-Rechnung mit Zahlung (Odoo 11: Bericht id 538 "Rechnung mit Zahlung") -->
+    <record id="action_report_itk_invoices_with_payments" model="ir.actions.report">
+        <field name="name">ITK-Rechnung mit Zahlung</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">itk_reports.report_itk_invoice_with_payments</field>
+        <field name="report_file">itk_reports.report_itk_invoice_with_payments</field>
+        <field name="print_report_name">'Rechnung mit Zahlung - %s - %s' % (object.partner_id.name or '', object.name)</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_type">report</field>
+    </record>
+
 </odoo>

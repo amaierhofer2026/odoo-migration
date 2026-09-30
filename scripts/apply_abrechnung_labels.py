@@ -130,6 +130,43 @@ def main() -> int:
         else:
             abweichung += 1
             print("  FEHL %-42s nicht gesetzt (Ist: '%s')" % ("%s.%s" % (modell, fname), ist2))
+    # --- Sichtbare Bezeichnungen der Stammdaten (Entscheidungen Anna, 30.09.2026) -------------
+    # Zahlungsart des Bankjournals und Name des Bankjournals sichtbar wie in Odoo 11.
+    # Technische Codes (BNK1) und Feldnamen bleiben unveraendert.
+    print("\nStammdaten-Bezeichnungen:")
+    for code, wunsch in {"BNK1": "Bank für Tirol und Vorarlberg AG (EUR)"}.items():
+        journale = kw("account.journal", "search_read",
+                      [[("code", "=", code)], ["id", "name", "code"]], context={"lang": "de_DE"})
+        if not journale:
+            fehlt += 1
+            print("  --   Journal %s nicht vorhanden" % code)
+            continue
+        j = journale[0]
+        if j["name"] != wunsch and not a.pruefen:
+            kw("account.journal", "write", [[j["id"]], {"name": wunsch}], context={"lang": "de_DE"})
+            gesetzt += 1
+            print("  OK   Journal %s Name = '%s'" % (code, wunsch))
+        elif j["name"] != wunsch:
+            abweichung += 1
+            print("  FEHL Journal %s Name = '%s' (erwartet '%s')" % (code, j["name"], wunsch))
+        else:
+            print("  OK   Journal %s Name = '%s'" % (code, j["name"]))
+    zahlungsziel = "Manuelle Zahlung (Bank)"
+    zeilen = kw("account.payment.method.line", "search_read",
+                [[("journal_id.code", "=", "BNK1")], ["id", "name", "journal_id"]], context={"lang": "de_DE"})
+    for zeile in zeilen:
+        if zeile["name"] != zahlungsziel and not a.pruefen:
+            kw("account.payment.method.line", "write", [[zeile["id"]], {"name": zahlungsziel}],
+               context={"lang": "de_DE"})
+            gesetzt += 1
+            print("  OK   Zahlungsart Zeile %s = '%s'" % (zeile["id"], zahlungsziel))
+        elif zeile["name"] != zahlungsziel:
+            abweichung += 1
+            print("  FEHL Zahlungsart Zeile %s = '%s' (erwartet '%s')"
+                  % (zeile["id"], zeile["name"], zahlungsziel))
+        else:
+            print("  OK   Zahlungsart Zeile %s = '%s'" % (zeile["id"], zeile["name"]))
+
     print("\nErgebnis: %d gesetzt, %d Abweichungen, %d nicht vorhanden%s"
           % (gesetzt, abweichung, fehlt, " (Pruefmodus)" if a.pruefen else ""))
     return 0 if abweichung == 0 else 1
