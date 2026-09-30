@@ -7270,7 +7270,21 @@ R6 TAG_IDS / Modellwechsel crm.lead.tag -> crm.tag (ABGESCHLOSSEN 29.09.2026):
   werden in der spaeteren Stammdatenmigration ZENTRAL EINMAL angelegt, damit Verkauf und CRM
   dieselben Tags verwenden.
   Keine Aenderung an Odoo 18 erforderlich. Dokument: docs/o11-o18-verkauf-r6-tag-ids.md
-Offen: R7 und R8; Verkauf noch nicht endgueltig abgeschlossen.
+R7 LAYOUT_CATEGORY_ID (ABGESCHLOSSEN 29.09.2026):
+  Odoo 11 sale.order.line.layout_category_id -> sale.layout.category ("Sektion"), Modell in
+  Odoo 11 NICHT registriert (Leseversuch/fields_get scheitern mit KeyError), Datensatz id 1
+  "Dienstleistungen" aber vorhanden; layout_category_sequence immer 0.
+  KORREKTUR einer frueheren Messung: nicht "alle 1.367 Werte 0", sondern genau 2 von 4.011
+  Auftragszeilen mit Sektion (Zeilen zu A-1900915 FH Campus Wien und A-1900906 Staedtebund);
+  Korrektur in Lueckenanalyse, Abschlussdokument und Checkliste eingetragen.
+  Verwendung: Feld nur fuer Gruppe sale.group_sale_layout sichtbar; Standardbericht iteriert
+  Sektionen nur fuer diese Gruppe; in der ITK-Druckvorlage ist der Abschnittsblock AUSKOMMENTIERT.
+  Odoo 18: Felder entfallen; Abschnitte ueber display_type (line_section/line_note); Standardvorlage
+  verarbeitet das, die ITK-Vorlage enthaelt keine Abschnittslogik.
+  Entscheidung Anna: beide Felder bewusst NICHT migrieren; fuer A-1900915 und A-1900906 KEINE
+  kuenstlichen Abschnittszeilen anlegen - die beiden Zuordnungen nur dokumentieren.
+  Keine Aenderung an Odoo 18 erforderlich. Dokument: docs/o11-o18-verkauf-r7-layout-category.md
+Offen: R8; Verkauf noch nicht endgueltig abgeschlossen.
 ```
 
 ## Session 121, Teil 4 Schritt 3 (Druckberichte) und Abschluss Teil 4

@@ -334,7 +334,13 @@ Prüfwerkzeug: `python scripts/vm_abnahme_check.py` · Detailregel: `docs/arbeit
   ueber `sale_order_tag_rel` bzw. `crm_tag_rel`, gleichnamige Tags als Konflikt melden); die 44
   Odoo-11-Tags sind als migrationsrelevante Stammdaten mit Name, Farbindex und Nutzung dokumentiert
   und werden spaeter zentral einmal angelegt (Verkauf und CRM gemeinsam) - jetzt wird nichts
-  angelegt (Dokument `docs/o11-o18-verkauf-r6-tag-ids.md`). Offen: R7 (layout_category_id) und R8.
+  angelegt (Dokument `docs/o11-o18-verkauf-r6-tag-ids.md`).
+  R7 `layout_category_id` / `layout_category_sequence` ist abgeschlossen: beide Felder werden
+  bewusst nicht migriert (Modell `sale.layout.category` in Odoo 11 nicht registriert, ITK-Vorlage
+  druckt keine Sektionen, Sequenz nie genutzt); korrigierte Messung: genau 2 von 4.011
+  Auftragszeilen mit der Sektion "Dienstleistungen" - fuer sie werden keine kuenstlichen
+  Abschnittszeilen angelegt (Dokument `docs/o11-o18-verkauf-r7-layout-category.md`).
+  Offen: R8 (amt_invoiced / amt_to_invoice).
 - **Bereich Verkauf - Teil 4 Schritt 3 Druckberichte (Session 121, 29.09.2026): ABGENOMMEN.
   Teil 4 damit abgeschlossen.** Dokument `docs/o11-o18-vergleich-verkauf-teil4-druckberichte.md`.
   Odoo 11 hatte drei Report-Aktionen auf `sale.order` ("Angebot/Auftrag" und "Proformarechnung"

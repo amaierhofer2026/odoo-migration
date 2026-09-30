@@ -64,7 +64,8 @@ Nicht installiert (bewusst, weil in Odoo 11 ohne Nutzung):
 
 ```
 Tote Odoo-11-Menues/Funktionen ohne Inhalt:
-  Reportlayout Kategorien (sale.layout.category in Odoo 11 nicht registriert, alle 1.367 Werte 0)
+  Reportlayout Kategorien (sale.layout.category in Odoo 11 nicht registriert; korrigierte Messung
+  29.09.2026: genau 2 Auftragszeilen mit der Sektion "Dienstleistungen", Sequenz immer 0)
   Reklamationen (crm.claim: 0 Datensaetze)
   Berichtsmenue "Vertriebskanaele" (Odoo-11-Altlast)
 Ohne Nutzung in Odoo 11 (deshalb nicht erforderlich):

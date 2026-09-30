@@ -632,8 +632,20 @@ Farbindex, Nutzung; 13 davon ohne Verwendung) und werden spaeter in der Stammdat
 einmal angelegt, damit Verkauf und CRM dieselben Tags verwenden - jetzt wird nichts angelegt.
 Dokument: `docs/o11-o18-verkauf-r6-tag-ids.md`.
 
+**R7 `layout_category_id` / `layout_category_sequence`: ABGESCHLOSSEN (29.09.2026).** Beide Felder
+werden bewusst NICHT migriert: Das Modell `sale.layout.category` ist in Odoo 11 nicht registriert
+(Leseversuch und `fields_get` scheitern), die im Verkauf verwendete ITK-Druckvorlage gibt keine
+Sektion aus (Abschnittsblock auskommentiert), `layout_category_sequence` ist immer 0, und Odoo 18
+verwendet die Standardlogik mit Abschnitts-/Notizzeilen.
+**Dokumentationskorrektur:** Nicht "alle 1.367 Werte 0", sondern genau 2 von 4.011 Auftragszeilen
+mit `layout_category_id` = Sektion "Dienstleistungen" (Zeilen zu A-1900915 und A-1900906);
+Korrektur in Lueckenanalyse, Abschlussdokument und dieser Checkliste eingetragen.
+Entscheidung: fuer diese beiden Auftraege werden KEINE kuenstlichen Abschnittszeilen angelegt,
+die Zuordnungen nur dokumentiert. Keine Aenderung an Odoo 18 erforderlich.
+Dokument: `docs/o11-o18-verkauf-r7-layout-category.md`.
+
 **STATUS: Teil 5 Block 3 und 4 abgeschlossen und im echten Browser auf der Abnahmeumgebung
-abgenommen; Abschlussmarkierung des Bereichs wegen R7 und R8 zurueckgestellt.**
+abgenommen; Abschlussmarkierung des Bereichs wegen R8 zurueckgestellt.**
 Naechstes Modul noch nicht begonnen.
 
 
@@ -983,7 +995,8 @@ Block 2 Lueckenanalyse: Felder, Menueziele/Modelle, Automatismen, Server-Aktione
   235 mit Lieferungen, 238 Lagerbelege mit Verkaufsbezug. Odoo 18: Module und Felder fehlten.
   Keine Luecke (dokumentiert): Feldumbenennungen (amt_invoiced -> amount_invoiced,
   amt_to_invoice -> amount_to_invoice, price_reduce -> price_reduce_taxexcl/taxinc),
-  Reportlayout-Kategorien (alle 1.367 Werte 0, Modell in Odoo 11 nicht registriert),
+  Reportlayout-Kategorien (korrigierte Messung 29.09.2026: 2 Auftragszeilen mit Sektion
+  "Dienstleistungen", Sequenz immer 0; Modell in Odoo 11 nicht registriert),
   crm.claim (0 Datensaetze), crm.lead.tag -> crm.tag, crm.opportunity.report -> crm.lead,
   report.all.channels.sales (in Teil 4 ersetzt), Mailvorlagen ohne Nutzungsspur in Odoo 11
   (2.271 E-Mail-Nachrichten, aber 0 Anhaenge an Nachrichten), Stammdaten (Datenmigrationsthema),
