@@ -1229,6 +1229,27 @@ Teil 2 FELDINVENTAR (30.09.2026, nur Analyse, keine Aenderung an Odoo 18):
 Naechster Schritt (Vorschlag): Teil 3 Formulare, Reiter, Buttons, Smart Buttons, Zustandswechsel,
   Zahlungs- und Abstimmungslogik, Rechnungsdruck und Versand (Browser lokal und VM); vorher
   Entscheidungen zu K1, K3, K4, K6 sowie K2a/K2b/K2c.
+K2 VOLLSTAENDIG GEKLAERT (30.09.2026, read-only): eigenes Dokument
+  docs/o11-o18-vergleich-abrechnung-k2-nummern.md.
+  Messkorrektur: hoechste Rechnungsnummer 2026 ist R-261139 (nicht R-26989; die laufende Nummer
+  wechselt bei Ueberschreitung von 999 in die Vierstelligkeit). Nachtrag in Teil 2, Abschnitt 12.
+  K2a: Odoo 18 erlaubt gleiche Nummern nur je Journal (UNIQUE INDEX account_move_unique_name auf
+  name+journal_id fuer gebuchte Belege); ein eigener Nummerkreis fuer Gutschriften
+  (refund_sequence) loest den Fall NICHT, ein zweites Journal schon (aendert aber die
+  Journalstruktur). Empfehlung Weg A: Rechnung behaelt R-25001, Gutschrift erhaelt eine neue
+  Nummer, Originalnummer in einem eigenen Feld "Odoo-11-Rechnungsnummer" (Vorschlag, nichts
+  angelegt). Gutschrift bleibt ueber reversed_entry_id/Ursprung R-25584 nachvollziehbar.
+  K2b: ohne Zusatzkonfiguration erkennt Odoo 18 alle 6.263 Nummern als "fest" und wuerde bei
+  R-1900003 weiterlaufen (Fortsetzung des 2019er Zaehlers); mit
+  sequence_override_regex ^(?P<prefix1>R-)(?P<year>\d{2})(?P<seq>\d+)$ (deckt alle 6.263 ab)
+  laeuft die Zaehlung je Jahr korrekt weiter: 2026 -> R-261140, 2027 -> R-2700001, kollisionsfrei.
+  K2c: Journalfeld restrict_mode_hash_table ("Gebuchte Posten mit Hash festschreiben") schuetzt
+  genau name, date, journal_id, company_id (Hash-Felder), ist nach dem ersten gesicherten Beleg
+  nicht mehr abschaltbar und laesst sich per Assistent "Buchungen festschreiben" nachholen;
+  zusaetzlich Loeschsperre fuer Kettenbelege, Schreibsperren fuer Journal/Datum/Nummer und
+  Pruefpfad (res.company.check_account_audit_trail) zur Protokollierung.
+  Offen: K2a (Weg A/B/C), K2a-2 (Einbauort des Feldes), K2b (Override ja/nein), K2c (Hash und
+  Pruefpfad ja/nein).
 ```
 
 ### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-15: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte, Produktformular), erste Abnahme 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119), Teil 15 am 24.09.2026 (Session 120) auf der VM im Browser abgenommen

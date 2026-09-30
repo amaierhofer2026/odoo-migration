@@ -472,3 +472,21 @@ Teil 3: Formulare, Reiter, Buttons, Smart Buttons und Zustandswechsel der Rechnu
   und K6 sowie zu K2a/K2b aus diesem Teil erbeten.
 ```
 
+## 12. Nachtrag 30.09.2026: Messkorrektur zum Nummernkreis und K2-Klaerung
+
+```
+Messkorrektur (datiert, alte Zeile bleibt stehen): In Abschnitt 8.1 stand
+  "2026: kleinste R-26001, groesste R-26989". Die Angabe entstand durch alphabetische
+  Sortierung und ist falsch. Numerisch ausgewertet ist die hoechste Nummer 2026 = R-261139
+  (1.139 Rechnungen; die laufende Nummer wechselt bei Ueberschreitung von 999 in die
+  Vierstelligkeit: R-26989 -> R-260990 ... R-260999 -> R-261000 ... R-261139).
+  Der Aufbau "R-" + zweistelliges Jahr + laufende Nummer bleibt unveraendert.
+K2 vollstaendig geklaert: eigenes Dokument docs/o11-o18-vergleich-abrechnung-k2-nummern.md
+  mit K2a (Loesungswege fuer die Doppelnummer R-25001 samt Vorschlag fuer ein Feld
+  "Odoo-11-Rechnungsnummer"), K2b (nachgerechnetes Weiterzaehlen: ohne Zusatzkonfiguration
+  wuerde Odoo 18 bei R-1900003 weiterlaufen, mit sequence_override_regex je Jahr korrekt
+  bei R-261140 bzw. R-2700001) und K2c (Hash-Sicherung je Journal schuetzt genau die Felder
+  name/date/journal_id/company_id; Loesch- und Schreibsperren; Pruefpfad).
+  Es wurde nichts migriert, keine Nummer geaendert, kein Schreibvorgang ausgefuehrt.
+```
+

@@ -7573,4 +7573,57 @@ Offene Punkte: K2a (Doppelnummer), K2b (welches Nummernformat weiterlaeuft), K2c
   K5 (Steuer-Mapping im Stammdatenteil), K9 (USD, 4 Belege betroffen).
 Naechster Schritt: Teil 3 (Formulare, Reiter, Buttons, Smart Buttons, Zustandswechsel,
   Zahlungs-/Abstimmungslogik, Rechnungsdruck und Versand - Browser lokal und VM).
+
+## Session 122, K2: historische Rechnungsnummern vollstaendig geklaert (30.09.2026)
+
+Dokument: `docs/o11-o18-vergleich-abrechnung-k2-nummern.md`. Nur Analyse - **keine Datenmigration,
+keine Nummer geaendert, kein Schreibvorgang in Odoo 18**; Odoo 11 Prod ausschliesslich read-only.
+Grundlage: Quellcode der Testumgebung (Odoo 18.0-20260817), Datenbankschema (read-only) und die
+Nachbildung des Odoo-18-Nummernregelwerks gegen die echten Odoo-11-Nummern
+(`scripts/pruefe_k2_nummernformat.py`).
+
+```
+Messkorrektur (datiert, in Teil 2 als Nachtrag Abschnitt 12): die hoechste Rechnungsnummer 2026
+  ist R-261139, nicht R-26989 (alphabethische Sortierung hatte getaeuscht). Aufbau unveraendert:
+  "R-" + zweistelliges Jahr + laufende Nummer; bei mehr als 999 Rechnungen im Jahr waechst die
+  laufende Nummer in die Vierstelligkeit (R-26989 -> R-260990 ... R-261139).
+Nummernkreis: 2019 66 Nummern (R-1900001/R-1900002 mit 7 Stellen, uebrige 5-stellig),
+  2020-2025 je 732-955 Nummern 5-stellig, 2026 1.139 Nummern; alle im einen Journal
+  "Ausgangsrechnungen (EUR)"; 237 Gutschriften im selben Journal; Odoo 11 hatte
+  unique(number, company_id, journal_id, type).
+K2a Doppelnummer: R-25001 = Rechnung id 9703 (02.01.2025, Magistrat der Stadt Wels, 27.593,52)
+  und Gutschrift id 11531 (06.02.2025, Verein Gesundheitsland Kaernten, 1.474,76, Ursprung
+  R-25584) - die einzige Doppelnummer im Bestand.
+  Odoo 18: UNIQUE INDEX account_move_unique_name auf (name, journal_id) fuer gebuchte Belege
+  (state='posted'), Modell-Constraint mit der Meldung "Ein anderer Datensatz mit demselben Namen
+  existiert bereits."; `type` zaehlt nicht mehr mit. Der Journalschalter "Gesonderter Nummerkreis
+  fuer Gutschriften" (refund_sequence) loest den Fall NICHT (Index bleibt name+journal_id);
+  ein zweites Verkaufsjournal wuerde es loesen, aendert aber die Journalstruktur (Gutschriften
+  lagen in Odoo 11 im selben Journal).
+  Empfehlung Weg A: Rechnung behaelt R-25001, die Gutschrift erhaelt eine neue Nummer, die
+  Originalnummer steht im neuen Feld "Odoo-11-Rechnungsnummer" (Char, readonly, copy=False,
+  tracking, index) fuer ALLE migrierten Belege - Kontrollabfrage
+  "name != odoo11-Nummer" liefert genau die Abweichung. Weg B (Gutschrift behaelt die Nummer)
+  und Weg C (zweites Journal) im Dokument bewertet. Nichts angelegt, nichts geaendert.
+K2b Weiterzaehlen (nachgerechnet): ohne Zusatzkonfiguration erkennt Odoo 18 alle 6.263 Nummern
+  als festen Nummernkreis ('never', Prefix "R-") und wuerde bei R-1900003 weiterlaufen
+  (hoechste sequence_number 1.900.002 aus R-1900002) - kollisionsfrei dank Retry-Mechanismus,
+  aber fachlich falsch. Mit sequence_override_regex
+  ^(?P<prefix1>R-)(?P<year>\d{2})(?P<seq>\d+)$ (deckt 6.263 von 6.263 Nummern ab, Reset-Typ
+  'year') laeuft die Zaehlung je Jahr korrekt weiter: 2026 -> R-261140, 2027 -> R-2700001.
+  Voraussetzung: Festlegung vor der ersten neuen Rechnung, Gegenprobe in einer Testkopie.
+K2c Schutz: account.journal.restrict_mode_hash_table ("Gebuchte Posten mit Hash festschreiben")
+  sichert beim Buchen die Belegkette (inalterable_hash, secure_sequence_number) und schuetzt
+  genau die Hash-Felder name, date, journal_id, company_id - ein Schreibversuch wird serverseitig
+  abgebrochen ("This document is protected by a hash. Therefore, you cannot edit the following
+  fields: ..."). Einmal gesichert, ist die Einstellung nicht mehr abschaltbar, solange gebuchte
+  Belege existieren; die Sicherung kann mit dem Assistenten "Buchungen festschreiben"
+  (account.secure.entries.wizard) auch nachtraeglich erfolgen. Zusaetzlich: Loeschsperre fuer
+  Belege mit Nummer (nur das letzte Element der Nummernfolge), Schreibsperren fuer Journalwechsel
+  und gesperrte Perioden, Protokollierung ueber den Pruefpfad
+  (res.company.check_account_audit_trail).
+Offene Entscheidungen: K2a (Weg A/B/C), K2a-2 (Einbauort des Feldes: itk_base_setup oder eigenes
+  Modul), K2b (Override ja/nein), K2c (Hash und Pruefpfad ja/nein). Nichts umgesetzt.
+Werkzeuge: scripts/pruefe_k2_nummernformat.py (Nachbildung der Regexe und der Entscheidungskette),
+  Quellcode-Fundstellen im Dokument (account_move.py, account_journal.py, sequence_mixin.py).
 ```
