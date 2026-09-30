@@ -7851,3 +7851,16 @@ Umgesetzt: scripts/upgrade_modules.py ruft nach jedem Modul-Upgrade automatisch
 Nachweis: lokal Upgrade itk_reports -> apply 0 gesetzt / 0 Abweichungen, beide Checks OK, exit 0;
   VM Upgrade itk_reports -> apply 20 gesetzt (Upgrade setzt de_DE zurueck), beide Checks OK, exit 0.
 ```
+
+## Session 122, Teil 5: Feldabbildung und Migrationsregeln (30.09.2026)
+
+```
+Dokument: docs/o11-o18-vergleich-abrechnung-teil5-feldabbildung.md, erzeugt von
+  scripts/baue_abrechnung_teil5_doku.py aus Live-Messdaten beider Systeme + Regel-Tabelle.
+Inhalt: 53 Feldpaare mit Odoo-11-Modell/Feld/Bezeichnung, Odoo-18-Ziel/Feld/Bezeichnung,
+  Transformationsregel, Stammdatenabhaengigkeit, gespeichert/berechnet in beiden Systemen,
+  migriert oder neu berechnet, Validierungsregel; dazu die Regeln ohne Feldbezug
+  (K2a/K2b/K2c, Gutschriften B2, Zahlungen B3, K1, K5, K4, K7).
+Es wurde nichts migriert, Odoo 11 nur gelesen, Odoo 18 nicht geaendert.
+Naechster Schritt: Teil 6 Berichte (Vorgabe K3).
+```
