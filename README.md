@@ -36,10 +36,13 @@ Odoo-18-Zusatzfunktionen bleiben erhalten.
 
 **Bereich Abrechnung begonnen (30.09.2026, Session 122):** Teil 1 Bestandsaufnahme, Teil 2
 Feldinventar (`account.invoice`/`account.invoice.line` gegen `account.move`/`account.move.line`),
-K2-Klaerung der historischen Rechnungsnummern mit Anna's Entscheidungen sowie **Teil 3
-(Formulare, Buttons, Smart Buttons, Zustandswechsel, Zahlungs-/Abstimmungslogik, Rechnungsdruck,
-Versand)** abgeschlossen, Bereich noch **offen**. Dokumente `docs/o11-o18-vergleich-abrechnung-teil1.md`,
-`-teil2.md`, `-k2-nummern.md`, `-teil3.md`, Checkliste Abschnitt 6.16. In allen Teilen wurde an Odoo 18 nichts geaendert;
+K2-Klaerung der historischen Rechnungsnummern mit Entscheidungen, **Teil 3** (Formulare, Buttons,
+Smart Buttons, Zustandswechsel, Zahlungs-/Abstimmungslogik, Rechnungsdruck, Versand) sowie die
+**Befunde B2 (Gutschrift), B3 (Zahlung) und B6 (Mailvorlagen)** abgeschlossen; Bereich noch
+**offen**. B6 hat zwei ITK-Rechnungsmailvorlagen in `itk_reports` (18.0.1.1.0) ergaenzt.
+Dokumente `docs/o11-o18-vergleich-abrechnung-teil1.md`, `-teil2.md`, `-k2-nummern.md`,
+`-teil3.md`, `-b2-gutschrift.md`, `-b3-zahlung.md`, `-b6-mailvorlagen.md`,
+Checkliste Abschnitt 6.16. Ausser B6 wurde an Odoo 18 nichts geaendert;
 Odoo 11 Prod ausschliesslich read-only.
 
 ---

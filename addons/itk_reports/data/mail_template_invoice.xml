@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        ITK-Mailvorlagen fuer Rechnungen.
+        Uebernommen aus Odoo 11 (Session 122, Befund B6): die in Odoo 11 tatsaechlich
+        verwendeten Vorlagen "Rechnungsstellung: Allgemeine Rechnung" (id 41, inhaltsgleich
+        mit id 42 "Einzel E-Mail") und "Rechnungsstellung: Ihr Abonnement fuer
+        help-amtsweg.gv.at" (id 11). Wortlaut und Absender unveraendert uebernommen,
+        Platzhalter auf Odoo 18 umgestellt (object.name = Belegnummer,
+        object.invoice_user_id = Verkaeufer).
+        Die Mahnvorlagen aus Odoo 11 werden bewusst nicht nachgebaut (Mahnwesen nicht
+        installiert), die generische Standardvorlage "Rechnung: Versand" bleibt erhalten.
+    -->
+    <record id="mail_template_itk_invoice" model="mail.template">
+        <field name="name">Rechnungsstellung: Allgemeine Rechnung</field>
+        <field name="description">ITK-Rechnungsmail (allgemein), uebernommen aus Odoo 11</field>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="email_from">ITK-Office &lt;office@it-kommunal.at&gt;</field>
+        <field name="subject">{{ object.company_id.name }} Rechnung (Ref {{ object.name or 'n/a' }})</field>
+        <field name="lang">{{ object.partner_id.lang }}</field>
+        <field name="auto_delete" eval="True"/>
+        <field name="report_template_ids" eval="[(6, 0, [ref('action_report_itk_invoices')])]"/>
+        <field name="body_html" type="html">
+<div style="font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;">
+    <p style="margin:0px 0px 9px 0px;">
+        <img t-att-src="object.get_base_url() + '/itk_reports/static/img/itk_pageheader.jpg'"
+             alt="IT-Kommunal" style="width:50%;"/>
+    </p>
+    <p style="margin:0px 0px 9px 0px;">Sehr geehrte Damen und Herren,</p>
+    <p style="margin:0px 0px 9px 0px;">Bitte finden Sie anbei unsere Rechnung im Zusammenhang für unsere Leistungen oder Produkte mit der Bitte um Weiterleitung<br/>an die entsprechenden Stellen.</p>
+    <p style="margin:0px 0px 9px 0px;">Vielen Dank für Ihre Bemühungen!</p>
+    <p style="margin:0px 0px 9px 0px;">Martina Waiss<br/>IT-Kommunal GmbH<br/>Pius-Parsch-Platz 9/14<br/>1210 Wien<br/>Tel. 01/89 00 919<br/>martina.waiss@it-kommunal.at</p>
+    <p style="margin:0px 0px 9px 0px;color:#888888;">
+        <t t-if="object.invoice_user_id and object.invoice_user_id.signature">
+            <t t-out="object.invoice_user_id.signature"/>
+        </t>
+    </p>
+</div>
+        </field>
+    </record>
+
+    <record id="mail_template_itk_invoice_abo" model="mail.template">
+        <field name="name">Rechnungsstellung: Ihr Abonnement für help-amtsweg.gv.at</field>
+        <field name="description">ITK-Rechnungsmail fuer Abonnements amtsweg.gv.at, uebernommen aus Odoo 11</field>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="email_from">ITK-Office &lt;office@it-kommunal.at&gt;</field>
+        <field name="subject">{{ object.company_id.name }} Rechnung (Ref {{ object.name or 'n/a' }})</field>
+        <field name="lang">{{ object.partner_id.lang }}</field>
+        <field name="auto_delete" eval="True"/>
+        <field name="report_template_ids" eval="[(6, 0, [ref('action_report_itk_invoices')])]"/>
+        <field name="body_html" type="html">
+<div style="font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;">
+    <p style="margin:0px 0px 9px 0px;">
+        <img t-att-src="object.get_base_url() + '/itk_reports/static/img/itk_pageheader.jpg'"
+             alt="IT-Kommunal" style="width:50%;"/>
+    </p>
+    <p style="margin:0px 0px 9px 0px;">Sehr geehrte Damen und Herren,</p>
+    <p style="margin:0px 0px 9px 0px;">Bitte finden Sie anbei unsere Rechnung im Zusammenhang mit
+        der Nutzungsgebühr für amtsweg.gv.at mit der Bitte um Weiterleitung<br/>an die
+        entsprechenden Stellen.</p>
+    <p style="margin:0px 0px 9px 0px;">Vielen Dank für Ihre Bemühungen!</p>
+    <p style="margin:0px 0px 9px 0px;">Martina Waiss<br/>IT-Kommunal GmbH<br/>Pius-Parsch-Platz 9/14<br/>1210 Wien<br/>Tel. 01/89 00 919<br/>martina.waiss@it-kommunal.at</p>
+    <p style="margin:0px 0px 9px 0px;color:#888888;">
+        <t t-if="object.invoice_user_id and object.invoice_user_id.signature">
+            <t t-out="object.invoice_user_id.signature"/>
+        </t>
+    </p>
+</div>
+        </field>
+    </record>
+</odoo>

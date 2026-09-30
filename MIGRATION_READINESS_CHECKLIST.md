@@ -1390,6 +1390,35 @@ TESTDATEN: lokal Zahlung id 8; VM Zahlungen id 9-11 und die dafuer gebuchten Rec
   id 41, 45, 46 (Testdatenbank).
 ```
 
+B6 MAILVORLAGEN (Befund aus Teil 3, 30.09.2026, UMGESETZT). Dokument:
+`docs/o11-o18-vergleich-abrechnung-b6-mailvorlagen.md`:
+```
+Bestand Odoo 11: 9 Mailvorlagen auf der Rechnung, davon die verwendeten Wortlaute
+  "Rechnungsstellung: Allgemeine Rechnung" (id 41, inhaltsgleich id 42) und
+  "Rechnungsstellung: Ihr Abonnement fuer help-amtsweg.gv.at" (id 11); Mahn- und
+  Erinnerungsvorlagen (58, 61, 71, 82, 83) sowie die Standardvorlage (38).
+Bestand Odoo 18 vorher: 5 Standardvorlagen (de_DE uebersetzt), davon keine mit ITK-Wortlaut;
+  der Knopf "Senden" nutzt fest die Standardvorlage (account_move.py, _get_mail_template).
+UMSETZUNG in Odoo 18: neues Datenfile addons/itk_reports/data/mail_template_invoice.xml
+  (Modul itk_reports 18.0.1.1.0) mit zwei Vorlagen auf account.move:
+  itk_reports.mail_template_itk_invoice ("Rechnungsstellung: Allgemeine Rechnung") und
+  itk_reports.mail_template_itk_invoice_abo ("Rechnungsstellung: Ihr Abonnement fuer
+  help-amtsweg.gv.at"). Felder: Betreff "{{ object.company_id.name }} Rechnung (Ref
+  {{ object.name or 'n/a' }})", Absender ITK-Office <office@it-kommunal.at>, Sprachlogik wie
+  Odoo 11, Anhang ITK-Rechnung (action_report_itk_invoices), Briefkopf als Bild mit absoluter
+  Adresse, Verkaeufersignatur, auto_delete wie Odoo 11. Platzhalter auf Odoo 18 umgestellt
+  (object.number -> object.name, object.user_id -> object.invoice_user_id).
+NICHT umgesetzt (bewusst): Mahn- und Erinnerungsvorlagen (Mahnwesen nicht installiert, Vorgabe
+  K3/K7); keine Dublette fuer id 42 (inhaltsgleich mit id 41); Odoo-18-Standardvorlagen bleiben
+  unveraendert und weiterhin Standard beim Knopf "Senden".
+PRUEFUNGEN: lokal 31 OK / 0 FEHL, VM 31 OK / 0 FEHL (Rendern mit Betreff "IT-Kommunal GmbH
+  Rechnung (Ref RE/2026/0005)" und ITK-Rechnung als PDF-Anhang), Browser-Abnahme VM
+  10 OK / 0 FEHL (beide ITK-Vorlagen in der Vorlagenliste und im Massenversand-Dialog
+  auswaehlbar, kein Versand ausgeloest), Regression 886 OK / 0 FEHL.
+DEPLOY VM: Branch per Git, gezieltes Einzel-Upgrade itk_reports (docker compose stop/run/start),
+  danach auf main synchronisiert.
+```
+
 ### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-15: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte, Produktformular), erste Abnahme 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119), Teil 15 am 24.09.2026 (Session 120) auf der VM im Browser abgenommen
 
 Dokument: `docs/o11-o18-vergleich-abo-teil1.md`; Teil 14: `docs/o11-o18-vergleich-abo-teil14.md`; Teil 15: `docs/o11-o18-vergleich-abo-teil15-produktformular.md`; Uebergabe und Vollstaendigkeitsbestaetigung: `docs/uebergabe-session-120-abonnements.md` (24.09.2026: jedes in Odoo 11 verwendete Feld, Reiter, Button, Smart Button, Statuswechsel, Filter, Gruppierung und jeder Geschaeftsprozess ist gleich vorhanden, funktional gleichwertig an anderer Stelle vorhanden oder bewusst dokumentiert; keine offene funktionale Abweichung).
