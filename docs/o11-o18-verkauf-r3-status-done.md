@@ -126,3 +126,18 @@ STATUS: R3 ABGESCHLOSSEN (29.09.2026) - analysiert (read-only in Odoo 11, Server
 Der Bereich Verkauf bleibt bis zur Vorbereitung der Risiken R4 bis R8 weiterhin NICHT endgueltig
 abgeschlossen.
 ```
+
+## 8. Nachtrag (29.09.2026): Auto-Sperre in Odoo 18
+
+```
+Im Odoo-18-Testbestand ist die Einstellung "Bestaetigte Verkaeufe sperren" (Gruppe
+sale.group_auto_done_setting, id 47, Anzeige "Bestätigte Verkäufe sperren") dem Benutzer
+Administrator (anna.maierhofer@it-kommunal.at) zugewiesen.
+Folge: Bestaetigt dieser Benutzer einen Auftrag, setzt Odoo 18 automatisch locked=True
+(Nachweis: der Testauftrag S00234 war nach dem Bestaetigen gesperrt; im lokalen Testbestand
+sind derzeit 8 Auftraege gesperrt).
+Auswirkung auf die Transformationsregel: keine. Bei der Datenmigration wird locked ausschliesslich
+aus dem Odoo-11-Zustand 'done' abgeleitet; die Auto-Sperre greift nur beim Bestaetigen ueber die
+Oberflaeche bzw. den Bestaetigungsvorgang und ist eine bestehende Odoo-18-Funktion, die erhalten
+bleibt.
+```

@@ -322,7 +322,13 @@ Prüfwerkzeug: `python scripts/vm_abnahme_check.py` · Detailregel: `docs/arbeit
   `odoo.tools.mail.plaintext2html` (maskieren, Zeilenumbrueche erhalten, URLs als Links);
   Odoo-18-Wortlaut "Allgemeine Geschaeftsbedingungen" bleibt bestehen. Messkorrektur: nur
   3 Auftraege tragen echten Text - die frueher genannte Zahl 2.442 entstand aus leeren Strings.
-  (Dokument `docs/o11-o18-verkauf-r4-note-html.md`). Offen: R5 (invoice_lines) bis R8.
+  (Dokument `docs/o11-o18-verkauf-r4-note-html.md`).
+  R5 invoice_lines / Modellwechsel account.invoice.line -> account.move.line ist abgeschlossen:
+  beide Systeme nutzen dieselbe Tabelle `sale_order_line_invoice_rel`; die Verknuepfung wird nach
+  der Migration beider Seiten ueber einen fachlichen Schluessel (Rechnungsnummer, Position,
+  ggf. Produkt) wiederhergestellt, nie ueber Odoo-11-IDs; qty_invoiced, amount_invoiced und
+  invoice_status werden NICHT uebernommen, sondern von Odoo 18 aus den Rechnungsdaten berechnet
+  (Dokument `docs/o11-o18-verkauf-r5-invoice-lines.md`). Offen: R6 (tag_ids) bis R8.
 - **Bereich Verkauf - Teil 4 Schritt 3 Druckberichte (Session 121, 29.09.2026): ABGENOMMEN.
   Teil 4 damit abgeschlossen.** Dokument `docs/o11-o18-vergleich-verkauf-teil4-druckberichte.md`.
   Odoo 11 hatte drei Report-Aktionen auf `sale.order` ("Angebot/Auftrag" und "Proformarechnung"
