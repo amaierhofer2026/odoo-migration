@@ -318,7 +318,11 @@ Prüfwerkzeug: `python scripts/vm_abnahme_check.py` · Detailregel: `docs/arbeit
   `done` -> `state='sale'` + `locked=True`, alle anderen Zustaende 1:1, kein automatisches
   `locked` bei `sale`; Odoo-18-Wortlaut "Storniert" bleibt bestehen
   (Dokument `docs/o11-o18-verkauf-r3-status-done.md`).
-  Offen: R4 (note TEXT->HTML) bis R8.
+  R4 `note` (TEXT -> HTML) ist abgeschlossen: Umwandlung ueber die Odoo-18-Standardfunktion
+  `odoo.tools.mail.plaintext2html` (maskieren, Zeilenumbrueche erhalten, URLs als Links);
+  Odoo-18-Wortlaut "Allgemeine Geschaeftsbedingungen" bleibt bestehen. Messkorrektur: nur
+  3 Auftraege tragen echten Text - die frueher genannte Zahl 2.442 entstand aus leeren Strings.
+  (Dokument `docs/o11-o18-verkauf-r4-note-html.md`). Offen: R5 (invoice_lines) bis R8.
 - **Bereich Verkauf - Teil 4 Schritt 3 Druckberichte (Session 121, 29.09.2026): ABGENOMMEN.
   Teil 4 damit abgeschlossen.** Dokument `docs/o11-o18-vergleich-verkauf-teil4-druckberichte.md`.
   Odoo 11 hatte drei Report-Aktionen auf `sale.order` ("Angebot/Auftrag" und "Proformarechnung"
