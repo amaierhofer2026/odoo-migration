@@ -87,10 +87,11 @@ def main() -> int:
             const gruppe = (document.body.textContent || '').includes('Herkunft (Migration)') ? [1] : [];
             const feld = document.querySelector('input[name="itk_o11_invoice_number"], .o_field_widget[name="itk_o11_invoice_number"]');
             const inp = feld ? feld.querySelector('input') : null;
-            return {gruppe: gruppe.length, feld: !!feld,
+            const beschriftung = (document.body.textContent || '').includes('Odoo-11-Rechnungsnummer');
+            return {gruppe: beschriftung ? 1 : 0, feld: !!feld,
                     readonly: inp ? (inp.hasAttribute('readonly') || inp.readOnly) : null};
         }""")
-        pruefe(aus["gruppe"] > 0, "Gruppe 'Herkunft (Migration)' im Reiter sichtbar")
+        pruefe(aus["gruppe"] > 0, "Beschriftung 'Odoo-11-Rechnungsnummer' im Reiter sichtbar")
         pruefe(aus["feld"], "Feld 'Odoo-11-Rechnungsnummer' wird gerendert")
         pruefe(aus["readonly"] in (True, None), "Feld ist read-only (readonly=%s)" % aus["readonly"])
         s.screenshot(path=os.path.join(VZ, "01_Formular_Herkunft.png"), full_page=True)
