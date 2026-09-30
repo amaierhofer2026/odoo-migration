@@ -644,8 +644,24 @@ Entscheidung: fuer diese beiden Auftraege werden KEINE kuenstlichen Abschnittsze
 die Zuordnungen nur dokumentiert. Keine Aenderung an Odoo 18 erforderlich.
 Dokument: `docs/o11-o18-verkauf-r7-layout-category.md`.
 
-**STATUS: Teil 5 Block 3 und 4 abgeschlossen und im echten Browser auf der Abnahmeumgebung
-abgenommen; Abschlussmarkierung des Bereichs wegen R8 zurueckgestellt.**
+**R8 `amt_invoiced` / `amt_to_invoice`: ABGESCHLOSSEN (29.09.2026).** Odoo 11 fuehrt beide Werte
+gespeichert und steuerinklusive; Odoo 18 fuehrt `amount_invoiced` / `amount_to_invoice` berechnet
+und NICHT gespeichert (Import technisch unmoeglich). Berechnung: `amount_invoiced` = Summe
+`price_total` der verknuepften, GEBUCHTEN Rechnungszeilen (Gutschriften negativ);
+`amount_to_invoice` = (price_total / Menge) x (abzurechnende Menge - abgerechnete Menge).
+End-to-End-Test: Entwurfsrechnung -> amount_invoiced 0,00 / amount_to_invoice 120,00; gebuchte
+Rechnung -> 120,00 / 0,00.
+Entscheidung: keine Wertuebernahme, Odoo 18 berechnet neu (Voraussetzungen: Rechnungen und
+Rechnungszeilen migriert und gebucht, Verknuepfung nach R5). Ohne Rechnungsmigration gilt die
+ausdruecklich dokumentierte Erwartung `amount_invoiced` 0, `amount_to_invoice` = offener Betrag,
+`invoice_status` ggf. "to invoice" - nicht als Migrationsfehler zu deuten. Ziel bleibt, die
+historischen Rechnungsbezuege zu erhalten, damit die Werte identisch zu Odoo 11 berechnet werden.
+Dokument: `docs/o11-o18-verkauf-r8-invoiced-amounts.md`.
+
+**STATUS: R1 bis R8 technisch vorbereitet (Gesamtstatus
+`docs/o11-o18-verkauf-gesamtstatus-r1-r8.md`). Teil 5 Block 3 und 4 abgeschlossen und im echten
+Browser auf der Abnahmeumgebung abgenommen. Der Bereich Verkauf ist noch NICHT endgueltig
+abgeschlossen - die Abschlussmarkierung erfolgt nach Anna's Entscheidung.**
 Naechstes Modul noch nicht begonnen.
 
 
