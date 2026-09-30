@@ -20,7 +20,7 @@ ITK_AKTIONEN = ["Valorisierungstext ändern", "Zahlungsbedingungen setzen Abrech
                 "Rechnungsdatum Abrechnung", "Leistungszeitraum setzen", "Projektkategorie setzen"]
 ERWARTETE_FILTER = ["Meine Rechnungen", "Zu zahlen", "Überfällig"]
 ERWARTETE_GRUPPEN = ["Kunde", "Vertriebsmitarbeiter", "Verkaufsteam", "Status"]
-ERWARTETE_SPALTEN = ["Rechnungsdatum", "Gesamt", "Status", "Fälliger Betrag", "Referenzbeleg"]
+ERWARTETE_SPALTEN = ["Rechnungsdatum", "Fälligkeit", "Total", "Zu Bezahlen", "Referenzbeleg"]
 
 
 def lade_env(pfad):

@@ -1446,6 +1446,35 @@ Offen dokumentiert: Odoo-11-Zustand "Offen" ohne Gegenstueck (Teil 5); Beschrift
   (Verkaeufer/Vertriebsmitarbeiter, Vertriebskanal/Verkaufsteam, Zu bezahlen/Faelliger Betrag).
 ```
 
+LABEL-REGEL ABRECHNUNG (Anna, 30.09.2026, verbindlich fuer alle Module; rueckwirkend auf
+Teil 1-4 angewendet). Dokumente: `docs/o11-o18-abrechnung-labelmapping.md` (Feldmapping) und
+`docs/o11-o18-abrechnung-viewlabels.md` (View-Bezeichnungen):
+```
+Regel: Hat ein Feld in Odoo 18 fachlich dieselbe Bedeutung wie in Odoo 11, zeigt Odoo 18 die
+  sichtbare deutsche Bezeichnung aus Odoo 11. Technische Odoo-18-Feldnamen bleiben unveraendert.
+  Keine Angleichung bei fachlich unterschiedlicher Bedeutung; Odoo-18-Zusatzfelder bleiben.
+Pruefung (automatisiert):
+  scripts/check_abrechnung_labels.py     Feldbeschreibungen (de_DE), 57 Feldpaare,
+    schreibt docs/o11-o18-abrechnung-labelmapping.md
+    (Odoo-11-Feld -> Odoo-18-Zielfeld -> Odoo-11-Bezeichnung -> Odoo-18-Bezeichnung -> Zustand)
+  scripts/check_abrechnung_viewlabels.py View-Bezeichnungen (Spalten, Reiter, Gruppen, Filter,
+    Gruppierungen, Knoepfe), schreibt docs/o11-o18-abrechnung-viewlabels.md
+  scripts/apply_abrechnung_labels.py     setzt 33 Feldbeschreibungen auf den Odoo-11-Wortlaut
+    (nach jedem Modul-Upgrade erneut auszufuehren, lokal und VM)
+Umgesetzt: 33 Feldbeschreibungen (lokal und VM je 33 gesetzt) und 3 View-Spalten
+  (itk_reports 18.0.1.3.0, views/account_move_labels.xml: Total, Zu Bezahlen, Verkaeufer).
+  Beispiele: Verkaeufer, Vertriebskanal, Rechnungsdatum, Faelligkeit, Buchungsdatum,
+  Referenzbeleg, Weitere Informationen, Steuerzuordnung, Bankkonto, Total, Preis pro ME,
+  Mengeneinheit, Beschreibung, Kostenstelle, Project Category, Valorisation Text.
+Stand nach der Anpassung: 3 Feld-Abweichungen und 1 View-Abweichung, alle begruendet:
+  account.move.ref (Odoo-11-Feld reference nie belegt, Odoo 18 nutzt ref fuer Stornierungstexte),
+  account.move.payment_reference (in Odoo 11 nicht vorhanden), account.move.name (in Odoo 11
+  Begruendung/Beschreibung, keine 1:1-Zuordnung), Spalte Kunde/Lieferant (Odoo 11 beschriftete
+  die Kundenspalte irrefuehrend "Lieferant"; Odoo 18 trennt nach Belegart und bleibt).
+Browser-Nachweis VM (Liste): Spalten Nummer, Kunde, Rechnungsdatum, Faelligkeit, Referenzbeleg,
+  Referenz, Exklusive Steuern, Total, Zu Bezahlen, Status -> 19 OK / 0 FEHL.
+```
+
 ### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-15: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte, Produktformular), erste Abnahme 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119), Teil 15 am 24.09.2026 (Session 120) auf der VM im Browser abgenommen
 
 Dokument: `docs/o11-o18-vergleich-abo-teil1.md`; Teil 14: `docs/o11-o18-vergleich-abo-teil14.md`; Teil 15: `docs/o11-o18-vergleich-abo-teil15-produktformular.md`; Uebergabe und Vollstaendigkeitsbestaetigung: `docs/uebergabe-session-120-abonnements.md` (24.09.2026: jedes in Odoo 11 verwendete Feld, Reiter, Button, Smart Button, Statuswechsel, Filter, Gruppierung und jeder Geschaeftsprozess ist gleich vorhanden, funktional gleichwertig an anderer Stelle vorhanden oder bewusst dokumentiert; keine offene funktionale Abweichung).
