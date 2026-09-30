@@ -7839,3 +7839,15 @@ Pruefungen: Browser VM 19 OK / 0 FEHL mit den angeglichenen Spaltennamen, Regres
 Naechster Schritt: Teil 5 Feldabbildung/Migrationsregeln (auf Basis der Mapping-Tabelle),
   danach Teil 6 Berichte.
 ```
+
+## Session 122, Upgrade-Verfahren mit Label-Abgleich (30.09.2026)
+
+```
+Umgesetzt: scripts/upgrade_modules.py ruft nach jedem Modul-Upgrade automatisch
+  apply_abrechnung_labels.py, check_abrechnung_labels.py und check_abrechnung_viewlabels.py auf
+  (Instanz lokal/vm). Unbegruendete Abweichungen oder fehlende Felder -> Rueckgabewert ungleich 0.
+  Die drei dokumentierten Ausnahmen und die begruendete Spalte Kunde/Lieferant sind hinterlegt.
+  Abschaltbar mit --ohne-labels.
+Nachweis: lokal Upgrade itk_reports -> apply 0 gesetzt / 0 Abweichungen, beide Checks OK, exit 0;
+  VM Upgrade itk_reports -> apply 20 gesetzt (Upgrade setzt de_DE zurueck), beide Checks OK, exit 0.
+```

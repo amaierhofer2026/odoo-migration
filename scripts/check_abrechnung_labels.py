@@ -87,6 +87,14 @@ MAPPING = [
 ]
 
 
+# Bewusst begruendete Abweichungen (keine 1:1-Zuordnung, mit Anna abgestimmt 30.09.2026)
+BEGRUENDET = {
+    ("account.move", "ref"): "Odoo-11-Feld reference war nie belegt (0 Belege); Odoo 18 nutzt ref fuer Stornierungstexte",
+    ("account.move", "payment_reference"): "in Odoo 11 nicht vorhanden (Odoo-18-Zusatzfeld)",
+    ("account.move", "name"): "Odoo-11-Feld name = Begruendung/Beschreibung, nicht die Belegnummer (Regel in Teil 5)",
+}
+
+
 def labels(k, modell, felder):
     daten = k.kw(modell, "fields_get", [felder, ["string"]], context={"lang": "de_DE"})
     return {f: (daten.get(f, {}) or {}).get("string") for f in felder}
@@ -126,6 +134,8 @@ def main() -> int:
                 zustand = "FELD FEHLT"
             elif l18 == l11:
                 zustand = "gleich"
+            elif (m18, f18) in BEGRUENDET:
+                zustand = "begruendet abweichend"
             else:
                 zustand = "ABWEICHUNG"
                 abweichungen[name].append((m11, f11, l11, m18, f18, l18))
