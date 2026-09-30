@@ -7256,7 +7256,21 @@ R5 INVOICE_LINES / Modellwechsel (ABGESCHLOSSEN 29.09.2026):
   wiederherstellen, damit qty_invoiced/Rechnungsstatus korrekt berechnet werden; qty_invoiced,
   amount_invoiced und invoice_status NICHT aus Odoo 11 uebernehmen.
   Keine Aenderung an Odoo 18 erforderlich. Dokument: docs/o11-o18-verkauf-r5-invoice-lines.md
-Offen: R6 bis R8; Verkauf noch nicht endgueltig abgeschlossen.
+R6 TAG_IDS / Modellwechsel crm.lead.tag -> crm.tag (ABGESCHLOSSEN 29.09.2026):
+  Odoo 11 sale.order.tag_ids -> crm.lead.tag (Tabelle sale_order_tag_rel, order_id/tag_id);
+  crm.lead.tag_ids -> crm.lead.tag (crm_lead_tag_rel). Odoo 18: crm.tag; die Verkaufstabelle
+  heisst unveraendert sale_order_tag_rel, die Lead-Tabelle crm_tag_rel.
+  Verkauf: 1 von 2.464 Auftraegen mit Stichwort (A-1900710, Abgebrochen, "Up-Sell");
+  CRM: 6.155 von 6.968 Leads mit Stichwort. Odoo 18 (Testbestand): 0 crm.tag-Datensaetze.
+  Entscheidung Anna: Zuordnung ausschliesslich ueber den Tag-NAMEN (vorhandenen Tag suchen,
+  sonst mit Name und Farbindex aus Odoo 11 anlegen, Verknuepfung ueber sale_order_tag_rel bzw.
+  crm_tag_rel; bei mehreren gleichnamigen Tags Konflikt melden statt automatisch zuordnen).
+  Die 44 Odoo-11-Tags sind migrationsrelevante Stammdaten und im Dokument mit Name, Farbindex
+  und Nutzung vollstaendig erfasst (13 davon ohne jede Nutzung). Keine Anlage jetzt: die Tags
+  werden in der spaeteren Stammdatenmigration ZENTRAL EINMAL angelegt, damit Verkauf und CRM
+  dieselben Tags verwenden.
+  Keine Aenderung an Odoo 18 erforderlich. Dokument: docs/o11-o18-verkauf-r6-tag-ids.md
+Offen: R7 und R8; Verkauf noch nicht endgueltig abgeschlossen.
 ```
 
 ## Session 121, Teil 4 Schritt 3 (Druckberichte) und Abschluss Teil 4

@@ -328,7 +328,13 @@ Prüfwerkzeug: `python scripts/vm_abnahme_check.py` · Detailregel: `docs/arbeit
   der Migration beider Seiten ueber einen fachlichen Schluessel (Rechnungsnummer, Position,
   ggf. Produkt) wiederhergestellt, nie ueber Odoo-11-IDs; qty_invoiced, amount_invoiced und
   invoice_status werden NICHT uebernommen, sondern von Odoo 18 aus den Rechnungsdaten berechnet
-  (Dokument `docs/o11-o18-verkauf-r5-invoice-lines.md`). Offen: R6 (tag_ids) bis R8.
+  (Dokument `docs/o11-o18-verkauf-r5-invoice-lines.md`).
+  R6 `tag_ids` / Modellwechsel `crm.lead.tag` -> `crm.tag` ist abgeschlossen: Zuordnung
+  ausschliesslich ueber den Tag-Namen (fehlende Tags mit Name und Farbindex anlegen, Verknuepfung
+  ueber `sale_order_tag_rel` bzw. `crm_tag_rel`, gleichnamige Tags als Konflikt melden); die 44
+  Odoo-11-Tags sind als migrationsrelevante Stammdaten mit Name, Farbindex und Nutzung dokumentiert
+  und werden spaeter zentral einmal angelegt (Verkauf und CRM gemeinsam) - jetzt wird nichts
+  angelegt (Dokument `docs/o11-o18-verkauf-r6-tag-ids.md`). Offen: R7 (layout_category_id) und R8.
 - **Bereich Verkauf - Teil 4 Schritt 3 Druckberichte (Session 121, 29.09.2026): ABGENOMMEN.
   Teil 4 damit abgeschlossen.** Dokument `docs/o11-o18-vergleich-verkauf-teil4-druckberichte.md`.
   Odoo 11 hatte drei Report-Aktionen auf `sale.order` ("Angebot/Auftrag" und "Proformarechnung"

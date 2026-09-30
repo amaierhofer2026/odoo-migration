@@ -619,8 +619,21 @@ Rechnungen nicht migriert, wird keine historische Verknuepfung gesetzt. `qty_inv
 aus den Rechnungsdaten berechnet. Keine Aenderung an Odoo 18 erforderlich.
 Dokument: `docs/o11-o18-verkauf-r5-invoice-lines.md`.
 
+**R6 `tag_ids` / Modellwechsel `crm.lead.tag` -> `crm.tag`: ABGESCHLOSSEN (29.09.2026).** Die
+Verknuepfungstabelle des Verkaufs heisst in Odoo 18 unveraendert `sale_order_tag_rel`
+(`order_id` / `tag_id`); die Lead-Tabelle heisst jetzt `crm_tag_rel`. Verkauf: 1 von 2.464
+Auftraegen mit Stichwort (A-1900710, Zustand Abgebrochen, "Up-Sell"); CRM: 6.155 von 6.968 Leads.
+Odoo 18 (Testbestand) fuehrt 0 `crm.tag`-Datensaetze. Transformationsregel (Entscheidung Anna):
+Zuordnung ausschliesslich ueber den Tag-Namen; fehlende Tags mit Name und Farbindex aus Odoo 11
+anlegen; Verknuepfung anschliessend ueber `sale_order_tag_rel` bzw. `crm_tag_rel`; bei mehreren
+gleichnamigen Tags keine automatische Zuordnung, sondern Konfliktmeldung.
+Die 44 Odoo-11-Tags sind als migrationsrelevante Stammdaten vollstaendig dokumentiert (Name,
+Farbindex, Nutzung; 13 davon ohne Verwendung) und werden spaeter in der Stammdatenmigration zentral
+einmal angelegt, damit Verkauf und CRM dieselben Tags verwenden - jetzt wird nichts angelegt.
+Dokument: `docs/o11-o18-verkauf-r6-tag-ids.md`.
+
 **STATUS: Teil 5 Block 3 und 4 abgeschlossen und im echten Browser auf der Abnahmeumgebung
-abgenommen; Abschlussmarkierung des Bereichs wegen R6 bis R8 zurueckgestellt.**
+abgenommen; Abschlussmarkierung des Bereichs wegen R7 und R8 zurueckgestellt.**
 Naechstes Modul noch nicht begonnen.
 
 
