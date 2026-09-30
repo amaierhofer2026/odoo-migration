@@ -7789,3 +7789,28 @@ DEPLOY VM: git checkout Branch, docker compose stop odoo, one-shot docker compos
   -u itk_reports -d odoo18_test --stop-after-init --no-http, docker compose start odoo.
 Naechster Schritt: Teil 4 (Ansichten, Listen, Filter, Massenaktionen der Rechnung).
 ```
+
+## Session 122, Teil 4: Ansichten, Listen, Filter, Massenaktionen (30.09.2026)
+
+```
+Dokument: docs/o11-o18-vergleich-abrechnung-teil4-ansichten.md.
+Werkzeuge: scripts/analyse_abrechnung_teil4_ansichten.py, analyse_abrechnung_teil4_massen.py,
+  browser_teil4_rechnungsliste.py, diag_teil4_liste_dom.py.
+Ergebnis:
+  Listenspalten - Odoo 11: 10 Spalten; Odoo 18: alle vorhanden, aber "Faelliger Betrag"
+    (Odoo 11 "Zu bezahlen"), "Referenzbeleg" und "Referenz" waren optional="hide".
+    UMGESETZT: itk_reports 18.0.1.2.0, views/account_move_views.xml setzt die drei Spalten auf
+    optional="show" (Standardsichtbarkeit wie Odoo 11, nichts entfernt).
+  Suche - Odoo 11: 9 Filter / 6 Gruppierungen; Odoo 18: 18 Filter / 11 Gruppierungen;
+    inhaltlich vollstaendig (Offen -> Zu zahlen/In Zahlung; Verkaeufer -> Vertriebsmitarbeiter;
+    Vertriebskanal -> Verkaufsteam; Partner -> Kunde).
+  Massenbearbeitung - Odoo 11: 5 mass.object-Objekte auf der Rechnung; Odoo 18: genau diese
+    5 als Server-Aktionen mass_edit (1313, 1314, 1315, 1317, 1318, angelegt 15.07.2026) plus
+    Odoo-18-Standardaktionen.
+PRUEFUNGEN: Browser-Abnahme VM 19 OK / 0 FEHL (10 Spalten sichtbar, Filter/Gruppierungen
+  vorhanden, 5 von 5 Massenaktionen im Aktionsmenue, Massenbearbeitungs-Dialog geoeffnet und
+  verworfen, 0 JavaScript- und 0 RPC-Fehler); Regression 886 OK / 0 FEHL.
+DEPLOY VM: git checkout Branch, docker compose stop odoo, one-shot docker compose run --rm odoo
+  -u itk_reports -d odoo18_test --stop-after-init --no-http, docker compose start odoo.
+Naechster Schritt: Teil 5 (Migrationsregeln/Feldabbildung) und Teil 6 (Berichtsanalyse K3).
+```

@@ -1419,6 +1419,33 @@ DEPLOY VM: Branch per Git, gezieltes Einzel-Upgrade itk_reports (docker compose 
   danach auf main synchronisiert.
 ```
 
+TEIL 4 ANSICHTEN/LISTEN/FILTER/MASSENAKTIONEN (30.09.2026, UMGESETZT). Dokument:
+`docs/o11-o18-vergleich-abrechnung-teil4-ansichten.md`:
+```
+Listenspalten: Odoo 11 zehn Spalten, Odoo 18 hat alle Spalten, aber "Zu bezahlen"
+  (Faelliger Betrag), "Referenzbeleg" und "Referenz" waren optional="hide".
+  UMGESETZT: neue Ansicht itk_reports.view_itk_invoice_list_spalten
+  (addons/itk_reports/views/account_move_views.xml, itk_reports 18.0.1.2.0) setzt diese drei
+  Spalten auf optional="show" -> Standardsichtbarkeit wie Odoo 11, weiterhin ausblendbar.
+Suche: Odoo 11 neun Filter und sechs Gruppierungen, Odoo 18 achtzehn Filter und elf
+  Gruppierungen; inhaltlich vollstaendig (Odoo-11-"Offen" entspricht Odoo-18-"Zu zahlen"/
+  "In Zahlung"; Gruppierungen Verkaeufer/Vertriebsmitarbeiter, Partner/Kunde,
+  Vertriebskanal/Verkaufsteam).
+Massenaktionen: Odoo 11 hatte fuenf Massenbearbeitungsobjekte auf der Rechnung
+  (Valorisierungstext, Zahlungsbedingungen, Rechnungsdatum, Leistungszeitraum,
+  Projektkategorie). In Odoo 18 existieren genau diese fuenf als Server-Aktionen des Typs
+  mass_edit (id 1313, 1314, 1315, 1317, 1318; angelegt 15.07.2026 im Projekt) - kein Nachbau
+  noetig, nichts entfernt.
+PRUEFUNGEN: Browser-Abnahme VM 19 OK / 0 FEHL (zehn Spalten inklusive der drei angeglichenen,
+  Filter Ueberfaellig/Zu zahlen/Meine Rechnungen, Gruppierungen Kunde/Vertriebsmitarbeiter/
+  Verkaufsteam/Status, Aktionsmenue mit allen fuenf ITK-Massenaktionen, Massenbearbeitungs-
+  Dialog geoeffnet und verworfen), Regression 886 OK / 0 FEHL.
+DEPLOY VM: Branch per Git, Einzel-Upgrade itk_reports (docker compose stop/run/start), danach
+  auf main synchronisiert.
+Offen dokumentiert: Odoo-11-Zustand "Offen" ohne Gegenstueck (Teil 5); Beschriftungen
+  (Verkaeufer/Vertriebsmitarbeiter, Vertriebskanal/Verkaufsteam, Zu bezahlen/Faelliger Betrag).
+```
+
 ### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-15: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte, Produktformular), erste Abnahme 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119), Teil 15 am 24.09.2026 (Session 120) auf der VM im Browser abgenommen
 
 Dokument: `docs/o11-o18-vergleich-abo-teil1.md`; Teil 14: `docs/o11-o18-vergleich-abo-teil14.md`; Teil 15: `docs/o11-o18-vergleich-abo-teil15-produktformular.md`; Uebergabe und Vollstaendigkeitsbestaetigung: `docs/uebergabe-session-120-abonnements.md` (24.09.2026: jedes in Odoo 11 verwendete Feld, Reiter, Button, Smart Button, Statuswechsel, Filter, Gruppierung und jeder Geschaeftsprozess ist gleich vorhanden, funktional gleichwertig an anderer Stelle vorhanden oder bewusst dokumentiert; keine offene funktionale Abweichung).

@@ -91,19 +91,41 @@ Bewertung: vollstaendig abgebildet, 1:1 dieselben Feldmengen. Kein Nachbau noeti
 
 ## 5. Browser-Abnahme auf der VM
 
-Werkzeug: `scripts/browser_teil4_rechnungsliste.py --instanz vm`, Ergebnis siehe Abschnitt 6.
-Geprueft wurden: Listenspalten, Suchmenue (Filter und Gruppierungen), Aktionsmenue mit den
-ITK-Massenaktionen und der Dialog der Massenbearbeitung (geoeffnet und verworfen, nichts
-gespeichert).
+Ausgerollt ueber Git (Branch der Session) und gezieltes Einzel-Upgrade des Moduls `itk_reports`
+(`docker compose stop odoo`, one-shot `docker compose run --rm odoo -u itk_reports -d odoo18_test
+--stop-after-init --no-http`, `docker compose start odoo`).
+
+Werkzeug: `scripts/browser_teil4_rechnungsliste.py --instanz vm` -> **19 OK / 0 FEHL**.
+
+```
+OK  Listenspalten (10): Nummer, Kunde, Rechnungsdatum, Faelligkeitsdatum, Referenzbeleg,
+    Referenz, Exklusive Steuern, Gesamt, Faelliger Betrag, Status
+OK  Spalten 'Rechnungsdatum', 'Gesamt', 'Status', 'Faelliger Betrag', 'Referenzbeleg' sichtbar
+OK  Filter 'Meine Rechnungen', 'Zu zahlen', 'Ueberfaellig' im Suchmenue vorhanden
+OK  Gruppierungen 'Kunde', 'Vertriebsmitarbeiter', 'Verkaufsteam', 'Status' vorhanden
+OK  Aktionsmenue: Exportieren, Duplizieren, Loeschen, Stornieren, Buchungen bestaetigen,
+    Massenversand Rechnungen per Email, Valorisierungstext aendern, Zahlungsbedingungen setzen
+    Abrechnung, Rechnungsdatum Abrechnung, Leistungszeitraum setzen, Projektkategorie setzen,
+    ZIP exportieren
+OK  alle 5 ITK-Massenaktionen vorhanden (5 von 5)
+OK  Massenbearbeitungs-Dialog geoeffnet: "Valorisierungstext aendern - Die Behandlung wird fuer
+    den/die 47 ausgewaehlten Datensatz/e durchgefuehrt" mit Feld Valorisierungstext (verworfen,
+    nichts gespeichert)
+OK  keine JavaScript-Fehler, keine RPC-Fehler
+```
+
+Screenshots: `Desktop\Odoo18-Abnahme-Session122\teil4\01_Rechnungsliste.png`,
+`02_Aktionsmenue.png`, `03_Massenbearbeitung.png`.
 
 ## 6. Ergebnisse
 
 | Pruefung | Ergebnis |
 | --- | --- |
 | Spaltensichtbarkeit lokal | nach dem Modul-Upgrade `optional="show"` fuer Faelliger Betrag, Referenzbeleg, Referenz |
-| Spaltensichtbarkeit VM | siehe Browser-Ergebnis unten |
-| Massenaktionen | 5 von 5 im Aktionsmenue, Dialog zeigt die erwarteten Felder |
-| Regression | siehe unten |
+| Spaltensichtbarkeit VM | 10 sichtbare Spalten inklusive der drei angeglichenen (Browser-Beleg) |
+| Suchfilter und Gruppierungen | Odoo-11-Satz vollstaendig vertreten (Zu zahlen/Ueberfaellig/Meine Rechnungen; Kunde/Vertriebsmitarbeiter/Verkaufsteam/Status) |
+| Massenaktionen | 5 von 5 im Aktionsmenue, Dialog funktioniert (verworfen) |
+| Regression | 886 OK / 0 FEHL ueber 11 Prueflaeufe (Referenzniveau) |
 
 ## 7. Offene Punkte (dokumentiert, keine Funktionseinbusse)
 
