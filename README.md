@@ -299,6 +299,18 @@ Prüfwerkzeug: `python scripts/vm_abnahme_check.py` · Detailregel: `docs/arbeit
   `itk_subscription` 18.0.1.2.1; alle vorhandenen Ansichtstypen je Modell laden fehlerfrei,
   keine offenen View-Fehler; Regression Verkauf und Abonnements 886 OK / 0 FEHL. Checkliste
   Abschnitt 6.15 finalisiert, README und PROJECT_KNOWLEDGE aktualisiert.
+- **Bereich Verkauf - Gezielter Migrations-Check und R1 Mengeneinheiten (Session 121, 29.09.2026):
+  ABGESCHLOSSEN (R1), Gesamtbereich weiterhin offen.** Dokumente
+  `docs/o11-o18-verkauf-migrationscheck.md` (Risiken R1-R8 mit Belegen) und
+  `docs/o11-o18-verkauf-r1-mengeneinheiten.md` (R1: Zuordnung, Umsetzung, Pruefungen).
+  Der Migrations-Check hat 8 echte Risiken ergeben - deshalb wurde die Abschlussmarkierung des
+  Bereichs Verkauf auf Wunsch von Anna zurueckgestellt. R1 ist erledigt: Odoo 18 fuehrt
+  "GB" in der eigenen Kategorie "Datenmenge" (keine Umrechnung zu Liter/Volumen), die sieben
+  historischen Einheiten "13/15/16/19/22/23/29 Gemeinden" bleiben bestehen (Zuordnung spaeter
+  1:1 nach Namen), Rundung "Einheit(en)"/"ITK Einheit" 0,001, Dezimalgenauigkeit
+  "Product Unit of Measure" 3. Werkzeuge `scripts/apply_verkauf_r1_mengeneinheiten.py` (idempotent)
+  und `scripts/pruefe_verkauf_r1_mengeneinheiten.py` (64 OK / 0 FEHL), Regression 886 OK / 0 FEHL.
+  Offen: R2 (price_reduce) bis R8.
 - **Bereich Verkauf - Teil 4 Schritt 3 Druckberichte (Session 121, 29.09.2026): ABGENOMMEN.
   Teil 4 damit abgeschlossen.** Dokument `docs/o11-o18-vergleich-verkauf-teil4-druckberichte.md`.
   Odoo 11 hatte drei Report-Aktionen auf `sale.order` ("Angebot/Auftrag" und "Proformarechnung"

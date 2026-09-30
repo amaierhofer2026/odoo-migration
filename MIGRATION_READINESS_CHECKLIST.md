@@ -558,9 +558,24 @@ Massenbearbeitung, Zusammenfuehren von Auftraegen, transaction_ids).
 an das Ende des Body; Sichtbarkeitspruefungen ueber `offsetParent` schlagen dort fehl
 (position: fixed) - `getClientRects()` verwenden.
 
-**STATUS: VERKAUF ABGESCHLOSSEN - VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG
-MIGRATIONSVORBEREITET (lokal und VM, im echten Browser auf der Abnahmeumgebung abgenommen).**
-Keine offenen funktionalen oder strukturellen Punkte. Naechstes Modul noch nicht begonnen.
+**NACHTRAG 29.09.2026 (Entscheidung Anna): Abschlussmarkierung zurueckgestellt.** Der gezielte
+Migrations-Check (Feldzuordnung mit Wertepruefung, Formularaufbau, Spalten - Dokument
+`docs/o11-o18-verkauf-migrationscheck.md`) hat acht echte Migrationsrisiken ergeben (R1
+Mengeneinheiten, R2 price_reduce, R3 Zustand `done`, R4 note text->html, R5 invoice_lines,
+R6 tag_ids, R7 layout_category_id, R8 amt_invoiced/amt_to_invoice). Der Bereich Verkauf gilt
+erst dann wieder als migrationsbereit, wenn diese Risiken technisch eindeutig vorbereitet sind.
+
+**R1 Mengeneinheiten: ABGESCHLOSSEN (29.09.2026).** Odoo 18 fuehrt "GB" in der eigenen Kategorie
+"Datenmenge" (keine Umrechnung zu Liter/Volumen); die sieben historischen Einheiten
+"13/15/16/19/22/23/29 Gemeinden" bleiben bestehen und werden bei der Datenmigration 1:1 nach
+Namen zugeordnet (nicht auf "Einheit(en)" zusammengefuehrt); Rundung "Einheit(en)" und
+"ITK Einheit" 0,001; Dezimalgenauigkeit "Product Unit of Measure" 3. Nachweise: 64 OK / 0 FEHL,
+Regression 886 OK / 0 FEHL, Browser auf der VM 43 OK / 0 FEHL.
+Dokument: `docs/o11-o18-verkauf-r1-mengeneinheiten.md`.
+
+**STATUS: Teil 5 Block 3 und 4 abgeschlossen und im echten Browser auf der Abnahmeumgebung
+abgenommen; Abschlussmarkierung des Bereichs wegen R2 bis R8 zurueckgestellt.**
+Naechstes Modul noch nicht begonnen.
 
 
 **Historie Teil 1 (24.09.2026):** Nachweise damals `scripts/verify_s121_verkauf_menue.py`
