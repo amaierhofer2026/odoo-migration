@@ -7765,3 +7765,27 @@ Ergebnis:
   Journalname BNK1 (Stammdaten), Zahlungsnummern (Migrationsregel Teil 5).
 Naechster Schritt: B6 Mailvorlagen, danach Teil 4.
 ```
+
+## Session 122, B6: Mailvorlagen (30.09.2026)
+
+```
+Auftrag (Anna): B6 direkt bearbeiten - Odoo 11 vergleichen, eindeutige Unterschiede sofort in
+  Odoo 18 korrigieren, lokal und VM testen, echter Browser-Test, Regression, dokumentieren,
+  committen, PR, merge.
+Dokument: docs/o11-o18-vergleich-abrechnung-b6-mailvorlagen.md.
+UMSETZUNG IN ODOO 18 (erste echte Aenderung im Bereich Abrechnung):
+  Neues Datenfile addons/itk_reports/data/mail_template_invoice.xml, Modul itk_reports
+  18.0.1.1.0, mit den zwei in Odoo 11 verwendeten Rechnungsmailtexten:
+  "Rechnungsstellung: Allgemeine Rechnung" (Odoo 11 id 41/42) und
+  "Rechnungsstellung: Ihr Abonnement fuer help-amtsweg.gv.at" (Odoo 11 id 11).
+  Betreff wie Odoo 11, Absender ITK-Office, Anhang ITK-Rechnung, Briefkopf mit absoluter
+  Adresse, Verkaeufersignatur; Platzhalter auf Odoo 18 umgestellt. Mahn-/Erinnerungsvorlagen
+  bewusst nicht nachgebaut (Mahnwesen nicht installiert, K3/K7).
+PRUEFUNGEN: lokal 31 OK / 0 FEHL, VM 31 OK / 0 FEHL (gerendert an RE/2026/0005 mit
+  "IT-Kommunal GmbH Rechnung (Ref RE/2026/0005)" und PDF-Anhang), Browser-Abnahme VM
+  10 OK / 0 FEHL (beide ITK-Vorlagen im Massenversand-Dialog und in der Vorlagenliste
+  auswaehlbar, kein Versand ausgeloest), Regression 886 OK / 0 FEHL.
+DEPLOY VM: git checkout Branch, docker compose stop odoo, one-shot docker compose run --rm odoo
+  -u itk_reports -d odoo18_test --stop-after-init --no-http, docker compose start odoo.
+Naechster Schritt: Teil 4 (Ansichten, Listen, Filter, Massenaktionen der Rechnung).
+```

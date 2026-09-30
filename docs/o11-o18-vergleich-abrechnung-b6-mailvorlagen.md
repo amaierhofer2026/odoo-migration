@@ -113,18 +113,46 @@ Rendern an der gebuchten Testrechnung RE/2020/0001:
 Massenversand: Maildialog mit der ITK-Vorlage erzeugt einen Entwurf mit Betreff und Text
 ```
 
-### 5.2 VM-Abnahme
+### 5.2 VM-Abnahme (Test-VM k001959vsx.ipax.at)
+
+Ausgerollt ueber Git (Branch der Session) und gezieltes Einzel-Upgrade des Moduls itk_reports
+(`docker compose stop odoo`, one-shot `docker compose run --rm odoo -u itk_reports -d odoo18_test
+--stop-after-init --no-http`, `docker compose start odoo`); danach
+`python scripts/verify_b6_mailvorlagen.py --instanz vm` -> **31 OK / 0 FEHL**:
+beide Vorlagen vorhanden, Beschriftung, Absender, Betreff, Briefkopf, Anrede, Wortlaut,
+ITK-Rechnung als Anhang; gerendert an der gebuchten Rechnung RE/2026/0005 mit Betreff
+"IT-Kommunal GmbH Rechnung (Ref RE/2026/0005)" und PDF-Anhang.
+
+Browser-Abnahme (`scripts/browser_b6_mailvorlagen.py --instanz vm`) -> **10 OK / 0 FEHL**:
 
 ```
-Modul-Upgrade auf der Test-VM, danach:
-  python scripts/verify_b6_mailvorlagen.py --instanz vm  -> siehe Abschnitt 6
-  Browser-Test auf der VM (Rechnung oeffnen, Versand- und Vorlagenweg pruefen)
+OK  beide ITK-Vorlagen in der Vorlagenliste sichtbar
+OK  Aktionsmenue und Eintrag 'Massenversand Rechnungen per Email' vorhanden
+OK  Vorlagenfeld im Massenversand-Dialog vorhanden
+OK  Auswahlliste: Gutschrift: Versand | Rechnungsstellung: Allgemeine Rechnung |
+    Rechnungsstellung: Ihr Abonnement fuer help-amtsweg.gv.at | Rechnung: Versand |
+    Selbstfakturierte Gutschrift/Rechnung: Versand | Website Subscription: Payment success
+OK  beide ITK-Vorlagen im Dialog auswaehlbar (2 von 2)
+OK  ITK-Vorlage 'Allgemeine Rechnung' angeklickt, Betreff aus der Vorlage uebernommen
+    (Rendern je Empfaenger erfolgt beim Senden)
+OK  kein Versand ausgeloest (mail.mail unveraendert 62), Dialog verworfen
+OK  keine JavaScript-Fehler, keine RPC-Fehler
 ```
 
-## 6. VM-Ergebnis
+Screenshot: `Desktop\Odoo18-Abnahme-Session122\b6\02_Massenversand_Dialog.png`.
 
-Wird nach dem Ausrollen eingetragen (Teil dieser Aenderung, Abschnitt wird mit den Messwerten
-der VM ergaenzt).
+Regression (Modul Verkauf, 11 Prueflaeufe): **886 OK / 0 FEHL** (Referenzniveau).
+
+## 6. Ergebnis
+
+| Punkt | Ergebnis |
+| --- | --- |
+| ITK-Wortlaut aus Odoo 11 erhalten | ja, zwei Vorlagen mit unveraendertem Text, Absender und Berichtsanhang |
+| Auswaehlbar in Odoo 18 | ja, im Massenversand-Dialog und in der Vorlagenliste (Browser belegt) |
+| Odoo-18-Standard erhalten | ja, Standardvorlagen unveraendert; der Knopf "Senden" nutzt weiterhin die Standardvorlage |
+| Mahnwesen | nicht nachgebaut (Vorgabe K3/K7), Mahnvorlagen der Altdaten bleiben dokumentiert |
+| Aenderungsumfang | ein Datenfile in itk_reports (Version 18.0.1.1.0), keine Aenderung an Odoo-Standarddaten |
+| Pruefungen | lokal 31 OK, VM 31 OK, Browser VM 10 OK, Regression 886 OK, jeweils 0 FEHL |
 
 ## 7. Testdaten
 
