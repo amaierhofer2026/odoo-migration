@@ -249,20 +249,55 @@ Pruefpfad (`check_account_audit_trail`) fuer die Protokollierung aktivieren. Bei
 Einstellung, keine Datenmigration - Umsetzung erst nach Freigabe und in einer Testkopie
 verifizieren.
 
-## 6. Offene Entscheidungen (nichts umgesetzt)
+## 6. Entscheidungen von Anna (30.09.2026) - verbindlich
 
 ```
-K2a: Welcher Weg fuer R-25001? Empfehlung Weg A (Rechnung behaelt R-25001, Gutschrift erhaelt
-     eine neue Nummer, Originalnummer im Feld "Odoo-11-Rechnungsnummer").
-K2a-2: Soll das Feld "Odoo-11-Rechnungsnummer" in einem bestehenden ITK-Modul entstehen
-     (Vorschlag itk_base_setup) oder in einem eigenen kleinen Modul?
-K2b: sequence_override_regex wie vorgeschlagen einsetzen (Jahr + laufende Nummer)?
-     Alternativ: Nummerierung bewusst fortlaufend ohne Jahreswechsel.
-K2c: restrict_mode_hash_table auf dem Verkaufsjournal aktivieren (ja/nein) und Pruefpfad
-     (check_account_audit_trail) aktivieren (ja/nein)?
+K2a Doppelnummer R-25001: WEG A.
+  - Die Rechnung (id 9703) behaelt R-25001.
+  - Die Gutschrift (id 11531) erhaelt bei der Migration eine neue, eindeutige,
+    Odoo-18-konforme Nummer.
+  - Die urspruengliche Odoo-11-Nummer der Gutschrift (R-25001) muss zusaetzlich
+    nachvollziehbar erhalten bleiben.
+  - Dafuer wird ein eigenes Feld "Odoo-11-Rechnungsnummer" vorgesehen (Vorschlag aus
+    Abschnitt 3.1: itk_o11_invoice_number auf account.move, readonly, copy=False,
+    tracking, index, gefuellt fuer alle migrierten Belege).
+  - Kein zweites Verkaufsjournal nur wegen dieser einen Kollision.
+  Einordnung: Feldanlage und Migrationsregel in Teil 5 (Stammdaten und Abschluss); der
+  Einbauort des Feldes (bestehendes ITK-Modul oder eigenes Modul) wird dort vorgelegt.
+  Jetzt wird nichts angelegt und keine Nummer geaendert.
+
+K2b Zukuenftige Nummerierung: jahresbezogene Nummerierung wie vorgeschlagen ueber
+  sequence_override_regex (Journal "Ausgangsrechnungen (EUR)",
+  ^(?P<prefix1>R-)(?P<year>\d{2})(?P<seq>\d+)$).
+  - Vor der endgueltigen Umsetzung ist in einer Testkopie zu pruefen, wie der erste Beleg
+    eines neuen Jahres weitergezaehlt wird (Stellenzahl/Padding, erste Nummer des Jahres).
+  - Jetzt wird keine produktive Nummerierung geaendert.
+  Einordnung: Umsetzung vor der ersten neuen Rechnung nach der Migration (Teil 5).
+
+K2c Schutz der historischen Nummern: Hash-Sicherung (Journalfeld
+  restrict_mode_hash_table) und Pruefpfad (res.company.check_account_audit_trail) werden
+  erst NACH der echten Migration und nach erfolgreicher Kontrolle aktiviert.
+  - Jetzt keine Aenderung (weder Einstellung noch Daten).
+  Einordnung: Betriebs-/Abschlussschritt nach der Datenmigration (Teil 5 bzw. nach der
+  Migrationsfreigabe).
+
+Unveraendert gueltig: keine Datenmigration; keine historischen Rechnungsnummern aendern;
+  Odoo 11 ausschliesslich read-only; keine bestehende Odoo-18-Funktion entfernen.
 ```
 
-## 7. Rahmenbedingungen und Nachweise
+## 7. Offene Punkte (Stand nach den Entscheidungen)
+
+```
+K2a-2: Einbauort des Feldes "Odoo-11-Rechnungsnummer" (bestehendes ITK-Modul wie
+       itk_base_setup oder eigenes kleines Modul) - Entscheidung bei der Umsetzung in Teil 5.
+K2b-1: Testkopie mit Import der 6.263 Nummern und Gegenprobe der ersten Nummer eines neuen
+       Jahres - vor der endgueltigen Sequenzkonfiguration.
+K2c-1: Aktivierung von Hash-Sicherung und Pruefpfad erst nach der echten Migration und nach
+       erfolgreicher Kontrolle (Reihenfolge: importieren -> kontrollieren -> sichern).
+Alle Punkte sind vorbereitete Schritte der spaeteren Datenmigration; es wurde nichts umgesetzt.
+```
+
+## 8. Rahmenbedingungen und Nachweise
 
 ```
 keine Datenmigration, keine Nummer geaendert, kein Schreibvorgang in Odoo 18

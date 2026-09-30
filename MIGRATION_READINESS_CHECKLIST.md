@@ -1250,6 +1250,19 @@ K2 VOLLSTAENDIG GEKLAERT (30.09.2026, read-only): eigenes Dokument
   Pruefpfad (res.company.check_account_audit_trail) zur Protokollierung.
   Offen: K2a (Weg A/B/C), K2a-2 (Einbauort des Feldes), K2b (Override ja/nein), K2c (Hash und
   Pruefpfad ja/nein).
+ENTSCHEIDUNGEN VON ANNA (30.09.2026, verbindlich):
+  K2a -> Weg A: Rechnung id 9703 behaelt R-25001; die Gutschrift id 11531 erhaelt bei der
+     Migration eine neue, eindeutige Odoo-18-konforme Nummer; die urspruengliche Odoo-11-Nummer
+     bleibt zusaetzlich nachvollziehbar erhalten; dafuer wird ein eigenes Feld
+     "Odoo-11-Rechnungsnummer" vorgesehen; kein zweites Verkaufsjournal nur wegen dieser
+     Kollision. Einordnung: Feldanlage und Migrationsregel in Teil 5.
+  K2b -> jahresbezogene Nummerierung ueber sequence_override_regex wie vorgeschlagen; vorher in
+     einer Testkopie pruefen, wie der erste Beleg eines neuen Jahres weitergezaehlt wird; jetzt
+     keine produktive Nummerierung aendern. Einordnung: vor der ersten neuen Rechnung (Teil 5).
+  K2c -> Hash-Sicherung und Pruefpfad erst NACH der echten Migration und nach erfolgreicher
+     Kontrolle aktivieren; jetzt keine Aenderung. Einordnung: nach der Datenmigration.
+  Unveraendert: keine Datenmigration, keine historischen Nummern aendern, Odoo 11 read-only,
+     keine Odoo-18-Funktion entfernen.
 ```
 
 ### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-15: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte, Produktformular), erste Abnahme 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119), Teil 15 am 24.09.2026 (Session 120) auf der VM im Browser abgenommen

@@ -7624,6 +7624,17 @@ K2c Schutz: account.journal.restrict_mode_hash_table ("Gebuchte Posten mit Hash 
   (res.company.check_account_audit_trail).
 Offene Entscheidungen: K2a (Weg A/B/C), K2a-2 (Einbauort des Feldes: itk_base_setup oder eigenes
   Modul), K2b (Override ja/nein), K2c (Hash und Pruefpfad ja/nein). Nichts umgesetzt.
+ENTSCHEIDUNGEN VON ANNA (30.09.2026, verbindlich, im K2-Dokument Abschnitt 6 dokumentiert):
+  K2a Weg A: Rechnung id 9703 behaelt R-25001; Gutschrift id 11531 erhaelt bei der Migration eine
+    neue eindeutige Odoo-18-konforme Nummer; die urspruengliche Odoo-11-Nummer bleibt zusaetzlich
+    nachvollziehbar erhalten; dafuer eigenes Feld "Odoo-11-Rechnungsnummer"; kein zweites
+    Verkaufsjournal wegen dieser einen Kollision. Umsetzung/Einbauort in Teil 5.
+  K2b jahresbezogene Nummerierung ueber sequence_override_regex wie vorgeschlagen; vorher
+    Testkopie (erster Beleg eines neuen Jahres); jetzt keine produktive Nummerierung aendern.
+  K2c Hash-Sicherung und Pruefpfad erst nach der echten Migration und nach erfolgreicher
+    Kontrolle aktivieren; jetzt keine Aenderung.
+  Unveraendert: keine Datenmigration, keine historischen Rechnungsnummern aendern,
+    Odoo 11 ausschliesslich read-only, keine Odoo-18-Funktion entfernen.
 Werkzeuge: scripts/pruefe_k2_nummernformat.py (Nachbildung der Regexe und der Entscheidungskette),
   Quellcode-Fundstellen im Dokument (account_move.py, account_journal.py, sequence_mixin.py).
 ```
