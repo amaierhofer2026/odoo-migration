@@ -1265,6 +1265,45 @@ ENTSCHEIDUNGEN VON ANNA (30.09.2026, verbindlich):
      keine Odoo-18-Funktion entfernen.
 ```
 
+TEIL 3 FORMULARE, BUTTONS, ZUSTANDSWECHSEL, ZAHLUNG, DRUCK, VERSAND (30.09.2026, nur Analyse,
+keine Aenderung an Odoo 18). Dokument: `docs/o11-o18-vergleich-abrechnung-teil3.md`:
+```
+Reiter: O11 zwei (Rechnung, Andere Informationen) | O18 zwei im Browser (Rechnungszeilen,
+  Weitere Informationen); der Arch enthaelt einen zweiten Abschnitt other_info als Erweiterung.
+Kopf-Buttons: O11 vier (Bestaetigen, "Einzahlung erfassen" = act_window 178 auf account.payment,
+  "Nach Gutschrift fragen" = act_window 241 auf account.invoice.refund, Auf Entwurf setzen)
+  gegen O18 neunzehn Auspraegungen (Buchen/Bestaetigen, Senden, Drucken, Zahlen, Transaktion
+  erfassen/stornieren, Vorschau, Stornobuchung, Gutschrift, Abbrechen, Auf Entwurf
+  zuruecksetzen, Sperren, Stornierung anfordern, Als geprueft markieren, PEPPOL abbrechen),
+  alle mit ihren Bedingungen im Dokument.
+Smart Buttons: O11 keine (Zahlungen ueber payments_widget und outstanding_credits_debits_widget)
+  gegen O18 acht (bei der Testrechnung war genau "1 Zahlungen" sichtbar).
+Zustandswechsel: O11 Entwurf -> Offen -> Bezahlt, Storno -> Entwurf, Gutschrift ueber den
+  Assistenten account.invoice.refund; O18 Entwurf -> Gebucht -> Zahlungszustand,
+  "Auf Entwurf zuruecksetzen", Storno, Gutschrift ueber account.move.reversal, Sperren (K2c).
+  Der Odoo-11-Zustand "Offen" (43 Belege) bleibt der einzige Wert ohne direkte Entsprechung.
+Zahlung/Abstimmung: O11 5.987 Zahlungen (5.985 mit Rechnungsbezug), Sammelzahlungs-Assistent
+  vorhanden aber 0 Belege, 6.123 Teil- und 6.081 Vollabstimmungen, 0 Bankauszuege; O18 Zahlungen
+  ueber den Assistenten account.payment.register, Zahlungszustand als eigenes Feld, vier
+  Abstimmungsmodelle (Zusatzfunktion). Das Abstimmungsmodell ist in O11 mit dem Lesekonto nicht
+  lesbar (kein Leserecht) - Vorhandensein nur ueber ir.model belegt.
+Druck: O11 vier Berichte auf account.invoice (537 "Rechnung" und 538 "Rechnung mit Zahlung"
+  gebunden, 230/231 "ORG" ohne Bindung), kein Drucken-Knopf im Formular; O18 fuenf Berichte
+  (323, 324, 325, 406, 1231 "ITK-Rechnung") und Knopf "Drucken" (action_print_pdf erzeugt direkt
+  das PDF; Browser-Nachweis RE_2020_0001.pdf). attachment_use = False, es entstand kein Anhang.
+Versand: O11 2.549 Rechnungen mit sent=True und 9 Mailvorlagen (inkl. 3 Mahnvorlagen, Modul
+  mass_email_invoice); O18 Knopf "Senden" ueber account.move.send, 5 Standardvorlagen
+  (englische Bezeichnungen), Massenversand im Aktionsmenue. Vorlagenangleichung offen (Befund B6).
+Browser-Abnahme VM (read-only, scripts/browser_abrechnung_rechnung.py): 12 OK / 0 FEHL,
+  0 JavaScript- und 0 RPC-Fehler; Beleg 28 RE/2020/0001 blieb unveraendert
+  (write_date 2026-09-18 10:04:30, keine Anhaenge).
+Befunde B1-B9 (jeder einzeln, nichts umgebaut) im Dokument, Abschnitt 10; Umsetzungsvorschlaege
+  folgen erst nach Freigabe.
+Naechster Schritt (Vorschlag): Teil 4 Ansichten/Listen/Filter/Massenaktionen, Teil 5
+  Migrationsregeln/Feldabbildung (Offen-Regel, K2a-Umsetzung, K1, K5), Teil 6 Berichtsanalyse (K3)
+  und Vorlagen (B6).
+```
+
 ### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-15: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte, Produktformular), erste Abnahme 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119), Teil 15 am 24.09.2026 (Session 120) auf der VM im Browser abgenommen
 
 Dokument: `docs/o11-o18-vergleich-abo-teil1.md`; Teil 14: `docs/o11-o18-vergleich-abo-teil14.md`; Teil 15: `docs/o11-o18-vergleich-abo-teil15-produktformular.md`; Uebergabe und Vollstaendigkeitsbestaetigung: `docs/uebergabe-session-120-abonnements.md` (24.09.2026: jedes in Odoo 11 verwendete Feld, Reiter, Button, Smart Button, Statuswechsel, Filter, Gruppierung und jeder Geschaeftsprozess ist gleich vorhanden, funktional gleichwertig an anderer Stelle vorhanden oder bewusst dokumentiert; keine offene funktionale Abweichung).
