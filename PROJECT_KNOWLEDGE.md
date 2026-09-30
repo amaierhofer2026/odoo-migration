@@ -7814,3 +7814,28 @@ DEPLOY VM: git checkout Branch, docker compose stop odoo, one-shot docker compos
   -u itk_reports -d odoo18_test --stop-after-init --no-http, docker compose start odoo.
 Naechster Schritt: Teil 5 (Migrationsregeln/Feldabbildung) und Teil 6 (Berichtsanalyse K3).
 ```
+
+## Session 122, Label-Regel (30.09.2026, verbindlich fuer alle Module)
+
+```
+Regel (Anna): fachlich identische Felder zeigen in Odoo 18 die sichtbare deutsche Bezeichnung
+  aus Odoo 11; technische Odoo-18-Feldnamen bleiben unveraendert; keine Angleichung bei anderer
+  Bedeutung; Odoo-18-Zusatzfelder bleiben erhalten. Gilt fuer Formulare, Listen/Spalten, Reiter,
+  Gruppen, Suchansichten, Filter, Gruppierungen, Dialoge/Assistenten, Berichte.
+Werkzeuge:
+  scripts/check_abrechnung_labels.py     57 Feldpaare, Feldbeschreibungen de_DE, erzeugt
+    docs/o11-o18-abrechnung-labelmapping.md (Odoo-11-Feld -> Odoo-18-Zielfeld -> Odoo-11-Label
+    -> Odoo-18-Label -> Zustand -> Transformationsregel)
+  scripts/check_abrechnung_viewlabels.py View-Bezeichnungen, erzeugt
+    docs/o11-o18-abrechnung-viewlabels.md; begruendete Abweichungen sind dort hinterlegt
+  scripts/apply_abrechnung_labels.py     33 Feldbeschreibungen auf Odoo-11-Wortlaut
+    (nach JEDEM Modul-Upgrade erneut ausfuehren - Upgrades setzen de_DE zurueck)
+Umgesetzt: 33 Feldbeschreibungen (lokal und VM), View-Spalten der Rechnungsliste
+  (itk_reports 18.0.1.3.0: Total, Zu Bezahlen, Verkaeufer).
+Stand: 3 Feld- und 1 View-Abweichung verbleiben, alle begruendet (ref, payment_reference,
+  account.move.name, Spalte Kunde/Lieferant).
+Pruefungen: Browser VM 19 OK / 0 FEHL mit den angeglichenen Spaltennamen, Regression
+  886 OK / 0 FEHL.
+Naechster Schritt: Teil 5 Feldabbildung/Migrationsregeln (auf Basis der Mapping-Tabelle),
+  danach Teil 6 Berichte.
+```
