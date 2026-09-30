@@ -7239,7 +7239,24 @@ R4 NOTE text->html (ABGESCHLOSSEN 29.09.2026):
   odoo.tools.mail.plaintext2html (maskieren, Umbrueche erhalten, URLs als Links, Inhalt unveraendert).
   Wortlaut: Odoo-18 "Allgemeine Geschaeftsbedingungen" bleibt bestehen - nur dokumentiert.
   Keine Aenderung an Odoo 18 erforderlich. Dokument: docs/o11-o18-verkauf-r4-note-html.md
-Offen: R5 bis R8; Verkauf noch nicht endgueltig abgeschlossen.
+R5 INVOICE_LINES / Modellwechsel (ABGESCHLOSSEN 29.09.2026):
+  Odoo 11 sale.order.line.invoice_lines -> account.invoice.line, Tabelle sale_order_line_invoice_rel;
+  Gegenfeld account.invoice.line.sale_line_ids, dieselbe Tabelle. Odoo 18: invoice_lines ->
+  account.move.line, GLEICHE Tabelle und Spalten. invoice_ids/invoice_count sind in beiden
+  Systemen berechnet (nichts zu uebernehmen).
+  Umfang Odoo 11: 1.863 von 4.011 Auftragszeilen verknuepft (= Zeilen mit qty_invoiced > 0),
+  1.863 Rechnungszeilen aus 1.201 Rechnungen (1.194 Kundenrechnungen, 7 Gutschriften;
+  bezahlt 1.168 / offen 22 / Entwurf 11; Jahre 2019-2026), 1.198 Auftraege betroffen.
+  Test in Odoo 18: Verknuepfung in beide Richtungen schreibbar, Gegenseite wird automatisch
+  gefuellt; qty_invoiced reagiert sofort, amount_invoiced bleibt bei Entwurfsrechnung 0,0.
+  Entscheidung Anna: keine Wertuebernahme - Verknuepfung ueber sale_order_line_invoice_rel
+  wiederherstellen, Zuordnung ueber stabilen fachlichen Schluessel (Rechnungsnummer, Position,
+  ggf. Produkt/Auftragszeilenbezug), NIE ueber Odoo-11-IDs; Verknuepfung erst, wenn Rechnungen
+  in Odoo 18 vorhanden und eindeutig zuordenbar sind; historische Verknuepfungen grundsaetzlich
+  wiederherstellen, damit qty_invoiced/Rechnungsstatus korrekt berechnet werden; qty_invoiced,
+  amount_invoiced und invoice_status NICHT aus Odoo 11 uebernehmen.
+  Keine Aenderung an Odoo 18 erforderlich. Dokument: docs/o11-o18-verkauf-r5-invoice-lines.md
+Offen: R6 bis R8; Verkauf noch nicht endgueltig abgeschlossen.
 ```
 
 ## Session 121, Teil 4 Schritt 3 (Druckberichte) und Abschluss Teil 4

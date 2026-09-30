@@ -604,8 +604,23 @@ frueher genannte Zahl 2.442 entstand aus der Domain `[('note','!=',False)]`, die
 zaehlt. Die Abweichung betrifft ausschliesslich `note`.
 Dokument: `docs/o11-o18-verkauf-r4-note-html.md`.
 
+**R5 `invoice_lines` / Modellwechsel `account.invoice.line` -> `account.move.line`:
+ABGESCHLOSSEN (29.09.2026).** Beide Systeme nutzen die Verknuepfungstabelle
+`sale_order_line_invoice_rel` (Spalten `order_line_id` / `invoice_line_id`); nur das Zielmodell der
+Rechnungszeile hat gewechselt. Odoo 11: 1.863 von 4.011 Auftragszeilen verknuepft (= Zeilen mit
+`qty_invoiced` > 0) aus 1.201 Rechnungen (1.194 Kundenrechnungen, 7 Gutschriften; Jahre 2019-2026),
+1.198 Auftraege betroffen; `invoice_ids`/`invoice_count` sind in beiden Systemen berechnet.
+Transformationsregel (Entscheidung Anna): keine Wertuebernahme - die Verknuepfung wird nach der
+Migration beider Seiten ueber einen stabilen fachlichen Schluessel (Rechnungsnummer,
+Position/Reihenfolge, ggf. Produkt/Auftragszeilenbezug) wiederhergestellt, niemals ueber Odoo-11-IDs;
+Verbindung erst, wenn die Rechnungen in Odoo 18 vorhanden und eindeutig zuordenbar sind; werden
+Rechnungen nicht migriert, wird keine historische Verknuepfung gesetzt. `qty_invoiced`,
+`amount_invoiced` und `invoice_status` werden NICHT aus Odoo 11 uebernommen, sondern von Odoo 18
+aus den Rechnungsdaten berechnet. Keine Aenderung an Odoo 18 erforderlich.
+Dokument: `docs/o11-o18-verkauf-r5-invoice-lines.md`.
+
 **STATUS: Teil 5 Block 3 und 4 abgeschlossen und im echten Browser auf der Abnahmeumgebung
-abgenommen; Abschlussmarkierung des Bereichs wegen R5 bis R8 zurueckgestellt.**
+abgenommen; Abschlussmarkierung des Bereichs wegen R6 bis R8 zurueckgestellt.**
 Naechstes Modul noch nicht begonnen.
 
 
