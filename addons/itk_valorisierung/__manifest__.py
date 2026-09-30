@@ -5,10 +5,11 @@
     'author': "Alvarium Services, Andreas Väthröder, Fabian Väthröder",
     'website': "alvarium-services.de",
     'category': 'ITK - Specific Industry Applications',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.1.0',
     'depends': ['base', 'account', 'itk_subscription'],
     'data': [
         'security/ir.model.access.csv',
+        'data/valorisierungstexte_o11.xml',
         'views/valorisierung_views.xml',
         'views/account_invoice_views.xml',
     ],
