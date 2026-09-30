@@ -1531,6 +1531,32 @@ ENTSCHEIDUNGEN UND UMSETZUNG 30.09.2026 (Teil 6 / Label-Regel):
 Der Apply-Lauf setzt die Punkte 2 und 3 nach jedem Upgrade erneut und prueft sie.
 ```
 
+UMSETZUNG TEIL 5 (30.09.2026) - Stammdaten und Zuordnungen vorbereitet:
+```
+1) Neues Modul addons/itk_account_migration (18.0.1.0.0): Feld account.move.itk_o11_invoice_number
+   "Odoo-11-Rechnungsnummer" (read-only in Formular/Liste/Suche, nur Rechnungen/Gutschriften) und
+   account.payment.itk_o11_payment_number "Odoo-11-Zahlungsnummer". Kein Ueberschreiben der
+   Odoo-18-Nummern, keine Sequenzaenderung. Mapping: account.invoice.number -> itk_o11_invoice_number.
+2) Valorisierungstexte: 10 tatsaechlich verwendete Odoo-11-Texte in
+   addons/itk_valorisierung/data/valorisierungstexte_o11.xml (noupdate=1, XML-ID
+   valorisierung_o11_<O11-ID>); Odoo 18 hat jetzt 11 Texte, keine Dubletten.
+3) Konten-Mapping (read-only gezaehlt, 34.488 Buchungszeilen): O11 1201 Bank -> O18 2801 Bank;
+   O11 1410 Forderungen -> O18 2000 Forderungen aus Lieferungen und Leistungen Inland;
+   O11 1776 Umsatzsteuer 19% -> O18 3500 Umsatzsteuer 20%;
+   O11 8400 Erloese 19% USt -> O18 4000 Brutto-Umsatzerloese im Inland (20%).
+   Kein Zielkonto musste neu angelegt werden.
+4) Steuer-Mapping: einzige tatsaechlich verwendete O11-Steuer (ID 18 "20% Umsatzsteuer",
+   20 %, percent, sale, exklusiv) -> O18 ID 15 "20% Ust" (identisch) = 1:1, keine Neuanlage.
+5) Zahlungsnummern-Regel: O11 CUST.IN/<Jahr>/<4-stellig> bzw. CUST.OUT/<Jahr>/<4-stellig>
+   (CUST.IN/2019/0001 ... CUST.IN/2026/1061) wird in itk_o11_payment_number erhalten;
+   laufende Nummerierung bleibt die unveraenderte Odoo-18-Sequenz; keine Rueckschreibung
+   historischer Nummern in die Sequenz; Memo bleibt Rechnungsnummer.
+Doku: docs/o11-o18-vergleich-abrechnung-teil5-umsetzung.md, Rohdaten scripts/erhebe_teil5_rohdaten.py
+Nachweise lokal (Felder char/gespeichert, 11 Valorisierungstexte, Installation fehlerfrei),
+VM gleichartig, Regression 886 OK / 0 FEHL.
+Kein Blocker fuer eine spaetere Testmigration eines einzelnen Rechnungsdatensatzes.
+```
+
 ### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-15: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte, Produktformular), erste Abnahme 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119), Teil 15 am 24.09.2026 (Session 120) auf der VM im Browser abgenommen
 
 Dokument: `docs/o11-o18-vergleich-abo-teil1.md`; Teil 14: `docs/o11-o18-vergleich-abo-teil14.md`; Teil 15: `docs/o11-o18-vergleich-abo-teil15-produktformular.md`; Uebergabe und Vollstaendigkeitsbestaetigung: `docs/uebergabe-session-120-abonnements.md` (24.09.2026: jedes in Odoo 11 verwendete Feld, Reiter, Button, Smart Button, Statuswechsel, Filter, Gruppierung und jeder Geschaeftsprozess ist gleich vorhanden, funktional gleichwertig an anderer Stelle vorhanden oder bewusst dokumentiert; keine offene funktionale Abweichung).

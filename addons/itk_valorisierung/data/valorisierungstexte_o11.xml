@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        Valorisierungstexte aus Odoo 11 (Produktivsystem ITK_V1_a), read-only erhoben am 30.09.2026.
+        Vorbereitung der spaeteren Migration (Teil 5, Punkt 2). noupdate="1": bereits angelegte oder
+        spaeter gepflegte Texte werden nicht ueberschrieben; die XML-IDs sind an die Odoo-11-IDs
+        gebunden, damit die Zuordnung Odoo 11 -> Odoo 18 eindeutig bleibt.
+    -->
+    <data noupdate="1">
+    <record id="valorisierung_o11_1" model="itk_valorisierung.valorisierung">
+        <field name="name">VALORISIERUNGSHINWEIS 2019</field>
+    </record>
+    <record id="valorisierung_o11_2" model="itk_valorisierung.valorisierung">
+        <field name="name">VALORISIERUNGSHINWEIS 2020</field>
+    </record>
+    <record id="valorisierung_o11_3" model="itk_valorisierung.valorisierung">
+        <field name="name">VALORISIERUNGSHINWEIS 2021</field>
+    </record>
+    <record id="valorisierung_o11_4" model="itk_valorisierung.valorisierung">
+        <field name="name">VALORISIERUNGSHINWEIS 2022</field>
+    </record>
+    <record id="valorisierung_o11_5" model="itk_valorisierung.valorisierung">
+        <field name="name">VALORISIERUNGSHINWEIS 2023</field>
+    </record>
+    <record id="valorisierung_o11_6" model="itk_valorisierung.valorisierung">
+        <field name="name">Valorisierungshinweis 2024</field>
+    </record>
+    <record id="valorisierung_o11_7" model="itk_valorisierung.valorisierung">
+        <field name="name">VALORISIERUNGHINWEIS 2024 Acta Nova</field>
+    </record>
+    <record id="valorisierung_o11_8" model="itk_valorisierung.valorisierung">
+        <field name="name">VALORISIERUNGSHINWEIS 2024 gerundete Zahlen</field>
+    </record>
+    <record id="valorisierung_o11_9" model="itk_valorisierung.valorisierung">
+        <field name="name">Valorisierungshinweis 2025</field>
+    </record>
+    <record id="valorisierung_o11_10" model="itk_valorisierung.valorisierung">
+        <field name="name">Valorisierungshinweis 2026</field>
+    </record>
+    </data>
+</odoo>

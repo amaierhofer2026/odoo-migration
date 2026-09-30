@@ -1,0 +1,26 @@
+{
+    'name': 'ITK Abrechnung - Migrationsfelder',
+    'version': '18.0.1.0.0',
+    'summary': 'Felder zur Nachvollziehbarkeit der Odoo-11-Herkunft (Rechnungs- und Zahlungsnummer)',
+    'description': """
+ITK Abrechnung - Migrationsfelder
+================================
+Ergaenzt Felder, die ausschliesslich der historischen Nachvollziehbarkeit der Odoo-11-Daten
+dienen (Entscheidung K2a und Zahlungsnummern-Regel, Bereich Abrechnung):
+
+* account.move.itk_o11_invoice_number   - Odoo-11-Rechnungsnummer (read-only im normalen Betrieb)
+* account.payment.itk_o11_payment_number - Odoo-11-Zahlungsnummer (read-only im normalen Betrieb)
+
+Die Felder werden bei der spaeteren Migration befuellt; die laufende Odoo-18-Nummerierung
+(account.move.name) und die Odoo-18-Sequenzen bleiben unveraendert.
+""",
+    'author': 'IT Kommunal',
+    'license': 'LGPL-3',
+    'depends': ['account'],
+    'data': [
+        'views/account_move_views.xml',
+        'views/account_payment_views.xml',
+    ],
+    'installable': True,
+    'application': False,
+}
