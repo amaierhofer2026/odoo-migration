@@ -7226,7 +7226,20 @@ R3 STATUS done (ABGESCHLOSSEN 29.09.2026):
   beim direkten Setzen von state='sale' unberuehrt). 0 betroffene Datensaetze -> Fallback-Regel.
   Wortlaut: Odoo 18 "Storniert" bleibt bestehen (Odoo 11 "Abgebrochen") - nur dokumentiert.
   Keine Aenderung an Odoo 18 erforderlich. Dokument: docs/o11-o18-verkauf-r3-status-done.md
-Offen: R4 bis R8; Verkauf noch nicht endgueltig abgeschlossen.
+R4 NOTE text->html (ABGESCHLOSSEN 29.09.2026):
+  Odoo 11 note = text ("Geschaeftsbedingungen"), Odoo 18 note = html, sanitize
+  ("Allgemeine Geschaeftsbedingungen").
+  MESSKORREKTUR: Die fruehere Angabe "2.442 von 2.464 belegt" kam aus der Domain
+  [('note','!=',False)], die bei Textfeldern auch leere Strings zaehlt. Tatsaechlich tragen nur
+  3 Auftraege echten Text (A-1900897, A-1900947, A-2300151; einzeilig, 56-72 Zeichen).
+  Gegenpruefung: betrifft nur note, alle anderen Textfelder stimmen exakt.
+  Nachweis in Odoo 18 mit Schreibproben: reiner Text im HTML-Feld verliert den Zeilenumbruch
+  und spitze Klammern werden als HTML gedeutet -> Umwandlung zwingend.
+  Transformationsregel (Entscheidung Anna): ueber die Odoo-18-Standardfunktion
+  odoo.tools.mail.plaintext2html (maskieren, Umbrueche erhalten, URLs als Links, Inhalt unveraendert).
+  Wortlaut: Odoo-18 "Allgemeine Geschaeftsbedingungen" bleibt bestehen - nur dokumentiert.
+  Keine Aenderung an Odoo 18 erforderlich. Dokument: docs/o11-o18-verkauf-r4-note-html.md
+Offen: R5 bis R8; Verkauf noch nicht endgueltig abgeschlossen.
 ```
 
 ## Session 121, Teil 4 Schritt 3 (Druckberichte) und Abschluss Teil 4

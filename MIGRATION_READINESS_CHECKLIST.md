@@ -593,8 +593,19 @@ Zustaende 1:1; bei `sale` wird `locked` NICHT automatisch gesetzt (nur bei tatsa
 Wortlaut: Odoo-18 "Storniert" bleibt bestehen. Keine Aenderung an Odoo 18 erforderlich.
 Dokument: `docs/o11-o18-verkauf-r3-status-done.md`.
 
+**R4 `note` (TEXT -> HTML): ABGESCHLOSSEN (29.09.2026).** Odoo 11 fuehrt `note` als Textfeld
+("Geschaeftsbedingungen"), Odoo 18 als HTML-Feld (`sanitize`) mit dem Wortlaut "Allgemeine
+Geschaeftsbedingungen" (Wortlaut bleibt bestehen, Abweichung dokumentiert). Transformationsregel:
+Umwandlung mit der Odoo-18-Standardfunktion `odoo.tools.mail.plaintext2html` (HTML-Zeichen
+maskieren, Zeilenumbrueche erhalten, URLs als Links, Inhalt unveraendert) - Nachweis: reiner Text
+im HTML-Feld verliert den Zeilenumbruch, spitze Klammern werden als HTML gedeutet.
+**Messkorrektur:** Nur 3 Auftraege tragen echten Text (A-1900897, A-1900947, A-2300151); die
+frueher genannte Zahl 2.442 entstand aus der Domain `[('note','!=',False)]`, die auch leere Strings
+zaehlt. Die Abweichung betrifft ausschliesslich `note`.
+Dokument: `docs/o11-o18-verkauf-r4-note-html.md`.
+
 **STATUS: Teil 5 Block 3 und 4 abgeschlossen und im echten Browser auf der Abnahmeumgebung
-abgenommen; Abschlussmarkierung des Bereichs wegen R4 bis R8 zurueckgestellt.**
+abgenommen; Abschlussmarkierung des Bereichs wegen R5 bis R8 zurueckgestellt.**
 Naechstes Modul noch nicht begonnen.
 
 

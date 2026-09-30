@@ -70,11 +70,17 @@ Folge: Es gibt derzeit KEINEN Auftrag im Zustand 'done' - die Sperre muss also n
 ### R4 - sale.order.note: Typ text -> html
 
 ```
-Odoo 11: text, 2.442 von 2.464 Auftraegen belegt
-Odoo 18: html
-Erforderliche Transformationsregel: Inhalt beim Uebernehmen in HTML wandeln (Zeilenumbrueche,
-  Sonderzeichen), sonst geht die Formatierung des Bemerkungstextes verloren. Der Dateninhalt
-  selbst bleibt erhalten.
+Odoo 11: text, 2.442 von 2.464 Auftraegen "belegt" laut Odoo-Domain [('note','!=',False)]
+KORREKTUR 29.09.2026 (genau nachgezaehlt, read-only): Diese Domain zaehlt bei Textfeldern auch den
+  leeren String als "nicht False". Tatsaechlich tragen nur 3 von 2.464 Auftraegen echten Text
+  (A-1900897, A-1900947, A-2300151; alle einzeilig, ohne HTML-Zeichen, Laenge 56 bis 72 Zeichen).
+Odoo 18: html (sanitize), Anzeige "Allgemeine Geschaeftsbedingungen" gegen Odoo 11
+  "Geschaeftsbedingungen".
+Erforderliche Transformationsregel: Inhalt mit der Odoo-18-Standardfunktion
+  odoo.tools.mail.plaintext2html umwandeln (Entities maskieren, \n -> <br/>, URLs als Links).
+  Nachweis: Ohne Umwandlung bleibt ein \n in HTML wirkungslos (Zeilenumbruch sichtbar verloren)
+  und vom Anwender eingetippte spitze Klammern werden als HTML gedeutet.
+Einzelheiten: docs/o11-o18-verkauf-r4-note-html.md
 ```
 
 ### R5 - sale.order.line.invoice_lines: Relation account.invoice.line -> account.move.line
