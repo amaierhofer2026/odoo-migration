@@ -490,3 +490,23 @@ K2 vollstaendig geklaert: eigenes Dokument docs/o11-o18-vergleich-abrechnung-k2-
   Es wurde nichts migriert, keine Nummer geaendert, kein Schreibvorgang ausgefuehrt.
 ```
 
+## 13. Nachtrag 30.09.2026: Zielfeld fuer das Odoo-11-Feld `name` (Befund B2, Gutschrift)
+
+```
+Befund aus B2 (docs/o11-o18-vergleich-abrechnung-b2-gutschrift.md, Abschnitt 6, Punkt U3):
+Das Odoo-11-Feld `name` (Beschriftung "Referenz/Beschreibung") ist ein Freitextfeld und in
+1.418 Belegen belegt, davon 215 Gutschriften mit der Begruendung aus dem Gutschrift-Assistenten
+(z. B. "irrtuemlich ausgestellt", "falsch fakturiert").
+In Odoo 18 traegt `name` die Belegnummer; ein gleichnamiges Zielfeld gibt es nicht. In der
+Zuordnungstabelle (Abschnitt 2.1) war fuer dieses Feld daher kein Ziel definiert.
+Entscheidung von Anna (30.09.2026): den historischen Grund erhalten und fachlich korrekt in
+Odoo 18 abbilden, ohne ungenutzte Odoo-11-Felder zu rekonstruieren.
+Zuordnungsregel (Migration, noch nicht ausgefuehrt):
+  - Bei Belegen mit Gutschriftsbezug (refund_invoice_id gesetzt): `ref` nach Odoo-18-Muster
+    bilden ("Stornierung von: <alte Nummer der Rechnung>, <alter Grund>"); der Grund bleibt
+    zusaetzlich in der mitmigrierten Chatter-Nachricht "Gutschrift" erhalten.
+  - Bei den uebrigen Belegen mit gefuelltem `name` (1.203): Inhalt als Buchungstext/Ursprung
+    dokumentieren und zusammen mit der Regel fuer das Feld "Odoo-11-Rechnungsnummer" (K2a) in
+    Teil 5 festlegen; nichts loeschen, nichts umdeuten.
+  - Das Feld `reference` der Altdaten (0 Belege) wird nicht migriert.
+```

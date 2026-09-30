@@ -1347,6 +1347,18 @@ UNTERSCHIEDE (U1-U7, nichts umgebaut): U1 Sofort-Ausgleich des Odoo-11-Modus "Ab
   U7 Mehrfachauswahl/Belegarten: Verhalten dokumentiert (keine Luecke).
 ERGEBNIS: die in Odoo 11 verwendete Gutschrift-Funktion ist in Odoo 18 fachlich abgedeckt; offen
   sind nur Migrationspunkte (U2-U5), keine Funktionsluecke.
+ENTSCHEIDUNGEN VON ANNA (30.09.2026, verbindlich): Arbeitsweise ab jetzt = Fertigstellung von
+  Odoo 18 fuer die Migration (Befunde umsetzen statt einzeln vorlegen); Odoo 18 direkt anpassen,
+  wenn die fachliche Loesung eindeutig ist; Stopp nur bei echten Entscheidungen mit mehreren
+  sinnvollen Varianten. Fuer B2: Odoo-18-Standard account.move.reversal verwenden, keinen
+  Odoo-11-Assistenten nachbauen, Verknuepfung ueber reversed_entry_id/reversal_move_ids,
+  historischen Grund bei der Migration erhalten, Ursprung und alte Nummer nachvollziehbar halten,
+  ungenutzte Odoo-11-Felder nicht rekonstruieren, Odoo-18-Workflow beibehalten; den alten
+  Kurzbefehl "Abbrechen / sofort ausgleichen" NICHT nachbauen.
+ABSCHLUSS B2: KEINE Aenderung an Odoo 18 erforderlich (Odoo-18-Standard ist fachlich
+  ausreichend). Alle offenen Punkte sind Migrationsregeln fuer Teil 5: U2 auto_post = no,
+  U3 Odoo-11-Feld name -> ref nach Odoo-18-Muster plus Chatter-Nachricht (Nachtrag Abschnitt 13
+  im Feldinventar Teil 2), U4 Herkunftsregel, U5 22 Gutschriften ohne Bezug.
 ```
 
 ### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-15: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte, Produktformular), erste Abnahme 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119), Teil 15 am 24.09.2026 (Session 120) auf der VM im Browser abgenommen

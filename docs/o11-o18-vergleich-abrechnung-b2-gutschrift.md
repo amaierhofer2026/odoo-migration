@@ -257,7 +257,41 @@ Importsregel `auto_post = no` (U2).
   dem laufenden Produktivstand; die Datenlage (222 bezahlte, 15 offene Gutschriften, 0 Storno)
   passt dazu.
 
-## 9. Naechster Schritt
+## 9. Entscheidungen von Anna (30.09.2026) - verbindlich
+
+```
+Arbeitsweise Abrechnung ab 30.09.2026: Befunde nicht mehr einzeln analysieren und stoppen.
+  Ziel ist die tatsaechliche Fertigstellung von Odoo 18 fuer die spaetere Datenmigration.
+  Odoo 11 ausschliesslich read-only; keine Datenmigration; Odoo 18 direkt anpassen, wenn die
+  fachliche Loesung eindeutig ist; Odoo-18-Zusatzfunktionen nicht entfernen; nur bei echten
+  fachlichen Entscheidungen mit mehreren sinnvollen Varianten stoppen.
+B2 Gutschrift:
+  - Odoo-18-Standard account.move.reversal verwenden (kein Nachbau des Odoo-11-Assistenten).
+  - Verknuepfung Rechnung <-> Gutschrift ueber reversed_entry_id und reversal_move_ids.
+  - Den historischen Odoo-11-Grund bei der Migration erhalten und fachlich korrekt abbilden.
+  - Ursprung und alte Rechnungsnummer nachvollziehbar erhalten.
+  - Keine Rekonstruktion ungenutzter Odoo-11-Felder.
+  - Den Odoo-18-Workflow (Stornieren, Stornieren und Rechnung erstellen, Verwerfen) beibehalten.
+  - Den optionalen alten Kurzbefehl "Abbrechen / sofort ausgleichen" NICHT nachbauen, weil das
+    fachliche Ergebnis mit Odoo-18-Bordmitteln erreicht wird (buchen und abstimmen).
+```
+
+Umsetzung dieser Entscheidungen:
+
+| Punkt | Ergebnis |
+| --- | --- |
+| Odoo-18-Standard verwenden | keine Aenderung an Odoo 18 noetig: `account.move.reversal` ist aus Sicht von Teil 3 und B2 fachlich ausreichend (Dialog mit Begruendung, Journal, Stornodatum; zwei Wege plus Verwerfen) |
+| Kein Nachbau des Odoo-11-Assistenten | keine Code-Aenderung; U1 wird bewusst nicht umgesetzt |
+| Verknuepfung | Odoo 18 setzt `reversed_entry_id` (Gutschrift) und berechnet `reversal_move_ids` (Rechnung); beim Import wird die Verknuepfung ueber das Feld `refund_invoice_id` der Altdaten gesetzt (Regel Teil 5) |
+| Historischer Grund erhalten | Mapping-Regel: Odoo-11-Feld `name` (Grund/Beschreibung) wird beim Import in `ref` nach Odoo-18-Muster geschrieben ("Stornierung von: <alte Nummer>, <alter Grund>") und bleibt zusaetzlich in der mitmigrierten Chatter-Nachricht erhalten. Nachtrag im Feldinventar Teil 2 |
+| Ursprung und alte Nummer nachvollziehbar | `origin` der Altdaten (Nummer der Rechnung) bleibt als Text im `ref`; die alte Belegnummer wird zusaetzlich im geplanten Feld "Odoo-11-Rechnungsnummer" (K2a) gesichert; `invoice_origin` wird wie in Odoo 18 ueblich aus der Herkunft der Rechnung gebildet |
+| Keine Rekonstruktion ungenutzter Felder | betrifft insbesondere den Odoo-11-Modus "Modifizieren" (kein Hinweis auf Nutzung) und das Odoo-11-Feld `reference` (0 Belege): nichts nachbauen, nichts rekonstruieren |
+| Odoo-18-Workflow beibehalten | die drei Knoepfe und die Automatikbuchung bei Zukunftsdatum bleiben unveraendert; Importregel `auto_post = no` (U2) stellt sicher, dass die Automatik bei Altdaten nicht greift |
+
+Damit ist B2 abgeschlossen: **keine Aenderung an Odoo 18 erforderlich**, alle offenen Punkte sind
+Migrationsregeln fuer Teil 5 (U2, U3, U4, U5).
+
+## 10. Naechster Schritt
 
 B3 Zahlung (Odoo-11-Dialog "Einzahlung erfassen" gegen Odoo-18-Assistent
 `account.payment.register`), danach B6 Mailvorlagen. Nichts davon begonnen.

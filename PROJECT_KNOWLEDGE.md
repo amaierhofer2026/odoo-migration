@@ -7724,4 +7724,17 @@ Bewertung: fachlich abgedeckt. Offen sind nur Migrationspunkte: U2 auto_post = n
   (Nummer der Rechnung nur im ref-Text), U5 22 Gutschriften ohne Bezug. U1 (Sofort-Ausgleich des
   Odoo-11-Modus "Abbrechen" als eigener Knopf) ist kein Muss, Vorschlag: nichts umbauen.
 Naechster Schritt: B3 Zahlung, danach B6 Mailvorlagen (jeweils separat, nichts begonnen).
+ENTSCHEIDUNGEN VON ANNA (30.09.2026, verbindlich): ab jetzt Fertigstellung statt Einzelbefunde -
+  Odoo 18 direkt anpassen, wenn die fachliche Loesung eindeutig ist; Stopp nur bei echten
+  Entscheidungen mit mehreren sinnvollen Varianten; weiterhin keine Datenmigration und Odoo 11
+  nur lesend.
+ABSCHLUSS B2: Odoo-18-Standard account.move.reversal verwenden (kein Nachbau des Odoo-11-
+  Assistenten), Verknuepfung ueber reversed_entry_id/reversal_move_ids, historischen Grund bei
+  der Migration erhalten (Odoo-11 name -> ref nach Odoo-18-Muster plus Chatter-Nachricht,
+  Nachtrag Abschnitt 13 im Feldinventar Teil 2), Ursprung und alte Nummer nachvollziehbar halten,
+  ungenutzte Felder nicht rekonstruieren, Odoo-18-Workflow beibehalten; Kurzbefehl
+  "Abbrechen / sofort ausgleichen" wird NICHT nachgebaut.
+  Ergebnis: KEINE Aenderung an Odoo 18 erforderlich. Offene Punkte sind Migrationsregeln fuer
+  Teil 5 (U2 auto_post = no, U3 Ziel fuer den Grund, U4 Herkunftsregel, U5 22 Gutschriften ohne
+  Bezug).
 ```
