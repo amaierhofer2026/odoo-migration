@@ -7738,3 +7738,30 @@ ABSCHLUSS B2: Odoo-18-Standard account.move.reversal verwenden (kein Nachbau des
   Teil 5 (U2 auto_post = no, U3 Ziel fuer den Grund, U4 Herkunftsregel, U5 22 Gutschriften ohne
   Bezug).
 ```
+
+## Session 122, B3: Zahlung (30.09.2026)
+
+```
+Auftrag (Anna): B3 direkt bearbeiten - Odoo 11 vergleichen, eindeutige Unterschiede sofort in
+  Odoo 18 korrigieren, lokal und VM testen, echter Browser-Test, Regression, dokumentieren,
+  committen, PR, merge.
+Dokument: docs/o11-o18-vergleich-abrechnung-b3-zahlung.md.
+Werkzeuge: scripts/analyse_abrechnung_b3_zahlung.py, scripts/test_b3_zahlung.py,
+  scripts/browser_b3_zahlung.py, scripts/diag_b3_zahlungszustand_dom.py.
+Ergebnis:
+  Odoo 11: 5.987 Zahlungen, alle "Manuell", Journal BNK1, 5.877 Eingang / 110 Ausgang,
+    Memo = Rechnungsnummer (5.974 gefuellt), alle gebucht, keine Abschreibungen, keine
+    Bankauszuege, Sammelzahlungs-Assistent unbenutzt (0 Belege).
+  Odoo 18: Knopf "Zahlen" -> Assistent account.payment.register mit Journal (Bank),
+    Zahlungsmethode, Betrag, Waehrung, Zahlungsdatum, Vermerk (Vorbelegung Rechnungsnummer);
+    Knoepfe "Zahlung erstellen" und "Verwerfen".
+  Funktionstest lokal: Zahlung PBNK1/2026/00002 erzeugt, Rechnung bezahlt (Rest 0,00),
+    Buchungssatz 2803 Ausstehende Eingaenge / 2000 Forderungen, Zaehler +1.
+  Browser-Abnahme VM: 16 OK / 0 FEHL (Entwurf buchen -> Zahlen -> Zahlung erstellen ->
+    "Bezahlt am 30.09.2026", Smart Button "1 Zahlungen"), 0 JavaScript- und 0 RPC-Fehler.
+  Regression: 886 OK / 0 FEHL ueber 11 Prueflaeufe.
+  Ergebnis: kein funktionaler Unterschied, keine Anpassung an Odoo 18 erforderlich.
+  Offen dokumentiert: Beschriftung der Zahlungsmethodenzeile ("Manuell" gegen "Manual Payment"),
+  Journalname BNK1 (Stammdaten), Zahlungsnummern (Migrationsregel Teil 5).
+Naechster Schritt: B6 Mailvorlagen, danach Teil 4.
+```
