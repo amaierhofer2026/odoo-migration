@@ -658,10 +658,18 @@ ausdruecklich dokumentierte Erwartung `amount_invoiced` 0, `amount_to_invoice` =
 historischen Rechnungsbezuege zu erhalten, damit die Werte identisch zu Odoo 11 berechnet werden.
 Dokument: `docs/o11-o18-verkauf-r8-invoiced-amounts.md`.
 
-**STATUS: R1 bis R8 technisch vorbereitet (Gesamtstatus
-`docs/o11-o18-verkauf-gesamtstatus-r1-r8.md`). Teil 5 Block 3 und 4 abgeschlossen und im echten
-Browser auf der Abnahmeumgebung abgenommen. Der Bereich Verkauf ist noch NICHT endgueltig
-abgeschlossen - die Abschlussmarkierung erfolgt nach Anna's Entscheidung.**
+**ABSCHLUSSMARKIERUNG 29.09.2026 (Entscheidung Anna): VERKAUF FUNKTIONAL VOLLSTAENDIG UND
+MIGRATIONSVORBEREITET.** Hinweis: Die Regeln R1 bis R8 sind ausschliesslich vorbereitete Regeln
+fuer die spaetere Datenmigration und keine offenen Funktionsluecken im Odoo-18-Verkaufsmodul
+(Gesamtstatus `docs/o11-o18-verkauf-gesamtstatus-r1-r8.md`, Abschlussdokument
+`docs/o11-o18-verkauf-abschluss.md`).
+Reihenfolge der spaeteren Datenmigration (dokumentiert, nicht ausgefuehrt): 1. Stammdaten zuerst
+(Mengeneinheiten R1, Tags R6) - 2. Auftraege und Auftragszeilen - 3. Rechnungen/Rechnungszeilen im
+Bereich Abrechnung - 4. Verknuepfung Auftragszeile <-> Rechnungszeile gemaess R5 - 5. berechnete
+Felder wie amount_invoiced, amount_to_invoice und invoice_status durch Odoo 18 neu berechnen (R8).
+Es wurden keine Odoo-11-Daten migriert; Odoo 11 ausschliesslich read-only. Teil 5 Block 3 und 4
+wurden im echten Browser auf der Abnahmeumgebung abgenommen (243 OK / 0 FEHL als Aggregatlauf,
+43 OK / 0 FEHL im Klickpfad).
 Naechstes Modul noch nicht begonnen.
 
 
