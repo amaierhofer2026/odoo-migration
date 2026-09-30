@@ -1194,6 +1194,22 @@ Odoo-18-ZUSATZFUNKTIONEN (bleiben erhalten): Abrechnungspositionen, Pruefpfad, B
 Offene Fachfragen (K1-K9 im Dokument): Kontenrahmen-Mapping, Nummernkreis, Nutzung der acht
   PDF-Berichte, Anlage der 10 Valorisierungstexte, Steuerzuordnung (Teil 2/3), Zahlungsmenu-Domain,
   SMTP/Rechnungsversand, Kostenstellen-Tags, USD/Preisliste F2-F5.
+Browser-Spotcheck auf der VM (30.09.2026, read-only, scripts/browser_abrechnung_menue.py):
+  App Rechnungsstellung im echten Browser geoeffnet, alle sechs Menuegruppen echt geklickt;
+  Ergebnis 17 OK / 0 FEHL, 0 JavaScript- und 0 RPC-Fehler. Abgleich RPC-Sichtbarkeit gegen
+  Browser: 38 sichtbare Menuepunkte, 37 im Browser gefunden, 1 dokumentierte Abweichung
+  (Befund F57: Menue "Pruefpfad" id 245 per RPC sichtbar, im Web-Client nicht ausgeliefert).
+  Gegenprobe: die sieben Odoo-11-Berichtsnamen sind im Browser nicht sichtbar.
+  Screenshots Desktop\Odoo18-Abnahme-Session122\; Belegprobe "1-47 / 47" Ausgangsrechnungen.
+Entscheidungen von Anna (30.09.2026, verbindlich): K1 Kontenrahmen l10n_at bleibt, Mapping-Tabelle
+  O11-Konto -> O18-Konto fuer spaeter vorbereiten; K2 historische Rechnungsnummern muessen erhalten
+  bzw. nachvollziehbar zugeordnet werden (Pruefung im Feldinventar, nichts umnummerieren);
+  K3 die acht PDF-Berichte nicht nachbauen, erst Nutzung und Inhalt in der Berichtsanalyse
+  feststellen; K4 die 10 Valorisierungstexte als migrationsrelevante Stammdaten erhalten
+  (Mapping vorbereiten, jetzt nichts anlegen); K5 vollstaendiges Steuer-Mapping vorbereiten;
+  K6 Odoo-18-Zahlungsmenues bleiben, Odoo-11-Navigation nur bei echter Funktionsluecke;
+  K7 SMTP nur als offener Infrastrukturpunkt dokumentieren; K8 Kostenstellen-Tags nicht nachbauen;
+  K9 USD-Waehrung/Preisliste als offener Pruefpunkt dokumentiert.
 Naechster Schritt (Vorschlag): Teil 2 Feldinventar account.invoice/account.invoice.line gegen
   account.move/account.move.line.
 ```

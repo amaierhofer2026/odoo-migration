@@ -7497,6 +7497,25 @@ Offene Fachfragen K1-K9 (im Dokument): Kontenrahmen-Mapping (SKR03/04 -> l10n_at
 Werkzeuge (neu, read-only): scripts/analyse_abrechnung_menue2.py, analyse_abrechnung_teil1.py,
   analyse_abrechnung_nutzung.py, analyse_abrechnung_details.py (bis ...details6.py),
   vergleiche_abrechnung_lokal_vm.py. Rohdaten nur im Temp-Verzeichnis, nicht im Repo.
+Browser-Spotcheck auf der VM (30.09.2026, read-only): scripts/browser_abrechnung_menue.py,
+  App Rechnungsstellung im echten Browser (Playwright/Chrome headless), alle sechs Menuegruppen
+  echt geklickt: 17 OK / 0 FEHL, 0 JavaScript- und 0 RPC-Fehler. Abgleich RPC-Sichtbarkeit gegen
+  Browser: 38 sichtbare Menuepunkte, 37 im Browser, 1 dokumentierte Abweichung.
+  Befund F57 (neu): Menue "Pruefpfad" (ir.ui.menu id 245, Aktion 400 auf mail.message, ohne
+  Gruppenbeschraenkung) ist per RPC sichtbar, wird dem Web-Client aber nicht ausgeliefert
+  (Popover-DOM geprueft: nur Gruppenkopf "Verwaltung" mit "Rechnungsanalyse"). Odoo-18-
+  Zusatzfunktion ohne Odoo-11-Entsprechung, kein Handlungsbedarf; das Werkzeug fuehrt die
+  Abweichung als dokumentierte Positivliste. Screenshots Desktop\Odoo18-Abnahme-Session122\,
+  Belegprobe "1-47 / 47" Ausgangsrechnungen deckt die gemessenen 47 Belege der VM.
+Entscheidungen von Anna (30.09.2026, verbindlich, im Dokument Abschnitt 12): K1 Kontenrahmen
+  l10n_at bleibt + Mapping-Tabelle O11-Konto -> O18-Konto spaeter; K2 historische Rechnungsnummern
+  erhalten bzw. nachvollziehbar zuordnen (Pruefung im Feldinventar, nichts umnummerieren);
+  K3 die acht PDF-Berichte nicht nachbauen, zuerst Nutzung/Inhalt in der Berichtsanalyse;
+  K4 10 Valorisierungstexte als migrationsrelevante Stammdaten erhalten (Mapping vorbereiten);
+  K5 Steuer-Mapping vorbereiten ohne Datenmigration; K6 Odoo-18-Zahlungsmenues bleiben;
+  K7 SMTP nur dokumentieren; K8 Kostenstellen-Tags nicht nachbauen; K9 USD/Preisliste als
+  offener Pruefpunkt dokumentiert.
+Git: Branch session-122-abrechnung-teil1, Commit 4431f63 (Teil 1) + Browser-Spotcheck.
 Naechster Vorschlag: Teil 2 Feldinventar account.invoice/account.invoice.line gegen
   account.move/account.move.line; Entscheidungen zu K1, K3, K4 und K6 vor Teil 3.
 Es wurden keine Odoo-11-Daten migriert; Odoo 11 wurde ausschliesslich lesend verwendet.

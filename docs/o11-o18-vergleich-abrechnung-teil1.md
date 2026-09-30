@@ -578,3 +578,79 @@ Odoo 18 lokal und VM geprueft: Menuebaum 63 = 63, Modulversionen 20 von 20 ident
 Bestand Odoo 18 unveraendert (lokal 37 Belege, VM 57 Belege; Zahlungen je 7).
 Rohdaten der Messungen liegen nicht im Repo (Temp-Verzeichnis).
 ```
+
+## 11. Browser-Spotcheck der Abrechnungsmenues auf der VM (30.09.2026, read-only)
+
+Werkzeug: `scripts/browser_abrechnung_menue.py` (Playwright + Chrome, headless, Sitzung per RPC).
+Aufruf: `uv run --with playwright python scripts/browser_abrechnung_menue.py --instanz vm`.
+
+Vorgehen: zuerst die fuer den angemeldeten Benutzer sichtbaren Menues per RPC lesen (ohne
+`ir.ui.menu.full_list`, also genau die Benutzersicht), dann dieselbe App im echten Browser auf
+`https://k001959vsx.ipax.at` oeffnen, jede Menuegruppe echt anklicken und die sichtbaren
+Menuepunkte auslesen; anschliessend RPC-Sichtbarkeit gegen Browser-Sichtbarkeit abgleichen.
+
+```
+Ergebnis: 17 OK / 0 FEHL, 0 JavaScript-Fehler, 0 RPC-Fehler (HTTP >= 400)
+App: Navbar "Rechnungsstellung Kunden Lieferanten Konfiguration Konfiguration Berichtswesen
+  Konfiguration" - App geoeffnet, sechs klickbare Menuegruppen.
+Kunden        -> Ausgangsrechnungen, Gutschriften, Eingaenge, Zahlungen, Produkte, Kunden
+Lieferanten   -> Eingangsrechnungen, Rueckerstattungen, Eingaenge, Zahlungen, Produkte, Lieferanten
+Berichtswesen -> Verwaltung (Gruppenkopf), Rechnungsanalyse, Abrechnungspositionen
+Konfiguration (1) -> Valorisierung
+Konfiguration (2) -> Projekt Kategorie
+Konfiguration (3) -> Einstellungen, Zahlungsbedingungen, Bankkonto hinzufuegen, Steuern, Journale,
+                     Waehrungen, Steuerpositionen, Zahlungsanbieter, Zahlungsmethoden,
+                     Produktkategorien, Bargeldrundungen, Verteilungsschluessel fuer Kostenstellen,
+                     Kostenstellen, Kostenstellenplaene
+Abgleich: 38 laut RPC sichtbare Menuepunkte, 37 im Browser gefunden, 1 dokumentierte Abweichung.
+Gegenprobe: die sieben Odoo-11-Berichtsnamen (Umsatzsteuerbericht, Audit Journale, alter Partner
+  Saldo, Vorlaeufige Bilanz, Gewinn und Verlust, Partner-Kontoauszug, Umsaetze nach Konten und
+  Perioden) sind im Browser an keiner Stelle sichtbar - deckt sich mit Abschnitt 5.1.
+Screenshots: Desktop\Odoo18-Abnahme-Session122\ (01_App_Rechnungsstellung, 02_Menue_Kunden,
+  02_Menue_Lieferanten, 02_Menue_Berichtswesen, 02_Menue_Konfiguration, 03_Menue_Konfiguration).
+Belegprobe im Screenshot Kunden: hinter dem Menue steht die Liste Ausgangsrechnungen mit
+  "1-47 / 47" - deckt sich mit den gemessenen 47 Ausgangsrechnungen auf der VM.
+```
+
+**Befund F57 (30.09.2026, neu):** Das Menue "Pruefpfad" (Datensatz `ir.ui.menu` id 245, Aktion 400
+auf `mail.message`, ohne Gruppenbeschraenkung) ist im Menuebaum per RPC sichtbar, wird dem
+Web-Client aber nicht ausgeliefert - im Popover erscheint nur der Gruppenkopf "Verwaltung" mit
+"Rechnungsanalyse", im gesamten DOM ist "Pruefpfad" nicht vorhanden (Popover-DOM geprueft). Der
+Mechanismus ist nicht abschliessend geklaert (der Odoo-18-Client liefert einen reduzierten
+Menuebaum; der Pruefpfad haengt an der aktivierten Pruefpfad-Funktion). Auswirkung: Odoo-18-
+Zusatzfunktion ohne Odoo-11-Entsprechung, kein Handlungsbedarf, nichts geaendert. Das Werkzeug
+fuehrt die Abweichung als dokumentierte Positivliste, damit der Spotcheck nicht faelschlich FEHL
+meldet.
+
+## 12. Entscheidungen von Anna (30.09.2026) - verbindliche Vorgaben zu K1 bis K9
+
+```
+K1 Kontenrahmen: Der oesterreichische Odoo-18-Kontenrahmen l10n_at bleibt bestehen. Fuer spaeter
+   wird eine eindeutige Mapping-Tabelle Odoo-11-Konto -> Odoo-18-Konto vorbereitet. Noch keine
+   Datenmigration. Einordnung: Teil 5 (Stammdaten und Abschluss).
+K2 Rechnungsnummern: Die historischen Rechnungsnummern muessen spaeter eindeutig erhalten bzw.
+   nachvollziehbar zugeordnet werden. Im Feldinventar ist technisch zu pruefen, wie das in
+   Odoo 18 korrekt geloest wird. Noch nichts umnummerieren. Einordnung: Teil 2 (Pruefung) und
+   Teil 5 (Migrationsregel).
+K3 Alte PDF-Berichte: Nichts nachbauen. Zuerst bei der spaeteren Berichtsanalyse feststellen,
+   welche der acht Berichte tatsaechlich benutzt wurden und welche fachlichen Informationen sie
+   enthalten; erst danach entscheiden. Einordnung: Berichtsanalyse nach Teil 4.
+K4 Valorisierungstexte: Die 10 Texte bleiben als migrationsrelevante Stammdaten erhalten
+   (verwendet in 4.216 Rechnungen); eindeutiges Mapping wird spaeter vorbereitet. Jetzt nichts
+   anlegen. Einordnung: Teil 5.
+K5 Steuern: Vollstaendiges Mapping Odoo 11 -> Odoo 18 vorbereiten, keine Datenmigration.
+   Einordnung: Teil 2 (Feldinventar) und Teil 5 (Stammdaten).
+K6 Zahlungsmenues: Odoo-18-Standard bleibt zunaechst erhalten. Die Odoo-11-Navigation wird nur
+   nachgebaut, wenn dadurch tatsaechlich eine fachliche Funktion fehlt. Einordnung: Teil 3/4
+   (Pruefung der Zahlungslogik).
+K7 SMTP: Nur als technische Voraussetzung / offener Infrastrukturpunkt dokumentieren, jetzt nicht
+   konfigurieren. Einordnung: offener Infrastrukturpunkt (unveraendert offen).
+K8 Kostenstellen-Tags: Nicht nachbauen (in Odoo 11 nicht verwendet, 0 Datensaetze).
+   Einordnung: erledigt dokumentiert.
+K9 USD-Waehrung/Preisliste: Weiter als offener Pruefpunkt dokumentieren und im Bereich
+   Abrechnung genau pruefen (4 Rechnungen betroffen); noch nichts aendern. Einordnung: Teil 2/5.
+```
+
+Unveraendert gueltig: keine Datenmigration, Odoo 11 ausschliesslich read-only, bestehende
+Odoo-18-Zusatzfunktionen bleiben erhalten, Aenderungen nur wo fuer Funktionsgleichheit oder
+Migrationsbereitschaft noetig.
