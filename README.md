@@ -313,7 +313,12 @@ Prüfwerkzeug: `python scripts/vm_abnahme_check.py` · Detailregel: `docs/arbeit
   R1 Mengeneinheiten und R2 price_reduce sind abgeschlossen (R2: kein Feldnachbau, der
   reduzierte Preis wird in Odoo 18 aus price_unit, discount, product_uom_qty, tax_id und
   currency_id neu berechnet; Dokument `docs/o11-o18-verkauf-r2-preis-reduziert.md`).
-  Offen: R3 (Status done) bis R8.
+  R3 Status `done` ist abgeschlossen: Odoo 11 fuehrte die Sperre als Zustand 'done' (nie
+  verwendet, 0 Auftraege), Odoo 18 ueber das Feld `locked`; Transformationsregel
+  `done` -> `state='sale'` + `locked=True`, alle anderen Zustaende 1:1, kein automatisches
+  `locked` bei `sale`; Odoo-18-Wortlaut "Storniert" bleibt bestehen
+  (Dokument `docs/o11-o18-verkauf-r3-status-done.md`).
+  Offen: R4 (note TEXT->HTML) bis R8.
 - **Bereich Verkauf - Teil 4 Schritt 3 Druckberichte (Session 121, 29.09.2026): ABGENOMMEN.
   Teil 4 damit abgeschlossen.** Dokument `docs/o11-o18-vergleich-verkauf-teil4-druckberichte.md`.
   Odoo 11 hatte drei Report-Aktionen auf `sale.order` ("Angebot/Auftrag" und "Proformarechnung"
