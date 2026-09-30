@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        ITK-Anpassung der sichtbaren Bezeichnungen in den Rechnungsansichten
+        (Session 122, Label-Regel Anna 30.09.2026, zweiter Teil).
+
+        Fachlich identische Felder sollen denselben sichtbaren Wortlaut wie in Odoo 11 tragen.
+        Die technischen Odoo-18-Feldnamen bleiben unveraendert; hier werden ausschliesslich
+        die in der Ansicht gesetzten string=-Texte angeglichen.
+
+        Listenansicht (account.view_invoice_tree):
+          Gesamt               -> Total            (Odoo 11: "Total")
+          Faelliger Betrag     -> Zu Bezahlen      (Odoo 11: "Zu Bezahlen")
+          Vertriebsmitarbeiter -> Verkaeufer       (Odoo 11: "Verkaeufer", Feld invoice_user_id)
+
+        Nicht angeglichen (fachlich nicht identisch, dokumentiert in
+        docs/o11-o18-abrechnung-viewlabels.md):
+          - Spalte "Kunde"/"Lieferant": Odoo 11 beschriftete die Kundenspalte in der Liste
+            irrefuehrend mit "Lieferant". Odoo 18 trennt korrekt nach Belegart
+            (Kundenrechnung "Kunde", Lieferantenrechnung "Lieferant"); der Odoo-18-Wortlaut
+            bleibt, weil er fachlich richtig ist.
+          - Knoepfe der Statusleiste: andere Arbeitsablaeufe in Odoo 18 (Senden, Drucken,
+            Zahlen, Vorschau, Gutschrift); Odoo-18-Wortlaut bleibt.
+    -->
+    <record id="view_itk_invoice_list_bezeichnungen" model="ir.ui.view">
+        <field name="name">account.invoice.list.itk.bezeichnungen</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='amount_total_in_currency_signed']" position="attributes">
+                <attribute name="string">Total</attribute>
+            </xpath>
+            <xpath expr="//field[@name='amount_residual_signed']" position="attributes">
+                <attribute name="string">Zu Bezahlen</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_user_id']" position="attributes">
+                <attribute name="string">Verkäufer</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

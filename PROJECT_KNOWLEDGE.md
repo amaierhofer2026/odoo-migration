@@ -7789,3 +7789,53 @@ DEPLOY VM: git checkout Branch, docker compose stop odoo, one-shot docker compos
   -u itk_reports -d odoo18_test --stop-after-init --no-http, docker compose start odoo.
 Naechster Schritt: Teil 4 (Ansichten, Listen, Filter, Massenaktionen der Rechnung).
 ```
+
+## Session 122, Teil 4: Ansichten, Listen, Filter, Massenaktionen (30.09.2026)
+
+```
+Dokument: docs/o11-o18-vergleich-abrechnung-teil4-ansichten.md.
+Werkzeuge: scripts/analyse_abrechnung_teil4_ansichten.py, analyse_abrechnung_teil4_massen.py,
+  browser_teil4_rechnungsliste.py, diag_teil4_liste_dom.py.
+Ergebnis:
+  Listenspalten - Odoo 11: 10 Spalten; Odoo 18: alle vorhanden, aber "Faelliger Betrag"
+    (Odoo 11 "Zu bezahlen"), "Referenzbeleg" und "Referenz" waren optional="hide".
+    UMGESETZT: itk_reports 18.0.1.2.0, views/account_move_views.xml setzt die drei Spalten auf
+    optional="show" (Standardsichtbarkeit wie Odoo 11, nichts entfernt).
+  Suche - Odoo 11: 9 Filter / 6 Gruppierungen; Odoo 18: 18 Filter / 11 Gruppierungen;
+    inhaltlich vollstaendig (Offen -> Zu zahlen/In Zahlung; Verkaeufer -> Vertriebsmitarbeiter;
+    Vertriebskanal -> Verkaufsteam; Partner -> Kunde).
+  Massenbearbeitung - Odoo 11: 5 mass.object-Objekte auf der Rechnung; Odoo 18: genau diese
+    5 als Server-Aktionen mass_edit (1313, 1314, 1315, 1317, 1318, angelegt 15.07.2026) plus
+    Odoo-18-Standardaktionen.
+PRUEFUNGEN: Browser-Abnahme VM 19 OK / 0 FEHL (10 Spalten sichtbar, Filter/Gruppierungen
+  vorhanden, 5 von 5 Massenaktionen im Aktionsmenue, Massenbearbeitungs-Dialog geoeffnet und
+  verworfen, 0 JavaScript- und 0 RPC-Fehler); Regression 886 OK / 0 FEHL.
+DEPLOY VM: git checkout Branch, docker compose stop odoo, one-shot docker compose run --rm odoo
+  -u itk_reports -d odoo18_test --stop-after-init --no-http, docker compose start odoo.
+Naechster Schritt: Teil 5 (Migrationsregeln/Feldabbildung) und Teil 6 (Berichtsanalyse K3).
+```
+
+## Session 122, Label-Regel (30.09.2026, verbindlich fuer alle Module)
+
+```
+Regel (Anna): fachlich identische Felder zeigen in Odoo 18 die sichtbare deutsche Bezeichnung
+  aus Odoo 11; technische Odoo-18-Feldnamen bleiben unveraendert; keine Angleichung bei anderer
+  Bedeutung; Odoo-18-Zusatzfelder bleiben erhalten. Gilt fuer Formulare, Listen/Spalten, Reiter,
+  Gruppen, Suchansichten, Filter, Gruppierungen, Dialoge/Assistenten, Berichte.
+Werkzeuge:
+  scripts/check_abrechnung_labels.py     57 Feldpaare, Feldbeschreibungen de_DE, erzeugt
+    docs/o11-o18-abrechnung-labelmapping.md (Odoo-11-Feld -> Odoo-18-Zielfeld -> Odoo-11-Label
+    -> Odoo-18-Label -> Zustand -> Transformationsregel)
+  scripts/check_abrechnung_viewlabels.py View-Bezeichnungen, erzeugt
+    docs/o11-o18-abrechnung-viewlabels.md; begruendete Abweichungen sind dort hinterlegt
+  scripts/apply_abrechnung_labels.py     33 Feldbeschreibungen auf Odoo-11-Wortlaut
+    (nach JEDEM Modul-Upgrade erneut ausfuehren - Upgrades setzen de_DE zurueck)
+Umgesetzt: 33 Feldbeschreibungen (lokal und VM), View-Spalten der Rechnungsliste
+  (itk_reports 18.0.1.3.0: Total, Zu Bezahlen, Verkaeufer).
+Stand: 3 Feld- und 1 View-Abweichung verbleiben, alle begruendet (ref, payment_reference,
+  account.move.name, Spalte Kunde/Lieferant).
+Pruefungen: Browser VM 19 OK / 0 FEHL mit den angeglichenen Spaltennamen, Regression
+  886 OK / 0 FEHL.
+Naechster Schritt: Teil 5 Feldabbildung/Migrationsregeln (auf Basis der Mapping-Tabelle),
+  danach Teil 6 Berichte.
+```

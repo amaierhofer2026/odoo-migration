@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        ITK-Anpassung der Rechnungsliste (Session 122, Teil 4).
+        In Odoo 11 waren in der Rechnungsuebersicht die Spalten "Zu bezahlen" (Restbetrag),
+        "Referenzbeleg" (Herkunft) und "Referenz" sichtbar. In Odoo 18 sind diese drei Spalten
+        vorhanden, aber standardmaessig ausgeblendet (optional="hide").
+        Hier werden sie auf optional="show" gestellt: sie sind damit wie in Odoo 11 sofort
+        sichtbar und lassen sich weiterhin ueber die Spaltenauswahl ausblenden
+        (es wird nichts entfernt, nur die Standardsichtbarkeit angeglichen).
+    -->
+    <record id="view_itk_invoice_list_spalten" model="ir.ui.view">
+        <field name="name">account.invoice.list.itk.spalten</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='amount_residual_signed']" position="attributes">
+                <attribute name="optional">show</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_origin']" position="attributes">
+                <attribute name="optional">show</attribute>
+            </xpath>
+            <xpath expr="//field[@name='ref']" position="attributes">
+                <attribute name="optional">show</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
