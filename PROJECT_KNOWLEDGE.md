@@ -7429,3 +7429,94 @@ Bewertung: sale.report kann die Funktion vollstaendig uebernehmen -> report.all.
 Offene Entscheidungen: Label Vertriebskanal vs Verkaufsteam, Mass/Zeile der Pivotvorgabe,
   Menueplatzierung, Beibehaltung der vier Odoo-18-Berichtsmenues
 ```
+
+## Session 122: Bereich Abrechnung - Teil 1 Bestandsaufnahme (30.09.2026)
+
+Dokument: `docs/o11-o18-vergleich-abrechnung-teil1.md`. Neuer Bereich nach dem Abschluss von
+Verkauf (6.15). Checkliste: neuer Abschnitt 6.16. **In diesem Teil wurde an Odoo 18 nichts
+geaendert** - reine Bestandsaufnahme, Odoo 11 Prod ausschliesslich lesend.
+
+```
+Referenz: Odoo 11 Prod portal.it-kommunal.at, DB ITK_V1_a (nur lesend). Ziel: Odoo 18 lokal
+  (localhost:8069) und VM k001959vsx.ipax.at, DB odoo18_test.
+Module: installiert O11 130 | O18 lokal 171. Unterschiede mit Wirkung: O11 fuehrt
+  account_invoicing, account_bank_statement_import, account_cash_basis_base_account,
+  payment_transfer sowie l10n_de + l10n_de_skr03/04 (deutscher Kontenrahmen); O18 fuehrt
+  account_payment, account_invoice_line_report, sale_merge_draft_invoice, account_peppol,
+  account_edi_ubl_cii, account_qr_code_sepa, snailmail_account, spreadsheet_account und l10n_at
+  (oesterreichischer Kontenrahmen). account_reports/accountant gibt es in O18 nicht
+  (uninstallable, OEEL-1).
+Menuebaum (mit full_list gemessen): O11 App Abrechnung (Wurzel id 133) 70 Menues,
+  O18 App Rechnungsstellung (id 193) 63 Menues; lokal = VM (63 = 63, ein Wortlautunterschied
+  "Ein Bankkonto hinzufuegen" lokal gegen "Bankkonto hinzufuegen" VM). Alle relevanten
+  Modulversionen lokal = VM (account 18.0.1.3, account_payment 18.0.2.0, account_peppol 18.0.1.1,
+  analytic 18.0.1.2, itk_valorisierung 18.0.1.0.0, l10n_at 18.0.3.2.1, mass_email_invoice,
+  sale_merge_draft_invoice, snailmail_account).
+Befund F56 (Methodik): ir.ui.menu.search_read filtert ohne den Kontext ir.ui.menu.full_list=True
+  nach der Benutzersichtbarkeit. Die App Abrechnung lieferte dadurch nur 42 statt 70 Menues -
+  alle gruppenbeschraenkten Zweige (Finanzberater, Berichtswesen/PDF Berichte, Kontenplan,
+  Journale, Zahlungen) fehlten. Menueinventare kuenftig immer mit full_list lesen.
+Nutzung Odoo 11 (read-only): 6.277 Rechnungen (6.040 Ausgangsrechnungen, 237 Kunden-Gutschriften,
+  0 Eingangsrechnungen, 0 Lieferanten-Gutschriften; bezahlt 6.220, offen 43, Entwurf 14),
+  10.031 Rechnungszeilen (10.009 mit Steuer), 5.987 Zahlungen (5.877 Einzahlungen, 110 Auszahlungen,
+  Journal Bank fuer Tirol und Vorarlberg, 5.985 mit Rechnungsbezug), 12.251 Buchungen
+  (Ausgangsrechnungen 6.263, Bank 5.987), 6.123/6.081 Abstimmungen, 12.634 Kostenstellenbuchungen
+  (12.352 mit Projekt, 12.493 mit Aufgabe, 0 aus Rechnungszeilen), Valorisierungstext auf 4.216
+  Rechnungen (10 Texte 2019-2026), 77 Steuern (Verkauf 22/Einkauf 29/keine 26), 1.286 Konten,
+  8 Journale, 4 Zahlungsbedingungen (alle value=balance: Sofort/15 Tage/30 Tage netto/14 Tage),
+  5 Steuerpositionen, 13 Steuergruppen, 0 Bankauszuege, 0 Online-Zahlungstransaktionen,
+  0 Kostenstellen-Tags, 2.549 Rechnungen als per E-Mail versendet markiert (9.197 Anhaenge,
+  5.772 E-Mails im Chatter). Zeitraum 27.05.2019 bis 28.09.2026, Nummernkreis R-1900001 bis R-26989.
+  Volumen je Jahr 2019-2026 in Schritten von 66 auf 1.139 Rechnungen/Jahr.
+Testbestand Odoo 18: lokal 37 Belege (26 Ausgangsrechnungen, 11 Buchungen), VM 57 (47/10);
+  Zahlungen je 7; 53 Steuern; 12 Zahlungsbedingungen ("30 Tage netto" lokal id 16, VM id 14);
+  analytic 5 Kostenstellen/19 Buchungen; 1 Valorisierungstext; 0 Anhaenge an Rechnungen.
+FEHLENDE FUNKTIONEN: die acht Odoo-11-Berichtsmenues unter Berichtswesen/PDF Berichte
+  (Audit Journale account.print.journal, Partner-Kontoauszug account.report.partner.ledger,
+  Umsaetze nach Konten und Perioden account.report.general.ledger, Vorlaeufige Bilanz
+  account.balance.report, Bilanz und Gewinn und Verlust accounting.report, alter Partner Saldo
+  account.aged.trial.balance, Umsatzsteuerbericht account.tax.report) existieren in Odoo 18 nicht
+  mehr (Modelle 404, Ersatz nur Enterprise account_reports). Ebenso entfallen
+  account.financial.report (O11 8 Finanzberichte), tax.adjustments.wizard (Steueranpassungen),
+  account.analytic.tag (0 Werte), payment.icon (10 Symbole) und account.account.type
+  (O18: Auswahlfeld account_type am Konto).
+ANDERS AUFGEBAUT (kein Funktionsverlust): Gruppierung Verkauf/Einkauf gegen Kunden/Lieferanten;
+  Zahlungsmenues ohne Domain (O11 schraenkte per partner_type ein); tree -> list;
+  account.invoice/account.invoice.line -> account.move/account.move.line (move_type);
+  Kontenrahmen l10n_de -> l10n_at; Berechtigungsgruppen (Abrechnungsmanager/Zeige vollstaendige
+  Finanzbuchhaltung gegen Buchhaltungsfunktionen anzeigen/Kostenrechnung); Analytic-Modell
+  (tag/account -> plan/distribution.model); payment.acquirer -> payment.provider/payment.method.
+Odoo-18-Zusatzfunktionen bleiben erhalten: Abrechnungspositionen, Pruefpfad, Buchungen
+  festschreiben, Mehrere Hauptbuecher, Steuergruppen, Abstimmungsmodelle, Incoterms,
+  Kostenstellenplaene/Verteilungsschluessel, Zahlungsmethoden, Peppol/EDI, SEPA-QR-Code,
+  Postversand, Spreadsheet, Sammelrechnung, Positionsbericht.
+Offene Fachfragen K1-K9 (im Dokument): Kontenrahmen-Mapping (SKR03/04 -> l10n_at), Nummernkreis
+  R-1900001..R-26989, Nutzung der acht PDF-Berichte (Assistenten, Nutzung nicht messbar),
+  Anlage der 10 Valorisierungstexte, Steuerzuordnung, Zahlungsmenu-Domain, SMTP/Rechnungsversand,
+  Kostenstellen-Tags, USD-Waehrung/Preisliste (F2-F5).
+Werkzeuge (neu, read-only): scripts/analyse_abrechnung_menue2.py, analyse_abrechnung_teil1.py,
+  analyse_abrechnung_nutzung.py, analyse_abrechnung_details.py (bis ...details6.py),
+  vergleiche_abrechnung_lokal_vm.py. Rohdaten nur im Temp-Verzeichnis, nicht im Repo.
+Browser-Spotcheck auf der VM (30.09.2026, read-only): scripts/browser_abrechnung_menue.py,
+  App Rechnungsstellung im echten Browser (Playwright/Chrome headless), alle sechs Menuegruppen
+  echt geklickt: 17 OK / 0 FEHL, 0 JavaScript- und 0 RPC-Fehler. Abgleich RPC-Sichtbarkeit gegen
+  Browser: 38 sichtbare Menuepunkte, 37 im Browser, 1 dokumentierte Abweichung.
+  Befund F57 (neu): Menue "Pruefpfad" (ir.ui.menu id 245, Aktion 400 auf mail.message, ohne
+  Gruppenbeschraenkung) ist per RPC sichtbar, wird dem Web-Client aber nicht ausgeliefert
+  (Popover-DOM geprueft: nur Gruppenkopf "Verwaltung" mit "Rechnungsanalyse"). Odoo-18-
+  Zusatzfunktion ohne Odoo-11-Entsprechung, kein Handlungsbedarf; das Werkzeug fuehrt die
+  Abweichung als dokumentierte Positivliste. Screenshots Desktop\Odoo18-Abnahme-Session122\,
+  Belegprobe "1-47 / 47" Ausgangsrechnungen deckt die gemessenen 47 Belege der VM.
+Entscheidungen von Anna (30.09.2026, verbindlich, im Dokument Abschnitt 12): K1 Kontenrahmen
+  l10n_at bleibt + Mapping-Tabelle O11-Konto -> O18-Konto spaeter; K2 historische Rechnungsnummern
+  erhalten bzw. nachvollziehbar zuordnen (Pruefung im Feldinventar, nichts umnummerieren);
+  K3 die acht PDF-Berichte nicht nachbauen, zuerst Nutzung/Inhalt in der Berichtsanalyse;
+  K4 10 Valorisierungstexte als migrationsrelevante Stammdaten erhalten (Mapping vorbereiten);
+  K5 Steuer-Mapping vorbereiten ohne Datenmigration; K6 Odoo-18-Zahlungsmenues bleiben;
+  K7 SMTP nur dokumentieren; K8 Kostenstellen-Tags nicht nachbauen; K9 USD/Preisliste als
+  offener Pruefpunkt dokumentiert.
+Git: Branch session-122-abrechnung-teil1, Commit 4431f63 (Teil 1) + Browser-Spotcheck.
+Naechster Vorschlag: Teil 2 Feldinventar account.invoice/account.invoice.line gegen
+  account.move/account.move.line; Entscheidungen zu K1, K3, K4 und K6 vor Teil 3.
+Es wurden keine Odoo-11-Daten migriert; Odoo 11 wurde ausschliesslich lesend verwendet.
+```

@@ -34,6 +34,11 @@ Odoo-11-Daten migriert; Odoo 11 ausschliesslich read-only):
    von Odoo 18 neu berechnen lassen (R8)
 Odoo-18-Zusatzfunktionen bleiben erhalten.
 
+**Bereich Abrechnung begonnen (30.09.2026, Session 122):** Teil 1 Bestandsaufnahme abgeschlossen
+(Menues 70 gegen 63, Module, Datenmengen, fehlende/anders aufgebaute Funktionen), Bereich noch
+**offen**. Dokument `docs/o11-o18-vergleich-abrechnung-teil1.md`, Checkliste Abschnitt 6.16.
+In diesem Teil wurde an Odoo 18 nichts geaendert; Odoo 11 Prod ausschliesslich read-only.
+
 ---
 
 ## Verbindliche Migrationsregel: Organisation = Unternehmen, Ansprechpartner = Person
