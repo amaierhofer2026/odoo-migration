@@ -12,12 +12,27 @@ Migration aller Odoo-Module von **Version 11 nach Version 18** für ITK (IT Komm
 
 ## Status: Bereich Verkauf abgeschlossen
 
-**VERKAUF VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (29.09.2026,
-Session 121, Teile 1-5). Abschlussdokument: `docs/o11-o18-verkauf-abschluss.md`.
+**VERKAUF FUNKTIONAL VOLLSTAENDIG UND MIGRATIONSVORBEREITET** (29.09.2026, Session 121,
+Teile 1-5 sowie gezielter Migrations-Check mit R1-R8). Abschlussdokumente:
+`docs/o11-o18-verkauf-abschluss.md` und `docs/o11-o18-verkauf-gesamtstatus-r1-r8.md`.
+
+**Die Regeln R1-R8 sind ausschliesslich vorbereitete Regeln fuer die spaetere Datenmigration und
+KEINE offenen Funktionsluecken im Odoo-18-Verkaufsmodul.**
+
 Nachweise: Regression 886 OK / 0 FEHL (11 Prueflaeufe, lokal+VM), Browser-Gesamtabnahme auf der
 Abnahmeumgebung 243 OK / 0 FEHL (11 Werkzeuge) und 43 OK / 0 FEHL (15 Stationen im
-durchgehenden Klickpfad), 0 JavaScript- und 0 RPC-Fehler, keine offenen View-Fehler.
-Keine Datenmigration, Odoo 11 ausschliesslich read-only, Odoo-18-Zusatzfunktionen erhalten.
+durchgehenden Klickpfad), R1-Pruefung 64 OK / 0 FEHL, R2-Pruefung 9 OK / 0 FEHL je Instanz,
+0 JavaScript- und 0 RPC-Fehler, keine offenen View-Fehler.
+
+Reihenfolge fuer die spaetere Datenmigration (noch nicht ausgefuehrt - es wurden KEINE
+Odoo-11-Daten migriert; Odoo 11 ausschliesslich read-only):
+1. Stammdaten zuerst, insbesondere Mengeneinheiten (R1) und Tags (R6)
+2. danach Auftraege und Auftragszeilen
+3. Rechnungen/Rechnungszeilen im Bereich Abrechnung migrieren
+4. danach die Verknuepfung Auftragszeile <-> Rechnungszeile gemaess R5 herstellen
+5. berechnete Felder wie amount_invoiced, amount_to_invoice und invoice_status anschliessend
+   von Odoo 18 neu berechnen lassen (R8)
+Odoo-18-Zusatzfunktionen bleiben erhalten.
 
 ---
 

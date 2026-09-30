@@ -101,14 +101,22 @@ View-Gesundheit: alle vorhandenen Ansichtstypen je Modell laden fehlerfrei, kein
   View-Fehler; keine Meldungen zu ungueltigen Ansichten in den Server-Logs
 ```
 
-## 6. Offen / naechster Schritt
+## 6. Abschlussmarkierung und Reihenfolge der spaeteren Datenmigration
 
 ```
-Der Bereich Verkauf ist NOCH NICHT endgueltig abgeschlossen. Offene Punkte fuer die
-Abschlussmarkierung sind eine Entscheidung von Anna:
-  a) Markierung "VERKAUF VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET"
-     jetzt setzen (alle acht Risiken sind vorbereitet, keine offenen funktionalen Punkte), oder
-  b) zusaetzlich eine Ausfuehrungs-Reihenfolge fuer die Datenmigration fordern
-     (Rechnungen -> Verknuepfung R5 -> Auftraege, Einheiten- und Tag-Migration zentral).
-Ein Modulwechsel findet bis zu dieser Entscheidung nicht statt.
+ABSCHLUSSMARKIERUNG (Entscheidung Anna, 29.09.2026):
+  VERKAUF: FUNKTIONAL VOLLSTAENDIG UND MIGRATIONSVORBEREITET.
+  Die Regeln R1-R8 sind ausschliesslich vorbereitete Regeln fuer die spaetere Datenmigration und
+  KEINE offenen Funktionsluecken im Odoo-18-Verkaufsmodul.
+
+Reihenfolge fuer die spaetere Datenmigration (dokumentiert, NICHT ausgefuehrt):
+  1. Stammdaten zuerst - insbesondere Mengeneinheiten (R1) und Tags (R6)
+  2. danach Auftraege und Auftragszeilen
+  3. Rechnungen/Rechnungszeilen im Bereich Abrechnung migrieren
+  4. danach die Verknuepfung Auftragszeile <-> Rechnungszeile gemaess R5 herstellen
+  5. berechnete Felder wie amount_invoiced, amount_to_invoice und invoice_status anschliessend
+     von Odoo 18 neu berechnen lassen (R8)
+
+Es wurden keine Odoo-11-Daten migriert; Odoo 11 wurde ausschliesslich read-only verwendet.
+Offene funktionale oder strukturelle Punkte im Bereich Verkauf: keine.
 ```

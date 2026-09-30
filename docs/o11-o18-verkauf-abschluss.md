@@ -143,6 +143,32 @@ Der Bereich Verkauf ist vollstaendig migrationsvorbereitet:
   keine offenen funktionalen oder strukturellen Punkte.
 ```
 
+## 7a. Abschlussmarkierung (Entscheidung Anna, 29.09.2026)
+
+```
+VERKAUF: FUNKTIONAL VOLLSTAENDIG UND MIGRATIONSVORBEREITET.
+
+Hinweis (ausdruecklich): Die Regeln R1 bis R8 sind ausschliesslich VORBEREITETE REGELN fuer die
+spaetere Datenmigration und KEINE offenen Funktionsluecken im Odoo-18-Verkaufsmodul.
+Sie betreffen die Uebernahme der Odoo-11-Daten (Mengeneinheiten, price_reduce, Zustand done,
+note, invoice_lines, Stichworte, Reportlayout-Kategorien, Rechnungsbetraege) und greifen erst,
+wenn die Datenmigration freigegeben wird.
+Einzelheiten: docs/o11-o18-verkauf-gesamtstatus-r1-r8.md
+```
+
+## 7b. Abhaengigkeit zur spaeteren Datenmigration (Reihenfolge)
+
+```
+1. Stammdaten zuerst - insbesondere Mengeneinheiten (R1) und Tags (R6)
+2. danach Auftraege und Auftragszeilen
+3. Rechnungen/Rechnungszeilen im Bereich Abrechnung migrieren
+4. danach die Verknuepfung Auftragszeile <-> Rechnungszeile gemaess R5 herstellen
+5. berechnete Felder wie amount_invoiced, amount_to_invoice und invoice_status anschliessend
+   von Odoo 18 neu berechnen lassen (R8)
+
+Diese Reihenfolge ist dokumentiert, aber NICHT ausgefuehrt: Es wurden keine Odoo-11-Daten
+migriert. Odoo 11 wurde ausschliesslich read-only verwendet.
+
 Offene Punkte: keine.
 Nicht gestartet (Vorgabe): weitere Module (Einkauf, Lager, Buchhaltung, CRM-Abschluss).
 

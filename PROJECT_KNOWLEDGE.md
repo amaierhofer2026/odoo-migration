@@ -7300,6 +7300,24 @@ R8 AMT_INVOICED / AMT_TO_INVOICE (ABGESCHLOSSEN 29.09.2026):
   kann "to invoice" sein (nicht als Migrationsfehler zu deuten).
   Keine Aenderung an Odoo 18 erforderlich. Dokument: docs/o11-o18-verkauf-r8-invoiced-amounts.md
 ALLE ACHT RISIKEN R1-R8 TECHNISCH VORBEREITET. Gesamtstatus:
+  docs/o11-o18-verkauf-gesamtstatus-r1-r8.md.
+
+ABSCHLUSSMARKIERUNG VERKAUF (Entscheidung Anna, 29.09.2026):
+  VERKAUF FUNKTIONAL VOLLSTAENDIG UND MIGRATIONSVORBEREITET.
+  Hinweis: Die Regeln R1-R8 sind ausschliesslich vorbereitete Regeln fuer die spaetere
+  Datenmigration und KEINE offenen Funktionsluecken im Odoo-18-Verkaufsmodul.
+  Dokumente: docs/o11-o18-verkauf-abschluss.md (Abschnitte 7a/7b),
+  docs/o11-o18-verkauf-gesamtstatus-r1-r8.md; Checkliste 6.15 und README aktualisiert.
+
+REIHENFOLGE DER SPAETEREN DATENMIGRATION (dokumentiert, NICHT ausgefuehrt):
+  1. Stammdaten zuerst - insbesondere Mengeneinheiten (R1) und Tags (R6)
+  2. danach Auftraege und Auftragszeilen
+  3. Rechnungen/Rechnungszeilen im Bereich Abrechnung migrieren
+  4. danach die Verknuepfung Auftragszeile <-> Rechnungszeile gemaess R5 herstellen
+  5. berechnete Felder wie amount_invoiced, amount_to_invoice und invoice_status anschliessend
+     von Odoo 18 neu berechnen lassen (R8)
+  Es wurden KEINE Odoo-11-Daten migriert; Odoo 11 ausschliesslich read-only.
+Bereich Verkauf damit endgueltig abgeschlossen. Kein neues Modul begonnen.
   docs/o11-o18-verkauf-gesamtstatus-r1-r8.md. Bereich Verkauf noch NICHT endgueltig abgeschlossen.
 ```
 
