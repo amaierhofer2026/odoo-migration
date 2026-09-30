@@ -17,7 +17,7 @@ Angepasste QWeb-PDF-Druckvorlagen mit ITK-Briefkopf und -Fußzeile für:
     'website': "http://www.alvarium-services.de",
 
     'category': 'ITK - Specific Industry Applications',
-    'version': '18.0.1.3.0',
+    'version': '18.0.1.4.0',
     'license': 'LGPL-3',
 
     # any module necessary for this one to work correctly
