@@ -1361,6 +1361,35 @@ ABSCHLUSS B2: KEINE Aenderung an Odoo 18 erforderlich (Odoo-18-Standard ist fach
   im Feldinventar Teil 2), U4 Herkunftsregel, U5 22 Gutschriften ohne Bezug.
 ```
 
+B3 ZAHLUNG (Befund aus Teil 3, 30.09.2026, umgesetzt und getestet). Dokument:
+`docs/o11-o18-vergleich-abrechnung-b3-zahlung.md`:
+```
+Vergleich: Odoo 11 Aktion 178 "Register Payment" (Formular account.payment) gegen Odoo 18
+  Assistent account.payment.register (Knopf "Zahlen").
+Odoo 11 Nutzung (read-only): 5.987 Zahlungen, alle Zahlungsart "Manuell", Journal BNK1
+  ("Bank fuer Tirol und Vorarlberg AG (EUR)"), 5.877 Eingang / 110 Ausgang, Partnerart Kunde,
+  alle gebucht; Memo in 5.974 Faellen gefuellt (Wert = Rechnungsnummer); Abschreibungen 0,
+  Zahlungsdifferenz immer 0,00; Sammelzahlungs-Assistent vorhanden aber 0 Belege; 0 Bankauszuege.
+Odoo 18 Dialog (Browser, VM): Journal Bank, Zahlungsmethode, Betrag, Waehrung, Zahlungsdatum,
+  Vermerk (Vorbelegung Rechnungsnummer); Knoepfe "Zahlung erstellen" und "Verwerfen"; zusaetzlich
+  vorhanden (in Odoo 11 ungenutzt): Zahlungsdifferenz mit Behandlung, Differenzenkonto,
+  Buchungstext, Zahlungen gruppieren, Bankkonto des Kunden.
+Funktionstest lokal (scripts/test_b3_zahlung.py): Rechnung RE/2026/0001 -> Zahlung
+  PBNK1/2026/00002 3,60, Memo RE/2026/0001, Buchungssatz 2803 Ausstehende Eingaenge / 2000
+  Forderungen, Rechnung bezahlt (Rest 0,00), Zahlungen 7 -> 8, Teilabstimmungen 7 -> 8.
+Browser-Abnahme VM (scripts/browser_b3_zahlung.py): 16 OK / 0 FEHL, Ablauf Entwurf -> Bestaetigen
+  -> Zahlen -> Dialog -> "Zahlung erstellen" -> Anzeige "Bezahlt am 30.09.2026", Smart Button
+  "1 Zahlungen", Zahlung PBNK1/2026/00005, Rechnung bezahlt, 0 JavaScript- und 0 RPC-Fehler.
+Regression: 886 OK / 0 FEHL ueber 11 Prueflaeufe (Referenzniveau).
+ERGEBNIS: kein funktionaler Unterschied; Anpassung an Odoo 18 nicht erforderlich.
+OFFEN (keine Funktionseinbusse, dokumentiert): Z2 Beschriftung der Zahlungsmethodenzeile
+  (Odoo 11 "Manuell", Odoo 18 "Manual Payment"; nicht uebersetzbar, Umbenennung waere moeglich -
+  Entscheidung offen, Stammdaten), Z3 Journalname BNK1 (Stammdaten, Migration), Z4 Zahlungs-
+  nummern CUST.IN/JJJJ/NNNN gegen PBNK1/JJJJ/NNNNN (Migrationsregel Teil 5).
+TESTDATEN: lokal Zahlung id 8; VM Zahlungen id 9-11 und die dafuer gebuchten Rechnungen
+  id 41, 45, 46 (Testdatenbank).
+```
+
 ### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-15: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte, Produktformular), erste Abnahme 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119), Teil 15 am 24.09.2026 (Session 120) auf der VM im Browser abgenommen
 
 Dokument: `docs/o11-o18-vergleich-abo-teil1.md`; Teil 14: `docs/o11-o18-vergleich-abo-teil14.md`; Teil 15: `docs/o11-o18-vergleich-abo-teil15-produktformular.md`; Uebergabe und Vollstaendigkeitsbestaetigung: `docs/uebergabe-session-120-abonnements.md` (24.09.2026: jedes in Odoo 11 verwendete Feld, Reiter, Button, Smart Button, Statuswechsel, Filter, Gruppierung und jeder Geschaeftsprozess ist gleich vorhanden, funktional gleichwertig an anderer Stelle vorhanden oder bewusst dokumentiert; keine offene funktionale Abweichung).
