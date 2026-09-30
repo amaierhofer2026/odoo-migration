@@ -7213,7 +7213,20 @@ R2 PRICE_REDUCE (ABGESCHLOSSEN 29.09.2026):
   Odoo-18-Standardlogik neu berechnet. Keine Aenderung an Odoo 18 erforderlich.
   Werkzeug: scripts/pruefe_verkauf_r2_preis_reduziert.py (lokal 9 OK, VM 9 OK / 0 FEHL)
   Dokument: docs/o11-o18-verkauf-r2-preis-reduziert.md
-Offen: R3 bis R8; Verkauf noch nicht endgueltig abgeschlossen.
+R3 STATUS done (ABGESCHLOSSEN 29.09.2026):
+  Odoo 11 fuehrt die Sperre als Zustand 'done' ("Gesperrt") - kein Feld locked; Buttons
+  "Sperre"/"Entsperren" (Entsperren nur Verkaufsleiter). Bestand: 0 Auftraege in 'done';
+  Nachverfolgung: 1.727 Zustandsaenderungen ausgewertet, 0 Wechsel nach "Gesperrt" - nie verwendet.
+  Odoo 18 kennt 'done' nicht mehr; die Sperre laeuft ueber das Feld locked (Anzeige "Gesperrt",
+  gleicher Hilfetext, Buttons "Sperren"/"Entsperren", Feldschutz readonly bei locked, action_cancel
+  verweigert gesperrte Auftraege).
+  Transformationsregel (Entscheidung Anna): state='done' -> state='sale' + locked=True;
+  alle anderen Zustaende 1:1. Bei state='sale' wird locked NICHT automatisch gesetzt - nur wenn
+  der Odoo-11-Datensatz tatsaechlich 'done' war (Verhaltenstest bestaetigt: Odoo 18 laesst locked
+  beim direkten Setzen von state='sale' unberuehrt). 0 betroffene Datensaetze -> Fallback-Regel.
+  Wortlaut: Odoo 18 "Storniert" bleibt bestehen (Odoo 11 "Abgebrochen") - nur dokumentiert.
+  Keine Aenderung an Odoo 18 erforderlich. Dokument: docs/o11-o18-verkauf-r3-status-done.md
+Offen: R4 bis R8; Verkauf noch nicht endgueltig abgeschlossen.
 ```
 
 ## Session 121, Teil 4 Schritt 3 (Druckberichte) und Abschluss Teil 4

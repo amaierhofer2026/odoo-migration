@@ -583,8 +583,18 @@ exakt); Sonderfaelle dokumentiert (1 Zeile mit 1-Cent-Eigenrundung, 51 leere Pos
 Pruefung 9 OK / 0 FEHL je Instanz, keine Aenderung an Odoo 18 noetig.
 Dokument: `docs/o11-o18-verkauf-r2-preis-reduziert.md`.
 
+**R3 Status `done`: ABGESCHLOSSEN (29.09.2026).** Odoo 11 fuehrte die Auftragssperre als Zustand
+`done` ("Gesperrt"); Buttons "Sperre"/"Entsperren", Feld `locked` gab es nicht. Bestand 0 Auftraege,
+Nachverfolgung 1.727 Zustandsaenderungen mit 0 Wechseln nach "Gesperrt" - der Zustand war nie in
+Verwendung. Odoo 18 bildet die Sperre ueber das Feld `locked` ab (Anzeige "Gesperrt", Buttons
+"Sperren"/"Entsperren", gleicher Hilfetext, Feldschutz im Formular, `action_cancel` verweigert
+gesperrte Auftraege). Transformationsregel: `done` -> `state='sale'` + `locked=True`; alle anderen
+Zustaende 1:1; bei `sale` wird `locked` NICHT automatisch gesetzt (nur bei tatsaechlichem `done`).
+Wortlaut: Odoo-18 "Storniert" bleibt bestehen. Keine Aenderung an Odoo 18 erforderlich.
+Dokument: `docs/o11-o18-verkauf-r3-status-done.md`.
+
 **STATUS: Teil 5 Block 3 und 4 abgeschlossen und im echten Browser auf der Abnahmeumgebung
-abgenommen; Abschlussmarkierung des Bereichs wegen R3 bis R8 zurueckgestellt.**
+abgenommen; Abschlussmarkierung des Bereichs wegen R4 bis R8 zurueckgestellt.**
 Naechstes Modul noch nicht begonnen.
 
 
