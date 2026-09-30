@@ -34,10 +34,12 @@ Odoo-11-Daten migriert; Odoo 11 ausschliesslich read-only):
    von Odoo 18 neu berechnen lassen (R8)
 Odoo-18-Zusatzfunktionen bleiben erhalten.
 
-**Bereich Abrechnung begonnen (30.09.2026, Session 122):** Teil 1 Bestandsaufnahme **und Teil 2
-Feldinventar** (`account.invoice`/`account.invoice.line` gegen `account.move`/`account.move.line`)
-abgeschlossen, Bereich noch **offen**. Dokumente `docs/o11-o18-vergleich-abrechnung-teil1.md` und
-`-teil2.md`, Checkliste Abschnitt 6.16. In beiden Teilen wurde an Odoo 18 nichts geaendert;
+**Bereich Abrechnung begonnen (30.09.2026, Session 122):** Teil 1 Bestandsaufnahme, Teil 2
+Feldinventar (`account.invoice`/`account.invoice.line` gegen `account.move`/`account.move.line`),
+K2-Klaerung der historischen Rechnungsnummern mit Anna's Entscheidungen sowie **Teil 3
+(Formulare, Buttons, Smart Buttons, Zustandswechsel, Zahlungs-/Abstimmungslogik, Rechnungsdruck,
+Versand)** abgeschlossen, Bereich noch **offen**. Dokumente `docs/o11-o18-vergleich-abrechnung-teil1.md`,
+`-teil2.md`, `-k2-nummern.md`, `-teil3.md`, Checkliste Abschnitt 6.16. In allen Teilen wurde an Odoo 18 nichts geaendert;
 Odoo 11 Prod ausschliesslich read-only.
 
 ---
