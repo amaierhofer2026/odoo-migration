@@ -1142,6 +1142,62 @@ Offene Entscheidungen: Label "Vertriebskanal" zusaetzlich anbieten, Vorgabemass/
   Menueplatzierung, Beibehaltung der vier Odoo-18-Berichtsmenues
 ```
 
+### 6.16 Abrechnung (Menues, Module, Datenmengen) - **BESTANDSAUFNAHME ABGESCHLOSSEN, BEREICH OFFEN**, 30.09.2026 (Session 122, Teil 1)
+
+Dokument: `docs/o11-o18-vergleich-abrechnung-teil1.md`. Odoo 11 Prod `portal.it-kommunal.at`
+(DB `ITK_V1_a`) ausschliesslich read-only verwendet (search_count/search_read/fields_get).
+**In diesem Teil wurde an Odoo 18 nichts geaendert** (kein Upgrade, kein Neustart).
+
+```
+Module: installiert O11 130 | O18 171. Relevante Abweichungen:
+  O11: account_invoicing, account_bank_statement_import, account_cash_basis_base_account,
+       payment_transfer, l10n_de + l10n_de_skr03/04 (deutscher Kontenrahmen)
+  O18: account_payment, account_invoice_line_report, sale_merge_draft_invoice, account_peppol,
+       account_edi_ubl_cii, account_qr_code_sepa, snailmail_account, spreadsheet_account,
+       l10n_at (oesterreichischer Kontenrahmen)
+  Enterprise account_reports/accountant: in O18 nicht verfuegbar (uninstallable, OEEL-1)
+Menuebaum: O11 App Abrechnung (Wurzel id 133) 70 Menues | O18 App Rechnungsstellung (id 193)
+  63 Menues; lokal = VM (63 = 63, nur ein Wortlautunterschied "Ein Bankkonto hinzufuegen").
+  Alle relevanten Modulversionen lokal = VM (account 18.0.1.3, account_payment 18.0.2.0,
+  analytic 18.0.1.2, itk_valorisierung 18.0.1.0.0, l10n_at 18.0.3.2.1 u. a.).
+Befund F56: ir.ui.menu.search_read filtert ohne context ir.ui.menu.full_list=True nach der
+  Benutzersichtbarkeit - die App Abrechnung erschien dadurch mit nur 42 statt 70 Menues.
+Nutzung Odoo 11 (read-only): 6.277 Rechnungen (6.040 Ausgangsrechnungen, 237 Kunden-Gutschriften,
+  0 Eingangsrechnungen, 0 Lieferanten-Gutschriften; bezahlt 6.220 / offen 43 / Entwurf 14),
+  10.031 Rechnungszeilen, 5.987 Zahlungen (5.877 Ein / 110 Aus, Journal BNK1, 5.985 mit
+  Rechnungsbezug), 12.251 Buchungen, 12.634 Kostenstellenbuchungen (alle aus Projekten/Aufgaben),
+  Valorisierungstexte auf 4.216 Rechnungen (10 Texte), 77 Steuern, 1.286 Konten, 8 Journale,
+  4 Zahlungsbedingungen (alle value=balance), 0 Bankauszuege, 0 Online-Zahlungen,
+  2.549 Rechnungen als per E-Mail versendet markiert (9.197 Anhaenge, 5.772 E-Mails im Chatter).
+  Zeitraum 27.05.2019 bis 28.09.2026, Nummernkreis R-1900001 bis R-26989.
+Testbestand Odoo 18: lokal 37, VM 57 Belege; Zahlungen je 7; 53 Steuern; 12 Zahlungsbedingungen;
+  1 Valorisierungstext; 0 Anhaenge an Rechnungen.
+FEHLENDE FUNKTIONEN (Odoo 18 Community hat die Odoo-11-Berichtsassistenten nicht mehr):
+  acht Menues unter Berichtswesen/PDF Berichte (Audit Journale account.print.journal,
+  Partner-Kontoauszug account.report.partner.ledger, Umsaetze nach Konten und Perioden
+  account.report.general.ledger, Vorlaeufige Bilanz account.balance.report, Bilanz und
+  Gewinn und Verlust accounting.report, alter Partner Saldo account.aged.trial.balance,
+  Umsatzsteuerbericht account.tax.report), dazu account.financial.report (8 Finanzberichte),
+  tax.adjustments.wizard (Steueranpassungen), account.analytic.tag (Kostenstellen Tags, 0 Werte),
+  payment.icon (Zahlungssymbole, 10 Werte); account.account.type -> Auswahlfeld account_type.
+  Ersatz nur ueber das Enterprise-Modul account_reports (nicht verfuegbar).
+ANDERS AUFGEBAUT (kein Funktionsverlust): Gruppierung Verkauf/Einkauf gegen Kunden/Lieferanten;
+  Zahlungsmenues ohne Domain (O11: partner_type customer/supplier); tree -> list; account.invoice ->
+  account.move (move_type) und account.invoice.line -> account.move.line; Kontenrahmen l10n_de ->
+  l10n_at; Berechtigungsgruppen Abrechnungsmanager/Zeige vollstaendige Finanzbuchhaltung ->
+  Buchhaltungsfunktionen anzeigen/Kostenrechnung; Analytic-Modell (tag/account ->
+  plan/distribution.model); payment.acquirer -> payment.provider/payment.method.
+Odoo-18-ZUSATZFUNKTIONEN (bleiben erhalten): Abrechnungspositionen, Pruefpfad, Buchungen
+  festschreiben, Mehrere Hauptbuecher, Steuergruppen, Abstimmungsmodelle, Incoterms,
+  Kostenstellenplaene/Verteilungsschluessel, Zahlungsmethoden, Peppol/EDI, SEPA-QR-Code,
+  Postversand, Spreadsheet, Sammelrechnung, Positionsbericht.
+Offene Fachfragen (K1-K9 im Dokument): Kontenrahmen-Mapping, Nummernkreis, Nutzung der acht
+  PDF-Berichte, Anlage der 10 Valorisierungstexte, Steuerzuordnung (Teil 2/3), Zahlungsmenu-Domain,
+  SMTP/Rechnungsversand, Kostenstellen-Tags, USD/Preisliste F2-F5.
+Naechster Schritt (Vorschlag): Teil 2 Feldinventar account.invoice/account.invoice.line gegen
+  account.move/account.move.line.
+```
+
 ### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-15: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte, Produktformular), erste Abnahme 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119), Teil 15 am 24.09.2026 (Session 120) auf der VM im Browser abgenommen
 
 Dokument: `docs/o11-o18-vergleich-abo-teil1.md`; Teil 14: `docs/o11-o18-vergleich-abo-teil14.md`; Teil 15: `docs/o11-o18-vergleich-abo-teil15-produktformular.md`; Uebergabe und Vollstaendigkeitsbestaetigung: `docs/uebergabe-session-120-abonnements.md` (24.09.2026: jedes in Odoo 11 verwendete Feld, Reiter, Button, Smart Button, Statuswechsel, Filter, Gruppierung und jeder Geschaeftsprozess ist gleich vorhanden, funktional gleichwertig an anderer Stelle vorhanden oder bewusst dokumentiert; keine offene funktionale Abweichung).
