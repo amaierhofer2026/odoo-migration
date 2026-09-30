@@ -7692,3 +7692,36 @@ Befunde B1-B9 im Dokument (Abschnitt 10), jeder einzeln mit Vorschlag, nichts um
 Naechster Schritt (Vorschlag): Teil 4 Ansichten/Listen/Filter/Massenaktionen; Teil 5
   Migrationsregeln/Feldabbildung; Teil 6 Berichtsanalyse (K3) und Vorlagen (B6).
 ```
+
+## Session 122, B2: Gutschrift (30.09.2026)
+
+```
+Auftrag (Anna): Odoo 11 account.invoice.refund vollstaendig read-only mit Odoo 18
+  account.move.reversal vergleichen (Felder, Grund, Datum, Referenz, Aktionen, Wirkung,
+  Status danach, Verknuepfung, Ablauf im Browser); pruefen, ob die tatsaechlich verwendete
+  Gutschrift-Funktion fachlich abgedeckt ist. Keine Migration, Odoo 11 nur lesend.
+Dokument: docs/o11-o18-vergleich-abrechnung-b2-gutschrift.md.
+Werkzeuge: scripts/analyse_abrechnung_b2_gutschrift.py, scripts/analyse_abrechnung_b2_wirkung.py,
+  scripts/browser_b2_gutschrift.py, scripts/diag_b2_gutschrift_dialog.py.
+Ergebnis (Kurzform):
+  Odoo 11 Assistent 578: Methode (3 Werte, Pflicht), Grund (Pflicht), Gutschrift-Datum (Pflicht),
+    Buchungsdatum; Buttons "Gutschrift hinzufuegen" und "Cancel"; kein Referenzfeld.
+    _prepare_refund: Gutschrift im Entwurf, origin = Nummer der Rechnung, refund_invoice_id,
+    name = Grund, date_invoice = date_due = Gutschrift-Datum, payment_term_id geleert;
+    Chatter-Nachricht "Gutschrift" mit dem Grund. Modi: refund (Entwurf),
+    cancel (buchen + ausgleichen), modify (+ neue Entwurfsrechnung).
+  Odoo 18 Assistent 931: reason, journal_id (Pflicht), date (Stornodatum); Buttons Stornieren,
+    Stornieren und Rechnung erstellen, Verwerfen. _prepare_default_reversal: ref =
+    "Stornierung von: <Nummer>, <Begruendung>", reversed_entry_id, invoice_origin = Herkunft der
+    Rechnung, auto_post = at_date bei Zukunftsdatum; Abstimmung nur beim Modify-Knopf.
+  Nutzung Odoo 11: 237 Gutschriften (222 bezahlt, 15 offen, 0 Entwurf/Storno), davon 215 ueber
+    den Assistenten (215 Chatter-Nachrichten "Gutschrift"), 22 ohne Assistent (11 ohne Herkunft);
+    0 Rechnungen im Zustand Storno; 14 Entwuerfe ohne Datum (kein modify-Hinweis).
+  Browser VM: 10 OK / 0 FEHL, Dialog mit drei Feldern und drei Buttons, mit "Verwerfen"
+    geschlossen, kein Beleg angelegt.
+Bewertung: fachlich abgedeckt. Offen sind nur Migrationspunkte: U2 auto_post = no setzen,
+  U3 Zielfeld fuer den Grund (Odoo-11-Feld name hat im Feldinventar kein Ziel), U4 Herkunftsregel
+  (Nummer der Rechnung nur im ref-Text), U5 22 Gutschriften ohne Bezug. U1 (Sofort-Ausgleich des
+  Odoo-11-Modus "Abbrechen" als eigener Knopf) ist kein Muss, Vorschlag: nichts umbauen.
+Naechster Schritt: B3 Zahlung, danach B6 Mailvorlagen (jeweils separat, nichts begonnen).
+```

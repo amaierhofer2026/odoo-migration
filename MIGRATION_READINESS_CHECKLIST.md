@@ -1304,6 +1304,51 @@ Naechster Schritt (Vorschlag): Teil 4 Ansichten/Listen/Filter/Massenaktionen, Te
   und Vorlagen (B6).
 ```
 
+B2 GUTSCHRIFT (Befund aus Teil 3, 30.09.2026, nur Analyse, keine Aenderung an Odoo 18).
+Dokument: `docs/o11-o18-vergleich-abrechnung-b2-gutschrift.md`:
+```
+Vergleich: Odoo 11 account.invoice.refund (Assistent, View 578, Modul account) gegen Odoo 18
+  account.move.reversal (View 931).
+Odoo 11 Assistent: Felder Rueckerstattungsmethode (Pflicht, 3 Werte), Grund (Pflicht),
+  Gutschrift-Datum (Pflicht), Buchungsdatum; Buttons "Gutschrift hinzufuegen" und "Cancel";
+  kein Referenzfeld. Quellcode-Fakten (_prepare_refund): Gutschrift im Entwurf, number=False,
+  origin = Nummer der Rechnung, refund_invoice_id = Rechnung, name = Grund,
+  date_invoice = date_due = Gutschrift-Datum, payment_term_id = False; die Rechnung erhaelt eine
+  Chatter-Nachricht mit Betreff "Gutschrift" und dem Grund. Die drei Modi (Quellcode
+  compute_refund): "refund" = Entwurf; "cancel" = buchen und ausgleichen (setzt die Rechnung
+  NICHT auf Storno); "modify" = zusaetzlich neue Entwurfsrechnung.
+Nutzung Odoo 11 (read-only): 237 Gutschriften, davon 222 bezahlt, 15 offen, 0 Entwurf/Storno;
+  215 ueber den Assistenten (215 Chatter-Nachrichten "Gutschrift" auf 215 Belegen, genau die
+  215 mit Ursprungsbezug und Begruendung); 22 ohne Assistent (davon 11 ohne Herkunft);
+  0 Ausgangsrechnungen im Zustand Storno; 14 Entwuerfe, alle ohne Datum und mit Herkunft
+  A-/NV-Nummern (kein Hinweis auf Modus "Modifizieren"); Feld reference in Odoo 11 nie benutzt (0);
+  Feld name (Referenz/Beschreibung) in 1.418 Belegen belegt, davon 215 Gutschriften mit Grund.
+Odoo 18 Assistent: Felder Begruendung auf Gutschrift angezeigt (reason), Journal (Pflicht,
+  "?"-Markierung), Stornodatum (Vorbelegung heute); Buttons Stornieren (refund_moves),
+  Stornieren und Rechnung erstellen (modify_moves), Verwerfen. Quellcode (_prepare_default_reversal):
+  ref = "Stornierung von: <Nummer>, <Begruendung>", reversed_entry_id, date/invoice_date_due =
+  Stornodatum, invoice_date = Stornodatum, journal_id, invoice_user_id, invoice_origin = Herkunft
+  der Rechnung, auto_post = at_date bei Zukunftsdatum; Entwurf; Abstimmung nur bei
+  "Stornieren und Rechnung erstellen" (cancel=True) plus neue Entwurfsrechnung. Journal
+  Kundenrechnungen fuehrt refund_sequence = True (eigene Gutschriftenfolge, Grundlage K2a).
+Browser-Nachweis VM (read-only, scripts/browser_b2_gutschrift.py, Beleg 28 RE/2020/0001):
+  10 OK / 0 FEHL, Dialogtitel "Gutschrift", drei Felder wie oben, drei Buttons, mit "Verwerfen"
+  geschlossen, kein Beleg angelegt (57 vorher, 57 nachher), 0 JavaScript- und 0 RPC-Fehler.
+UNTERSCHIEDE (U1-U7, nichts umgebaut): U1 Sofort-Ausgleich des Odoo-11-Modus "Abbrechen" hat in
+  Odoo 18 keinen eigenen Knopf (buchen + abstimmen, Ergebnis gleich, Vorschlag: nichts umbauen);
+  U2 Zukunftsdatum bucht automatisch (Importregel auto_post = no vormerken);
+  U3 Zielfeld fuer den Grund: Odoo 11 speichert ihn in name (in Odoo 18 die Belegnummer) - im
+  Feldinventar Teil 2 ist fuer name kein Ziel definiert, Vorschlag: ref nach Odoo-18-Muster
+  bilden und Grund zusaetzlich in der Chatter-Nachricht erhalten;
+  U4 Herkunft: Odoo 11 origin = Nummer der Rechnung, Odoo 18 invoice_origin = Herkunft der
+  Rechnung (Nummer nur im ref-Text), Vorschlag: reversed_entry_id setzen, Herkunft wie Odoo 18;
+  U5 22 Gutschriften ohne Ursprungsbezug bleiben ohne Bezug (nichts rekonstruieren);
+  U6 teilweise bezahlte Rechnungen: Odoo 18 ohne Einschraenkung (keine Luecke);
+  U7 Mehrfachauswahl/Belegarten: Verhalten dokumentiert (keine Luecke).
+ERGEBNIS: die in Odoo 11 verwendete Gutschrift-Funktion ist in Odoo 18 fachlich abgedeckt; offen
+  sind nur Migrationspunkte (U2-U5), keine Funktionsluecke.
+```
+
 ### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-15: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte, Produktformular), erste Abnahme 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119), Teil 15 am 24.09.2026 (Session 120) auf der VM im Browser abgenommen
 
 Dokument: `docs/o11-o18-vergleich-abo-teil1.md`; Teil 14: `docs/o11-o18-vergleich-abo-teil14.md`; Teil 15: `docs/o11-o18-vergleich-abo-teil15-produktformular.md`; Uebergabe und Vollstaendigkeitsbestaetigung: `docs/uebergabe-session-120-abonnements.md` (24.09.2026: jedes in Odoo 11 verwendete Feld, Reiter, Button, Smart Button, Statuswechsel, Filter, Gruppierung und jeder Geschaeftsprozess ist gleich vorhanden, funktional gleichwertig an anderer Stelle vorhanden oder bewusst dokumentiert; keine offene funktionale Abweichung).
