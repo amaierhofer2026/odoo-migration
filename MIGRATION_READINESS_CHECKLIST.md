@@ -1493,6 +1493,26 @@ Verbindlich: nach jedem Upgrade der Odoo-18-Module laeuft dieser Abgleich mit; i
   ist der Lauf zu wiederholen bzw. die Ursache zu klaeren.
 ```
 
+TEIL 5 FELDABBILDUNG UND MIGRATIONSREGELN (30.09.2026). Dokument:
+`docs/o11-o18-vergleich-abrechnung-teil5-feldabbildung.md` (erzeugt von
+`scripts/baue_abrechnung_teil5_doku.py`, 53 Feldpaare):
+```
+Je tatsaechlich relevantem Odoo-11-Feld sind festgehalten: Odoo-11-Modell und Feld,
+  Odoo-11-Bezeichnung, Odoo-18-Zielmodell und Feld, Odoo-18-Bezeichnung (nach Label-Abgleich),
+  Zuordnung bzw. Transformationsregel, benoetigte Stammdaten/Modulabhaengigkeit, gespeichert oder
+  berechnet in beiden Systemen, migriert oder neu berechnet und die Validierungsregel.
+Regeln ohne Feldbezug: K2a (Weg A, Feld "Odoo-11-Rechnungsnummer"), K2b (sequence_override_regex
+  vor der ersten neuen Rechnung, vorher Testkopie), K2c (Hash und Pruefpfad erst nach der
+  Migration), Gutschriften B2 (reversed_entry_id, Gutschriftsgrund aus dem Odoo-11-Feld name in
+  ref und Chatter, auto_post = no), Zahlungen B3 (Abstimmung, Journal BNK1, Memo =
+  Rechnungsnummer), K1 Kontenrahmen-Mapping (1.286 -> l10n_at), K5 Steuermapping (77 -> 53),
+  K4 Valorisierungstexte (10 Stammdatensaetze), K7 SMTP offen.
+Kernpunkte je Feld: Belegnummer 1:1 (Kontrolle K2a), Zustand Offen -> gebucht + Zahlungszustand,
+  Restbetrag neu berechnet, Kostenstelle -> analytic_distribution 100 %, Erloeskonto ueber
+  K1-Mapping, Steuern ueber K5-Mapping, Valorisierungstext und Projektkategorie ueber Stammdaten.
+Es wurde nichts migriert und nichts in Odoo 18 geaendert.
+```
+
 ### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-15: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte, Produktformular), erste Abnahme 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119), Teil 15 am 24.09.2026 (Session 120) auf der VM im Browser abgenommen
 
 Dokument: `docs/o11-o18-vergleich-abo-teil1.md`; Teil 14: `docs/o11-o18-vergleich-abo-teil14.md`; Teil 15: `docs/o11-o18-vergleich-abo-teil15-produktformular.md`; Uebergabe und Vollstaendigkeitsbestaetigung: `docs/uebergabe-session-120-abonnements.md` (24.09.2026: jedes in Odoo 11 verwendete Feld, Reiter, Button, Smart Button, Statuswechsel, Filter, Gruppierung und jeder Geschaeftsprozess ist gleich vorhanden, funktional gleichwertig an anderer Stelle vorhanden oder bewusst dokumentiert; keine offene funktionale Abweichung).
