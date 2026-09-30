@@ -7166,6 +7166,44 @@ Dokumente: docs/o11-o18-verkauf-abschluss.md (Abschlussdokument mit allen bewuss
 Offen: keine. Naechstes Modul noch nicht begonnen.
 ```
 
+## Session 121: Gezielter Migrations-Check Verkauf und R1 Mengeneinheiten (29.09.2026)
+
+```
+GEZIELTER MIGRATIONS-CHECK (nur Analyse, read-only, keine Aenderung):
+  Feldzuordnung sale.order (39 belegte von 89 Feldern) und sale.order.line (33 von 53) mit
+  Wertepruefung; Formularaufbau, Reiter, Gruppen, Spalten, Weitere Informationen verglichen.
+  Werkzeuge: scripts/analyse_verkauf_migrationscheck_felder.py, ..._aufbau.py,
+  pruefe_verkauf_migrationscheck_werte.py, baue_verkauf_migrationscheck_doku.py
+  Dokumente: docs/o11-o18-verkauf-migrationscheck.md (Risiken R1-R8) und
+  docs/o11-o18-verkauf-migrationscheck-felder.md (Detailtabelle)
+  8 echte Risiken gefunden: R1 Mengeneinheiten, R2 price_reduce, R3 Zustand done,
+  R4 note text->html, R5 invoice_lines, R6 tag_ids, R7 layout_category_id,
+  R8 amt_invoiced/amt_to_invoice (in Odoo 18 nicht gespeichert)
+  Folge: Bereich Verkauf NICHT endgueltig abgeschlossen (Entscheidung Anna 29.09.2026).
+
+R1 MENGENEINHEITEN (ABGESCHLOSSEN 29.09.2026):
+  Odoo 11 verwendet 13 Einheiten; Odoo 18 fehlten 8 und fuehrte Rundung 0,01 statt 0,001
+  (Dezimalgenauigkeit "Product Unit of Measure" 2 statt 3). Nachweis der Relevanz: 2 Auftragszeilen
+  mit Menge 0,125 in "Einheit(en)" waeren mit 0,01 nicht darstellbar.
+  Umsetzung in Odoo 18 (lokal und VM identisch, idempotent):
+    Genauigkeit 2 -> 3; Rundung "Einheit(en)" und "ITK Einheit" 0,01 -> 0,001
+    "GB" neu in eigener Kategorie "Datenmenge" (Typ reference, Faktor 1.0, Rundung 0,01);
+      GB = Gigabyte (Produkte GemeindeCloud 5..1.000 GB, 11 Produkte, 45 Zeilen) - KEINE
+      Verbindung zu Volumen/Liter
+    7 historische Einheiten "13/15/16/19/22/23/29 Gemeinden" neu angelegt (Typ bigger, Faktor 1.0)
+      Herkunft geklaert: am 02.01.2020 von Waiss Martina je Kunde angelegt (Gemeindezahl im Namen),
+      Produkt immer "Ersteinrichtungskosten amtsweg.gv.at - Region..." - Notbehelf, keine
+      fachliche Einheitenfunktion
+    29 -> 37 Einheiten; keine bestehende Einheit entfernt oder umbenannt
+  Regel fuer die Datenmigration: Zuordnung ueber den NAMEN, nie ueber die ID; die Sondereinheiten
+    werden 1:1 nach Namen zugeordnet, NICHT auf "Einheit(en)" zusammengefuehrt
+  Nachweise: scripts/apply_verkauf_r1_mengeneinheiten.py (idempotent, --trocken),
+    scripts/pruefe_verkauf_r1_mengeneinheiten.py -> lokal 32 OK, VM 32 OK (64 OK / 0 FEHL),
+    Regression 886 OK / 0 FEHL, Browser-Gesamtdurchgang VM 43 OK / 0 FEHL (0 JS-/RPC-Fehler)
+  Dokument: docs/o11-o18-verkauf-r1-mengeneinheiten.md
+Offen: R2 bis R8; Verkauf noch nicht endgueltig abgeschlossen.
+```
+
 ## Session 121, Teil 4 Schritt 3 (Druckberichte) und Abschluss Teil 4
 
 Dokument: docs/o11-o18-vergleich-verkauf-teil4-druckberichte.md
