@@ -51,12 +51,30 @@ die Odoo-11-Vorlage "Rechnung mit Zahlung" (id 538, gleicher ITK-Briefkopf, zusa
 Zahlungen im PDF). Die Odoo-18-Vorlage "PDF-Rechnung" (323) enthaelt die Zahlungen, aber im
 Odoo-Standardlayout ohne ITK-Briefkopf.
 
-## 3. Konkrete Vorbereitung fuer Odoo 18 (offen, nicht umgebaut)
+## 3. Umgesetzt: ITK-Rechnung mit Zahlung (30.09.2026)
 
-1. ITK-Vorlage "Rechnung mit Zahlung" portieren (itk_reports): Variante der bestehenden Vorlage
-   `itk_report_invoice.xml` mit dem Zahlungsblock der Odoo-18-Vorlage
-   `account.report_invoice_with_payments`. Ohne sie fehlt die gewohnte Kombination
-   "ITK-Briefkopf und Zahlungsnachweis".
+Der fehlende Bericht wurde als Community-/ITK-Bericht nachgebaut (Modul `itk_reports`, Version
+18.0.1.4.0):
+
+```
+Vorlage   : itk_reports.report_itk_invoice_document_with_payments (Zahlungsblock ergaenzt)
+Aktion    : itk_reports.action_report_itk_invoices_with_payments, Name "ITK-Rechnung mit Zahlung",
+            gebunden an account.move (erscheint im Drucken-Menue)
+Inhalt    : wie Odoo 11 (Bericht id 538): zuerst die geleisteten Zahlungen
+            ("Bezahlt am <Datum>" mit Betrag), danach der offene Betrag, wenn Zahlungen
+            vorhanden sind. Datenquelle: invoice_payments_widget (Odoo 18).
+Layout    : identisch zum bestehenden ITK-Rechnungsbericht (ITK-Briefkopf), nur mit Zahlungsblock.
+Nachweis lokal: /report/html und /report/pdf fuer RE/2026/0001 und RE/2026/0002 ->
+            "Bezahlt am" und "Offener Betrag" enthalten, PDF 27 KB mit PDF-Kennung;
+            der alte Bericht ohne Zahlungen zeigt beides nicht (Vergleich).
+Nachweis VM (Browser): Drucken-Menue der Rechnungsliste zeigt PDF | PDF ohne Zahlung |
+            ITK-Rechnung | ITK-Rechnung mit Zahlung; Klick erzeugt "ITK-Rechnung mit Zahlung.pdf"
+            (4 OK / 0 FEHL).
+Odoo-18-Zusatzfunktionen (PDF-Rechnung, PDF ohne Zahlung, Originalrechnungen, EDI-Bericht)
+            bleiben unveraendert erhalten.
+```
+
+## 3a. Weitere Vorbereitung fuer Odoo 18
 2. Acht Berichts-Assistenten: nicht nachbauen. Wenn Berichtswesen gebraucht wird, ist das
    Enterprise-Modul (account_reports) die einzige belastbare Option; die Entscheidung ist
    fachlich/organisatorisch und liegt bei Anna.

@@ -7864,3 +7864,21 @@ Inhalt: 53 Feldpaare mit Odoo-11-Modell/Feld/Bezeichnung, Odoo-18-Ziel/Feld/Beze
 Es wurde nichts migriert, Odoo 11 nur gelesen, Odoo 18 nicht geaendert.
 Naechster Schritt: Teil 6 Berichte (Vorgabe K3).
 ```
+
+## Session 122, Umsetzung 30.09.2026 (Bericht, Zahlungsart, Journalname)
+
+```
+Entscheidungen Anna: kein Enterprise-Berichtsmodul (Community bleibt, fehlende Berichte nur bei
+  Bedarf mit Community-/ITK-Mitteln nachbauen); Zahlungsart sichtbar "Manuelle Zahlung (Bank)";
+  Journal BNK1 sichtbar "Bank fuer Tirol und Vorarlberg AG (EUR)" (Code unveraendert).
+Umsetzung:
+  itk_reports 18.0.1.4.0: Vorlage report_itk_invoice_document_with_payments um den Zahlungsblock
+    ergaenzt (Bezahlt am <Datum> + Betrag, danach offener Betrag) und neue Berichtsaktion
+    "ITK-Rechnung mit Zahlung" gebunden an account.move (Odoo 11: Bericht 538).
+  scripts/apply_abrechnung_labels.py setzt zusaetzlich die Stammdaten-Bezeichnungen
+    (Journalname BNK1, Zahlungsart-Zeilen) und prueft sie - lokal und VM je 3 gesetzt.
+Nachweise: lokal HTML/PDF mit Zahlungsblock (RE/2026/0001, RE/2026/0002) und Vergleich gegen die
+  Variante ohne Zahlungen; VM Browser-Test 4 OK / 0 FEHL (Drucken-Menue zeigt PDF, PDF ohne
+  Zahlung, ITK-Rechnung, ITK-Rechnung mit Zahlung; Klick erzeugt "ITK-Rechnung mit Zahlung.pdf").
+```Naechster Schritt: Teil 6 Berichte (Vorgabe K3).
+```
