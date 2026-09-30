@@ -573,8 +573,18 @@ Namen zugeordnet (nicht auf "Einheit(en)" zusammengefuehrt); Rundung "Einheit(en
 Regression 886 OK / 0 FEHL, Browser auf der VM 43 OK / 0 FEHL.
 Dokument: `docs/o11-o18-verkauf-r1-mengeneinheiten.md`.
 
+**R2 price_reduce: ABGESCHLOSSEN (29.09.2026).** Odoo 18 kennt das Feld `price_reduce` nicht mehr;
+die Nachfolgefelder `price_reduce_taxexcl` und `price_reduce_taxinc` sind vorhanden. Der Wert wird
+bei der Datenmigration nicht direkt uebernommen, sondern aus `price_unit`, `discount`,
+`product_uom_qty`, `tax_id` und `currency_id` durch die Odoo-18-Standardlogik neu berechnet.
+Nachweis: Formel `price_reduce = price_unit * (1 - Rabatt/100)` trifft in allen 4.011 Zeilen zu;
+3.960 von 3.960 Zeilen mit Menge > 0 stimmen innerhalb 0,01 mit dem Odoo-18-Wert ueberein (3.959
+exakt); Sonderfaelle dokumentiert (1 Zeile mit 1-Cent-Eigenrundung, 51 leere Positionen).
+Pruefung 9 OK / 0 FEHL je Instanz, keine Aenderung an Odoo 18 noetig.
+Dokument: `docs/o11-o18-verkauf-r2-preis-reduziert.md`.
+
 **STATUS: Teil 5 Block 3 und 4 abgeschlossen und im echten Browser auf der Abnahmeumgebung
-abgenommen; Abschlussmarkierung des Bereichs wegen R2 bis R8 zurueckgestellt.**
+abgenommen; Abschlussmarkierung des Bereichs wegen R3 bis R8 zurueckgestellt.**
 Naechstes Modul noch nicht begonnen.
 
 
