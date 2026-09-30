@@ -7520,3 +7520,57 @@ Naechster Vorschlag: Teil 2 Feldinventar account.invoice/account.invoice.line ge
   account.move/account.move.line; Entscheidungen zu K1, K3, K4 und K6 vor Teil 3.
 Es wurden keine Odoo-11-Daten migriert; Odoo 11 wurde ausschliesslich lesend verwendet.
 ```
+
+## Session 122, Teil 2: Feldinventar Abrechnung - account.invoice/-line gegen account.move/-line (30.09.2026)
+
+Dokument: `docs/o11-o18-vergleich-abrechnung-teil2.md` (474 Zeilen, aus den Messdaten erzeugt).
+**Nur Analyse und Dokumentation - an Odoo 18 wurde nichts geaendert** (kein Upgrade, kein
+Neustart, kein Schreibvorgang); Odoo 11 Prod ausschliesslich lesend.
+
+```
+Werkzeuge: scripts/analyse_abrechnung_teil2_felder.py (Feldmengen, Typen, Relationen, Nutzung),
+  scripts/analyse_abrechnung_teil2_details.py (Beschriftungen, Pflicht/readonly, Auswahlwerte),
+  scripts/baue_abrechnung_teil2_doku.py (erzeugt das Dokument). Rohdaten nur im Temp-Verzeichnis.
+Feldmengen: account.invoice 87 Felder gegen account.move 189 (gemeinsam 50, nur O11 37,
+  nur O18 139); account.invoice.line 37 gegen account.move.line 93 (gemeinsam 23, nur O11 14,
+  nur O18 70). Vollstaendigkeitskontrolle ir.model.fields gegen fields_get je Modell und
+  Instanz: 0 Abweichungen (O11 87/87 und 37/37, O18 189/189 und 93/93).
+Belegte Felder Odoo 11 (vollstaendige Tabellen im Dokument): Rechnung u. a. team_id 6.277,
+  projectcategory_id 5.254, valorisierung_id 4.216, sale_order_benefit_period 5.801,
+  sale_order_confirmation_date 4.602, comment 5.973, origin 6.140, payment_term_id 5.737,
+  tax_line_ids 6.255, sent 2.549, reconciled 6.234, name 1.418 (nur gebuchte Belege haben
+  Nummern), currency_id/reference_type/type/state/residual 6.277; Rechnungszeile u. a.
+  account_id/quantity/price_unit/price_subtotal/price_total/name/number/discount 10.031,
+  invoice_line_tax_ids 10.009, subscription_id 8.099, origin 2.181, sale_line_ids 1.863,
+  layout_category_sequence 606, layout_category_id 2.
+Pflichtfelder: O11 (account_id, company_id, currency_id, journal_id, partner_id, reference_type)
+  gegen O18 (auto_post, currency_id, date, journal_id, move_type, state); Zeile O11
+  (account_id, name, price_unit, quantity) gegen O18 (currency_id, display_type, move_id).
+Zustaende: O11 state draft/open/paid/cancel gegen O18 state draft/posted/cancel plus
+  payment_state (not_paid/in_payment/paid/partial/reversed/blocked/invoicing_legacy);
+  O11 type gegen O18 move_type (7 Werte); O18 display_type ersetzt die O11-Abschnittsfelder.
+ITK-Felder in Odoo 18 vorhanden: valorisierung_id (itk_valorisierung), projectcategory_id
+  (itk_projectcategory), notice/sale_order_benefit_period/sale_order_confirmation_date
+  (itk_subscription), subscription_id auf der Zeile (itk_subscription).
+Entfaellt mit 0 Datensaetzen: timesheet_ids/timesheet_count (sale_timesheet), campaign_id/
+  medium_id/source_id (utm), reference_type (immer 'none'), analytic_tag_ids,
+  account_analytic_id, purchase_id, incoterms_id, cash_rounding_id.
+Kein Ziel (bewusst, wie Verkauf R7): layout_category_id (2 Zeilen) und layout_category_sequence
+  (606 Zeilen) der Rechnungszeile - Odoo 18 nutzt display_type line_section/line_note.
+K2 Rechnungsnummern technisch geprueft (Auftrag Anna): 6.263 Nummern mit Praefix R- im einen
+  Journal "Ausgangsrechnungen (EUR)"; Formatwechsel 2019 (R-1900001, 5 Stellen) auf ab 2020
+  (R-20001, 3 Stellen); Odoo 11 hatte unique(number, company_id, journal_id, type), Odoo 18 den
+  UNIQUE INDEX account_move_unique_name (name, journal_id) WHERE state='posted' AND name<>'/'.
+  Folge: genau eine Doppelnummer (R-25001 = Rechnung id 9703 vom 02.01.2025 und Gutschrift
+  id 11531 vom 06.02.2025) wuerde den Import abbrechen -> als K2a offen vorgelegt.
+  Feld name ist in Odoo 18 beschreibbar (compute + inverse + readonly=False); die Nummernvergabe
+  setzt auf der hoechsten vorhandenen Nummer desselben Journals auf und fuehrt das Format fort
+  (_set_next_sequence/_get_last_sequence), ein gesetzter Name bleibt beim Buchen erhalten.
+  Achtung: bei Journalwechsel ohne name wird der Name zurueckgesetzt; Pruefpfad/Audit
+  (Buchungen festschreiben) wuerde Nummern gebuchter Belege unveraenderlich machen -> vor der
+  Migration entscheiden (K2c). Es wurde nichts umnummeriert.
+Offene Punkte: K2a (Doppelnummer), K2b (welches Nummernformat weiterlaeuft), K2c (Pruefpfad),
+  K5 (Steuer-Mapping im Stammdatenteil), K9 (USD, 4 Belege betroffen).
+Naechster Schritt: Teil 3 (Formulare, Reiter, Buttons, Smart Buttons, Zustandswechsel,
+  Zahlungs-/Abstimmungslogik, Rechnungsdruck und Versand - Browser lokal und VM).
+```
