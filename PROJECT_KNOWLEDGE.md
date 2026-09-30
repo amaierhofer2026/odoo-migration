@@ -7284,7 +7284,23 @@ R7 LAYOUT_CATEGORY_ID (ABGESCHLOSSEN 29.09.2026):
   Entscheidung Anna: beide Felder bewusst NICHT migrieren; fuer A-1900915 und A-1900906 KEINE
   kuenstlichen Abschnittszeilen anlegen - die beiden Zuordnungen nur dokumentieren.
   Keine Aenderung an Odoo 18 erforderlich. Dokument: docs/o11-o18-verkauf-r7-layout-category.md
-Offen: R8; Verkauf noch nicht endgueltig abgeschlossen.
+R8 AMT_INVOICED / AMT_TO_INVOICE (ABGESCHLOSSEN 29.09.2026):
+  Odoo 11 fuehrt amt_invoiced (1.669 Zeilen) und amt_to_invoice (1.950 Zeilen) als gespeicherte,
+  schreibgeschuetzte monetary-Felder mit steuerinklusive Werten (price_total 18,30 -> amt_invoiced
+  18,30; Ueberabrechnung ergibt negative Werte). Odoo 18 fuehrt amount_invoiced /
+  amount_to_invoice als BERECHNETE, NICHT gespeicherte Felder - ein Import kann sie nicht setzen.
+  Berechnung (Modul sale, im Container gelesen): amount_invoiced = Summe price_total der
+  verknuepften Rechnungszeilen, nur fuer gebuchte Rechnungen, Gutschriften negativ;
+  amount_to_invoice = (price_total / Menge) x (abzurechnende Menge - abgerechnete Menge).
+  End-to-End-Test: Entwurfsrechnung -> amount_invoiced 0,00 / amount_to_invoice 120,00;
+  gebuchte Rechnung -> amount_invoiced 120,00 / amount_to_invoice 0,00 (Testdaten entfernt).
+  Entscheidung Anna: keine Wertuebernahme, Odoo 18 berechnet neu - Voraussetzung: Rechnungen und
+  Rechnungszeilen migriert und gebucht, Verknuepfung nach R5. Ohne Rechnungsmigration gilt die
+  dokumentierte Erwartung: amount_invoiced 0, amount_to_invoice = offener Betrag, invoice_status
+  kann "to invoice" sein (nicht als Migrationsfehler zu deuten).
+  Keine Aenderung an Odoo 18 erforderlich. Dokument: docs/o11-o18-verkauf-r8-invoiced-amounts.md
+ALLE ACHT RISIKEN R1-R8 TECHNISCH VORBEREITET. Gesamtstatus:
+  docs/o11-o18-verkauf-gesamtstatus-r1-r8.md. Bereich Verkauf noch NICHT endgueltig abgeschlossen.
 ```
 
 ## Session 121, Teil 4 Schritt 3 (Druckberichte) und Abschluss Teil 4

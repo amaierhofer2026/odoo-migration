@@ -340,7 +340,13 @@ Prüfwerkzeug: `python scripts/vm_abnahme_check.py` · Detailregel: `docs/arbeit
   druckt keine Sektionen, Sequenz nie genutzt); korrigierte Messung: genau 2 von 4.011
   Auftragszeilen mit der Sektion "Dienstleistungen" - fuer sie werden keine kuenstlichen
   Abschnittszeilen angelegt (Dokument `docs/o11-o18-verkauf-r7-layout-category.md`).
-  Offen: R8 (amt_invoiced / amt_to_invoice).
+  R8 `amt_invoiced` / `amt_to_invoice` ist abgeschlossen: keine Wertuebernahme - Odoo 18 berechnet
+  beide Werte aus den migrierten, gebuchten Rechnungszeilen (Verknuepfung nach R5); ohne
+  Rechnungsmigration gilt die dokumentierte Erwartung amount_invoiced 0 / amount_to_invoice =
+  offener Betrag / invoice_status "to invoice" (nicht als Migrationsfehler zu deuten).
+  (Dokument `docs/o11-o18-verkauf-r8-invoiced-amounts.md`.)
+  Damit sind R1-R8 vorbereitet; Gesamtstatus `docs/o11-o18-verkauf-gesamtstatus-r1-r8.md`.
+  Der Bereich Verkauf ist noch NICHT endgueltig abgeschlossen.
 - **Bereich Verkauf - Teil 4 Schritt 3 Druckberichte (Session 121, 29.09.2026): ABGENOMMEN.
   Teil 4 damit abgeschlossen.** Dokument `docs/o11-o18-vergleich-verkauf-teil4-druckberichte.md`.
   Odoo 11 hatte drei Report-Aktionen auf `sale.order` ("Angebot/Auftrag" und "Proformarechnung"
