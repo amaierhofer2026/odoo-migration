@@ -1210,8 +1210,59 @@ Entscheidungen von Anna (30.09.2026, verbindlich): K1 Kontenrahmen l10n_at bleib
   K6 Odoo-18-Zahlungsmenues bleiben, Odoo-11-Navigation nur bei echter Funktionsluecke;
   K7 SMTP nur als offener Infrastrukturpunkt dokumentieren; K8 Kostenstellen-Tags nicht nachbauen;
   K9 USD-Waehrung/Preisliste als offener Pruefpunkt dokumentiert.
-Naechster Schritt (Vorschlag): Teil 2 Feldinventar account.invoice/account.invoice.line gegen
-  account.move/account.move.line.
+Teil 2 FELDINVENTAR (30.09.2026, nur Analyse, keine Aenderung an Odoo 18):
+  Dokument docs/o11-o18-vergleich-abrechnung-teil2.md. account.invoice 87 Felder gegen
+  account.move 189 (gemeinsam 50, nur O11 37, nur O18 139); account.invoice.line 37 gegen
+  account.move.line 93 (gemeinsam 23, nur O11 14, nur O18 70). Vollstaendigkeitskontrolle:
+  ir.model.fields gegen fields_get je Modell und Instanz ohne Abweichung.
+  Jedes belegte Odoo-11-Feld hat ein Ziel; Pflichtfelder verschieben sich von fachlich
+  (partner_id, account_id, reference_type) auf technisch (move_type, state, date, auto_post,
+  display_type, move_id); Zustand: O11 draft/open/paid/cancel gegen O18 draft/posted/cancel
+  plus payment_state; 2 bzw. 1 Typ-/Relationsabweichung; 24 bzw. 10 Beschriftungsunterschiede.
+  ITK-Felder (valorisierung_id, projectcategory_id, notice, sale_order_*, subscription_id)
+  in Odoo 18 vorhanden; entfallen nur Felder mit 0 Datensaetzen.
+  K2 Rechnungsnummern technisch geprueft (read-only): Feld name beschreibbar; Odoo 18 hat den
+  UNIQUE INDEX account_move_unique_name (name, journal_id) fuer gebuchte Belege (in Odoo 11
+  war 'type' Teil des Schluessels) -> genau EINE Doppelnummer R-25001 (Rechnung id 9703 und
+  Gutschrift id 11531, 2025) wuerde den Import abbrechen; Odoo 18 fuehrt die Zaehlung ab der
+  hoechsten vorhandenen Nummer im gleichen Format fort (R-26990 ...). Regelung als K2a offen.
+Naechster Schritt (Vorschlag): Teil 3 Formulare, Reiter, Buttons, Smart Buttons, Zustandswechsel,
+  Zahlungs- und Abstimmungslogik, Rechnungsdruck und Versand (Browser lokal und VM); vorher
+  Entscheidungen zu K1, K3, K4, K6 sowie K2a/K2b/K2c.
+K2 VOLLSTAENDIG GEKLAERT (30.09.2026, read-only): eigenes Dokument
+  docs/o11-o18-vergleich-abrechnung-k2-nummern.md.
+  Messkorrektur: hoechste Rechnungsnummer 2026 ist R-261139 (nicht R-26989; die laufende Nummer
+  wechselt bei Ueberschreitung von 999 in die Vierstelligkeit). Nachtrag in Teil 2, Abschnitt 12.
+  K2a: Odoo 18 erlaubt gleiche Nummern nur je Journal (UNIQUE INDEX account_move_unique_name auf
+  name+journal_id fuer gebuchte Belege); ein eigener Nummerkreis fuer Gutschriften
+  (refund_sequence) loest den Fall NICHT, ein zweites Journal schon (aendert aber die
+  Journalstruktur). Empfehlung Weg A: Rechnung behaelt R-25001, Gutschrift erhaelt eine neue
+  Nummer, Originalnummer in einem eigenen Feld "Odoo-11-Rechnungsnummer" (Vorschlag, nichts
+  angelegt). Gutschrift bleibt ueber reversed_entry_id/Ursprung R-25584 nachvollziehbar.
+  K2b: ohne Zusatzkonfiguration erkennt Odoo 18 alle 6.263 Nummern als "fest" und wuerde bei
+  R-1900003 weiterlaufen (Fortsetzung des 2019er Zaehlers); mit
+  sequence_override_regex ^(?P<prefix1>R-)(?P<year>\d{2})(?P<seq>\d+)$ (deckt alle 6.263 ab)
+  laeuft die Zaehlung je Jahr korrekt weiter: 2026 -> R-261140, 2027 -> R-2700001, kollisionsfrei.
+  K2c: Journalfeld restrict_mode_hash_table ("Gebuchte Posten mit Hash festschreiben") schuetzt
+  genau name, date, journal_id, company_id (Hash-Felder), ist nach dem ersten gesicherten Beleg
+  nicht mehr abschaltbar und laesst sich per Assistent "Buchungen festschreiben" nachholen;
+  zusaetzlich Loeschsperre fuer Kettenbelege, Schreibsperren fuer Journal/Datum/Nummer und
+  Pruefpfad (res.company.check_account_audit_trail) zur Protokollierung.
+  Offen: K2a (Weg A/B/C), K2a-2 (Einbauort des Feldes), K2b (Override ja/nein), K2c (Hash und
+  Pruefpfad ja/nein).
+ENTSCHEIDUNGEN VON ANNA (30.09.2026, verbindlich):
+  K2a -> Weg A: Rechnung id 9703 behaelt R-25001; die Gutschrift id 11531 erhaelt bei der
+     Migration eine neue, eindeutige Odoo-18-konforme Nummer; die urspruengliche Odoo-11-Nummer
+     bleibt zusaetzlich nachvollziehbar erhalten; dafuer wird ein eigenes Feld
+     "Odoo-11-Rechnungsnummer" vorgesehen; kein zweites Verkaufsjournal nur wegen dieser
+     Kollision. Einordnung: Feldanlage und Migrationsregel in Teil 5.
+  K2b -> jahresbezogene Nummerierung ueber sequence_override_regex wie vorgeschlagen; vorher in
+     einer Testkopie pruefen, wie der erste Beleg eines neuen Jahres weitergezaehlt wird; jetzt
+     keine produktive Nummerierung aendern. Einordnung: vor der ersten neuen Rechnung (Teil 5).
+  K2c -> Hash-Sicherung und Pruefpfad erst NACH der echten Migration und nach erfolgreicher
+     Kontrolle aktivieren; jetzt keine Aenderung. Einordnung: nach der Datenmigration.
+  Unveraendert: keine Datenmigration, keine historischen Nummern aendern, Odoo 11 read-only,
+     keine Odoo-18-Funktion entfernen.
 ```
 
 ### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-15: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte, Produktformular), erste Abnahme 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119), Teil 15 am 24.09.2026 (Session 120) auf der VM im Browser abgenommen

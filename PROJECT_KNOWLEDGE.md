@@ -7520,3 +7520,121 @@ Naechster Vorschlag: Teil 2 Feldinventar account.invoice/account.invoice.line ge
   account.move/account.move.line; Entscheidungen zu K1, K3, K4 und K6 vor Teil 3.
 Es wurden keine Odoo-11-Daten migriert; Odoo 11 wurde ausschliesslich lesend verwendet.
 ```
+
+## Session 122, Teil 2: Feldinventar Abrechnung - account.invoice/-line gegen account.move/-line (30.09.2026)
+
+Dokument: `docs/o11-o18-vergleich-abrechnung-teil2.md` (474 Zeilen, aus den Messdaten erzeugt).
+**Nur Analyse und Dokumentation - an Odoo 18 wurde nichts geaendert** (kein Upgrade, kein
+Neustart, kein Schreibvorgang); Odoo 11 Prod ausschliesslich lesend.
+
+```
+Werkzeuge: scripts/analyse_abrechnung_teil2_felder.py (Feldmengen, Typen, Relationen, Nutzung),
+  scripts/analyse_abrechnung_teil2_details.py (Beschriftungen, Pflicht/readonly, Auswahlwerte),
+  scripts/baue_abrechnung_teil2_doku.py (erzeugt das Dokument). Rohdaten nur im Temp-Verzeichnis.
+Feldmengen: account.invoice 87 Felder gegen account.move 189 (gemeinsam 50, nur O11 37,
+  nur O18 139); account.invoice.line 37 gegen account.move.line 93 (gemeinsam 23, nur O11 14,
+  nur O18 70). Vollstaendigkeitskontrolle ir.model.fields gegen fields_get je Modell und
+  Instanz: 0 Abweichungen (O11 87/87 und 37/37, O18 189/189 und 93/93).
+Belegte Felder Odoo 11 (vollstaendige Tabellen im Dokument): Rechnung u. a. team_id 6.277,
+  projectcategory_id 5.254, valorisierung_id 4.216, sale_order_benefit_period 5.801,
+  sale_order_confirmation_date 4.602, comment 5.973, origin 6.140, payment_term_id 5.737,
+  tax_line_ids 6.255, sent 2.549, reconciled 6.234, name 1.418 (nur gebuchte Belege haben
+  Nummern), currency_id/reference_type/type/state/residual 6.277; Rechnungszeile u. a.
+  account_id/quantity/price_unit/price_subtotal/price_total/name/number/discount 10.031,
+  invoice_line_tax_ids 10.009, subscription_id 8.099, origin 2.181, sale_line_ids 1.863,
+  layout_category_sequence 606, layout_category_id 2.
+Pflichtfelder: O11 (account_id, company_id, currency_id, journal_id, partner_id, reference_type)
+  gegen O18 (auto_post, currency_id, date, journal_id, move_type, state); Zeile O11
+  (account_id, name, price_unit, quantity) gegen O18 (currency_id, display_type, move_id).
+Zustaende: O11 state draft/open/paid/cancel gegen O18 state draft/posted/cancel plus
+  payment_state (not_paid/in_payment/paid/partial/reversed/blocked/invoicing_legacy);
+  O11 type gegen O18 move_type (7 Werte); O18 display_type ersetzt die O11-Abschnittsfelder.
+ITK-Felder in Odoo 18 vorhanden: valorisierung_id (itk_valorisierung), projectcategory_id
+  (itk_projectcategory), notice/sale_order_benefit_period/sale_order_confirmation_date
+  (itk_subscription), subscription_id auf der Zeile (itk_subscription).
+Entfaellt mit 0 Datensaetzen: timesheet_ids/timesheet_count (sale_timesheet), campaign_id/
+  medium_id/source_id (utm), reference_type (immer 'none'), analytic_tag_ids,
+  account_analytic_id, purchase_id, incoterms_id, cash_rounding_id.
+Kein Ziel (bewusst, wie Verkauf R7): layout_category_id (2 Zeilen) und layout_category_sequence
+  (606 Zeilen) der Rechnungszeile - Odoo 18 nutzt display_type line_section/line_note.
+K2 Rechnungsnummern technisch geprueft (Auftrag Anna): 6.263 Nummern mit Praefix R- im einen
+  Journal "Ausgangsrechnungen (EUR)"; Formatwechsel 2019 (R-1900001, 5 Stellen) auf ab 2020
+  (R-20001, 3 Stellen); Odoo 11 hatte unique(number, company_id, journal_id, type), Odoo 18 den
+  UNIQUE INDEX account_move_unique_name (name, journal_id) WHERE state='posted' AND name<>'/'.
+  Folge: genau eine Doppelnummer (R-25001 = Rechnung id 9703 vom 02.01.2025 und Gutschrift
+  id 11531 vom 06.02.2025) wuerde den Import abbrechen -> als K2a offen vorgelegt.
+  Feld name ist in Odoo 18 beschreibbar (compute + inverse + readonly=False); die Nummernvergabe
+  setzt auf der hoechsten vorhandenen Nummer desselben Journals auf und fuehrt das Format fort
+  (_set_next_sequence/_get_last_sequence), ein gesetzter Name bleibt beim Buchen erhalten.
+  Achtung: bei Journalwechsel ohne name wird der Name zurueckgesetzt; Pruefpfad/Audit
+  (Buchungen festschreiben) wuerde Nummern gebuchter Belege unveraenderlich machen -> vor der
+  Migration entscheiden (K2c). Es wurde nichts umnummeriert.
+Offene Punkte: K2a (Doppelnummer), K2b (welches Nummernformat weiterlaeuft), K2c (Pruefpfad),
+  K5 (Steuer-Mapping im Stammdatenteil), K9 (USD, 4 Belege betroffen).
+Naechster Schritt: Teil 3 (Formulare, Reiter, Buttons, Smart Buttons, Zustandswechsel,
+  Zahlungs-/Abstimmungslogik, Rechnungsdruck und Versand - Browser lokal und VM).
+
+## Session 122, K2: historische Rechnungsnummern vollstaendig geklaert (30.09.2026)
+
+Dokument: `docs/o11-o18-vergleich-abrechnung-k2-nummern.md`. Nur Analyse - **keine Datenmigration,
+keine Nummer geaendert, kein Schreibvorgang in Odoo 18**; Odoo 11 Prod ausschliesslich read-only.
+Grundlage: Quellcode der Testumgebung (Odoo 18.0-20260817), Datenbankschema (read-only) und die
+Nachbildung des Odoo-18-Nummernregelwerks gegen die echten Odoo-11-Nummern
+(`scripts/pruefe_k2_nummernformat.py`).
+
+```
+Messkorrektur (datiert, in Teil 2 als Nachtrag Abschnitt 12): die hoechste Rechnungsnummer 2026
+  ist R-261139, nicht R-26989 (alphabethische Sortierung hatte getaeuscht). Aufbau unveraendert:
+  "R-" + zweistelliges Jahr + laufende Nummer; bei mehr als 999 Rechnungen im Jahr waechst die
+  laufende Nummer in die Vierstelligkeit (R-26989 -> R-260990 ... R-261139).
+Nummernkreis: 2019 66 Nummern (R-1900001/R-1900002 mit 7 Stellen, uebrige 5-stellig),
+  2020-2025 je 732-955 Nummern 5-stellig, 2026 1.139 Nummern; alle im einen Journal
+  "Ausgangsrechnungen (EUR)"; 237 Gutschriften im selben Journal; Odoo 11 hatte
+  unique(number, company_id, journal_id, type).
+K2a Doppelnummer: R-25001 = Rechnung id 9703 (02.01.2025, Magistrat der Stadt Wels, 27.593,52)
+  und Gutschrift id 11531 (06.02.2025, Verein Gesundheitsland Kaernten, 1.474,76, Ursprung
+  R-25584) - die einzige Doppelnummer im Bestand.
+  Odoo 18: UNIQUE INDEX account_move_unique_name auf (name, journal_id) fuer gebuchte Belege
+  (state='posted'), Modell-Constraint mit der Meldung "Ein anderer Datensatz mit demselben Namen
+  existiert bereits."; `type` zaehlt nicht mehr mit. Der Journalschalter "Gesonderter Nummerkreis
+  fuer Gutschriften" (refund_sequence) loest den Fall NICHT (Index bleibt name+journal_id);
+  ein zweites Verkaufsjournal wuerde es loesen, aendert aber die Journalstruktur (Gutschriften
+  lagen in Odoo 11 im selben Journal).
+  Empfehlung Weg A: Rechnung behaelt R-25001, die Gutschrift erhaelt eine neue Nummer, die
+  Originalnummer steht im neuen Feld "Odoo-11-Rechnungsnummer" (Char, readonly, copy=False,
+  tracking, index) fuer ALLE migrierten Belege - Kontrollabfrage
+  "name != odoo11-Nummer" liefert genau die Abweichung. Weg B (Gutschrift behaelt die Nummer)
+  und Weg C (zweites Journal) im Dokument bewertet. Nichts angelegt, nichts geaendert.
+K2b Weiterzaehlen (nachgerechnet): ohne Zusatzkonfiguration erkennt Odoo 18 alle 6.263 Nummern
+  als festen Nummernkreis ('never', Prefix "R-") und wuerde bei R-1900003 weiterlaufen
+  (hoechste sequence_number 1.900.002 aus R-1900002) - kollisionsfrei dank Retry-Mechanismus,
+  aber fachlich falsch. Mit sequence_override_regex
+  ^(?P<prefix1>R-)(?P<year>\d{2})(?P<seq>\d+)$ (deckt 6.263 von 6.263 Nummern ab, Reset-Typ
+  'year') laeuft die Zaehlung je Jahr korrekt weiter: 2026 -> R-261140, 2027 -> R-2700001.
+  Voraussetzung: Festlegung vor der ersten neuen Rechnung, Gegenprobe in einer Testkopie.
+K2c Schutz: account.journal.restrict_mode_hash_table ("Gebuchte Posten mit Hash festschreiben")
+  sichert beim Buchen die Belegkette (inalterable_hash, secure_sequence_number) und schuetzt
+  genau die Hash-Felder name, date, journal_id, company_id - ein Schreibversuch wird serverseitig
+  abgebrochen ("This document is protected by a hash. Therefore, you cannot edit the following
+  fields: ..."). Einmal gesichert, ist die Einstellung nicht mehr abschaltbar, solange gebuchte
+  Belege existieren; die Sicherung kann mit dem Assistenten "Buchungen festschreiben"
+  (account.secure.entries.wizard) auch nachtraeglich erfolgen. Zusaetzlich: Loeschsperre fuer
+  Belege mit Nummer (nur das letzte Element der Nummernfolge), Schreibsperren fuer Journalwechsel
+  und gesperrte Perioden, Protokollierung ueber den Pruefpfad
+  (res.company.check_account_audit_trail).
+Offene Entscheidungen: K2a (Weg A/B/C), K2a-2 (Einbauort des Feldes: itk_base_setup oder eigenes
+  Modul), K2b (Override ja/nein), K2c (Hash und Pruefpfad ja/nein). Nichts umgesetzt.
+ENTSCHEIDUNGEN VON ANNA (30.09.2026, verbindlich, im K2-Dokument Abschnitt 6 dokumentiert):
+  K2a Weg A: Rechnung id 9703 behaelt R-25001; Gutschrift id 11531 erhaelt bei der Migration eine
+    neue eindeutige Odoo-18-konforme Nummer; die urspruengliche Odoo-11-Nummer bleibt zusaetzlich
+    nachvollziehbar erhalten; dafuer eigenes Feld "Odoo-11-Rechnungsnummer"; kein zweites
+    Verkaufsjournal wegen dieser einen Kollision. Umsetzung/Einbauort in Teil 5.
+  K2b jahresbezogene Nummerierung ueber sequence_override_regex wie vorgeschlagen; vorher
+    Testkopie (erster Beleg eines neuen Jahres); jetzt keine produktive Nummerierung aendern.
+  K2c Hash-Sicherung und Pruefpfad erst nach der echten Migration und nach erfolgreicher
+    Kontrolle aktivieren; jetzt keine Aenderung.
+  Unveraendert: keine Datenmigration, keine historischen Rechnungsnummern aendern,
+    Odoo 11 ausschliesslich read-only, keine Odoo-18-Funktion entfernen.
+Werkzeuge: scripts/pruefe_k2_nummernformat.py (Nachbildung der Regexe und der Entscheidungskette),
+  Quellcode-Fundstellen im Dokument (account_move.py, account_journal.py, sequence_mixin.py).
+```
