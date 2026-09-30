@@ -7201,7 +7201,19 @@ R1 MENGENEINHEITEN (ABGESCHLOSSEN 29.09.2026):
     scripts/pruefe_verkauf_r1_mengeneinheiten.py -> lokal 32 OK, VM 32 OK (64 OK / 0 FEHL),
     Regression 886 OK / 0 FEHL, Browser-Gesamtdurchgang VM 43 OK / 0 FEHL (0 JS-/RPC-Fehler)
   Dokument: docs/o11-o18-verkauf-r1-mengeneinheiten.md
-Offen: R2 bis R8; Verkauf noch nicht endgueltig abgeschlossen.
+R2 PRICE_REDUCE (ABGESCHLOSSEN 29.09.2026):
+  Odoo 11 fuehrt price_reduce (float, gespeichert, 3.980 von 4.011 Zeilen). Odoo 18 kennt das Feld
+  nicht mehr, fuehrt aber price_reduce_taxexcl/taxinc (monetary, gespeichert).
+  Nachweis: price_reduce = price_unit*(1-Rabatt/100) trifft in allen 4.011 Zeilen zu; gegen die
+  Odoo-18-Zielfelder 3.960 von 3.960 Zeilen mit Menge > 0 innerhalb 0,01 gleich (3.959 exakt).
+  Sonderfaelle dokumentiert: 1 Zeile mit 1-Cent-Eigenrundung (id 5173, A-2400078) und 51 leere
+  Positionen (Menge 0, 0,00 in beiden Systemen).
+  Entscheidung Anna: kein Feldnachbau, keine direkte Migration - der Wert wird bei der
+  Datenmigration aus price_unit, discount, product_uom_qty, tax_id und currency_id durch die
+  Odoo-18-Standardlogik neu berechnet. Keine Aenderung an Odoo 18 erforderlich.
+  Werkzeug: scripts/pruefe_verkauf_r2_preis_reduziert.py (lokal 9 OK, VM 9 OK / 0 FEHL)
+  Dokument: docs/o11-o18-verkauf-r2-preis-reduziert.md
+Offen: R3 bis R8; Verkauf noch nicht endgueltig abgeschlossen.
 ```
 
 ## Session 121, Teil 4 Schritt 3 (Druckberichte) und Abschluss Teil 4
