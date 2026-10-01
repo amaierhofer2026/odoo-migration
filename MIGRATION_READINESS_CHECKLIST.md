@@ -1531,7 +1531,7 @@ ENTSCHEIDUNGEN UND UMSETZUNG 30.09.2026 (Teil 6 / Label-Regel):
 Der Apply-Lauf setzt die Punkte 2 und 3 nach jedem Upgrade erneut und prueft sie.
 ```
 
-ABSCHLUSS ABRECHNUNG (30.09.2026) - FUNKTIONAL UND MIGRATIONSVORBEREITET:
+ABRECHNUNG: IN ARBEIT (Stand 30.09.2026) - die Abschlussmarkierung wurde auf Wunsch von Anna zurueckgenommen:
 ```
 Vollstaendigkeitscheck ohne Lese-Limit (scripts/pruefe_teil5_abdeckung.py, Odoo 11 read-only):
 Konten: 34.492 Buchungszeilen gesamt = 5.989 (1201 Bank) + 12.252 (1410 Forderungen)
@@ -1546,6 +1546,9 @@ Journale: nur "Ausgangsrechnungen (EUR)" und "Bank fuer Tirol und Vorarlberg AG 
 Offen und eingeplant, ohne Blockade der Vorbereitung: sequence_override_regex (K2b, Test an
         Kopie) und Hash-Sicherung/Pruefpfad (K2c) erst mit bzw. nach der echten Migration.
 Keine Datenmigration gestartet; kein Testdatensatz migriert.
+Offen bis zur Abnahme: Browser-Durchgang Menuepunkt fuer Menuepunkt (Dashboard, Buchungen,
+        Stammdaten, Berichte, Konfiguration), VM-Browserlauf, Liste der bewussten Abweichungen.
+        Siehe docs/o11-o18-vergleich-abrechnung-oberflaeche.md.
 ```
 
 UMSETZUNG TEIL 5 (30.09.2026) - Stammdaten und Zuordnungen vorbereitet:
