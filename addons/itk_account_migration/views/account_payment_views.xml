@@ -33,5 +33,17 @@
             </xpath>
         </field>
     </record>
+
+    <record id="view_payment_form_itk_o11_datum" model="ir.ui.view">
+        <field name="name">account.payment.form.itk.o11.datum</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="priority">97</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date']" position="attributes">
+                <attribute name="string">Zahlungsdatum</attribute>
+            </xpath>
+        </field>
+    </record>
 </odoo>
 
