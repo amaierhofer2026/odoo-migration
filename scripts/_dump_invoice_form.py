@@ -14,8 +14,23 @@ with sync_playwright() as pw:
     ctx = pw.chromium.launch_persistent_context(user_data_dir=os.path.join(os.environ.get("TEMP","/tmp"), "pw_dump_%s" % os.getpid()), channel="chrome", headless=True, viewport={"width":1900,"height":1400}, locale="de-DE")
     ctx.add_cookies([{"name":"session_id","value":sid,"domain":domain,"path":"/"}])
     s = ctx.pages[0] if ctx.pages else ctx.new_page()
-    s.goto("%s/odoo/action-354" % url); s.wait_for_selector(".o_list_renderer", timeout=120000); s.wait_for_timeout(5000)
-    s.locator(".o_data_row").first.click(); s.wait_for_selector(".o_form_view", timeout=90000); s.wait_for_timeout(4000)
+    ids = None
+    try:
+        antwort = op.open(urllib.request.Request(url + "/web/dataset/call_kw",
+            data=json.dumps({"jsonrpc":"2.0","method":"call","params":{"model":"account.move","method":"search_read",
+                "args":[[["move_type","=","out_invoice"],["state","=","posted"]],["id","name"]],
+                "kwargs":{"limit":1,"order":"id desc","context":{"lang":"de_DE"}}}}).encode(),
+            headers={"Content-Type":"application/json","Cookie":"session_id=%s" % sid}), timeout=120)
+        ids = json.loads(antwort.read().decode())["result"]
+    except Exception as e:
+        print("Hinweis Belegsuche:", str(e)[:80])
+    if ids:
+        print("BELEG:", ids[0]["name"], "id", ids[0]["id"])
+        s.goto("%s/web#id=%s&model=account.move&view_type=form" % (url, ids[0]["id"]))
+    else:
+        s.goto("%s/odoo/action-354" % url); s.wait_for_selector(".o_list_renderer", timeout=120000); s.wait_for_timeout(5000)
+        s.locator(".o_data_row").first.click()
+    s.wait_for_selector(".o_form_view", timeout=90000); s.wait_for_timeout(4000)
     reiter = s.evaluate("""() => [...document.querySelectorAll('.o_notebook .nav-link')].map(e => e.textContent.trim())""")
     print("REITER:", reiter)
     for i, name in enumerate(reiter):
