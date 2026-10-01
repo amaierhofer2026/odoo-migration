@@ -19,6 +19,7 @@ Die Felder werden bei der spaeteren Migration befuellt; die laufende Odoo-18-Num
     'depends': ['account'],
     'data': [
         'views/account_move_views.xml',
+        'views/account_move_filters.xml',
         'views/account_payment_views.xml',
     ],
     'installable': True,

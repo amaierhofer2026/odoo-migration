@@ -7865,6 +7865,23 @@ Es wurde nichts migriert, Odoo 11 nur gelesen, Odoo 18 nicht geaendert.
 Naechster Schritt: Teil 6 Berichte (Vorgabe K3).
 ```
 
+## Session 122, Korrektur 30.09.2026: Abrechnung ist IN ARBEIT
+
+```
+Anna hat die Abschlussmarkierung zurueckgenommen: migrationsbereit heisst auch, dass die
+sichtbare Oberflaeche dem Odoo-11-Wortlaut entspricht (Felder, Filter, Gruppierungen,
+Suchfelder, Menues, Formulare, Reiter, Gruppen, Buttons, Listen).
+Umgesetzt: App/Menue "Abrechnung", Menueangleichungen (Verkauf, Einkauf, Kunden-Gutschriften,
+  Lieferanten-Gutschriften, Verkaufbare/Einkaufbare Produkte, Finanzen, Steuerzuordnung,
+  Bankkonten, Zahlungen), Filter Offen/Bezahlt/Meine Aktivitaeten/ Verspaetete/Heutige/
+  Anstehende Aktivitaeten flach, Gruppierungen Verkaeufer/Partner/Status/Rechnungsdatum/
+  Faelligkeit im Odoo-11-Wortlaut (Odoo-18-Eintraege bleiben erhalten).
+Nachweise: Browser lokal 34 OK / 0 FEHL; Menue-/Label-Lauf lokal 12 gesetzt, VM 20 gesetzt.
+Offen: Browser-Durchgang Menue fuer Menue (Dashboard, Buchungen, Stammdaten, Berichte,
+  Konfiguration), VM-Browserlauf, Abweichungsliste.
+Doku: docs/o11-o18-vergleich-abrechnung-oberflaeche.md
+```
+
 ## Session 122, Umsetzung Teil 5 (30.09.2026)
 
 UMSETZUNG TEIL 5 (30.09.2026) - Stammdaten und Zuordnungen vorbereitet:

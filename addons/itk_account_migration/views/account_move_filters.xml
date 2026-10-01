@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        Bereich Abrechnung: Ergaenzung der Odoo-11-Filter in der Rechnungssuche.
+        Odoo 11 (account.invoice) hatte: Entwurf, Offen, Bezahlt, Ueberfaellig, Meine Rechnungen,
+        Meine Aktivitaeten, Verspaetete/Heutige/Anstehende Aktivitaeten.
+        In Odoo 18 fehlten "Bezahlt" und "Meine Aktivitaeten"; alle uebrigen sind vorhanden.
+        Odoo-18-Zusatzfilter (Gebucht, Abgebrochen, Nicht gesendet, Ausgangsrechnungen,
+        Gutschriften, Zu pruefen, Peppol bereit, Zu zahlen, In Zahlung ...) bleiben unveraendert.
+    -->
+    <record id="view_account_invoice_filter_o11" model="ir.ui.view">
+        <field name="name">account.move.search.itk.abrechnung-filter</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='late']" position="after">
+                <filter name="itk_open" string="Offen"
+                        domain="[('state', '=', 'posted'), ('payment_state', 'in', ('not_paid', 'partial'))]"/>
+                <filter name="itk_paid" string="Bezahlt"
+                        domain="[('payment_state', '=', 'paid')]"/>
+            </xpath>
+            <xpath expr="//filter[@name='activities_overdue']" position="before">
+                <filter name="itk_activities_my" string="Meine Aktivitäten"
+                        domain="[('activity_user_id', '=', uid)]"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Aktivitaetsfilter wie in Odoo 11 direkt sichtbar (in Odoo 18 sonst unter einem
+         Untermenue); die Odoo-18-Untermenues bleiben unveraendert erhalten. -->
+    <record id="view_account_invoice_filter_o11_aktivitaeten" model="ir.ui.view">
+        <field name="name">account.move.search.itk.abrechnung-aktivitaeten</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='itk_activities_my']" position="after">
+                <filter name="itk_activities_overdue" string="Verspätete Aktivitäten"
+                        domain="[('activity_ids.date_deadline', '&lt;', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter name="itk_activities_today" string="Heutige Aktivitäten"
+                        domain="[('activity_ids.date_deadline', '=', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter name="itk_activities_upcoming" string="Anstehende Aktivitäten"
+                        domain="[('activity_ids.date_deadline', '&gt;', context_today().strftime('%Y-%m-%d'))]"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Gruppierungen: Odoo 11 (account.invoice) bot Partner, Verkaeufer, Status, Rechnungsdatum,
+         Faelligkeit an. Gleichbedeutende Odoo-18-Gruppierungen erhalten den Odoo-11-Wortlaut;
+         Odoo-18-Zusatzgruppierungen (Verkaufsteam, Peppol-Status, Zahlungsmethode, Journal,
+         Buchungsdatum) bleiben unveraendert erhalten. -->
+    <record id="view_account_invoice_filter_o11_gruppen" model="ir.ui.view">
+        <field name="name">account.move.search.itk.abrechnung-gruppen</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='salesperson']" position="attributes">
+                <attribute name="string">Verkäufer</attribute>
+            </xpath>
+            <xpath expr="//filter[@name='partner']" position="attributes">
+                <attribute name="string">Partner</attribute>
+            </xpath>
+            <xpath expr="//filter[@name='duedate']" position="attributes">
+                <attribute name="string">Fälligkeit</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Gruppierungen im Odoo-11-Wortlaut zusaetzlich direkt anbieten
+         (Odoo 18 benennt sie "Vertriebsmitarbeiter", "Kunde", "Fälligkeitsdatum"). -->
+    <record id="view_account_invoice_filter_o11_gruppen_flach" model="ir.ui.view">
+        <field name="name">account.move.search.itk.abrechnung-gruppen-flach</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='salesperson']" position="after">
+                <filter name="itk_group_verkaeufer" string="Verkäufer"
+                        context="{'group_by': 'invoice_user_id'}"/>
+                <filter name="itk_group_partner" string="Partner"
+                        context="{'group_by': 'partner_id'}"/>
+                <filter name="itk_group_status" string="Status"
+                        context="{'group_by': 'state'}"/>
+                <filter name="itk_group_rechnungsdatum" string="Rechnungsdatum"
+                        context="{'group_by': 'invoice_date'}"/>
+                <filter name="itk_group_faelligkeit" string="Fälligkeit"
+                        context="{'group_by': 'invoice_date_due'}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+
