@@ -16,6 +16,14 @@ from _o11o18_client import o18
 
 # Modell -> [(technischer Feldname, sichtbare Odoo-11-Bezeichnung)]
 WUNSCH = {
+    "res.partner": [("property_account_position_id", "Steuerzuordnung"),
+                    ("credit", "Summe Debitoren"), ("debit", "Summe Kreditoren"),
+                    ("credit_limit", "Kreditlinie")],
+    "account.payment": [("payment_method_line_id", "Zahlungsart"),
+                        ("memo", "Notiz"), ("amount", "Betrag"),
+                        ("payment_date", "Zahlungsdatum")],
+    "product.product": [("property_account_income_id", "Erlöskonto"),
+                        ("property_account_expense_id", "Aufwandskonto")],
     "account.tax": [("description", "Bezeichnung auf Rechnungen"), ("type_tax_use", "Steuergültigkeit"),
                     ("price_include", "Beinhaltet im Preis"),
                     ("include_base_amount", "Auswirkung auf nachfolgende Steuern"),

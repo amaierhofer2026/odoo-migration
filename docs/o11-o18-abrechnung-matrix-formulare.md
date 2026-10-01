@@ -76,3 +76,18 @@ Zahlungsformulare, der Kunden/Lieferanten- und Produktformulare sowie der restli
 Konfigurationsformulare; danach vollstaendige Matrix und Abschlusspruefung.
 Der Bereich Abrechnung bleibt bis dahin IN ARBEIT. Odoo 11 wurde ausschliesslich gelesen,
 es wurde nichts migriert.
+
+## 6. Nachlauf 01.10.2026 (Zahlungen, Kunden/Lieferanten, Produkte, Konfiguration)
+
+| Menuepunkt | Odoo-11-Feld/Funktion | Odoo-18 vorher | Massnahme | Odoo-18 nachher | lokal | VM | Bemerkung |
+|---|---|---|---|---|---|---|---|
+| Zahlungen | Feldbezeichnung "Zahlungsart" | Zahlungsmethode | Bezeichnung angeglichen | Zahlungsart | ok | ok | payment_method_line_id |
+| Zahlungen | Feldbezeichnung "Zahlungsdatum" | Datum | Bezeichnung angeglichen | Zahlungsdatum | ok | ok | Feld date |
+| Zahlungen | Betrag, Journal, Kunde, Notiz, Senden | vorhanden | keine | unveraendert | ok | ok | - |
+| Zahlungen | Odoo-11-Zahlungsnummer | neu | angelegt | Odoo-11-Zahlungsnummer | ok | ok | nur fuer die Migration |
+| Kunden/Lieferanten | Steuerzuordnung | Steuerposition | Bezeichnung angeglichen | Steuerzuordnung | ok | ok | property_account_position_id |
+| Kunden/Lieferanten | Summe Debitoren / Kreditlinie | Debitoren gesamt / Kreditlimit | Bezeichnungen angeglichen | Summe Debitoren / Kreditlinie | ok | offen | in der Registerkarte Verkauf und Einkauf, VM-Pruefung folgt |
+| Produkte | Erlöskonto, Aufwandskonto | Ertragskonto, Aufwandskonto (abweichend) | Bezeichnung angeglichen, soweit in der Ansicht vorhanden | Erlöskonto | ok | offen | Produktformular VM-Pruefung folgt |
+| Konfiguration (Steuern, Journale, Steuerzuordnung, Waehrungen, Kostenstellen) | Feldbezeichnungen | teils abweichend | Kernfelder angeglichen (Abschnitt 8 der Abschlussmatrix) | Odoo-11-Wortlaut | ok | ok | - |
+| Rechnungszeilen | Spalte Beschreibung | mit dem Produktfeld zusammengefuehrt | keine Aenderung | Produktspalte enthaelt Beschreibung und Abschnitte | ok | ok | in Odoo 18 technisch anders geloest, Funktion vorhanden |
+| Rechnungszeilen | Spalte Total | nur in bestimmten Konstellationen sichtbar | keine Aenderung | Zwischensumme bzw. Total je nach Preisangabe | ok | ok | Odoo-18-Design: netto oder brutto |

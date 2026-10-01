@@ -6,6 +6,40 @@
         gesucht, die es enthaelt. Technische Feldnamen, Modelle und Funktionen bleiben unveraendert;
         Odoo-18-Zusatzfelder und Zusatzfunktionen bleiben erhalten.
     -->
+    <record id="auto_res_partner_res_partner_property_form_inherit" model="ir.ui.view">
+        <field name="name">res.partner.itk.o11.res_partner_property_form_inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.view_partner_property_form"/>
+        <field name="priority">99</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='property_account_position_id']" position="attributes">
+                <attribute name="string">Steuerzuordnung</attribute>
+            </xpath>
+            <xpath expr="//field[@name='credit']" position="attributes">
+                <attribute name="string">Summe Debitoren</attribute>
+            </xpath>
+            <xpath expr="//field[@name='credit_limit']" position="attributes">
+                <attribute name="string">Kreditlinie</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="auto_account_payment_account_payment_form" model="ir.ui.view">
+        <field name="name">account.payment.itk.o11.account_payment_form</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="priority">99</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_method_line_id']" position="attributes">
+                <attribute name="string">Zahlungsart</attribute>
+            </xpath>
+            <xpath expr="//field[@name='memo']" position="attributes">
+                <attribute name="string">Notiz</attribute>
+            </xpath>
+            <xpath expr="//field[@name='amount']" position="attributes">
+                <attribute name="string">Betrag</attribute>
+            </xpath>
+        </field>
+    </record>
     <record id="auto_account_tax_account_tax_form" model="ir.ui.view">
         <field name="name">account.tax.itk.o11.account_tax_form</field>
         <field name="model">account.tax</field>

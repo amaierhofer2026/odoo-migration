@@ -14,6 +14,10 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _o11o18_client import o11, o18
 
 MODELLE = [
+    ("res.partner", "Kunden/Lieferanten"),
+    ("product.product", "Produkte"),
+    ("account.payment", "Zahlungen"),
+    ("account.account", "Konten"),
     ("account.tax", "Steuern"),
     ("account.journal", "Journale"),
     ("res.currency", "Waehrungen"),
