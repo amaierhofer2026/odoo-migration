@@ -7978,3 +7978,21 @@ Nachweise: lokal HTML/PDF mit Zahlungsblock (RE/2026/0001, RE/2026/0002) und Ver
   Zahlung, ITK-Rechnung, ITK-Rechnung mit Zahlung; Klick erzeugt "ITK-Rechnung mit Zahlung.pdf").
 ```Naechster Schritt: Teil 6 Berichte (Vorgabe K3).
 ```
+
+## VM-Betrieb: zwei Fehlerquellen, die Abnahmen ungueltig machen (01.10.2026)
+
+1. Modul-Upgrade auf der VM
+   FALSCH: `docker exec odoo18 odoo -u <modul> -d odoo18_test --stop-after-init`
+           -> scheitert mit `psycopg2.OperationalError` (keine DB-Verbindung), Exit 1,
+              das Upgrade laeuft NICHT, die View-Architektur in der DB bleibt alt.
+   RICHTIG: `cd /opt/odoo18 && docker compose run --rm -T odoo odoo -u <modul> -d odoo18_test --stop-after-init --no-http`
+           (Compose-Umgebung liefert HOST/USER/PASSWORD)
+   Nach dem Upgrade: `docker compose restart odoo`, dann de_DE-Labels neu setzen
+   (`scripts/apply_abrechnung_labels.py --instanz vm`), da das Upgrade die Labels zuruecksetzt.
+
+2. Browser-Skripte
+   Die Dump-Skripte nahmen die URL aus `sys.argv[2]` mit Standard `http://localhost:8069`.
+   Ein Aufruf `python scripts/_dump_invoice_form.py vm` hat damit LOKAL geprueft und den
+   Screenshot als `*_lokal.png` abgelegt. Seit 01.10.2026 leiten die Skripte die URL aus der
+   Instanz ab (`vm` -> https://k001959vsx.ipax.at). Immer pruefen, welcher Host im Log steht,
+   und den Screenshot ansehen - Skriptausgabe allein gilt nicht als Abnahme.
