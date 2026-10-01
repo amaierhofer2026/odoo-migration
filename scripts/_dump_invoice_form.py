@@ -16,6 +16,7 @@ with sync_playwright() as pw:
     ctx.add_cookies([{"name":"session_id","value":sid,"domain":domain,"path":"/"}])
     s = ctx.pages[0] if ctx.pages else ctx.new_page()
     ids = None
+    feste_id = sys.argv[3] if len(sys.argv) > 3 else None
     try:
         antwort = op.open(urllib.request.Request(url + "/web/dataset/call_kw",
             data=json.dumps({"jsonrpc":"2.0","method":"call","params":{"model":"account.move","method":"search_read",
@@ -25,6 +26,8 @@ with sync_playwright() as pw:
         ids = json.loads(antwort.read().decode())["result"]
     except Exception as e:
         print("Hinweis Belegsuche:", str(e)[:80])
+    if feste_id:
+        ids = [{"id": int(feste_id), "name": "id %s" % feste_id}]
     if ids:
         print("BELEG:", ids[0]["name"], "id", ids[0]["id"])
         s.goto("%s/web#id=%s&model=account.move&view_type=form" % (url, ids[0]["id"]))

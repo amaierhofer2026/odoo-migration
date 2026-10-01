@@ -20,10 +20,17 @@
             </xpath>
             <xpath expr="//field[@name='invoice_line_ids']//field[@name='product_id']" position="attributes">
                 <attribute name="widget">many2one</attribute>
-                <attribute name="string">Produkt / Beschreibung</attribute>
+                <attribute name="string">Produkt</attribute>
             </xpath>
             <xpath expr="//field[@name='invoice_line_ids']//field[@name='product_id']" position="after">
                 <field name="display_type" string="Sektion" optional="show"/>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']//field[@name='number']" position="attributes">
+                <attribute name="string">Pos</attribute>
+                <attribute name="optional">show</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']//field[@name='name']" position="after">
+                <field name="name" id="itk_o11_beschreibung" string="Beschreibung" optional="show"/>
             </xpath>
             <xpath expr="//field[@name='invoice_line_ids']//field[@name='name']" position="attributes">
                 <attribute name="widget">text</attribute>

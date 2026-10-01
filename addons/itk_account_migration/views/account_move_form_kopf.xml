@@ -1,20 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!--
-        Bereich Abrechnung - Rechnung/Gutschrift, Kopfbereich.
+        Bereich Abrechnung - Rechnung/Gutschrift, sichtbarer Aufbau nach Odoo 11.
 
-        BEFUND (01.10.2026, im Browser belegt): Der Odoo-18-Kopfbereich ist mit expliziten
-        <label>-Elementen und nolabel-Feldern aufgebaut. Jede zusaetzliche Einfuegung in diese
-        Struktur zerstoert die Zuordnung von Beschriftung und Wert (Beschriftungen brechen um,
-        Werte erscheinen ohne Beschriftung, es entstehen Leerflaechen). Deshalb wird der
-        Kopfbereich NICHT mehr veraendert - das Odoo-18-Layout bleibt unveraendert stabil.
+        Block 1 (Odoo-18-Standard, bleibt sichtbar): Rechnungsreferenz, Buchungsdatum,
+                Zahlungsreferenz, Bankkonto, Peppol und weitere Odoo-18-Zusatzfelder.
+        Block 2 (neu, direkt darunter): Odoo-11-Kopfaufbau als eigene flache Gruppe
+                links : Kunde, Lieferadresse, Zahlungsbedingungen, Leistungszeitraum,
+                        Project Category
+                rechts: Rechnungsdatum, Faelligkeit, Verkaeufer, Vertriebskanal
 
-        Die Odoo-11-Kopffelder sind in Odoo 18 sichtbar vorhanden:
-          Kopfbereich   : Kunde, Lieferadresse, Rechnungsdatum, Faelligkeitsdatum,
-                          Leistungszeitraum, Project Category, Valorisation Text, Waehrung
-          Reiter "Andere Informationen": Zahlungsbedingungen, Verkaeufer, Vertriebskanal,
-                          Zahlungsmethode, Zahlungsreferenz, Odoo-11-Rechnungsnummer
-        Damit sind alle Felder vorhanden, benannt und sichtbar; nur die Anordnung folgt dem
-        Odoo-18-Aufbau (Entscheidung: kein Eingriff, um das Layout nicht zu beschaedigen).
+        Die Odoo-11-Felder werden in Block 2 gesetzt; ihre Vorkommen in Block 1 werden
+        ausgeblendet - Feld UND Beschriftung - damit weder Doppelanzeigen noch
+        verwaiste Beschriftungen entstehen. Keine verschachtelte Gruppe, kein colspan,
+        kein nolabel: das Grid bleibt intakt. Odoo-18-Zusatzfelder bleiben erhalten.
     -->
+    <record id="view_move_form_kopf_itk_o11" model="ir.ui.view">
+        <field name="name">account.move.form.itk.o11.kopfbereich</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="priority">999</field>
+        <field name="arch" type="xml">
+            <!-- Beschriftungen der verschobenen Felder in Block 1 entfernen -->
+            <xpath expr="//label[@for='partner_id']" position="replace"/>
+            <xpath expr="//label[@for='invoice_date']" position="replace"/>
+            <xpath expr="//label[@for='invoice_date_due']" position="replace"/>
+            <xpath expr="//label[@for='invoice_payment_term_id']" position="replace"/>
+
+            <!-- Vorkommen der verschobenen Felder in Block 1 ausblenden -->
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='partner_shipping_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_date']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_date_due']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_payment_term_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='sale_order_benefit_period']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='projectcategory_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_user_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='team_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='valorisierung_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Block 2: Odoo-11-Kopfaufbau, flache Gruppe neben dem Odoo-18-Kopfblock -->
+            <xpath expr="//field[@name='partner_id']/ancestor::group[2]" position="after">
+                <group name="itk_o11_kopfbereich">
+                    <group>
+                        <label for="partner_id" string="Kunde" invisible="move_type in ('in_invoice', 'in_refund')"/>
+                        <label for="partner_id" string="Lieferant" invisible="move_type not in ('in_invoice', 'in_refund')"/>
+                        <field name="partner_id" nolabel="1" required="1" readonly="state != 'draft'"/>
+                        <field name="partner_shipping_id" readonly="state != 'draft'"/>
+                        <field name="invoice_payment_term_id" invisible="move_type == 'entry'"/>
+                        <field name="sale_order_benefit_period" invisible="move_type == 'entry'"/>
+                        <field name="projectcategory_id" invisible="move_type == 'entry'"/>
+                    </group>
+                    <group>
+                        <field name="invoice_date" invisible="move_type == 'entry'"/>
+                        <field name="invoice_date_due" invisible="move_type in ('entry', 'in_invoice', 'in_refund')"/>
+                        <field name="invoice_user_id" invisible="move_type == 'entry'"/>
+                        <field name="team_id" invisible="move_type == 'entry'"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Reiter "Rechnung" heisst in Odoo 11 "Rechnungszeilen" -->
+    <record id="view_move_form_tab_itk_o11" model="ir.ui.view">
+        <field name="name">account.move.form.itk.o11.reiter</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="priority">999</field>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='invoice_tab']" position="attributes">
+                <attribute name="string">Rechnungszeilen</attribute>
+            </xpath>
+        </field>
+    </record>
 </odoo>
