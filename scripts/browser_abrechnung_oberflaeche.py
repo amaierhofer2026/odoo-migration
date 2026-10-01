@@ -103,6 +103,15 @@ def main() -> int:
         s.wait_for_timeout(2500)
         labels = s.evaluate("""() => [...document.querySelectorAll('.o_dropdown_menu .dropdown-item, .o_dropdown_container .dropdown-item, .o_searchview_dropdown .dropdown-item')]
             .filter(e => e.getClientRects().length).map(e => (e.textContent || '').trim())""")
+        # Untermenues gezielt aufklappen (Aktivitaeten, Gruppieren nach)
+        for unter in ("Meine Aktivitäten", "Gruppieren nach"):
+            try:
+                s.hover(".o_control_panel .dropdown-item:has-text('%s')" % unter)
+                s.wait_for_timeout(1800)
+                labels += s.evaluate("""() => [...document.querySelectorAll('.dropdown-item')]
+                    .filter(e => e.getClientRects().length).map(e => (e.textContent || '').trim())""")
+            except Exception as hinweis:
+                print("    Hinweis %s: %s" % (unter, str(hinweis)[:60]))
         labels = sorted(set(labels))
         print("    Filterliste (%d): %s" % (len(labels), labels[:40]))
         s.screenshot(path=os.path.join(VZ, "02_Filter.png"), full_page=True)
@@ -112,17 +121,7 @@ def main() -> int:
             pruefe(any(name.lower() == l.lower() for l in labels), "Odoo-18-Zusatzfilter '%s' erhalten" % name)
 
         # Gruppierungen aus der Auswahlliste der benutzerdefinierten Gruppe
-        gruppen = s.evaluate("""() => {
-            const texte = [];
-            document.querySelectorAll('.o_searchview_dropdown select, .o_dropdown_menu select').forEach(s => {
-                [...s.options].forEach(o => texte.push((o.textContent || '').trim()));
-            });
-            if (!texte.length) {
-                const k = [...document.querySelectorAll('*')].find(e => (e.textContent||'').includes('Benutzerdefinierte Gruppe hinzufügen'));
-                if (k) texte.push(...(k.textContent || '').split('\\n').map(t => t.trim()));
-            }
-            return texte;
-        }""")
+        gruppen = [l for l in labels if l]
         print("    Gruppierungen (%d): %s" % (len(gruppen), sorted(set(gruppen))[:25]))
         for name in O11_GRUPPEN:
             pruefe(any(name.lower() == g.lower() for g in gruppen), "Odoo-11-Gruppierung '%s' vorhanden" % name)
