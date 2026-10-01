@@ -7865,6 +7865,23 @@ Es wurde nichts migriert, Odoo 11 nur gelesen, Odoo 18 nicht geaendert.
 Naechster Schritt: Teil 6 Berichte (Vorgabe K3).
 ```
 
+## Session 122, feldweiser Formularabgleich abgeschlossen (01.10.2026)
+
+```
+Von Anna festgestellt: im Rechnungsformular fehlten Odoo-11-Felder.
+Ursachen und Loesung: (a) Felder im Modell vorhanden, aber in der Ansicht nicht sichtbar ->
+  Gruppe "Angaben wie in Odoo 11" mit Zahlungsbedingungen, Leistungszeitraum, Project Category;
+  (b) ITK-Module fehlten in den Abhaengigkeiten von itk_account_migration -> depends ergaenzt
+  (itk_projectcategory, itk_subscription, itk_valorisierung); (c) Rechnungszeilen-Spalten im
+  Odoo-11-Wortlaut: Preis pro ME, Zwischensumme, Rabatt fest sichtbar, Konto;
+  (d) Zahlungsformular: Zahlungsart, Zahlungsdatum; (e) Partner: Steuerzuordnung;
+  (f) Konfiguration: Steuern, Journale, Steuerzuordnung, Waehrungen, Kostenstellen.
+Nachweise: Browser lokal und VM (Rechnungszeilen, Zahlungsformular, Partner-/Produktformulare),
+  VM-Anwendungslauf 20 Labels gesetzt mit 0 Abweichungen, Regression 0 Fehler.
+Doku: docs/o11-o18-abrechnung-matrix-formulare.md (Matrix je Formular mit offenen/begruendeten
+  Abweichungen).
+```
+
 ## Session 122, Abschluss 01.10.2026: Abrechnung ist FUNKTIONAL VOLLSTAENDIG UND MIGRATIONSVORBEREITET
 
 ```

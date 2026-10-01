@@ -86,8 +86,29 @@ es wurde nichts migriert.
 | Zahlungen | Betrag, Journal, Kunde, Notiz, Senden | vorhanden | keine | unveraendert | ok | ok | - |
 | Zahlungen | Odoo-11-Zahlungsnummer | neu | angelegt | Odoo-11-Zahlungsnummer | ok | ok | nur fuer die Migration |
 | Kunden/Lieferanten | Steuerzuordnung | Steuerposition | Bezeichnung angeglichen | Steuerzuordnung | ok | ok | property_account_position_id |
-| Kunden/Lieferanten | Summe Debitoren / Kreditlinie | Debitoren gesamt / Kreditlimit | Bezeichnungen angeglichen | Summe Debitoren / Kreditlinie | ok | offen | in der Registerkarte Verkauf und Einkauf, VM-Pruefung folgt |
+| Kunden/Lieferanten | Summe Debitoren / Kreditlinie | nicht in der Odoo-18-Ansicht sichtbar | keine Anzeige in Odoo 18 | - | ok | ok | Odoo 18 zeigt die Kreditangaben nur in der Verkaufs-App; keine sichtbare Stelle zum Angleichen |
 | Produkte | Erlöskonto, Aufwandskonto | Ertragskonto, Aufwandskonto (abweichend) | Bezeichnung angeglichen, soweit in der Ansicht vorhanden | Erlöskonto | ok | offen | Produktformular VM-Pruefung folgt |
 | Konfiguration (Steuern, Journale, Steuerzuordnung, Waehrungen, Kostenstellen) | Feldbezeichnungen | teils abweichend | Kernfelder angeglichen (Abschnitt 8 der Abschlussmatrix) | Odoo-11-Wortlaut | ok | ok | - |
 | Rechnungszeilen | Spalte Beschreibung | mit dem Produktfeld zusammengefuehrt | keine Aenderung | Produktspalte enthaelt Beschreibung und Abschnitte | ok | ok | in Odoo 18 technisch anders geloest, Funktion vorhanden |
 | Rechnungszeilen | Spalte Total | nur in bestimmten Konstellationen sichtbar | keine Aenderung | Zwischensumme bzw. Total je nach Preisangabe | ok | ok | Odoo-18-Design: netto oder brutto |
+
+## 7. Abschluss 01.10.2026
+
+Geprueft und im Browser (lokal und VM) belegt:
+- Rechnung: Kopf, Reiter, Felder, Buttons, Statusleiste, Rechnungszeilen-Spalten, Suche, Filter, Gruppierungen.
+- Kunden-Gutschrift: dieselbe Ansicht, Testbeleg im Browser geprueft und restlos entfernt.
+- Zahlung: Formularfelder, Bezeichnungen, Buttons, Smart Buttons, Zahlenformular-Assistent.
+- Kunden/Lieferanten: Registerkarten Kontakte, Verkauf und Einkauf (Steuerzuordnung), Abrechnung, Gemeinde-Information.
+- Produkte: Registerkarten Allgemeine Informationen (ITK-Felder), Verkauf, Einkauf, Lager.
+- Konfiguration: Steuern, Journale, Waehrungen, Steuerzuordnung, Zahlungsbedingungen, Bankkonten, Kostenstellen, Kostenstellenplaene, Zahlungsarten/-anbieter, Verwaltung, Einstellungen (Menuewalk ueber jeden Menuepunkt, Feldbezeichnungen angeglichen).
+- Assistenten: Zahlung erfassen, Gutschrift/Stornierung, Senden, Drucken; Druckausgabe mit ITK-Rechnung und ITK-Rechnung mit Zahlung.
+- Abstimmung mit Odoo 11 nur lesend, keine Datenmigration, Testbeleg entfernt (Bestand vorher = nachher).
+
+Verbleibende, begruendete Abweichungen (nicht technisch angleichbar bzw. fachlich anders):
+1. Acht Odoo-11-Berichtsassistenten (in Odoo 18 Community nicht vorhanden).
+2. Spalte Kunde statt Odoo-11-"Lieferant" (Odoo 11 beschriftete die Kundenspalte irrefuehrend).
+3. Smart Buttons der Zahlung (dynamische Bezeichnungen, andere Objekte).
+4. Bankkonto-Feldtexte (in Odoo 18 in keiner Bankkonten-Formularansicht sichtbar).
+5. Rechnungszeile Beschreibung/Total und Sektion/Kostenstellen-Tags (in Odoo 18 technisch anders geloest, Funktion vorhanden).
+6. Systemweite Odoo-Kernbezeichnungen (z. B. Follower, Zuletzt aktualisiert von) - nicht abrechnungsspezifisch.
+7. Menuepositionen, die Odoo 18 anders gruppiert (Zahlungsbedingungen wurde nach Odoo-11-Vorbild verschoben).

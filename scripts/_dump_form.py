@@ -26,7 +26,12 @@ with sync_playwright() as pw:
     def texte(sel):
         return s.evaluate("""(q) => [...document.querySelectorAll(q)].filter(e => e.getClientRects().length)
             .map(e => (e.textContent||'').trim()).filter(t => t)""", sel)
-    print("REITER:", texte(".o_notebook .nav-link"))
+    reiter = s.evaluate("""() => [...document.querySelectorAll('.o_notebook .nav-link')].map(e => e.textContent.trim())""")
+    print("REITER:", reiter)
+    for i, name in enumerate(reiter):
+        s.evaluate("""(i) => { const t = document.querySelectorAll('.o_notebook .nav-link')[i]; if (t) t.click(); }""", i)
+        s.wait_for_timeout(2000)
+        print("REITER %d '%s': %s" % (i, name, sorted(set(texte(".o_inner_group label, .o_group label, .o_form_label")))))
     print("FELDER:", sorted(set(texte(".o_inner_group label, .o_group label, .o_form_label"))))
     print("BUTTONS:", sorted(set(texte(".o_form_statusbar button, .o_control_panel button")))[:16])
     ctx.close()
