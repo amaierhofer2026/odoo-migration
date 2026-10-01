@@ -7865,6 +7865,18 @@ Es wurde nichts migriert, Odoo 11 nur gelesen, Odoo 18 nicht geaendert.
 Naechster Schritt: Teil 6 Berichte (Vorgabe K3).
 ```
 
+## Session 122, Abrechnung EINGEFROREN (01.10.2026)
+
+```
+Abnahmeliste der verbleibenden sieben Abweichungen: docs/o11-o18-abrechnung-abnahmeliste.md
+Migrationsrelevante Werte: Kostenstellen-Tags 0 von 10.057 Zeilen, Kostenstelle 0 von 10.057,
+Sektion 2 von 10.057 -> keine Datenverluste; partner_id, name, price_subtotal, price_total 1:1;
+Sektionen als Abschnittszeilen (display_type); Bankkonten 1:1; Berichte/Menues ohne Daten.
+Odoo-11-Spalte "Lieferant" enthielt fachlich den Kunden (partner_id, string="Lieferant") ->
+Odoo 18 "Kunde" ist die bewusste Korrektur.
+Ab hier keine Umbauten in Abrechnung mehr, ausser bei konkret reproduzierbarem Fehler.
+```
+
 ## Session 122, feldweiser Formularabgleich abgeschlossen (01.10.2026)
 
 ```
