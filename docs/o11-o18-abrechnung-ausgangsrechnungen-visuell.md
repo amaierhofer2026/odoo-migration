@@ -81,3 +81,37 @@ Ansichts-Upgrade fehlerfrei, Regression 0 Fehler.
   - "Kostenstellen Tags": in Odoo 18 ohne Entsprechung (0 von 10.057 Odoo-11-Zeilen), keine Spalte.
   - Maßeinheit bleibt als optionale Odoo-18-Spalte erhalten.
 - Nachweis: Screenshot Rechnung_lokal.png und Rechnung_vm.png, Browser-Auslesung der Spalten.
+
+## Korrektur 01.10.2026 (Layout-Rollback PR #164)
+
+Befund im Browser (lokal und VM, Screenshots): Die in PR #164 angelegte Zusatzgruppe
+"Angaben wie in Odoo 11" im Kopfbereich hat das Odoo-18-Grid zerstoert
+
+- Beschriftungen brachen mehrzeilig um,
+- Werte standen ohne Beschriftung (Verkaeufer "Administrator", Vertriebskanal "Verkauf"),
+- Rechnungsdatum/Faelligkeit/Waehrung waren verschoben,
+- es entstanden grosse Leerflaechen.
+
+Ursache (durch Archiv-Analyse belegt): Der Odoo-18-Kopfbereich ist mit expliziten
+`<label>`-Elementen und Feldern mit `nolabel` aufgebaut. Jede zusaetzliche Gruppe oder
+Einfuegung mitten in dieser Struktur zerstoert die Zuordnung von Beschriftung und Wert.
+
+Umsetzung der Korrektur
+
+1. Kopfbereich der Rechnungsansicht wird NICHT mehr veraendert - weder Gruppe noch
+   Einzelfeldeinfuegung noch Ausblendung. Damit ist das Odoo-18-Layout wieder stabil.
+2. Die Odoo-11-Kopffelder bleiben in Odoo 18 sichtbar vorhanden:
+   Kopfbereich: Kunde, Lieferadresse, Rechnungsdatum, Faelligkeitsdatum, Leistungszeitraum
+   (sale_order_benefit_period), Project Category (projectcategory_id), Valorisation Text,
+   Waehrung; Reiter "Andere Informationen": Zahlungsbedingungen, Verkaeufer, Vertriebskanal,
+   Zahlungsmethode, Zahlungsreferenz, Odoo-11-Rechnungsnummer.
+3. Zeilen-Spalten unveraendert in Odoo-11-Reihenfolge, jetzt mit "Sektion" und "Total":
+   Line NO. | Produkt / Beschreibung | Sektion | Kostenstelle | Menge | Preis pro ME |
+   Rabatt (%) | Steuern | Zwischensumme | Total
+4. Fettschrift: fett = Pflichtfeld (Attribut `required`, z. B. Kunde, Rechnungsdatum, Journal).
+   Modellvorgabe von Odoo 18, keine Ansichtseigenheit; eine Angleichung wuerde die
+   Pflichtfeldpruefung abschalten (funktionale Aenderung) - daher bewusst unveraendert.
+
+Browser-Nachweis: Screenshot lokal und VM (Desktop/Odoo18-Abnahme-Session122/rechnung/),
+sichtbar saubere Zweispaltigkeit von Beschriftung und Wert, Zeilenspalten wie oben.
+
