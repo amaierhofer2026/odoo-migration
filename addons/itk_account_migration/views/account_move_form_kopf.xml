@@ -28,6 +28,7 @@
             <xpath expr="//label[@for='invoice_date']" position="replace"/>
             <xpath expr="//label[@for='invoice_date_due']" position="replace"/>
             <xpath expr="//label[@for='invoice_payment_term_id']" position="replace"/>
+            <xpath expr="//label[@for='currency_id']" position="replace"/>
 
             <!-- Vorkommen der verschobenen Felder im Odoo-18-Block ausblenden -->
             <xpath expr="//field[@name='partner_id']" position="attributes">
