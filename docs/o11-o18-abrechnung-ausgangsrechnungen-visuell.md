@@ -59,3 +59,25 @@ existieren in Odoo 18 kein Feld (Zeiltyp bzw. Konzept entfallen).
 
 Nachweise: Screenhots lokal und VM, Browser-Auslesung der sichtbaren Felder und Spalten,
 Ansichts-Upgrade fehlerfrei, Regression 0 Fehler.
+
+## Nachtrag 01.10.2026 (Layout und Spalten nachgezogen)
+
+- Kopfbereich: die Odoo-11-Kopffelder stehen jetzt als eigene Gruppe "Angaben wie in Odoo 11"
+  rechts neben Rechnungsdatum/Faelligkeit (vorher in der linken Spalte, dadurch verrutschte
+  Darstellung mit Leerflaechen). Kunde und Lieferadresse bleiben zusammen in der linken Spalte.
+- Fettschrift: In Odoo 18 werden Pflichtfelder fett dargestellt (Feldattribut `required`, u. a.
+  Kunde, Rechnungsdatum, Journal). Das ist eine Modellvorgabe von Odoo 18 und keine
+  Ansichts-Eigenheit; eine Angleichung wuerde Pflichtfeldpruefungen abschalten (funktionale
+  Aenderung) und ist deshalb bewusst unterblieben. Alle uebrigen Bezeichnungen sind gleich
+  dargestellt.
+- Spalten der Rechnungszeilen jetzt sichtbar in Odoo-11-Reihenfolge:
+  `Line NO. | Produkt / Beschreibung | Sektion | Kostenstelle | Menge | Preis pro ME |
+  Rabatt (%) | Steuern | Zwischensumme | Total`
+  - "Sektion": eigene Spalte ergaenzt (zeigt den Odoo-18-Zeilentyp: Produkt, Abschnitt, Notiz).
+  - "Total": Spalte ist jetzt unabhaengig von der Preisangabe sichtbar (Attribut
+    column_invisible entfernt).
+  - "Beschreibung": Odoo 18 fuehrt Produkt und Beschreibung in einer Spalte; die Spalte heisst
+    deshalb sichtbar "Produkt / Beschreibung" und enthaelt beides.
+  - "Kostenstellen Tags": in Odoo 18 ohne Entsprechung (0 von 10.057 Odoo-11-Zeilen), keine Spalte.
+  - Maßeinheit bleibt als optionale Odoo-18-Spalte erhalten.
+- Nachweis: Screenshot Rechnung_lokal.png und Rechnung_vm.png, Browser-Auslesung der Spalten.
