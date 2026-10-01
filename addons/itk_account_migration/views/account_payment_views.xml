@@ -21,4 +21,17 @@
             </xpath>
         </field>
     </record>
+
+    <!-- Sichtbare Bezeichnung aus Odoo 11 (Zahlung): "setze auf Entwurf" -->
+    <record id="view_payment_form_itk_o11_texte" model="ir.ui.view">
+        <field name="name">account.payment.form.itk.o11.texte</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_draft']" position="attributes">
+                <attribute name="string">setze auf Entwurf</attribute>
+            </xpath>
+        </field>
+    </record>
 </odoo>
+
