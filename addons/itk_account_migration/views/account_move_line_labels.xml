@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Bereich Abrechnung: Spalten der Rechnungszeilen im Odoo-11-Wortlaut. -->
+    <record id="view_move_form_zeilen_itk_o11" model="ir.ui.view">
+        <field name="name">account.move.form.itk.o11.zeilenspalten</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="priority">96</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_line_ids']//field[@name='price_unit']" position="attributes">
+                <attribute name="string">Preis pro ME</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']//field[@name='discount']" position="attributes">
+                <attribute name="string">Rabatt (%)</attribute>
+                <attribute name="optional">show</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']//field[@name='price_subtotal']" position="attributes">
+                <attribute name="string">Zwischensumme</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']//field[@name='price_total']" position="attributes">
+                <attribute name="string">Total</attribute>
+                <attribute name="optional">show</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
