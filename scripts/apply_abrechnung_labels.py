@@ -167,6 +167,72 @@ def main() -> int:
         else:
             print("  OK   Zahlungsart Zeile %s = '%s'" % (zeile["id"], zeile["name"]))
 
+    # --- App- und Menuebezeichnungen (Odoo-11-Wortlaut, Entscheidung Anna 30.09.2026) ----------
+    # Sichtbare Bezeichnungen (de_DE) angleichen; technische Menue-IDs und Modulnamen bleiben.
+    print("\nApp- und Menuebezeichnungen (Abrechnung):")
+
+    def menue(eltern_id, namen):
+        dom = [("name", "in", list(namen))]
+        dom.append(("parent_id", "=", eltern_id) if eltern_id else ("parent_id", "=", False))
+        treffer = kw("ir.ui.menu", "search_read", [dom, ["id", "name"]], context={"lang": "de_DE"})
+        return treffer[0]["id"] if treffer else None
+
+    # (Liste der Pfadschritte mit Auswahlnamen, Zielbezeichnung)
+    pfade = [
+        ([], ("Rechnungsstellung", "Abrechnung"), "Abrechnung"),
+        ([("Abrechnung", "Rechnungsstellung")], ("Kunden", "Verkauf"), "Verkauf"),
+        ([("Abrechnung", "Rechnungsstellung")], ("Lieferanten", "Einkauf"), "Einkauf"),
+        ([("Abrechnung", "Rechnungsstellung"), ("Verkauf", "Kunden")],
+         ("Gutschriften", "Kunden-Gutschriften"), "Kunden-Gutschriften"),
+        ([("Abrechnung", "Rechnungsstellung"), ("Einkauf", "Lieferanten")],
+         ("Rückerstattungen", "Rueckerstattungen", "Lieferanten-Gutschriften"), "Lieferanten-Gutschriften"),
+        ([("Abrechnung", "Rechnungsstellung"), ("Verkauf", "Kunden")],
+         ("Produkte", "Verkaufbare Produkte"), "Verkaufbare Produkte"),
+        ([("Abrechnung", "Rechnungsstellung"), ("Einkauf", "Lieferanten")],
+         ("Produkte", "Einkaufbare Produkte"), "Einkaufbare Produkte"),
+        ([("__GLOBAL__",)], ("Buchhaltung", "Finanzen"), "Finanzen"),
+        ([("__GLOBAL__",)], ("Steuerpositionen", "Steuerzuordnung"), "Steuerzuordnung"),
+        ([("__GLOBAL__",)], ("Banken",), "Bankkonten"),
+        ([("__GLOBAL__",)], ("Online-Zahlungen", "Zahlungen"), "Zahlungen"),
+    ]
+    for pfad, auswahl, ziel in pfade:
+        eltern = None
+        gefunden = True
+        for schritt in pfad:
+            if schritt == ("__GLOBAL__",):
+                eltern = -1          # -1 = im gesamten Menuebaum suchen (eindeutige Namen)
+                continue
+            eltern = menue(eltern, schritt)
+            if eltern is None:
+                gefunden = False
+                break
+        if not gefunden:
+            fehlt += 1
+            beschreibung = " / ".join("|".join(s) for s in pfad) or "Wurzel"
+            print("  --   Menue nicht gefunden: %s" % beschreibung)
+            continue
+        dom = [("name", "in", list(auswahl))]
+        if eltern != -1:
+            dom.append(("parent_id", "=", eltern) if eltern else ("parent_id", "=", False))
+        treffer = kw("ir.ui.menu", "search_read", [dom, ["id", "name", "complete_name"]],
+                     context={"lang": "de_DE"})
+        if not treffer:
+            fehlt += 1
+            print("  --   Menue nicht vorhanden: %s (%s)"
+                  % (" / ".join("|".join(s) for s in pfad), ziel))
+            continue
+        m = treffer[0]
+        if m["name"] == ziel:
+            print("  OK   Menue '%s'" % m["complete_name"])
+            continue
+        if a.pruefen:
+            abweichung += 1
+            print("  FEHL Menue '%s' heisst '%s' (erwartet '%s')" % (m["complete_name"], m["name"], ziel))
+            continue
+        kw("ir.ui.menu", "write", [[m["id"]], {"name": ziel}], context={"lang": "de_DE"})
+        gesetzt += 1
+        print("  OK   Menue '%s' -> '%s'" % (m["complete_name"], ziel))
+
     print("\nErgebnis: %d gesetzt, %d Abweichungen, %d nicht vorhanden%s"
           % (gesetzt, abweichung, fehlt, " (Pruefmodus)" if a.pruefen else ""))
     return 0 if abweichung == 0 else 1
