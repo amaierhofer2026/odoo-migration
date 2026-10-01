@@ -235,6 +235,42 @@ def main() -> int:
 
     print("\nErgebnis: %d gesetzt, %d Abweichungen, %d nicht vorhanden%s"
           % (gesetzt, abweichung, fehlt, " (Pruefmodus)" if a.pruefen else ""))
+    # --- Menueposition: Zahlungsbedingungen liegt in Odoo 11 unter Konfiguration > Verwaltung ---
+    # Verwaltung ist das Menue "Verwaltung" mit dem Kind "Bargeldrundungen" (eindeutig)
+    verwaltung = None
+    for kandidat in kw("ir.ui.menu", "search_read",
+                       [[("name", "=", "Verwaltung")], ["id", "name", "complete_name"]],
+                       context={"lang": "de_DE"}):
+        kinder = kw("ir.ui.menu", "search_read", [[("parent_id", "=", kandidat["id"])], ["name"]],
+                    context={"lang": "de_DE"})
+        if any(k["name"] in ("Bargeldrundungen", "Cash Roundings") for k in kinder):
+            verwaltung = kandidat["id"]
+            break
+    bedingungen = None
+    if verwaltung:
+        t2 = kw("ir.ui.menu", "search_read",
+                [[("name", "in", ("Zahlungsbedingungen", "Payment Terms"))],
+                 ["id", "name", "parent_id", "complete_name"]], context={"lang": "de_DE"})
+        bedingungen = t2[0] if t2 else None
+    print("\nMenuepositionen:")
+    if verwaltung and bedingungen:
+        if bedingungen["parent_id"] and bedingungen["parent_id"][0] == verwaltung:
+            print("  OK   Zahlungsbedingungen liegt unter Konfiguration > Verwaltung")
+        elif a.pruefen:
+            abweichung += 1
+            print("  FEHL Zahlungsbedingungen liegt unter '%s' (erwartet Verwaltung)"
+                  % (bedingungen["parent_id"] and bedingungen["parent_id"][1]))
+        else:
+            kw("ir.ui.menu", "write", [[bedingungen["id"]], {"parent_id": verwaltung}],
+               context={"lang": "de_DE"})
+            gesetzt += 1
+            print("  OK   Zahlungsbedingungen nach Konfiguration > Verwaltung verschoben")
+    else:
+        fehlt += 1
+        print("  --   Zahlungsbedingungen oder Verwaltung nicht gefunden")
+
+    print("\nErgebnis: %d gesetzt, %d Abweichungen, %d nicht vorhanden%s"
+          % (gesetzt, abweichung, fehlt, " (Pruefmodus)" if a.pruefen else ""))
     return 0 if abweichung == 0 else 1
 
 

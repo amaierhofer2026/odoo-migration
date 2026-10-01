@@ -181,10 +181,50 @@ Suchfelder), Konfigurationsformulare der Kernmodelle, Assistenten/Dialoge, Label
 und VM, 0 unbegruendete Abweichungen), Regression 0 Fehler, Testbeleg restlos entfernt,
 lokal/GitHub/VM synchron.
 
-Bewusste Abweichungen: die acht Odoo-11-Berichtsassistenten (in Community nicht verfuegbar),
-Reiter "Rechnung" gegen "Rechnungszeilen", Spalte Kunde/Lieferant, Zahlungs-Smart-Buttons,
-Excel-/Word-Exportumfang, Bankkonto- und Kostenstellenfeldtexte ohne 1:1-Zuordnung,
-Menuepositionen (Zahlungsbedingungen unter Konfiguration > Rechnungsstellung).
+## 12. Aufloesung der restlichen Punkte (01.10.2026)
+
+### 12.1 Der eine fachliche Hinweis aus dem Menuewalk (35 OK / 1 Hinweis)
+
+```
+Betroffene Funktion : Knopf "Nach Gutschrift fragen" im Rechnungsformular
+Odoo 11             : Der Knopf ist in der Ansicht account.invoice mit
+                      attrs invisible = ['|', ('type','in',['in_refund','out_refund']),
+                      ('state','not in',('open','paid'))] hinterlegt, erscheint also
+                      NUR auf Rechnungen, niemals auf Gutschriften.
+Odoo 18             : Genauso - der Storno-/Gutschriftknopf erscheint nur auf Rechnungen.
+Grund fuer den Hinweis : Die Pruefung hatte den Knopf auch auf dem Gutschriftsformular erwartet.
+                      Das war eine zu strenge Erwartung im Pruefskript, kein Unterschied.
+Aenderung           : keine (Verhalten in beiden Systemen identisch).
+```
+
+### 12.2 Verbleibende bewusste sichtbare Abweichungen
+
+| Odoo 11 | Odoo 18 aktuell | technisch angleichbar | Begruendung |
+|---|---|---|---|
+| Reiter "Rechnung" | Reiter "Rechnung" | ja, erledigt | Der erste Reiter heisst jetzt wie in Odoo 11 "Rechnung" (vorher Rechnungszeilen); Odoo-18-Zusatzreiter bleiben erhalten |
+| Spalte "Lieferant" (Odoo 11 beschriftete die Kundenspalte irrefuehrend) | Spalte "Kunde" | technisch ja, fachlich nein | Odoo 11 zeigte in der Kundenspalte den Lieferantentext (Uebersetzungsfehler). Eine Angleichung wuerde die fehlerhafte Beschriftung uebernehmen |
+| Smart Buttons der Zahlung: "Rechnungen", "Buchungszeilen", "Zahlungsabstimmung" | "Rechnung (Anzahl)", "Transaktion", "Abgestimmte Zeilen" | nein | Die Bezeichnungen in Odoo 18 sind dynamisch (mit Anzahl) und beziehen sich auf andere Objekte (Transaktionen, abgestimmte Zeilen). Keine 1:1-Zuordnung |
+| Bankkonto: "Bank Identifikations-Code", "Kontotyp", "Finanz-Journal" | "BIC", "Typ", "Konto Journal" | nein | Diese Felder sind in Odoo 18 in keiner Bankkonten-Formularansicht sichtbar; es gibt keine sichtbare Stelle zum Angleichen |
+| Kostenstellen: "Kostenstellen Buchungen", "Projekt-Anzahl", "Projekte" | "Kostenstellenbuchungen", "Projekt-Anzahl" | teilweise, erledigt | "Projekt-Anzahl" ist angeglichen; "line_ids"/"project_ids" sind in keiner Odoo-18-Ansicht sichtbar; die Schreibweise "Kostenstellenbuchungen" ist im Odoo-18-Standard gefuehrt |
+| Menueposition Zahlungsbedingungen: Konfiguration > Verwaltung | Konfiguration > Verwaltung | ja, erledigt | Das Menue wurde nach Odoo-11-Vorbild unter Konfiguration > Verwaltung verschoben (Lauf setzt das nach jedem Upgrade erneut) |
+| Berichte: acht Odoo-11-Berichtsassistenten | nicht vorhanden | nein | In Odoo 18 Community nicht enthalten; Entscheidung: kein Enterprise-Modul, Nachbau nur bei Bedarf |
+
+Damit sind alle technisch angleichbaren sichtbaren Unterschiede umgesetzt; es verbleiben nur die
+fachlich oder technisch notwendigen Abweichungen (Zeilen 2 bis 4 und 7 der Tabelle).
+
+### 12.3 SMTP (Vorgabe K7) - reiner Infrastrukturpunkt
+
+```
+Keine Abrechnungsfunktion ist deswegen unvollstaendig:
+- Die ITK-Rechnungsmailvorlagen sind in Odoo 18 angelegt (Bereich B6) und im Formular auswaehlbar.
+- Der Dialog "Senden" oeffnet sich und ist im Browser geprueft (Versandweg vorbereitet).
+- Drucken, Berichte, Gutschrift, Zahlung, Mahnwesen-Verzicht und alle Auswertungen haengen nicht
+  an SMTP.
+- Ohne SMTP-Zugangsdaten kann nur der tatsaechliche Mailversand nicht erfolgen (Betriebs- und
+  Infrastrukturthema, Freigabe/Zugangsdaten erforderlich). Es wurde bewusst nichts konfiguriert.
+Fuer die spaetere Datenmigration entsteht dadurch keine Luecke.
+```
+
 
 
 Abschlusspruefung erfuellt (01.10.2026): kompletter Browser-Menuewalk lokal und VM ohne
