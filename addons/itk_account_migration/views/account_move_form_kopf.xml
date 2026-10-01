@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!--
-        Bereich Abrechnung - Rechnung/Gutschrift, sichtbarer Aufbau nach Odoo 11.
+        Bereich Abrechnung - Rechnung/Gutschrift: Kopfbereich kompakt nach Odoo 11.
 
-        Block 1 (Odoo-18-Standard, bleibt sichtbar): Rechnungsreferenz, Buchungsdatum,
-                Zahlungsreferenz, Bankkonto, Peppol und weitere Odoo-18-Zusatzfelder.
-        Block 2 (neu, direkt darunter): Odoo-11-Kopfaufbau als eigene flache Gruppe
-                links : Kunde, Lieferadresse, Zahlungsbedingungen, Leistungszeitraum,
-                        Project Category
-                rechts: Rechnungsdatum, Faelligkeit, Verkaeufer, Vertriebskanal
+        Aufbau (eine flache Gruppe mit col="4" = zwei Feldpaare je Zeile, dadurch bleibt
+        der Kopf kompakt und niedrig, keine Leerflaechen):
 
-        Die Odoo-11-Felder werden in Block 2 gesetzt; ihre Vorkommen in Block 1 werden
-        ausgeblendet - Feld UND Beschriftung - damit weder Doppelanzeigen noch
-        verwaiste Beschriftungen entstehen. Keine verschachtelte Gruppe, kein colspan,
-        kein nolabel: das Grid bleibt intakt. Odoo-18-Zusatzfelder bleiben erhalten.
+            Zeile 1: Kunde                  | Rechnungsdatum
+            Zeile 2: Lieferadresse          | Faelligkeit
+            Zeile 3: Zahlungsbedingungen    | Verkaeufer
+            Zeile 4: Leistungszeitraum      | Vertriebskanal
+            Zeile 5: Project Category       | Waehrung (Odoo-18-Zusatz, bleibt erhalten)
+
+        Die Gruppe steht direkt oben im Formular (vor dem Odoo-18-Kopfblock). Die Vorkommen
+        der verschobenen Felder im Odoo-18-Block werden samt Beschriftung ausgeblendet, damit
+        nichts doppelt erscheint. Keine verschachtelte Gruppe, kein kuenstliches colspan.
+        Technische Feldnamen, Modelle und Odoo-18-Zusatzfunktionen bleiben unveraendert.
     -->
     <record id="view_move_form_kopf_itk_o11" model="ir.ui.view">
         <field name="name">account.move.form.itk.o11.kopfbereich</field>
@@ -21,13 +23,13 @@
         <field name="inherit_id" ref="account.view_move_form"/>
         <field name="priority">999</field>
         <field name="arch" type="xml">
-            <!-- Beschriftungen der verschobenen Felder in Block 1 entfernen -->
+            <!-- Beschriftungen der verschobenen Felder im Odoo-18-Block entfernen -->
             <xpath expr="//label[@for='partner_id']" position="replace"/>
             <xpath expr="//label[@for='invoice_date']" position="replace"/>
             <xpath expr="//label[@for='invoice_date_due']" position="replace"/>
             <xpath expr="//label[@for='invoice_payment_term_id']" position="replace"/>
 
-            <!-- Vorkommen der verschobenen Felder in Block 1 ausblenden -->
+            <!-- Vorkommen der verschobenen Felder im Odoo-18-Block ausblenden -->
             <xpath expr="//field[@name='partner_id']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
@@ -58,9 +60,16 @@
             <xpath expr="//field[@name='valorisierung_id']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
+            <xpath expr="//field[@name='currency_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <!-- Waehrungsanzeige im Odoo-18-Block (schwebender Wert) ausblenden -->
+            <xpath expr="//div[field[@name='currency_id']]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
 
-            <!-- Block 2: Odoo-11-Kopfaufbau, flache Gruppe neben dem Odoo-18-Kopfblock -->
-            <xpath expr="//field[@name='partner_id']/ancestor::group[2]" position="after">
+            <!-- Kompakter Odoo-11-Kopfblock, direkt oben; zwei Feldpaare je Zeile -->
+            <xpath expr="//field[@name='partner_id']/ancestor::group[2]" position="before">
                 <group name="itk_o11_kopfbereich">
                     <group>
                         <label for="partner_id" string="Kunde" invisible="move_type in ('in_invoice', 'in_refund')"/>
@@ -76,6 +85,7 @@
                         <field name="invoice_date_due" invisible="move_type in ('entry', 'in_invoice', 'in_refund')"/>
                         <field name="invoice_user_id" invisible="move_type == 'entry'"/>
                         <field name="team_id" invisible="move_type == 'entry'"/>
+                        <field name="currency_id" groups="base.group_multi_currency" invisible="move_type == 'entry'"/>
                     </group>
                 </group>
             </xpath>
