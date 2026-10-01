@@ -36,4 +36,27 @@
             </xpath>
         </field>
     </record>
+
+    <!-- Sichtbare Bezeichnungen aus Odoo 11 (Rechnung/Gutschrift) -->
+    <record id="view_move_form_itk_o11_texte" model="ir.ui.view">
+        <field name="name">account.move.form.itk.o11.texte</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='other_info']" position="attributes">
+                <attribute name="string">Andere Informationen</attribute>
+            </xpath>
+            <!-- Odoo 11: "Auf Entwurf setzen", "Nach Gutschrift fragen", "Einzahlung erfassen" -->
+            <xpath expr="//button[@name='button_draft']" position="attributes">
+                <attribute name="string">Auf Entwurf setzen</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_reverse']" position="attributes">
+                <attribute name="string">Nach Gutschrift fragen</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_register_payment']" position="attributes">
+                <attribute name="string">Einzahlung erfassen</attribute>
+            </xpath>
+        </field>
+    </record>
 </odoo>
+
