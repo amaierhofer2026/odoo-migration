@@ -3,6 +3,7 @@ import http.cookiejar, json, os, sys, urllib.request
 sys.path.insert(0, r"C:/Odoo-Test/scripts")
 from _o11o18_client import lade_env
 env = lade_env(r"C:/Odoo-Test/.env")
+instanz = sys.argv[1] if len(sys.argv) > 1 else "lokal"
 url = sys.argv[2] if len(sys.argv) > 2 else "http://localhost:8069"
 domain = "k001959vsx.ipax.at" if "k001959" in url else "localhost"
 jar = http.cookiejar.CookieJar(); op = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(jar))
