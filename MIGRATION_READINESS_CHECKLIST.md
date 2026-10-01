@@ -1531,7 +1531,7 @@ ENTSCHEIDUNGEN UND UMSETZUNG 30.09.2026 (Teil 6 / Label-Regel):
 Der Apply-Lauf setzt die Punkte 2 und 3 nach jedem Upgrade erneut und prueft sie.
 ```
 
-ABRECHNUNG: EINGEFROREN - FUNKTIONAL VOLLSTAENDIG UND MIGRATIONSVORBEREITET (Abnahme 01.10.2026):
+ABRECHNUNG: IN ARBEIT (01.10.2026) - sichtbare Formularansicht entspricht noch nicht Odoo 11:
 ```
 Vollstaendigkeitscheck ohne Lese-Limit (scripts/pruefe_teil5_abdeckung.py, Odoo 11 read-only):
 Konten: 34.492 Buchungszeilen gesamt = 5.989 (1201 Bank) + 12.252 (1410 Forderungen)
