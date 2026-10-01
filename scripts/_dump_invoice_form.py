@@ -4,7 +4,7 @@ sys.path.insert(0, r"C:/Odoo-Test/scripts")
 from _o11o18_client import lade_env
 env = lade_env(r"C:/Odoo-Test/.env")
 instanz = sys.argv[1] if len(sys.argv) > 1 else "lokal"
-url = sys.argv[2] if len(sys.argv) > 2 else "http://localhost:8069"
+url = "https://k001959vsx.ipax.at" if sys.argv[1:2] == ["vm"] else "http://localhost:8069"
 domain = "k001959vsx.ipax.at" if "k001959" in url else "localhost"
 jar = http.cookiejar.CookieJar(); op = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(jar))
 req = urllib.request.Request(url + "/web/session/authenticate", data=json.dumps({"jsonrpc":"2.0","method":"call","params":{"db":env["ODOO18_DB"],"login":env["ODOO18_USER"],"password":env["ODOO18_PWD"]}}).encode(), headers={"Content-Type":"application/json"})
