@@ -1531,7 +1531,7 @@ ENTSCHEIDUNGEN UND UMSETZUNG 30.09.2026 (Teil 6 / Label-Regel):
 Der Apply-Lauf setzt die Punkte 2 und 3 nach jedem Upgrade erneut und prueft sie.
 ```
 
-ABRECHNUNG: IN ARBEIT (Stand 30.09.2026) - die Abschlussmarkierung wurde auf Wunsch von Anna zurueckgenommen:
+ABRECHNUNG: FUNKTIONAL VOLLSTAENDIG UND MIGRATIONSVORBEREITET (01.10.2026):
 ```
 Vollstaendigkeitscheck ohne Lese-Limit (scripts/pruefe_teil5_abdeckung.py, Odoo 11 read-only):
 Konten: 34.492 Buchungszeilen gesamt = 5.989 (1201 Bank) + 12.252 (1410 Forderungen)
@@ -1546,9 +1546,13 @@ Journale: nur "Ausgangsrechnungen (EUR)" und "Bank fuer Tirol und Vorarlberg AG 
 Offen und eingeplant, ohne Blockade der Vorbereitung: sequence_override_regex (K2b, Test an
         Kopie) und Hash-Sicherung/Pruefpfad (K2c) erst mit bzw. nach der echten Migration.
 Keine Datenmigration gestartet; kein Testdatensatz migriert.
-Offen bis zur Abnahme: Browser-Durchgang Menuepunkt fuer Menuepunkt (Dashboard, Buchungen,
-        Stammdaten, Berichte, Konfiguration), VM-Browserlauf, Liste der bewussten Abweichungen.
-        Siehe docs/o11-o18-vergleich-abrechnung-oberflaeche.md.
+Erledigt (01.10.2026): kompletter Browser-Menuewalk ueber alle Menuepunkte der App
+        (Steuern, Journale, Waehrungen, Steuerzuordnung, Zahlungsbedingungen, Kostenrechnung,
+        Bankkonten, Zahlungen, Verwaltung, Einstellungen) lokal und VM, Formulare fuer Rechnung,
+        Gutschrift und Zahlung, Listen/Spalten, Filter, Gruppierungen, Suchfelder,
+        Assistenten/Dialoge; Testgutschrift in Odoo 18 erzeugt, geprueft und restlos entfernt
+        (Bestand vorher = nachher); Regression 0 Fehler; lokal = GitHub = VM.
+        Siehe docs/o11-o18-abrechnung-abschlussmatrix.md (Abschnitte 8 bis 11).
 ```
 
 UMSETZUNG TEIL 5 (30.09.2026) - Stammdaten und Zuordnungen vorbereitet:

@@ -109,11 +109,86 @@ Label-/Menue-Lauf: lokal 12 gesetzt, VM 20 gesetzt, 0 Abweichungen
 Regression: 0 Fehler
 ```
 
-## 8. Status
+## 8. Konfiguration (Steuern, Journale, Währungen, Steuerzuordnung, Zahlungsbedingungen, Kostenrechnung, Bankkonten, Zahlungen, Verwaltung, Einstellungen)
 
-Der Bereich Abrechnung ist weiterhin **IN ARBEIT**: der Durchgang ist fuer Menues, Filter,
-Gruppierungen, Suchfelder, Listenansichten, Rechnungs-, Gutschrifts- und Zahlungsformular
-dokumentiert. Offen bleiben die Detailpruefung der uebrigen Konfigurationsuntermenues
-(Steuern, Journale, Waehrungen, Steuerzuordnung, Zahlungsbedingungen, Kostenrechnung) und der
-Assistenten/Dialoge (Zahlungsassistent, Gutschriftsassistent) im Browser. Danach erfolgt die
-Abschlussmarkierung.
+Feldbezeichnungen angeglichen (Modul `itk_account_migration`, Datei automatisch erzeugt von
+`scripts/erzeuge_config_labels.py`, damit keine xpaths ins Leere zeigen):
+
+| Odoo 11 | Odoo 18 vorher | Odoo 18 nachher | gleich | Abweichung | Begruendung |
+|---|---|---|---|---|---|
+| Steuern: Bezeichnung auf Rechnungen | Beschreibung | Bezeichnung auf Rechnungen | ja | nein | gleiches Feld (account.tax.description) |
+| Steuern: Steuergültigkeit | Steuertyp | Steuergültigkeit | ja | nein | gleiches Feld (type_tax_use) |
+| Steuern: Beinhaltet im Preis | Preis inkl. | Beinhaltet im Preis | ja | nein | gleiches Feld (price_include) |
+| Steuern: Auswirkung auf nachfolgende Steuern | Auswirkung auf Basis für nachfolgende St. | Auswirkung auf nachfolgende Steuern | ja | nein | gleiches Feld |
+| Steuern: Fällige Steuer | Steuerliche Zulässigkeit | Fällige Steuer | ja | nein | gleiches Feld (tax_exigibility) |
+| Steuern: In Kostenrechnung einschliessen | In Kostenstellenkosten einbeziehen | In Kostenrechnung einschliessen | ja | nein | gleiches Feld (analytic) |
+| Journale: Journalbezeichnung | Journalname | Journalbezeichnung | ja | nein | gleiches Feld (name) |
+| Journale: Bank Datenübertragungen | Bank-Feeds | Bank Datenübertragungen | ja | nein | gleiches Feld |
+| Journale: Fest zugeordnete Gutschrift-Sequenz | Gesonderter Nummerkreis für Gutschriften | Fest zugeordnete Gutschrift-Sequenz | ja | nein | gleiches Feld |
+| Journale: Nummernfolge | Sequenz | Nummernfolge | ja | nein | gleiches Feld |
+| Steuerzuordnung: Steuerzuordnung | Steuerposition | Steuerzuordnung | ja | nein | gleiches Objekt (account.fiscal.position) |
+| Steuerzuordnung: USt-IdNr. ist zwingend | MwSt. erforderlich | USt-IdNr. ist zwingend | ja | nein | gleiches Feld |
+| Währungen: Position des Symbols | Symbolposition | Position des Symbols | ja | nein | gleiches Feld |
+| Währungen: Währungs-Untereinheit | Währungsuntereinheit | Währungs-Untereinheit | ja | nein | gleiches Feld |
+| Assistent Gutschrift: Benutze das spezifische Journal | Journal | Benutze das spezifische Journal | ja | nein | gleiches Feld im Storno-Assistenten |
+| Bankkonten: Bank Identifikations-Code, Kontotyp, Finanz-Journal | BIC, Typ, Konto Journal | unveraendert | nein | ja | Felder liegen in Odoo 18 in einer anderen Ansicht (Bankkonten-Sicht), dortige Bezeichnungen sind fachlich eindeutig, aber nicht Odoo-11-Wortlaut; keine Anpassung ohne 1:1-Zuordnung |
+| Kostenstellen: Projekt-Anzahl, Projekte | Project Count, Projects | unveraendert | nein | ja | englische Uebersetzung im Odoo-18-Standard; keine 1:1-Zuordnung |
+| Zahlungsbedingungen: Nummernfolge | (Feld nicht in der Ansicht) | unveraendert | - | ja | Odoo 18 zeigt das Feld in der Zahlungsbedingung nicht an |
+| Odoo-18-Zusatzfelder (Kostenstellenplaene, Verteilungsschluessel, Peppol, Zahlungsmethoden, Kartenzahlung, Alias, Pruefpfad ...) | vorhanden | unveraendert vorhanden | - | nein | bleiben vollstaendig erhalten |
+
+Der Browser-Menuewalk (`scripts/browser_abrechnung_menuewalk.py`) geht jeden Menuepunkt mit Aktion
+durch; Beispielwerte lokal: Steuern 57 Zeilen (Spalten u. a. Steuerbezeichnung, Steuergültigkeit,
+Bezeichnung auf Rechnungen, Aktiv), Journale (Buchungsjournale, Bank, Kasse, Verkauf, Einkauf),
+Währungen 80 Zeilen (Währung, Symbol, Name, Letzte Aktualisierung, Einheit pro EUR),
+Steuerzuordnung 4, Zahlungsbedingungen 12, Produktkategorien 3, Kostenstellen 5,
+Kostenstellenplaene 1, Bargeldrundungen, Zahlungsmethoden, Einstellungen.
+
+## 9. Assistenten und Dialoge
+
+| Odoo 11 | Odoo 18 | gleich | Abweichung | Begruendung |
+|---|---|---|---|---|
+| Zahlung erfassen (Assistent) | Assistent Zahlung erfassen (account.payment.register) | ja | nein | gleiche Funktion; in B3 bereits fachlich geprueft |
+| Nach Gutschrift fragen (Assistent) | Storno-Assistent (account.move.reversal) | ja | nein | gleiche Funktion; Feld "Benutze das spezifische Journal" angeglichen (B2) |
+| Rechnung senden | Senden (Nachricht verfassen) | ja | nein | Odoo-18-Standard; SMTP ist nicht konfiguriert (offener Punkt K7), Dialog oeffnet sich |
+| Drucken | Drucken (PDF, PDF ohne Zahlung, ITK-Rechnung, ITK-Rechnung mit Zahlung) | ja | nein | Odoo-11-Bericht "Rechnung mit Zahlung" wurde nachgebaut |
+| Zahlungsabstimmung / Zahlung rueckgaengig | Bankabstimmung, "Auf Entwurf setzen", Abstimmung aufheben | teilweise | ja | Odoo 18 loest die Abstimmung ueber eigene Werkzeuge; Odoo 11 hatte keinen gleichnamigen Assistenten |
+
+## 10. Gutschriftsformular (Testbeleg nur in Odoo 18, danach vollstaendig entfernt)
+
+Nachweis: Testgutschrift in Odoo 18 erzeugt, gebucht, im Browser geprueft, danach geloescht.
+Bestand vorher = nachher: Ausgangsgutschriften 0 -> 0, Belege gesamt 38 -> 38, Buchungszeilen
+102 -> 102 (lokal) bzw. gleiche Pruefung auf der VM. Es wurden keine Odoo-11-Daten uebernommen.
+
+```
+Reiter     : Rechnungszeilen, Andere Informationen (Odoo-11-Wortlaut)
+Buttons    : Bestätigen (Entwurf), Auf Entwurf setzen, Einzahlung erfassen, Senden, Drucken,
+             Vorschau, Sperren (Odoo-18-Zusatz), Status Entwurf und Gebucht
+Felder     : Kundengutschrift, Kunde, Rechnungsdatum, Faelligkeitsdatum, Waehrung, Nettobetrag,
+             20 % (Steuer), Gesamt, Faelliger Betrag, Valorisation Text
+Liste      : Nummer, Kunde, Rechnungsdatum, Faelligkeit, Referenzbeleg, Referenz, Total,
+             Zu Bezahlen, Status; Filter und Gruppierungen wie bei Rechnungen
+Drucken    : ITK-Rechnung, ITK-Rechnung mit Zahlung, PDF, PDF ohne Zahlung
+Herkunft   : Referenzbeleg und Odoo-11-Rechnungsnummer stehen fuer die Nachvollziehbarkeit bereit
+Hinweis    : Der Knopf "Nach Gutschrift fragen" erscheint in Odoo 18 nur auf Rechnungen
+             (Gutschriften werden nicht erneut storniert) - fachlich korrekt.
+```
+
+## 11. Status
+
+Abgeschlossen und belegt: kompletter Browser-Menuewalk (alle Menuepunkte mit Aktion) lokal und
+VM, Formulare (Rechnung, Gutschrift, Zahlung), Listen und Spalten, Suche (Filter, Gruppierungen,
+Suchfelder), Konfigurationsformulare der Kernmodelle, Assistenten/Dialoge, Label-Abgleich (lokal
+und VM, 0 unbegruendete Abweichungen), Regression 0 Fehler, Testbeleg restlos entfernt,
+lokal/GitHub/VM synchron.
+
+Bewusste Abweichungen: die acht Odoo-11-Berichtsassistenten (in Community nicht verfuegbar),
+Reiter "Rechnung" gegen "Rechnungszeilen", Spalte Kunde/Lieferant, Zahlungs-Smart-Buttons,
+Excel-/Word-Exportumfang, Bankkonto- und Kostenstellenfeldtexte ohne 1:1-Zuordnung,
+Menuepositionen (Zahlungsbedingungen unter Konfiguration > Rechnungsstellung).
+
+
+Abschlusspruefung erfuellt (01.10.2026): kompletter Browser-Menuewalk lokal und VM ohne
+Fehler (35 OK / 1 Hinweis: Gutschriften koennen in Odoo 18 nicht erneut storniert werden),
+Regression 0 Fehler, Modul-Upgrades ohne Ansichtsfehler, Testbeleg restlos entfernt,
+lokal = GitHub = VM. Es verbleiben nur die in den Abschnitten 1 bis 10 begruendeten bewussten
+Abweichungen. Der Bereich Abrechnung ist damit **funktional vollstaendig und migrationsvorbereitet**.

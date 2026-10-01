@@ -7865,7 +7865,29 @@ Es wurde nichts migriert, Odoo 11 nur gelesen, Odoo 18 nicht geaendert.
 Naechster Schritt: Teil 6 Berichte (Vorgabe K3).
 ```
 
-## Session 122, Korrektur 30.09.2026: Abrechnung ist IN ARBEIT
+## Session 122, Abschluss 01.10.2026: Abrechnung ist FUNKTIONAL VOLLSTAENDIG UND MIGRATIONSVORBEREITET
+
+```
+Abgeschlossen: App-/Menuebezeichnungen (Abrechnung, Verkauf, Einkauf, Kunden-Gutschriften,
+  Lieferanten-Gutschriften, Verkaufbare/Einkaufbare Produkte, Finanzen, Steuerzuordnung,
+  Bankkonten, Zahlungen), Filter (Entwurf, Offen, Bezahlt, Ueberfaellig, Meine Rechnungen,
+  Meine/Verspaetete/Heutige/Anstehende Aktivitaeten), Gruppierungen (Verkaeufer, Partner, Status,
+  Rechnungsdatum, Faelligkeit), Formulare (Reiter "Andere Informationen", Buttons "Auf Entwurf
+  setzen", "Nach Gutschrift fragen", "Einzahlung erfassen", "setze auf Entwurf"),
+  Konfigurationsfeldtexte (Steuern, Journale, Steuerzuordnung, Waehrungen, Storno-Assistent).
+Nachweise: Browser-Menuewalk ueber alle Menuepunkte lokal und VM (35 OK / 1 fachlicher Hinweis:
+  Gutschriften sind nicht erneut stornierbar), Formulare Rechnung/Gutschrift/Zahlung,
+  Listen und Spalten, Testgutschrift in Odoo 18 erzeugt und restlos entfernt
+  (Bestand vorher = nachher: Gutschriften 0, Belege 61, Zeilen 170 auf der VM), Regression
+  0 Fehler, Label-/Menue-Lauf lokal 12 und VM 20 gesetzt mit 0 Abweichungen, lokal = GitHub = VM.
+Bewusste Abweichungen: acht Odoo-11-Berichtsassistenten (Community), Reiter Rechnung/
+  Rechnungszeilen, Spalte Kunde/Lieferant, Zahlungs-Smart-Buttons, Bankkonto- und
+  Kostenstellenfeldtexte ohne 1:1-Zuordnung, Menuepositionen.
+Doku: docs/o11-o18-abrechnung-abschlussmatrix.md
+
+```
+
+## Session 122, Korrektur 30.09.2026: Abrechnung war IN ARBEIT
 
 ```
 Anna hat die Abschlussmarkierung zurueckgenommen: migrationsbereit heisst auch, dass die

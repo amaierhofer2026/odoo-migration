@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        Bereich Abrechnung, Konfiguration: sichtbare Feldbezeichnungen im Odoo-11-Wortlaut.
+        Automatisch erzeugt von scripts/erzeuge_config_labels.py: je Feld wird die Formularansicht
+        gesucht, die es enthaelt. Technische Feldnamen, Modelle und Funktionen bleiben unveraendert;
+        Odoo-18-Zusatzfelder und Zusatzfunktionen bleiben erhalten.
+    -->
+    <record id="auto_account_tax_account_tax_form" model="ir.ui.view">
+        <field name="name">account.tax.itk.o11.account_tax_form</field>
+        <field name="model">account.tax</field>
+        <field name="inherit_id" ref="account.view_tax_form"/>
+        <field name="priority">99</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='description']" position="attributes">
+                <attribute name="string">Bezeichnung auf Rechnungen</attribute>
+            </xpath>
+            <xpath expr="//field[@name='type_tax_use']" position="attributes">
+                <attribute name="string">Steuergültigkeit</attribute>
+            </xpath>
+            <xpath expr="//field[@name='price_include']" position="attributes">
+                <attribute name="string">Beinhaltet im Preis</attribute>
+            </xpath>
+            <xpath expr="//field[@name='include_base_amount']" position="attributes">
+                <attribute name="string">Auswirkung auf nachfolgende Steuern</attribute>
+            </xpath>
+            <xpath expr="//field[@name='tax_exigibility']" position="attributes">
+                <attribute name="string">Fällige Steuer</attribute>
+            </xpath>
+            <xpath expr="//field[@name='analytic']" position="attributes">
+                <attribute name="string">In Kostenrechnung einschliessen</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="auto_account_journal_account_journal_form" model="ir.ui.view">
+        <field name="name">account.journal.itk.o11.account_journal_form</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form"/>
+        <field name="priority">99</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="string">Journalbezeichnung</attribute>
+            </xpath>
+            <xpath expr="//field[@name='bank_statements_source']" position="attributes">
+                <attribute name="string">Bank Datenübertragungen</attribute>
+            </xpath>
+            <xpath expr="//field[@name='refund_sequence']" position="attributes">
+                <attribute name="string">Fest zugeordnete Gutschrift-Sequenz</attribute>
+            </xpath>
+            <xpath expr="//field[@name='sequence']" position="attributes">
+                <attribute name="string">Nummernfolge</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="auto_account_fiscal_position_account_fiscal_position_form" model="ir.ui.view">
+        <field name="name">account.fiscal.position.itk.o11.account_fiscal_position_form</field>
+        <field name="model">account.fiscal.position</field>
+        <field name="inherit_id" ref="account.view_account_position_form"/>
+        <field name="priority">99</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="string">Steuerzuordnung</attribute>
+            </xpath>
+            <xpath expr="//field[@name='vat_required']" position="attributes">
+                <attribute name="string">USt-IdNr. ist zwingend</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="auto_product_category_product_category_property_form_inherit" model="ir.ui.view">
+        <field name="name">product.category.itk.o11.product_category_property_form_inherit</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="account.view_category_property_form"/>
+        <field name="priority">99</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='property_account_income_categ_id']" position="attributes">
+                <attribute name="string">Erlöskonto</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="auto_product_category_product_category_form" model="ir.ui.view">
+        <field name="name">product.category.itk.o11.product_category_form</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="stock.product_category_form_view_inherit"/>
+        <field name="priority">99</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='removal_strategy_id']" position="attributes">
+                <attribute name="string">Erzwinge Verbrauchsfolge</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="auto_res_currency_res_currency_form" model="ir.ui.view">
+        <field name="name">res.currency.itk.o11.res_currency_form</field>
+        <field name="model">res.currency</field>
+        <field name="inherit_id" ref="base.view_currency_form"/>
+        <field name="priority">99</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='position']" position="attributes">
+                <attribute name="string">Position des Symbols</attribute>
+            </xpath>
+            <xpath expr="//field[@name='currency_subunit_label']" position="attributes">
+                <attribute name="string">Währungs-Untereinheit</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="auto_account_move_reversal_account_move_reversal_form" model="ir.ui.view">
+        <field name="name">account.move.reversal.itk.o11.account_move_reversal_form</field>
+        <field name="model">account.move.reversal</field>
+        <field name="inherit_id" ref="account.view_account_move_reversal"/>
+        <field name="priority">99</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='journal_id']" position="attributes">
+                <attribute name="string">Benutze das spezifische Journal</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
