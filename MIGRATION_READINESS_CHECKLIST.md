@@ -1531,6 +1531,23 @@ ENTSCHEIDUNGEN UND UMSETZUNG 30.09.2026 (Teil 6 / Label-Regel):
 Der Apply-Lauf setzt die Punkte 2 und 3 nach jedem Upgrade erneut und prueft sie.
 ```
 
+ABSCHLUSS ABRECHNUNG (30.09.2026) - FUNKTIONAL UND MIGRATIONSVORBEREITET:
+```
+Vollstaendigkeitscheck ohne Lese-Limit (scripts/pruefe_teil5_abdeckung.py, Odoo 11 read-only):
+Konten: 34.492 Buchungszeilen gesamt = 5.989 (1201 Bank) + 12.252 (1410 Forderungen)
+        + 6.241 (1776 Umsatzsteuer 19%) + 10.010 (8400 Erloese 19% USt); 0 Zeilen ohne Konto
+        -> Abdeckung 100 %; Zielkonten Odoo 18: 2801, 2000, 3500, 4000 (alle vorhanden).
+Steuern: einzige belegte Steuer Odoo 11 ID 18 "20% Umsatzsteuer" (20 %, percent, sale, exklusiv)
+        -> Odoo 18 ID 15 "20% Ust"; belegt in 9.988 Buchungszeilen, 6.241 Steuerzeilen,
+        10.029 Rechnungszeilen und 6.275 Rechnungsteuerzeilen -> Abdeckung 100 %.
+        22 Rechnungszeilen sind in Odoo 11 ohne Steuer gefuehrt (Anzahlungen, Reisekosten)
+        und werden steuerfrei uebernommen (keine Mapping-Luecke).
+Journale: nur "Ausgangsrechnungen (EUR)" und "Bank fuer Tirol und Vorarlberg AG (EUR)".
+Offen und eingeplant, ohne Blockade der Vorbereitung: sequence_override_regex (K2b, Test an
+        Kopie) und Hash-Sicherung/Pruefpfad (K2c) erst mit bzw. nach der echten Migration.
+Keine Datenmigration gestartet; kein Testdatensatz migriert.
+```
+
 UMSETZUNG TEIL 5 (30.09.2026) - Stammdaten und Zuordnungen vorbereitet:
 ```
 1) Neues Modul addons/itk_account_migration (18.0.1.0.0): Feld account.move.itk_o11_invoice_number

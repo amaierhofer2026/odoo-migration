@@ -1,6 +1,7 @@
 # Odoo 11 gegen Odoo 18 - Bereich Abrechnung, Teil 5: Umsetzung der Stammdaten und Zuordnungen
 
 Stand: 30.09.2026, Session 122. Umsetzung der in Teil 5 vorbereiteten Punkte.
+Geprueft am 30.09.2026 mit vollstaendiger Abdeckung (kein Lese-Limit) - siehe Punkte 3 und 4.
 Grundregeln unverandert: Odoo 11 ausschliesslich read-only, keine Datenmigration,
 Aenderungen nur in Odoo 18, Odoo-18-Zusatzfunktionen bleiben erhalten.
 
@@ -49,40 +50,50 @@ Odoo 11 ID | Text                                          -> Odoo 18
    keine Dubletten (Pruefung ueber den Namen).
 ```
 
-## 3. Konten-Mapping
+## 3. Konten-Mapping (Vollstaendigkeitscheck 30.09.2026)
 
-In Odoo 11 sind auf Buchungszeilen tatsaechlich nur vier Konten in Verwendung
-(34.488 Buchungszeilen, read-only gezaehlt):
-
-```
-Odoo 11 Konto      Bezeichnung Odoo 11                        Zeilen | Zuordnung Odoo 18
-1201 (liquidity)   Bank                                        5.987  | 2801 Bank (asset_cash)
-1410 (receivable)  Forderungen aus Lieferungen u.Leistung    12.250  | 2000 Forderungen aus Lieferungen
-                                                                        und Leistungen Inland
-1776 (other)       Umsatzsteuer 19%                           6.241  | 3500 Umsatzsteuer 20%
-8400 (other)       Erloese 19% USt                           10.010  | 4000 Brutto-Umsatzerloese im Inland (20%)
-```
-
-Fachliche Begruendung: Die Odoo-11-Bezeichnungen "19%" stammen aus dem uebernommenen deutschen
-Kontenrahmen; tatsaechlich verwendet wurde laut Steuerzuordnung die oesterreichische
-Umsatzsteuer von 20 % (siehe Punkt 4). Die Zielkonten sind in Odoo 18 vorhanden und fachlich
-identisch (gleiche Kontenart). Es musste kein Konto neu angelegt werden.
-Hinweis: Odoo 18 bucht Zahlungen technisch zunaechst auf 2803 "Ausstehende Eingaenge"
-(Zwischenkonto der Zahlung) - das ist Odoo-18-Standardverhalten und bleibt erhalten.
-
-## 4. Steuer-Mapping
-
-In Odoo 11 sind auf Rechnungszeilen tatsaechlich nur zwei Steuern belegt, auf Buchungszeilen
-genau eine (9.988 Verwendungen):
+Geprueft ohne Lese-Limit (`scripts/pruefe_teil5_abdeckung.py`, Odoo 11 read-only):
+Buchungszeilen gesamt 34.492, Summe der Kontengruppen 34.492, Zeilen ohne Konto 0.
+Abdeckung damit 100 % - es gibt kein weiteres tatsaechlich bebuchtes Konto.
 
 ```
-Odoo 11 Steuer (ID 18)  Name "20% Umsatzsteuer", Beschreibung "20% USt",
-                        Satz 20 %, Art percent, Verwendung sale, exklusiv, aktiv
--> Odoo 18 Steuer (ID 15) "20% Ust", Satz 20 %, percent, sale, exklusiv, aktiv  = 1:1
-Zuordnung nach fachlicher Bedeutung, Satz, Verwendung und Steuerart (nicht nach technischer ID).
-Es musste keine Zielsteuer neu angelegt werden; die uebrigen 75 Odoo-11-Steuern sind nicht in
-Verwendung (nur Konfiguration) und werden nicht migriert.
+Odoo 11 Konto     Bezeichnung Odoo 11                     Zeilen | Odoo-18-Zielkonto
+1201 (liquidity)  Bank                                      5.989 | 2801 Bank
+1410 (receivable) Forderungen aus Lieferungen u.Leistung   12.252 | 2000 Forderungen aus Lieferungen
+                                                                    und Leistungen Inland
+1776 (other)      Umsatzsteuer 19%                          6.241 | 3500 Umsatzsteuer 20%
+8400 (other)      Erloese 19% USt                          10.010 | 4000 Brutto-Umsatzerloese im Inland (20%)
+                                                        ---------
+Summe                                                      34.492 | = Buchungszeilen gesamt
 ```
+
+Die Zeilen verteilen sich ausschliesslich auf die Journale "Ausgangsrechnungen (EUR)" und
+"Bank fuer Tirol und Vorarlberg AG (EUR)"; damit ist der Migrationsumfang Abrechnung
+(Rechnungen, Gutschriften, Zahlungen) vollstaendig abgedeckt. Ein groesserer Buchhaltungsbestand
+mit weiteren Konten existiert in Odoo 11 nicht.
+Hinweis: Odoo 11 wird weiterhin produktiv genutzt, die Zeilenzahlen steigen daher leicht
+(z. B. Bank 5.987 am Vormittag, 5.989 am Nachmittag). Die Zuordnung ist ueber die Kontenbedeutung
+definiert und damit unabhaengig von der Zeilenzahl.
+
+## 4. Steuer-Mapping (Vollstaendigkeitscheck 30.09.2026)
+
+Alle vier steuerrelevanten Sammlungen wurden vollstaendig gelesen (ohne Limit). Es tritt
+ausschliesslich eine einzige Steuer auf:
+
+```
+Odoo 11 Steuer 18 "20% Umsatzsteuer" (20 %, percent, sale, exklusiv):
+  Buchungszeilen mit Steuerzuordnung (tax_ids) : 9.988
+  Steuerzeilen der Buchungen (tax_line_id)     : 6.241
+  Rechnungszeilen mit Steuer                   : 10.029 von 10.051
+  Rechnungsteuerzeilen (account.invoice.tax)   : 6.275 von 6.275 (alle)
+-> Odoo 18 Steuer 15 "20% Ust" (20 %, percent, sale, exklusiv) = 1:1
+```
+
+Abdeckung der tatsaechlich belegten steuerrelevanten Zeilen: 100 % - keine andere Steuer ist
+irgendwo belegt. Die 22 Rechnungszeilen ohne Steuer sind keine Steuerluecke im Mapping, sondern
+in Odoo 11 selbst ohne Steuer gefuehrt (Angaben "Anzahlung", "Anzahlung von 50.0%",
+"Uebernachtungen lt. Liste", "Bahnreise Fahrtkosten Wien-Muenchen"); sie werden bei der
+Migration ebenfalls ohne Steuer uebernommen und sind vor der Migration nicht anzupassen.
 
 ## 5. Zahlungsnummern-Regel (Odoo 11 -> Odoo 18)
 
