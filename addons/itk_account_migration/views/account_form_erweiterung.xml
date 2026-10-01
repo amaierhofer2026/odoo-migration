@@ -13,11 +13,7 @@
         <field name="priority">97</field>
         <field name="arch" type="xml">
             <xpath expr="//page[@name='other_info']" position="inside">
-                <group name="itk_o11_angaben" string="Angaben wie in Odoo 11">
-                    <field name="invoice_payment_term_id" invisible="move_type == 'entry'"/>
-                    <field name="sale_order_benefit_period" invisible="move_type == 'entry'"/>
-                    <field name="projectcategory_id" invisible="move_type == 'entry'"/>
-                </group>
+                <!-- Felder wandern in den sichtbaren Kopfbereich (account_move_form_kopf.xml) -->
             </xpath>
         </field>
     </record>

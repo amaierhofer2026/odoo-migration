@@ -29,4 +29,9 @@ with sync_playwright() as pw:
     spalten = s.evaluate("""() => [...document.querySelectorAll('.o_field_x2many_list thead th, .o_list_renderer thead th')]
         .map(e => (e.textContent || '').trim()).filter(t => t)""")
     print("ZEILEN-SPALTEN:", spalten)
+    vz = os.path.join(os.path.expanduser("~"), "Desktop", "Odoo18-Abnahme-Session122", "rechnung")
+    os.makedirs(vz, exist_ok=True)
+    datei = os.path.join(vz, "Rechnung_%s.png" % ("vm" if "k001959" in url else "lokal"))
+    s.screenshot(path=datei, full_page=True)
+    print("SCREENSHOT:", datei)
     ctx.close()
