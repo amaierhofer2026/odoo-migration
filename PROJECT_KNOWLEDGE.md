@@ -7996,3 +7996,39 @@ Nachweise: lokal HTML/PDF mit Zahlungsblock (RE/2026/0001, RE/2026/0002) und Ver
    Screenshot als `*_lokal.png` abgelegt. Seit 01.10.2026 leiten die Skripte die URL aus der
    Instanz ab (`vm` -> https://k001959vsx.ipax.at). Immer pruefen, welcher Host im Log steht,
    und den Screenshot ansehen - Skriptausgabe allein gilt nicht als Abnahme.
+
+## Verbindlicher Arbeitsstandard: Abschlussdurchgang je Modul (ab 01.10.2026)
+
+Gilt fuer Abrechnung, Verkauf, Abonnements und alle weiteren Module. Ein Bereich gilt erst als
+migrationsbereit, wenn ALLE Punkte belegt sind - Skriptausgabe oder "View laedt fehlerfrei" genuegt nie.
+
+1. Sichtbarer Browserabgleich (lokal UND VM, echte Menuepunkte, echte Datensaetze, Screenshots angesehen)
+   - Menuepunkte, Listenansichten, alle Spalten, Formularansichten, Kopfbereich, alle Reiter, alle Gruppen
+   - Buttons, Smart Buttons, Statusleiste, Aktionen, Assistenten/Dialoge, Druck-/Versandfunktionen
+   - Suchfelder, Filter, Gruppierungen
+2. Sichtbare Angleichung an Odoo 11, wo technisch sauber machbar
+   - gleiche fachliche Bedeutung = gleicher sichtbarer Wortlaut
+   - Position, Reihenfolge und Gruppierung an Odoo 11
+   - keine Doppelanzeigen, keine verwaisten Beschriftungen, keine leeren Bloecke, keine Layoutreste
+   - Odoo-18-Zusatzfelder und -funktionen bleiben vollstaendig erhalten
+   - technische Feldnamen/Modelle werden nie umbenannt; Pflichtfeldlogik nicht aus Optik aendern
+3. Feldmapping vollstaendig: Odoo-11-Modell/Feld -> Odoo-18-Modell/Feld mit Kennzeichnung
+   1:1 / Transformation / Neuberechnung / bewusst nicht migrieren, nur fuer tatsaechlich belegte Felder
+4. Beziehungen getrennt pruefen (many2one, many2many, one2many); niemals IDs blind uebernehmen,
+   sondern fachliche Schluessel definieren (z. B. Rechnungsnummer, Partnername, Kontocode)
+5. Stammdaten vollstaendig: Konten, Steuern, Journale, Zahlungsbedingungen, Einheiten, Tags,
+   Projektkategorien, Valorisierungstexte, Zahlungsarten
+6. Statuswerte und Zustaende abgleichen (Entwurf/Gebucht/Bezahlt, Abo-Zustaende, Zahlungsstatus)
+7. Verknuepfungen pruefen: Rechnung <-> Zahlung <-> Gutschrift <-> Auftrag <-> Abo
+8. Berechnete Felder nur migrieren, wo Odoo 18 sie nicht selbst korrekt neu berechnet
+9. Pflichtfelder, Constraints, Unique-Constraints von Odoo 18 beruecksichtigen
+10. Migrationsreihenfolge dokumentieren (Stammdaten -> Beziehungen -> Belege -> Verknuepfungen)
+11. Erst danach Testmigration mit wenigen repraesentativen Datensaetzen - nie produktiv ohne Freigabe
+
+Hilfsmittel: `scripts/browser_abrechnung_vollstaendig.py` (Browserdurchgang, Protokoll in
+`docs/_abrechnung_durchgang.json`), `scripts/_dom_waehrung.py` (DOM-Herkunft sichtbarer Elemente),
+`scripts/apply_abrechnung_labels.py --instanz vm`.
+
+Lehre aus dem Rechnungsformular (01.10.2026): Der Odoo-18-Kopfbereich besteht aus expliziten
+label-Elementen und nolabel-Feldern. Wird ein Feld daraus verschoben, MUSS auch seine Beschriftung
+entfernt werden, sonst bleibt eine verwaiste Beschriftung sichtbar ("Waehrung" ohne Wert).
