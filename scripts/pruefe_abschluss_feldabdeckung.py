@@ -51,7 +51,7 @@ luecken = []
 gesamt = 0
 for modell in MODELLE:
     try:
-        felder = k.kw(modell, "fields_get", [[], ["type"]], context=CTX)
+        felder = k.kw(modell, "fields_get", [[], ["type", "compute", "related", "store"]], context=CTX)
     except Exception as fehler:
         print("%-28s nicht lesbar: %s" % (modell, str(fehler)[:60]))
         continue
@@ -59,6 +59,8 @@ for modell in MODELLE:
     for name, info in felder.items():
         if info.get("type") in ("binary", "image"):
             continue
+        if info.get("compute") or info.get("related") or info.get("store") is False:
+            continue   # berechnete/abgeleitete Felder: in Odoo 18 neu berechnet, keine Migration
         if name in OHNE_MAPPING:
             continue
         try:
