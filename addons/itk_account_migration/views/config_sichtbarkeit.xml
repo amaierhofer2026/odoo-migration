@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        Abrechnung - Konfigurationsformulare: in Odoo 11 sichtbare Felder, die Odoo 18 aus
+        dem Formular genommen hat, wieder sichtbar machen (Odoo-11-Wortlaut, Odoo-11-Position).
+        Es werden nur Felder sichtbar gemacht, die im Modell bereits existieren -
+        keine Modell-, Berechnungs- oder Logikaenderung.
+    -->
+    <record id="view_currency_form_itk_o11_felder" model="ir.ui.view">
+        <field name="name">res.currency.form.itk.o11.felder</field>
+        <field name="model">res.currency</field>
+        <field name="inherit_id" ref="base.view_currency_form"/>
+        <field name="priority">999</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='symbol']" position="after">
+                <field name="position" string="Position des Symbols"/>
+                <field name="rounding" string="Rundung"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_product_category_form_itk_o11_felder" model="ir.ui.view">
+        <field name="name">product.category.form.itk.o11.felder</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_form_view"/>
+        <field name="priority">999</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='parent_id']" position="after">
+                <field name="property_account_income_categ_id" string="Ertragskonto"/>
+                <field name="property_account_expense_categ_id" string="Aufwandskonto"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_journal_form_itk_o11_felder" model="ir.ui.view">
+        <field name="name">account.journal.form.itk.o11.felder</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form"/>
+        <field name="priority">999</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='type']" position="after">
+                <field name="profit_account_id" string="Erlöskonto"
+                       invisible="type not in ('bank', 'cash')"/>
+                <field name="loss_account_id" string="Verlustkonto"
+                       invisible="type not in ('bank', 'cash')"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
