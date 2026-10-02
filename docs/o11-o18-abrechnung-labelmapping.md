@@ -62,3 +62,103 @@ Regel: sichtbare Bezeichnung wie Odoo 11, technischer Feldname bleibt Odoo 18.
 | `account.invoice.line.projectcategory_id` | - | `account.move.line.projectcategory_id` | - | FELD FEHLT | ITK-Feld |
 | `account.invoice.line.valorisierung_id` | - | `account.move.line.valorisierung_id` | - | FELD FEHLT | ITK-Feld |
 | `account.invoice.line.account_analytic_id` | Kostenstelle | `account.move.line.analytic_distribution` | Kostenstelle | gleich | anderes Modell |
+| `product.template.barcode` | Strichcode | `product.template.barcode` | Strichcode | gleich |  |
+| `product.product.barcode` | Strichcode | `product.product.barcode` | Strichcode | gleich |  |
+| `product.template.categ_id` | Interne Kategorie | `product.template.categ_id` | Interne Kategorie | gleich |  |
+| `product.product.categ_id` | Interne Kategorie | `product.product.categ_id` | Interne Kategorie | gleich |  |
+| `product.template.cost_method` | Kostenmethode | `product.template.cost_method` | Kostenmethode | gleich |  |
+| `product.product.cost_method` | Kostenmethode | `product.product.cost_method` | Kostenmethode | gleich |  |
+| `product.template.description_picking` | Beschreibung der Kommisionierung | `product.template.description_picking` | Beschreibung der Kommisionierung | gleich |  |
+| `product.product.description_picking` | Beschreibung der Kommisionierung | `product.product.description_picking` | Beschreibung der Kommisionierung | gleich |  |
+| `product.template.expense_policy` | Spesen weiter verrechnen | `product.template.expense_policy` | Spesen weiter verrechnen | gleich |  |
+| `product.product.expense_policy` | Spesen weiter verrechnen | `product.product.expense_policy` | Spesen weiter verrechnen | gleich |  |
+| `product.template.invoice_policy` | Fakturierungsregel | `product.template.invoice_policy` | Fakturierungsregel | gleich |  |
+| `product.product.invoice_policy` | Fakturierungsregel | `product.product.invoice_policy` | Fakturierungsregel | gleich |  |
+| `product.template.is_multi_factor_product` | To multiply by Factor(per 1000) | `product.template.is_multi_factor_product` | To multiply by Factor(per 1000) | gleich |  |
+| `product.product.is_multi_factor_product` | To multiply by Factor(per 1000) | `product.product.is_multi_factor_product` | To multiply by Factor(per 1000) | gleich |  |
+| `product.template.nbr_reordering_rules` | Meldebestände | `product.template.nbr_reordering_rules` | Meldebestände | gleich |  |
+| `product.product.nbr_reordering_rules` | Meldebestände | `product.product.nbr_reordering_rules` | Meldebestände | gleich |  |
+| `product.template.orderpoint_ids` | - | `product.template.orderpoint_ids` | - | FELD FEHLT |  |
+| `product.product.orderpoint_ids` | Meldebestandsregeln | `product.product.orderpoint_ids` | Meldebestandsregeln | gleich |  |
+| `product.template.outgoing_qty` | Ausgehend | `product.template.outgoing_qty` | Ausgehend | gleich |  |
+| `product.product.outgoing_qty` | Ausgehend | `product.product.outgoing_qty` | Ausgehend | gleich |  |
+| `product.template.packaging_ids` | Produktverpackungen | `product.template.packaging_ids` | Produktverpackungen | gleich |  |
+| `product.product.packaging_ids` | Produktverpackungen | `product.product.packaging_ids` | Produktverpackungen | gleich |  |
+| `product.template.partner_ref` | - | `product.template.partner_ref` | - | FELD FEHLT |  |
+| `product.product.partner_ref` | Kunden Ref | `product.product.partner_ref` | Kunden Ref | gleich |  |
+| `product.template.product_type_id` | Product-Type | `product.template.product_type_id` | Product-Type | gleich |  |
+| `product.product.product_type_id` | Product-Type | `product.product.product_type_id` | Product-Type | gleich |  |
+| `product.template.product_variant_count` | # Produkt Varianten | `product.template.product_variant_count` | # Produkt Varianten | gleich |  |
+| `product.product.product_variant_count` | # Produkt Varianten | `product.product.product_variant_count` | # Produkt Varianten | gleich |  |
+| `product.template.property_account_income_id` | Erlöskonto | `product.template.property_account_income_id` | Erlöskonto | gleich |  |
+| `product.product.property_account_income_id` | Erlöskonto | `product.product.property_account_income_id` | Erlöskonto | gleich |  |
+| `product.template.property_stock_inventory` | Lagerort Bestandsaufnahme | `product.template.property_stock_inventory` | Lagerort Bestandsaufnahme | gleich |  |
+| `product.product.property_stock_inventory` | Lagerort Bestandsaufnahme | `product.product.property_stock_inventory` | Lagerort Bestandsaufnahme | gleich |  |
+| `product.template.property_stock_production` | Fertigungort (virtuelles Lager) | `product.template.property_stock_production` | Fertigungort (virtuelles Lager) | gleich |  |
+| `product.product.property_stock_production` | Fertigungort (virtuelles Lager) | `product.product.property_stock_production` | Fertigungort (virtuelles Lager) | gleich |  |
+| `product.template.purchase_line_warn` | Bestellposition | `product.template.purchase_line_warn` | Bestellposition | gleich |  |
+| `product.product.purchase_line_warn` | Bestellposition | `product.product.purchase_line_warn` | Bestellposition | gleich |  |
+| `product.template.purchase_ok` | Kann eingekauft werden | `product.template.purchase_ok` | Kann eingekauft werden | gleich |  |
+| `product.product.purchase_ok` | Kann eingekauft werden | `product.product.purchase_ok` | Kann eingekauft werden | gleich |  |
+| `product.template.qty_available` | Bestandsmenge | `product.template.qty_available` | Bestandsmenge | gleich |  |
+| `product.product.qty_available` | Bestandsmenge | `product.product.qty_available` | Bestandsmenge | gleich |  |
+| `product.template.sale_delay` | Auslieferungszeit | `product.template.sale_delay` | Auslieferungszeit | gleich |  |
+| `product.product.sale_delay` | Auslieferungszeit | `product.product.sale_delay` | Auslieferungszeit | gleich |  |
+| `product.template.sale_line_warn` | Auftragsposition | `product.template.sale_line_warn` | Auftragsposition | gleich |  |
+| `product.product.sale_line_warn` | Auftragsposition | `product.product.sale_line_warn` | Auftragsposition | gleich |  |
+| `product.template.sale_line_warn_msg` | Mitteilung für Auftragszeile | `product.template.sale_line_warn_msg` | Mitteilung für Auftragszeile | gleich |  |
+| `product.product.sale_line_warn_msg` | Mitteilung für Auftragszeile | `product.product.sale_line_warn_msg` | Mitteilung für Auftragszeile | gleich |  |
+| `product.template.sale_ok` | Kann verkauft werden | `product.template.sale_ok` | Kann verkauft werden | gleich |  |
+| `product.product.sale_ok` | Kann verkauft werden | `product.product.sale_ok` | Kann verkauft werden | gleich |  |
+| `product.template.sales_count` | # Verkäufe | `product.template.sales_count` | # Verkäufe | gleich |  |
+| `product.product.sales_count` | # Verkäufe | `product.product.sales_count` | # Verkäufe | gleich |  |
+| `product.template.sequence` | Nummernfolge | `product.template.sequence` | Nummernfolge | gleich |  |
+| `product.product.sequence` | Nummernfolge | `product.product.sequence` | Nummernfolge | gleich |  |
+| `product.template.service_type` | Dienstleistungsverfolgung | `product.template.service_type` | Dienstleistungsverfolgung | gleich |  |
+| `product.product.service_type` | Dienstleistungsverfolgung | `product.product.service_type` | Dienstleistungsverfolgung | gleich |  |
+| `product.template.supplier_taxes_id` | Steuern (Einkauf) | `product.template.supplier_taxes_id` | Steuern (Einkauf) | gleich |  |
+| `product.product.supplier_taxes_id` | Steuern (Einkauf) | `product.product.supplier_taxes_id` | Steuern (Einkauf) | gleich |  |
+| `product.template.taxes_id` | Steuern (Verkauf) | `product.template.taxes_id` | Steuern (Verkauf) | gleich |  |
+| `product.product.taxes_id` | Steuern (Verkauf) | `product.product.taxes_id` | Steuern (Verkauf) | gleich |  |
+| `product.template.uom_id` | Mengeneinheit | `product.template.uom_id` | Mengeneinheit | gleich |  |
+| `product.product.uom_id` | Mengeneinheit | `product.product.uom_id` | Mengeneinheit | gleich |  |
+| `product.template.uom_po_id` | Einkauf ME | `product.template.uom_po_id` | Einkauf ME | gleich |  |
+| `product.product.uom_po_id` | Einkauf ME | `product.product.uom_po_id` | Einkauf ME | gleich |  |
+| `product.template.valuation` | Bewertung | `product.template.valuation` | Bewertung | gleich |  |
+| `product.product.valuation` | Bewertung | `product.product.valuation` | Bewertung | gleich |  |
+| `product.template.warehouse_id` | Lager | `product.template.warehouse_id` | Lager | gleich |  |
+| `product.product.warehouse_id` | Lager | `product.product.warehouse_id` | Lager | gleich |  |
+| `product.template.lst_price` | Allgemeiner Preis | `product.template.lst_price` | - | FELD FEHLT |  |
+| `product.product.lst_price` | Verkaufspreis | `product.product.lst_price` | Verkaufspreis | gleich |  |
+| `product.template.is_product_variant` | Ist eine Produktvariante | `product.template.is_product_variant` | Ist eine Produktvariante | gleich |  |
+| `product.product.is_product_variant` | Ist eine Produktvariante | `product.product.is_product_variant` | Ist eine Produktvariante | gleich |  |
+| `product.template.virtual_available` | Geplante Bestandsmenge | `product.template.virtual_available` | Geplante Bestandsmenge | gleich |  |
+| `product.product.virtual_available` | Prognostizierter Bestand | `product.product.virtual_available` | Prognostizierter Bestand | gleich |  |
+| `product.template.website_message_ids` | Website-Nachrichten | `product.template.website_message_ids` | Website Messages | begruendet abweichend |  |
+| `product.product.website_message_ids` | Website-Nachrichten | `product.product.website_message_ids` | Website Messages | begruendet abweichend |  |
+| `product.template.activity_state` | Bundesland | `product.template.activity_state` | Status der Aktivität | begruendet abweichend | bewusst abweichend |
+| `product.product.activity_state` | Bundesland | `product.product.activity_state` | Status der Aktivität | begruendet abweichend | bewusst abweichend |
+| `product.template.activity_summary` | Zusammenfassung nächste Aktion | `product.template.activity_summary` | Zusammenfassung der nächsten Aktivität | begruendet abweichend | bewusst abweichend |
+| `product.product.activity_summary` | Zusammenfassung nächste Aktion | `product.product.activity_summary` | Zusammenfassung der nächsten Aktivität | begruendet abweichend | bewusst abweichend |
+| `product.template.activity_user_id` | Verantwortlich | `product.template.activity_user_id` | Verantwortlicher Benutzer | begruendet abweichend | bewusst abweichend |
+| `product.product.activity_user_id` | Verantwortlich | `product.product.activity_user_id` | Verantwortlicher Benutzer | begruendet abweichend | bewusst abweichend |
+| `product.template.message_follower_ids` | Abonnenten | `product.template.message_follower_ids` | Follower | begruendet abweichend | bewusst abweichend |
+| `product.product.message_follower_ids` | Abonnenten | `product.product.message_follower_ids` | Follower | begruendet abweichend | bewusst abweichend |
+| `product.template.message_is_follower` | Ist ein Abonnent | `product.template.message_is_follower` | Ist Follower | begruendet abweichend | bewusst abweichend |
+| `product.product.message_is_follower` | Ist ein Abonnent | `product.product.message_is_follower` | Ist Follower | begruendet abweichend | bewusst abweichend |
+| `product.template.message_partner_ids` | Abonnenten (Partner) | `product.template.message_partner_ids` | Follower (Partner) | begruendet abweichend | bewusst abweichend |
+| `product.product.message_partner_ids` | Abonnenten (Partner) | `product.product.message_partner_ids` | Follower (Partner) | begruendet abweichend | bewusst abweichend |
+| `product.template.website_message_ids` | Website-Nachrichten | `product.template.website_message_ids` | Website Messages | begruendet abweichend | bewusst abweichend |
+| `product.product.website_message_ids` | Website-Nachrichten | `product.product.website_message_ids` | Website Messages | begruendet abweichend | bewusst abweichend |
+| `product.template.rating_ids` | Bewertung | `product.template.rating_ids` | Ratings | begruendet abweichend | bewusst abweichend |
+| `product.product.rating_ids` | Bewertung | `product.product.rating_ids` | Ratings | begruendet abweichend | bewusst abweichend |
+| `product.template.write_date` | Zuletzt aktualisiert am | `product.template.write_date` | Zuletzt aktualisiert am | gleich | bewusst abweichend |
+| `product.product.write_date` | Zuletzt aktualisiert am | `product.product.write_date` | Änderungsdatum | begruendet abweichend | bewusst abweichend |
+| `product.template.write_uid` | Zuletzt aktualisiert durch | `product.template.write_uid` | Zuletzt aktualisiert von | begruendet abweichend | bewusst abweichend |
+| `product.product.write_uid` | Zuletzt aktualisiert durch | `product.product.write_uid` | Zuletzt aktualisiert von | begruendet abweichend | bewusst abweichend |
+| `product.template.service_tracking` | Dienstverfolgung | `product.template.service_tracking` | Bei Auftrag erstellen | begruendet abweichend | bewusst abweichend |
+| `product.product.service_tracking` | Dienstverfolgung | `product.product.service_tracking` | Bei Auftrag erstellen | begruendet abweichend | bewusst abweichend |
+| `product.template.cost_currency_id` | Cost Currency | `product.template.cost_currency_id` | Kostenwährung | begruendet abweichend | bewusst abweichend |
+| `product.product.cost_currency_id` | Cost Currency | `product.product.cost_currency_id` | Kostenwährung | begruendet abweichend | bewusst abweichend |
+| `product.template.purchase_line_warn_msg` | Bachricht bei Beschaffungsauftragsposition | `product.template.purchase_line_warn_msg` | Nachricht für Bestellzeile | begruendet abweichend | bewusst abweichend |
+| `product.product.purchase_line_warn_msg` | Bachricht bei Beschaffungsauftragsposition | `product.product.purchase_line_warn_msg` | Nachricht für Bestellzeile | begruendet abweichend | bewusst abweichend |
