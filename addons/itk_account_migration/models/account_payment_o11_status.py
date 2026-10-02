@@ -23,6 +23,7 @@ class AccountPayment(models.Model):
             ("posted", "Gebucht"),
             ("reconciled", "Abgestimmt"),
             ("cancelled", "Abgebrochen"),
+            ("paid_o18", "Bezahlt (Odoo 18)"),
             ("rejected", "Abgelehnt (Odoo 18)"),
         ],
         string="Status",
@@ -34,15 +35,26 @@ class AccountPayment(models.Model):
 
     @api.depends("state", "is_reconciled", "is_matched")
     def _compute_itk_o11_status(self):
+        """Odoo-11-Kette aus den technischen Odoo-18-Werten ableiten.
+
+        Wichtig: "Abgestimmt" wird NUR gezeigt, wenn die Zahlung in Odoo 18 tatsaechlich
+        abgestimmt ist (is_reconciled). Ein technischer Zustand "paid" allein genuegt nicht -
+        er kann auch ohne vollstaendige Abstimmung mit den Rechnungen vorkommen
+        (z.B. nur mit einem Kontoauszug abgeglichen, is_matched ohne is_reconciled).
+        Dieser Fall wird als eigener Odoo-18-Zusatzschritt gezeigt, damit nichts falsch
+        als "Abgestimmt" erscheint.
+        """
         for zahlung in self:
             if zahlung.state == "canceled":
-                wert = "cancelled"
+                wert = "cancelled"          # Odoo 11: Abgebrochen
             elif zahlung.state == "rejected":
-                wert = "rejected"
+                wert = "rejected"           # Odoo-18-Zusatz: Abgelehnt
             elif zahlung.state == "draft":
-                wert = "draft"
-            elif zahlung.state == "paid" or zahlung.is_reconciled or zahlung.is_matched:
-                wert = "reconciled"
+                wert = "draft"              # Odoo 11: Entwurf
+            elif zahlung.is_reconciled:
+                wert = "reconciled"         # Odoo 11: Abgestimmt (echte Abstimmung)
+            elif zahlung.state == "paid":
+                wert = "paid_o18"           # Odoo-18-Zusatz: bezahlt, aber nicht abgestimmt
             else:
-                wert = "posted"
+                wert = "posted"             # Odoo 11: Gebucht
             zahlung.itk_o11_status = wert
