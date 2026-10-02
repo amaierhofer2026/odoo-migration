@@ -69,6 +69,22 @@
                 <attribute name="invisible">1</attribute>
             </xpath>
 
+
+            <!-- Reste des Odoo-18-Kopfblocks: aktive Widgets ohne Beschriftung aus der View nehmen.
+                 Die Felder selbst bleiben im Modell erhalten (keine Modellaenderung). -->
+            <xpath expr="//div[@name='due_date']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//div[@name='journal_div']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='sale_order_confirmation_date']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='notice']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
             <!-- Kompakter Odoo-11-Kopfblock, direkt oben; zwei Feldpaare je Zeile -->
             <xpath expr="//field[@name='partner_id']/ancestor::group[2]" position="before">
                 <group name="itk_o11_kopfbereich">
