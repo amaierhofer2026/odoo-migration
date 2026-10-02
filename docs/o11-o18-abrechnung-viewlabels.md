@@ -46,9 +46,15 @@ Erzeugt von `scripts/check_abrechnung_viewlabels.py` (Stand 30.09.2026, Session 
 | Odoo 18 | Zu zahlen | [('state', '!=', 'cancel'), ('payment_state', 'in', ('not_paid', 'partial')), (' |
 | Odoo 18 | In Zahlung | [('state', '=', 'posted'), ('payment_state', '=', 'in_payment')] |
 | Odoo 18 | Überfällig | [                         ('invoice_date_due', '<', time.strftime('%Y-%m-%d')),  |
+| Odoo 18 | Offen | [('state', '=', 'posted'), ('payment_state', 'in', ('not_paid', 'partial'))] |
+| Odoo 18 | Bezahlt | [('payment_state', '=', 'paid')] |
 | Odoo 18 | Rechnungsdatum |  |
 | Odoo 18 | Buchungsdatum |  |
 | Odoo 18 | Fälligkeitsdatum |  |
+| Odoo 18 | Meine Aktivitäten | [('activity_user_id', '=', uid)] |
+| Odoo 18 | Verspätete Aktivitäten | [('activity_ids.date_deadline', '<', context_today().strftime('%Y-%m-%d'))] |
+| Odoo 18 | Heutige Aktivitäten | [('activity_ids.date_deadline', '=', context_today().strftime('%Y-%m-%d'))] |
+| Odoo 18 | Anstehende Aktivitäten | [('activity_ids.date_deadline', '>', context_today().strftime('%Y-%m-%d'))] |
 | Odoo 18 | Verspätete Aktivitäten | [('my_activity_date_deadline', '<', context_today().strftime('%Y-%m-%d'))] |
 | Odoo 18 | Heutige Aktivitäten | [('my_activity_date_deadline', '=', context_today().strftime('%Y-%m-%d'))] |
 | Odoo 18 | Anstehende Aktivitäten | [('my_activity_date_deadline', '>', context_today().strftime('%Y-%m-%d'))] |
@@ -63,23 +69,23 @@ Erzeugt von `scripts/check_abrechnung_viewlabels.py` (Stand 30.09.2026, Session 
 | Odoo 11 | Vertriebskanal | [] |
 | Odoo 11 | Rechnungsdatum | {'group_by':'date_invoice'} |
 | Odoo 11 | Fälligkeit | {'group_by':'date_due'} |
-| Odoo 18 | Vertriebsmitarbeiter | {'group_by':'invoice_user_id'} |
-| Odoo 18 | Kunde | {'group_by':'partner_id'} |
+| Odoo 18 | Verkäufer | {'group_by':'invoice_user_id'} |
+| Odoo 18 | Partner | {'group_by':'partner_id'} |
 | Odoo 18 | Status | {'group_by':'state'} |
 | Odoo 18 | Verkaufsteam | [] |
 | Odoo 18 | Peppol-Status | {'group_by': 'peppol_move_state'} |
 | Odoo 18 | Zahlungsmethode | {'group_by': 'preferred_payment_method_line_id'} |
 | Odoo 18 | Journal | [] |
 | Odoo 18 | Rechnungsdatum | {'group_by': 'invoice_date'} |
-| Odoo 18 | Fälligkeitsdatum | {'group_by': 'invoice_date_due'} |
-| Odoo 18 | Buchungsdatum | {'group_by': 'date'} |
+| Odoo 18 | Fälligkeit | {'group_by': 'invoice_date_due'} |
+| Odoo 18 | Datum | {'group_by': 'date'} |
 | Odoo 18 | Sequenz-Präfix | {'group_by': 'sequence_prefix'} |
 
 ## Formular: Reiter, Gruppen, Knoepfe
 
 - Odoo 11 Reiter: ['Rechnung', 'Andere Informationen']
-- Odoo 18 Reiter: ['Rechnungszeilen', 'Weitere Informationen', 'Weitere Informationen']
+- Odoo 18 Reiter: ['Rechnungszeilen', 'Andere Informationen', 'Weitere Informationen']
 - Odoo 11 Gruppen: []
 - Odoo 18 Gruppen: ['Buchhaltung', 'Herkunft (Migration)', 'Rechnung']
 - Odoo 11 Knoepfe: ['Bestätigen', 'Einzahlung erfassen', 'Nach Gutschrift fragen', 'Auf Entwurf setzen']
-- Odoo 18 Knoepfe: ['Abbrechen', 'Als geprüft markieren', 'Auf Entwurf zurücksetzen', 'Bestätigen', 'Buchen', 'Buchung stornieren', 'Drucken', 'Gutschrift', 'Katalog', 'PEPPOL abbrechen', 'Senden', 'Sperren', 'Steuern und Konten aktualisieren', 'Stornierung anfordern', 'Stornobuchung', 'Transaktion erfassen', 'Transaktion stornieren', 'Vorschau', 'Zahlen']
+- Odoo 18 Knoepfe: ['Abbrechen', 'Als geprüft markieren', 'Auf Entwurf setzen', 'Bestätigen', 'Buchen', 'Buchung stornieren', 'Drucken', 'Einzahlung erfassen', 'Katalog', 'Nach Gutschrift fragen', 'PEPPOL abbrechen', 'Senden', 'Sperren', 'Steuern und Konten aktualisieren', 'Stornierung anfordern', 'Stornobuchung', 'Transaktion erfassen', 'Transaktion stornieren', 'Vorschau', 'Zahlen']
