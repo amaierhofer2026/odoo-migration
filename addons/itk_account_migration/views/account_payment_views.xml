@@ -1,12 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="view_payment_form_itk_o11" model="ir.ui.view">
-        <field name="name">account.payment.form.itk.o11.nummer</field>
+    <!--
+        Abrechnung - Zahlungsformular (Verkauf und Einkauf), sichtbarer Aufbau nach Odoo 11.
+
+        Odoo 11 zeigt kompakt zwei Spalten:
+          links : Zahlungsart (payment_type), Partnertyp (partner_type), Partner (partner_id),
+                  Zahlungsbetrag (amount), Zahlungsjournal (journal_id)
+          rechts: Zahlungsdatum (date), Memo (communication -> Odoo 18 memo),
+                  Zahlungstransaktion (payment_transaction_id)
+        Zusaetzlich in Odoo 11: Statusleiste und Smart Button "Rechnungen".
+
+        Umsetzung: die Odoo-11-Felder werden in einem eigenen, flachen Kopfblock gesetzt
+        (zwei Untergruppen = zwei saubere Spalten). Ihre Vorkommen im Odoo-18-Block werden
+        samt Beschriftung ausgeblendet, damit nichts doppelt erscheint. Der Odoo-18-Block
+        bleibt darunter vollstaendig erhalten (Zahlungsmethode-Code, Tokens, Bankkonten,
+        QR-Code, Anzahlungen usw.). Keine Modell-, State- oder Buchungslogik geaendert.
+    -->
+    <record id="view_payment_form_itk_o11_kopf" model="ir.ui.view">
+        <field name="name">account.payment.form.itk.o11.kopfbereich</field>
         <field name="model">account.payment</field>
         <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="priority">999</field>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='memo']" position="after">
-                <field name="itk_o11_payment_number" readonly="1"/>
+            <!-- Beschriftung des Betragsfeldes im Odoo-18-Block entfernen -->
+            <xpath expr="//label[@for='amount']" position="replace"/>
+
+            <!-- Vorkommen der verschobenen Felder im Odoo-18-Block ausblenden -->
+            <xpath expr="//field[@name='payment_type']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//div[@name='amount_div']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='date']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='memo']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='journal_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='payment_method_line_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Kompakter Odoo-11-Kopfblock, zwei Spalten -->
+            <xpath expr="//group[@name='main_group']" position="before">
+                <group name="itk_o11_zahlung">
+                    <group>
+                        <field name="payment_type" widget="radio"/>
+                        <field name="partner_type"/>
+                        <field name="partner_id" string="Partner"/>
+                        <field name="amount" string="Zahlungsbetrag"/>
+                        <field name="journal_id" string="Zahlungsjournal"/>
+                        <field name="payment_method_line_id" string="Zahlungsmethode"/>
+                    </group>
+                    <group>
+                        <field name="date" string="Zahlungsdatum"/>
+                        <field name="memo" string="Memo"/>
+                        <field name="payment_transaction_id" string="Zahlungstransaktion"/>
+                        <field name="itk_o11_payment_number" string="Odoo-11-Zahlungsnummer" readonly="1"/>
+                        <field name="is_reconciled" string="Abgestimmt" readonly="1"/>
+                    </group>
+                </group>
+            </xpath>
+
+            <!-- Smart Buttons wie in Odoo 11 sichtbar "Rechnungen" (Anzahlanzeige von Odoo 18 bleibt) -->
+            <xpath expr="//button[@name='button_open_invoices']//field[@name='reconciled_invoices_count']/following-sibling::span" position="replace">
+                <span> Rechnungen</span>
+            </xpath>
+            <xpath expr="//button[@name='button_open_bills']//field[@name='reconciled_bills_count']/following-sibling::span" position="replace">
+                <span> Rechnungen</span>
             </xpath>
         </field>
     </record>
@@ -33,17 +101,4 @@
             </xpath>
         </field>
     </record>
-
-    <record id="view_payment_form_itk_o11_datum" model="ir.ui.view">
-        <field name="name">account.payment.form.itk.o11.datum</field>
-        <field name="model">account.payment</field>
-        <field name="inherit_id" ref="account.view_account_payment_form"/>
-        <field name="priority">97</field>
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='date']" position="attributes">
-                <attribute name="string">Zahlungsdatum</attribute>
-            </xpath>
-        </field>
-    </record>
 </odoo>
-
