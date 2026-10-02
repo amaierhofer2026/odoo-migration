@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        Abrechnung - sichtbare Bezeichnungen bei Kunden/Lieferanten und Produkten nach Odoo 11.
+        Nur Beschriftungen (string-Attribute); technische Feldnamen und Logik unveraendert.
+        Abweichungen laut Strukturvergleich:
+          vat                   Anzeige kommt aus dem Odoo-18-Widget (laenderabhaengiges vat_label,
+                                 in Oesterreich "UID"); per View nicht setzbar, daher dokumentiert
+          supplier_invoice_count "Lieferantenrechnungen"        -> Odoo 11 "Eingangsrechnungen"
+          purchase_order_count  "Einkaeufe"                     -> Odoo 11 "Einkauf"
+          name (Produkt)        "Produkt"                       -> Odoo 11 "Produktname"
+    -->
+    <record id="view_partner_form_itk_o11_labels" model="ir.ui.view">
+        <field name="name">res.partner.form.itk.o11.bezeichnungen</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="priority">999</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vat']" position="attributes">
+                <attribute name="string">USt-IdNr.</attribute>
+            </xpath>
+            <xpath expr="//field[@name='supplier_invoice_count']" position="attributes">
+                <attribute name="string">Eingangsrechnungen</attribute>
+            </xpath>
+            <xpath expr="//field[@name='purchase_order_count']" position="attributes">
+                <attribute name="string">Einkauf</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_product_template_form_itk_o11_labels" model="ir.ui.view">
+        <field name="name">product.template.form.itk.o11.bezeichnungen</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="priority">999</field>
+        <field name="arch" type="xml">
+            <xpath expr="//label[@for='name']" position="attributes">
+                <attribute name="string">Produktname</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
