@@ -11,6 +11,7 @@ from _o11o18_client import o18  # noqa: E402
 
 k = o18(sys.argv[1] if len(sys.argv) > 1 else "lokal")
 CTX = {"lang": "de_DE"}
+BELEGART = sys.argv[2] if len(sys.argv) > 2 else "out_invoice"
 
 
 def sr(model, domain, fields, limit=None):
@@ -26,7 +27,7 @@ def zuerst(model, domain, fields):
     return treffer[0] if treffer else None
 
 
-dom_rech = [["move_type", "=", "out_invoice"]]
+dom_rech = [["move_type", "=", BELEGART]]
 vorher = k.kw("account.move", "search_count", [dom_rech], context=CTX)
 print("Bestand Ausgangsrechnungen vorher:", vorher)
 
@@ -36,7 +37,7 @@ produkt = zuerst("product.product", [["sale_ok", "=", True]], ["id", "name"])
 zahlungsziel = zuerst("account.payment.term", [], ["id", "name"])
 
 werte = {
-    "move_type": "out_invoice",
+    "move_type": BELEGART,
     "partner_id": partner["id"],
     "invoice_date": "2026-10-01",
     "invoice_date_due": "2026-10-31",

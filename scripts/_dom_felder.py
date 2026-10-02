@@ -82,7 +82,12 @@ with sync_playwright() as pw:
     s.goto("%s/web#id=%s&model=%s&view_type=form" % (url, beleg_id, modell))
     s.wait_for_selector(".o_form_view", timeout=120000)
     s.wait_for_timeout(4000)
+    name = sys.argv[4] if len(sys.argv) > 4 else "formular"
+    vz = r"C:/Users/anna.maierhofer/Desktop/Odoo18-Abnahme-Session122/rechnung"
+    pfad = vz + "/" + name + ".png"
+    s.screenshot(path=pfad, full_page=True)
     d = s.evaluate(JS)
+    print("SCREENSHOT:", pfad)
     print("SICHTBARE EINGABEFELDER ausserhalb der Reiter:", len(d["eingaben"]))
     for e in d["eingaben"]:
         print("  <%s type=%s class=%s wert=%r> feld=%s" % (e["tag"], e["typ"], e["klasse"], e["wert"], e["feld"]))
