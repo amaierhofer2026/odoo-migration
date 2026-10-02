@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <!--
+        Abrechnung: Summenblock unter den Rechnungszeilen sichtbar wie in Odoo 11.
+
+        Odoo 11 zeigt:   Nettobetrag | Steuern | Total   und darunter  Faelliger Betrag
+        Odoo 18 zeigt:   Nettobetrag | <Steuergruppenname, z.B. "20 %"> | Total (deutsch "Gesamt")
+
+        Hier werden ausschliesslich Beschriftungen geaendert - keine Betraege, keine Berechnung,
+        keine Rundung, keine Zahlungsstatuslogik. Die Werte kommen weiterhin aus tax_totals.
+
+        1) Steuerzeile: einheitlich "Steuern" statt des Steuergruppennamens ("20 %").
+           Der Gruppennamen bleibt als Tooltip erhalten, damit die Information nicht verloren geht.
+        2) Gesamtsumme: sichtbar "Total" statt der deutschen Uebersetzung "Gesamt"
+           (durch t-out mit String-Literal wird der Begriff nicht uebersetzt).
+        3) "Nettobetrag" und "Faelliger Betrag" bleiben unveraendert (Odoo-11-Wortlaut).
+    -->
+    <t t-inherit="account.TaxGroupComponent" t-inherit-mode="extension">
+        <xpath expr="//label[hasclass('o_tax_total_label')]" position="replace">
+            <label class="o_form_label o_tax_total_label"
+                   t-att-title="props.taxGroup.group_name"
+                   t-out="'Steuern'"/>
+        </xpath>
+    </t>
+
+    <t t-inherit="account.TaxTotalsField" t-inherit-mode="extension">
+        <xpath expr="//tr[td/span[@name='amount_total']]/td/label" position="replace">
+            <label class="o_form_label o_tax_total_label" t-out="'Total'"/>
+        </xpath>
+    </t>
+</templates>
