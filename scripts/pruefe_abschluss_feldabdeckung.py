@@ -40,9 +40,7 @@ OHNE_MAPPING = {
 }
 
 doku = ""
-for muster in (r"C:/Odoo-Test/docs/o11-o18-vergleich-abrechnung-teil5-feldabbildung.md",
-               r"C:/Odoo-Test/docs/o11-o18-vergleich-abrechnung-teil5-umsetzung.md",
-               r"C:/Odoo-Test/docs/o11-o18-abrechnung-*.md"):
+for muster in (r"C:/Odoo-Test/docs/o11-o18-*.md", r"C:/Odoo-Test/docs/*abrechnung*.md"):
     for datei in glob.glob(muster):
         doku += io.open(datei, encoding="utf-8").read()
 print("Mapping-Doku gelesen: %d Zeichen" % len(doku))
