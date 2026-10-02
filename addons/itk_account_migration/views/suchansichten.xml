@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!--
-        Abrechnung - Suchansichten: Odoo-11-Wortlaut und fehlende Gruppierungen.
+        Abrechnung - Suchansichten: Odoo-11-Wortlaut, fehlende Gruppierungen und
+        Beseitigung doppelter Gruppierungen (Odoo-11-Vorgabe: gleiche fachliche Bedeutung,
+        gleicher sichtbarer Wortlaut; keine Doppelanzeigen).
         Nur Sichtbarkeit/Beschriftung von Filtern und Gruppierungen; keine Logik.
     -->
     <record id="view_payment_search_itk_o11" model="ir.ui.view">
@@ -10,7 +12,6 @@
         <field name="inherit_id" ref="account.view_account_payment_search"/>
         <field name="priority">999</field>
         <field name="arch" type="xml">
-            <!-- Filter im Odoo-11-Wortlaut -->
             <xpath expr="//filter[@name='inbound_filter']" position="attributes">
                 <attribute name="string">Debitoren</attribute>
             </xpath>
@@ -20,14 +21,12 @@
             <xpath expr="//filter[@name='state_in_process']" position="attributes">
                 <attribute name="string">Gebucht</attribute>
             </xpath>
-            <!-- Gruppierungen im Odoo-11-Wortlaut -->
             <xpath expr="//filter[@name='partner']" position="attributes">
                 <attribute name="string">Partner</attribute>
             </xpath>
             <xpath expr="//filter[@name='paymentmethodline']" position="attributes">
                 <attribute name="string">Zahlungsmethode</attribute>
             </xpath>
-            <!-- In Odoo 11 vorhandene Gruppierung, in Odoo 18 nicht enthalten -->
             <xpath expr="//filter[@name='currency']" position="after">
                 <filter name="itk_group_unternehmen" string="Unternehmen"
                         context="{'group_by': 'company_id'}"/>
@@ -35,7 +34,6 @@
         </field>
     </record>
 
-    <!-- Kunden/Lieferanten: Filter und Gruppierungen im Odoo-11-Wortlaut -->
     <record id="view_partner_search_itk_o11" model="ir.ui.view">
         <field name="name">res.partner.search.itk.o11</field>
         <field name="model">res.partner</field>
@@ -54,9 +52,56 @@
             <xpath expr="//filter[@name='salesperson']" position="attributes">
                 <attribute name="string">Verkäufer</attribute>
             </xpath>
-            <!-- Odoo 18 gruppiert die Gemeindekennzahl unter dem Namen "Community Code" -->
             <xpath expr="//filter[@name='title'][@context=&quot;{'group_by': 'ref'}&quot;]" position="attributes">
                 <attribute name="string">Gemeindekennzahl</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Journale: Filter im Odoo-11-Wortlaut -->
+    <record id="view_journal_search_itk_o11" model="ir.ui.view">
+        <field name="name">account.journal.search.itk.o11</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_search"/>
+        <field name="priority">999</field>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='purchases']" position="attributes">
+                <attribute name="string">Einkauf</attribute>
+            </xpath>
+            <xpath expr="//filter[@name='liquidity']" position="attributes">
+                <attribute name="string">Finanzmittel</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Buchungen: doppelte Gruppierungen entfernen, Odoo-11-Wortlaut "Datum" -->
+    <record id="view_move_search_itk_o11" model="ir.ui.view">
+        <field name="name">account.move.search.itk.o11</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="priority">999</field>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='itk_group_verkaeufer']" position="replace"/>
+            <xpath expr="//filter[@name='itk_group_partner']" position="replace"/>
+            <xpath expr="//filter[@name='itk_group_status']" position="replace"/>
+            <xpath expr="//filter[@name='itk_group_rechnungsdatum']" position="replace"/>
+            <xpath expr="//filter[@name='itk_group_faelligkeit']" position="replace"/>
+            <xpath expr="//filter[@name='accounting_date']" position="attributes">
+                <attribute name="string">Datum</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Steuern: in Odoo 11 vorhandene Gruppierung "Unternehmen" -->
+    <record id="view_tax_search_itk_o11" model="ir.ui.view">
+        <field name="name">account.tax.search.itk.o11</field>
+        <field name="model">account.tax</field>
+        <field name="inherit_id" ref="account.view_account_tax_search"/>
+        <field name="priority">999</field>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='taxapp']" position="after">
+                <filter name="itk_group_unternehmen_steuer" string="Unternehmen"
+                        context="{'group_by': 'company_id'}"/>
             </xpath>
         </field>
     </record>
