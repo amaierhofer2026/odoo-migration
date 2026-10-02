@@ -64,9 +64,18 @@
                         <field name="memo" string="Memo"/>
                         <field name="payment_transaction_id" string="Zahlungstransaktion"/>
                         <field name="itk_o11_payment_number" string="Odoo-11-Zahlungsnummer" readonly="1"/>
-                        <field name="is_reconciled" string="Abgestimmt" readonly="1"/>
+                        <field name="state" string="Status (Odoo 18)" readonly="1"/>
                     </group>
                 </group>
+            </xpath>
+
+            <!-- Odoo-18-Statusleiste durch die Odoo-11-Prozesskette ersetzen -->
+            <xpath expr="//header//field[@name='state']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//header//button[@name='action_draft']" position="after">
+                <field name="itk_o11_status" widget="statusbar"
+                       statusbar_visible="draft,posted,reconciled,cancelled"/>
             </xpath>
 
             <!-- Smart Buttons wie in Odoo 11 sichtbar "Rechnungen" (Anzahlanzeige von Odoo 18 bleibt) -->
