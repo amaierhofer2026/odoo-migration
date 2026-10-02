@@ -32,7 +32,7 @@ class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
     qty_multiplication_factor = fields.Integer(
-        string='Multiplikationsfaktor (pro 1.000)',
+        string='Multiplication Factor/Thsd',
         tracking=True,
     )
 
@@ -52,7 +52,7 @@ class SaleSubscriptionLine(models.Model):
     _inherit = 'sale.subscription.line'
 
     qty_multiplication_factor = fields.Integer(
-        string='Multiplikationsfaktor (pro 1.000)',
+        string='Multiplication Factor/Thsd',
         tracking=True,
         default=1,
     )

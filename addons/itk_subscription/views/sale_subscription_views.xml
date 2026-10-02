@@ -394,7 +394,7 @@
                 <field name="code"/>
                 <field name="partner_id"/>
                 <field name="sale_order_confirmation_date"/>
-                <field name="recurring_next_date"/>
+                <field name="recurring_next_date" string="Start-Datum des nächsten Leistungszeitraums"/>
                 <field name="end_of_contract_date"/>
                 <field name="pricelist_id" invisible="1"/>
                 <field name="user_id"/>

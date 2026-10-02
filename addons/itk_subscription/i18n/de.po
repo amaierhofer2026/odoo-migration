@@ -10,11 +10,11 @@ msgstr ""
 "PO-Revision-Date: 2019-06-29 10:47+0200\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"Language: de\n"
 "X-Generator: Poedit 2.0.6\n"
 
 #. module: itk_subscription
@@ -515,8 +515,12 @@ msgstr "). Nach diesem Datum können Sie Ihr Konto wieder eröffnen für bis zu"
 
 #. module: itk_subscription
 #: model_terms:ir.ui.view,arch_db:itk_subscription.subscription
-msgid "<abbr title=\"You need to be logged in as this subscription's customer to change country\">Taxes</abbr>:"
-msgstr "<abbr title=\"Sie müssen als Abonnementkunde angemeldet sein, um das Land zu ändern.\">Steuern</abbr>:"
+msgid ""
+"<abbr title=\"You need to be logged in as this subscription's customer to "
+"change country\">Taxes</abbr>:"
+msgstr ""
+"<abbr title=\"Sie müssen als Abonnementkunde angemeldet sein, um das Land zu"
+" ändern.\">Steuern</abbr>:"
 
 #. module: itk_subscription
 #: model_terms:ir.ui.view,arch_db:itk_subscription.sale_subscription_template_view_kanban
@@ -539,20 +543,32 @@ msgstr ""
 #. module: itk_subscription
 #: model_terms:ir.ui.view,arch_db:itk_subscription.portal_my_subscriptions
 #: model_terms:ir.ui.view,arch_db:itk_subscription.subscription
-msgid "<span class=\"label label-default\"><i class=\"fa fa-fw fa-remove\"/> Closed</span>"
-msgstr "<span class=\"label label-default\"><i class=\"fa fa-fw fa-remove\"/> Beendet</span>"
+msgid ""
+"<span class=\"label label-default\"><i class=\"fa fa-fw fa-remove\"/> "
+"Closed</span>"
+msgstr ""
+"<span class=\"label label-default\"><i class=\"fa fa-fw fa-remove\"/> "
+"Beendet</span>"
 
 #. module: itk_subscription
 #: model_terms:ir.ui.view,arch_db:itk_subscription.portal_my_subscriptions
 #: model_terms:ir.ui.view,arch_db:itk_subscription.subscription
-msgid "<span class=\"label label-success\"><i class=\"fa fa-fw fa-check\"/> In Progress</span>"
-msgstr "<span class=\"label label-success\"><i class=\"fa fa-fw fa-check\"/> Laufend</span>"
+msgid ""
+"<span class=\"label label-success\"><i class=\"fa fa-fw fa-check\"/> In "
+"Progress</span>"
+msgstr ""
+"<span class=\"label label-success\"><i class=\"fa fa-fw fa-check\"/> "
+"Laufend</span>"
 
 #. module: itk_subscription
 #: model_terms:ir.ui.view,arch_db:itk_subscription.portal_my_subscriptions
 #: model_terms:ir.ui.view,arch_db:itk_subscription.subscription
-msgid "<span class=\"label label-warning\"><i class=\"fa fa-fw fa-refresh\"/> To Renew</span>"
-msgstr "<span class=\"label label-warning\"><i class=\"fa fa-fw fa-refresh\"/> Zu erneuern</span>"
+msgid ""
+"<span class=\"label label-warning\"><i class=\"fa fa-fw fa-refresh\"/> To "
+"Renew</span>"
+msgstr ""
+"<span class=\"label label-warning\"><i class=\"fa fa-fw fa-refresh\"/> Zu "
+"erneuern</span>"
 
 #. module: itk_subscription
 #: model_terms:ir.ui.view,arch_db:itk_subscription.sale_subscription_template_view_kanban
@@ -674,7 +690,7 @@ msgstr "Abbrechen"
 #. module: itk_subscription
 #: model_terms:ir.ui.view,arch_db:itk_subscription.sale_subscription_view_form
 msgid "Cancel Subscription"
-msgstr "Abo-Auftrag abbrechen"
+msgstr "Aboauftrag abbrechen"
 
 #. module: itk_subscription
 #: model_terms:ir.ui.view,arch_db:itk_subscription.sale_subscription_view_search
@@ -719,8 +735,10 @@ msgstr "Produktnamen wählen"
 #. openerp-web
 #: code:addons/itk_subscription/static/src/js/tour.js:41
 #, python-format
-msgid "Choose the recurrence for this template.<br/><i>(e.g. 1 time per Year)</i>"
-msgstr "Wählen Sie den Wiederholungsrhythmus. <br/><i>(z.B. 1 mal pro Jahr)</i>"
+msgid ""
+"Choose the recurrence for this template.<br/><i>(e.g. 1 time per Year)</i>"
+msgstr ""
+"Wählen Sie den Wiederholungsrhythmus. <br/><i>(z.B. 1 mal pro Jahr)</i>"
 
 #. module: itk_subscription
 #. openerp-web
@@ -779,7 +797,7 @@ msgstr "Gründe für Beendigung"
 #. module: itk_subscription
 #: model_terms:ir.ui.view,arch_db:itk_subscription.sale_subscription_view_form
 msgid "Close Subscription"
-msgstr "Abo-Auftrag schließen"
+msgstr "Aboauftrag schließen"
 
 #. module: itk_subscription
 #: model_terms:ir.ui.view,arch_db:itk_subscription.subscription
@@ -863,7 +881,7 @@ msgstr "Kontakt"
 #. module: itk_subscription
 #: model_terms:ir.ui.view,arch_db:itk_subscription.sale_subscription_view_form
 msgid "Contract Ending on"
-msgstr "Vertragsend am"
+msgstr "Vertragsende am"
 
 #. module: itk_subscription
 #: model:ir.model.fields,field_description:itk_subscription.field_sale_subscription__contract_termination_period_unit
@@ -883,8 +901,12 @@ msgstr "Angebot erstellen und anzeigen"
 
 #. module: itk_subscription
 #: model_terms:ir.ui.view,arch_db:itk_subscription.sale_subscription_view_form
-msgid "Create a sale order that will overwrite this subscription when confirmed (renewal quotation)"
-msgstr "Erstellen Sie einen Verkaufsauftrag, der dieses Abonnement überschreibt, wenn er bestätigt wird (Erneuerungsangebot)."
+msgid ""
+"Create a sale order that will overwrite this subscription when confirmed "
+"(renewal quotation)"
+msgstr ""
+"Erstellen Sie einen Verkaufsauftrag, der dieses Abonnement überschreibt, "
+"wenn er bestätigt wird (Erneuerungsangebot)."
 
 #. module: itk_subscription
 #: model:ir.actions.act_window,help:itk_subscription.sale_subscription_action
@@ -892,7 +914,11 @@ msgid ""
 "Create subscriptions to manage recurring invoicing &amp; payments. Subscriptions can\n"
 "                be either for an undefined or a limited period. In case of a limited period, it will\n"
 "                be flagged as to renew one month before the end date."
-msgstr "Erstellen Sie Abonnements, um wiederkehrende Rechnungen und Zahlungen zu verwalten. Abonnements können entweder für eine unbestimmte oder eine begrenzte Zeit laufen. Im Falle einer begrenzten Laufzeit wird es einen Monat vor dem Enddatum automatisch verlängert."
+msgstr ""
+"Erstellen Sie Abonnements, um wiederkehrende Rechnungen und Zahlungen zu "
+"verwalten. Abonnements können entweder für eine unbestimmte oder eine "
+"begrenzte Zeit laufen. Im Falle einer begrenzten Laufzeit wird es einen "
+"Monat vor dem Enddatum automatisch verlängert."
 
 #. module: itk_subscription
 #. openerp-web
@@ -1100,7 +1126,7 @@ msgstr "Anstehende Aktivitäten"
 #. module: itk_subscription
 #: model_terms:ir.ui.view,arch_db:itk_subscription.sale_subscription_view_form
 msgid "Generate Invoice manually"
-msgstr "Rechnung manuell erstellen"
+msgstr "Generate Invoice manually"
 
 #. module: itk_subscription
 #. openerp-web
@@ -1118,7 +1144,9 @@ msgstr "Gruppieren nach"
 #. module: itk_subscription
 #: model:ir.module.category,description:itk_subscription.module_category_subscription_management
 msgid "Helps you handle subscriptions and recurring invoicing."
-msgstr "Hilft Ihnen bei der Verwaltung von Abonnements und wiederkehrenden Rechnungen."
+msgstr ""
+"Hilft Ihnen bei der Verwaltung von Abonnements und wiederkehrenden "
+"Rechnungen."
 
 #. module: itk_subscription
 #: model_terms:ir.ui.view,arch_db:itk_subscription.subscription
@@ -1150,45 +1178,75 @@ msgstr "ITK-Abonnements"
 
 #. module: itk_subscription
 #: model:ir.model.fields,help:itk_subscription.field_sale_subscription_template__user_closable
-msgid "If checked, the user will be able to close his account from the frontend"
-msgstr "Wenn aktiviert, kann der Benutzer sein Konto vom Frontend aus schließen."
+msgid ""
+"If checked, the user will be able to close his account from the frontend"
+msgstr ""
+"Wenn aktiviert, kann der Benutzer sein Konto vom Frontend aus schließen."
 
 #. module: itk_subscription
 #: model:ir.model.fields,help:itk_subscription.field_sale_subscription__payment_token_id
 msgid "If not set, the default payment token of the partner will be used."
-msgstr "Wenn diese Option nicht festgelegt ist, wird das Standard-Zahlungstoken des Partners verwendet."
+msgstr ""
+"Wenn diese Option nicht festgelegt ist, wird das Standard-Zahlungstoken des "
+"Partners verwendet."
 
 #. module: itk_subscription
 #: model:ir.model.fields,help:itk_subscription.field_sale_subscription__date
-msgid "If set in advance, the subscription will be set to pending 1 month before the date and will be closed on the date set in this field."
-msgstr "Wenn diese Option im Voraus festgelegt wird, wird das Abonnement einen Monat vor dem Datum auf unerledigt gesetzt und zu dem in diesem Feld festgelegten Datum beendet."
+msgid ""
+"If set in advance, the subscription will be set to pending 1 month before "
+"the date and will be closed on the date set in this field."
+msgstr ""
+"Wenn diese Option im Voraus festgelegt wird, wird das Abonnement einen Monat"
+" vor dem Datum auf unerledigt gesetzt und zu dem in diesem Feld festgelegten"
+" Datum beendet."
 
 #. module: itk_subscription
 #: model:ir.model.fields,help:itk_subscription.field_product_product__recurring_invoice
 #: model:ir.model.fields,help:itk_subscription.field_product_template__recurring_invoice
-msgid "If set, confirming a sale order with this product will create a subscription"
-msgstr "Wenn diese Option festgelegt ist, wird beim Bestätigen eines Verkaufsauftrags ein Abonnement erstellt."
+msgid ""
+"If set, confirming a sale order with this product will create a subscription"
+msgstr ""
+"Wenn diese Option festgelegt ist, wird beim Bestätigen eines "
+"Verkaufsauftrags ein Abonnement erstellt."
 
 #. module: itk_subscription
 #: model:ir.model.fields,help:itk_subscription.field_sale_subscription__payment_mandatory
 #: model:ir.model.fields,help:itk_subscription.field_sale_subscription_template__payment_mandatory
-msgid "If set, payments will be made automatically and invoices will not be generated if payment attempts are unsuccessful."
-msgstr "Wenn diese Option festgelegt ist, werden Zahlungen automatisch ausgeführt und Rechnungen werden nicht generiert, wenn die Zahlungsversuche fehlschlagen."
+msgid ""
+"If set, payments will be made automatically and invoices will not be "
+"generated if payment attempts are unsuccessful."
+msgstr ""
+"Wenn diese Option festgelegt ist, werden Zahlungen automatisch ausgeführt "
+"und Rechnungen werden nicht generiert, wenn die Zahlungsversuche "
+"fehlschlagen."
 
 #. module: itk_subscription
 #: model:ir.model.fields,help:itk_subscription.field_sale_subscription_template__journal_id
-msgid "If set, subscriptions with this template will invoice in this journal; otherwise the sales journal with the lowest sequence is used."
-msgstr "Wenn diese Option festgelegt ist, werden Abonnements mit dieser Vorlage in diesem Journal in Rechnung gestellt. Andernfalls wird das Verkaufsjournal mit der niedrigsten Sequenz verwendet."
+msgid ""
+"If set, subscriptions with this template will invoice in this journal; "
+"otherwise the sales journal with the lowest sequence is used."
+msgstr ""
+"Wenn diese Option festgelegt ist, werden Abonnements mit dieser Vorlage in "
+"diesem Journal in Rechnung gestellt. Andernfalls wird das Verkaufsjournal "
+"mit der niedrigsten Sequenz verwendet."
 
 #. module: itk_subscription
 #: model_terms:ir.ui.view,arch_db:itk_subscription.subscription
-msgid "If you close your account, it will remain active until your next invoice date ("
-msgstr "Wenn Sie Ihr Konto schließen, bleibt es bis zu Ihrem nächsten Rechnungsdatum aktiv ("
+msgid ""
+"If you close your account, it will remain active until your next invoice "
+"date ("
+msgstr ""
+"Wenn Sie Ihr Konto schließen, bleibt es bis zu Ihrem nächsten Rechnungsdatum"
+" aktiv ("
 
 #. module: itk_subscription
 #: model_terms:ir.ui.view,arch_db:itk_subscription.subscription
-msgid "If you confirm, you subscription will be closed right away. Your current invoicing period is valid until"
-msgstr "Wenn Sie bestätigen, wird Ihr Abonnement sofort beendet. Ihr aktueller Rechnungszeitraum ist gültig bis"
+msgid ""
+"If you confirm, you subscription will be closed right away. Your current "
+"invoicing period is valid until"
+msgstr ""
+"Wenn Sie bestätigen, wird Ihr Abonnement sofort beendet. Ihr aktueller "
+"Rechnungszeitraum ist gültig bis"
 
 #. module: itk_subscription
 #: model_terms:ir.ui.view,arch_db:itk_subscription.subscription
@@ -1197,8 +1255,12 @@ msgstr "Wenn Sie es wieder öffnen möchten, werden die"
 
 #. module: itk_subscription
 #: model_terms:ir.ui.view,arch_db:itk_subscription.subscription
-msgid "If you wish to reopen it, you can pay your invoice for the current invoicing period."
-msgstr "Wenn Sie es erneut öffnen möchten, können Sie Ihre Rechnung für den aktuellen Rechnungszeitraum bezahlen."
+msgid ""
+"If you wish to reopen it, you can pay your invoice for the current invoicing"
+" period."
+msgstr ""
+"Wenn Sie es erneut öffnen möchten, können Sie Ihre Rechnung für den "
+"aktuellen Rechnungszeitraum bezahlen."
 
 #. module: itk_subscription
 #: code:addons/itk_subscription/controllers/portal.py:46
@@ -1218,11 +1280,17 @@ msgstr "Branche"
 
 #. module: itk_subscription
 #: model_terms:ir.ui.view,arch_db:itk_subscription.wizard_form_view
-msgid "Insert the options directly, they will be invoiced on the next invoice date."
-msgstr "Fügen Sie die Optionen direkt ein; sie werden am nächsten Rechnungsdatum in Rechnung gestellt."
+msgid ""
+"Insert the options directly, they will be invoiced on the next invoice date."
+msgstr ""
+"Fügen Sie die Optionen direkt ein; sie werden am nächsten Rechnungsdatum in "
+"Rechnung gestellt."
 
 #. module: itk_subscription
-#: model:ir.model,name:itk_subscription.model_account_move model:ir.model,name:itk_subscription.model_account_move model:ir.model,name:itk_subscription.model_account_move model:ir.model,name:itk_subscription.model_account_invoice
+#: model:ir.model,name:itk_subscription.model_account_move
+#: model:ir.model,name:itk_subscription.model_account_move
+#: model:ir.model,name:itk_subscription.model_account_move
+#: model:ir.model,name:itk_subscription.model_account_invoice
 #: model:ir.model.fields,field_description:itk_subscription.field_payment_transaction__invoice_id
 msgid "Invoice"
 msgstr "Rechnung"
@@ -1233,7 +1301,10 @@ msgid "Invoice Count"
 msgstr "Rechnungsanzahl"
 
 #. module: itk_subscription
-#: model:ir.model,name:itk_subscription.model_account_move_line model:ir.model,name:itk_subscription.model_account_move_line model:ir.model,name:itk_subscription.model_account_move_line model:ir.model,name:itk_subscription.model_account_invoice_line
+#: model:ir.model,name:itk_subscription.model_account_move_line
+#: model:ir.model,name:itk_subscription.model_account_move_line
+#: model:ir.model,name:itk_subscription.model_account_move_line
+#: model:ir.model,name:itk_subscription.model_account_invoice_line
 msgid "Invoice Line"
 msgstr "Rechungsposition"
 
@@ -1753,8 +1824,13 @@ msgstr "Verkäufer"
 #. openerp-web
 #: code:addons/itk_subscription/static/src/js/tour.js:86
 #, python-format
-msgid "Save and you're all set!<br/>Simply sell this product to create a subscription automatically or create a subscription manually!"
-msgstr "Sichern Sie um den Voorgang abzuschliessen!<br/>Verkaufen Sie das Produkt und erzeugen Sie so ein Abonnement. Oder legen Sie ein Abonnement manuell an!"
+msgid ""
+"Save and you're all set!<br/>Simply sell this product to create a "
+"subscription automatically or create a subscription manually!"
+msgstr ""
+"Sichern Sie um den Voorgang abzuschliessen!<br/>Verkaufen Sie das Produkt "
+"und erzeugen Sie so ein Abonnement. Oder legen Sie ein Abonnement manuell "
+"an!"
 
 #. module: itk_subscription
 #. openerp-web
@@ -1767,8 +1843,12 @@ msgstr "Sichern sie diese Vorlage und die von Ihnen vorgenommenen Änderungen."
 #. openerp-web
 #: code:addons/itk_subscription/static/src/js/tour.js:81
 #, python-format
-msgid "Select your newly created template. Every sale of this product will generate a new subscription!"
-msgstr "Wählen Sie die neu angelegte Abo-Vorlage. Bei jedem Verkauf des Produktes wird automatisch ein Abonnement angelegt!"
+msgid ""
+"Select your newly created template. Every sale of this product will generate"
+" a new subscription!"
+msgstr ""
+"Wählen Sie die neu angelegte Abo-Vorlage. Bei jedem Verkauf des Produktes "
+"wird automatisch ein Abonnement angelegt!"
 
 #. module: itk_subscription
 #: model:ir.model.fields,field_description:itk_subscription.field_itk_subscription_noticeperiod__seq
@@ -2007,7 +2087,10 @@ msgstr "Abonnements"
 msgid ""
 "Subscriptions can be automatically generated from sales orders of Sales or eCommerce\n"
 "                apps. To do so, set a Subscription Template on your Subscription Products."
-msgstr "Abonnements können automatisch aus Kundenaufträgen von Verkaufs- oder E-Commerce-Apps generiert werden. Legen Sie dazu eine Abonnementvorlage für Ihre Abonnementprodukte fest."
+msgstr ""
+"Abonnements können automatisch aus Kundenaufträgen von Verkaufs- oder "
+"E-Commerce-Apps generiert werden. Legen Sie dazu eine Abonnementvorlage für "
+"Ihre Abonnementprodukte fest."
 
 #. module: itk_subscription
 #: model_terms:ir.ui.view,arch_db:itk_subscription.sale_subscription_view_search
@@ -2073,7 +2156,10 @@ msgid ""
 "Templates are used to prefigure subscription that\n"
 "                can be selected by the salespeople to quickly configure the\n"
 "                terms and conditions of the subscription."
-msgstr "Vorlagen werden verwendet, um Abonnements vorzubereiten, die von den Verkäufern gewählt werden können, um die Geschäftsbedingungen des Abonnements schnell zu konfigurieren."
+msgstr ""
+"Vorlagen werden verwendet, um Abonnements vorzubereiten, die von den "
+"Verkäufern gewählt werden können, um die Geschäftsbedingungen des "
+"Abonnements schnell zu konfigurieren."
 
 #. module: itk_subscription
 #: model:mail.template,subject:itk_subscription.email_payment_close
@@ -2093,18 +2179,30 @@ msgstr "Geschäftsbedingungen"
 
 #. module: itk_subscription
 #: model:ir.model.fields,help:itk_subscription.field_sale_subscription_wizard__date_from
-msgid "The discount applied when creating a sales order will be computed as the ratio between the full invoicing period of the subscription and the period between this date and the next invoicing date."
-msgstr "Der beim Erstellen eines Verkaufsauftrags verwendete Rabatt wird als Verhältnis zwischen dem vollständigen Rechnungszeitraum des Abonnements und dem Zeitraum zwischen diesem Datum und dem nächsten Rechnungsdatum berechnet."
+msgid ""
+"The discount applied when creating a sales order will be computed as the "
+"ratio between the full invoicing period of the subscription and the period "
+"between this date and the next invoicing date."
+msgstr ""
+"Der beim Erstellen eines Verkaufsauftrags verwendete Rabatt wird als "
+"Verhältnis zwischen dem vollständigen Rechnungszeitraum des Abonnements und "
+"dem Zeitraum zwischen diesem Datum und dem nächsten Rechnungsdatum "
+"berechnet."
 
 #. module: itk_subscription
 #: model:ir.model.fields,help:itk_subscription.field_sale_subscription__website_url
 msgid "The full URL to access the document through the website."
-msgstr "Die vollständige URL mit der das Dokument überall aufgerufen werden kann."
+msgstr ""
+"Die vollständige URL mit der das Dokument überall aufgerufen werden kann."
 
 #. module: itk_subscription
 #: model:ir.model.fields,help:itk_subscription.field_sale_subscription__recurring_next_date
-msgid "The next invoice will be created on this date then the period will be extended."
-msgstr "Die nächste Rechnung wird an diesem Datum erstellt, dann wird der Zeitraum verlängert."
+msgid ""
+"The next invoice will be created on this date then the period will be "
+"extended."
+msgstr ""
+"Die nächste Rechnung wird an diesem Datum erstellt, dann wird der Zeitraum "
+"verlängert."
 
 #. module: itk_subscription
 #: model:ir.actions.act_window,help:itk_subscription.product_action_subscription
@@ -2145,7 +2243,7 @@ msgstr "Heutige Aktivitäten"
 #. module: itk_subscription
 #: model:ir.model.fields,field_description:itk_subscription.field_sale_subscription__recurring_amount_total
 msgid "Total"
-msgstr "Total"
+msgstr "Gesamtbetrag"
 
 #. module: itk_subscription
 #: model_terms:ir.ui.view,arch_db:itk_subscription.sale_order_view_tree_subscription
@@ -2154,8 +2252,11 @@ msgstr "Gesamtbetrag"
 
 #. module: itk_subscription
 #: sql_constraint:sale.subscription:0
-msgid "UUIDs (Universally Unique Identifier) for Sale Subscriptions should be unique!"
-msgstr "UUIDs (Universally Unique Identifier) für Abonnements sollte eindeutig sein!"
+msgid ""
+"UUIDs (Universally Unique Identifier) for Sale Subscriptions should be "
+"unique!"
+msgstr ""
+"UUIDs (Universally Unique Identifier) für Abonnements sollte eindeutig sein!"
 
 #. module: itk_subscription
 #: model:ir.model.fields,field_description:itk_subscription.field_sale_subscription_template__contract_termination_period_unit
@@ -2192,7 +2293,12 @@ msgid ""
 "Use subscriptions to follow tasks, issues, timesheets or invoicing based on\n"
 "                work done, expenses and/or sales orders. Odoo will automatically manage\n"
 "                the alerts for the renewal of the subscriptions to the right salesperson."
-msgstr "Verwenden Sie Abonnements, um Aufgaben, Probleme, Zeiterfassungen oder die Rechnungsstellung basierend auf erledigter Arbeit, Spesen und/oder Verkaufsaufträgen zu verfolgen. Odoo verwaltet automatisch die Benachrichtigungen für die Erneuerung der Abonnements für den richtigen Verkäufer."
+msgstr ""
+"Verwenden Sie Abonnements, um Aufgaben, Probleme, Zeiterfassungen oder die "
+"Rechnungsstellung basierend auf erledigter Arbeit, Spesen und/oder "
+"Verkaufsaufträgen zu verfolgen. Odoo verwaltet automatisch die "
+"Benachrichtigungen für die Erneuerung der Abonnements für den richtigen "
+"Verkäufer."
 
 #. module: itk_subscription
 #: model:res.groups,name:itk_subscription.group_sale_subscription_view
@@ -2208,13 +2314,21 @@ msgstr "Gültig bis:"
 #. openerp-web
 #: code:addons/itk_subscription/static/src/js/tour.js:13
 #, python-format
-msgid "Want recurring billing via subscription management ? Get started by clicking here"
-msgstr "Want recurring billing via subscription management ? Get started by clicking here"
+msgid ""
+"Want recurring billing via subscription management ? Get started by clicking"
+" here"
+msgstr ""
+"Want recurring billing via subscription management ? Get started by clicking"
+" here"
 
 #. module: itk_subscription
 #: model_terms:ir.ui.view,arch_db:itk_subscription.subscription
-msgid "We always listen to our customer. Could you specify the reason for cancelling your subscription?"
-msgstr "Die Meinung unserer Kunden ist uns sehr wichtig. Könnten Sie den Grund für die Kündigung Ihres Abonnements angeben?"
+msgid ""
+"We always listen to our customer. Could you specify the reason for "
+"cancelling your subscription?"
+msgstr ""
+"Die Meinung unserer Kunden ist uns sehr wichtig. Könnten Sie den Grund für "
+"die Kündigung Ihres Abonnements angeben?"
 
 #. module: itk_subscription
 #: model:ir.model.fields,field_description:itk_subscription.field_sale_subscription__website_url
@@ -2246,8 +2360,16 @@ msgstr "Jahr(e)"
 
 #. module: itk_subscription
 #: model_terms:ir.ui.view,arch_db:itk_subscription.wizard_form_view
-msgid "You can either create a quotation that will be discounted for the current invoicing period (the options will be added when the quotation is confirmed) or directly insert them in the subscription to invoice it on the next invoice date."
-msgstr "Sie können entweder ein Angebot erstellen, das für den aktuellen Rechnungszeitraum rabattiert wird (die Optionen werden hinzugefügt, wenn das Angebot bestätigt wird) oder Sie können sie direkt in das Abonnement einfügen, um sie am nächsten Rechnungsdatum in Rechnung zu stellen."
+msgid ""
+"You can either create a quotation that will be discounted for the current "
+"invoicing period (the options will be added when the quotation is confirmed)"
+" or directly insert them in the subscription to invoice it on the next "
+"invoice date."
+msgstr ""
+"Sie können entweder ein Angebot erstellen, das für den aktuellen "
+"Rechnungszeitraum rabattiert wird (die Optionen werden hinzugefügt, wenn das"
+" Angebot bestätigt wird) oder Sie können sie direkt in das Abonnement "
+"einfügen, um sie am nächsten Rechnungsdatum in Rechnung zu stellen."
 
 #. module: itk_subscription
 #: model_terms:ir.ui.view,arch_db:itk_subscription.portal_my_subscriptions
@@ -2260,7 +2382,9 @@ msgid ""
 "You must define a product for everything you sell, whether it's\n"
 "                a physical product, a consumable or a service you offer to\n"
 "                customers."
-msgstr "Sie müssen für alles, was Sie verkaufen, ein Produkt definieren,. Ein reales Produkt, Verbrauchsmaterial oder eine Dienstleistung, die Sie anbieten."
+msgstr ""
+"Sie müssen für alles, was Sie verkaufen, ein Produkt definieren,. Ein reales"
+" Produkt, Verbrauchsmaterial oder eine Dienstleistung, die Sie anbieten."
 
 #. module: itk_subscription
 #: code:addons/itk_subscription/models/sale_subscription.py:413
@@ -2270,7 +2394,8 @@ msgstr "Wählen Sie zunächst einen Kunden für das Abonnement %s!"
 
 #. module: itk_subscription
 #: model:ir.actions.act_window,help:itk_subscription.product_template_action_subscription
-msgid "You will find here all the products related to this subscription template."
+msgid ""
+"You will find here all the products related to this subscription template."
 msgstr "Hier finden Sie alle Produkte zu dieser Abonnementvorlage."
 
 #. module: itk_subscription
@@ -2280,7 +2405,10 @@ msgid ""
 "You will find here the subscriptions to be renewed because the\n"
 "                end date is passed or the working effort is higher than the\n"
 "                maximum authorized one."
-msgstr "Sie finden hier die Abonnements, die erneuert werden müssen, weil das Enddatum verstrichen oder der Arbeitsaufwand höher ist als der erlaubte Maximalwert."
+msgstr ""
+"Sie finden hier die Abonnements, die erneuert werden müssen, weil das "
+"Enddatum verstrichen oder der Arbeitsaufwand höher ist als der erlaubte "
+"Maximalwert."
 
 #. module: itk_subscription
 #: model_terms:ir.ui.view,arch_db:itk_subscription.subscription
