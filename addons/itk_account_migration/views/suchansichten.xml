@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        Abrechnung - Suchansichten: Odoo-11-Wortlaut und fehlende Gruppierungen.
+        Nur Sichtbarkeit/Beschriftung von Filtern und Gruppierungen; keine Logik.
+    -->
+    <record id="view_payment_search_itk_o11" model="ir.ui.view">
+        <field name="name">account.payment.search.itk.o11</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_search"/>
+        <field name="priority">999</field>
+        <field name="arch" type="xml">
+            <!-- Filter im Odoo-11-Wortlaut -->
+            <xpath expr="//filter[@name='inbound_filter']" position="attributes">
+                <attribute name="string">Debitoren</attribute>
+            </xpath>
+            <xpath expr="//filter[@name='outbound_filter']" position="attributes">
+                <attribute name="string">Kreditoren</attribute>
+            </xpath>
+            <xpath expr="//filter[@name='state_in_process']" position="attributes">
+                <attribute name="string">Gebucht</attribute>
+            </xpath>
+            <!-- Gruppierungen im Odoo-11-Wortlaut -->
+            <xpath expr="//filter[@name='partner']" position="attributes">
+                <attribute name="string">Partner</attribute>
+            </xpath>
+            <xpath expr="//filter[@name='paymentmethodline']" position="attributes">
+                <attribute name="string">Zahlungsmethode</attribute>
+            </xpath>
+            <!-- In Odoo 11 vorhandene Gruppierung, in Odoo 18 nicht enthalten -->
+            <xpath expr="//filter[@name='currency']" position="after">
+                <filter name="itk_group_unternehmen" string="Unternehmen"
+                        context="{'group_by': 'company_id'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Partner: in Odoo 11 vorhandene Gruppierung "Gemeindekennzahl" (GKZ) -->
+    <record id="view_partner_search_itk_o11" model="ir.ui.view">
+        <field name="name">res.partner.search.itk.o11</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="priority">999</field>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='group_company']" position="after">
+                <filter name="itk_group_gkz" string="Gemeindekennzahl"
+                        context="{'group_by': 'ref'}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
