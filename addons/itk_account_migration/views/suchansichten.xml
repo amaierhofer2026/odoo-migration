@@ -35,16 +35,28 @@
         </field>
     </record>
 
-    <!-- Partner: in Odoo 11 vorhandene Gruppierung "Gemeindekennzahl" (GKZ) -->
+    <!-- Kunden/Lieferanten: Filter und Gruppierungen im Odoo-11-Wortlaut -->
     <record id="view_partner_search_itk_o11" model="ir.ui.view">
         <field name="name">res.partner.search.itk.o11</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_res_partner_filter"/>
         <field name="priority">999</field>
         <field name="arch" type="xml">
-            <xpath expr="//filter[@name='group_company']" position="after">
-                <filter name="itk_group_gkz" string="Gemeindekennzahl"
-                        context="{'group_by': 'ref'}"/>
+            <xpath expr="//filter[@name='customer']" position="attributes">
+                <attribute name="string">Kunden</attribute>
+            </xpath>
+            <xpath expr="//filter[@name='supplier']" position="attributes">
+                <attribute name="string">Lieferanten</attribute>
+            </xpath>
+            <xpath expr="//filter[@name='type_person']" position="attributes">
+                <attribute name="string">Personen</attribute>
+            </xpath>
+            <xpath expr="//filter[@name='salesperson']" position="attributes">
+                <attribute name="string">Verkäufer</attribute>
+            </xpath>
+            <!-- Odoo 18 gruppiert die Gemeindekennzahl unter dem Namen "Community Code" -->
+            <xpath expr="//filter[@name='title'][@context=&quot;{'group_by': 'ref'}&quot;]" position="attributes">
+                <attribute name="string">Gemeindekennzahl</attribute>
             </xpath>
         </field>
     </record>
