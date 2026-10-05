@@ -6,6 +6,11 @@ Meldung von Anna aus der manuellen Kontrolle: Beim blossen Oeffnen des Menuepunk
 "Abrechnung > Verkauf > Eingaenge" (und "Einkauf > Eingaenge") erscheint rechts die Meldung
 **"Ungueltige Felder: Partner"**, ohne dass etwas geaendert, gespeichert oder angelegt wurde.
 
+Zuordnung: Anna hatte den Bereich zunaechst irrtuemlich dem Modul **Abonnements** zugeordnet und
+diese Zuordnung am 05.10.2026 ausdruecklich korrigiert. Der Fehler und die weitere Pruefung
+gehoeren **ausschliesslich zu Abrechnung**; im Modul Abonnements lag kein technischer Befund vor
+und es wurde dort nichts geaendert.
+
 ## Was gemessen wurde (read-only, beide Instanzen)
 
 1. **Der genannte Menuepfad existiert so nicht.** Die App "Abonnements" (Menue-Wurzel 586) hat auf
@@ -99,7 +104,7 @@ Ergebnis: **lokal 14 OK / 0 FEHL, VM 14 OK / 0 FEHL.**
 Testbelege: lokal angelegt 132/133 und wieder entfernt, VM angelegt 148 und wieder entfernt;
 Bestand lokal 40, VM 62 (vorher/nachher gleich), keine Reste.
 
-## Pruefung der uebrigen Ansichten (Auftrag von Anna)
+## Pruefung der uebrigen Ansichten
 
 `scripts/pruefe_pflichtfelder.py lokal|vm` prueft fuer `account.move`, `account.move.line`,
 `account.payment`, `sale.subscription`, `sale.subscription.line`, `sale.subscription.template`,
@@ -107,9 +112,13 @@ Bestand lokal 40, VM 62 (vorher/nachher gleich), keine Reste.
 sichtbare Pflichtfeldkennzeichnung in allen Formular- und Listenansichten gegen die vorhandenen
 Datensaetze.
 
+Die Abo-Modelle standen nur deshalb mit in der Liste, weil Anna den Fehler zunaechst dem Modul
+Abonnements zugeordnet hatte (am 05.10.2026 korrigiert: der Fehler gehoert zu Abrechnung). Dort
+wurde nichts geaendert; die Pruefung war rein lesend.
+
 - Vor der Korrektur: **ein** Befund (`account.move.partner_id`, leer=2 lokal / 3 VM).
 - Nach der Korrektur: **kein** Befund auf beiden Instanzen.
-- Weitere stille View-/Pflichtfeldfehler im Abo-Bereich: keine.
+- Weitere stille View-/Pflichtfeldfehler im Abrechnungsbereich: keine.
 
 ## Abschlusscheck
 
@@ -148,9 +157,10 @@ Datensaetze.
 
 ## Offen
 
-- Der genannte Menuepfad `Abonnements > Verkauf > Eingaenge` existiert nicht. Bestaetigt werden
-  muss, ob Anna den Menuepunkt `Abrechnung > Verkauf > Eingaenge` meint (dafuer sprechen das
-  VM-Protokoll und die Menueinventare) oder eine andere Stelle.
+- Der Fehler gehoert ausschliesslich zu Abrechnung: Anna hat bestaetigt, dass die Meldung beim
+  Oeffnen von `Abrechnung > Verkauf > Eingaenge` auftrat; ihre erste Zuordnung zu "Abonnements" war
+  ein Irrtum und wurde am 05.10.2026 korrigiert. Im Menueinventar gibt es "Verkauf > Eingaenge" nur
+  in der App Abrechnung (Menuepunkt 198), passend zum VM-Protokoll (`/odoo/action-360`).
 - Der genaue Ausloeser, der in ihrer Sitzung das Speichern eines partnerlosen Entwurfs angestossen
   hat, liess sich nicht reproduzieren (weder per URL, per Menueklick, per Sitzungswechsel, per
   Neuanlage noch durch Verlassen eines partnerlosen Entwurfs im Browser). Ursache und Wirkung der

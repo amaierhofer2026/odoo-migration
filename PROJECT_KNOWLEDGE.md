@@ -8294,7 +8294,8 @@ Befund von Anna aus der manuellen Abnahme: im Reiter "Rechnungszeilen" fehlte di
 ## Session 126: Meldung "Ungueltige Felder: Partner" - Ursache gefunden und behoben (05.10.2026)
 
 Anlass: Anna meldete aus der manuellen Kontrolle, dass beim blossen Oeffnen von
-"Abonnements > Verkauf > Eingaenge" rechts "Ungueltige Felder: Partner" erscheint, ohne dass sie
+"Abrechnung > Verkauf > Eingaenge" (zunaechst irrtuemlich dem Modul Abonnements zugeordnet, am
+05.10.2026 von ihr korrigiert) rechts "Ungueltige Felder: Partner" erscheint, ohne dass sie
 etwas geaendert hat.
 
 - **Der genannte Menuepfad existiert nicht.** Die App "Abonnements" hat lokal und auf der VM
@@ -8351,9 +8352,14 @@ etwas geaendert hat.
   in `docs/o11-o18-abrechnung-ausgangsrechnungen-visuell.md` war falsch - `Kunde` war kein
   Modellpflichtfeld, sondern in unserer Ansicht pflichtig gesetzt. Beide Stellen berichtigt.
   Neues Dokument: `docs/o11-o18-abrechnung-partner-pflichtfeld.md`.
-- **Bereich Abonnements:** auf ausdruecklichen Wunsch von Anna am 05.10.2026 wieder
-  **IN ARBEIT / manuelle Nachkontrolle offen** gesetzt (Abschnitt 6.14 der
-  `MIGRATION_READINESS_CHECKLIST.md`). Abrechnung bleibt ebenfalls IN ARBEIT.
+- **Zuordnung korrigiert (05.10.2026):** Anna hatte den Bereich zunaechst irrtuemlich dem Modul
+  Abonnements zugeordnet und die Zuordnung am selben Tag korrigiert - der Fehler gehoert
+  **ausschliesslich zu Abrechnung**. Die daraufhin zwischenzeitliche Rucksetzung von Abonnements
+  (Abschnitt 6.14 der `MIGRATION_READINESS_CHECKLIST.md`) wurde deshalb zurueckgenommen; dort gilt
+  wieder der zuletzt tatsaechlich bestaetigte Stand (Session 120). Im Modul Abonnements lag **kein
+  technischer Befund** vor, und es wurde dort **nichts geaendert** (kein Code, keine Ansicht, keine
+  Daten; die Pflichtfeldpruefung war rein lesend). **Abrechnung bleibt IN ARBEIT**, bis Anna ihre
+  manuelle Kontrolle abgeschlossen hat.
 - **Betriebslehre:** Nach jedem Modul-Upgrade `apply_abrechnung_labels.py --instanz lokal|vm`
   nachziehen (sonst englische Quelltexte auf der VM); Pflichtfelder nie aus Optik in der Ansicht
   setzen/entfernen, sondern vorher messen, ob Odoo 18 das Feld selbst pflichtig fuehrt.
