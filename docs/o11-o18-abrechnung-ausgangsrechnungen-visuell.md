@@ -170,4 +170,8 @@ Rechnungsformular - nach demselben, bereits abgenommenen Muster wie im Zahlungsf
 
 Nachweis (Browser, lokal und VM): `scripts/browser_pc_status_abnahme.py --instanz <...>`,
 Screenshots je Zustand in `Desktop/Odoo18-Abnahme-Session124/pc_und_statuskette/<instanz>/`.
+Ergebnis: lokal 73 OK / 0 FEHL, VM 73 OK / 0 FEHL (je 7 Screenshots). Geprueft wurden die Zustaende
+Entwurf (draft), Offen (posted, nicht bezahlt), Teilzahlung (posted, partial), Bezahlt (posted,
+paid), Abgebrochen (cancel) und Gutschrift (posted, reversed); die Project-Category-Spalte traegt in
+Liste und Formular jeweils den echten Wert "amtsweg.gv.at - BUNDESLAND SONDERVERTRAG".
 

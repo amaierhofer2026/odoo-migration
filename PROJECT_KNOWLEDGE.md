@@ -8221,6 +8221,19 @@ Dokumentationsort: `docs/o11-o18-testmigration-regel.md`, Abschnitt 10.1.
   View-Bezeichnungen ohne unbegruendete Abweichung, Feldabdeckung 273 belegte Felder / 0 Luecken.
   Testdaten fuer die sechs Zustaende (`scripts/_pc_status_testdaten.py`) restlos entfernt:
   Bestand 40 -> 49 -> 40 Belege und 10 -> 12 -> 10 Zahlungen.
+- Nachweise VM (05.10.2026): Die VM hatte noch einen Altsstand derselben Arbeit aus der Vorsession
+  (untracked `models/account_move_o11_status.py` plus Aenderungen an `models/__init__.py` und
+  `views/account_move_views.xml`) - vor dem Branchwechsel per `git stash push -u` gesichert,
+  danach `git checkout s124-projectcategory-und-statuskette` (Commit f756b42). md5 aller vier
+  geaenderten Moduldateien lokal = VM; Modulversion 18.0.1.11.0 lokal = VM.
+  Upgrade per `docker compose run --rm -T odoo odoo -u itk_account_migration ...` + 
+  `docker compose restart odoo`; danach Label-Abgleich (apply 20 gesetzt / 0 Abweichungen,
+  Check 155 Feldpaare / 0 Abweichungen, View-Bezeichnungen ohne unbegruendete Abweichung).
+  Browser auf der VM `scripts/browser_pc_status_abnahme.py --instanz vm`: **73 OK / 0 FEHL**
+  (Testbelege RE/2026/0006 bis RE/2026/0010 und RRE/2026/00001; Project-Category-Wert in Liste und
+  Formular sichtbar). Testdaten auf der VM restlos entfernt: 62 -> 71 -> 62 Belege und
+  11 -> 13 -> 11 Zahlungen. Abschlusscheck: Feldabdeckung 273/0, Regression Verkauf/Abonnements
+  886 OK / 0 FEHL (lokal und VM), Modul-/Menuevergleich lokal = VM ohne Abweichung.
 - Werkzeuge: `scripts/browser_pc_status_abnahme.py` (Liste + Statuskette),
   `scripts/pruefe_pc_spalte.py` (Arch der fuenf Listenansichten), `scripts/_pc_status_testdaten.py`
   (Testzustaende anlegen/pruefen/aufraeumen), `scripts/_o11_kundenliste_spalten.py` (Odoo-11-Anker,

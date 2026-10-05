@@ -80,11 +80,12 @@ def main() -> int:
     belege = kw("account.move", "search_read",
                 [[["ref", "like", MARKER]],
                  ["id", "name", "ref", "state", "payment_state", "move_type"]], context=CTX)
+    offen = next((b for b in belege if b["ref"] == "TEST-PC-2-offen"), None)
     gutschrift = kw("account.move", "search_read",
                     [[["move_type", "=", "out_refund"], ["ref", "like", "Stornierung"]],
                      ["id", "name", "ref", "projectcategory_id"]], context=CTX, limit=1)
-    print("Instanz: %s | Testbelege: %d | Kunden-Gutschrift: %s"
-          % (url, len(belege), gutschrift))
+    print("Instanz: %s | Testbelege: %d | Offen-Beleg: %s | Kunden-Gutschrift: %s"
+          % (url, len(belege), offen, gutschrift))
 
     from playwright.sync_api import sync_playwright
     ok = fehler = 0
@@ -141,8 +142,10 @@ def main() -> int:
             status_idx = [t for t in d1["ths"] if t["t"] == "Status"][0]["i"]
             pruefe(idx == status_idx + 1, "Project Category steht direkt hinter dem Status "
                                           "(Status Zelle %s, Project Category Zelle %s)" % (status_idx, idx))
-            zeile = next((z for z in d1["zeilen"] if "RE/2026/0003" in z["text"]), None)
-            pruefe(zeile is not None, "Testrechnung RE/2026/0003 in der Liste gefunden")
+            zeile = next((z for z in d1["zeilen"]
+                          if offen and offen["name"] and offen["name"] in z["text"]), None)
+            pruefe(zeile is not None,
+                   "Testrechnung %s in der Liste gefunden" % (offen and offen["name"]))
             if zeile:
                 wert = zeile["zellen"].get(str(idx), "")
                 print("    Zeile: %s" % zeile["text"][:220])
