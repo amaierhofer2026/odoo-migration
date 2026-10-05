@@ -91,7 +91,13 @@
                     <group>
                         <label for="partner_id" string="Kunde" invisible="move_type in ('in_invoice', 'in_refund')"/>
                         <label for="partner_id" string="Lieferant" invisible="move_type not in ('in_invoice', 'in_refund')"/>
-                        <field name="partner_id" nolabel="1" required="1" readonly="state != 'draft'"/>
+                        <!-- Session 126: KEIN required="1". Odoo 18 fuehrt account.move.partner_id nicht als
+                             pflichtiges Feld (Odoo 11 hatte es modellpflichtig). Mit required="1" in der
+                             Ansicht liessen sich vorhandene Entwuerfe ohne Partner nicht mehr speichern und
+                             der Client meldete "Ungueltige Felder: Partner"; die sichtbare Beschriftung war
+                             dadurch ausserdem fett (Odoo 18 stellt nur pflichtige Felder fett dar).
+                             Odoo-18-Pruefungen beim Buchen bleiben unveraendert. -->
+                        <field name="partner_id" nolabel="1" readonly="state != 'draft'"/>
                         <field name="partner_shipping_id" readonly="state != 'draft'"/>
                         <field name="invoice_payment_term_id" invisible="move_type == 'entry'"/>
                         <field name="sale_order_benefit_period" invisible="move_type == 'entry'"/>
