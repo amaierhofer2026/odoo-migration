@@ -34,6 +34,56 @@
         <!--</data>-->
         <!--</field>-->
         <!--</record>-->
+        <!-- Suchansicht: ITK-Produktfilter, Nachbau nach Odoo 11
+             (Anna-Entscheidung Session 123: vollstaendig nachbauen).
+             Wortlaut und Domaenen 1:1 aus Odoo 11 uebernommen (Quellviews
+             product.template.search.inherit / .timesheet / .stock.form);
+             interne Namen mit itk_-Praefix, damit sie nicht mit den
+             Odoo-18-Standardfiltern (z.B. real_stock_negative) kollidieren.
+             "Veroeffentlicht" (website_published) fehlt hier bewusst: Das Feld
+             gibt es in Odoo 18 nicht (Website-Modul nicht installiert); in
+             Odoo 11 hatte der Filter 0 Treffer. -->
+        <record id="view_product_template_search_itk_produktfilter" model="ir.ui.view">
+            <field name="name">Product Template Search ITK Produktfilter</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_search_view"/>
+            <field name="mode">extension</field>
+            <field name="priority">17</field>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='filter_to_purchase']" position="after">
+                    <!-- Produkttyp-Filter (Odoo 11: product.template.search.inherit) -->
+                    <filter name="itk_filter_consulting" string="Service Type Consulting" domain="[('product_type_id', '=', 'Consulting')]"/>
+                    <filter name="itk_filter_onlineservice" string="Service Type Onlineservice" domain="[('product_type_id', '=', 'Onlineservice')]"/>
+                    <filter name="itk_filter_software_solution" string="Service Type Software-Solution" domain="[('product_type_id', '=', 'Software-Lösung')]"/>
+                    <filter name="itk_filter_platform" string="Service Type Platform" domain="[('product_type_id', '=', 'Plattform')]"/>
+                    <filter name="itk_filter_hardware" string="Service Type Hardware" domain="[('product_type_id', '=', 'Hardware')]"/>
+                    <filter name="itk_filter_f_project" string="Service Type Förderprojekt" domain="[('product_type_id', '=', 'Förderprojekt')]"/>
+                    <!-- Dienstarten (Odoo 11: product.template.search.timesheet) -->
+                    <filter name="itk_product_time_based" string="Zeitbasierte Dienste" domain="[('type', '=', 'service'), ('invoice_policy', '=', 'delivery'), ('service_type', '=', 'timesheet')]"/>
+                    <filter name="itk_product_service_fixed" string="Festpreis-Dienste" domain="[('type', '=', 'service'), ('invoice_policy', '=', 'order'), ('service_type', '=', 'timesheet')]"/>
+                    <filter name="itk_product_service_milestone" string="Meilenstein-Dienste" domain="[('type', '=', 'service'), ('invoice_policy', '=', 'delivery'), ('service_type', '=', 'manual')]"/>
+                    <!-- Bestand (Odoo 11: product.template.search.stock.form).
+                         Achtung Uebersetzung: In Odoo 11 stand "type not in (service, consu)"
+                         fuer den Typ "product" (Lagerartikel); in Odoo 18 entspricht dem
+                         is_storable = True. "Verfuegbare Produkte" (qty_available > 0) gibt es
+                         in Odoo 18 bereits identisch und wird nicht doppelt angelegt. -->
+                    <filter name="itk_real_stock_exhausted" string="Bestandsauflösung" domain="[('qty_available', '&lt;=', 0), ('is_storable', '=', True)]"/>
+                    <filter name="itk_real_stock_negative" string="Bestandsreichweite" domain="[('qty_available', '&lt;', 0)]"/>
+                </xpath>
+                <!-- 05.10.2026 (Session 123, Anna-Entscheidung): Auch die drei Standardfilter
+                     tragen wieder den Odoo-11-Wortlaut. Die Domains bleiben unveraendert
+                     (sale_ok / purchase_ok / type = consu entsprechen Odoo 11 1:1). -->
+                <xpath expr="//filter[@name='filter_to_sell']" position="attributes">
+                    <attribute name="string">Kann verkauft werden</attribute>
+                </xpath>
+                <xpath expr="//filter[@name='filter_to_purchase']" position="attributes">
+                    <attribute name="string">Kann eingekauft werden</attribute>
+                </xpath>
+                <xpath expr="//filter[@name='goods']" position="attributes">
+                    <attribute name="string">Produkte</attribute>
+                </xpath>
+            </field>
+        </record>
         <!-- Tree-View -->
         <record id="view_product_template_tree_itk" model="ir.ui.view">
             <field name="name">Product Template Tree ITK</field>
@@ -57,8 +107,19 @@
                 <xpath expr="//field[@name='type']" position="replace">
                     <field name="type" invisible="1"/>
                 </xpath>
-                <xpath expr="//group[@name='group_general']/field[last()]" position="after">
-                    <group string="Product-Typ" name="product_type">
+                <!-- 05.10.2026 (Session 123, Anna-Entscheidung): Die ITK-Gruppenueberschrift
+                     "Product-Typ" ueber dem Feld entfernt und die Position an Odoo 11
+                     angeglichen. Odoo 11 zeigte product_type_id ohne eigene
+                     Gruppenueberschrift direkt hinter "Produktart" am Anfang der Gruppe
+                     group_general; Odoo 18 zeigte es am Ende der Gruppe und darueber
+                     zusaetzlich "PRODUKT-TYP" (Odoo stellt Gruppentitel gross dar), also
+                     doppelt beschriftet. Das Feld behaelt seinen Odoo-11-Wortlaut
+                     "Product-Type".
+                     Die Gruppe bleibt ohne string bestehen: als direktes Kind von
+                     group_general verliert das Feld in Odoo 18 seine Beschriftung
+                     (im DOM steht dann kein Label-Knoten), in der Gruppe hat es sie. -->
+                <xpath expr="//group[@name='group_general']/field[@name='type']" position="after">
+                    <group name="product_type">
                         <field name="product_type_id"/>
                     </group>
                 </xpath>
