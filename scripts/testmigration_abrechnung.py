@@ -1,7 +1,7 @@
 """Testmigration Abrechnung: wenige repraesentative Datensaetze Odoo 11 -> Odoo 18 Testinstanz.
 
-Status: vorbereitet am 05.10.2026 (Session 123), NOCH NICHT AUSGEFUEHRT.
 Regel und Begruendung: docs/o11-o18-testmigration-regel.md
+Stand 05.10.2026 (Session 123). Erstlauf am 05.10.2026 auf der VM durchgefuehrt.
 
 Aufruf:
     python scripts/testmigration_abrechnung.py --instanz vm --plan          (Standard, schreibt nichts)
@@ -12,8 +12,16 @@ Grundsaetze:
   - Quelle Odoo 11 wird ausschliesslich gelesen.
   - Ziel darf nur die Testdatenbank sein (ODOO18_DB, geprueft gegen odoo18_test).
   - Beziehungen werden ueber fachliche Schluessel aufgeloest, nie ueber IDs.
-  - Jeder Fehler bricht ab (Exit-Code 1). Es wird nichts still uebersprungen.
-  - Erzeugte Datensaetze werden ins Protokoll geschrieben; --aufraeumen loescht nur diese.
+  - Jeder Fehler bricht ab (Exit-Code 1), nichts wird still uebersprungen.
+  - Erzeugte Datensaetze wandern in ein Protokoll; --aufraeumen loescht nur diese.
+
+Typzuordnung Produkte (Befund 05.10.2026): Odoo 11 fuehrt im Feld `type` auch ITK-Werte
+(consu, service, general, onlineservice, sw, consulting, platform, hw, project, product).
+Odoo 18 kennt nur consu/service/combo. Zuordnung:
+    consu -> consu, product -> consu + is_storable, service -> service,
+    ITK-Werte (onlineservice, sw, consulting, platform, hw, project, general) -> service.
+Zusaetzlich wird `product_type_id` ueber den Namen 1:1 uebernommen. Der Odoo-11-ITK-Wert in `type`
+hat in Odoo 18 keine 1:1-Entsprechung; das ist ein offener Mapping-Punkt fuer die echte Migration.
 """
 from __future__ import annotations
 
@@ -26,15 +34,13 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _o11o18_client import lade_env, o11, o18  # noqa: E402
 
 ZIEL_DB = "odoo18_test"
-PROTOKOLL = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-                         "docs", "_testmigration_protokoll.json")
+PROTOKOLL = os.path.join(os.environ.get("LOCALAPPDATA", "/tmp"), "Temp",
+                         "testmigration_protokoll.json")
 CTX = {"lang": "de_DE"}
 
 # Konten-Mapping aus docs/o11-o18-abrechnung-abschlusspruefung.md, Abschnitt 3
 KONTO_MAPPING = {"1201": "2801", "1410": "2000", "1776": "3500", "8400": "4000"}
-
-O11_BELEGARTEN = {"out_invoice": "Kundenrechnung", "out_refund": "Kunden-Gutschrift",
-                  "in_invoice": "Eingangsrechnung", "in_refund": "Lieferanten-Gutschrift"}
+ITK_TYPEN = {"onlineservice", "sw", "consulting", "platform", "hw", "project", "general"}
 
 
 def rpc(k, modell, methode, args, was, **kwargs):
@@ -46,88 +52,122 @@ def rpc(k, modell, methode, args, was, **kwargs):
 
 
 def name(von):
-    """m2o-Wert [id, name] -> Name, sonst None."""
     return von[1] if isinstance(von, (list, tuple)) and len(von) > 1 else None
+
+
+def typ_ziel(o11_typ):
+    """Odoo-11-Typ -> (Odoo-18-Typ, is_storable)."""
+    if o11_typ == "service":
+        return "service", None
+    if o11_typ == "product":
+        return "consu", True
+    if o11_typ == "consu":
+        return "consu", None
+    if o11_typ in ITK_TYPEN:
+        return "service", None      # ITK-Typen sind Dienstleistungen, siehe Modulkopf
+    raise SystemExit("ABBRUCH: unbekannter Odoo-11-Produkttyp %r - Zuordnung fehlt." % o11_typ)
 
 
 # --------------------------------------------------------------------------
 # 1. Auswahl in Odoo 11 (nur lesend)
 # --------------------------------------------------------------------------
+BELEG_FELDER = ["id", "number", "type", "state", "partner_id", "journal_id", "date_invoice",
+                "date_due", "payment_term_id", "currency_id", "amount_untaxed", "amount_tax",
+                "amount_total", "residual", "invoice_line_ids", "payment_ids"]
+ZEILEN_FELDER = ["id", "name", "quantity", "price_unit", "discount", "product_id", "account_id",
+                 "invoice_line_tax_ids", "account_analytic_id"]
+
+
 def waehle_belege(k):
-    """Waehlt je Belegart einen kleinen, mehrzeiligen Beleg - produktion schonend in zwei Schritten."""
-    felder = ["id", "number", "type", "state", "partner_id", "journal_id", "date_invoice",
-              "date_due", "payment_term_id", "currency_id", "amount_untaxed", "amount_tax",
-              "amount_total", "invoice_line_ids"]
+    """Je Belegart einen kleinen, mehrzeiligen Beleg; zusaetzlich eine bezahlte Rechnung mit Zahlung."""
     auswahl = {}
-    for art in ("out_invoice", "out_refund", "in_invoice", "in_refund"):
-        # 1. nur IDs holen (leicht), begrenzt, damit die Produktion nicht belastet wird.
-        #    Hinweis: Odoo 11 kennt die Zustaende draft/open/paid, NICHT posted.
+    for art, zustaende in (("out_invoice", ["open", "paid"]), ("out_refund", ["paid", "open"])):
         ids = rpc(k, "account.invoice", "search",
-                  [[("type", "=", art), ("state", "in", ["open", "paid"])], 0, 60],
+                  [[("type", "=", art), ("state", "in", zustaende)], 0, 60],
                   "Belege suchen (%s)" % art)
-        if not ids:
-            ids = rpc(k, "account.invoice", "search",
-                      [[("type", "=", art)], 0, 60], "Belege suchen (%s, ohne Status)" % art)
-        if not ids:
+        treffer = [b for b in rpc(k, "account.invoice", "read", [ids, BELEG_FELDER],
+                                  "Belege lesen (%s)" % art)
+                   if b["invoice_line_ids"] and len(b["invoice_line_ids"]) <= 10]
+        if treffer:
+            auswahl[art] = sorted(treffer, key=lambda b: -len(b["invoice_line_ids"]))[0]
+    # bezahlte Rechnung samt Zahlung (fuer die Kette Beleg -> Zahlung -> Abstimmung)
+    for art in ("in_invoice", "in_refund"):
+        if not rpc(k, "account.invoice", "search", [[("type", "=", art)], 0, 5],
+                   "Belege suchen (%s)" % art):
             print("   %s: in der Produktion nicht vorhanden (0 Datensaetze)." % art)
+    zahlungen = rpc(k, "account.payment", "search_read",
+                    [[("invoice_ids", "!=", False)], ["id", "name", "amount", "payment_date",
+                                                     "partner_id", "journal_id", "payment_method_id",
+                                                     "payment_type", "state", "invoice_ids"]],
+                    "Zahlungen lesen", limit=40)
+    for p in zahlungen:
+        if p["state"] != "posted" or len(p["invoice_ids"]) != 1:
             continue
-        # 2. nur diese Datensaetze lesen
-        treffer = rpc(k, "account.invoice", "read", [ids, felder], "Belege lesen (%s)" % art)
-        klein = [b for b in treffer if b["invoice_line_ids"] and len(b["invoice_line_ids"]) <= 10]
-        if klein:
-            auswahl[art] = sorted(klein, key=lambda b: -len(b["invoice_line_ids"]))[0]
-        if art == "out_invoice":
-            entwurf_ids = rpc(k, "account.invoice", "search",
-                              [[("type", "=", art), ("state", "=", "draft")], 0, 30],
-                              "Belegentwuerfe suchen")
-            if entwurf_ids:
-                entwuerfe = rpc(k, "account.invoice", "read", [entwurf_ids, felder],
-                                "Belegentwuerfe lesen")
-                passend = [b for b in entwuerfe if b["invoice_line_ids"] and len(b["invoice_line_ids"]) <= 10]
-                if passend:
-                    auswahl["out_invoice_draft"] = sorted(passend, key=lambda b: -len(b["invoice_line_ids"]))[0]
+        b = rpc(k, "account.invoice", "read", [p["invoice_ids"], BELEG_FELDER],
+                "Rechnung der Zahlung lesen")[0]
+        if (b["invoice_line_ids"] and len(b["invoice_line_ids"]) <= 10
+                and b["state"] == "paid" and abs(b["amount_total"] - p["amount"]) < 0.01):
+            auswahl["bezahlte_rechnung"] = b
+            auswahl["zahlung"] = p
+            break
+    entwuerfe = rpc(k, "account.invoice", "search",
+                    [[("type", "=", "out_invoice"), ("state", "=", "draft")], 0, 30],
+                    "Belegentwuerfe suchen")
+    if entwuerfe:
+        for b in rpc(k, "account.invoice", "read", [entwuerfe, BELEG_FELDER], "Entwuerfe lesen"):
+            if b["invoice_line_ids"] and len(b["invoice_line_ids"]) <= 10:
+                auswahl["out_invoice_draft"] = b
+                break
     return auswahl
 
 
 def waehle_zeilen(k, beleg):
-    zeilen = rpc(k, "account.invoice.line", "search_read",
-                 [[("invoice_id", "=", beleg["id"])],
-                  ["id", "name", "quantity", "price_unit", "discount", "product_id", "account_id",
-                   "invoice_line_tax_ids", "account_analytic_id"]], "Belegzeilen lesen")
-    return zeilen
+    return rpc(k, "account.invoice.line", "read", [beleg["invoice_line_ids"], ZEILEN_FELDER],
+               "Belegzeilen lesen")
 
 
-def waehle_stammdaten(k, belege):
-    """Journale, Konten, Steuern, Zahlungsbedingungen und Partner, die die Belege brauchen."""
-    partner_ids, journal_ids, konto_ids, steuer_ids, zahlungsbedingung_ids = set(), set(), set(), set(), set()
-    for b in belege.values():
-        if b.get("partner_id"):
-            partner_ids.add(b["partner_id"][0])
-        if b.get("journal_id"):
-            journal_ids.add(b["journal_id"][0])
-        if b.get("payment_term_id"):
-            zahlungsbedingung_ids.add(b["payment_term_id"][0])
-        for z in waehle_zeilen(k, b):
+def sammle_zeilen(k, belege):
+    return {t: (waehle_zeilen(k, b) if t != "zahlung" else []) for t, b in belege.items()}
+
+
+def waehle_stammdaten(k, belege, zeilen):
+    partner_ids, journal_ids, konto_ids, steuer_ids, bedingung_ids, produkt_ids = (set() for _ in range(6))
+    for t, b in belege.items():
+        if t == "zahlung":
+            if b.get("partner_id"):
+                partner_ids.add(b["partner_id"][0])
+            if b.get("journal_id"):
+                journal_ids.add(b["journal_id"][0])
+            continue
+        for feld, sammlung in (("partner_id", partner_ids), ("journal_id", journal_ids),
+                               ("payment_term_id", bedingung_ids)):
+            if b.get(feld):
+                sammlung.add(b[feld][0])
+        for z in zeilen[t]:
             if z.get("account_id"):
                 konto_ids.add(z["account_id"][0])
-            for t in (z.get("invoice_line_tax_ids") or []):
-                steuer_ids.add(t)
-    partner = rpc(k, "res.partner", "search_read", [[("id", "in", list(partner_ids))],
-                                                    ["id", "name", "is_company", "vat", "street",
-                                                     "zip", "city", "country_id", "lang",
-                                                     "property_payment_term_id", "customer",
-                                                     "supplier"]], "Partner lesen")
-    journale = rpc(k, "account.journal", "search_read", [[("id", "in", list(journal_ids))],
-                                                         ["id", "name", "code", "type"]], "Journale lesen")
-    konten = rpc(k, "account.account", "search_read", [[("id", "in", list(konto_ids))],
-                                                       ["id", "code", "name"]], "Konten lesen")
-    steuern = rpc(k, "account.tax", "search_read", [[("id", "in", list(steuer_ids))],
-                                                    ["id", "name", "amount", "type_tax_use"]],
-                  "Steuern lesen") if steuer_ids else []
-    bedingungen = rpc(k, "account.payment.term", "search_read",
-                      [[("id", "in", list(zahlungsbedingung_ids))], ["id", "name"]],
-                      "Zahlungsbedingungen lesen") if zahlungsbedingung_ids else []
-    return partner, journale, konten, steuern, bedingungen
+            if z.get("product_id"):
+                produkt_ids.add(z["product_id"][0])
+            steuer_ids.update(z.get("invoice_line_tax_ids") or [])
+    partner = rpc(k, "res.partner", "read", [sorted(partner_ids),
+                                             ["id", "name", "is_company", "vat", "street", "street2",
+                                              "zip", "city", "lang", "country_id", "customer",
+                                              "supplier", "property_payment_term_id", "ref", "email",
+                                              "phone", "community_salutation", "community_magnitude",
+                                              "commercial_company_name"]], "Partner lesen")
+    journale = rpc(k, "account.journal", "read", [sorted(journal_ids), ["id", "name", "code", "type"]],
+                   "Journale lesen")
+    konten = rpc(k, "account.account", "read", [sorted(konto_ids), ["id", "code", "name"]], "Konten lesen")
+    steuern = (rpc(k, "account.tax", "read", [sorted(steuer_ids),
+                                              ["id", "name", "amount", "amount_type", "type_tax_use",
+                                               "tax_group_id"]], "Steuern lesen") if steuer_ids else [])
+    bedingungen = (rpc(k, "account.payment.term", "read", [sorted(bedingung_ids), ["id", "name"]],
+                       "Zahlungsbedingungen lesen") if bedingung_ids else [])
+    produkte = rpc(k, "product.product", "read", [sorted(produkt_ids),
+                                                  ["id", "name", "type", "list_price", "sale_ok",
+                                                   "purchase_ok", "product_type_id", "invoice_policy",
+                                                   "taxes_id", "supplier_taxes_id"]], "Produkte lesen")
+    return partner, journale, konten, steuern, bedingungen, produkte
 
 
 # --------------------------------------------------------------------------
@@ -135,130 +175,310 @@ def waehle_stammdaten(k, belege):
 # --------------------------------------------------------------------------
 def pruefe_ziel(z, partner, journale, konten, steuern, bedingungen, produkte):
     plan = []
-    for kollektion, modell, feld, liste in (
-            ("Partner", "res.partner", "name", partner),
-            ("Journale", "account.journal", "code", journale),
-            ("Konten", "account.account", "code", konten),
-            ("Steuern", "account.tax", "name", steuern),
-            ("Zahlungsbedingungen", "account.payment.term", "name", bedingungen),
-            ("Produkte", "product.template", "name", produkte)):
-        for satz in liste:
-            schluessel = satz["code"] if modell == "account.account" else satz["name"]
-            schluessel = KONTO_MAPPING.get(schluessel, schluessel) if modell == "account.account" else schluessel
-            treffer = rpc(z, modell, "search_count", [[(feld, "=", schluessel)]],
-                          "Zielpruefung %s %r" % (modell, schluessel))
-            if not treffer:
-                plan.append({"schritt": "Stammdaten", "modell": modell, "schluessel": schluessel,
-                             "zustand": "fehlt im Ziel"})
-            elif treffer > 1:
-                raise SystemExit("ABBRUCH: Schluessel %r ist in %s nicht eindeutig (%d Treffer)."
-                                 % (schluessel, modell, treffer))
-            else:
-                plan.append({"schritt": "Stammdaten", "modell": modell, "schluessel": schluessel,
-                             "zustand": "vorhanden"})
+    def pruefe(modell, feld, wert, was):
+        treffer = rpc(z, modell, "search_count", [[(feld, "=", wert)]], "Zielpruefung %s %r" % (modell, wert))
+        if treffer > 1:
+            raise SystemExit("ABBRUCH: Schluessel %r ist in %s nicht eindeutig (%d Treffer)."
+                             % (wert, modell, treffer))
+        plan.append({"modell": modell, "schluessel": wert,
+                     "zustand": "vorhanden" if treffer else "fehlt im Ziel", "was": was})
+    for p in partner:
+        pruefe("res.partner", "name", p["name"], "Partner")
+    for j in journale:
+        pruefe("account.journal", "code", j["code"], "Journal")
+    for K in konten:
+        code = KONTO_MAPPING.get(str(K["code"]), str(K["code"]))
+        pruefe("account.account", "code", code, "Konto (gemappt von %s)" % K["code"])
+    for s in steuern:
+        pruefe("account.tax", "name", s["name"], "Steuer %s %s%%" % (s["name"], s["amount"]))
+    for b in bedingungen:
+        pruefe("account.payment.term", "name", b["name"], "Zahlungsbedingung")
+    for pr in produkte:
+        pruefe("product.template", "name", pr["name"], "Produkt")
     return plan
 
 
 # --------------------------------------------------------------------------
 # 3. Ausfuehren (nur mit --ausfuehren --ich-habe-freigabe)
 # --------------------------------------------------------------------------
-def lege_an(mitschrift, z, modell, werte, schluessel, was):
-    vorhanden = rpc(z, modell, "search", [[(schluessel[0], "=", schluessel[1])]],
-                    "Suche %s %r" % (modell, schluessel[1]))
+def lege_an(mitschrift, z, modell, werte, feld, wert, was):
+    vorhanden = rpc(z, modell, "search", [[(feld, "=", wert)]], "Suche %s %r" % (modell, wert))
     if vorhanden:
+        # Bereits vorhanden (z. B. Wiederholung nach einem Abbruch): nur vormerken, nicht loeschen.
+        mitschrift.append({"modell": modell, "id": vorhanden[0], "schluessel": wert, "neu": False})
         return vorhanden[0]
     neue = rpc(z, modell, "create", [werte], "Anlegen %s (%s)" % (modell, was))
-    mitschrift.append({"modell": modell, "id": neue, "schluessel": schluessel[1]})
+    mitschrift.append({"modell": modell, "id": neue, "schluessel": wert, "neu": True})
+    print("   angelegt: %-22s id=%-6s %s" % (modell, neue, wert))
     return neue
 
 
-def fuehre_aus(z, k, belege, partner, journale, konten, steuern, bedingungen, produkte, mitschrift):
-    # 1. Partner ueber fachlichen Schluessel (Name)
+def hole_steuergruppe(z, steuer):
+    """Steuergruppe im Ziel: gleicher Name, sonst Gruppe einer 20%-Verkaufssteuer."""
+    if steuer.get("tax_group_id"):
+        gleich = rpc(z, "account.tax.group", "search", [[("name", "=", name(steuer["tax_group_id"]))]],
+                     "Steuergruppe suchen")
+        if gleich:
+            return gleich[0]
+    vorhandene = rpc(z, "account.tax", "search", [[("amount", "=", steuer["amount"]),
+                                                   ("type_tax_use", "=", steuer["type_tax_use"]),
+                                                   ("tax_group_id", "!=", False)]], "Steuer suchen", limit=1)
+    if vorhandene:
+        return rpc(z, "account.tax", "read", [vorhandene, ["tax_group_id"]], "Steuergruppe lesen")[0]["tax_group_id"][0]
+    gruppen = rpc(z, "account.tax.group", "search", [[]], "Steuergruppen suchen", limit=1)
+    if not gruppen:
+        raise SystemExit("ABBRUCH: im Ziel existiert keine Steuergruppe.")
+    return gruppen[0]
+
+
+def fuehre_aus(z, k, belege, zeilen, partner, journale, konten, steuern, bedingungen, produkte,
+               mitschrift):
+    # --- Stammdaten in der dokumentierten Reihenfolge -----------------------
+    for j in journale:
+        lege_an(mitschrift, z, "account.journal",
+                {"name": j["name"], "code": j["code"], "type": j["type"]},
+                "code", j["code"], "Journal")
+    for s in steuern:
+        lege_an(mitschrift, z, "account.tax",
+                {"name": s["name"], "amount": s["amount"], "amount_type": s["amount_type"],
+                 "type_tax_use": s["type_tax_use"], "tax_group_id": hole_steuergruppe(z, s)},
+                "name", s["name"], "Steuer")
+    for b in bedingungen:
+        lege_an(mitschrift, z, "account.payment.term", {"name": b["name"]}, "name", b["name"],
+                "Zahlungsbedingung")
+    ziel_partner_felder = rpc(z, "res.partner", "fields_get", [[], ["type"]], "Partnerfelder lesen")
     for p in partner:
-        lege_an(mitschrift, z, "res.partner",
-                {"name": p["name"], "is_company": p["is_company"], "vat": p["vat"] or False,
-                 "street": p["street"] or False, "zip": p["zip"] or False, "city": p["city"] or False,
+        werte = {"name": p["name"], "is_company": p["is_company"], "vat": p["vat"] or False,
+                 "street": p["street"] or False, "street2": p["street2"] or False,
+                 "zip": p["zip"] or False, "city": p["city"] or False,
                  "lang": p["lang"] or "de_DE",
                  "customer_rank": 1 if p.get("customer") else 0,
-                 "supplier_rank": 1 if p.get("supplier") else 0},
-                ("name", p["name"]), "Partner")
-    # 2. Produkte
+                 "supplier_rank": 1 if p.get("supplier") else 0}
+        # ITK-Partnerfelder mitnehmen, sonst geht die sichtbare Organisationsbezeichnung verloren
+        # (Befund 05.10.2026: Odoo 11 zeigt "[20609] Marktgemeinde Greifenburg", das Feld `name`
+        #  enthaelt nur "Greifenburg").
+        for feld in ("ref", "email", "phone", "community_salutation", "community_magnitude",
+                     "commercial_company_name"):
+            if feld in ziel_partner_felder and p.get(feld):
+                werte[feld] = p[feld]
+        if p.get("country_id"):
+            land = rpc(k, "res.country", "read", [[p["country_id"][0]], ["code"]], "Land lesen")[0]["code"]
+            treffer = rpc(z, "res.country", "search", [[("code", "=", land)]], "Land suchen")
+            if not treffer:
+                raise SystemExit("ABBRUCH: Land %s fehlt im Ziel." % land)
+            werte["country_id"] = treffer[0]
+        lege_an(mitschrift, z, "res.partner", werte, "name", p["name"], "Partner")
     for pr in produkte:
-        lege_an(mitschrift, z, "product.template",
-                {"name": pr["name"], "type": "service" if pr["type"] == "service" else "consu",
-                 "list_price": pr["list_price"],
-                 "sale_ok": pr["sale_ok"], "purchase_ok": pr["purchase_ok"]},
-                ("name", pr["name"]), "Produkt")
-    # 3. Belege
-    for schluessel, b in belege.items():
-        ziel_partner = rpc(z, "res.partner", "search", [[("name", "=", name(b["partner_id"]))]],
-                           "Partner suchen")[0]
-        ziel_journal = rpc(z, "account.journal", "search", [[("code", "=", name(b["journal_id"]))]],
-                           "Journal suchen")[0]
-        zeilen = []
-        for ze in waehle_zeilen(k, b):
-            zeile = {"name": ze["name"], "quantity": ze["quantity"], "price_unit": ze["price_unit"],
-                     "discount": ze["discount"] or 0.0}
-            if ze.get("product_id"):
-                ziel_produkt = rpc(z, "product.product", "search",
-                                   [[("name", "=", name(ze["product_id"]))]], "Produkt suchen")
-                if ziel_produkt:
-                    zeile["product_id"] = ziel_produkt[0]
-            if ze.get("account_id"):
-                code = KONTO_MAPPING.get(name(ze["account_id"]).split()[0], name(ze["account_id"]).split()[0])
-                ziel_konto = rpc(z, "account.account", "search", [[("code", "=", code)]], "Konto suchen")
-                if ziel_konto:
-                    zeile["account_id"] = ziel_konto[0]
+        ziel_typ, storable = typ_ziel(pr["type"])
+        werte = {"name": pr["name"], "type": ziel_typ, "list_price": pr["list_price"],
+                 "sale_ok": pr["sale_ok"], "purchase_ok": pr["purchase_ok"]}
+        if storable is not None:
+            werte["is_storable"] = storable
+        if pr.get("invoice_policy"):
+            werte["invoice_policy"] = pr["invoice_policy"]
+        if pr.get("product_type_id"):
+            treffer = rpc(z, "itk_product.product_type", "search",
+                          [[("name", "=", name(pr["product_type_id"]))]], "Produkttyp suchen")
+            if not treffer:
+                raise SystemExit("ABBRUCH: Produkttyp %r fehlt im Ziel." % name(pr["product_type_id"]))
+            werte["product_type_id"] = treffer[0]
+        if pr.get("taxes_id"):
+            s = next((x for x in steuern if x["id"] == pr["taxes_id"][0]), None)
+            if s:
+                treffer = rpc(z, "account.tax", "search", [[("name", "=", s["name"])]], "Steuer suchen")
+                if treffer:
+                    werte["taxes_id"] = [(6, 0, treffer)]
+        lege_an(mitschrift, z, "product.template", werte, "name", pr["name"], "Produkt")
+
+    # --- Belege -------------------------------------------------------------
+    journal_code = {j["id"]: j["code"] for j in journale}
+    # Wichtig: der m2o-Anzeigename aus Odoo 11 traegt Praefixe (z. B.
+    # "[Gemeindeverband Karnische Region] Gemeindeverband Karnische Region").
+    # Aufgeloest wird ueber den echten Satznamen aus dem gelesenen Datensatz.
+    partner_name = {p["id"]: p["name"] for p in partner}
+    produkt_name = {pr["id"]: pr["name"] for pr in produkte}
+    neue_belege = {}
+    for t, b in belege.items():
+        if t == "zahlung":
+            continue
+        ziel_partner = rpc(z, "res.partner", "search",
+                           [[("name", "=", partner_name[b["partner_id"][0]])]], "Partner suchen")
+        ziel_journal = rpc(z, "account.journal", "search",
+                           [[("code", "=", journal_code[b["journal_id"][0]])]], "Journal suchen")
+        if not ziel_partner or not ziel_journal:
+            raise SystemExit("ABBRUCH: Partner oder Journal fuer %s fehlt im Ziel." % b["number"])
+        zeilen_werte = []
+        for z_ in zeilen[t]:
+            wz = {"name": z_["name"], "quantity": z_["quantity"], "price_unit": z_["price_unit"],
+                  "discount": z_["discount"] or 0.0}
+            if z_.get("product_id"):
+                treffer = rpc(z, "product.product", "search",
+                              [[("name", "=", produkt_name[z_["product_id"][0]])]], "Produkt suchen")
+                if treffer:
+                    wz["product_id"] = treffer[0]
+            if z_.get("account_id"):
+                alt = str(z_["account_id"][1]).split()[0]
+                code = KONTO_MAPPING.get(alt, alt)
+                treffer = rpc(z, "account.account", "search", [[("code", "=", code)]], "Konto suchen")
+                if not treffer:
+                    raise SystemExit("ABBRUCH: Konto %s (Odoo 11: %s) fehlt im Ziel."
+                                     % (code, z_["account_id"][1]))
+                wz["account_id"] = treffer[0]
             steuer_ids = []
-            for t in (ze.get("invoice_line_tax_ids") or []):
-                s = next((x for x in steuern if x["id"] == t), None)
+            for t_ in (z_.get("invoice_line_tax_ids") or []):
+                s = next((x for x in steuern if x["id"] == t_), None)
                 if s:
-                    ziel_steuer = rpc(z, "account.tax", "search",
-                                      [[("name", "=", s["name"]), ("amount", "=", s["amount"])]],
-                                      "Steuer suchen")
-                    if ziel_steuer:
-                        steuer_ids.append(ziel_steuer[0])
+                    treffer = rpc(z, "account.tax", "search", [[("name", "=", s["name"])]], "Steuer suchen")
+                    if treffer:
+                        steuer_ids.append(treffer[0])
             if steuer_ids:
-                zeile["tax_ids"] = [(6, 0, steuer_ids)]
-            zeilen.append((0, 0, zeile))
-        werte = {"move_type": b["type"], "partner_id": ziel_partner, "journal_id": ziel_journal,
+                wz["tax_ids"] = [(6, 0, steuer_ids)]
+            zeilen_werte.append((0, 0, wz))
+        werte = {"move_type": b["type"], "partner_id": ziel_partner[0], "journal_id": ziel_journal[0],
                  "invoice_date": b["date_invoice"], "invoice_date_due": b["date_due"],
                  "currency_id": rpc(z, "res.currency", "search",
                                     [[("name", "=", name(b["currency_id"]))]], "Waehrung suchen")[0],
-                 "invoice_line_ids": zeilen}
+                 "invoice_line_ids": zeilen_werte}
         if b.get("payment_term_id"):
-            ziel = rpc(z, "account.payment.term", "search",
-                       [[("name", "=", name(b["payment_term_id"]))]], "Zahlungsbedingung suchen")
-            if ziel:
-                werte["invoice_payment_term_id"] = ziel[0]
-        if "itk_o11_invoice_number" in rpc(z, "account.move", "fields_get", [[], ["type"]], "Felder pruefen"):
-            werte["itk_o11_invoice_number"] = b["number"]
-        neue = rpc(z, "account.move", "create", [werte], "Beleg anlegen (%s)" % b["number"])
-        mitschrift.append({"modell": "account.move", "id": neue, "schluessel": b["number"]})
-        if b["state"] == "posted":
-            rpc(z, "account.move", "action_post", [[neue]], "Beleg buchen (%s)" % b["number"])
-        # Kontrolle: Summen gegen Odoo 11
-        geprueft = rpc(z, "account.move", "read", [[neue], ["amount_untaxed", "amount_tax", "amount_total"]],
-                      "Summen lesen")[0]
-        print("   %-12s O11 %8.2f/%8.2f/%8.2f  O18 %8.2f/%8.2f/%8.2f"
+            treffer = rpc(z, "account.payment.term", "search",
+                          [[("name", "=", name(b["payment_term_id"]))]], "Zahlungsbedingung suchen")
+            if treffer:
+                werte["invoice_payment_term_id"] = treffer[0]
+        werte["itk_o11_invoice_number"] = b["number"] or ""
+        # Doppelanlage bei Wiederholung verhindern: erst ueber die Odoo-11-Nummer suchen,
+        # bei Entwuerfen (ohne Nummer) ueber Partner + Art + Datum.
+        vorhanden = rpc(z, "account.move", "search", [[("itk_o11_invoice_number", "=", b["number"])]],
+                        "Beleg suchen (Odoo-11-Nummer)") if b["number"] else []
+        if not vorhanden:
+            vorhanden = rpc(z, "account.move", "search",
+                            [[("partner_id", "=", ziel_partner[0]), ("move_type", "=", b["type"]),
+                              ("invoice_date", "=", b["date_invoice"]), ("state", "=", "draft")]],
+                            "Beleg suchen (Entwurf)")
+        if vorhanden:
+            neue = vorhanden[0]
+            mitschrift.append({"modell": "account.move", "id": neue, "schluessel": b["number"],
+                               "neu": False})
+            print("   Beleg %-12s ist im Ziel bereits vorhanden (id=%s) - nicht erneut angelegt."
+                  % (b["number"] or "Entwurf", neue))
+        else:
+            neue = rpc(z, "account.move", "create", [werte], "Beleg anlegen (%s)" % b["number"])
+            mitschrift.append({"modell": "account.move", "id": neue, "schluessel": b["number"],
+                               "neu": True})
+        neue_belege[t] = {"id": neue, "quelle": b}
+        if b["state"] in ("open", "paid"):
+            ist_zustand = rpc(z, "account.move", "read", [[neue], ["state"]], "Zustand lesen")[0]["state"]
+            if ist_zustand == "draft":
+                rpc(z, "account.move", "action_post", [[neue]], "Beleg buchen (%s)" % b["number"])
+            else:
+                print("   Beleg %-12s ist bereits im Zustand %s." % (b["number"], ist_zustand))
+        geprueft = rpc(z, "account.move", "read",
+                       [[neue], ["name", "state", "amount_untaxed", "amount_tax", "amount_total",
+                                 "amount_residual", "payment_state", "itk_o11_invoice_number"]],
+                       "Beleg gegenlesen")[0]
+        print("   Beleg %-12s O11 %8.2f/%8.2f/%8.2f  O18 %8.2f/%8.2f/%8.2f  Zustand %s Zahlung %s"
               % (b["number"], b["amount_untaxed"], b["amount_tax"], b["amount_total"],
-                 geprueft["amount_untaxed"], geprueft["amount_tax"], geprueft["amount_total"]))
+                 geprueft["amount_untaxed"], geprueft["amount_tax"], geprueft["amount_total"],
+                 geprueft["state"], geprueft["payment_state"]))
+        print("        Odoo-11-Nummer im Ziel: %r | Odoo-18-Nummer: %s"
+              % (geprueft["itk_o11_invoice_number"], geprueft["name"]))
+
+    # --- Zahlung mit Abstimmung --------------------------------------------
+    if "zahlung" in belege and "bezahlte_rechnung" in neue_belege:
+        p = belege["zahlung"]
+        ziel_journal = rpc(z, "account.journal", "search",
+                           [[("code", "=", journal_code[p["journal_id"][0]])]], "Journal suchen")
+        methode = rpc(z, "account.payment.method.line", "search_read",
+                      [[("journal_id", "=", ziel_journal[0]), ("payment_type", "=", "inbound")],
+                       ["id", "name"]], "Zahlungsart suchen")
+        if not ziel_journal or not methode:
+            raise SystemExit("ABBRUCH: Journal oder Zahlungsart fuer die Zahlung fehlt im Ziel.")
+        partner_id = rpc(z, "res.partner", "search", [[("name", "=", partner_name[p["partner_id"][0]])]],
+                         "Partner suchen")[0]
+        # Zahlung idempotent: die Odoo-11-Zahlungsnummer steht in `memo`.
+        # Hinweis: ein Feld itk_o11_payment_number gibt es in Odoo 18 nicht (Befund 05.10.2026).
+        vorhandene_zahlung = rpc(z, "account.payment", "search", [[("memo", "=", p["name"])]],
+                                 "Zahlung suchen")
+        if vorhandene_zahlung:
+            zahlung_id = vorhandene_zahlung[0]
+            mitschrift.append({"modell": "account.payment", "id": zahlung_id,
+                               "schluessel": p["name"], "neu": False})
+            print("   Zahlung %s ist im Ziel bereits vorhanden (id=%s)." % (p["name"], zahlung_id))
+        else:
+            werte = {"payment_type": "inbound", "partner_type": "customer", "partner_id": partner_id,
+                     "amount": p["amount"], "date": p["payment_date"],
+                     "journal_id": ziel_journal[0], "payment_method_line_id": methode[0]["id"],
+                     "memo": p["name"]}
+            zahlung_id = rpc(z, "account.payment", "create", [werte], "Zahlung anlegen (%s)" % p["name"])
+            mitschrift.append({"modell": "account.payment", "id": zahlung_id,
+                               "schluessel": p["name"], "neu": True})
+            rpc(z, "account.payment", "action_post", [[zahlung_id]], "Zahlung buchen")
+        # Abstimmung ausdruecklich herstellen: das Feld reconciled_invoice_ids beim Anlegen
+        # stimmt in Odoo 18 nicht ab (gemessen 05.10.2026).
+        ziel_rechnung = neue_belege["bezahlte_rechnung"]["id"]
+        zahlung_move = rpc(z, "account.payment", "read", [[zahlung_id], ["move_id"]],
+                           "Zahlungsbuchung lesen")[0]["move_id"][0]
+        zeilen = []
+        for move_id in (ziel_rechnung, zahlung_move):
+            zeilen += rpc(z, "account.move.line", "search",
+                          [[("move_id", "=", move_id),
+                            ("account_id.account_type", "=", "asset_receivable")]],
+                          "Forderungszeile suchen")
+        if len(zeilen) >= 2:
+            rpc(z, "account.move.line", "reconcile", [zeilen], "Abstimmen")
+        else:
+            raise SystemExit("ABBRUCH: fuer die Abstimmung wurden nur %d Forderungszeilen gefunden."
+                             % len(zeilen))
+        zustand = rpc(z, "account.move", "read",
+                      [[ziel_rechnung], ["name", "payment_state", "amount_residual"]],
+                      "Zahlungsstatus lesen")[0]
+        print("   Zahlung %-18s %8.2f gebucht und abgestimmt; Rechnung %s -> Zahlungsstatus %s,"
+              " Restbetrag %.2f"
+              % (p["name"], p["amount"], neue_belege["bezahlte_rechnung"]["quelle"]["number"],
+                 zustand["payment_state"], zustand["amount_residual"]))
     return mitschrift
 
 
-def raeume_auf(z, mitschrift):
+def raeume_auf(z):
     if not os.path.exists(PROTOKOLL):
         raise SystemExit("ABBRUCH: kein Protokoll %s - nichts zu entfernen." % PROTOKOLL)
     daten = json.load(open(PROTOKOLL, encoding="utf-8"))
-    anzahl = 0
-    for eintrag in reversed(daten.get("angelegt", [])):
-        if eintrag["modell"] == "account.move":
-            rpc(z, "account.move", "button_draft", [[eintrag["id"]]], "Beleg in Entwurf")
-            rpc(z, "account.move", "unlink", [[eintrag["id"]]], "Beleg entfernen")
-        else:
-            rpc(z, eintrag["modell"], "unlink", [[eintrag["id"]]], "Datensatz entfernen")
+    eintraege = [e for e in reversed(daten.get("angelegt", [])) if e.get("neu", True)]
+    # Mehrfachlaeufe vermerken denselben Datensatz mehrfach -> eindeutig machen.
+    gesehen, eindeutig = set(), []
+    for e in eintraege:
+        schluessel = (e["modell"], e["id"])
+        if schluessel in gesehen:
+            continue
+        gesehen.add(schluessel)
+        eindeutig.append(e)
+    eintraege = eindeutig
+    anzahl, fehlend = 0, 0
+
+    def weg(modell, eintrag, vortext=None):
+        """Loescht einen Datensatz; fehlt er schon, wird das nur vermerkt."""
+        nonlocal anzahl, fehlend
+        if not rpc(z, modell, "search", [[("id", "=", eintrag["id"])]], "Existenz pruefen"):
+            fehlend += 1
+            return
+        if vortext:
+            try:
+                rpc(z, modell, vortext, [[eintrag["id"]]], "Vorbereiten %s" % modell)
+            except SystemExit as f:
+                print("   Hinweis: %s" % str(f)[:160])
+        rpc(z, modell, "unlink", [[eintrag["id"]]], "Datensatz entfernen (%s)" % modell)
         anzahl += 1
-    print("Entfernt: %d Datensaetze (nur die im Protokoll vermerkten)." % anzahl)
+
+    for e in eintraege:
+        if e["modell"] == "account.payment":
+            weg("account.payment", e, "action_draft")
+    for e in eintraege:
+        if e["modell"] == "account.move":
+            weg("account.move", e, "button_draft")
+    for e in eintraege:
+        if e["modell"] not in ("account.move", "account.payment"):
+            weg(e["modell"], e)
+    print("Entfernt: %d Datensaetze (nur die im Protokoll vermerkten); %d waren bereits weg."
+          % (anzahl, fehlend))
     return anzahl
 
 
@@ -274,38 +494,39 @@ def main() -> int:
     env = lade_env()
     if env.get("ODOO18_DB") != ZIEL_DB:
         raise SystemExit("ABBRUCH: Ziel-DB ist %r, erlaubt ist nur %r." % (env.get("ODOO18_DB"), ZIEL_DB))
-    if a.ausfuehren and not a.ich_have_freigabe:
+    if a.ausfuehren and not a.ich_habe_freigabe:
         raise SystemExit("ABBRUCH: --ausfuehren verlangt zusaetzlich --ich-habe-freigabe.")
 
     k, z = o11(), o18(a.instanz)
     print("Quelle: Odoo 11 Produktion (nur lesend) | Ziel: %s (%s)" % (a.instanz, ZIEL_DB))
 
     if a.aufraeumen:
-        raeume_auf(z, None)
+        raeume_auf(z)
         return 0
 
     belege = waehle_belege(k)
-    print("\nAusgewaehlte Belege: %s" % ", ".join("%s=%s (%s, %d Zeilen)"
-          % (O11_BELEGARTEN.get(t, t), b["number"] or "Entwurf", b["state"], len(b["invoice_line_ids"]))
-          for t, b in belege.items()))
-    partner, journale, konten, steuern, bedingungen = waehle_stammdaten(k, belege)
-    produkt_ids = set()
-    for b in belege.values():
-        for ze in waehle_zeilen(k, b):
-            if ze.get("product_id"):
-                produkt_ids.add(ze["product_id"][0])
-    produkte = rpc(k, "product.product", "search_read",
-                   [[("id", "in", list(produkt_ids)[:6])],
-                    ["id", "name", "type", "list_price", "sale_ok", "purchase_ok"]], "Produkte lesen")
+    zeilen = sammle_zeilen(k, belege)
+    print("\nAusgewaehlte Datensaetze:")
+    for t, b in belege.items():
+        if t == "zahlung":
+            print("   %-20s %s, %.2f, %s" % (t, b["name"], b["amount"], b["payment_date"]))
+        else:
+            print("   %-20s %-12s %-8s %6d Zeilen, brutto %.2f, Rest %.2f"
+                  % (t, b["number"] or "Entwurf", b["state"], len(b["invoice_line_ids"]),
+                     b["amount_total"], b["residual"]))
+    partner, journale, konten, steuern, bedingungen, produkte = waehle_stammdaten(k, belege, zeilen)
     print("Stammdaten: %d Partner, %d Journale, %d Konten, %d Steuern, %d Zahlungsbedingungen, %d Produkte"
           % (len(partner), len(journale), len(konten), len(steuern), len(bedingungen), len(produkte)))
+    for pr in produkte:
+        print("   Produkt %-58s O11-Typ %-14s -> O18 %s%s" % (
+            pr["name"][:58], pr["type"], typ_ziel(pr["type"])[0],
+            " + is_storable" if typ_ziel(pr["type"])[1] else ""))
 
     plan = pruefe_ziel(z, partner, journale, konten, steuern, bedingungen, produkte)
     fehlend = [x for x in plan if x["zustand"] == "fehlt im Ziel"]
-    print("\nPlan (Stammdaten): %d Positionen, davon %d im Ziel noch nicht vorhanden."
-          % (len(plan), len(fehlend)))
+    print("\nPlan: %d Positionen, davon %d im Ziel noch nicht vorhanden." % (len(plan), len(fehlend)))
     for x in fehlend:
-        print("   fehlt: %-22s %s" % (x["modell"], x["schluessel"]))
+        print("   fehlt: %-22s %-30s %s" % (x["modell"], x["schluessel"][:30], x["was"]))
 
     if not a.ausfuehren:
         print("\nTROCKENLAUF: Es wurde nichts geschrieben.")
@@ -313,8 +534,21 @@ def main() -> int:
         return 0
 
     mitschrift = []
+    if os.path.exists(PROTOKOLL):
+        alt = json.load(open(PROTOKOLL, encoding="utf-8")).get("angelegt", [])
+        # Nur noch existierende Eintraege uebernehmen (nach einem Aufraeumen sind sie weg).
+        offen = []
+        for e in alt:
+            if e.get("neu", True) and not rpc(z, e["modell"], "search",
+                                              [[("id", "=", e["id"])]], "Existenz pruefen"):
+                continue
+            offen.append(e)
+        mitschrift.extend(offen)
+        print("\nHinweis: %d von %d Eintraegen aus einem frueheren Lauf noch vorhanden."
+              % (len(offen), len(alt)))
     try:
-        fuehre_aus(z, k, belege, partner, journale, konten, steuern, bedingungen, produkte, mitschrift)
+        fuehre_aus(z, k, belege, zeilen, partner, journale, konten, steuern, bedingungen, produkte,
+                   mitschrift)
     finally:
         with open(PROTOKOLL, "w", encoding="utf-8") as fh:
             json.dump({"angelegt": mitschrift}, fh, ensure_ascii=False, indent=1)
