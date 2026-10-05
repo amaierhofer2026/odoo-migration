@@ -144,3 +144,30 @@ Lieferanten-Gutschrift) - sie nutzen alle dieselbe Ansicht `account.view_move_fo
 Werkzeuge: `scripts/pruefe_zeilenspalten.py` (Arch der Zeilenliste je Belegart),
 `scripts/_zeilen_testdaten.py` (Testbelege je Belegart anlegen/pruefen/aufraeumen),
 `scripts/browser_zeilen_beschreibung.py` (Browserabnahme).
+
+## 7. Ergebnis lokal und VM
+
+| Pruefung | lokal | VM |
+|---|---|---|
+| Spalte "Beschreibung" genau einmal, Position nach "Sektion" | ja (alle vier Belegarten) | ja (alle vier Belegarten) |
+| Beschreibungstext sichtbar | ja | ja |
+| Spaltenauswahl ohne Doppelung | ja | ja |
+| Abschnitt/Notiz, Griffspalte, Zeile/Abschnitt/Notiz/Katalog | vorhanden | vorhanden |
+| Eingabe moeglich, nichts gespeichert | ja | ja |
+| Browserlauf `browser_zeilen_beschreibung.py` | 112 OK / 0 FEHL | 112 OK / 0 FEHL |
+| Screenshots | `Desktop/Odoo18-Abnahme-Session125/zeilen_beschreibung/lokal` | `.../vm` |
+
+Weitere Nachweise derselben Runde: Modulversion 18.0.1.12.0 lokal = VM, Feldbeschriftungen
+155 Feldpaare / 0 Abweichungen (lokal und VM), View-Bezeichnungen ohne unbegruendete Abweichung,
+Feldabdeckung 273 belegte Felder / 0 Luecken, Regression Verkauf/Abonnements 886 OK / 0 FEHL,
+Modul- und Menuevergleich lokal = VM ohne Abweichung.
+
+Testdaten restlos entfernt: lokal 40 -> 44 -> 40 Belege (106 -> 122 -> 106 Zeilen),
+VM 62 -> 66 -> 62 Belege (170 -> 186 -> 170 Zeilen).
+
+**Betriebslehre:** In Odoo 18 ist `installed_version` kein Datenbankfeld mehr, sondern ein
+berechnetes Feld aus dem Manifest auf der Platte - der laufende Server haelt den beim Start
+gelesenen Wert fest. Nach einem Upgrade ueber einen zweiten Prozess zeigt der laufende Server
+deshalb weiter die alte Version, obwohl die Datei neu ist; erst ein Neustart
+(`docker restart odoo18` bzw. `docker compose restart odoo`) gleicht die Anzeige an.
+

@@ -8274,5 +8274,19 @@ Befund von Anna aus der manuellen Abnahme: im Reiter "Rechnungszeilen" fehlte di
   Wert sichtbar, Menue ohne Doppelung, Abschnitt/Notiz erhalten, Eingabe moeglich und nicht
   gespeichert. Testbelege (`scripts/_zeilen_testdaten.py`, Marker TEST-ZEILE-) danach restlos
   entfernt. Doku: `docs/o11-o18-abrechnung-zeilen-beschreibung.md`.
+- **Nachweis VM:** VM auf Commit d8ce51c, Modul 18.0.1.12.0 lokal = VM, Upgrade per
+  `docker compose run --rm -T odoo odoo -u itk_account_migration ...` + `docker compose restart
+  odoo`, danach Label-Abgleich (apply 20 gesetzt / 0 Abweichungen, Check 155 Feldpaare / 0).
+  `scripts/browser_zeilen_beschreibung.py --instanz vm` **112 OK / 0 FEHL** fuer alle vier
+  Belegarten (Testbelege id 144-147, `BESCHREIBUNG <Belegart>` sichtbar, Spaltenauswahl ohne
+  Doppelung, Abschnitt/Notiz erhalten, Eingabe moeglich). Testbelege restlos entfernt:
+  VM 62 -> 66 -> 62 Belege und 170 -> 186 -> 170 Zeilen; lokal 40 -> 44 -> 40 und 106 -> 122 -> 106.
+  Abschlusscheck: Feldabdeckung 273/0, View-Bezeichnungen lokal und VM ohne Abweichung,
+  Regression Verkauf/Abonnements 886 OK / 0 FEHL, Modul- und Menuevergleich lokal = VM.
+- **Betriebslehre (zweite Runde zum Neustart):** `installed_version` ist in Odoo 18 kein
+  DB-Feld mehr, sondern ein berechnetes Feld aus dem Manifest auf der Platte; der laufende Server
+  haelt den beim Start gelesenen Wert. Nach einem Upgrade ueber einen zweiten Prozess zeigt er
+  deshalb weiter die alte Version (hier lokal 18.0.1.11.0 statt 12.0), erst `docker restart odoo18`
+  bzw. `docker compose restart odoo` gleicht das an. Nicht als fehlgeschlagenes Upgrade deuten.
 - Werkzeuge: `scripts/browser_zeilen_beschreibung.py`, `scripts/pruefe_zeilenspalten.py`,
   `scripts/_zeilen_testdaten.py`, `scripts/_o11_zeilen_formular.py` (Odoo-11-Spalten, read-only).
