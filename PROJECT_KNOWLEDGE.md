@@ -8290,3 +8290,70 @@ Befund von Anna aus der manuellen Abnahme: im Reiter "Rechnungszeilen" fehlte di
   bzw. `docker compose restart odoo` gleicht das an. Nicht als fehlgeschlagenes Upgrade deuten.
 - Werkzeuge: `scripts/browser_zeilen_beschreibung.py`, `scripts/pruefe_zeilenspalten.py`,
   `scripts/_zeilen_testdaten.py`, `scripts/_o11_zeilen_formular.py` (Odoo-11-Spalten, read-only).
+
+## Session 126: Meldung "Ungueltige Felder: Partner" - Ursache gefunden und behoben (05.10.2026)
+
+Anlass: Anna meldete aus der manuellen Kontrolle, dass beim blossen Oeffnen von
+"Abonnements > Verkauf > Eingaenge" rechts "Ungueltige Felder: Partner" erscheint, ohne dass sie
+etwas geaendert hat.
+
+- **Der genannte Menuepfad existiert nicht.** Die App "Abonnements" hat lokal und auf der VM
+  dieselben 10 Menuepunkte, darunter **kein** "Verkauf" und **kein** "Eingaenge"; Odoo 11 ebenso
+  (App 379). Die einzigen "Eingaenge"-Menuepunkte sind 198 `Abrechnung > Verkauf > Eingaenge`
+  (Aktion 360, `account.move`, `move_type=out_receipt`), 205 `Abrechnung > Einkauf > Eingaenge`
+  (Aktion 361) und 928 `Lager > Vorgaenge > Transfers` (Server-Aktion, `stock.picking`).
+- **Belege aus dem VM-Serverprotokoll:** Anna hat `11:26:23 GET /odoo/action-360` und
+  `11:26:31 GET /odoo/action-361` geoeffnet (ihre IP), im selben Zeitraum **kein** ERROR und
+  **keine** Schreibzugriffe. Beide Menuepunkte oeffnen heute fehlerfrei - lokal und VM, per URL
+  und per echtem Menueklick (Sweep ueber 21 Menuepunkte, zwei Klickfolgen). Der Ausloeser, der in
+  ihrer Sitzung ein Speichern angestossen hat, liess sich nicht reproduzieren (URL, Menueklick,
+  Sitzungswechsel, Neuanlage, Verlassen eines partnerlosen Entwurfs - alles ohne Meldung).
+- **Ursache der Meldung:** Sie ist eine Client-Meldung des Odoo-18-Webclients
+  (`web/static/src/model/relational_model/record.js`, `"Invalid fields: "`); sie listet die
+  **Beschriftungen** aller in der Ansicht pflichtigen, leeren Felder beim Speichern. Odoo 11
+  fuehrte `account.invoice.partner_id` modellpflichtig, Odoo 18 fuehrt
+  `account.move.partner_id` **nicht** pflichtig (`required=False`; pflichtig sind nur Journal,
+  Buchungsdatum, Waehrung, Typ). Der ITK-Kopfblock hatte `required="1"` ergaenzt - damit war jeder
+  Entwurf ohne Partner nicht speicherbar und die Meldung lautete genau "Ungueltige Felder: Partner".
+  Betroffene bestehende Entwuerfe: lokal id 15, 16; VM id 15, 16 und 97 (alle aus frueheren
+  Sitzungen, 09./10.07. und 01.10.2026).
+- **Audit (Auftrag "stille View-/Pflichtfeldfehler"):** `scripts/pruefe_pflichtfelder.py` prueft
+  fuer `account.move`, `account.move.line`, `account.payment`, `sale.subscription`,
+  `sale.subscription.line`, `sale.subscription.template`, `product.template`, `account.journal`,
+  `account.analytic.account`, `helpdesk.ticket` jede sichtbare Pflichtfeldkennzeichnung in
+  Formular- und Listenansichten gegen die Datensaetze. Vorher: **ein** Befund
+  (`account.move.partner_id`, leer=2 lokal/3 VM). Nachher: **keiner**, beide Instanzen.
+- **Korrektur:** `views/account_move_form_kopf.xml` - `required="1"` am Feld `partner_id` entfernt
+  (Modul 18.0.1.12.0 -> 18.0.1.13.0). Kein Feld umbenannt, keine Datenlogik geaendert, Odoo-18-
+  Modell und Buchen unangetastet. Sichtbare Folge: ein leerer Kunde wird nicht mehr als
+  Pflichtfeld gekennzeichnet (kein rotes Label/Rahmen); Schriftstaerke unveraendert (500).
+- **A/B-Nachweis im Browser** (`scripts/browser_pflichtfeld_ab.py lokal|vm <id>`): Ansicht
+  voruebergehend ueber die ORM mit bzw. ohne `required="1"`, gleicher Datensatz, Kunde leer,
+  Leistungszeitraum geaendert, Speichern:
+  A (alt) Meldung **"Ungueltige Felder: Partner"**, nichts gespeichert;
+  B (neu) keine Meldung, Wert gespeichert. Lokal (132/133) und VM (148) identisch.
+  Bilder: `Desktop/Odoo18-Abnahme-Session126/pflichtfeld_partner/<instanz>/{A_mit_required,B_ohne_required}.png`.
+- **Abnahme** (`scripts/browser_pflichtfeld_abnahme.py`): **lokal 14 OK / 0 FEHL**, **VM 14 OK /
+  0 FEHL** - Testbeleg ohne Partner oeffnet ohne Meldung, Kunde nicht mehr pflichtig
+  gekennzeichnet, Aenderung speichert ohne Meldung, Kunde setzen und speichern
+  (`[79, '[20201] Magistrat der Stadt Villach']`), `Verkauf > Eingaenge` und `Einkauf > Eingaenge`
+  oeffnen ohne Meldung, Neu anlegen moeglich, Reiter "Andere Informationen" und Statusleiste
+  vorhanden (keine Odoo-18-Zusatzfunktion entfernt).
+- **Testdaten:** lokal 132/133 angelegt und restlos entfernt, VM 148 angelegt und entfernt;
+  Bestand lokal 40, VM 62 vorher = nachher.
+- **Abschlusscheck:** Labels lokal 155/0 und VM 155/0 (nach dem VM-Upgrade war
+  `apply_abrechnung_labels.py --instanz vm` nachzuziehen - das Upgrade setzt deutsche
+  Feldbeschriftungen zurueck, 20 Labels neu gesetzt); Ansicht
+  `account.move.form.itk.o11.kopfbereich` lokal und VM byteidentisch (sha256 `ba832b7d27fee7da`)
+  ohne `required`; Modul 18.0.1.13.0 lokal = VM; Menue-/Modulvergleich lokal = VM;
+  Regression Verkauf/Abonnements 886 OK / 0 FEHL (11 Prueflaeufe).
+- **Doku-Korrektur:** Die bisherige Aussage "Fettschrift = Modellvorgabe von Odoo 18 (u. a. Kunde)"
+  in `docs/o11-o18-abrechnung-ausgangsrechnungen-visuell.md` war falsch - `Kunde` war kein
+  Modellpflichtfeld, sondern in unserer Ansicht pflichtig gesetzt. Beide Stellen berichtigt.
+  Neues Dokument: `docs/o11-o18-abrechnung-partner-pflichtfeld.md`.
+- **Bereich Abonnements:** auf ausdruecklichen Wunsch von Anna am 05.10.2026 wieder
+  **IN ARBEIT / manuelle Nachkontrolle offen** gesetzt (Abschnitt 6.14 der
+  `MIGRATION_READINESS_CHECKLIST.md`). Abrechnung bleibt ebenfalls IN ARBEIT.
+- **Betriebslehre:** Nach jedem Modul-Upgrade `apply_abrechnung_labels.py --instanz lokal|vm`
+  nachziehen (sonst englische Quelltexte auf der VM); Pflichtfelder nie aus Optik in der Ansicht
+  setzen/entfernen, sondern vorher messen, ob Odoo 18 das Feld selbst pflichtig fuehrt.

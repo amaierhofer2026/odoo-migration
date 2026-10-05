@@ -1582,11 +1582,21 @@ VM gleichartig, Regression 886 OK / 0 FEHL.
 Kein Blocker fuer eine spaetere Testmigration eines einzelnen Rechnungsdatensatzes.
 ```
 
-### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-15: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte, Produktformular), erste Abnahme 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119), Teil 15 am 24.09.2026 (Session 120) auf der VM im Browser abgenommen
+### 6.14 Abonnements / Subscriptions - **IN ARBEIT: MANUELLE NACHKONTROLLE DURCH ANNA OFFEN** (zurueckgesetzt am 05.10.2026, Session 126, auf ausdruecklichen Wunsch von Anna; vorher gefuehrt als "abgeschlossen". Teile 1-15: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte, Produktformular), erste Abnahme 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119), Teil 15 am 24.09.2026 (Session 120) auf der VM im Browser abgenommen
 
 Dokument: `docs/o11-o18-vergleich-abo-teil1.md`; Teil 14: `docs/o11-o18-vergleich-abo-teil14.md`; Teil 15: `docs/o11-o18-vergleich-abo-teil15-produktformular.md`; Uebergabe und Vollstaendigkeitsbestaetigung: `docs/uebergabe-session-120-abonnements.md` (24.09.2026: jedes in Odoo 11 verwendete Feld, Reiter, Button, Smart Button, Statuswechsel, Filter, Gruppierung und jeder Geschaeftsprozess ist gleich vorhanden, funktional gleichwertig an anderer Stelle vorhanden oder bewusst dokumentiert; keine offene funktionale Abweichung).
 
-**STATUS (24.09.2026, Session 120): ABONNEMENTS = VOLLSTAENDIG FUNKTIONSFAEHIG UND MIGRATIONSVORBEREITET (Teile 1-15).**
+**STATUS (05.10.2026, Session 126): ABONNEMENTS = IN ARBEIT - MANUELLE NACHKONTROLLE DURCH ANNA OFFEN.**
+Der Bereich wird bis zum Abschluss der manuellen Kontrolle durch Anna ausdruecklich **nicht** als
+migrationsbereit gefuehrt (Zuruecksetzung am 05.10.2026 auf ihren Wunsch). Die Teile 1-15 bleiben
+inhaltlich gueltig, sind aber nicht mehr die abschliessende Bewertung. Die Meldung "Ungueltige
+Felder: Partner", die Anna im Umfeld des Menuepunkts Verkauf/Einkauf > Eingaenge gesehen hat, hatte
+ihre Ursache ausserhalb des Abo-Moduls (Rechnungsformular, siehe
+`docs/o11-o18-abrechnung-partner-pflichtfeld.md`); der Menuepunkt selbst oeffnet auf beiden
+Instanzen fehlerfrei. Die Abo-Ansichten wurden im selben Zug auf Pflichtfeld- und View-Fehler
+geprueft (`scripts/pruefe_pflichtfelder.py`, Befund: keine).
+Ursprungsvermerk zu Teil 15 (24.09.2026, Session 120): ABONNEMENTS = VOLLSTAENDIG
+FUNKTIONSFAEHIG UND MIGRATIONSVORBEREITET (Teile 1-15).
 Der Unterbereich "Abonnement Produkte" wurde in Teil 15 vollstaendig gegengeprueft (alle Reiter,
 Felder, Bezeichnungen, Typen/Relationen, Sichtbarkeitsregeln, Buttons, Pflichtfelder,
 funktionale Zusammenhaenge; Odoo 11 Prod read-only) und danach auf der VM abgenommen.

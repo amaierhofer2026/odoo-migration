@@ -15,7 +15,14 @@ import sys
 import urllib.request
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-VIEW_ID = 4379  # account.move.form.itk.o11.kopfbereich
+def view_id():
+    r = rpc("ir.ui.view", "search_read",
+            [[["name", "=", "account.move.form.itk.o11.kopfbereich"]], ["id"]])
+    if not r:
+        raise SystemExit("ABBRUCH: Ansicht account.move.form.itk.o11.kopfbereich nicht gefunden")
+    return r[0]["id"]
+
+
 ALT = '<field name="partner_id" nolabel="1" readonly="state != \'draft\'"/>'
 MIT = '<field name="partner_id" nolabel="1" required="1" readonly="state != \'draft\'"/>'
 
@@ -75,6 +82,7 @@ VZ = os.path.join(os.path.expanduser("~"), "Desktop", "Odoo18-Abnahme-Session126
                   "pflichtfeld_partner", inst)
 os.makedirs(VZ, exist_ok=True)
 
+VIEW_ID = view_id()
 start = arch_lesen()
 print("Ansicht %s, Laenge %s Zeichen, required im Knoten: %s"
       % (VIEW_ID, len(start),

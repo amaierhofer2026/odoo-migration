@@ -65,11 +65,15 @@ Ansichts-Upgrade fehlerfrei, Regression 0 Fehler.
 - Kopfbereich: die Odoo-11-Kopffelder stehen jetzt als eigene Gruppe "Angaben wie in Odoo 11"
   rechts neben Rechnungsdatum/Faelligkeit (vorher in der linken Spalte, dadurch verrutschte
   Darstellung mit Leerflaechen). Kunde und Lieferadresse bleiben zusammen in der linken Spalte.
-- Fettschrift: In Odoo 18 werden Pflichtfelder fett dargestellt (Feldattribut `required`, u. a.
-  Kunde, Rechnungsdatum, Journal). Das ist eine Modellvorgabe von Odoo 18 und keine
-  Ansichts-Eigenheit; eine Angleichung wuerde Pflichtfeldpruefungen abschalten (funktionale
-  Aenderung) und ist deshalb bewusst unterblieben. Alle uebrigen Bezeichnungen sind gleich
-  dargestellt.
+- Pflichtfeld/Fettschrift: In Odoo 18 stellt der Client ein Feld nur dann als Pflichtfeld dar, wenn
+  das Feld im Modell pflichtig ist oder das Feldattribut `required` in der Ansicht gesetzt wird.
+  `account.invoice.partner_id` war in Odoo 11 modellpflichtig, `account.move.partner_id` ist es in
+  Odoo 18 nicht (`required=False`, gemessen). Der ITK-Kopfblock hatte deshalb `required="1"`
+  ergaenzt; dadurch liessen sich vorhandene Entwuerfe ohne Partner nicht speichern und der Client
+  meldete "Ungueltige Felder: Partner". Das Attribut wurde am 05.10.2026 (Session 126) entfernt -
+  Einzelheiten und Nachweis: `docs/o11-o18-abrechnung-partner-pflichtfeld.md`. Die uebrigen
+  Pflichtfelder (Journal, Buchungsdatum, Waehrung, Typ) sind Modellvorgaben von Odoo 18 und
+  bleiben unveraendert.
 - Spalten der Rechnungszeilen jetzt sichtbar in Odoo-11-Reihenfolge:
   `Line NO. | Produkt / Beschreibung | Sektion | Kostenstelle | Menge | Preis pro ME |
   Rabatt (%) | Steuern | Zwischensumme | Total`
@@ -118,9 +122,12 @@ Umsetzung der Korrektur
 3. Zeilen-Spalten unveraendert in Odoo-11-Reihenfolge, jetzt mit "Sektion" und "Total":
    Line NO. | Produkt / Beschreibung | Sektion | Kostenstelle | Menge | Preis pro ME |
    Rabatt (%) | Steuern | Zwischensumme | Total
-4. Fettschrift: fett = Pflichtfeld (Attribut `required`, z. B. Kunde, Rechnungsdatum, Journal).
-   Modellvorgabe von Odoo 18, keine Ansichtseigenheit; eine Angleichung wuerde die
-   Pflichtfeldpruefung abschalten (funktionale Aenderung) - daher bewusst unveraendert.
+4. Pflichtfeld/Fettschrift: Pflichtfelder sind Journal, Buchungsdatum, Waehrung und Typ
+   (Modellvorgaben von Odoo 18, unveraendert). `Kunde` wurde in der Ansicht zusaetzlich pflichtig
+   gesetzt; das widerspricht dem Odoo-18-Modell (`account.move.partner_id required=False`) und
+   blockierte das Speichern von Entwuerfen ohne Partner ("Ungueltige Felder: Partner"). Das
+   Attribut ist am 05.10.2026 (Session 126) entfernt; siehe
+   `docs/o11-o18-abrechnung-partner-pflichtfeld.md`.
 
 Browser-Nachweis: Screenshot lokal und VM (Desktop/Odoo18-Abnahme-Session122/rechnung/),
 sichtbar saubere Zweispaltigkeit von Beschriftung und Wert, Zeilenspalten wie oben.
