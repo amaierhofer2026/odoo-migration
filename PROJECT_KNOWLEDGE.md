@@ -8058,5 +8058,9 @@ entfernt werden, sonst bleibt eine verwaiste Beschriftung sichtbar ("Waehrung" o
   `python scripts/apply_abrechnung_labels.py --instanz vm` -> 68 gesetzt, wieder 155 Feldpaare / 0.
 - Pruefstand 05.10.2026: Feldabdeckung 273 belegte Felder / 0 Luecken, Beschriftungen lokal 155/0
   und VM 155/0, Regression Verkauf 886 OK / 0 FEHL (jeweils lokal und VM).
-- Randnotiz: `scripts/pruefe_abschluss_feldabdeckung.py` verschluckt Einzelfehler still
+- Randnotiz: `scripts/pruefe_abschluss_feldabdeckung.py` verschluckte Einzelfehler still
   (`except Exception: continue`); ein Lauf meldete dadurch einmal 272 statt 273.
+  **Behoben am 05.10.2026:** Jeder fehlgeschlagene RPC bricht den Lauf jetzt mit Exit-Code 1 ab
+  (Modell, Methode, Argumente werden genannt), ein Modell ohne Datensaetze bricht ebenfalls ab,
+  Luecken ergeben Exit-Code 2. Nachweis: `--selbsttest` endet mit Exit-Code 1.
+  Der strenge Lauf meldet 273 belegte Felder / 0 Luecken und weist 374 gepruefte Felder aus.

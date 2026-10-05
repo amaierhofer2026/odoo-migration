@@ -85,6 +85,11 @@ is_matched), Restbetrag (amount_residual), Kostenstellenverteilung als Verteilun
 
 Pruefskript: `scripts/pruefe_abschluss_feldabdeckung.py` (zaehlt je Modell die Felder mit Werten
 in Odoo 11, ohne berechnete/abgeleitete Felder, und prueft, ob sie im Mapping enthalten sind).
+Seit 05.10.2026 (Session 123) bricht das Skript bei jedem technischen Fehler ab (Exit-Code 1) und
+nennt Modell, Methode und Argumente; ein Modell ohne Datensaetze bricht ebenfalls ab. Gefundene
+Luecken beenden den Lauf mit Exit-Code 2. Grund: Ein frueherer Lauf meldete durch stilles
+Ueberspringen einmal 272 statt 273 belegte Felder. Den Abbruch belegt
+`python scripts/pruefe_abschluss_feldabdeckung.py --selbsttest` (muss mit Exit-Code 1 enden).
 Zahlen siehe Abschnitt 10 (Abschlusszahlen).
 
 ## 9. Weitere belegte Felder und ihre Behandlung
