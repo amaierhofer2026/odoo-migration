@@ -168,6 +168,21 @@ Befunde, die fuer die echte Migration wichtig sind:
    `community_magnitude` und der Kurzname (`commercial_company_name`) wandern mit.
    Verbleibende, beabsichtigte Abweichung: der `[ref]`-Praefix steht in Odoo 18 im Feld `ref`
    und nicht im Anzeigenamen.
+### 10.1 Bewusste, fachlich gleichwertige Abweichungen zu Odoo 11 (Entscheidung Anna, 05.10.2026)
+
+Beide Punkte werden **nicht** an Odoo 11 angeglichen. Sie sind bewusst so entschieden und
+fachlich gleichwertig:
+
+- **"Gutgeschrieben" statt "Bezahlt":** Eine vollstaendig gutgeschriebene Rechnung fuehrt Odoo 18
+  im Zahlungsstatus als `reversed` und zeigt "Gutgeschrieben"; Odoo 11 zeigte dafuer "Bezahlt".
+  Voraussetzung fuer diese Bewertung - im Testlauf belegt: Restbetrag = 0,00, Gegenbeleg/
+  Gutschrift korrekt verknuepft und die Abstimmung fachlich vollstaendig. Es wird **nicht**
+  kuenstlich auf "Bezahlt" umbenannt (kein Eingriff in die Odoo-18-Statuslogik).
+- **Partnername ohne `[ref]`-Praefix:** Odoo 11 zeigte den Partner als "[20609] Marktgemeinde
+  Greifenburg", Odoo 18 zeigt "Marktgemeinde Greifenburg"; der Referenzwert steht weiterhin im
+  Feld `ref`. Die sichtbare Bezeichnung (Organisationsbezeichnung aus `community_salutation`)
+  bleibt damit erhalten, nur der Praefix wird in Odoo 18 nicht in den Anzeigenamen gezogen.
+
 3. **Journal/Nummernfolge:** Ursache geklaert - Odoo 11 fuehrt genau ein Verkaufsjournal
    "Ausgangsrechnungen" mit dem Code "Re.:"; Odoo 18 uebernahm den Code und bildete daraus
    "Re.:/2026/00001" bzw. "RRe.:/2026/00001". Das Ziel hat bereits "Kundenrechnungen" mit Code

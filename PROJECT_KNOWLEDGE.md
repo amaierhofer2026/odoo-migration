@@ -8166,3 +8166,17 @@ entfernt werden, sonst bleibt eine verwaiste Beschriftung sichtbar ("Waehrung" o
 - **Punkt 7:** Keine Eingangsrechnungen in Odoo 11; es wird nichts erzeugt.
 - **Zweiter Testlauf:** 96 Pruefungen bestanden, 0 Abweichungen, 5 dokumentierte Hinweise.
   Nach dem Aufraeumen (22 Datensaetze) Bestand exakt wie vorher.
+
+
+## Session 123, Teil 6: Zwei bewusste Abweichungen entschieden (05.10.2026)
+
+Anna entscheidet, beide Punkte bleiben so und werden als **bewusste, fachlich gleichwertige
+Odoo-18-Abweichung** dokumentiert (nicht auf Odoo 11 angleichen):
+
+- **Zahlungsstatus "Gutgeschrieben" statt "Bezahlt"** bei vollstaendig gutgeschriebenen Rechnungen.
+  Voraussetzung, im Testlauf belegt: Restbetrag 0,00, Gegenbeleg/Gutschrift korrekt verknuepft,
+  Abstimmung fachlich vollstaendig. Kein kuenstliches Umbenennen auf "Bezahlt".
+- **Partner-Anzeigename ohne `[ref]`-Praefix** ("Marktgemeinde Greifenburg" statt
+  "[20609] Marktgemeinde Greifenburg"); der Referenzwert bleibt im Feld `ref`.
+
+Dokumentationsort: `docs/o11-o18-testmigration-regel.md`, Abschnitt 10.1.
