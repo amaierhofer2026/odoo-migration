@@ -69,13 +69,18 @@ def main() -> int:
                    [[("id", "in", sorted(unsere.get("res.partner", [])))],
                     ["name", "is_company", "vat", "street", "zip", "city", "ref"]])
     for pz in partner:
-        quelle = k.kw("res.partner", "search_read", [[("name", "=", pz["name"])],
-                                                     ["name", "display_name", "is_company", "vat",
-                                                      "street", "zip", "city", "ref"]])
+        # Punkt 2: der uebernommene Anzeigename ist community_salutation, sonst name
+        quelle = k.kw("res.partner", "search_read",
+                      [["|", ("community_salutation", "=", pz["name"]), ("name", "=", pz["name"])],
+                       ["name", "display_name", "is_company", "vat", "street", "zip",
+                        "city", "ref", "community_salutation"]])
         if not quelle:
             pruefe(False, "Partner %s in Odoo 11 gefunden" % pz["name"])
             continue
         q = quelle[0]
+        pruefe((q.get("community_salutation") or q["name"]) == pz["name"],
+               "Partner %-42s sichtbarer Name uebernommen" % pz["name"][:42],
+               q.get("community_salutation") or q["name"], pz["name"])
         pruefe(q["is_company"] == pz["is_company"] and (q["vat"] or False) == (pz["vat"] or False)
                and (q["street"] or "") == (pz["street"] or "") and (q["zip"] or "") == (pz["zip"] or ""),
                "Partner %-42s Firma/VAT/Strasse/PLZ uebernommen" % pz["name"][:42],
@@ -98,9 +103,9 @@ def main() -> int:
         q = k.kw("product.template", "search_read", [[("name", "=", pr["name"])],
                                                      ["name", "type", "list_price", "sale_ok",
                                                       "purchase_ok", "product_type_id"]])[0]
-        erwartet = "service" if (q["type"] == "service" or q["type"] in
-                                 {"onlineservice", "sw", "consulting", "platform", "hw", "project", "general"}
-                                 ) else "consu"
+        # Punkt 1: der Typ wird 1:1 uebernommen (die Zielauswahl kennt dieselben ITK-Werte);
+        # nur der Odoo-11-Typ "product" wird zu consu + is_storable.
+        erwartet = "consu" if q["type"] == "product" else q["type"]
         ok = (pr["type"] == erwartet and pr["sale_ok"] == q["sale_ok"]
               and pr["purchase_ok"] == q["purchase_ok"] and pr["list_price"] == q["list_price"])
         if q["product_type_id"]:
@@ -145,12 +150,15 @@ def main() -> int:
         # Verglichen wird deshalb der Satzname des Partners, den Odoo 11 ueber die Interne
         # Referenz liefert.
         qp = k.kw("res.partner", "search_read", [[("id", "=", q["partner_id"][0])],
-                                                 ["name", "ref", "display_name"]])[0]
-        pruefe(qp["name"] == move["partner_id"][1],
-               "Beleg %-12s Partner ueber Namen" % nummer, qp["name"], move["partner_id"][1])
-        pruefe(q["journal_id"][1].split(" (")[0] == move["journal_id"][1].split(" (")[0]
-               or q["journal_id"][1].startswith(move["journal_id"][1].split(" (")[0]),
-               "Beleg %-12s Journal" % nummer, q["journal_id"][1], move["journal_id"][1])
+                                                 ["name", "ref", "display_name",
+                                                  "community_salutation"]])[0]
+        pruefe((qp.get("community_salutation") or qp["name"]) == move["partner_id"][1],
+               "Beleg %-12s Partner ueber sichtbaren Namen" % nummer,
+               qp.get("community_salutation") or qp["name"], move["partner_id"][1])
+        # Punkt 3: Odoo-11-Journal "Ausgangsrechnungen"/"Re.:" wird auf das Zieljournal
+        # "Kundenrechnungen"/"RE" abgebildet; die Nummer kommt aus der Zielsequenz.
+        pruefe(move["journal_id"][1].split(" (")[0] in ("Kundenrechnungen", "Customer Invoices"),
+               "Beleg %-12s Journal im Ziel" % nummer, "Kundenrechnungen", move["journal_id"][1])
         pruefe(q["date_invoice"] == move["invoice_date"] and q["date_due"] == move["invoice_date_due"],
                "Beleg %-12s Rechnungsdatum/Faelligkeit" % nummer,
                (q["date_invoice"], q["date_due"]), (move["invoice_date"], move["invoice_date_due"]))
@@ -195,7 +203,8 @@ def main() -> int:
     print("\n== 3 Zahlungen und historische Nummern")
     for pid in sorted(unsere.get("account.payment", [])):
         pz = z.kw("account.payment", "read", [[pid], ["name", "amount", "date", "memo", "state",
-                                                      "partner_id", "journal_id", "move_id"]])[0]
+                                                      "partner_id", "journal_id", "move_id",
+                                                      "itk_o11_payment_number"]])[0]
         q = k.kw("account.payment", "search_read", [[("name", "=", pz["memo"])],
                                                     ["name", "amount", "payment_date", "partner_id",
                                                      "journal_id", "state"]])
@@ -210,6 +219,10 @@ def main() -> int:
                "Zahlung %-18s Journal" % pz["memo"], q["journal_id"][1], pz["journal_id"][1])
         pruefe(pz["state"] in ("paid", "in_process"),
                "Zahlung %-18s gebucht (Odoo-18-Zustand)" % pz["memo"], "paid/in_process", pz["state"])
+        # Punkt 4: die Odoo-11-Zahlungsnummer gehoert in das Herkunftsfeld
+        pruefe(pz.get("itk_o11_payment_number") == pz["memo"],
+               "Zahlung %-18s Odoo-11-Nummer im Herkunftsfeld" % pz["memo"],
+               pz["memo"], pz.get("itk_o11_payment_number"))
         zeilen = z.kw("account.move.line", "search_read",
                       [[("move_id", "=", pz["move_id"][0]), ("reconciled", "=", True)],
                        ["id", "amount_residual"]])
@@ -261,6 +274,13 @@ def main() -> int:
     fremde_zeilen = [l for l in zeilen if (l["move_id"] or [0])[0] not in unsere_moves]
     pruefe(not fremde_zeilen, "account.move.line   keine fremden Aenderungen seit Migrationsstart",
            "0 fremde", len(fremde_zeilen))
+
+    # Punkt 3: keine unsauberen Nummern mehr
+    unsauber = z.kw("account.move", "search_read",
+                    [[("id", "in", sorted(unsere.get("account.move", [])))], ["name"]])
+    schlecht = [m["name"] for m in unsauber
+                if m["name"] and ("Re.:" in m["name"] or "RRe" in m["name"])]
+    pruefe(not schlecht, "Belegnummern ohne Journalcode-Reste (Punkt 3)", "0", schlecht)
 
     print("\n=== Ergebnis ===")
     print("bestanden: %d | Abweichungen: %d" % (len(befunde), len(abweichungen)))

@@ -40,7 +40,21 @@ CTX = {"lang": "de_DE"}
 
 # Konten-Mapping aus docs/o11-o18-abrechnung-abschlusspruefung.md, Abschnitt 3
 KONTO_MAPPING = {"1201": "2801", "1410": "2000", "1776": "3500", "8400": "4000"}
-ITK_TYPEN = {"onlineservice", "sw", "consulting", "platform", "hw", "project", "general"}
+# Punkt 3 (05.10.2026): Der Odoo-11-Journalcode "Re.:" wird NICHT uebernommen. Er erzeugt im
+# Ziel unbrauchbare Nummern ("Re.:/2026/00001", bei Gutschriften "RRe.:/2026/00001"). Odoo 11
+# hat genau ein Verkaufsjournal; im Ziel heisst es "Kundenrechnungen" mit Code "RE". Das
+# Mapping laeuft daher ueber den Journalcode. Die Odoo-11-Rechnungsnummer bleibt in
+# itk_o11_invoice_number erhalten, die Odoo-18-Nummer kommt aus der Zielsequenz (Regel K2a/K2b).
+JOURNAL_MAPPING = {"Re.:": "RE"}
+# Punkt 1 (05.10.2026): Die Odoo-18-Typauswahl des Moduls itk_product kennt dieselben
+# ITK-Werte wie Odoo 11 (consu, service, combo, general, onlineservice, sw, consulting,
+# platform, hw, project) - nachgewiesen per fields_get auf lokal und VM. Deshalb wird der Typ
+# 1:1 uebernommen. KEIN pauschales Umstellen auf service: "general" betrifft allein 273
+# Produkte, "platform" 94, "onlineservice" 74, "sw" 9 (Stand 05.10.2026).
+# Sonderfall: Odoo 11 kennt zusaetzlich den Typ "product" (Lagerartikel). Den gibt es in
+# Odoo 18 nicht; er wird auf consu + is_storable abgebildet (0 Produkte betroffen).
+ITK_TYPEN = {"onlineservice", "sw", "consulting", "platform", "hw", "project", "general",
+             "combo"}
 
 
 def rpc(k, modell, methode, args, was, **kwargs):
@@ -56,15 +70,11 @@ def name(von):
 
 
 def typ_ziel(o11_typ):
-    """Odoo-11-Typ -> (Odoo-18-Typ, is_storable)."""
-    if o11_typ == "service":
-        return "service", None
+    """Odoo-11-Typ -> (Odoo-18-Typ, is_storable) nach der Regel im Modulkopf."""
     if o11_typ == "product":
-        return "consu", True
-    if o11_typ == "consu":
-        return "consu", None
-    if o11_typ in ITK_TYPEN:
-        return "service", None      # ITK-Typen sind Dienstleistungen, siehe Modulkopf
+        return "consu", True          # Odoo-11-Lagerartikel -> consu + Bestand verfolgen
+    if o11_typ == "consu" or o11_typ in ITK_TYPEN:
+        return o11_typ, None          # 1:1, die Zielauswahl kennt dieselben Werte
     raise SystemExit("ABBRUCH: unbekannter Odoo-11-Produkttyp %r - Zuordnung fehlt." % o11_typ)
 
 
@@ -73,7 +83,7 @@ def typ_ziel(o11_typ):
 # --------------------------------------------------------------------------
 BELEG_FELDER = ["id", "number", "type", "state", "partner_id", "journal_id", "date_invoice",
                 "date_due", "payment_term_id", "currency_id", "amount_untaxed", "amount_tax",
-                "amount_total", "residual", "invoice_line_ids", "payment_ids"]
+                "amount_total", "residual", "invoice_line_ids", "payment_ids", "move_id"]
 ZEILEN_FELDER = ["id", "name", "quantity", "price_unit", "discount", "product_id", "account_id",
                  "invoice_line_tax_ids", "account_analytic_id"]
 
@@ -118,6 +128,36 @@ def waehle_belege(k):
             if b["invoice_line_ids"] and len(b["invoice_line_ids"]) <= 10:
                 auswahl["out_invoice_draft"] = b
                 break
+    # Punkt 6: Belege einbeziehen, gegen die in Odoo 11 abgestimmt wurde. In Odoo 11 kann eine
+    # Gutschrift gegen eine Rechnung abgestimmt sein (kein account.payment) - ohne den
+    # Gegenbeleg laesst sich dieser Zustand im Ziel nicht herstellen.
+    bereits = {b["id"] for s, b in auswahl.items() if s != "zahlung"}
+    gegenstuecke = set()
+    for s, b in list(auswahl.items()):
+        if s == "zahlung" or not b.get("move_id"):
+            continue
+        meine = rpc(k, "account.move.line", "search", [[("move_id", "=", b["move_id"][0])]],
+                    "Buchungszeilen der Rechnung suchen")
+        for ze in rpc(k, "account.move.line", "read", [meine, ["full_reconcile_id"]],
+                      "Abstimmung lesen"):
+            if not ze["full_reconcile_id"]:
+                continue
+            partner_zeilen = rpc(k, "account.move.line", "search",
+                                 [[("full_reconcile_id", "=", ze["full_reconcile_id"][0]),
+                                   ("id", "not in", meine)]], "Gegenzeilen suchen")
+            for gz in rpc(k, "account.move.line", "read", [partner_zeilen, ["move_id"]],
+                          "Gegenzeilen lesen"):
+                andere = rpc(k, "account.invoice", "search", [[("move_id", "=", gz["move_id"][0])]],
+                             "Gegenbeleg suchen")
+                if andere and andere[0] not in bereits:
+                    gegenstuecke.add(andere[0])
+    for gid in sorted(gegenstuecke):
+        b = rpc(k, "account.invoice", "read", [[gid], BELEG_FELDER], "Gegenbeleg lesen")[0]
+        if b["invoice_line_ids"] and len(b["invoice_line_ids"]) <= 10 and \
+                b["type"] in ("out_invoice", "out_refund"):
+            auswahl["gegenbeleg_%s" % gid] = b
+            print("   Gegenbeleg einbezogen: %s (%s, %d Zeilen, gegen den ausgewaehlten Beleg "
+                  "abgestimmt)" % (b["number"], b["type"], len(b["invoice_line_ids"])))
     return auswahl
 
 
@@ -185,7 +225,9 @@ def pruefe_ziel(z, partner, journale, konten, steuern, bedingungen, produkte):
     for p in partner:
         pruefe("res.partner", "name", p["name"], "Partner")
     for j in journale:
-        pruefe("account.journal", "code", j["code"], "Journal")
+        # Punkt 3: Abbildung des Odoo-11-Codes auf das Zieljournal
+        pruefe("account.journal", "code", JOURNAL_MAPPING.get(j["code"], j["code"]),
+               "Journal (Odoo 11: %s)" % j["code"])
     for K in konten:
         code = KONTO_MAPPING.get(str(K["code"]), str(K["code"]))
         pruefe("account.account", "code", code, "Konto (gemappt von %s)" % K["code"])
@@ -234,10 +276,8 @@ def hole_steuergruppe(z, steuer):
 def fuehre_aus(z, k, belege, zeilen, partner, journale, konten, steuern, bedingungen, produkte,
                mitschrift):
     # --- Stammdaten in der dokumentierten Reihenfolge -----------------------
-    for j in journale:
-        lege_an(mitschrift, z, "account.journal",
-                {"name": j["name"], "code": j["code"], "type": j["type"]},
-                "code", j["code"], "Journal")
+    # Journale werden NICHT angelegt: die Odoo-11-Journale werden ueber JOURNAL_MAPPING auf die
+    # vorhandenen Zieljournale abgebildet (Punkt 3).
     for s in steuern:
         lege_an(mitschrift, z, "account.tax",
                 {"name": s["name"], "amount": s["amount"], "amount_type": s["amount_type"],
@@ -248,7 +288,13 @@ def fuehre_aus(z, k, belege, zeilen, partner, journale, konten, steuern, bedingu
                 "Zahlungsbedingung")
     ziel_partner_felder = rpc(z, "res.partner", "fields_get", [[], ["type"]], "Partnerfelder lesen")
     for p in partner:
-        werte = {"name": p["name"], "is_company": p["is_company"], "vat": p["vat"] or False,
+        # Punkt 2 (05.10.2026): Odoo 11 zeigt den Partner als "[ref] community_salutation"
+        # (z. B. "[20609] Marktgemeinde Greifenburg"), das Feld `name` enthaelt nur "Greifenburg".
+        # Odoo 18 bildet diese Zusammensetzung nicht nach - ohne Regel verliert der Kunde seine
+        # sichtbare Bezeichnung. Deshalb: sichtbarer Name = community_salutation, sonst name.
+        # Der Kurzname bleibt in `name`... -> siehe commercial_company_name, `ref` bleibt `ref`.
+        sichtbarer_name = p.get("community_salutation") or p["name"]
+        werte = {"name": sichtbarer_name, "is_company": p["is_company"], "vat": p["vat"] or False,
                  "street": p["street"] or False, "street2": p["street2"] or False,
                  "zip": p["zip"] or False, "city": p["city"] or False,
                  "lang": p["lang"] or "de_DE",
@@ -257,8 +303,10 @@ def fuehre_aus(z, k, belege, zeilen, partner, journale, konten, steuern, bedingu
         # ITK-Partnerfelder mitnehmen, sonst geht die sichtbare Organisationsbezeichnung verloren
         # (Befund 05.10.2026: Odoo 11 zeigt "[20609] Marktgemeinde Greifenburg", das Feld `name`
         #  enthaelt nur "Greifenburg").
-        for feld in ("ref", "email", "phone", "community_salutation", "community_magnitude",
-                     "commercial_company_name"):
+        # Kurznamen aus Odoo 11 getrennt festhalten, damit nichts verloren geht
+        if "commercial_company_name" in ziel_partner_felder and p.get("name"):
+            werte["commercial_company_name"] = p["name"]
+        for feld in ("ref", "email", "phone", "community_salutation", "community_magnitude"):
             if feld in ziel_partner_felder and p.get(feld):
                 werte[feld] = p[feld]
         if p.get("country_id"):
@@ -267,7 +315,7 @@ def fuehre_aus(z, k, belege, zeilen, partner, journale, konten, steuern, bedingu
             if not treffer:
                 raise SystemExit("ABBRUCH: Land %s fehlt im Ziel." % land)
             werte["country_id"] = treffer[0]
-        lege_an(mitschrift, z, "res.partner", werte, "name", p["name"], "Partner")
+        lege_an(mitschrift, z, "res.partner", werte, "name", sichtbarer_name, "Partner")
     for pr in produkte:
         ziel_typ, storable = typ_ziel(pr["type"])
         werte = {"name": pr["name"], "type": ziel_typ, "list_price": pr["list_price"],
@@ -295,7 +343,8 @@ def fuehre_aus(z, k, belege, zeilen, partner, journale, konten, steuern, bedingu
     # Wichtig: der m2o-Anzeigename aus Odoo 11 traegt Praefixe (z. B.
     # "[Gemeindeverband Karnische Region] Gemeindeverband Karnische Region").
     # Aufgeloest wird ueber den echten Satznamen aus dem gelesenen Datensatz.
-    partner_name = {p["id"]: p["name"] for p in partner}
+    # Punkt 2: derselbe sichtbare Name wie beim Anlegen (community_salutation, sonst name)
+    partner_name = {p["id"]: (p.get("community_salutation") or p["name"]) for p in partner}
     produkt_name = {pr["id"]: pr["name"] for pr in produkte}
     neue_belege = {}
     for t, b in belege.items():
@@ -303,8 +352,12 @@ def fuehre_aus(z, k, belege, zeilen, partner, journale, konten, steuern, bedingu
             continue
         ziel_partner = rpc(z, "res.partner", "search",
                            [[("name", "=", partner_name[b["partner_id"][0]])]], "Partner suchen")
+        journal_ziel_code = JOURNAL_MAPPING.get(journal_code[b["journal_id"][0]],
+                                                journal_code[b["journal_id"][0]])
         ziel_journal = rpc(z, "account.journal", "search",
-                           [[("code", "=", journal_code[b["journal_id"][0]])]], "Journal suchen")
+                           [[("code", "=", journal_ziel_code)]], "Journal suchen")
+        if not ziel_journal:
+            raise SystemExit("ABBRUCH: Zieljournal mit Code %r fehlt." % journal_ziel_code)
         if not ziel_partner or not ziel_journal:
             raise SystemExit("ABBRUCH: Partner oder Journal fuer %s fehlt im Ziel." % b["number"])
         zeilen_werte = []
@@ -394,10 +447,11 @@ def fuehre_aus(z, k, belege, zeilen, partner, journale, konten, steuern, bedingu
             raise SystemExit("ABBRUCH: Journal oder Zahlungsart fuer die Zahlung fehlt im Ziel.")
         partner_id = rpc(z, "res.partner", "search", [[("name", "=", partner_name[p["partner_id"][0]])]],
                          "Partner suchen")[0]
-        # Zahlung idempotent: die Odoo-11-Zahlungsnummer steht in `memo`.
-        # Hinweis: ein Feld itk_o11_payment_number gibt es in Odoo 18 nicht (Befund 05.10.2026).
-        vorhandene_zahlung = rpc(z, "account.payment", "search", [[("memo", "=", p["name"])]],
-                                 "Zahlung suchen")
+        # Zahlung idempotent ueber die Odoo-11-Zahlungsnummer im Herkunftsfeld
+        # (Punkt 4: account.payment.itk_o11_payment_number existiert im Modul
+        # itk_account_migration und ist auf lokal und VM installiert).
+        vorhandene_zahlung = rpc(z, "account.payment", "search",
+                                 [[("itk_o11_payment_number", "=", p["name"])]], "Zahlung suchen")
         if vorhandene_zahlung:
             zahlung_id = vorhandene_zahlung[0]
             mitschrift.append({"modell": "account.payment", "id": zahlung_id,
@@ -407,35 +461,127 @@ def fuehre_aus(z, k, belege, zeilen, partner, journale, konten, steuern, bedingu
             werte = {"payment_type": "inbound", "partner_type": "customer", "partner_id": partner_id,
                      "amount": p["amount"], "date": p["payment_date"],
                      "journal_id": ziel_journal[0], "payment_method_line_id": methode[0]["id"],
-                     "memo": p["name"]}
+                     "memo": p["name"], "itk_o11_payment_number": p["name"]}
             zahlung_id = rpc(z, "account.payment", "create", [werte], "Zahlung anlegen (%s)" % p["name"])
             mitschrift.append({"modell": "account.payment", "id": zahlung_id,
                                "schluessel": p["name"], "neu": True})
             rpc(z, "account.payment", "action_post", [[zahlung_id]], "Zahlung buchen")
-        # Abstimmung ausdruecklich herstellen: das Feld reconciled_invoice_ids beim Anlegen
-        # stimmt in Odoo 18 nicht ab (gemessen 05.10.2026).
-        ziel_rechnung = neue_belege["bezahlte_rechnung"]["id"]
-        zahlung_move = rpc(z, "account.payment", "read", [[zahlung_id], ["move_id"]],
-                           "Zahlungsbuchung lesen")[0]["move_id"][0]
-        zeilen = []
-        for move_id in (ziel_rechnung, zahlung_move):
-            zeilen += rpc(z, "account.move.line", "search",
-                          [[("move_id", "=", move_id),
-                            ("account_id.account_type", "=", "asset_receivable")]],
-                          "Forderungszeile suchen")
-        if len(zeilen) >= 2:
-            rpc(z, "account.move.line", "reconcile", [zeilen], "Abstimmen")
-        else:
-            raise SystemExit("ABBRUCH: fuer die Abstimmung wurden nur %d Forderungszeilen gefunden."
-                             % len(zeilen))
-        zustand = rpc(z, "account.move", "read",
-                      [[ziel_rechnung], ["name", "payment_state", "amount_residual"]],
-                      "Zahlungsstatus lesen")[0]
-        print("   Zahlung %-18s %8.2f gebucht und abgestimmt; Rechnung %s -> Zahlungsstatus %s,"
-              " Restbetrag %.2f"
-              % (p["name"], p["amount"], neue_belege["bezahlte_rechnung"]["quelle"]["number"],
-                 zustand["payment_state"], zustand["amount_residual"]))
+        print("   Zahlung %-18s %8.2f angelegt und gebucht (Abstimmung folgt im Nachlauf)."
+              % (p["name"], p["amount"]))
+
+    # Punkt 5: Abstimmungen erst nach allen Belegen und Zahlungen herstellen
+    stelle_ab(z, k, belege, neue_belege, mitschrift)
     return mitschrift
+
+
+def versuche_abstimmung(z, zeilen, was):
+    """Abstimmung setzen; ist sie schon vorhanden, ist das kein Fehler.
+
+    Die harte Pruefung passiert anschliessend in der Gegenpruefung Zustand/Restbetrag.
+    """
+    try:
+        rpc(z, "account.move.line", "reconcile", [zeilen], was)
+    except SystemExit as fehler:
+        print("      Hinweis (%s): %s" % (was, str(fehler)[:140]))
+
+
+def forderungszeilen(z, move_id, was):
+    """Alle Forderungszeilen einer Buchung im Ziel."""
+    return rpc(z, "account.move.line", "search",
+               [[("move_id", "=", move_id), ("account_id.account_type", "=", "asset_receivable")]],
+               was)
+
+
+def stelle_ab(z, k, belege, neue_belege, mitschrift):
+    """Nachlauf: Abstimmungen wie in Odoo 11 herstellen und 1:1 gegenpruefen.
+
+    Zwei Wege, beide aus Odoo 11 abgeleitet - es wird nichts kuenstlich erzeugt:
+      a) Zahlung <-> Rechnung: ueber account.payment.invoice_ids in Odoo 11
+      b) Beleg <-> Beleg: Belege, die in Odoo 11 dieselbe Abstimmung (full_reconcile_id) teilen
+    """
+    print("\n   Nachlauf: Abstimmungen herstellen")
+    o11_zu_o18 = {}
+    for s, b in belege.items():
+        if s in neue_belege:
+            o11_zu_o18[b["id"]] = neue_belege[s]["id"]
+
+    # a) Zahlungen
+    if "zahlung" in belege:
+        p = belege["zahlung"]
+        ziel_zahlungen = rpc(z, "account.payment", "search",
+                             [[("itk_o11_payment_number", "=", p["name"])]], "Zahlung suchen")
+        if not ziel_zahlungen:
+            raise SystemExit("ABBRUCH: Zahlung %s nicht im Ziel gefunden." % p["name"])
+        z_move = rpc(z, "account.payment", "read", [[ziel_zahlungen[0]], ["move_id"]],
+                     "Zahlungsbuchung lesen")[0]["move_id"][0]
+        zeilen = forderungszeilen(z, z_move, "Forderungszeile der Zahlung suchen")
+        for iid in p["invoice_ids"]:
+            if iid in o11_zu_o18:
+                zeilen += forderungszeilen(z, o11_zu_o18[iid], "Forderungszeile der Rechnung suchen")
+        if len(zeilen) < 2:
+            raise SystemExit("ABBRUCH: fuer die Zahlung wurden nur %d Forderungszeilen gefunden."
+                             % len(zeilen))
+        versuche_abstimmung(z, zeilen, "Zahlung abstimmen")
+        print("   Zahlung %s mit Rechnung abgestimmt." % p["name"])
+
+    # b) Belegpaare ueber die Odoo-11-Abstimmung
+    gruppen = {}
+    for o11_id in o11_zu_o18:
+        b = rpc(k, "account.invoice", "read", [[o11_id], ["move_id"]], "Buchung lesen")[0]
+        if not b["move_id"]:
+            continue
+        meine = rpc(k, "account.move.line", "search", [[("move_id", "=", b["move_id"][0])]],
+                    "Buchungszeilen suchen")
+        for ze in rpc(k, "account.move.line", "read", [meine, ["full_reconcile_id"]],
+                      "Abstimmung lesen"):
+            if ze["full_reconcile_id"]:
+                gruppen.setdefault(ze["full_reconcile_id"][0], set()).add(o11_id)
+    for gid, ids in gruppen.items():
+        ziel_ids = [o11_zu_o18[i] for i in ids if i in o11_zu_o18]
+        if len(ziel_ids) < 2:
+            continue
+        zeilen = []
+        for mid in ziel_ids:
+            zeilen += forderungszeilen(z, mid, "Forderungszeilen suchen")
+        if len(zeilen) >= 2:
+            versuche_abstimmung(z, zeilen, "Belegpaar abstimmen")
+            print("   Belegpaar abgestimmt: %s" % ", ".join(
+                str(belege[s]["number"]) for s, b in belege.items()
+                if s in neue_belege and belege[s]["id"] in ids))
+
+    # Gegenpruefung 1:1 gegen Odoo 11
+    print("   Gegenpruefung Zustand/Restbetrag gegen Odoo 11:")
+    for s, b in belege.items():
+        if s not in neue_belege:
+            continue
+        zustand = rpc(z, "account.move", "read",
+                      [[neue_belege[s]["id"]], ["name", "state", "payment_state",
+                                               "amount_residual"]], "Zustand lesen")[0]
+        # Erwartung aus dem Odoo-11-Restbetrag ableiten (payment_state in Odoo 18)
+        if b["state"] == "draft":
+            erwartet = "draft"
+        elif abs(b["residual"]) < 0.01:
+            erwartet = "paid"
+        elif abs(b["residual"] - b["amount_total"]) < 0.01:
+            erwartet = "not_paid"
+        else:
+            erwartet = "partial"
+        ist = zustand["payment_state"] if zustand["state"] == "posted" else "draft"
+        # Entwuerfe haben in Odoo 11 keinen Restbetrag; dort zaehlt nur der Zustand.
+        # Odoo 18 fuehrt eine voll gutgeschriebene Rechnung als "Gutgeschrieben" (reversed),
+        # Odoo 11 zeigte "Bezahlt". Fachlich derselbe Zustand (Rest 0) - dokumentierte
+        # Abweichung in der Bezeichnung.
+        gutgeschrieben = (erwartet == "paid" and ist == "reversed")
+        ok = (ist == erwartet or gutgeschrieben) and (erwartet == "draft"
+                                   or abs(zustand["amount_residual"] - b["residual"]) < 0.01)
+        if gutgeschrieben:
+            print("        (Odoo 18 zeigt 'Gutgeschrieben' statt 'Bezahlt')")
+        print("      %-12s Odoo 11 %-6s Rest %8.2f | Odoo 18 %-8s Rest %8.2f  %s"
+              % (b["number"] or "Entwurf", b["state"], b["residual"], ist,
+                 zustand["amount_residual"], "OK" if ok else "ABWEICHUNG"))
+        if not ok:
+            raise SystemExit("ABBRUCH: Zustand des Belegs %s weicht von Odoo 11 ab."
+                             % (b["number"] or "Entwurf"))
 
 
 def raeume_auf(z):

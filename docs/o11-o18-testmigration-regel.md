@@ -150,3 +150,52 @@ Befunde, die fuer die echte Migration wichtig sind:
    mitgeklaert werden.
 7. **Keine Lieferantenbelege in Odoo 11** (0 `in_invoice`, 0 `in_refund`) - Lieferantenfaelle
    koennen nur mit Testdaten der Zielinstanz geprueft werden.
+
+
+## 10. Punkte 1-7 aus der ersten Auswertung - Bearbeitung am 05.10.2026
+
+1. **Produkttyp-Mapping:** Die Annahme "Odoo 18 kennt nur consu/service" war falsch. Das Modul
+   `itk_product` setzt die Auswahl in Odoo 18 auf dieselben ITK-Werte wie Odoo 11 (consu, service,
+   combo, general, onlineservice, sw, consulting, platform, hw, project; per `fields_get` auf lokal
+   und VM belegt). Der Typ wird daher **1:1** uebernommen. Kein pauschales Umstellen auf service:
+   in Odoo 11 sind general 273 Produkte, platform 94, onlineservice 74, sw 9, service 47, consu 152;
+   hw, consulting und project sind nicht belegt. Nur der Odoo-11-Typ `product` (Lagerartikel, in
+   Odoo 18 nicht vorhanden und in Odoo 11 nicht belegt) wird zu `consu` + `is_storable`.
+2. **Partner-Anzeigename:** Regel ermittelt: Odoo 11 zeigt `[ref] community_salutation`
+   (z. B. "[20609] Marktgemeinde Greifenburg"), waehrend `name` nur "Greifenburg" enthaelt.
+   Odoo 18 bildet diese Zusammensetzung nicht nach. Transformationsregel im Skript:
+   sichtbarer Name = `community_salutation`, sonst `name`; `ref`, `community_salutation`,
+   `community_magnitude` und der Kurzname (`commercial_company_name`) wandern mit.
+   Verbleibende, beabsichtigte Abweichung: der `[ref]`-Praefix steht in Odoo 18 im Feld `ref`
+   und nicht im Anzeigenamen.
+3. **Journal/Nummernfolge:** Ursache geklaert - Odoo 11 fuehrt genau ein Verkaufsjournal
+   "Ausgangsrechnungen" mit dem Code "Re.:"; Odoo 18 uebernahm den Code und bildete daraus
+   "Re.:/2026/00001" bzw. "RRe.:/2026/00001". Das Ziel hat bereits "Kundenrechnungen" mit Code
+   "RE". Es wird **kein Journal angelegt**; die Abbildung laeuft ueber `JOURNAL_MAPPING`
+   ("Re.:" -> "RE"). Nummern im Test danach: RE/2026/0006, RRE/2026/00001. Die Odoo-11-Nummer
+   bleibt in `itk_o11_invoice_number`.
+4. **Historische Zahlungsnummer:** Die Meldung "Feld fehlt" war ein Fehler meiner Abfrage - ich
+   hatte `itk_o11_payment_number` auf `account.move` gesucht statt auf `account.payment`. Das Feld
+   existiert (Modul `itk_account_migration` 18.0.1.10.0, auf lokal und VM installiert, Typ char).
+   Die Zahlung wird jetzt dort abgelegt (zusaetzlich im `memo`): `itk_o11_payment_number =
+   CUST.IN/2026/1064`.
+5. **Abstimmung als Nachlauf:** Zahlungen und Belegpaare werden nach dem Anlegen aller Belege und
+   Zahlungen in einem eigenen Nachlauf (`stelle_ab`) abgestimmt und danach 1:1 gegen Odoo 11
+   geprueft (Zustand und Restbetrag je Beleg). `reconciled_invoice_ids` beim Anlegen wirkt nicht.
+6. **Bezahlte Altbelege:** Ursache in Odoo 11 geklaert - die Gutschrift R-26800 ist **nicht per
+   Zahlungsdatensatz** beglichen, sondern gegen die Rechnung R-26797 abgestimmt (Buchungszeile
+   32874 "auf falschen Kunden ausgestellt", Gegenstueck 32858 in Buchung R-26797). Regel: der
+   Gegenbeleg wird automatisch mit ausgewaehlt und im Nachlauf genauso abgestimmt. Es werden
+   **keine kuenstlichen Zahlungen** erzeugt.
+   Beobachtete Abweichung in der Bezeichnung: Odoo 18 fuehrt die voll gutgeschriebene Rechnung
+   als `reversed` ("Gutgeschrieben"), Odoo 11 zeigte "Bezahlt" - fachlich derselbe Zustand (Rest 0).
+7. **Eingangsrechnungen:** Odoo 11 hat 0 `in_invoice` und 0 `in_refund`. Es wird nichts erzeugt;
+   die Odoo-18-Testdaten der Zielinstanz zaehlen nicht zum Migrationsumfang.
+
+## 11. Zweiter Testlauf (05.10.2026) und Aufraeumen
+
+Ausgefuehrt auf der VM, danach geprueft (`scripts/pruefe_testmigration.py`): **96 Pruefungen
+bestanden, 0 Abweichungen**, 5 dokumentierte Hinweise. 1:1-Gegenpruefung je Beleg:
+R-261121 offen/Rest 1366,01; R-26800 bezahlt/0,00; R-261131 bezahlt/0,00; Entwurf Entwurf;
+R-26797 gutgeschrieben/0,00. Danach `--aufraeumen`: 22 Datensaetze entfernt; Bestandsvergleich
+(Anzahlen, Digests je Modell, Belegsummen und Belegnamen) **identisch** zum Ausgangsstand.

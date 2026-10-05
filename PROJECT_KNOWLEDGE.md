@@ -8141,3 +8141,28 @@ entfernt werden, sonst bleibt eine verwaiste Beschriftung sichtbar ("Waehrung" o
   (je 22). Bestandsvergleich vorher/nachher: Anzahlen, Digests (id+write_date je Modell),
   Belegsummen und Belegnamen **identisch** - der Ausgangsstand ist exakt wiederhergestellt.
 - Bilder des Zwischenstands: `Desktop/Odoo18-Abnahme-Session123/testmigration/`.
+
+
+## Session 123, Teil 5: Punkte 1-7 bearbeitet, zweiter Testlauf (05.10.2026)
+
+- **Punkt 1:** Die Annahme "Odoo 18 kennt nur consu/service" war falsch - das Modul itk_product
+  setzt dieselben ITK-Typwerte wie Odoo 11. Typ wird 1:1 uebernommen; nur "product" wird zu
+  consu + is_storable. In Odoo 11: general 273, consu 152, platform 94, onlineservice 74,
+  service 47, sw 9; hw/consulting/project 0.
+- **Punkt 2:** Anzeigename in Odoo 11 = "[ref] community_salutation". Transformationsregel:
+  sichtbarer Name = community_salutation, sonst name; ref/salutation/magnitude/Kurzname wandern mit.
+  Verbleibend: der [ref]-Praefix steht in Odoo 18 im Feld ref, nicht im Anzeigenamen.
+- **Punkt 3:** Journalcode "Re.:" verursachte "Re.:/2026/00001" bzw. "RRe.:/2026/00001".
+  JOURNAL_MAPPING "Re.:" -> "RE" auf das vorhandene Zieljournal; kein Journal wird angelegt.
+  Nummern jetzt RE/2026/0006 und RRE/2026/00001; Odoo-11-Nummer bleibt in itk_o11_invoice_number.
+- **Punkt 4:** Meine Fehlmeldung - das Feld itk_o11_payment_number existiert auf account.payment
+  (Modul itk_account_migration, lokal und VM installiert). Zahlungsnummer wird dort abgelegt.
+- **Punkt 5:** Abstimmungen laufen in einem eigenen Nachlauf nach allen Belegen und Zahlungen und
+  werden anschliessend 1:1 gegen Odoo 11 geprueft.
+- **Punkt 6:** R-26800 ist in Odoo 11 gegen die Rechnung R-26797 abgestimmt (keine Zahlung,
+  Buchungszeile "auf falschen Kunden ausgestellt"). Der Gegenbeleg wird automatisch mitmigriert und
+  genauso abgestimmt; keine kuenstlichen Zahlungen. Odoo 18 zeigt die Rechnung als "Gutgeschrieben"
+  (reversed) statt "Bezahlt" - fachlich derselbe Zustand, dokumentierte Abweichung.
+- **Punkt 7:** Keine Eingangsrechnungen in Odoo 11; es wird nichts erzeugt.
+- **Zweiter Testlauf:** 96 Pruefungen bestanden, 0 Abweichungen, 5 dokumentierte Hinweise.
+  Nach dem Aufraeumen (22 Datensaetze) Bestand exakt wie vorher.
