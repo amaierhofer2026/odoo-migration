@@ -8238,3 +8238,41 @@ Dokumentationsort: `docs/o11-o18-testmigration-regel.md`, Abschnitt 10.1.
   `scripts/pruefe_pc_spalte.py` (Arch der fuenf Listenansichten), `scripts/_pc_status_testdaten.py`
   (Testzustaende anlegen/pruefen/aufraeumen), `scripts/_o11_kundenliste_spalten.py` (Odoo-11-Anker,
   read-only).
+
+## Session 125: Spalte "Beschreibung" in den Rechnungszeilen (05.10.2026)
+
+Befund von Anna aus der manuellen Abnahme: im Reiter "Rechnungszeilen" fehlte die Spalte
+"Beschreibung" in der Tabelle, im Spaltenauswahl-Menue stand sie zweimal.
+
+- **Ursache 1 (Doppelung):** Das Modul setzte in `views/account_move_line_columns.xml` einen
+  **zweiten** `name`-Knoten direkt hinter den vorhandenen (`position="after"`, id
+  `itk_o11_beschreibung`). Beide Knoten haben `optional="show"` und die Beschriftung
+  "Beschreibung" - daher zwei Menue-Eintraege.
+- **Ursache 2 (fehlende Spalte):** Odoo 18 gibt der Zeilenliste das Widget
+  `product_label_section_and_note_field_o2m`. Dessen Renderer loescht die Spalte `name` bewusst aus
+  der gerenderten Tabelle (`activeColumns.filter((col) => col.name !== "name")`) und zeichnet den
+  Text in die Produktzelle. Zusaetzlich stand `product_id` auf `widget="many2one"` - dadurch war
+  die Beschreibung **nirgends** sichtbar (kein Datenverlust, nur Anzeige).
+- **Fachliche Zuordnung:** `account.invoice.line.name` (Odoo 11) -> `account.move.line.name`
+  (Odoo 18), 1:1, gleiches Feld. Es war nie das falsche Feld.
+- **Loesung (Modul 18.0.1.12.0):** zweiter `name`-Knoten entfernt; Zeilenliste auf das
+  Odoo-18-Standardwidget `section_and_note_one2many` umgestellt (dessen Renderer laesst `name`
+  stehen); auf `name` nur noch `string="Beschreibung"` + `optional="show"`, die Ueberschreibung
+  `widget="text"` ist entfernt (Odoo-18-Widget `section_and_note_text` bleibt). Kein Python
+  geaendert, keine Feldnamen, keine Datenlogik.
+- **Position wie Odoo 11** (read-only gemessen an `account.invoice.form` 594 + Vererbungen 1044 und
+  1270): sequence | number | product_id | layout_category_id (Sektion) | **name (Beschreibung)** |
+  account_id | account_analytic_id | quantity | uom_id | price_unit | discount | tax_ids |
+  price_subtotal. Die Spalte steht damit direkt nach "Sektion" und vor "Kostenstelle".
+- **Bewusste Folge:** die kombinierte Odoo-18-Zelle "Produkt + Beschreibung" entfaellt; sie ist mit
+  einer eigenen Odoo-11-Spalte technisch nicht kombinierbar (der Renderer entfernt `name`, sobald
+  die Spalte aktiv ist). Abschnitte (fett), Notizen (kursiv), Griffspalte,
+  Zeile/Abschnitt/Notiz hinzufuegen, Katalog und Spaltenauswahl bleiben vollstaendig.
+- **Nachweis lokal:** `scripts/browser_zeilen_beschreibung.py --instanz lokal` **112 OK / 0 FEHL**
+  fuer alle vier Belegarten (Ausgangsrechnung, Kunden-Gutschrift, Eingangsrechnung,
+  Lieferanten-Gutschrift - alle nutzen `account.view_move_form`): Spalte genau einmal, Position 5,
+  Wert sichtbar, Menue ohne Doppelung, Abschnitt/Notiz erhalten, Eingabe moeglich und nicht
+  gespeichert. Testbelege (`scripts/_zeilen_testdaten.py`, Marker TEST-ZEILE-) danach restlos
+  entfernt. Doku: `docs/o11-o18-abrechnung-zeilen-beschreibung.md`.
+- Werkzeuge: `scripts/browser_zeilen_beschreibung.py`, `scripts/pruefe_zeilenspalten.py`,
+  `scripts/_zeilen_testdaten.py`, `scripts/_o11_zeilen_formular.py` (Odoo-11-Spalten, read-only).

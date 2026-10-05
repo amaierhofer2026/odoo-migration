@@ -82,6 +82,16 @@ Ansichts-Upgrade fehlerfrei, Regression 0 Fehler.
   - Maßeinheit bleibt als optionale Odoo-18-Spalte erhalten.
 - Nachweis: Screenshot Rechnung_lokal.png und Rechnung_vm.png, Browser-Auslesung der Spalten.
 
+**Nachtrag 05.10.2026 (Session 125), Spalte "Beschreibung":** Anna hat im Browser gefunden, dass die
+Spalte "Beschreibung" in der Rechnungszeilen-Tabelle fehlte und im Spaltenauswahl-Menue zweimal
+stand. Ursache: ein zweiter `name`-Knoten in `views/account_move_line_columns.xml` und das
+Odoo-18-Zeilenwidget `product_label_section_and_note_field_o2m`, dessen Renderer die Spalte `name`
+bewusst entfernt. Korrektur: zweiter Knoten entfernt, Zeilenliste auf
+`section_and_note_one2many` umgestellt - "Beschreibung" ist wieder eine eigene, editierbare Spalte
+direkt nach "Sektion" (Odoo-11-Position), das Menue enthaelt sie genau einmal. Damit entfaellt die
+kombinierte Produkt/Beschreibungs-Zelle von Odoo 18 (technisch nicht kombinierbar). Details:
+`docs/o11-o18-abrechnung-zeilen-beschreibung.md`.
+
 ## Korrektur 01.10.2026 (Layout-Rollback PR #164)
 
 Befund im Browser (lokal und VM, Screenshots): Die in PR #164 angelegte Zusatzgruppe
