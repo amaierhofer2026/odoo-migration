@@ -8032,3 +8032,31 @@ Hilfsmittel: `scripts/browser_abrechnung_vollstaendig.py` (Browserdurchgang, Pro
 Lehre aus dem Rechnungsformular (01.10.2026): Der Odoo-18-Kopfbereich besteht aus expliziten
 label-Elementen und nolabel-Feldern. Wird ein Feld daraus verschoben, MUSS auch seine Beschriftung
 entfernt werden, sonst bleibt eine verwaiste Beschriftung sichtbar ("Waehrung" ohne Wert).
+
+## Session 123: Produktfilter und Produktformular (05.10.2026)
+
+- Entscheidung Anna: **ITK-Produktfilter vollstaendig nachbauen** (auch die Filter mit 0 Treffern
+  in Odoo 11). Umsetzung in `addons/itk_product/views/itk_product.xml`, Record
+  `view_product_template_search_itk_produktfilter`: 11 Filter, Wortlaut und Domaenen 1:1 aus
+  Odoo 11, interne Namen mit `itk_`-Praefix gegen Kollisionen mit Odoo-18-Standardfiltern.
+  Tabelle und Begruendungen: `docs/o11-o18-abrechnung-itk-produktfilter.md` Abschnitt 6.
+  "Veröffentlicht" entfaellt (Feld `website_published` gibt es in Odoo 18 nicht).
+- Zusaetzlich drei Odoo-18-Standardfilter auf Odoo-11-Wortlaut zurueckgestellt (Domains
+  unveraendert): `filter_to_sell` "Kann verkauft werden", `filter_to_purchase`
+  "Kann eingekauft werden", `goods` "Produkte".
+- Gruppenueberschrift "Product-Typ" ueber dem Feld `product_type_id` entfernt: Odoo 11 hatte dort
+  keine Gruppenueberschrift, Odoo stellt Gruppentitel gross dar ("PRODUKT-TYP"), daher wirkte sie
+  als doppelte Beschriftung ueber "Product-Type". Zugleich die Position angeglichen: das Feld steht
+  wieder am Anfang der Gruppe Allgemeine Informationen (Odoo 11: direkt hinter "Produktart"; das
+  Feld ist in Odoo 18 unsichtbar, dadurch ist "Product-Type" die erste Zeile).
+- **Lehre (wichtig fuer weitere View-Umbauten):** Ein einzelnes `<field>` als direktes Kind von
+  `group_general` verliert in Odoo 18 seine Beschriftung - das Feld ist im DOM sichtbar, hat aber
+  keinen Label-Knoten und erscheint ohne Text. Loesung: das Feld in einer Gruppe ohne `string`
+  belassen. Solche Faelle nur im echten Browser/DOM pruefen, nicht ueber den Arch.
+- **VM nach Modul-Upgrade:** Das Upgrade setzt die deutschen Feldbeschriftungen der VM zurueck
+  (Messung 05.10.: 68 Abweichungen), lokal blieben sie erhalten. Danach
+  `python scripts/apply_abrechnung_labels.py --instanz vm` -> 68 gesetzt, wieder 155 Feldpaare / 0.
+- Pruefstand 05.10.2026: Feldabdeckung 273 belegte Felder / 0 Luecken, Beschriftungen lokal 155/0
+  und VM 155/0, Regression Verkauf 886 OK / 0 FEHL (jeweils lokal und VM).
+- Randnotiz: `scripts/pruefe_abschluss_feldabdeckung.py` verschluckt Einzelfehler still
+  (`except Exception: continue`); ein Lauf meldete dadurch einmal 272 statt 273.

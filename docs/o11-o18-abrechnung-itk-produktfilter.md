@@ -86,8 +86,53 @@ Weglassen (nur die Odoo-18-Standardfilter nutzen)
 - Die Standardfilter (Dienstleistungen, Gueter, Verkauf, Einkauf, Archiviert) bleiben.
 - Aufwand: keiner, aber eine sichtbare Funktionseinbusse gegenueber Odoo 11.
 
-## 6. Offene Entscheidung
+## 6. Entscheidung (05.10.2026, Session 123)
 
-Soll ich die ITK-Produktfilter in Odoo 18 nachbauen (vollstaendig oder nur die genutzten)
-oder nur die Standardfilter angleichen? Bis zur Entscheidung bleibt die Produktsuche in
-Odoo 18 unveraendert; die Odoo-11-Wortlaute sind in dieser Datei dokumentiert.
+Anna entscheidet: **vollstaendiger Nachbau** - alle ITK-Filter werden in Odoo 18 sichtbar
+gemacht, auch die sechs mit 0 Treffern in Odoo 11 (Förderprojekt, Zeitbasierte Dienste,
+Meilenstein-Dienste, Verfügbare Produkte, Bestandsreichweite, Veröffentlicht waren es
+urspruenglich; "Verfügbare Produkte" existierte in Odoo 18 bereits identisch).
+
+Umgesetzt in `addons/itk_product/views/itk_product.xml`, Record
+`view_product_template_search_itk_produktfilter` (geerbte Suchansicht
+`product.product_template_search_view`, mode extension, priority 17). Keine Modell- und
+keine Datenänderung, nur Filtereintraege. Wortlaut und Domaenen 1:1 aus Odoo 11,
+interne Namen mit `itk_`-Praefix gegen Namenskollisionen mit Odoo-18-Standardfiltern:
+
+| Sichtbarer Wortlaut (Odoo 11) | Domain in Odoo 18 |
+|---|---|
+| Service Type Consulting | `[('product_type_id', '=', 'Consulting')]` |
+| Service Type Onlineservice | `[('product_type_id', '=', 'Onlineservice')]` |
+| Service Type Software-Solution | `[('product_type_id', '=', 'Software-Lösung')]` |
+| Service Type Platform | `[('product_type_id', '=', 'Plattform')]` |
+| Service Type Hardware | `[('product_type_id', '=', 'Hardware')]` |
+| Service Type Förderprojekt | `[('product_type_id', '=', 'Förderprojekt')]` |
+| Zeitbasierte Dienste | `[('type','=','service'), ('invoice_policy','=','delivery'), ('service_type','=','timesheet')]` |
+| Festpreis-Dienste | `[('type','=','service'), ('invoice_policy','=','order'), ('service_type','=','timesheet')]` |
+| Meilenstein-Dienste | `[('type','=','service'), ('invoice_policy','=','delivery'), ('service_type','=','manual')]` |
+| Bestandsauflösung | `[('qty_available','<=',0), ('is_storable','=',True)]` |
+| Bestandsreichweite | `[('qty_available','<',0)]` |
+
+Zwei Festlegungen dabei:
+
+- **Bestandsauflösung**: Odoo 11 filterte mit `type not in ('service','consu')` und meinte damit
+  den damaligen Typ `product` (Lagerartikel). Den Typ gibt es in Odoo 18 nicht mehr, Entsprechung
+  ist `is_storable = True`. Von Anna bestaetigt.
+- **Veröffentlicht** (`website_published`) wird **nicht** nachgebaut: Das Feld existiert in
+  Odoo 18 nicht (Website-Modul nicht installiert), der Filter hatte in Odoo 11 ohnehin 0 Treffer.
+  Im Code als Kommentar begruendet.
+
+Zusaetzlich wurden die drei Odoo-18-Standardfilter des Produktsuchmenues auf den Odoo-11-Wortlaut
+zurueckgestellt (Domains unveraendert): `filter_to_sell` "Verkauf" -> "Kann verkauft werden",
+`filter_to_purchase` "Einkauf" -> "Kann eingekauft werden", `goods` "Güter" -> "Produkte".
+
+Im Produktformular wurde die Position angeglichen: `product_type_id` steht wieder am Anfang der
+Gruppe Allgemeine Informationen (in Odoo 11 direkt hinter "Produktart"; "Produktart" ist in
+Odoo 18 unsichtbar, das Feld ist dadurch die erste Zeile). Vorher stand es am Ende der Gruppe.
+Die ITK-Gruppenueberschrift "Product-Typ" ueber dem Feld ist entfernt - Odoo 11 hatte dort keine,
+in Odoo 18 wurde sie durch die Grossschreibung der Gruppentitel als doppelte Beschriftung
+("PRODUKT-TYP" ueber "Product-Type") sichtbar.
+
+Nachweis: 11 Filter per RPC in `product.template` und `product.product` vorhanden (wie in
+Odoo 11), alle Domaenen laufen fehlerfrei; im echten Browser auf der VM angesehen
+(`produkt_filter_vm.png`, `produkt_formular_vm.png`, Session 123).
