@@ -107,3 +107,46 @@ python scripts/testmigration_abrechnung.py --instanz vm --aufraeumen     # Testd
 
 `--plan` ist der Standard und schreibt nichts. `--ausfuehren` verlangt zusaetzlich
 `--ich-habe-freigabe`, damit ein versehentlicher Lauf ausgeschlossen ist.
+
+Das Protokoll liegt ausserhalb des Repos unter
+`%LOCALAPPDATA%\Temp\testmigration_protokoll.json`; darin steht jeder selbst angelegte Datensatz
+mit Modell, ID und fachlichem Schluessel. Nur diese Datensaetze entfernt `--aufraeumen`.
+
+## 9. Erster Schreiblauf am 05.10.2026 (Session 123) und seine Befunde
+
+Ausgefuehrt auf der VM gegen `odoo18_test`, danach geprueft mit `scripts/pruefe_testmigration.py`
+(75 Pruefungen bestanden, 0 Abweichungen) und anschliessend vollstaendig entfernt - der Bestand war
+danach wieder exakt wie vorher (Anzahlen, Digests, Summen und Belegnamen identisch).
+
+Uebertragen wurden: Kundenrechnung R-261121 (offen, 4 Zeilen), Kunden-Gutschrift R-26800 (bezahlt,
+4 Zeilen), Kundenrechnung R-261131 (bezahlt, 1 Zeile) mit Zahlung CUST.IN/2026/1064, ein
+Rechnungsentwurf (2 Zeilen), 4 Partner, 11 Produkte, 1 Journal, 1 Steuer, 1 Zahlungsbedingung.
+
+Befunde, die fuer die echte Migration wichtig sind:
+
+1. **Odoo-11-`type` traegt die ITK-Werte.** Die Auswahl kannte consu, service, general,
+   onlineservice, sw, consulting, platform, hw, project, product. In Odoo 11 verteilen sich die
+   Produkte auf consu 152, service 47, onlineservice 74, platform 94, sw 9. Odoo 18 kennt nur
+   consu/service/combo. Zuordnung im Skript: consu -> consu, product -> consu + is_storable,
+   service -> service, alle ITK-Werte -> service. **Das ist eine Annahme und braucht deine
+   fachliche Bestaetigung.** `type` und `product_type_id` sind in Odoo 11 unabhaengig
+   (Produkt 719: type=platform, product_type_id=Onlineservice) - `product_type_id` wird 1:1 ueber
+   den Namen uebernommen.
+2. **Partner-Anzeigename:** Odoo 11 zeigt "[20609] Marktgemeinde Greifenburg", das Feld `name`
+   enthaelt nur "Greifenburg". Die Bezeichnung kommt aus `community_salutation`
+   (Organisationsbezeichnung), dazu `ref` (20609) und `community_magnitude`. Odoo 18 hat dieselben
+   ITK-Felder; sie muessen mitwandern, sonst verliert der Kunde seine sichtbare Bezeichnung.
+3. **Odoo-11-Journalcode "Re.:"** ist als Code ungeeignet: Odoo 18 vergibt daraus
+   "Re.:/2026/00001" und fuer Gutschriften "RRe.:/2026/00001". Das Ziel hat bereits ein
+   Verkaufsjournal mit Code "RE". Hier braucht es eine Entscheidung (eigenes Journal anlegen oder
+   auf das bestehende abbilden).
+4. **`itk_o11_payment_number` gibt es in Odoo 18 nicht.** Die Odoo-11-Zahlungsnummer wird in
+   `memo` gefuehrt. Entweder Feld anlegen oder diese Ablage fachlich bestaetigen.
+5. **Abstimmung:** Das Feld `reconciled_invoice_ids` beim Anlegen einer Zahlung stimmt in Odoo 18
+   nicht ab. Die Abstimmung wird ausdruecklich ueber `account.move.line.reconcile` hergestellt.
+6. **Bezahlter Altbeleg ohne Zahlungsdatensatz:** Die Gutschrift R-26800 ist in Odoo 11 bezahlt,
+   die Zahlung steckt aber in einer Buchung (nicht in `account.payment`). Ohne diese Buchung bleibt
+   der Beleg im Ziel offen. Fuer die echte Migration muss der Zahlungsweg solcher Belege
+   mitgeklaert werden.
+7. **Keine Lieferantenbelege in Odoo 11** (0 `in_invoice`, 0 `in_refund`) - Lieferantenfaelle
+   koennen nur mit Testdaten der Zielinstanz geprueft werden.

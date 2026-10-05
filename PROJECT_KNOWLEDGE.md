@@ -8113,3 +8113,31 @@ entfernt werden, sonst bleibt eine verwaiste Beschriftung sichtbar ("Waehrung" o
   graue Platzhalterzeilen bzw. -karten (je 10 Zeilen / 16 Karten gemessen). Verlaesslich sind der
   `.o_pager`-Text und ein *sichtbarer* Leerzustand, und am Ende immer das Browserbild.
 - Bilder: `Desktop/Odoo18-Abnahme-Session123/kanban_und_leere_listen/lokal|vm/`.
+
+## Session 123, Teil 4: Testmigration ausgefuehrt und wieder entfernt (05.10.2026)
+
+- **Drei ungenutzte Produkte archiviert** (nicht geloescht): Cloud_Service (1), Premium Zugang (5),
+  Test test (12). Nachweis der Unnutzung: alle 54 many2one-Verweisfelder in 45 Modellen plus 11
+  m2m/o2m-Felder geprueft, keinerlei Verwendung. Vorher hatte die VM bereits 10 archivierte
+  Produkte; jetzt 10 aktiv, 13 archiviert, 23 insgesamt.
+- **Produktverwendung korrekt geprueft:** `product_id` in `account.move.line`, `sale.order.line`,
+  `purchase.order.line` und `sale.subscription.line` zeigt auf `product.product` (Variante);
+  ein Vergleich mit Vorlagen-IDs liefert falsche "keine Verwendung"-Aussagen.
+- **Testmigration ausgefuehrt** (nach Freigabe, zweimal: erst Abbruch nach den Stammdaten wegen
+  Anzeigename/Journalcode, dann sauberer Lauf). Uebertragen: R-261121, R-26800, R-261131 mit
+  Zahlung CUST.IN/2026/1064, ein Entwurf, 4 Partner, 11 Produkte, 1 Journal, 1 Steuer,
+  1 Zahlungsbedingung. Summen Netto/Steuer/Brutto in Odoo 18 exakt wie in Odoo 11; Odoo-11-Nummern
+  in `itk_o11_invoice_number`; Zahlung gebucht und abgestimmt (Zahlungsstatus paid, Rest 0,00).
+- **Befunde fuer die echte Migration** (Details in `docs/o11-o18-testmigration-regel.md`,
+  Abschnitt 9): Odoo-11-`type` traegt die ITK-Werte (Zuordnung zu service ist eine Annahme);
+  Partner-Anzeigename kommt aus `community_salutation` + `ref`; Journalcode "Re.:" ist ungeeignet;
+  `itk_o11_payment_number` existiert nicht (Zahlungsnummer in `memo`);
+  `reconciled_invoice_ids` stimmt beim Anlegen nicht ab; bezahlte Altbelege ohne Zahlungsdatensatz
+  bleiben offen; Odoo 11 hat keine Lieferantenbelege.
+- **Nachweis der Unversehrtheit:** `scripts/pruefe_testmigration.py` prueft alle neun Punkte
+  (75 Pruefungen, 0 Abweichungen) und belegt ueber `write_date >= Migrationsstart`, dass kein
+  Bestandsdatensatz angefasst wurde (ausser den selbst angelegten).
+- **Aufraeumen:** `--aufraeumen` entfernte beide Male genau die protokollierten Datensaetze
+  (je 22). Bestandsvergleich vorher/nachher: Anzahlen, Digests (id+write_date je Modell),
+  Belegsummen und Belegnamen **identisch** - der Ausgangsstand ist exakt wiederhergestellt.
+- Bilder des Zwischenstands: `Desktop/Odoo18-Abnahme-Session123/testmigration/`.
