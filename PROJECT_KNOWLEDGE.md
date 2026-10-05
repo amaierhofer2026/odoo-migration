@@ -8072,13 +8072,21 @@ entfernt werden, sonst bleibt eine verwaiste Beschriftung sichtbar ("Waehrung" o
   Lieferanten-Gutschriften** (je 0). Zustaende: draft 12, open 66, paid 6223 - `posted` gibt es in
   Odoo 11 nicht. Die Odoo-18-Eingangsrechnungen der Abnahme sind also Testdaten der Zielinstanz,
   kein Migrationsinhalt.
-- **Produkte auf der VM (13):** in Belegen referenziert sind 7 - Produkt A (2), Produkt B (3),
-  Produkt C (4), Test-Abo monatlich (6), Abo Cloud Produkt (9), TEST Abo Produkt Monatlich (223),
-  Amtsweg.gv.at Formularsammlung Österreich Preis pro angefangene 1.000 Einwohner (224).
-  Ohne jede Referenz sind 6 - Cloud_Service (1), Premium Zugang (5), Abo_Amtssignatur Test (11),
-  Test test (12), TEST-Abo Monatlich (50), Amtsweg.gv.at Formularsammlung Österreich Sockelbetrag
-  (225). Nur id=223 traegt einen Produkttyp (Onlineservice); die Produkttyp-Filter der Produktsuche
-  liefern daher in der Testinstanz entsprechend wenige Treffer. Loeschen nur nach Freigabe.
+- **Produkte auf der VM (13), Verwendung vollstaendig geprueft:** Die Pruefung muss Vorlagen
+  (`product.template`) und Varianten (`product.product`) trennen - `sale.order.line.product_id`,
+  `account.move.line.product_id`, `purchase.order.line.product_id` und
+  `sale.subscription.line.product_id` zeigen auf die **Variante**; ein Vergleich mit
+  Vorlagen-IDs liefert falsche "keine Referenz"-Aussagen. Berichts-/SQL-Views
+  (`sale.report`, `account.invoice.report`, `purchase.report`, `sale.subscription.report`,
+  `report.stock.quantity` ...) zaehlen nicht als Verweis.
+  Ergebnis (54 Verweisfelder in 45 Modellen geprueft):
+  **keine Verwendung** haben 3 Produkte - Cloud_Service (1), Premium Zugang (5), Test test (12).
+  **Verwendet** sind 10 - Produkt A (2), Produkt B (3), Produkt C (4), Test-Abo monatlich (6),
+  Abo Cloud Produkt (9), Abo_Amtssignatur Test (11; allein 24 Rechnungszeilen), TEST-Abo Monatlich
+  (50), TEST Abo Produkt Monatlich (223), Amtsweg.gv.at Formularsammlung Österreich Preis pro
+  angefangene 1.000 Einwohner (224) und Sockelbetrag (225).
+  Nur id=223 traegt einen Produkttyp (Onlineservice); die Produkttyp-Filter der Produktsuche liefern
+  in der Testinstanz daher entsprechend wenige Treffer. Loeschen nur nach Freigabe.
 - **Testmigration vorbereitet** (noch nicht ausgefuehrt): Regel
   `docs/o11-o18-testmigration-regel.md`, Skript `scripts/testmigration_abrechnung.py`.
   Standard ist der Trockenlauf (`--plan`, schreibt nichts), Schreiben nur mit
@@ -8087,3 +8095,21 @@ entfernt werden, sonst bleibt eine verwaiste Beschriftung sichtbar ("Waehrung" o
   4 Zeilen), einen Rechnungsentwurf (3 Zeilen), Kunden-Gutschrift R-26800 (paid, 4 Zeilen),
   3 Partner, 1 Journal, 1 Konto, 1 Steuer, 1 Zahlungsbedingung, 6 Produkte; 11 der 13
   Stammdaten-Positionen fehlen im Ziel und muessten angelegt werden.
+
+## Session 123, Teil 3: Kanban-Ansichten und leere Listen (05.10.2026)
+
+- Im echten Browser geprueft: alle 31 Menuepunkte des Abrechnungsmenues mit Fensteraktion, lokal und
+  auf der VM, jeweils ueber den Ansichtswechsler Liste/Kanban/Graph geoeffnet. Alle Ansichten
+  rendern, **0 Fehler** (ein Menuepunkt "Ein Bankkonto hinzufuegen" hat eine Server-Aktion und ist
+  nicht per URL pruefbar).
+- **Ohne Datensaetze** sind lokal 11 Menuepunkte, auf der VM 10: Einstellungen, Eingangsrechnungen,
+  Rechnungsanalyse, Verteilungsschluessel, Lieferanten-Gutschriften, Eingaenge (Verkauf und Einkauf),
+  Bargeldrundungen, Zahlungsmethoden, Einkaufs-Zahlungen; lokal zusaetzlich Kunden-Gutschriften.
+  Alle zeigen den richtigen deutschen Leerzustandstext (z. B. "Eine Gutschrift erstellen",
+  "Drag-and-drop / Eine Rechnung manuell erstellen").
+- Kanban mit Daten rendert korrekt (VM-Kunden-Gutschrift: Karte "Kundenrechnungen, 01.10.2026,
+  0,00 EUR, Entwurf", Pager 1-1/1).
+- **Lehre:** Eine leere Liste und ein leeres Kanban zeigen im DOM trotzdem Datensaetze an - es sind
+  graue Platzhalterzeilen bzw. -karten (je 10 Zeilen / 16 Karten gemessen). Verlaesslich sind der
+  `.o_pager`-Text und ein *sichtbarer* Leerzustand, und am Ende immer das Browserbild.
+- Bilder: `Desktop/Odoo18-Abnahme-Session123/kanban_und_leere_listen/lokal|vm/`.
