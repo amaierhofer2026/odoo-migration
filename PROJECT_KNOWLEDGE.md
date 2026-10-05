@@ -8064,3 +8064,26 @@ entfernt werden, sonst bleibt eine verwaiste Beschriftung sichtbar ("Waehrung" o
   (Modell, Methode, Argumente werden genannt), ein Modell ohne Datensaetze bricht ebenfalls ab,
   Luecken ergeben Exit-Code 2. Nachweis: `--selbsttest` endet mit Exit-Code 1.
   Der strenge Lauf meldet 273 belegte Felder / 0 Luecken und weist 374 gepruefte Felder aus.
+
+## Session 123, Teil 2: Belegverteilung, Testprodukte, Testmigration (05.10.2026)
+
+- **Odoo-11-Belegverteilung (read-only gemessen):** 6301 Rechnungen, davon 6064 Kundenrechnungen
+  (`out_invoice`) und 237 Kunden-Gutschriften (`out_refund`). **Keine Eingangsrechnungen, keine
+  Lieferanten-Gutschriften** (je 0). Zustaende: draft 12, open 66, paid 6223 - `posted` gibt es in
+  Odoo 11 nicht. Die Odoo-18-Eingangsrechnungen der Abnahme sind also Testdaten der Zielinstanz,
+  kein Migrationsinhalt.
+- **Produkte auf der VM (13):** in Belegen referenziert sind 7 - Produkt A (2), Produkt B (3),
+  Produkt C (4), Test-Abo monatlich (6), Abo Cloud Produkt (9), TEST Abo Produkt Monatlich (223),
+  Amtsweg.gv.at Formularsammlung Österreich Preis pro angefangene 1.000 Einwohner (224).
+  Ohne jede Referenz sind 6 - Cloud_Service (1), Premium Zugang (5), Abo_Amtssignatur Test (11),
+  Test test (12), TEST-Abo Monatlich (50), Amtsweg.gv.at Formularsammlung Österreich Sockelbetrag
+  (225). Nur id=223 traegt einen Produkttyp (Onlineservice); die Produkttyp-Filter der Produktsuche
+  liefern daher in der Testinstanz entsprechend wenige Treffer. Loeschen nur nach Freigabe.
+- **Testmigration vorbereitet** (noch nicht ausgefuehrt): Regel
+  `docs/o11-o18-testmigration-regel.md`, Skript `scripts/testmigration_abrechnung.py`.
+  Standard ist der Trockenlauf (`--plan`, schreibt nichts), Schreiben nur mit
+  `--ausfuehren --ich-habe-freigabe` gegen die DB `odoo18_test`; `--aufraeumen` entfernt genau die
+  im Protokoll vermerkten Datensaetze. Der Trockenlauf waehlt: Kundenrechnung R-261121 (open,
+  4 Zeilen), einen Rechnungsentwurf (3 Zeilen), Kunden-Gutschrift R-26800 (paid, 4 Zeilen),
+  3 Partner, 1 Journal, 1 Konto, 1 Steuer, 1 Zahlungsbedingung, 6 Produkte; 11 der 13
+  Stammdaten-Positionen fehlen im Ziel und muessten angelegt werden.
