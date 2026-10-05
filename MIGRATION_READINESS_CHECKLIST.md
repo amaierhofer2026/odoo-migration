@@ -2160,6 +2160,6 @@ entfernt werden, sonst bleibt eine verwaiste Beschriftung sichtbar ("Waehrung" o
 
 | Modul | Browserabgleich lokal | Browserabgleich VM | Feldmapping | Beziehungen | Stammdaten | Statuswerte | Verknuepfungen | Constraints | Reihenfolge | Screenshots | Stand |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| Abrechnung | vorhanden | vorhanden | 273 belegte Felder, 0 Luecken | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | IN ARBEIT (offen: Produktfilter-Entscheidung, Testmigration, Restansichten) |
+| Abrechnung | vorhanden | vorhanden | 273 belegte Felder, 0 Luecken | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | IN ARBEIT (offen: Produktfilter-Entscheidung, Testmigration, Restansichten; 05.10.2026 Project-Category-Spalte in den Kundenlisten und Statuskette im Rechnungsformular umgesetzt) |
 | Verkauf | vorhanden | vorhanden | Teil 5 vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | abgeschlossen (R1-R8) |
 | Abonnements | vorhanden (02.10.) | vorhanden (02.10.) | Feldbestand verglichen (57/64 Felder, 0 echte Luecken); siehe docs/o11-o18-abonnement-abgleich.md | nicht betroffen | Cron/Fristen geprueft | Zustaende 1:1 plus O18-Zusatz pending | 1:1 | nicht betroffen | vorhanden | vorhanden | abgeglichen (PR #184/#185), Abweichungen dokumentiert |

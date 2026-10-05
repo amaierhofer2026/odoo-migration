@@ -8180,3 +8180,48 @@ Odoo-18-Abweichung** dokumentiert (nicht auf Odoo 11 angleichen):
   "[20609] Marktgemeinde Greifenburg"); der Referenzwert bleibt im Feld `ref`.
 
 Dokumentationsort: `docs/o11-o18-testmigration-regel.md`, Abschnitt 10.1.
+
+
+## Session 124: Project-Category-Spalte und Rechnungs-Statuskette (05.10.2026)
+
+- **Ursache des offenen Punkts gefunden:** Die Listenansichten der Kundenbelege sind NICHT
+  DB-only. Es sind die Standardansichten des Moduls `account` MIT externer ID:
+  `account.view_out_invoice_tree` (id 953, Ausgangsrechnungen),
+  `account.view_out_credit_note_tree` (id 954, Kunden-Gutschriften),
+  `account.view_in_invoice_bill_tree` (956) und `account.view_in_invoice_refund_tree` (957);
+  alle erben von `account.view_invoice_tree` (951). Die bisherige Modul-/SQL-Loesung
+  (`models/ir_ui_view_pc.py`) scheiterte, weil sie die Spalte per `<xpath>` auf
+  `//field[@name='state']` (Ersatzanker `name`) einsetzen wollte: Die Arch dieser Ansichten
+  besteht nur aus `<xpath>`- und `<field position=...>`-Knoten - es gibt darin weder `state`
+  noch `name`. Der Anker lief ins Leere, der Code fiel auf "unveraendert" zurueck und meldete
+  trotzdem Erfolg (Upgrade exit 0, Ansicht unveraendert).
+- **Loesung:** zwei normale Ansichts-Vererbungen im Modul `itk_account_migration`
+  (`views/account_move_pc_spalte.xml`, Modulversion 18.0.1.11.0) auf
+  `account.view_out_invoice_tree` und `account.view_out_credit_note_tree`, jeweils
+  `<xpath expr="//field[@name='status_in_payment']" position="after">` mit
+  `<field name="projectcategory_id" optional="show" readonly="1"/>`. Die alte SQL-Methode und
+  ihr `<function>`-Aufruf wurden entfernt.
+- **Position wie in Odoo 11:** Odoo 11 fuehrt die Spalte in `account.invoice.tree` (View 590)
+  an Position 3 - direkt nach Nummer und Status (gemessen per RPC, read-only). In Odoo 18 steht
+  sie deshalb direkt hinter der Spalte Status (Feld `status_in_payment`).
+- **Nur Kundenbelege:** Eingangsrechnungen und Lieferanten-Gutschriften bleiben unveraendert
+  (Odoo 11 `account.invoice.supplier.tree` kennt die Spalte nicht) - im Browser gegengeprueft.
+- **Statuskette im Rechnungsformular** nach dem bereits abgenommenen Muster des Zahlungsformulars:
+  die Odoo-18-Statusleiste wird nur aus der Ansicht genommen, `itk_o11_status` steht mit
+  `widget="statusbar"` (Entwurf/Offen/Bezahlt/Abgebrochen) im Header, der technische Wert bleibt
+  als eigene Gruppe "Status (Odoo 18)" im Reiter Andere Informationen sichtbar. Keine State-,
+  Zahlungs- oder Buchungslogik geaendert.
+- **Betriebslehre (kostet sonst Stunden):** Ein Modul-Upgrade per `docker exec ... odoo -u ...`
+  laedt NEUE PYTHON-DATEIEN NICHT. Danach fehlt das neue Feld im laufenden Server, und jede View,
+  die es referenziert, bricht im Browser mit "Hoppla! Etwas ist schiefgelaufen" ab
+  (JS-Konsole: `"account.move"."itk_o11_status" field is undefined`). Nach neuen oder geaenderten
+  Modelldateien immer `docker restart odoo18` (VM: `docker compose restart odoo`).
+- Nachweise lokal (05.10.2026): Browser `scripts/browser_pc_status_abnahme.py --instanz lokal`
+  **73 OK / 0 FEHL** (7 Screenshots), Feldlabels 155 Feldpaare / 0 Abweichungen,
+  View-Bezeichnungen ohne unbegruendete Abweichung, Feldabdeckung 273 belegte Felder / 0 Luecken.
+  Testdaten fuer die sechs Zustaende (`scripts/_pc_status_testdaten.py`) restlos entfernt:
+  Bestand 40 -> 49 -> 40 Belege und 10 -> 12 -> 10 Zahlungen.
+- Werkzeuge: `scripts/browser_pc_status_abnahme.py` (Liste + Statuskette),
+  `scripts/pruefe_pc_spalte.py` (Arch der fuenf Listenansichten), `scripts/_pc_status_testdaten.py`
+  (Testzustaende anlegen/pruefen/aufraeumen), `scripts/_o11_kundenliste_spalten.py` (Odoo-11-Anker,
+  read-only).

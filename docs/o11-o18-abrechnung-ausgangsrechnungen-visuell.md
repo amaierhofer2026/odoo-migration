@@ -115,3 +115,59 @@ Umsetzung der Korrektur
 Browser-Nachweis: Screenshot lokal und VM (Desktop/Odoo18-Abnahme-Session122/rechnung/),
 sichtbar saubere Zweispaltigkeit von Beschriftung und Wert, Zeilenspalten wie oben.
 
+## Nachtrag 05.10.2026 (Session 124): Project-Category-Spalte in den Kundenlisten
+
+**Befund:** Das Feld `projectcategory_id` war im Rechnungsformular sichtbar, fehlte aber in den
+Listenansichten der Kundenbelege.
+
+**Ursache:** Jede Belegart hat ihre eigene Listenansicht des Moduls `account`, alle mit externer ID
+und alle von `account.view_invoice_tree` (id 951) abgeleitet:
+
+| Ansicht | id | externe ID | Aktion/Menue |
+|---|---|---|---|
+| Ausgangsrechnungen | 953 | `account.view_out_invoice_tree` | 354 (Abrechnung > Verkauf > Ausgangsrechnungen) |
+| Kunden-Gutschriften | 954 | `account.view_out_credit_note_tree` | 355 (Abrechnung > Verkauf > Kunden-Gutschriften) |
+| Eingangsrechnungen | 956 | `account.view_in_invoice_bill_tree` | 356/357 |
+| Lieferanten-Gutschriften | 957 | `account.view_in_invoice_refund_tree` | 358 |
+
+Der bisherige Loesungsversuch setzte die Spalte per SQL in `arch_db` ein und suchte dafuer einen
+Anker `//field[@name='state']` (Ersatz: `name`). Diesen Anker gibt es in 953/954 nicht - ihre Arch
+besteht nur aus `<xpath>`- und `<field position=...>`-Knoten. Der Lauf meldete Erfolg, aenderte aber
+nichts ("Upgrade exit 0 beweist nichts").
+
+**Loesung:** normale Ansichts-Vererbung im Modul `itk_account_migration` (18.0.1.11.0) auf
+`account.view_out_invoice_tree` und `account.view_out_credit_note_tree`:
+
+```
+<xpath expr="//field[@name='status_in_payment']" position="after">
+    <field name="projectcategory_id" optional="show" readonly="1"/>
+</xpath>
+```
+
+**Position:** Odoo 11 fuehrt die Spalte in `account.invoice.tree` (View 590, read-only gemessen)
+an Position 3 - direkt nach Nummer und Status. In Odoo 18 steht sie daher unmittelbar hinter der
+Spalte Status. Eingangs- und Lieferantenlisten bleiben unveraendert (Odoo 11
+`account.invoice.supplier.tree` kennt die Spalte nicht).
+
+**Sichtbare Spaltenfolge** (lokal und VM identisch, unveraendert gegenueber vorher):
+Nummer | Kunde | Rechnungsdatum | Faelligkeit | Referenzbeleg | Referenz | Exklusive Steuern |
+Total | Zu Bezahlen | Status | **Project Category**
+
+## Nachtrag 05.10.2026 (Session 124): Statuskette im Rechnungsformular
+
+Die Odoo-11-Prozesskette (Entwurf / Offen / Bezahlt / Abgebrochen) steht jetzt als Statusleiste im
+Rechnungsformular - nach demselben, bereits abgenommenen Muster wie im Zahlungsformular:
+
+- Das berechnete Anzeigefeld `itk_o11_status` (`store=False`) wird mit `widget="statusbar"` an
+  derselben Stelle gezeigt, an der die Odoo-18-Statusleiste stand.
+- Teilzahlung bleibt fachlich "Offen" (Odoo 11 kannte keinen eigenen Teilzahlungszustand).
+- Vollstaendig gutgeschriebene Rechnungen zeigen "Gutgeschrieben (Odoo 18)" als bewussten
+  Odoo-18-Zusatz (Entscheidung Anna, 05.10.2026, Restbetrag 0,00).
+- Der technische Odoo-18-Wert bleibt sichtbar: eigene Gruppe "Status (Odoo 18)" im Reiter
+  "Andere Informationen" (Entwurf / Gebucht / Abgebrochen).
+- Keine State-, Zahlungs- oder Buchungslogik geaendert; alle Odoo-18-Buttons und -Smart-Buttons
+  bleiben erhalten.
+
+Nachweis (Browser, lokal und VM): `scripts/browser_pc_status_abnahme.py --instanz <...>`,
+Screenshots je Zustand in `Desktop/Odoo18-Abnahme-Session124/pc_und_statuskette/<instanz>/`.
+

@@ -1,6 +1,6 @@
 {
     'name': 'ITK Abrechnung - Migrationsfelder',
-    'version': '18.0.1.10.0',
+    'version': '18.0.1.11.0',
     'summary': 'Felder zur Nachvollziehbarkeit der Odoo-11-Herkunft (Rechnungs- und Zahlungsnummer)',
     'description': """
 ITK Abrechnung - Migrationsfelder
@@ -24,6 +24,7 @@ Die Felder werden bei der spaeteren Migration befuellt; die laufende Odoo-18-Num
     },
     'data': [
         'views/account_move_views.xml',
+        'views/account_move_pc_spalte.xml',
         'views/account_move_filters.xml',
         'views/account_payment_views.xml',
         'views/account_config_labels.xml',
