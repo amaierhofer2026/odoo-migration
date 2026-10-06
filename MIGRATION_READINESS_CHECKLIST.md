@@ -1620,6 +1620,21 @@ Lehren (Odoo 18): position="move" wirkt nur als direktes Kind einer XPath-Angabe
 Beide Menuepunkte (Aktionen 382/383) verwenden dieselben Ansichten und unterscheiden sich nur im
   Standardfilter (Kann verkauft werden / Kann eingekauft werden); Odoo 11 fuehrte sie auf
   product.product, Odoo 18 auf product.template - Entscheidungspunkt bei Anna.
+Absicherung der beiden Abweichungen (Odoo 11 read-only, 05.10.2026):
+  Bilder: product.image 0 Datensaetze, image/image_medium/image_small auf product.template (649)
+  und product.product (648) je 0 belegt, ir.attachment an Produktmodellen je 0 -> keine Bild- oder
+  Anhangsdaten, kein Verlust, keine Migrationsregel noetig.
+  Varianten: 649 Vorlagen/648 Varianten, 0 Vorlagen mit mehr als einer Variante, 0 Varianten mit
+  Attributwerten; Attribute (2/5 Werte) und Attributzeilen nur an der archivierten, unbenutzten
+  Vorlage 300; Vorlage 263 ohne Variante und ohne Verwendung; alle Belegzeilen stammen aus
+  Vorlagen mit genau einer Variante -> keine Mehrfachzuordnung, kein Datenverlust, keine falschen
+  Verknuepfungen; Zuordnung ueber product.product.product_tmpl_id 1:1 eindeutig.
+Funktionspruefung der sieben Reiter im Browser (browser_produktformular_funktionen.py, Produkt
+  "Produkt B"): lokal und VM je 38 OK / 0 FEHL - Smart Buttons mit Klickproben (Verkaufsanalyse,
+  Einkaufshistorie, Preisregeln), Fakturierungsregel/Kontrollrichtlinie als Radioknoepfe, Steuern
+  als Chips, Lieferantenliste, Routen, Verpackungen, Attributliste, Beschreibungen, Warnhinweise.
+  Anpassung: invoice_policy erhaelt widget="radio" (Odoo 11: Radioknoepfe).
+  Abweichung: Odoo 18 zeigt den Smart Button "Varianten" bei nur einer Variante nicht.
 Abrechnung bleibt IN ARBEIT.
 Vollstaendigkeitscheck ohne Lese-Limit (scripts/pruefe_teil5_abdeckung.py, Odoo 11 read-only):
 Konten: 34.492 Buchungszeilen gesamt = 5.989 (1201 Bank) + 12.252 (1410 Forderungen)

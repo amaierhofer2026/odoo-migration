@@ -8549,4 +8549,29 @@ Zahlungen), Pruefung der drei Zusatzfelder und der Beschriftungsdarstellung. Dok
   `Desktop/Odoo18-Abnahme-Session126/produktformular{,_vorher}/{lokal,vm}` (Vorher-Bilder auf der
   VM vor dem Ausrollen, lokal identischer Vorher-Stand: gleiche Ansichtsdatei/Modulversion).
   Modulstand lokal = VM = 18.0.1.16.0.
+- **Absicherung der beiden bewussten Abweichungen (05.10.2026, Odoo 11 read-only):**
+  * **Bilder:** `product.image` 0 Datensaetze; `image`/`image_medium`/`image_small` auf
+    product.template (649) und product.product (648) je 0 belegt; `ir.attachment` an
+    product.template/-product/-image/-supplierinfo je 0. Es gibt also keine Bild- oder
+    Anhangsdaten; kein Verlust durch das fehlende Feld, **keine Migrationsregel noetig**
+    (`scripts/pruefe_o11_bilder_und_varianten.py`).
+  * **Varianten:** 649 Vorlagen / 648 Varianten, **0 Vorlagen mit mehr als einer Variante**,
+    **0 Varianten mit Attributwerten**; 2 Attribute und 5 Werte sowie 2 Attributzeilen nur an der
+    archivierten, unbenutzten Vorlage 300 "Test Produkt 2"; Vorlage 263 hat keine Variante und ist
+    in keinem Beleg/keiner Preisliste/keiner Lieferanteninfo verwendet. Alle Belegzeilen stammen
+    aus Vorlagen mit genau einer Variante (account.move.line 10.039 Zeilen/410 Produkte,
+    sale.order.line 4.015/403, sale.subscription.line 2.438/209, stock.move 327/91,
+    purchase.order.line 0). Mehrfachzuordnung, Datenverlust und falsche Verknuepfung sind damit
+    ausgeschlossen; die Zuordnung ist ueber `product.product.product_tmpl_id` 1:1 eindeutig
+    (`scripts/pruefe_o11_bilder_und_varianten.py`, `scripts/pruefe_o11_produkt_randfaelle.py`).
+- **Funktions- und Verknuepfungspruefung der sieben Reiter im Browser**
+  (`scripts/browser_produktformular_funktionen.py`, echtes Produkt "Produkt B"): lokal und VM je
+  **38 OK / 0 FEHL**. Smart Buttons Regeln Preislisten/Dokumente/Verkauft/Eingekauft/Bestand mit
+  Klickproben (Verkaufsanalyse action-420, Einkaufshistorie action-1175, Preisregeln
+  product.pricelist.item), Fakturierungsregel und Kontrollrichtlinie als Radioknoepfe, Steuern als
+  Chips (20% USt / 20% VSt) mit Steuerzeichenkette, Lieferantenliste, Routen, Verpackungen,
+  Attributliste, Beschreibungen und Warnhinweise bedienbar. Anpassung dabei: `invoice_policy`
+  erhaelt `widget="radio"` (Odoo 11 zeigte Radioknoepfe, Odoo 18 ein Auswahlfeld).
+- **Neue dokumentierte Abweichung:** Odoo 18 blendet den Smart Button "Varianten" bei nur einer
+  Variante aus, Odoo 11 zeigte den Zaehler immer.
 - **Abrechnung bleibt IN ARBEIT.**

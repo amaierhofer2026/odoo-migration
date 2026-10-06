@@ -415,7 +415,122 @@ DOM-Sonde Einzelfelder       scripts/_sonde_produktformular_dom.py lokal|vm
 Bilder: `Desktop/Odoo18-Abnahme-Session126/produktformular_vorher/vm` (Zustand vor der Aenderung),
 `produktformular/lokal` und `produktformular/vm` (nachher, je Reiter und Liste).
 
-## 7. Status
+## 7. Absicherung der bewussten Abweichungen (05.10.2026, Odoo 11 read-only)
+
+### 7.1 Reiter Bilder - es gibt keine Produktbilder und keine Anhaenge
+
+Gemessen in Odoo 11 Prod (`scripts/pruefe_o11_bilder_und_varianten.py`, nur Leseaufrufe):
+
+```
+product.image Datensaetze                         0
+image / image_medium / image_small belegt
+   product.template (649)                     0 / 0 / 0
+   product.product  (648)                     0 / 0 / 0
+Anhaenge (ir.attachment) an
+   product.template                               0   davon Bilder 0
+   product.product                                0   davon Bilder 0
+   product.image                                  0
+   product.supplierinfo                           0
+```
+
+Ergebnis: In Odoo 11 ist **kein einziges Produktbild und kein einziger Anhang** an Produkten
+gespeichert - weder Zusatzbilder (product.image war leer), noch Hauptbilder (alle drei
+Bildfelder zu 0 Prozent belegt), noch Dateianhaenge. Durch das fehlende Feld
+`product_image_ids` in Odoo 18 gehen daher **keine Daten verloren**, und es ist **keine
+Migrationsregel** erforderlich (es gibt nichts zu uebernehmen). Waeren Zusatzbilder vorhanden,
+waere die Regel: Datei aus dem Odoo-11-Filestore in `product.template.image_1920` bzw. in einen
+Anhang am Produkt uebernehmen - dieser Fall tritt nicht ein.
+
+### 7.2 product.product -> product.template - keine produktiven Varianten
+
+Gemessen (dieselben Skripte, Odoo 11 read-only):
+
+```
+product.template                          649
+product.product                           648
+Vorlagen mit mehr als einer Variante        0
+Varianten mit Attributwerten (attribute_value_ids)   0 von 648
+product.attribute                           2   ("Variante Flo", "Variante Kat", Typ radio)
+product.attribute.value                     5
+product.attribute.line                      2   (beide an Vorlage 300 "Test Produkt 2", archiviert)
+Vorlagen ohne Variante                      1   (Vorlage 263, in keinem Beleg verwendet)
+```
+
+Belegverweise (jede Zeile zeigt auf die Variante, nicht auf die Vorlage):
+
+```
+account.move.line      10039 Zeilen, 410 Produkte, aus Mehrfachvarianten-Vorlagen 0
+sale.order.line         4015 Zeilen, 403 Produkte, aus Mehrfachvarianten-Vorlagen 0
+purchase.order.line        0 Zeilen (keine Eingangsrechnungen in Odoo 11)
+sale.subscription.line   2438 Zeilen, 209 Produkte, aus Mehrfachvarianten-Vorlagen 0
+stock.move               327 Zeilen,  91 Produkte, aus Mehrfachvarianten-Vorlagen 0
+Vorlagen mit mehreren in Belegen verwendeten Varianten: 0 (in allen Modellen)
+```
+
+Ergebnis: Es gibt **keine produktiven Varianten**. Jede Vorlage hat genau eine Variante, kein
+Produkt traegt Attributwerte. Eine Mehrfachzuordnung (mehrere Varianten derselben Vorlage in einer
+Zeile einer Rechnung/eines Auftrags), ein Datenverlust oder eine falsche Verknuepfung ist damit
+ausgeschlossen. Die Zuordnung Vorlage <-> Variante bleibt 1:1 und ist ueber
+`product.product.product_tmpl_id` eindeutig aufloesbar; die Belegzeilen zeigen weiterhin auf die
+(neu erzeugte) Variante.
+
+Migrationsregeln fuer die beiden Randfaelle (beide unkritisch, kein Produktivbezug):
+
+```
+Vorlage 263 "Aufbau einer Plattform fuer interkommunalen Wissens- und Erfahrungsaustausch"
+   hat in Odoo 11 keine Variante und ist in keinem Beleg, keiner Preisliste und keiner
+   Lieferanteninfo verwendet (0 Treffer in allen geprueften Modellen).
+   Regel: beim Anlegen in Odoo 18 entsteht die Variante automatisch; es ist keine
+   Belegzuordnung nachzuziehen.
+Vorlage 300 "Test Produkt 2" (aktiv=False, Typ service, in keinem Beleg verwendet) traegt die
+   beiden einzigen Attributzeilen und deren Werte.
+   Regel: Attribute und Werte (2 Attribute, 5 Werte) sind reine Stammdaten ohne
+   Variantenwirkung in Odoo 11. Sie werden nur uebernommen, wenn die Stammdaten gebraucht
+   werden; dabei ist sicherzustellen, dass genau eine Variante je Vorlage erhalten bleibt
+   (keine Variantenvervielfachung). Da die Vorlage archiviert und unbenutzt ist, ist auch ein
+   Verzicht dokumentierbar.
+```
+
+## 8. Funktions- und Verknuepfungspruefung der sieben Reiter (echter Browser)
+
+Werkzeug: `scripts/browser_produktformular_funktionen.py lokal|vm` - oeffnet ein echtes Produkt
+der Menues (id 3 "Produkt B", Ware mit Verkaeufen und Einkaeufen), prueft je Reiter die
+Funktionen und klickt Smart Buttons an (nur oeffnen, nichts speichern).
+Ergebnis: **lokal 38 OK / 0 FEHL, VM 38 OK / 0 FEHL**.
+
+```
+Kopfbereich  Smart Buttons: Regeln Preislisten, Dokumente, Verkauft (1,000 Einheit(en)),
+             Eingekauft (2,000 Einheit(en)), Bestand (Eingang: 0 Ausgang: 0)
+             Klickproben: Verkauft -> Verkaufsanalyse (action-420), Eingekauft ->
+             Einkaufshistorie (action-1175), Regeln Preislisten -> product.pricelist.item
+             Kopfknoepfe: Auffuellen, Etiketten drucken (Dialog oeffnet und schliesst ohne
+             Speicherung)
+             "Varianten" wird bei nur einer Variante nicht angezeigt (Odoo-18-Regel) -
+             dokumentierte Abweichung zu Odoo 11, das den Zaehler immer zeigte
+Allgemeine   Product-Type (itk_product.product_type), Interne Kategorie (product.category),
+Informationen Interne Referenz, Strichcode, Verantwortlich (res.users), Verkaufspreis,
+             Kosten, Kann verkauft/eingekauft werden, Abonnement Produkt (recurring_invoice);
+             Abonnement-Vorlage erscheint, sobald "Abonnement Produkt" gesetzt ist
+Verkauf      Optionale Produkte (Odoo-18-Feld fuer alternative/Zubehoer-Produkte),
+             Stichwoerter, Spesen weiter verrechnen (Auswahl aktiv "Nein")
+Einkauf      Lieferantenliste mit Spalten Lieferant/Menge/Preis/Waehrung/Liefervorlaufzeit
+             (Zeile vorhanden, Hinzufuegen moeglich), Einkauf ME editierbar
+Lager        Routen als Auswahl (stock.route, "Einkaufen" gesetzt), Verantwortlich (Avatar),
+             Gewicht, Volumen, Auslieferungszeit, Verpackungen (Liste mit Spalten und
+             Hinzufuegen), Knopf "Diagramm ansehen" vorhanden
+Abrechnung   Steuern (Verkauf) und Steuern (Einkauf) als Chips belegt (20% USt / 20% VSt,
+             account.tax), Steuerzeichenkette "+ 1,20 € Inkl. Steuern", Fakturierungsregel und
+             Kontrollrichtlinie als Radioknoepfe mit den Werten (Bestellte Mengen / Gelieferte
+             Mengen bzw. Auf bestellte Mengen / Auf erhaltene Mengen), beide editierbar
+Notizen      Beschreibung (HTML-Feld, in Odoo 11 Textfeld), Verkaufs-, Einkaufs- und drei
+             Lieferbeschreibungen sichtbar und editierbar; Warnhinweise Verkauf/Einkauf als
+             Auswahl mit Wert "Keine Nachricht"
+Attribute &  Attributliste mit Spalten Attribut/Werte und "Zeile hinzufuegen" vorhanden
+Varianten
+```
+Bilder je Reiter: `Desktop/Odoo18-Abnahme-Session126/produktformular_funktionen/{{lokal,vm}}`.
+
+## 9. Status
 
 Umgesetzt und im echten Browser lokal und auf der VM geprueft (jeweils 46 OK / 0 FEHL, Bilder
 gesehen): Reiter Abrechnung und Notizen wiederhergestellt, Feldpositionen und Beschriftungen nach
