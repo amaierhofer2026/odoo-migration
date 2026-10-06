@@ -1582,6 +1582,45 @@ Feld bleibt sichtbar und readonly an der Odoo-11-Position. Abweichung als fachli
 bewusst akzeptiert dokumentiert (docs/o11-o18-abrechnung-abschlussmatrix.md Abschnitt 12.2, Zeile
 "Feld Zahlungstransaktion"). Abrechnung bleibt IN ARBEIT.
 ```
+
+### 6.16 Teil: Produktformular Verkaufbare/Einkaufbare Produkte (05.10.2026, Session 126)
+
+Vollstaendiger, feldweiser Abgleich gegen Odoo 11 (read-only) und Umsetzung.
+Dokumentation mit vollstaendiger Matrix (66 Feldzeilen):
+**docs/o11-o18-vergleich-abrechnung-produktformular.md**
+
+```
+Reiter Odoo 11 (8)      Allgemeine Informationen, Varianten (in Odoo 11 unsichtbar), Verkauf,
+                        Einkauf, Lager, Abrechnung, Notizen, Bilder
+Reiter Odoo 18 vorher   Allgemeine Informationen, Attribute & Varianten, Verkauf, Einkauf, Lager
+                        (im Browser gemessen, Produkt id 11)
+Reiter Odoo 18 nachher  Allgemeine Informationen, Attribute & Varianten, Verkauf, Einkauf, Lager,
+                        Abrechnung, Notizen
+
+Ursache fehlender Reiter Abrechnung: Seite name=invoicing aus dem account-Modul
+  (Beschriftung "Buchhaltung"), eingeschraenkt ueber die verborgene technische Gruppe
+  account.group_account_readonly - 0 Benutzer in der Instanz (gemessen 05.10.2026).
+Umsetzung (Modul 18.0.1.15.0 -> 18.0.1.16.0):
+  views/product_template_form_o11.xml  Reiter Abrechnung (Beschriftung Odoo 11, Gruppenfilter
+      entfernt, Felder in Odoo-11-Gruppen Forderungen/Verbindlichkeiten/Abrechnung/
+      Eingangsrechnung), Reiter Notizen (acht Odoo-11-Gruppen), Kategorie/Referenz/Strichcode
+      in die erste Gruppe, Beschriftungen nach Odoo-11-Wortlaut
+  views/product_template_list_o11.xml  Bestandsmenge, Geplante Bestandsmenge, Mengeneinheit,
+      Strichcode als Spalten der Menueliste (in Odoo 18 dort nicht vorhanden)
+Nicht nachbaubar (kein Dummy-Feld): product_image_ids (Reiter Bilder, in Odoo 11 0 von 649
+  belegt, product.image in Odoo 18 entfernt), service_policy, project_id, property_valuation,
+  property_stock_account_input/-output, cost_method, property_cost_method, valuation,
+  Website-Felder (Modul in Odoo 18 nicht installiert).
+Nachweis: scripts/browser_produktformular_reiter_abnahme.py lokal|vm -> je 46 OK / 0 FEHL,
+  Bilder Desktop/Odoo18-Abnahme-Session126/produktformular{,_vorher}/{lokal,vm}.
+Lehren (Odoo 18): position="move" wirkt nur als direktes Kind einer XPath-Angabe; "string" ist
+  kein gueltiger Selektor ("View inheritance may not use attribute 'string' as a selector");
+  ein Feld als direktes Kind einer Gruppe verliert im DOM seine Beschriftung (in eine eigene
+  Gruppe setzen).
+Beide Menuepunkte (Aktionen 382/383) verwenden dieselben Ansichten und unterscheiden sich nur im
+  Standardfilter (Kann verkauft werden / Kann eingekauft werden); Odoo 11 fuehrte sie auf
+  product.product, Odoo 18 auf product.template - Entscheidungspunkt bei Anna.
+Abrechnung bleibt IN ARBEIT.
 Vollstaendigkeitscheck ohne Lese-Limit (scripts/pruefe_teil5_abdeckung.py, Odoo 11 read-only):
 Konten: 34.492 Buchungszeilen gesamt = 5.989 (1201 Bank) + 12.252 (1410 Forderungen)
         + 6.241 (1776 Umsatzsteuer 19%) + 10.010 (8400 Erloese 19% USt); 0 Zeilen ohne Konto

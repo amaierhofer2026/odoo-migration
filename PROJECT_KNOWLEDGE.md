@@ -8500,3 +8500,53 @@ Zahlungen), Pruefung der drei Zusatzfelder und der Beschriftungsdarstellung. Dok
   `docs/o11-o18-abrechnung-abschlussmatrix.md` Abschnitt 12.2.
 - **Abrechnung bleibt IN ARBEIT** - Anna kontrolliert das Modul selbst weiter; nichts als
   abgeschlossen oder migrationsbereit markiert.
+
+## Session 126, Teil 6: Produktformular Verkaufbare/Einkaufbare Produkte (05.10.2026)
+
+- **Befund (Anna):** Odoo 18 zeigt im Produktformular nur Allgemeine Informationen, Attribute &
+  Varianten, Verkauf, Einkauf, Lager; Odoo 11 hatte zusaetzlich **Abrechnung, Notizen, Bilder**.
+  Kein Abhaken als "Odoo-18-Standard", sondern feldweiser Abgleich und Umsetzung.
+- **Ursache Reiter Abrechnung:** Die Seite `name=invoicing` kommt aus dem `account`-Modul
+  (Beschriftung "Buchhaltung") und haengt an der **verborgenen technischen Gruppe**
+  `account.group_account_readonly`; diese hat in der Instanz **0 Benutzer** (gemessen) - der Reiter
+  ist damit fuer jeden Benutzer unsichtbar. Odoo 18 selbst nutzt fuer seine eigene Ansicht
+  `groups="base.group_no_one"` + `invisible="not use_electronic_payment_method"` (nur
+  Entwicklermodus).
+- **Umsetzung (Modul 18.0.1.15.0 -> 18.0.1.16.0):**
+  * `views/product_template_form_o11.xml`: Reiter Abrechnung (Beschriftung Odoo 11, Gruppenfilter
+    entfernt, Felder in den Odoo-11-Gruppen Forderungen/Verbindlichkeiten/Abrechnung/
+    Eingangsrechnung; Buchhaltungsfelder behalten ihre Gruppenrechte), Reiter Notizen mit den acht
+    Odoo-11-Gruppen, Kategorie/Referenz/Strichcode in die erste Gruppe, Odoo-11-Beschriftungen.
+  * `views/product_template_list_o11.xml`: die vier in Odoo 18 fehlenden Odoo-11-Spalten
+    (Bestandsmenge, Geplante Bestandsmenge, Mengeneinheit, Strichcode) in der Menueliste.
+  * Werkzeuge: `analyse_o11_produktfelder_nutzung.py`, `zeige_produktformular_struktur.py`,
+    `vergleich_produkt_ansichten.py`, `browser_produktformular_reiter_abnahme.py` (46 Pruefpunkte),
+    `browser_produktformular_aufnahme.py`, `_sonde_produktformular_dom.py`,
+    `erzeuge_produktformular_matrix.py`.
+  * Dokumentation: `docs/o11-o18-vergleich-abrechnung-produktformular.md` (66 Feldzeilen mit
+    technischer Zuordnung, Migrationsregel und Abweichungsbegruendung).
+- **Odoo-11-Nutzung (read-only, 649 Produktvorlagen):** belegt u. a. taxes_id 647,
+  supplier_taxes_id 648, invoice_policy 649 ('order'), purchase_method 649 ('receive'),
+  service_type 649 (598 manual/51 timesheet), service_policy 51 ('ordered_timesheet'),
+  list_price 606, recurring_invoice 333, product_type_id 410; **0 belegt**: barcode,
+  seller_ids, description_sale (1), description_purchase, Warnfelder, weight, volume, sale_delay,
+  property_account_income_id/-expense_id, project_id, description, product_image_ids
+  (product.image 0 Datensaetze, 0 Anhaenge).
+- **Bewusste Abweichungen:** Reiter Bilder (product.image in Odoo 18 entfernt, in Odoo 11 0 belegt;
+  Hauptbild im Kopf + Smart Button Dokumente + Chatter), service_policy/project_id (in Odoo 18
+  entfernt, Richtlinie laeuft ueber invoice_policy/expense_policy), valuation-Felder,
+  Website-Felder (Modul nicht installiert), Attributwert-Spalte der Liste (Odoo 18 fuehrt die
+  Menues auf product.template), `purchase_line_warn_msg` (Odoo-11-Text war abgeschnitten),
+  "Description for Internal" bleibt englisch (Odoo 11 hatte keine Uebersetzung).
+- **Entscheidungspunkt fuer Anna:** Odoo 11 listete `product.product` (eine Zeile je Variante),
+  Odoo 18 `product.template` (eine Zeile je Vorlage); im ITK-Bestand gibt es keine Produkte mit
+  Attributen, die sichtbare Wirkung ist deshalb identisch.
+- **Odoo-18-View-Lehren (neu bestaetigt):** `position="move"` wirkt **nur als direktes Kind** der
+  XPath-Angabe (nicht innerhalb neu eingefuegter Unterbaeume); `string` ist kein gueltiger Selektor
+  ("View inheritance may not use attribute 'string' as a selector"); ein Feld als **direktes Kind
+  einer Gruppe** verliert im DOM seine Beschriftung - es gehoert in eine eigene Gruppe.
+- **Nachweis:** Browser-Abnahme lokal und VM je **46 OK / 0 FEHL**, Bilder
+  `Desktop/Odoo18-Abnahme-Session126/produktformular{,_vorher}/{lokal,vm}` (Vorher-Bilder auf der
+  VM vor dem Ausrollen, lokal identischer Vorher-Stand: gleiche Ansichtsdatei/Modulversion).
+  Modulstand lokal = VM = 18.0.1.16.0.
+- **Abrechnung bleibt IN ARBEIT.**
