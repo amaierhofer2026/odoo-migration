@@ -1576,6 +1576,11 @@ Features und bei elektronischen Zahlungsmethoden. Ergebnis: funktional gleichwer
 Standardlogik unveraendert, Feld bleibt an Odoo-11-Position sichtbar/readonly. Nachweis
 scripts/browser_zahlungstransaktion_check.py lokal|vm. Doku: Abschnitt 11 in
 docs/o11-o18-vergleich-abrechnung-zahlungsformular.md.
+Entscheidung Anna 05.10.2026: Zahlungstransaktion nicht kuenstlich editierbar machen, Odoo-18-
+Standardlogik beibehalten; keine Nachbildung der manuellen Odoo-11-Auswahl (0 von 5.994 Zahlungen).
+Feld bleibt sichtbar und readonly an der Odoo-11-Position. Abweichung als fachlich gleichwertig und
+bewusst akzeptiert dokumentiert (docs/o11-o18-abrechnung-abschlussmatrix.md Abschnitt 12.2, Zeile
+"Feld Zahlungstransaktion"). Abrechnung bleibt IN ARBEIT.
 ```
 Vollstaendigkeitscheck ohne Lese-Limit (scripts/pruefe_teil5_abdeckung.py, Odoo 11 read-only):
 Konten: 34.492 Buchungszeilen gesamt = 5.989 (1201 Bank) + 12.252 (1410 Forderungen)

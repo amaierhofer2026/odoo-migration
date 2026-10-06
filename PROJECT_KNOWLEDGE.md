@@ -8490,3 +8490,13 @@ Zahlungen), Pruefung der drei Zusatzfelder und der Beschriftungsdarstellung. Dok
   `scripts/browser_zahlungstransaktion_check.py lokal|vm` (0 Eingabefelder im Feld,
   `o_readonly_modifier`, Wert leer, `payment.transaction` 0, Token 0, Anbieter 17). Empfehlung zur
   Sichtbarkeit (Odoo-18-Regel uebernehmen oder Odoo-11-Treue behalten) liegt bei Anna.
+- **Entscheidung von Anna (05.10.2026) zur Zahlungstransaktion - bewusst akzeptierte, fachlich
+  gleichwertige Abweichung:** keine kuenstliche Editierbarkeit, Odoo-18-Standardlogik bleibt
+  unveraendert; keine Nachbildung der manuellen Odoo-11-Auswahl (dort 0 von 5.994 Zahlungen genutzt,
+  0 Transaktionen). Das Feld bleibt **sichtbar und readonly** an der Odoo-11-Position, damit die
+  Information bei kuenftigen elektronischen Zahlungen vorhanden ist. Die Odoo-18-eigene
+  Sichtbarkeitsregel (nur technische Features/elektronische Methoden) wird bewusst **nicht**
+  uebernommen. Fuer die Migration ist nichts zu uebernehmen. Eingetragen in
+  `docs/o11-o18-abrechnung-abschlussmatrix.md` Abschnitt 12.2.
+- **Abrechnung bleibt IN ARBEIT** - Anna kontrolliert das Modul selbst weiter; nichts als
+  abgeschlossen oder migrationsbereit markiert.

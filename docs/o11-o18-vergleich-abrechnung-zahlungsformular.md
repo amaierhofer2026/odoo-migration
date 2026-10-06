@@ -373,8 +373,28 @@ Bestand        : payment.transaction 0, payment.token 0, payment.provider 17 (al
 Werkzeug: `scripts/browser_zahlungstransaktion_check.py lokal|vm`; Screenshots
 `Desktop/Odoo18-Abnahme-Session126/zahlungstransaktion/<instanz>/`.
 
-**Empfehlung (Entscheidung von Anna):** Odoo 18 zeigt das Feld nur mit technischen Features und bei
-elektronischen Zahlungsmethoden, unser Formular zeigt es immer (Odoo-11-Treue). Da das Feld im
-gesamten Bestand leer ist, koennte man die Odoo-18-Regel uebernehmen
-(`groups="base.group_no_one"` + `invisible` bei nicht-elektronischer Methode). Bewusst **nicht**
-geaendert, damit die Odoo-11-Position erhalten bleibt und Anna selbst entscheidet.
+**Entscheidung von Anna (05.10.2026): bewusst akzeptierte, fachlich gleichwertige Abweichung**
+
+> "Die Zahlungstransaktion soll nicht kuenstlich editierbar gemacht werden. Bitte die
+> Odoo-18-Standardlogik beibehalten. Da das Feld in Odoo 11 zwar auswaehlbar, aber in unseren
+> produktiven Daten bei 0 von 5.994 Zahlungen verwendet wurde, ist keine Nachbildung der manuellen
+> Auswahl erforderlich. Das Feld Zahlungstransaktion kann sichtbar und readonly bleiben, damit die
+> Information bei zukuenftigen elektronischen Zahlungen vorhanden ist."
+
+Festgehalten:
+
+- **Keine Anpassung.** Odoo-18-Standardlogik bleibt unveraendert; kein zusaetzliches editierbares
+  Feld, keine Aenderung an Modell, readonly-Attributen oder Payment-Logik.
+- **Sichtbar und readonly** an der Odoo-11-Position - die Information steht bei kuenftigen
+  elektronischen Zahlungen bereit (dann fuellt das Zahlungssystem sie automatisch).
+- **Keine Nachbildung der manuellen Auswahl** aus Odoo 11 (dort 0 von 5.994 Zahlungen genutzt,
+  0 Transaktionen im Bestand).
+- Einstufung: **fachlich gleichwertig und bewusst akzeptiert** (Odoo-18-Zusatzlogik).
+- Die von Odoo 18 selbst genutzte Sichtbarkeitsregel
+  (`groups="base.group_no_one"`, `invisible="not use_electronic_payment_method"`) wird **nicht**
+  uebernommen - das Feld bleibt wie in Odoo 11 immer sichtbar.
+- Fuer die Migration ist nichts zu tun: in Odoo 11 gibt es keine Werte zu uebernehmen
+  (0 Transaktionen, 0 Tokens).
+
+Eingetragen in `docs/o11-o18-abrechnung-abschlussmatrix.md` Abschnitt 12.2 (Register der bewussten
+Abweichungen).
