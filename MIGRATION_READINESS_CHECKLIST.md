@@ -1664,12 +1664,22 @@ Zweiter Durchgang 05.10.2026 (Auftrag Anna: "Das gesamte Produktformular muss in
 Stand 05.10.2026 (zweiter Durchgang): Produktformular je Reiter nach Odoo 11 nachgebaut. Nicht als
   abgeschlossen oder migrationsbereit markiert - Anna kontrolliert selbst weiter und meldet
   konkrete Unterschiede.
-Offene fachliche Punkte (05.10.2026, nichts umgesetzt, keine Migrationsregel abgeleitet): Zuordnung
-  der Odoo-11-Auswahlwerte von type (general 273, consu 152, platform 94, onlineservice 74,
-  service 47, sw 9) offen (Variante 1 oder 2); 1:1-Uebernahme von product_type_id noch NICHT
-  freigegeben (Messbefund: gleiche Namen, Kuerzel, IDs 1 bis 6); Umgang mit den ITK-DiensteFiltern
-  offen. Anna prueft zuerst selbst im Browser. Messwerte, Kreuztabelle, Abhaengigkeiten und beide
-  Varianten: docs/o11-o18-produktart-mapping.md.
+Produktart-Migrationsregel (ENTSCHIEDEN von Anna am 05.10.2026, Variante 1 - nur vorbereitet, keine
+  Datenmigration): `type` 1:1 uebernehmen, soweit der Wert in Odoo 18 vorhanden ist (alle Odoo-11-Werte
+  ausser `product`; `product` ist nicht belegt -> `consu` + `is_storable`). `product_type_id` separat
+  1:1 ueber Name UND ID (itk_product.product_type, IDs 1-6 identisch, 6 Datensaetze). `type` und
+  `product_type_id` werden nicht verschmolzen und nicht gegenseitig abgeleitet (47 Vorlagen mit
+  ITK-`type` ohne Produktart behalten dort nichts). Lagerfuehrung ausschliesslich ueber `is_storable`
+  (Odoo-11 `type` in (consu, product) -> True: 152 Vorlagen). Lagerartikel bleiben bei
+  `product_type_id` leer. Die sechs ITK-Produktarten bleiben unveraendert. Die Odoo-11-Filter
+  muessen dieselben Produktmengen liefern - Filter "Dienstleistungen" bleibt bei 47 aktiven
+  Vorlagen. Regel im Migrationsskript `scripts/testmigration_abrechnung.py` (`typ_ziel`, Modulkopf);
+  Vorlaufpruefung ohne Schreibzugriff: `scripts/pruefe_produktart_regel.py` (Ergebnis: 0 Fehler,
+  Zielverteilung general 274, consu 152, platform 94, onlineservice 75, service 49, sw 9).
+  Grundlage und Entscheidungsmatrix: `docs/o11-o18-produktart-mapping.md` (Abschnitt 0) und
+  `docs/o11-o18-produktart-pruefung.md`. Einzige noch offene Anpassung: die zwei Filter mit
+  `service_type = 'timesheet'` koennen in Odoo 18 nie treffen (Odoo-11-Treffer 33 bzw. 0);
+  drei Moeglichkeiten in der Mapping-Doku, Abschnitt 10.
 Abrechnung bleibt IN ARBEIT.
 Vollstaendigkeitscheck ohne Lese-Limit (scripts/pruefe_teil5_abdeckung.py, Odoo 11 read-only):
 Konten: 34.492 Buchungszeilen gesamt = 5.989 (1201 Bank) + 12.252 (1410 Forderungen)
@@ -1803,9 +1813,13 @@ Spalten in der Spaltenauswahl (`itk_multifactor` 18.0.1.1.1, Modul haengt jetzt 
 ab). Neue Suchansicht `product.template.search.abo.produkte` mit den Filtern
 "Mit Faktor multipliziert" und "Aktive Abonnement Produkte" sowie den Gruppierungen
 "Status" (`product_type_id`) und "Mit Faktor multipliziert"; die Odoo-18-Filter und
--Gruppierungen bleiben erhalten. Die Odoo-11-Filter "Service Type ..." wurden bewusst nicht
-nachgebaut - sie hatten dort Einzelwerte der ITK-Produktart fest verdrahtet, in Odoo 18 leistet
-das die Gruppierung nach `product_type_id`. `to_multiply_by_factor` ist aus dem Produktformular
+-Gruppierungen bleiben erhalten. **Korrektur 05.10.2026 (gemessen):** Die Odoo-11-Filter
+"Service Type ..." sind nachgebaut (sechs Filter in `itk_product/views/itk_product.xml`, gleiche
+Namen und Domains `[('product_type_id','=','<Name>')]`, Session 123); die frueher hier notierte
+Aussage "bewusst nicht nachgebaut" ist falsch. Eine Gruppierung nach Produktart gab es in Odoo 11
+nicht (nur die Listenspalte "Status"); die Gruppierung "Status" ist eine Odoo-18-Ergaenzung.
+Nachweis: `docs/o11-o18-produktart-pruefung.md`, Abschnitt 3.
+`to_multiply_by_factor` ist aus dem Produktformular
 entfernt (`itk_product` 18.0.1.0.1; Feld bleibt in der DB) - es existiert in Odoo 11 nicht und ist
 eine Dublette zu `is_multi_factor_product`. **Lager:** `stock` wird NICHT installiert; read-only
 belegt (0 erledigte Lagerbewegungen, 0 Bestandszeilen, 0 Produkte mit Bestand, 0 Lagerartikel,

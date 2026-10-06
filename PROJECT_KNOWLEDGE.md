@@ -6622,9 +6622,13 @@ Auftragszeilen und 560 Abo-Zeilen != 1).
 und is_multi_factor_product in der Spaltenauswahl (optional="show"); neue Suchansicht
 product.template.search.abo.produkte mit den Filtern "Mit Faktor multipliziert" und
 "Aktive Abonnement Produkte" sowie den Gruppierungen "Status" (product_type_id) und
-"Mit Faktor multipliziert"; das Modul haengt jetzt von itk_product ab (product_type_id). Die
-Odoo-11-Filter "Service Type ..." wurden nicht nachgebaut (sie hatten dort Einzelwerte der
-ITK-Produktart fest verdrahtet; in Odoo 18 leistet das die Gruppierung nach product_type_id).
+"Mit Faktor multipliziert"; das Modul haengt jetzt von itk_product ab (product_type_id).
+**Korrektur 05.10.2026 (gemessen):** Die Odoo-11-Filter "Service Type ..." sind sehr wohl
+nachgebaut - sechs Filter in `itk_product/views/itk_product.xml` mit denselben Namen und Domains
+(`[('product_type_id','=','<Name>')]`, Session 123). Die frueher hier notierte Aussage (nicht
+nachgebaut, stattdessen Gruppierung) ist falsch. Die Odoo-11-Gruppierung nach Produktart gab es
+ohnehin nicht; die Gruppierung "Status" ist eine Odoo-18-Ergaenzung. Nachweis:
+`docs/o11-o18-produktart-pruefung.md`, Abschnitt 3.
 Bestandsfilter des stock-Moduls entfallen. Odoo-18-Zusatzspalten bleiben erhalten.
 
 **Befunde dieser Session:**
@@ -8604,12 +8608,15 @@ Zahlungen), Pruefung der drei Zusatzfelder und der Beschriftungsdarstellung. Dok
   `docs/o11-o18-vergleich-abrechnung-produktformular.md`, Abschnitt 9 nach Reitern). Weiterhin
   **nicht** als abgeschlossen oder migrationsbereit markiert; Anna kontrolliert die uebrigen
   Bereiche des Abrechnungsmoduls selbst im Browser und meldet konkrete Unterschiede.
-- **Offene fachliche Punkte (nicht selbst entschieden, 05.10.2026):** Anna prueft selbst im
-  Browser und entscheidet danach. Offen sind: (1) ob die Odoo-11-Auswahlwerte von `type`
-  (general 273, consu 152, platform 94, onlineservice 74, service 47, sw 9) 1:1 uebernommen oder
-  auf `consu`/`service` plus `is_storable` abgebildet werden, (2) ob `product_type_id` 1:1 ueber
-  Name und ID uebernommen wird (Messbefund: 6 Datensaetze mit denselben Namen, Kuerzeln und IDs
-  1 bis 6 - das ist **keine** Freigabe), (3) der Umgang mit den ITK-DiensteFiltern. Messwerte,
-  Kreuztabelle, Abhaengigkeiten und beide Varianten: `docs/o11-o18-produktart-mapping.md`.
-  Bis zur Freigabe ist nichts umgesetzt und keine Migrationsregel daraus abgeleitet.
+- **Produktart-Migrationsregel (entschieden 05.10.2026, Variante 1; nur vorbereitet, keine
+  Datenmigration):** `type` 1:1 uebernehmen, soweit der Wert in Odoo 18 vorhanden ist (alle
+  Odoo-11-Werte ausser `product`; `product` nicht belegt -> `consu` + `is_storable`);
+  `product_type_id` separat 1:1 ueber Name und ID (IDs 1-6 identisch); keine Verschmelzung und keine
+  gegenseitige Ableitung; Lagerfuehrung ausschliesslich ueber `is_storable` (152 Lagerartikel);
+  Lagerartikel bleiben bei `product_type_id` leer; die sechs ITK-Produktarten bleiben unveraendert;
+  die Odoo-11-Filter muessen dieselben Produktmengen liefern (Filter "Dienstleistungen" bleibt bei
+  47 aktiven Vorlagen). Regel im Skript `scripts/testmigration_abrechnung.py`, Vorlaufpruefung
+  `scripts/pruefe_produktart_regel.py` (0 Fehler). Belege: `docs/o11-o18-produktart-mapping.md`
+  (Abschnitt 0) und `docs/o11-o18-produktart-pruefung.md`. Offen bleibt nur die Anpassung der zwei
+  Filter mit `service_type = 'timesheet'` (Mapping-Doku, Abschnitt 10).
 - **Abrechnung bleibt IN ARBEIT.**

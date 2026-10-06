@@ -4,6 +4,16 @@
 Filtern, Ansichten oder Zuordnungen. Abrechnung bleibt IN ARBEIT.** Auftrag und Pruefpunkte von
 Anna (05.10.2026); die offene Frage `type` (Produktart) bleibt ausdruecklich offen.
 
+**Nachtrag 05.10.2026 (nach der Analyse): Anna hat entschieden - Variante 1.** `type` wird 1:1
+uebernommen, soweit der Wert in Odoo 18 vorhanden ist; `product_type_id` wird separat 1:1 ueber
+Name und ID uebernommen; `type` und `product_type_id` werden nicht verschmolzen und nicht
+gegeneinander abgeleitet; die Lagerfuehrung laeuft ausschliesslich ueber `is_storable`;
+Lagerartikel bleiben bei `product_type_id` leer; die sechs ITK-Produktarten bleiben erhalten; die
+Odoo-11-Filter muessen dieselben Produktmengen liefern. Verbindliche Regelfassung:
+`docs/o11-o18-produktart-mapping.md`, Abschnitt 0. Umsetzung nur vorbereitet (Migrationsskript und
+Pruefskript), keine Datenmigration, keine Aenderung an Daten, Filtern oder Ansichten. Die
+Abschnitte 7 und 11 dieses Berichts sind damit historisch (Entscheidungsvorlage).
+
 Datenbasis (alles read-only, keine Testdaten angelegt, Odoo 11 Prod nur gelesen):
 
 ```
@@ -277,21 +287,32 @@ Stundenerfassung) dann auf den Dienstleistungsprodukten greifen.
 4. Die beiden migrierten Testprodukte (O18 224/225) tragen keine Produktart, obwohl ihre
    Odoo-11-Quellen eine haben.
 
-Diese vier Punkte sind reine Text-/Testdatenbefunde. Ich habe sie nicht korrigiert, weil du
-"nichts verändern" vorgegeben hast.
+Diese vier Punkte waren reine Text-/Testdatenbefunde. **Am 05.10.2026 bereinigt:** Punkte 1 bis 3
+(Modulkopf im Migrationsskript, Kommentar in `itk_multifactor`, Checklist/PROJECT_KNOWLEDGE).
+Offen bleibt Punkt 4: die beiden Testprodukte Odoo 18 224/225 tragen keine Produktart, obwohl ihre
+Odoo-11-Quellen Onlineservice haben. Sie erhalten sie beim naechsten Testlauf der Migration nach
+der jetzt festgelegten Regel (oder auf ausdrueckliche Anweisung einzeln); ich habe sie nicht
+angefasst.
 
-## 11. Empfehlung
+## 11. Empfehlung (Entscheidungsvorlage vom 05.10.2026 - durch Annas Entscheidung abgeloest)
 
 1. `type`: Entscheidung bei Anna. Datengrundlage fuer Variante 1 (1:1) und Variante 2 (Abbildung)
    siehe Abschnitt 7; keine der beiden ist umgesetzt.
+   **Nachtrag:** entschieden ist Variante 1.
 2. `product_type_id`: 1:1 ueber Name und ID ist belegt (6 Datensaetze, gleiche IDs 1-6, keine
    Dubletten) - Freigabe durch Anna steht aus. Voraussetzung fuer die sechs "Service Type ..."-Filter
    ist, dass die Namen unveraendert bleiben.
+   **Nachtrag:** freigegeben.
 3. Lagerartikel: `product_type_id` leer lassen ist unschaedlich (Feld wird vom Odoo-18-Kern nicht
    verwendet). Vor einer Freigabe sollte ein Lagerprodukt mit `is_storable = True` einmal im
    Odoo-18-Browser geprueft werden - dafuer brauche ich ein Testprodukt, das ich ohne deine
    Freigabe nicht anlege.
+   **Nachtrag:** Regel bestaetigt (leer lassen); der Lagerfall im Browser bleibt offen.
 4. ITK-DiensteFilter: "Zeitbasierte" und "Festpreis-Dienste" koennen in Odoo 18 nicht treffen
    (`service_type = 'timesheet'` fehlt). Ob die Domains angepasst werden, ist eine fachliche
    Entscheidung.
+   **Nachtrag:** offen - die einzige noch anpassungsbeduerftige Stelle
+   (`docs/o11-o18-produktart-mapping.md`, Abschnitt 10).
 5. Textstellen aus Abschnitt 10 nach Freigabe bereinigen.
+   **Nachtrag:** am 05.10.2026 bereinigt (Migrationsskript-Kopf, Kommentar in itk_multifactor,
+   Checklist und PROJECT_KNOWLEDGE); offen bleibt nur die Testdatensaetze 224/225 in Odoo 18.

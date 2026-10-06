@@ -1,8 +1,8 @@
 # Produktart / `product_type_id`: datenbasierte Mapping-Tabelle (05.10.2026)
 
-**Status: offene fachliche Entscheidung von Anna - dieses Dokument trifft keine Entscheidung und
-leitet keine Migration ab.** Gemessen read-only in Odoo 11 Prod (`ITK_V1_a`) und in Odoo 18 lokal
-und VM (`odoo18_test`). Bereich Abrechnung bleibt IN ARBEIT.
+**Status: ENTschieden am 05.10.2026 durch Anna - Variante 1 (siehe Abschnitt 0). Die Umsetzung
+erfolgt ausschliesslich als Vorbereitung der spaeteren Migration; eine echte Datenmigration ist
+nicht erfolgt und nicht beauftragt. Abrechnung bleibt IN ARBEIT.**
 
 Werkzeuge (wiederholbar, ohne Schreibzugriff):
 
@@ -14,6 +14,39 @@ scripts/produktart_details.py        o11|lokal|vm   Kreuztabelle type x product_
 scripts/produktart_verwendung_je_modul.py o11|lokal|vm  Verwendung je Belegmodell
 Rohdaten: %LOCALAPPDATA%\Temp\produktart\*.json
 ```
+
+## 0. Entscheidung von Anna (05.10.2026): Variante 1 - verbindliche Regel
+
+1. **`type` 1:1 uebernehmen**, soweit der Wert in Odoo 18 vorhanden ist (alle Odoo-11-Werte ausser
+   `product`; `product` ist in Odoo 11 nicht belegt und wird zu `consu` + `is_storable`).
+2. **`product_type_id` separat 1:1** ueber Name und technische ID uebernehmen (Zielmodell
+   `itk_product.product_type`, IDs 1-6 identisch). Voraussetzung: die Namen bleiben unveraendert.
+3. **`type` und `product_type_id` werden nicht verschmolzen und nicht gegenseitig abgeleitet.**
+   Insbesondere entsteht aus `type = onlineservice` **keine** Produktart (47 Vorlagen mit ITK-`type`
+   ohne Produktart behalten dort nichts).
+4. **Lagerfuehrung ausschliesslich ueber `is_storable`** in Odoo 18, abgeleitet aus der
+   Odoo-11-Lagerfuehrung (`type in ('product','consu')` -> `is_storable = True`, sonst `False`).
+   Odoo 18 erzwingt ohnehin `is_storable = False` fuer `type != 'consu'`.
+5. **Lagerartikel bleiben bei `product_type_id` leer**, wenn sie in Odoo 11 leer sind (alle 152).
+6. **Die sechs bestehenden ITK-Produktarten bleiben erhalten** (Onlineservice, Software-Lösung,
+   Consulting, Plattform, Hardware, Förderprojekt) - Name, Kuerzel und ID unveraendert; Grundlage
+   fuer die sechs "Service Type ..."-Filter und die Gruppierung "Status".
+7. **Die Odoo-11-Filter muessen dieselben Produktmengen liefern.** Mit Variante 1 bleibt der Filter
+   "Dienstleistungen" bei 47 aktiven Vorlagen (nicht 497). Offener Einzelfall bleiben die zwei
+   Filter mit `service_type = 'timesheet'` (siehe Abschnitt 10).
+8. **Keine Odoo-18-Zusatzfunktion wird entfernt** (`combo`, `is_storable`, ITK-Filter, Gruppierung,
+   Standardlogik bleiben).
+
+Stand der Umsetzung: **nur vorbereitet**. Regel im Migrationsskript hinterlegt
+(`scripts/testmigration_abrechnung.py`, `typ_ziel`), Pruefskript fuer den Vorlauf
+(`scripts/pruefe_produktart_regel.py`, read-only, ohne Schreibzugriff). Keine Produktdaten, Filter,
+Ansichten oder Zuordnungen geaendert; Odoo 11 unveraendert.
+
+## 0.1 Gemessene Ausgangslage (read-only)
+
+Gemessen in Odoo 11 Prod (`ITK_V1_a`, ausschliesslich lesend) und in Odoo 18 lokal und VM
+(`odoo18_test`). Rohdaten und Skripte siehe oben; die fachliche Pruefung mit Beispielprodukten,
+Filtern und Entscheidungsmatrix steht in `docs/o11-o18-produktart-pruefung.md`.
 
 ## 1. Wichtigster Befund vorab: zwei verschiedene Felder
 
@@ -70,10 +103,10 @@ Kuerzel und **technischer ID** ueberein (Odoo 11 und Odoo 18 lokal/VM):
 | (leer) | keine Produktart | 239 / 204 | leer | ja | 204 der 468 verwendeten Produkte haben keine Produktart; 152 davon sind Lagerartikel (`consu`) | leer uebernehmen, keinen Standardwert setzen |
 
 Damit ist die Zuordnung `product_type_id` **eindeutig 1:1** - gleicher Modellname, gleiche Namen,
-gleiche Kuerzel, gleiche IDs 1 bis 6, keine Dubletten, keine Umbenennung noetig. **Das ist ein
-Messbefund, keine Freigabe:** Anna hat am 05.10.2026 entschieden, auch diesen Punkt erst selbst im
-Browser zu pruefen; bis dahin ist die 1:1-Uebernahme **nicht** bestaetigt und keine
-Migrationsregel daraus abzuleiten.
+gleiche Kuerzel, gleiche IDs 1 bis 6, keine Dubletten, keine Umbenennung noetig. **Von Anna am
+05.10.2026 freigegeben** (Regel 2 in Abschnitt 0): Uebernahme separat ueber Name und ID, ohne
+Ableitung aus `type`. Voraussetzung bleibt, dass die sechs Namen unveraendert bleiben - die sechs
+"Service Type ..."-Filter vergleichen gegen den Namen.
 
 ## 4. Kreuztabelle Odoo 11: `type` x `product_type_id` (649 Vorlagen)
 
@@ -156,11 +189,12 @@ arbeiten wie vorgesehen; die fachliche ITK-Art bleibt vollstaendig in `product_t
 heute schon gepflegt und gefiltert. Nachteil: `type` verliert die Feinheit, die es in Odoo 11
 ohnehin nur inkonsistent trug.
 
-Beide Varianten sind mit **derselben** `product_type_id`-Regel (Abschnitt 3) kombinierbar.
-Empfehlung des Berichts: keine - die Entscheidung liegt bei Anna. Aus den Daten spricht fuer
-Variante 2, dass `type` und `product_type_id` in Odoo 11 getrennte Aufgaben hatten und dass die
-ITK ihre Klassifikation ueber `product_type_id` pflegt und filtert; gegen Variante 2 spricht der
-Verlust des Odoo-11-Wertelaufs in `type`.
+**Entscheidung (Anna, 05.10.2026): Variante 1.** `type` wird 1:1 uebernommen, soweit der Wert in
+Odoo 18 vorhanden ist (`product` ist dort nicht vorhanden und in Odoo 11 nicht belegt -> `consu` +
+`is_storable`). Damit bleibt der Filter "Dienstleistungen" bei 47 aktiven Vorlagen, und die
+Odoo-18-Standardlogik verhaelt sich wie in Odoo 11 (ITK-Werte gelten wie dort als Nicht-Dienst).
+`product_type_id` wird unabhaengig davon separat 1:1 uebernommen (Abschnitt 3). Variante 2 wird
+nicht umgesetzt.
 
 ## 8. Was bereits mit Anna abgestimmt ist (nicht Teil der offenen Frage)
 
@@ -172,17 +206,44 @@ Verlust des Odoo-11-Wertelaufs in `type`.
 - **Filter "Veröffentlicht"** (`website_published`): nicht nachgebaut (Feld fehlt, 0 Treffer).
 - Die sechs "Service Type ..."-Filter sind in Odoo 18 vorhanden und laufen fehlerfrei.
 
-## 9. Offene Punkte fuer die Freigabe durch Anna
+## 9. Stand der offenen Punkte nach der Entscheidung
 
-**Stand 05.10.2026: alle vier Punkte offen. Nichts umgesetzt, keine Migrationsregel abgeleitet,
-keine Produktdaten, Filter oder Zuordnungen geaendert.** Anna prueft zuerst selbst im Browser
-(sichtbare Produktarten im Odoo-11-Formular, gesetzte Werte bei typischen Produkten, Unterschied
-`type` gegen `product_type_id`, tatsaechliche Verwendung der Filter "Service Type ...", Darstellung
-der Lagerartikel, fachliche Richtigkeit im Odoo-18-Formular).
+**Entschieden am 05.10.2026 (Variante 1, Abschnitt 0).** Umsetzung nur vorbereitet; keine
+Produktdaten, Filter, Ansichten oder Zuordnungen geaendert, keine Datenmigration ausgefuehrt,
+Odoo 11 nur lesend gelesen. Abrechnung bleibt IN ARBEIT.
 
-1. `type`: Variante 1 oder Variante 2 (Abschnitt 7)?
-2. `product_type_id`: 1:1 ueber Name und ID bestaetigen (Abschnitt 3)? - noch **nicht**
-   freigegeben, der Messbefund allein genuegt nicht.
-3. `product_type_id` bei den 152 Lagerartikeln leer lassen (Abschnitt 3, letzte Zeile)?
-4. Falls Variante 1: duerfen die ITK-DiensteFilter weiter nur `type = 'service'` auswerten
-   (dann finden sie 48 statt rund 346 Dienstleistungsprodukte)?
+1. `type`: entschieden (Variante 1).
+2. `product_type_id`: freigegeben (1:1 ueber Name und ID, Abschnitt 3).
+3. `product_type_id` bei Lagerartikeln leer lassen: entschieden (Regel 5).
+4. Einzige noch anpassungsbeduerftige Stelle: die zwei Filter mit `service_type = 'timesheet'`
+   (Abschnitt 10). Alles andere bleibt unveraendert.
+
+## 10. Einzige benoetigte Anpassung: die zwei Filter mit `service_type = 'timesheet'`
+
+Anna-Vorgabe: "Die Odoo-11-Filter muessen weiterhin fachlich dieselben Produktmengen liefern."
+Gemessen:
+
+```
+Filter "Festpreis-Dienste"    Domain [('type','=','service'), ('invoice_policy','=','order'),
+                                     ('service_type','=','timesheet')]
+                              Odoo 11: 33 Treffer      Odoo 18: 0 Treffer
+Filter "Zeitbasierte Dienste" Domain [('type','=','service'), ('invoice_policy','=','delivery'),
+                                     ('service_type','=','timesheet')]
+                              Odoo 11: 0 Treffer       Odoo 18: 0 Treffer
+```
+
+Ursache: Odoo 18 kennt den Auswahlwert `timesheet` im Feld `service_type` nicht mehr (Odoo 18 hat
+dort nur noch `manual`; die stundenbasierte Abrechnung laeuft in Odoo 18 ueber `service_tracking`).
+Die Domains sind unveraendert uebernommen, koennen den Wert aber nicht mehr treffen. "Festpreis-
+Dienste" liefert deshalb in Odoo 18 0 statt 33 Produkte.
+
+Drei Moeglichkeiten (nicht umgesetzt, Entscheidung bei Anna):
+
+| Variante | Wirkung | Aufwand/Risiko |
+|---|---|---|
+| A: `service_type` in Odoo 18 um `timesheet` erweitern (itk_product) | Domains bleiben wie in Odoo 11, Treffer wie in Odoo 11 (33 fuer Festpreis) | ein Modulwert ergaenzt; keine Odoo-18-Funktion entfernt; Auswahlfeld hat dann einen zusaetzlichen Wert |
+| B: Domain an Odoo-18-Felder anpassen (`service_tracking`) | gleiche fachliche Absicht, andere Domain | neue fachliche Regel noetig, Ergebnis muss einzeln belegt werden |
+| C: so belassen | Filter bleibt sichtbar, trifft aber nie | Anna-Vorgabe "dieselben Produktmengen" waere fuer diesen Filter nicht erfuellt |
+
+Der Filter "Meilenstein-Dienste" (`service_type = 'manual'`) ist nicht betroffen: der Wert existiert
+in Odoo 18, in Odoo 11 hatte der Filter 0 Treffer, in Odoo 18 einen (Testbestand).
