@@ -161,6 +161,11 @@ Befunde, die fuer die echte Migration wichtig sind:
    in Odoo 11 sind general 273 Produkte, platform 94, onlineservice 74, sw 9, service 47, consu 152;
    hw, consulting und project sind nicht belegt. Nur der Odoo-11-Typ `product` (Lagerartikel, in
    Odoo 18 nicht vorhanden und in Odoo 11 nicht belegt) wird zu `consu` + `is_storable`.
+   **Nachtrag 05.10.2026: Diese Festlegung ist wieder offen.** Anna hat sie am 05.10.2026 zurueck-
+   gestellt ("noch nicht als entschieden betrachten"). Vollstaendige, datenbasierte
+   Mapping-Tabelle mit beiden Feldern (`type` und `product_type_id`), Kreuztabelle, Abhaengigkeiten
+   und zwei Varianten zur Entscheidung: `docs/o11-o18-produktart-mapping.md`. Keine Migration
+   daraus ableiten, bis Anna freigibt.
 2. **Partner-Anzeigename:** Regel ermittelt: Odoo 11 zeigt `[ref] community_salutation`
    (z. B. "[20609] Marktgemeinde Greifenburg"), waehrend `name` nur "Greifenburg" enthaelt.
    Odoo 18 bildet diese Zusammensetzung nicht nach. Transformationsregel im Skript:
