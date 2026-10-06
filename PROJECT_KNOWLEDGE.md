@@ -8635,3 +8635,59 @@ Zahlungen), Pruefung der drei Zusatzfelder und der Beschriftungsdarstellung. Dok
   keine Domain-Aenderung; der Modulumfang ist Annas Entscheidung. Offen: `service_type`/
   `service_policy` (53 Vorlagen mit Daten) werden vom Migrationsskript noch nicht uebertragen.
 - **Abrechnung bleibt IN ARBEIT.**
+
+## Session 127 (06.10.2026) - Reiter "Verkauf" im Produktformular nach Odoo 11
+
+- **Auftrag Anna:** Reiter "Verkauf" (Abrechnung -> Verkauf -> Verkaufbare Produkte ->
+  Produktformular) vollstaendig feldweise, funktional und visuell nach Odoo 11 nachbauen;
+  Odoo-18-Zusaetze erhalten; Migrationsregeln festlegen; Browser-Abnahme lokal und VM; nichts als
+  abgeschlossen markieren; Odoo 11 read-only.
+- **Odoo-11-Sollzustand (read-only gemessen, ITK_V1_a):** Seite `sales` mit `div name="pricelist_item"`
+  (`separator "Preiskalkulation"` + Feld `item_ids`, context `default_base=list_price`,
+  `default_applied_on=1_product`), Gruppe `sale` > Gruppe `website` (Titel "Website"), leere Gruppe
+  `email_template_and_project`, Gruppe `subscription` > Gruppe mit `recurring_invoice` (nur bei
+  `type=service`) und `subscription_template_id` (nur wenn `recurring_invoice`).
+- **Belegung Odoo 11 (653 Vorlagen/649 aktiv):** `item_ids` 321 Vorlagen, 1.469 Regeln mit
+  Produktbezug (compute_price formula 1003, fixed 460, percentage 6; fixed_price 448,
+  price_discount 951, min_quantity 1, Start-/Enddatum praktisch ungenutzt; insgesamt 1.872 Regeln,
+  403 davon ohne Produktbezug = Kategorie-/Global-/Variantenregeln). `subscription_template_id`
+  294, `recurring_invoice` 337, `expense_policy` 653 (alle `no`, im Odoo-11-Formular nicht
+  sichtbar), `list_price` 610. Website-Gruppe: `public_categ_ids`, `alternative_product_ids`,
+  `accessory_product_ids`, `custom_message`, `website_published` = 0 belegt;
+  `inventory_availability` 653 x `never` und `available_threshold` 497 x 5,0 (Standardwerte).
+- **Umsetzung:** `itk_product` 18.0.1.0.4 neues Feld `item_ids`
+  (`One2many('product.pricelist.item', 'product_tmpl_id')`, "Preislisten-Positionen") - gleicher
+  Name und gleiche Relation wie Odoo 11, damit migrationsfaehig.
+  `itk_account_migration` 18.0.1.18.0: Abschnitt "Preiskalkulation" vor der Odoo-18-Gruppe
+  "Upselling & Cross-Selling", editierbare Regelliste mit den Odoo-11-Spalten (Preisliste,
+  Ermittle Preis, Festpreis, Min. Bestellmenge, Startdatum, Enddatum; `applied_on`,
+  Prozentpreis und Rabatt ueber die Spaltenauswahl), Kontext-Defaults wie in Odoo 11;
+  Smart Button "Regeln Preislisten" bleibt unveraendert; Abhaengigkeit `itk_product` ergaenzt.
+- **Browser-Abnahme** (`scripts/browser_verkauf_reiter_abnahme.py`, echter Chrome, Produkt 224 mit
+  bestehender Regel ueber "Preisliste 2026 + Valorisierung (EUR)", zusaetzlich Abo-Produkt 6 und
+  Bearbeitungsmodus): lokal **18 OK / 0 FEHL**, VM **18 OK / 0 FEHL**; kein Testdatensatz
+  hinterlassen (13/13 lokal, 10/10 VM); Bilder unter
+  `Desktop/Odoo18-Abnahme-Session126/verkauf_reiter/{lokal,vm}/`.
+- **Migrationsregeln (dokumentiert, nicht ausgefuehrt):** Regeln als `product.pricelist.item`
+  anlegen - Preisliste ueber Namen, Produktvorlage ueber die migrierte Vorlage, `applied_on`,
+  `compute_price`, `base`, `fixed_price`, `percent_price`, `price_discount`, `price_surcharge`,
+  `price_round` 1:1, `min_quantity` int->float, `date_start`/`date_end` date->datetime 00:00:00,
+  `currency_id`/`company_id` ueber Namen, `name` uebernehmen; **keine Odoo-11-IDs blind
+  uebernehmen**; `list_price` 1:1 aus dem Odoo-11-Speicherwert und **nicht** aus den Regeln neu
+  berechnen; Abo-Vorlagen vorher namentlich anlegen/pruefen (Odoo 11: 5, Odoo-18-Test: 4 lokal /
+  5 VM); die 403 Regeln ohne Produktbezug gehoeren zur Preislisten-Migration; berechnete
+  Odoo-18-Felder nicht direkt beschreiben.
+- **Bewusste Abweichungen:** Website-Gruppe aus Odoo 11 nicht nachgebaut (Felder existieren nur
+  mit `website_sale`, nicht installiert, in Odoo 11 leer - keine Dummy-Felder; fachlicher
+  Nachfolger von `alternative_product_ids`/`accessory_product_ids` ist das erhaltene
+  Odoo-18-Feld `optional_product_ids`); `recurring_invoice` bleibt einmal im Reiter "Allgemeine
+  Informationen" (Odoo 11 zeigte es zusaetzlich im Reiter Verkauf); Gruppentitel "Upselling &
+  Cross-Selling" bleibt englisch (Odoo-18-Wortlaut, deutsche Uebersetzung fehlt) - **Rueckfrage
+  an Anna**, ob ein deutscher Titel gesetzt werden soll.
+- **Beobachtung:** In dieser Odoo-18-Version hat das Produktformular keinen Bearbeiten-Schalter in
+  der Kontrollleiste (kein `o_form_button_edit` im DOM, auch mit frischem Browserprofil und beim
+  Oeffnen aus der Listenansicht); der Bearbeitungsmodus wurde ueber einen neuen, wieder
+  verworfenen Datensatz geprueft.
+- **Doku:** `docs/o11-o18-vergleich-abrechnung-verkaufsreiter.md` (Sollzustand, feldweise
+  Zuordnung mit Migrationsregel, Abweichungen, Abnahme).
+  **Abrechnung bleibt IN ARBEIT** - keine Abnahme- oder Freigabeerklaerung.

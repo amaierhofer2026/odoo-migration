@@ -1749,6 +1749,48 @@ VM gleichartig, Regression 886 OK / 0 FEHL.
 Kein Blocker fuer eine spaetere Testmigration eines einzelnen Rechnungsdatensatzes.
 ```
 
+TEIL 6 (06.10.2026, Session 127) - Reiter "Verkauf" feldweise nach Odoo 11:
+```
+Odoo-11-Sollzustand (read-only gemessen, ITK_V1_a): Seite sales mit div#pricelist_item
+  (separator "Preiskalkulation" + Feld item_ids, context default_base=list_price,
+  default_applied_on=1_product), Gruppe sale > Gruppe website ("Website"), leere Gruppe
+  email_template_and_project, Gruppe subscription > Gruppe mit recurring_invoice (nur bei
+  type=service) und subscription_template_id (nur wenn recurring_invoice).
+Belegung Odoo 11 (653 Vorlagen): item_ids 321 Vorlagen / 1.469 Regeln mit Produktbezug
+  (compute_price formula 1003, fixed 460, percentage 6; fixed_price 448, price_discount 951,
+  min_quantity 1, Datumswerte praktisch ungenutzt); subscription_template_id 294;
+  recurring_invoice 337; expense_policy 653 (alle no); Website-Felder 0 belegt
+  (inventory_availability 653 x never, available_threshold 497 x 5,0 = Standardwerte).
+UMSETZUNG: itk_product 18.0.1.0.4 neues Feld item_ids (One2many product.pricelist.item ueber
+  product_tmpl_id, "Preislisten-Positionen", gleicher Name und gleiche Relation wie Odoo 11);
+  itk_account_migration 18.0.1.18.0 Abschnitt "Preiskalkulation" vor der Odoo-18-Gruppe
+  "Upselling & Cross-Selling" mit editierbarer Regelliste (Spalten Preisliste, Ermittle Preis,
+  Festpreis, Min. Bestellmenge, Startdatum, Enddatum; applied_on/Prozentsatz/Rabatt ueber die
+  Spaltenauswahl); Smart Button "Regeln Preislisten" bleibt erhalten; Abhaengigkeit itk_product
+  ergaenzt.
+ABNAHME: scripts/browser_verkauf_reiter_abnahme.py (echter Chrome, Produkt 224 mit bestehender
+  Regel ueber Preisliste 34, zusaetzlich Abo-Produkt 6 und Bearbeitungsmodus): lokal
+  18 OK / 0 FEHL, VM 18 OK / 0 FEHL; kein Testdatensatz hinterlassen (13/13 bzw. 10/10 Vorlagen).
+MIGRATIONSREGELN (dokumentiert, nicht ausgefuehrt): Regeln als product.pricelist.item anlegen -
+  Preisliste ueber Namen, Produkt ueber die migrierte Vorlage, applied_on/compute_price/base/
+  fixed_price/percent_price/price_discount/price_surcharge/price_round 1:1, min_quantity
+  int->float, date_start/date_end date->datetime 00:00:00, currency_id/company_id ueber Namen,
+  name uebernehmen; keine Odoo-11-IDs blind uebernehmen; list_price 1:1 aus dem
+  Odoo-11-Speicherwert und NICHT aus den Regeln neu berechnen; Abo-Vorlagen vorher namentlich
+  anlegen/pruefen (Odoo 11: 5, Odoo-18-Test: 4 lokal / 5 VM); die 403 Odoo-11-Regeln ohne
+  Produktbezug gehoeren zur Preislisten-Migration.
+BEWUSSTE ABWEICHUNGEN: Website-Gruppe nicht nachgebaut (Felder existieren nur mit website_sale,
+  nicht installiert, in Odoo 11 leer - keine Dummy-Felder; fachlicher Nachfolger von
+  alternative/accessory_product_ids ist das erhaltene Odoo-18-Feld optional_product_ids);
+  recurring_invoice bleibt einmal im Reiter "Allgemeine Informationen"; Gruppentitel
+  "Upselling & Cross-Selling" bleibt englisch (Odoo-18-Wortlaut, deutsche Uebersetzung fehlt -
+  Rueckfrage an Anna).
+BEOBACHTUNG: In dieser Odoo-18-Version hat das Produktformular keinen Bearbeiten-Schalter in der
+  Kontrollleiste (kein o_form_button_edit im DOM, auch mit frischem Browserprofil und beim Oeffnen
+  aus der Listenansicht).
+Doku: docs/o11-o18-vergleich-abrechnung-verkaufsreiter.md. Abrechnung bleibt IN ARBEIT.
+```
+
 ### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-15: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte, Produktformular), erste Abnahme 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119), Teil 15 am 24.09.2026 (Session 120) auf der VM im Browser abgenommen
 
 Dokument: `docs/o11-o18-vergleich-abo-teil1.md`; Teil 14: `docs/o11-o18-vergleich-abo-teil14.md`; Teil 15: `docs/o11-o18-vergleich-abo-teil15-produktformular.md`; Uebergabe und Vollstaendigkeitsbestaetigung: `docs/uebergabe-session-120-abonnements.md` (24.09.2026: jedes in Odoo 11 verwendete Feld, Reiter, Button, Smart Button, Statuswechsel, Filter, Gruppierung und jeder Geschaeftsprozess ist gleich vorhanden, funktional gleichwertig an anderer Stelle vorhanden oder bewusst dokumentiert; keine offene funktionale Abweichung).
@@ -2343,6 +2385,6 @@ entfernt werden, sonst bleibt eine verwaiste Beschriftung sichtbar ("Waehrung" o
 
 | Modul | Browserabgleich lokal | Browserabgleich VM | Feldmapping | Beziehungen | Stammdaten | Statuswerte | Verknuepfungen | Constraints | Reihenfolge | Screenshots | Stand |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| Abrechnung | vorhanden | vorhanden | 273 belegte Felder, 0 Luecken | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | IN ARBEIT (offen: Produktfilter-Entscheidung, Testmigration, Restansichten; 05.10.2026 Project-Category-Spalte, Statuskette und Spalte Beschreibung in den Rechnungszeilen umgesetzt und lokal + VM im Browser belegt, 73 OK / 112 OK je Instanz, 0 FEHL) |
+| Abrechnung | vorhanden | vorhanden | 273 belegte Felder, 0 Luecken | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | IN ARBEIT (offen: Produktfilter-Entscheidung, Testmigration, Restansichten; 05.10.2026 Project-Category-Spalte, Statuskette und Spalte Beschreibung in den Rechnungszeilen umgesetzt und lokal + VM im Browser belegt, 73 OK / 112 OK je Instanz, 0 FEHL; 06.10.2026 Reiter "Verkauf" im Produktformular nach Odoo 11 nachgebaut - Preiskalkulation mit Preislistenregeln, Browserabnahme lokal + VM je 18 OK / 0 FEHL) |
 | Verkauf | vorhanden | vorhanden | Teil 5 vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | abgeschlossen (R1-R8) |
 | Abonnements | vorhanden (02.10.) | vorhanden (02.10.) | Feldbestand verglichen (57/64 Felder, 0 echte Luecken); siehe docs/o11-o18-abonnement-abgleich.md | nicht betroffen | Cron/Fristen geprueft | Zustaende 1:1 plus O18-Zusatz pending | 1:1 | nicht betroffen | vorhanden | vorhanden | abgeglichen (PR #184/#185), Abweichungen dokumentiert |
