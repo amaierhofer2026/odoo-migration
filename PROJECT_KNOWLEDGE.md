@@ -8681,13 +8681,17 @@ Zahlungen), Pruefung der drei Zusatzfelder und der Beschriftungsdarstellung. Dok
   mit `website_sale`, nicht installiert, in Odoo 11 leer - keine Dummy-Felder; fachlicher
   Nachfolger von `alternative_product_ids`/`accessory_product_ids` ist das erhaltene
   Odoo-18-Feld `optional_product_ids`); `recurring_invoice` bleibt einmal im Reiter "Allgemeine
-  Informationen" (Odoo 11 zeigte es zusaetzlich im Reiter Verkauf); Gruppentitel "Upselling &
-  Cross-Selling" bleibt englisch (Odoo-18-Wortlaut, deutsche Uebersetzung fehlt) - **Rueckfrage
-  an Anna**, ob ein deutscher Titel gesetzt werden soll.
-- **Beobachtung:** In dieser Odoo-18-Version hat das Produktformular keinen Bearbeiten-Schalter in
-  der Kontrollleiste (kein `o_form_button_edit` im DOM, auch mit frischem Browserprofil und beim
-  Oeffnen aus der Listenansicht); der Bearbeitungsmodus wurde ueber einen neuen, wieder
-  verworfenen Datensatz geprueft.
+  Informationen" (Odoo 11 zeigte es zusaetzlich im Reiter Verkauf).
+- **Gruppentitel deutsch (Stand 06.10.2026, Session 127):** Der sichtbare Titel der Odoo-18-
+  Zusatzgruppe ist "Zusatz- und Querverkauf" - die fruehere Aussage "bleibt englisch" samt
+  Rueckfrage an Anna ist damit ueberholt (reine Beschriftung, `itk_account_migration` 18.0.1.19.0;
+  technischer Gruppenname und `optional_product_ids` unveraendert).
+- **Beobachtung (korrigiert, Stand 06.10.2026):** Das Produktformular oeffnet in dieser Odoo-18-
+  Version direkt im Bearbeitungsmodus (`o_form_editable`, Speichern-/Verwerfen-Symbole in der
+  Kontrollleiste); es gibt keinen Bearbeiten-Stift (`o_form_button_edit` fehlt im DOM, auch mit
+  frischem Browserprofil und beim Oeffnen aus der Listenansicht). Die fruehere Formulierung "kein
+  Bearbeiten-Schalter" ist damit ueberholt; der Modus wurde im zweiten Durchgang an einem
+  bestehenden Datensatz geprueft (Werte gespeichert und exakt zurueckgestellt).
 - **Doku:** `docs/o11-o18-vergleich-abrechnung-verkaufsreiter.md` (Sollzustand, feldweise
   Zuordnung mit Migrationsregel, Abweichungen, Abnahme).
   **Abrechnung bleibt IN ARBEIT** - keine Abnahme- oder Freigabeerklaerung.

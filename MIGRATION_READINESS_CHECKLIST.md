@@ -1782,12 +1782,13 @@ MIGRATIONSREGELN (dokumentiert, nicht ausgefuehrt): Regeln als product.pricelist
 BEWUSSTE ABWEICHUNGEN: Website-Gruppe nicht nachgebaut (Felder existieren nur mit website_sale,
   nicht installiert, in Odoo 11 leer - keine Dummy-Felder; fachlicher Nachfolger von
   alternative/accessory_product_ids ist das erhaltene Odoo-18-Feld optional_product_ids);
-  recurring_invoice bleibt einmal im Reiter "Allgemeine Informationen"; Gruppentitel
-  "Upselling & Cross-Selling" bleibt englisch (Odoo-18-Wortlaut, deutsche Uebersetzung fehlt -
-  Rueckfrage an Anna).
-BEOBACHTUNG: In dieser Odoo-18-Version hat das Produktformular keinen Bearbeiten-Schalter in der
-  Kontrollleiste (kein o_form_button_edit im DOM, auch mit frischem Browserprofil und beim Oeffnen
-  aus der Listenansicht).
+  recurring_invoice bleibt einmal im Reiter "Allgemeine Informationen".
+GRUPPENTITEL DEUTSCH (Stand 06.10.2026, Session 127): sichtbarer Titel der Odoo-18-Zusatzgruppe
+  ist "Zusatz- und Querverkauf" (reine Beschriftung, itk_account_migration 18.0.1.19.0, technische
+  Gruppe unveraendert). Die fruehere Aussage "bleibt englisch" samt Rueckfrage an Anna ist ueberholt.
+BEOBACHTUNG (korrigiert, Stand 06.10.2026): Das Produktformular oeffnet direkt im Bearbeitungsmodus
+  (o_form_editable, Speichern-/Verwerfen-Symbole). Die fruehere Aussage "kein Bearbeiten-Schalter"
+  ist ueberholt; der Modus wurde im zweiten Durchgang an einem bestehenden Datensatz geprueft.
 Doku: docs/o11-o18-vergleich-abrechnung-verkaufsreiter.md. Abrechnung bleibt IN ARBEIT.
 ```
 
