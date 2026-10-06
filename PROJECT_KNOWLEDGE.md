@@ -8474,3 +8474,19 @@ Zahlungen), Pruefung der drei Zusatzfelder und der Beschriftungsdarstellung. Dok
      `docs/o11-o18-testmigration-regel.md` Schritt 4.
 - **Status:** Zahlungsformular **geprueft** (Abnahme 19 OK / 0 FEHL je Instanz). **Abrechnung bleibt
   IN ARBEIT** - die abschliessende Kontrolle macht Anna selbst.
+- **Nachtrag "Zahlungstransaktion" - Bedienfunktion (Anna, 05.10.2026):** Odoo 11 fuehrte
+  `account.payment.payment_transaction_id` (Modul `payment`, readonly=False) und zeigte es im
+  Formular als **manuell auswaehlbares** Feld - in der Praxis aber **0 von 5.994 Zahlungen** belegt
+  (0 Transaktionen, 0 Tokens, 10 ungenutzte Zahlungsanbieter). Odoo 18 definiert dasselbe Feld im
+  Modul `account_payment` bewusst **readonly**; die Verknuepfung stellt das Zahlungssystem her:
+  `action_post()` (Knopf "Bestaetigen") ruft bei Zahlungen mit Token
+  `_create_payment_transaction()` und setzt `payment.payment_transaction_id = transaction`; die
+  Gegenrichtung erzeugt die Zahlung in `payment_transaction._create_payment()`. Weitere Standardwege:
+  Online-Zahlung im Portal und der Assistent `payment.link.wizard` (Zahlungslink). Odoo 18 zeigt das
+  Feld in seiner eigenen Ansicht nur mit technischen Features und bei elektronischen
+  Zahlungsmethoden (`groups="base.group_no_one"`, `invisible="not use_electronic_payment_method"`).
+  **Ergebnis: funktional gleichwertig, keine Anpassung notwendig** - die Standardlogik wurde nicht
+  angetastet, das Feld bleibt an der Odoo-11-Position sichtbar und readonly. Nachweis:
+  `scripts/browser_zahlungstransaktion_check.py lokal|vm` (0 Eingabefelder im Feld,
+  `o_readonly_modifier`, Wert leer, `payment.transaction` 0, Token 0, Anbieter 17). Empfehlung zur
+  Sichtbarkeit (Odoo-18-Regel uebernehmen oder Odoo-11-Treue behalten) liegt bei Anna.

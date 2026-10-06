@@ -1566,6 +1566,16 @@ zuruecksetzen kann; die Odoo-18-Smart-Buttons bleiben vollstaendig, kein nachgeb
 Uebernahme der Verknuepfungen bei der Migration (reconciled_invoice_ids/-bill_ids/
 _statement_line_ids, move_id, account.partial.reconcile; Regel Teil-5-Feldabbildung Punkt B3 und
 Testmigrationsregel Schritt 4). **Zahlungsformular = GEPRUEFT; Abrechnung bleibt IN ARBEIT.**
+Nachtrag "Zahlungstransaktion" (Bedienfunktion, Anna 05.10.2026): Odoo 11 fuehrte
+account.payment.payment_transaction_id (Modul payment) als manuell auswaehlbares Feld - im
+Produktivbestand 0 von 5.994 Zahlungen belegt (0 Transaktionen, 0 Tokens, 10 ungenutzte Anbieter).
+Odoo 18 fuehrt das Feld im Modul account_payment bewusst readonly; die Verknuepfung entsteht
+automatisch (action_post mit Token -> _create_payment_transaction; payment_transaction._create_payment;
+Online-Zahlung im Portal; Assistent payment.link.wizard). Odoo 18 zeigt es selbst nur mit technischen
+Features und bei elektronischen Zahlungsmethoden. Ergebnis: funktional gleichwertig, keine Anpassung;
+Standardlogik unveraendert, Feld bleibt an Odoo-11-Position sichtbar/readonly. Nachweis
+scripts/browser_zahlungstransaktion_check.py lokal|vm. Doku: Abschnitt 11 in
+docs/o11-o18-vergleich-abrechnung-zahlungsformular.md.
 ```
 Vollstaendigkeitscheck ohne Lese-Limit (scripts/pruefe_teil5_abdeckung.py, Odoo 11 read-only):
 Konten: 34.492 Buchungszeilen gesamt = 5.989 (1201 Bank) + 12.252 (1410 Forderungen)

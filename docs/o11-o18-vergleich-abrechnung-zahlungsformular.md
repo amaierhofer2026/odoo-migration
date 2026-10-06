@@ -269,3 +269,112 @@ Der Bereich **Abrechnung bleibt IN ARBEIT**, bis Anna ihn abschliessend kontroll
    Journalzeile ("Manuelle Zahlung (Bank)"). Stammdaten, nicht angetastet (aus B3 uebernommen).
 2. **Zahlungstransaktion bleibt heller beschriftet**, weil das Odoo-18-Modul `account_payment`
    das Feld readonly fuehrt.
+
+## 11. Nachtrag: Bedienfunktion "Zahlungstransaktion" (Anna, 05.10.2026)
+
+Anlass: Im Odoo-18-Formular ist das Feld sichtbar, aber readonly - man kann nichts auswaehlen.
+In Odoo 11 war es auswaehlbar. Vollstaendiger Vergleich der Bedienfunktion:
+
+**1. Technisches Feld und Relation in Odoo 11**
+
+```
+account.payment.payment_transaction_id   Many2one -> payment.transaction
+definiert vom Modul  : payment   (ir.model.fields id 5876, modules='payment')
+readonly/required    : readonly=False, required=False, store=True
+Formular             : account.payment.form, rechtes Feld unter Memo, ohne readonly-Attribut
+```
+
+**2. War es in Odoo 11 editierbar?** Ja. Modellseitig `readonly=False`, im Formular als einfaches
+Feld gefuehrt - also **manuell auswaehlbar**. Annas Beobachtung ist damit bestaetigt.
+
+**3. Welche Werte waren auswaehlbar?** Jeder Datensatz aus `payment.transaction`
+(Zahlungstransaktion eines Zahlungsanbieters). Im Odoo-11-Produktivbestand: **0 Transaktionen**,
+0 Zahlungstokens, 10 konfigurierte Zahlungsanbieter (`payment.acquirer`), alle ungenutzt.
+
+**4. Welche Geschaeftslogik hing daran?** Das Feld verbindet die Zahlung mit ihrer
+Online-Transaktion. Es wird vom Zahlungsanbieter-Framework gesetzt (Transaktion -> Zahlung) und von
+diesem fuer Zustands- und Erstattungslogik gelesen. Eine manuell eingetragene fremde Transaktion
+hatte keine unterstuetzte Funktion.
+
+**5. Tatsaechliche Nutzung in Odoo 11 (Auftrag):**
+
+```
+Zahlungen gesamt                 5.994
+mit Zahlungstransaktion              0   (0 %)
+mit Zahlungstoken                    0
+payment.transaction                  0
+payment.acquirer                    10   (konfiguriert, nie verwendet)
+payment_reference                    0
+```
+Die manuelle Auswahl wurde in Odoo 11 also **nie** benutzt.
+
+**6. Wie ist dieselbe Funktion in Odoo 18 vorgesehen?** Feld `payment_transaction_id`
+(Many2one -> payment.transaction), definiert im Modul **`account_payment`** ("Payment - Account",
+Zahlungen aus Online-Transaktionen), dort **readonly=True**. Die Verknuepfung stellt das
+Zahlungssystem automatisch her:
+
+```python
+account_payment/models/account_payment.py
+  action_post()                      # Knopf "Bestaetigen"
+    payments_need_tx = filter(p -> p.payment_token_id and not p.payment_transaction_id)
+    transactions = payments_need_tx.sudo()._create_payment_transaction()
+    ...
+      payment.payment_transaction_id = transaction   # Link the transaction to the payment
+account_payment/models/payment_transaction.py
+  _create_payment(): erzeugt die Zahlung mit 'payment_transaction_id': self.id
+```
+
+Voraussetzung ist eine elektronische Zahlungsmethode mit gespeichertem Token
+(`payment_token_id`); `use_electronic_payment_method` steuert die Sichtbarkeit.
+
+**7. Ist das readonly in Odoo 18 beabsichtigt?** Ja. Das Feld gehoert dem Zahlungssystem und
+steuert Logik: Erstattung (`source_transaction_id`), Tokens, Zustaende
+(done/pending/authorized), Referenz/Vermerk. Odoo 18 zeigt es in seiner eigenen Ansicht sogar nur
+technisch und nur fuer elektronische Zahlungen:
+
+```
+account_payment/views/account_payment_views.xml:29
+  <field name="payment_transaction_id" groups="base.group_no_one"
+         invisible="not use_electronic_payment_method"/>
+```
+
+**8. Gibt es in Odoo 18 andere Wege zur selben Verknuepfung?** Ja, drei Standardwege - ohne
+manuelle Feldauswahl:
+
+1. Knopf **"Bestaetigen"** (`action_post`) bei Zahlung mit elektronischer Methode/Token erzeugt und
+   verknuepft die Transaktion automatisch.
+2. **Online-Zahlung des Kunden** (Portal "Jetzt bezahlen"): die Transaktion erzeugt die Zahlung
+   samt Verknuepfung.
+3. Assistent **`payment.link.wizard`** ("Zahlungslink", Modul `payment`; Verkaufsvariante in
+   `sale`): erzeugt einen Zahlungslink, die Zahlung entsteht verknuepft.
+
+**Ergebnis (Antwort auf die vier Fragen)**
+
+| Frage | Antwort |
+|---|---|
+| 1. Odoo-11-Verhalten | Feld sichtbar und manuell auswaehlbar (readonly=False) - in der Praxis nie verwendet (0 von 5.994 Zahlungen, 0 Transaktionen) |
+| 2. Odoo-18-Standard | Feld bewusst readonly; Verknuepfung automatisch durch das Zahlungssystem (action_post mit Token, Online-Zahlung, Zahlungslink); Odoo 18 zeigt das Feld selbst nur mit technischen Features und bei elektronischen Zahlungsmethoden |
+| 3. funktional gleichwertig | **Ja** - die fachliche Funktion (Zuordnung Zahlung <-> Online-Transaktion) ist vollstaendig vorhanden und zusaetzlich abgesichert; die Odoo-11-Manualauswahl war ungenutzt und kein unterstuetzter Geschaeftsvorgang |
+| 4. Anpassung notwendig | **Nein** - Odoo-18-Standardlogik bleibt unveraendert; das Feld wird **nicht** kuenstlich editierbar gemacht und die Payment-Logik nicht angetastet. Es bleibt an der Odoo-11-Position sichtbar (readonly), weil Odoo 11 es dort zeigte |
+
+**Nachweis im echten Browser (lokal und VM, identisch)**
+
+```
+Feld sichtbar, Beschriftung "Zahlungstransaktion"
+DOM-Klassen    : o_field_widget o_readonly_modifier o_field_empty o_field_many2one
+Eingabefelder  : 0  -> nicht bedienbar (kein Eingabe-/Auswahlfeld)
+Wert           : leer; Label-Deckkraft 0,66 (readonly und leer)
+Felddefinition : readonly=True, many2one -> payment.transaction
+Zahlung        : use_electronic_payment_method=False, payment_token_id=False,
+                 payment_transaction_id=False, payment_method_code='manual'
+Bestand        : payment.transaction 0, payment.token 0, payment.provider 17 (alle ungenutzt)
+```
+
+Werkzeug: `scripts/browser_zahlungstransaktion_check.py lokal|vm`; Screenshots
+`Desktop/Odoo18-Abnahme-Session126/zahlungstransaktion/<instanz>/`.
+
+**Empfehlung (Entscheidung von Anna):** Odoo 18 zeigt das Feld nur mit technischen Features und bei
+elektronischen Zahlungsmethoden, unser Formular zeigt es immer (Odoo-11-Treue). Da das Feld im
+gesamten Bestand leer ist, koennte man die Odoo-18-Regel uebernehmen
+(`groups="base.group_no_one"` + `invisible` bei nicht-elektronischer Methode). Bewusst **nicht**
+geaendert, damit die Odoo-11-Position erhalten bleibt und Anna selbst entscheidet.
