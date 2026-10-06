@@ -98,6 +98,15 @@ bestand_vor = rpc("account.payment", "search_count", [[]])
 alle = rpc("account.payment", "search_read", [[], ["id", "name", "reconciled_invoices_count"]])
 ohne = [x for x in alle if x["reconciled_invoices_count"] == 0][:1]
 mit = [x for x in alle if x["reconciled_invoices_count"] > 0][:1]
+# Auf der VM hat jede vorhandene Zahlung eine verknuepfte Rechnung -> Testzahlung ohne Rechnung
+eigene_ohne = None
+if not ohne:
+    kunde = rpc("res.partner", "search_read", [[["customer_rank", ">", 0]], ["id", "name"]], {"limit": 1})[0]
+    journal = rpc("account.journal", "search_read", [[["type", "=", "bank"]], ["id"]], {"limit": 1})[0]
+    eigene_ohne = rpc("account.payment", "create", [{
+        "payment_type": "inbound", "partner_type": "customer", "partner_id": kunde["id"],
+        "journal_id": journal["id"], "amount": 12.0, "memo": MARKER, "date": "2026-10-05"}])
+    ohne = [{"id": eigene_ohne, "name": "(Testzahlung)", "reconciled_invoices_count": 0}]
 print("Instanz:", inst, "| Zahlungen:", bestand_vor, "| ohne Rechnung:", ohne, "| mit Rechnung:", mit)
 
 VZ = os.path.join(os.path.expanduser("~"), "Desktop", "Odoo18-Abnahme-Session126",
@@ -200,6 +209,9 @@ with sync_playwright() as pw:
     if lid:
         rpc("account.payment", "unlink", [[lid]])
         print("  Testzahlung %s entfernt" % lid)
+    if eigene_ohne:
+        rpc("account.payment", "unlink", [[eigene_ohne]])
+        print("  Testzahlung ohne Rechnung %s entfernt" % eigene_ohne)
     rest = rpc("account.payment", "search_read", [[["memo", "like", MARKER]], ["id"]])
     pruefe(len(rest) == 0, "keine Testzahlung zurueckgeblieben")
     pruefe(rpc("account.payment", "search_count", [[]]) == bestand_vor,

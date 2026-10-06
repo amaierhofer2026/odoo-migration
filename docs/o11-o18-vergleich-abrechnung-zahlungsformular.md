@@ -1,0 +1,238 @@
+# Odoo 11 gegen Odoo 18 - Zahlungsformular (Abrechnung > Verkauf/Einkauf > Zahlungen)
+
+Stand: 05.10.2026, Session 126. Auftrag von Anna: vollstaendiger fachlicher Abgleich des
+Zahlungsformulars, Pruefung der drei Zusatzfelder, Ursache der schwaecheren Beschriftungen,
+Feld-fuer-Feld-Vergleich, zusaetzlich Abrechnung > Einkauf > Zahlungen.
+
+Arbeitsweise: Odoo 11 ausschliesslich lesend (`fields_view_get`, `fields_get`, `search_count`,
+`read_group`); Odoo 18 lokal und VM; Abnahme im echten Browser.
+Werkzeuge: `scripts/vergleich_zahlungsformular_vollstaendig.py` (Arch-Vergleich),
+`scripts/browser_zahlungsformular_abnahme.py` (Browser-Abnahme, 19 Pruefungen je Instanz).
+
+## 1. Odoo 11: das Zahlungsformular (read-only gemessen)
+
+Formular `account.payment.form` (View 500), zusammengesetzt mit der Vererbung 1005:
+
+```
+Kopfzeile : Buttons "Bestaetigen" (post), "setze auf Entwurf" (action_draft),
+            Statusleiste state (Entwurf / Gebucht / Gesendet / Abgestimmt / Abgebrochen)
+Gruppe links : Zahlungsart (payment_type, Radio), Partnertyp (partner_type),
+               Partner (partner_id), Zahlungsjournal (journal_id),
+               Ueberweisung an (destination_journal_id), Zahlungsmethode (payment_method_id, Radio)
+Gruppe rechts: Zahlungsdatum (payment_date), Memo (communication),
+               Zahlungstransaktion (payment_transaction_id)
+ausserhalb   : Zahlungsbetrag (amount) + Waehrung, Nummer (name, readonly)
+Smart Buttons: Buchungszeilen (button_journal_entries, in Odoo 11 invisible="1"),
+               Rechnungen (button_invoices, nur bei verknuepften Rechnungen),
+               Zahlungsabstimmung (open_payment_matching_screen, nur wenn nicht abgestimmt)
+Auswahlwerte : payment_type  Geld schicken / Geld erhalten / Interne Ueberweisungen
+               partner_type  Kunde / Lieferant
+               state         Entwurf / Gebucht / Gesendet / Abgestimmt / Abgebrochen
+Modellpflicht: payment_type ja, amount ja, journal_id ja, payment_date ja,
+               payment_method_id ja; partner_id nein, communication nein
+Bestand      : 5.994 Zahlungen (Einzahlungen CUST.IN/JJJJ/NNNN, Auszahlungen CUST.OUT/...),
+               0 mit Zahlungstransaktion, 0 mit Zahlungsreferenz, Abschreibungen 0
+```
+
+## 2. Odoo 18: Umsetzung im Modul `itk_account_migration` (Stand 18.0.1.15.0)
+
+```
+Kopfzeile : Odoo-11-Kette itk_o11_status (Entwurf / Gebucht / Abgestimmt / Abgebrochen)
+            Odoo-18-Knoepfe bleiben erhalten (Bestaetigen, Validieren, Ablehnen, Erstattung,
+            Abbrechen, Stornierung anfordern, Als gesendet markieren, Nicht mehr als gesendet
+            markieren, setze auf Entwurf)
+Gruppe links : Zahlungsart, Partnertyp, Partner, Zahlungsbetrag (pflichtig), Zahlungsjournal,
+               Zahlungsmethode (pflichtig)
+Gruppe rechts: Zahlungsdatum, Memo, Zahlungstransaktion
+darunter     : Bankkonto des Kunden/Lieferanten/Unternehmens (partner_bank_id, Odoo-18-Feld)
+technisch    : Gruppe "Herkunft (Migration)": Odoo-11-Zahlungsnummer (itk_o11_payment_number)
+               Gruppe "Status (Odoo 18)": Rohstatus state
+```
+
+## 3. Feld-fuer-Feld-Vergleich
+
+| Odoo 11 sichtbar | Beschriftung O11 | Odoo 18 | Beschriftung in Odoo 18 | Pflicht O11 | Pflicht O18 | Bewertung |
+|---|---|---|---|---|---|---|
+| payment_type | Zahlungsart | payment_type | Zahlungsart | ja | ja (Modell) | gleich |
+| partner_type | Partnertyp | partner_type | Partnertyp | nein | ja (Modell) | gleich (O18 strenger) |
+| partner_id | Partner | partner_id | Partner | nein | nein | gleich |
+| journal_id | Zahlungsjournal | journal_id | Zahlungsjournal | ja | ja | gleich |
+| payment_method_id | Zahlungsmethode | payment_method_line_id | Zahlungsmethode | ja | ja (Ansicht) | gleichwertig |
+| payment_date | Zahlungsdatum | date | Zahlungsdatum | ja | ja | gleich |
+| communication | Memo | memo | Memo | nein | nein | gleich |
+| payment_transaction_id | Zahlungstransaktion | payment_transaction_id | Zahlungstransaktion | nein | readonly | vorhanden, ungenutzt (Abschnitt 4) |
+| amount | Zahlungsbetrag | amount | Zahlungsbetrag | ja | **war nein -> jetzt ja** | **ergaenzt** |
+| name | Nummer | name | Nummer (Titel) | nein | readonly | gleich (O18-Nummer) |
+| state (Statusleiste) | Entwurf/Gebucht/Gesendet/Abgestimmt/Abgebrochen | itk_o11_status + state | Kette + Status (Odoo 18) | - | - | Kette gleich, Rohwert separat |
+| destination_journal_id | Ueberweisung an | - (Feld entfaellt) | - | nein | - | gleichwertig ueber Aktion "Interne Ueberweisungen" (gekoppelte Zahlung) |
+| button_invoices | Rechnungen | button_open_invoices / button_open_bills | Rechnungen | - | - | gleich (nur bei verknuepften Belegen sichtbar) |
+| button_journal_entries | Buchungszeilen | button_open_journal_entry | Journal Entry (gruppenbeschraenkt) | in O11 unsichtbar | sichtbar | Odoo-18-Zusatz, bleibt |
+| open_payment_matching_screen | Zahlungsabstimmung | button_open_statement_lines | Transaction | - | - | funktional an anderer Stelle (Bank/Abstimmung) |
+
+Ergebnis: **keine fehlende Odoo-11-Funktion mehr.** Zwei Pflichtfelder waren in Odoo 18 nicht
+erzwungen und sind ergaenzt; eine Doppelung (zweites Partnerfeld) ist behoben.
+
+## 4. Die drei Zusatzfelder im Einzelnen (Auftrag Anna)
+
+### 4.1 Zahlungstransaktion - `payment_transaction_id`
+
+| Frage | Antwort |
+|---|---|
+| technischer Name | `payment_transaction_id`, Many2one auf `payment.transaction` |
+| Datenquelle | Odoo-18-Modul `account_payment` (Online-Zahlungen); in Odoo 11 Feld desselben Namens im `payment`-Framework |
+| enthaelt Werte? | **nein** - lokal 0 von 10, VM 0 von 11 Zahlungen; `payment.transaction` 0, `payment.token` 0 Datensaetze |
+| Haeufigkeit im Bestand | 0 % (Odoo 11 Prod ebenfalls 0 von 5.994) |
+| fachliche Funktion | Verknuepfung einer Zahlung mit einer Online-Zahlungstransaktion eines Zahlungsdienstleisters (Kreditkarte, Online-SEPA, Wallet) |
+| fuer die Migration erforderlich? | **nein** - in Odoo 11 nie belegt |
+| im normalen Formular noetig? | Odoo 11 hatte das Feld an genau dieser Stelle (rechts unter Memo) -> **bleibt** (Odoo-11-Treue). Es ist im Odoo-18-Modul `readonly` und deshalb heller beschriftet (Abschnitt 5) |
+
+### 4.2 Odoo-11-Zahlungsnummer - `itk_o11_payment_number`
+
+| Frage | Antwort |
+|---|---|
+| technischer Name | `itk_o11_payment_number`, Char, indiziert, `tracking`, Hilfe-Text; Modul `itk_account_migration` |
+| Datenquelle | Migration aus Odoo 11 `account.payment.name` (Muster `CUST.IN/<Jahr>/<NNNN>` bzw. `CUST.OUT/...`) |
+| enthaelt Werte? | **nein** - lokal 0 von 10, VM 0 von 11; das Feld wird erst von der Migration gefuellt |
+| Haeufigkeit im Bestand | 0 % (Odoo 11: 5.994 Zahlungen mit Nummern, erste CUST.IN/2019/0001, letzte CUST.IN/2026/1061) |
+| fachliche Funktion | historische Nachvollziehbarkeit der Odoo-11-Zahlungsnummer (Briefverkehr, Bankbelege) |
+| fuer die Migration erforderlich? | **ja** - Regel in `docs/o11-o18-vergleich-abrechnung-teil5-umsetzung.md` Abschnitt 5: Nummer wird in dieses Feld uebernommen; die Odoo-18-Nummerierung bleibt unveraendert, historische Nummern werden **nicht** in die Odoo-18-Sequenz zurueckgeschrieben; zusaetzlich bleibt der Bezug ueber das Memo (Rechnungsnummer) |
+| im normalen Formular noetig? | Odoo 11 hatte **kein** solches Feld im Formular. Es ist ein Migrationsfeld -> **aus dem Odoo-11-Block in die Gruppe "Herkunft (Migration)" verschoben** (gleiches Muster wie die Odoo-11-Rechnungsnummer im Rechnungsformular). Sichtbar bleibt es, weil es der Pruefwert fuer die Migration ist |
+
+**Befund zum Mapping:** Die 7 Zahlungen aus dem Juli-Testlauf (id 1-7, `PBNK1/...`) tragen die
+Odoo-11-Nummer nur im **Memo** (`CUST.IN/2020/0042` usw.); `itk_o11_payment_number` ist dort leer.
+Das sind Testreste eines frueheren Laufs, keine Produktivdaten - die dokumentierte Regel greift ab
+der echten Migration.
+
+### 4.3 Status (Odoo 18) - `state`
+
+| Frage | Antwort |
+|---|---|
+| technischer Name | `state`, Selection (`draft`, `in_process`, `paid`, `canceled`, `rejected`) |
+| Datenquelle | Odoo-18-Modell `account.payment` |
+| enthaelt Werte? | **ja** - lokal: 2 x in_process, 8 x paid; VM: 11 x paid (10 von 10 bzw. 11 von 11 belegt) |
+| Haeufigkeit im Bestand | 100 % |
+| fachliche Funktion | technischer Zustand der Zahlung im Odoo-18-Modell; die **fachlich sichtbare** Kette ist `itk_o11_status` (Entwurf / Gebucht / Abgestimmt / Abgebrochen), abgeleitet aus state + Zahlungszustand |
+| fuer die Migration erforderlich? | nein (Modellfeld) |
+| im normalen Formular noetig? | **Kontrollwert, nicht Teil des Odoo-11-Feldsatzes** -> **in die Gruppe "Status (Odoo 18)" unter den Odoo-18-Angaben verschoben** (gleiches Muster wie im Rechnungsformular, dort im Reiter "Andere Informationen") |
+
+### 4.4 Zusaetzlich vorhanden (nicht in Annas Liste) - `partner_bank_id`
+
+Bankkonto des Kunden / Lieferanten / Unternehmens: Odoo-18-Feld, in Odoo 11 nicht vorhanden,
+im Bestand 0 von 10 belegt. Funktion: Bankkonto fuer elektronische Zahlungsarten (SEPA); wird bei
+elektronischen Zahlungsmethoden automatisch pflichtig. **Bleibt sichtbar** (Odoo-18-Funktion).
+
+## 5. Beschriftungen: Ursache der schwaecheren Darstellung (Auftrag Anna)
+
+Messung im echten Browser (lokale Zahlung 9, alle sichtbaren Beschriftungen):
+
+```
+Zahlungsart              o_form_label                          font-weight 500  Deckkraft 1.00
+Partnertyp               o_form_label                          font-weight 500  Deckkraft 1.00
+Partner                  o_form_label                          font-weight 500  Deckkraft 1.00
+Zahlungsbetrag           o_form_label                          font-weight 500  Deckkraft 1.00
+Zahlungsjournal          o_form_label                          font-weight 500  Deckkraft 1.00
+Zahlungsmethode          o_form_label                          font-weight 500  Deckkraft 1.00
+Zahlungsdatum            o_form_label                          font-weight 500  Deckkraft 1.00
+Memo                     o_form_label                          font-weight 500  Deckkraft 1.00
+Zahlungstransaktion      o_form_label o_form_label_empty
+                         o_form_label_readonly                 font-weight 500  Deckkraft 0.66
+Odoo-11-Zahlungsnummer   o_form_label o_form_label_empty
+                         o_form_label_readonly                 font-weight 500  Deckkraft 0.66
+Status (Odoo 18)         o_form_label o_form_label_readonly    font-weight 500  Deckkraft 0.66
+Bankkonto des Unternehmens o_form_label                        font-weight 500  Deckkraft 1.00
+```
+
+**Ursache:** nicht unsere Ansicht, sondern Odoo-18-Standardstile. Odoo 18 verringert die Deckkraft
+der Beschriftung auf 0,66, wenn das Feld `readonly` ist (`o_form_label_readonly`) und zusaetzlich
+bei readonly **und leer** (`o_form_label_empty`). Die Schriftstaerke ist bei **allen** Beschriftungen
+identisch (500). Die drei Felder wirkten daher nur schwaecher, weil sie readonly sind bzw. leer waren.
+
+**Umgesetzt:** Die zwei verschobenen Felder stehen nicht mehr im Odoo-11-Block, damit dessen
+Beschriftungen einheitlich sind. **Keine** Fettschrift erzwungen, **keine** Pflichtfeld-, readonly-
+oder Geschaeftslogik entfernt. `Zahlungstransaktion` bleibt heller, weil Odoo 18 das Feld im Modul
+`account_payment` als `readonly=True` fuehrt - eine Angleichung wuerde readonly-Logik veraendern.
+
+## 6. Was fehlte, was geaendert wurde, was bewusst bleibt
+
+**Fehlte im Vergleich zu Odoo 11 (ergaenzt):**
+
+1. **Zahlungsbetrag war nicht pflichtig.** Odoo 11 fuehrt `amount` modellpflichtig, Odoo 18 nicht
+   (weder Modell noch Ansicht). -> `required="1"` in der Ansicht.
+2. **Zahlungsmethode war in unserer Ansicht nicht pflichtig**, obwohl Odoo 18 selbst die
+   Zahlungsmethode auf seinem (versteckten) Basisfeld als pflichtig fuehrt und Odoo 11 sie
+   modellpflichtig hatte. -> `required="1"`.
+3. **Doppeltes Partnerfeld bei Lieferantenzahlungen.** Odoo 18 fuehrt `partner_id` im Odoo-18-Block
+   zweimal (Kunden- und Lieferanten-Variante, je mit eigener Sichtbarkeitsbedingung).
+   `position="attributes"` wirkt nur auf den **ersten** Treffer - die Lieferanten-Variante blieb
+   sichtbar und erschien als zweites, leeres Feld "Lieferant" neben unserem Feld "Partner".
+   -> zweite Variante ueber ihre Position in der Gruppe ausgeblendet (`string` ist als Selektor
+   verboten: "View inheritance may not use attribute 'string' as a selector").
+
+**Verschoben / ausgeblendet und warum:**
+
+| Feld | vorher | jetzt | Grund |
+|---|---|---|---|
+| itk_o11_payment_number | im Odoo-11-Block (rechts unter Memo) | Gruppe "Herkunft (Migration)" | Migrationsfeld, in Odoo 11 nicht vorhanden |
+| state (Status (Odoo 18)) | im Odoo-11-Block | Gruppe "Status (Odoo 18)" | Kontrollwert; fachliche Anzeige ist die Odoo-11-Kette |
+| partner_id (Lieferanten-Variante) | sichtbar (Doppelung) | ausgeblendet | Doppelung desselben Feldes |
+
+**Bewusst erhaltene Odoo-18-Zusatzfunktionen:** Kopfknoepfe Bestaetigen, Validieren, Ablehnen,
+Erstattung, Abbrechen, Stornierung anfordern, Als gesendet markieren, Nicht mehr als gesendet
+markieren, setze auf Entwurf; Felder Zahlungsmethode als Journalzeile, Zahlungstoken,
+Bankkonten, Erstattungsbetrag, duplizierte Zahlungen; Smart Buttons Rechnungen (Kunden und
+Lieferanten), Kontoauszugszeilen/Transaction, Buchungsbeleg (gruppenbeschraenkt), Erstattungen;
+Chatter und Reiter unveraendert. Es wurde **keine** Odoo-18-Funktion entfernt.
+
+## 7. Abrechnung > Einkauf > Zahlungen
+
+Verkauf und Einkauf nutzen **dasselbe Formular** (`account.payment`, Aktionen 330 "Kundenzahlungen"
+und 331 "Lieferantenzahlungen"); unterschieden wird nur ueber den Aktionskontext
+(`default_payment_type`, `default_partner_type`) und die Listenfilter. Im Browser geprueft
+(Testzahlung Lieferant, outbound/supplier):
+
+- gleiche Feldreihenfolge und gleiche Beschriftungen wie im Kundenfall
+  (Zahlungsart, Partnertyp, Partner, Zahlungsbetrag, Zahlungsjournal, Zahlungsmethode /
+  Zahlungsdatum, Memo, Zahlungstransaktion)
+- genau **ein** Partnerfeld, genau ein Journal-, Datums- und Memofeld (Doppelung behoben)
+- dieselbe technische Gruppe "Herkunft (Migration)" / "Status (Odoo 18)"
+- unterschiedlich nur: Smart Button "Rechnungen" zeigt die verknuepften Eingangs- bzw.
+  Ausgangsrechnungen; die Bankkontobeschriftung folgt dem Partnertyp
+  ("Bankkonto des Lieferanten" / "Bankkonto des Kunden" / "Bankkonto des Unternehmens")
+
+## 8. Abnahme im echten Browser
+
+`scripts/browser_zahlungsformular_abnahme.py lokal|vm` - **lokal 19 OK / 0 FEHL, VM 19 OK / 0 FEHL**:
+
+```
+OK  Odoo-11-Beschriftungen vollstaendig und in Odoo-11-Reihenfolge
+OK  Odoo-11-Zahlungsnummer erscheint nach dem Odoo-11-Block
+OK  technische Gruppen "Herkunft (Migration)" und "Status (Odoo 18)" vorhanden
+OK  keines der technischen Felder steht im Odoo-11-Block
+OK  Zahlungsbetrag, Zahlungsmethode, Zahlungsart, Journal, Datum pflichtig
+OK  Schriftgewicht aller Beschriftungen einheitlich (500)
+OK  heller nur readonly/leere Felder (Odoo-18-Standard)
+OK  Odoo-11-Statuskette sichtbar (Entwurf/Gebucht/Abgestimmt/Abgebrochen)
+OK  Odoo-18-Rohstatus in der technischen Gruppe
+OK  Smart Button "Rechnungen" nur bei verknuepfter Rechnung (wie Odoo 11)
+OK  Lieferantenzahlung: gleiche Beschriftungen, genau ein Partner-/Journal-/Datums-/Memofeld
+OK  Testdaten entfernt, Bestand unveraendert
+```
+
+Screenshots: `Desktop/Odoo18-Abnahme-Session126/zahlungsformular_abnahme/<instanz>/`.
+Testdaten: lokal id 28/29, VM id 24/25 angelegt und restlos entfernt (Bestand lokal 10, VM 11
+vorher = nachher).
+
+## 9. Offene Punkte (dokumentiert, keine Funktionseinbusse)
+
+1. **Auswahlwortlaut Zahlungsart:** Odoo 11 "Geld schicken" / "Geld erhalten" (plus "Interne
+   Ueberweisungen"), Odoo 18 "Senden" / "Erhalten" (Interne Ueberweisungen sind eine eigene
+   Aktion). Eine Angleichung muesste die Auswahlbeschriftungen des Feldes ueberschreiben
+   (`ir.model.fields.selection`), die ein Upgrade des `account`-Moduls zuruecknehmen kann.
+   Bewusst nicht geaendert - Entscheidung von Anna.
+2. **Smart Button "Zahlungsabstimmung" (Odoo 11)** hat keinen 1:1-Gegenwert; Odoo 18 fuehrt
+   "Transaction" (verbundene Kontoauszugszeilen) und den Buchungsbeleg. Die Abstimmung selbst
+   laeuft in Odoo 18 im Bank-/Abstimmungsbereich - funktional an anderer Stelle vorhanden.
+3. **Beschriftung der Zahlungsmethode:** Odoo 11 zeigte "Manuell", Odoo 18 den Namen der
+   Journalzeile ("Manuelle Zahlung (Bank)"). Stammdaten, nicht angetastet (aus B3 uebernommen).
+4. **Zahlungstransaktion bleibt heller beschriftet**, weil das Odoo-18-Modul `account_payment`
+   das Feld readonly fuehrt.

@@ -1545,6 +1545,20 @@ diese Pflicht und meldeten sie beim Tab-Wechsel; sie wurden am 05.10.2026 auf An
 entfernt (Bestand lokal 40 -> 38, VM 62 -> 59, Buchungszeilen unberuehrt).
 Beleg: docs/o11-o18-abrechnung-partner-pflichtfeld.md. Abnahme lokal und VM je 14 OK / 0 FEHL,
 Audit Pflichtfeld/leere Datensaetze danach ohne Befund.
+
+Nachtrag 05.10.2026 (Session 126), Zahlungsformular (Abrechnung > Verkauf und Einkauf > Zahlungen):
+Feld-fuer-Feld-Abgleich gegen Odoo 11 read-only, Doku docs/o11-o18-vergleich-abrechnung-zahlungsformular.md.
+Ergaenzt: Zahlungsbetrag und Zahlungsmethode sind wieder pflichtig (Odoo-11-Modellpflicht; Odoo 18
+erzwingt beides nicht selbst). Behoben: bei Lieferantenzahlungen erschien ein zweites, leeres
+Partnerfeld "Lieferant" (Odoo 18 fuehrt partner_id im Odoo-18-Block zweimal; position="attributes"
+wirkt nur auf den ersten Treffer). Verschoben: Odoo-11-Zahlungsnummer (Migrationsfeld, in Odoo 11
+nicht vorhanden) und Status (Odoo 18) (Kontrollwert) aus dem Odoo-11-Block in eigene Gruppen
+"Herkunft (Migration)" / "Status (Odoo 18)". Zahlungstransaktion bleibt an Odoo-11-Position
+(Odoo-11-Feld, 0 von 10/11 belegt, nicht migrationsrelevant); Bankkonto des Partners bleibt als
+Odoo-18-Funktion. Beschriftungen: Ursache der schwaecheren Darstellung sind die Odoo-18-Standard-
+klassen fuer readonly/leere Felder (Deckkraft 0,66; Schriftgewicht ueberall 500), keine Fettschrift
+erzwungen. Keine Odoo-18-Funktion entfernt. Abnahme im Browser lokal und VM je 19 OK / 0 FEHL,
+Testdaten restlos entfernt.
 ```
 Vollstaendigkeitscheck ohne Lese-Limit (scripts/pruefe_teil5_abdeckung.py, Odoo 11 read-only):
 Konten: 34.492 Buchungszeilen gesamt = 5.989 (1201 Bank) + 12.252 (1410 Forderungen)

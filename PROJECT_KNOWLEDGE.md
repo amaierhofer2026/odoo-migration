@@ -8419,3 +8419,47 @@ recht.
   Odoo 11 seine Modellpflicht im Odoo-18-Bestand behaelt. Eine Meldung "Ungueltige Felder: X" ist
   nie durch Abschalten der Pflicht zu beheben, sondern nur durch die Ursache des ungewollten
   Speicherns.
+
+## Session 126, Teil 2: Zahlungsformular vollstaendig gegen Odoo 11 abgeglichen (05.10.2026)
+
+Auftrag von Anna: Feld-fuer-Feld-Abgleich des Zahlungsformulars (Abrechnung > Verkauf und Einkauf >
+Zahlungen), Pruefung der drei Zusatzfelder und der Beschriftungsdarstellung. Doku:
+`docs/o11-o18-vergleich-abrechnung-zahlungsformular.md`.
+
+- **Gefunden und behoben (Modul 18.0.1.15.0):**
+  1. **Zahlungsbetrag war nicht pflichtig** - Odoo 11 fuehrt `amount` modellpflichtig, Odoo 18
+     weder im Modell noch in der Ansicht -> `required="1"`.
+  2. **Zahlungsmethode war in unserer Ansicht nicht pflichtig** - Odoo 18 fuehrt sie auf dem
+     (versteckten) Basisfeld als pflichtig, Odoo 11 modellpflichtig -> `required="1"`.
+  3. **Doppeltes Partnerfeld bei Lieferantenzahlungen:** Odoo 18 fuehrt `partner_id` im
+     Odoo-18-Block zweimal (Kunde/Lieferant). `position="attributes"` wirkt nur auf den ERSTEN
+     Treffer, deshalb blieb die Lieferanten-Variante sichtbar und erschien als zweites, leeres
+     Feld "Lieferant" neben unserem "Partner". Zweite Variante jetzt ueber ihre Position
+     ausgeblendet (`//group[@name='group1']/field[@name='partner_id'][2]`); **`string` ist als
+     Selektor verboten** ("View inheritance may not use attribute 'string' as a selector",
+     ParseError, Registry laedt nicht).
+- **Verschoben:** `itk_o11_payment_number` (Migrationsfeld; Odoo 11 hatte kein solches Feld) und
+  `state` (Status (Odoo 18), Kontrollwert) aus dem Odoo-11-Block in die Gruppen
+  "Herkunft (Migration)" und "Status (Odoo 18)" unter den Odoo-18-Angaben. Keine Odoo-18-Funktion
+  entfernt; die Odoo-11-Kette `itk_o11_status` bleibt die fachliche Anzeige.
+- **Die drei Zusatzfelder (gemessen):** `payment_transaction_id` (Online-Zahlungstransaktion,
+  Modul account_payment, 0 von 10 lokal / 0 von 11 VM belegt, in Odoo 11 ebenfalls 0 von 5.994,
+  nicht migrationsrelevant, bleibt an Odoo-11-Position); `itk_o11_payment_number` (Migrationsfeld,
+  0 belegt, erforderlich laut Teil-5-Regel Abschnitt 5); `state` (Rohstatus, 100 % belegt,
+  Kontrollwert). Zusaetzlich `partner_bank_id` (Odoo-18-Feld fuer SEPA, 0 belegt, bleibt).
+- **Beschriftungen:** Alle Beschriftungen haben `font-weight: 500`; der Unterschied ist die
+  Deckkraft (1,00 gegen 0,66). Ursache sind die Odoo-18-Standardklassen `o_form_label_readonly`
+  und `o_form_label_empty` (readonly bzw. readonly+leer) - **keine** Eigenheit unserer Ansicht.
+  Keine Fettschrift erzwungen, keine readonly-/Pflichtfeldlogik geaendert.
+- **Fehlende Odoo-11-Funktion:** nur die zwei Pflichtfelder (siehe oben). "Ueberweisung an"
+  (destination_journal_id) hat in Odoo 18 kein Feld mehr - gleichwertig ueber die Aktion
+  "Interne Ueberweisungen" (gekoppelte Zahlung). O11 "Buchungszeilen" war in Odoo 11 selbst
+  unsichtbar; Odoo 18 fuehrt "Journal Entry" (gruppenbeschraenkt).
+- **Abnahme:** `scripts/browser_zahlungsformular_abnahme.py lokal|vm` - **lokal 19 OK / 0 FEHL,
+  VM 19 OK / 0 FEHL** (Beschriftungen und Reihenfolge wie Odoo 11, technische Felder ausserhalb,
+  Pflichtfelder wie Odoo 11, einheitliches Schriftgewicht, Statuskette, Smart Button "Rechnungen"
+  nur bei verknuepfter Rechnung, Lieferantenzahlung ohne Doppelung). Testdaten lokal 28/29, VM
+  24/25 angelegt und restlos entfernt (Bestand lokal 10, VM 11 vorher = nachher).
+- **Offen:** Auswahlwortlaut Zahlungsart (O11 "Geld schicken"/"Geld erhalten" gegen O18
+  "Senden"/"Erhalten") bewusst nicht geaendert; Smart Button "Zahlungsabstimmung" hat keinen
+  1:1-Gegenwert (Odoo 18: Kontoauszugszeilen/Buchungsbeleg).
