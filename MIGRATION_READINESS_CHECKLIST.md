@@ -1680,6 +1680,26 @@ Produktart-Migrationsregel (ENTSCHIEDEN von Anna am 05.10.2026, Variante 1 - nur
   `docs/o11-o18-produktart-pruefung.md`. Einzige noch offene Anpassung: die zwei Filter mit
   `service_type = 'timesheet'` koennen in Odoo 18 nie treffen (Odoo-11-Treffer 33 bzw. 0);
   drei Moeglichkeiten in der Mapping-Doku, Abschnitt 10.
+Praktischer Lager-Test in Odoo 18 (05.10.2026, temporaeres Testprodukt lokal 233 / VM 286, danach
+  vollstaendig entfernt): Reiter "Lager" erscheint nur bei is_storable; "Bestand verfolgen" gesetzt,
+  Produktart separat (leer, spaeter Plattform) ohne Widerspruch; Lager-Smart-Buttons (Vorrätig,
+  Prognostiziert, Meldebestände, Eingang/Ausgang) vorhanden; Inventuranpassung +5 Stueck auf
+  WH/Bestand gebucht (keine Buchung - Kategorie "Manual"); Filter "Lagerverwaltung" findet das
+  Produkt; Filter "Bestandsauflösung" findet es nur bei Bestand <= 0 und nicht mehr nach der
+  Buchung; Filter "Service Type Platform" findet es trotz type = consu (Belege fuer die
+  Unabhaengigkeit der Felder). Browserabnahme lokal und VM: vorher je 12 OK / 0 FEHL, nachher je
+  16 OK / 0 FEHL. Vorher-/Nachher-Bestand identisch (lokal 13 Vorlagen, VM 10; quants/moves/
+  valuation layers/pickings je 0; account.move 38 bzw. 59; Filterzahlen unveraendert);
+  Testprodukt und Serveraktion entfernt. Werkzeuge: scripts/lagerprodukt_test.py,
+  scripts/browser_lagerprodukt_test.py, scripts/vm_lager_aufraeumen.py. Details:
+  docs/o11-o18-produktart-mapping.md, Abschnitt 11.
+DiensteFilter "Zeitbasierte Dienste" / "Festpreis-Dienste" (gemessen, keine Aenderung): beide nutzen
+  service_type = 'timesheet'; Odoo 11 hatte service_type UND service_tracking parallel,
+  service_tracking war auf allen 653 Vorlagen 'no' (also nicht die Entsprechung). Der Wert
+  'timesheet' existiert in Odoo 18 nur mit dem Modul sale_timesheet (nicht installiert),
+  service_policy nur mit sale_project. Ergebnis: keine Domain-Aenderung; Entscheidung ueber den
+  Modulumfang liegt bei Anna. Offen: das Migrationsskript uebertraegt service_type/service_policy
+  (53 Vorlagen mit Daten) bisher nicht - 1:1 nur moeglich, wenn die Module im Ziel vorhanden sind.
 Abrechnung bleibt IN ARBEIT.
 Vollstaendigkeitscheck ohne Lese-Limit (scripts/pruefe_teil5_abdeckung.py, Odoo 11 read-only):
 Konten: 34.492 Buchungszeilen gesamt = 5.989 (1201 Bank) + 12.252 (1410 Forderungen)

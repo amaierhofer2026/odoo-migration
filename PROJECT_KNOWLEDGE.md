@@ -8619,4 +8619,19 @@ Zahlungen), Pruefung der drei Zusatzfelder und der Beschriftungsdarstellung. Dok
   `scripts/pruefe_produktart_regel.py` (0 Fehler). Belege: `docs/o11-o18-produktart-mapping.md`
   (Abschnitt 0) und `docs/o11-o18-produktart-pruefung.md`. Offen bleibt nur die Anpassung der zwei
   Filter mit `service_type = 'timesheet'` (Mapping-Doku, Abschnitt 10).
+- **Praktischer Lager-Test (05.10.2026):** Temporaeres Testprodukt (`ZZ-TEST-LAGER`, type=consu,
+  is_storable=True) nur in der Odoo-18-Testinstanz angelegt, im Browser geprueft, danach
+  vollstaendig entfernt (Vorher-/Nachher-Bestand lokal und VM identisch). Ergebnis: Der Reiter
+  "Lager" und die Lager-Smart-Buttons erscheinen nur bei is_storable; die Inventuranpassung (+5
+  Stueck) laeuft ueber WH/Bestand; der Filter "Bestandsauflösung" findet das Produkt nur bei
+  Bestand <= 0; der Filter "Service Type Platform" findet es trotz type = consu. Damit ist belegt:
+  type, product_type_id und is_storable sind getrennt und erzeugen keine widerspruechliche Logik.
+  Browserabnahme je 12 OK / 0 FEHL (vorher) und 16 OK / 0 FEHL (nachher). Details:
+  `docs/o11-o18-produktart-mapping.md`, Abschnitt 11.
+- **DiensteFilter `service_type = 'timesheet'` (gemessen, keine Aenderung):** Odoo 11 fuehrte
+  `service_type` und `service_tracking` parallel; `service_tracking` war auf allen 653 Vorlagen
+  'no' und ist deshalb nicht die Entsprechung. Der Wert `timesheet` existiert in Odoo 18 nur mit dem
+  Modul `sale_timesheet`, `service_policy` nur mit `sale_project` - beide nicht installiert. Ergebnis:
+  keine Domain-Aenderung; der Modulumfang ist Annas Entscheidung. Offen: `service_type`/
+  `service_policy` (53 Vorlagen mit Daten) werden vom Migrationsskript noch nicht uebertragen.
 - **Abrechnung bleibt IN ARBEIT.**

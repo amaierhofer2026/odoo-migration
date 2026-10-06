@@ -218,32 +218,126 @@ Odoo 11 nur lesend gelesen. Abrechnung bleibt IN ARBEIT.
 4. Einzige noch anpassungsbeduerftige Stelle: die zwei Filter mit `service_type = 'timesheet'`
    (Abschnitt 10). Alles andere bleibt unveraendert.
 
-## 10. Einzige benoetigte Anpassung: die zwei Filter mit `service_type = 'timesheet'`
+## 10. Die zwei Filter mit `service_type = 'timesheet'` - gemessener Sachstand
 
 Anna-Vorgabe: "Die Odoo-11-Filter muessen weiterhin fachlich dieselben Produktmengen liefern."
-Gemessen:
+Gemessen in Odoo 11 (read-only):
 
 ```
-Filter "Festpreis-Dienste"    Domain [('type','=','service'), ('invoice_policy','=','order'),
-                                     ('service_type','=','timesheet')]
-                              Odoo 11: 33 Treffer      Odoo 18: 0 Treffer
-Filter "Zeitbasierte Dienste" Domain [('type','=','service'), ('invoice_policy','=','delivery'),
-                                     ('service_type','=','timesheet')]
-                              Odoo 11: 0 Treffer       Odoo 18: 0 Treffer
+Filter "Festpreis-Dienste"     [('type','=','service'), ('invoice_policy','=','order'),
+                                ('service_type','=','timesheet')]      -> 33 Treffer
+Filter "Zeitbasierte Dienste"  [('type','=','service'), ('invoice_policy','=','delivery'),
+                                ('service_type','=','timesheet')]      ->  0 Treffer
+Odoo-11-Daten:  service_type     manual 600, timesheet 53
+                service_policy   ordered_timesheet 53, sonst leer
+                service_tracking auf allen 653 Vorlagen 'no' (nie benutzt)
 ```
 
-Ursache: Odoo 18 kennt den Auswahlwert `timesheet` im Feld `service_type` nicht mehr (Odoo 18 hat
-dort nur noch `manual`; die stundenbasierte Abrechnung laeuft in Odoo 18 ueber `service_tracking`).
-Die Domains sind unveraendert uebernommen, koennen den Wert aber nicht mehr treffen. "Festpreis-
-Dienste" liefert deshalb in Odoo 18 0 statt 33 Produkte.
+Gemessen in Odoo 18 (lokal und VM):
 
-Drei Moeglichkeiten (nicht umgesetzt, Entscheidung bei Anna):
+```
+service_type      nur 'manual'; der Wert 'timesheet' wird vom Modul sale_timesheet ergaenzt
+                  (sale_timesheet/models/product_template.py:17  selection_add)
+service_policy    existiert in Odoo 18 im Modul sale_project (nicht installiert)
+service_tracking  nur 'no'; die uebrigen Werte kommen von sale_project/sale_timesheet
+Module            sale_timesheet uninstalled, sale_project uninstalled
+Folge             beide Filter koennen in der Testinstanz nicht treffen (0 Treffer),
+                  unabhaengig von Produktdaten oder Migration
+```
 
-| Variante | Wirkung | Aufwand/Risiko |
+Fachliche Entsprechung - geprueft, keine Domain-Aenderung:
+
+1. Odoo 11 hatte **beide** Felder parallel: `service_type` (manual/timesheet) und
+   `service_tracking` (Aufgabe/Projekt erstellen). Die zwei Filter benutzen `service_type`.
+2. `service_tracking` war in Odoo 11 auf **allen 653 Vorlagen 'no'** - es traegt keine Information
+   und ist damit **nicht** die fachliche Entsprechung dieser Filter. Eine Umstellung der Domains auf
+   `service_tracking` waere neue Fachlogik und wuerde 0 Produkte finden.
+3. Die Entsprechung ist der **Auswahlwert `service_type = 'timesheet'` selbst** (gleiches Feld,
+   gleicher technischer Name, gleiche Bedeutung: Zeiterfassung bei Projekt). Er ist in Odoo 18
+   vorhanden, sobald das Modul `sale_timesheet` installiert ist; `service_policy` bringt
+   `sale_project` mit.
+
+**Ergebnis: keine Aenderung an den Filtern.** Sie bleiben unveraendert. Zwei Filter ("Zeitbasierte
+Dienste", "Festpreis-Dienste") treffen in der aktuellen Testinstanz nicht, weil ihnen der
+Modulumfang fehlt - das ist eine Modulumfangs-Entscheidung, keine Filterfrage:
+
+| Moeglichkeit | Wirkung | Bewertung |
 |---|---|---|
-| A: `service_type` in Odoo 18 um `timesheet` erweitern (itk_product) | Domains bleiben wie in Odoo 11, Treffer wie in Odoo 11 (33 fuer Festpreis) | ein Modulwert ergaenzt; keine Odoo-18-Funktion entfernt; Auswahlfeld hat dann einen zusaetzlichen Wert |
-| B: Domain an Odoo-18-Felder anpassen (`service_tracking`) | gleiche fachliche Absicht, andere Domain | neue fachliche Regel noetig, Ergebnis muss einzeln belegt werden |
-| C: so belassen | Filter bleibt sichtbar, trifft aber nie | Anna-Vorgabe "dieselben Produktmengen" waere fuer diesen Filter nicht erfuellt |
+| Zielumfang enthaelt `sale_timesheet` (und ggf. `sale_project`) | die Domains treffen wie in Odoo 11 (Festpreis 33), zusaetzlich stehen Zeiterfassung/Projektdienste zur Verfuegung | von Anna zu entscheiden; die Filter bleiben dafuer unveraendert |
+| Zielumfang ohne diese Module | die zwei Filter bleiben sichtbar und leer; "Meilenstein-Dienste" (`service_type = 'manual'`) funktioniert weiter | dokumentierte Abweichung |
 
-Der Filter "Meilenstein-Dienste" (`service_type = 'manual'`) ist nicht betroffen: der Wert existiert
-in Odoo 18, in Odoo 11 hatte der Filter 0 Treffer, in Odoo 18 einen (Testbestand).
+Folge fuer die Migration (neu, noch nicht umgesetzt): In Odoo 11 tragen **53 Vorlagen**
+`service_type = 'timesheet'` und `service_policy = 'ordered_timesheet'` - also echte Fachdaten, die
+zu den zwei Filtern gehoeren. Das Migrationsskript uebertraegt bisher nur `invoice_policy`, nicht
+`service_type` und `service_policy` (`scripts/testmigration_abrechnung.py`, Abschnitt
+Produktuebernahme). Uebernehmen laesst sich der Wert nur, wenn der Zielumfang die Module
+`sale_timesheet`/`sale_project` enthaelt - sonst lehnt Odoo den Auswahlwert ab. Damit gilt:
+
+- Mit `sale_timesheet`/`sale_project` im Ziel: `service_type` und `service_policy` 1:1 uebertragen
+  (53 Vorlagen), die zwei Filter treffen wie in Odoo 11 (Festpreis 33).
+- Ohne diese Module: die beiden Felder nicht uebertragen, bewusst dokumentieren; die Filter bleiben
+  leer. Kein Ersatz durch eine Ableitung aus `type` oder `product_type_id`.
+
+Entscheidung liegt bei Anna (Modulumfang); ich habe nichts geaendert.
+
+## 11. Praktischer Lager-Test in Odoo 18 (05.10.2026)
+
+Auftrag: temporaeres Lager-Testprodukt ausschliesslich in der Odoo-18-Testinstanz anlegen, Lagerfall
+praktisch pruefen, danach vollstaendig entfernen und den Bestand vorher/nachher kontrollieren.
+Werkzeuge: `scripts/lagerprodukt_test.py` (Anlegen, Inventuranpassung, Aufraeumen, Zaehlen),
+`scripts/browser_lagerprodukt_test.py` (Browserpruefung lokal und VM),
+`scripts/vm_lager_aufraeumen.py` (VM-Bereinigung, weil SSH gesperrt war).
+
+Testprodukt (lokal product.template 233 / VM 286): `ZZ-TEST-LAGER`, `type = consu`,
+`is_storable = True`, `product_type_id` zunaechst leer, sale_ok/purchase_ok ja.
+
+Ergebnisse (lokal und VM identisch):
+
+```
+Reiter "Lager"          erscheint nur bei lagerfuehrbaren Produkten - beim Testprodukt sichtbar,
+                        bei allen nicht lagerfuehrbaren Produkten fehlt er (Odoo-18-Regel)
+Formular                "Bestand verfolgen" gesetzt; "Produktart" separat gepflegt; type unsichtbar
+Smart Buttons           "5,000 Einheit(en) Vorrätig", "5,000 Prognostiziert", "0 Meldebestände",
+                        "Eingang: 0 Ausgang: 0" - nur bei is_storable vorhanden
+Inventuranpassung       +5 Stueck auf WH/Bestand gebucht (eine abgeschlossene Lagerbewegung,
+                        kein Bewertungssatz in der Buchhaltung - Kategorie ist "Manual")
+Filter Lagerverwaltung  findet das Testprodukt (is_storable)
+Filter Bestandsauflösung (Bestand <= 0 UND is_storable)
+                        vor der Buchung: findet das Testprodukt
+                        nach der Buchung: findet es nicht mehr (Bestand 5) - Regel greift korrekt
+Filter Service Type Platform
+                        findet das Testprodukt, obwohl type = consu ist - Beleg, dass
+                        product_type_id unabhaengig von type gepflegt wird
+Verkauf/Einkauf         neue Belegformulare (Verkaufsauftrag, Bestellung) geoeffnet, ohne Speichern;
+                        Produkt bleibt verkauf- und einkaufbar
+Konsistenz              type = consu + is_storable = True + product_type_id = Plattform
+                        gleichzeitig: kein Fehler, keine Warnung, Lagerlogik unveraendert;
+                        Odoo 18 erzwingt weiterhin is_storable = False nur fuer type != consu
+Abnahmeergebnis         lokal: vorher 12 OK / 0 FEHL, nachher 16 OK / 0 FEHL
+                        VM:    vorher 12 OK / 0 FEHL, nachher 16 OK / 0 FEHL
+Bilder                  Desktop/Odoo18-Abnahme-Session126/lager_test/{lokal,vm}/{vorher,nachher}
+```
+
+Bereinigung (vollstaendig, per ID kontrolliert):
+
+```
+                                lokal              VM
+product.template                13 / 13            10 / 10      (vorher / nachher)
+product.product                 13 / 13            10 / 10
+stock.quant                      0 / 0              0 / 0
+stock.move                       0 / 0              0 / 0
+stock.move.line                  0 / 0              0 / 0
+stock.picking                    0 / 0              0 / 0
+stock.valuation.layer            0 / 0              0 / 0
+account.move                    38 / 38            59 / 59
+account.move.line              102 / 102          166 / 166
+Filter Bestandsaufloesung        0 / 0              0 / 0
+Filter Lagerverwaltung           0 / 0              0 / 0
+Testprodukt vorhanden            nein               nein
+temporaere Serveraktion          0                  0
+```
+
+Hinweis zur Bereinigung: Odoo blockiert das Loeschen abgeschlossener Lagerbewegungen,
+Bewertungssaetze und belegter Quants per ORM. Die gezielten DELETE-Anweisungen (nur die IDs des
+Testprodukts) liefen daher lokal per psql und auf der VM ueber eine einmalige Odoo-Serveraktion,
+die danach wieder geloescht wurde. Odoo 11 wurde in keinem Schritt beruehrt.
