@@ -81,7 +81,8 @@ FELD = """(name) => { const e = document.querySelector("[name='"+name+"']");
     return {da:true, sichtbar:!!e.offsetParent, klasse:e.className.slice(0,60),
             readonly:e.className.includes('o_readonly_modifier'),
             eingabe:e.querySelectorAll('input,select,textarea').length,
-            text:(e.innerText||'').replace(/\\s+/g,' ').trim().slice(0,80),
+            text:(e.innerText||'').replace(/\\s+/g,' ').trim().slice(0,80)
+                 || (e.querySelector('input') ? e.querySelector('input').value : ''),
             label:lab ? lab.innerText.replace(/\\s+/g,' ').replace(/\\?/g,'').trim() : null}; }"""
 
 CHIPS = """(name) => { const e = document.querySelector("[name='"+name+"']");
@@ -201,6 +202,21 @@ with sync_playwright() as pw:
                    "Product-Type: sichtbar, editierbar (Verknuepfung itk_product.product_type)")
             preis = seite.evaluate(FELD, "list_price")
             pruefe(preis.get("da") and preis.get("eingabe", 0) >= 1, "Verkaufspreis: editierbar")
+            # Anna 05.10.2026: deutsche Beschriftung, Odoo-11-Reihenfolge im ersten Reiter
+            pt = seite.evaluate(FELD, "product_type_id")
+            pruefe(pt.get("label") == "Produktart",
+                   "Produktart-Feld traegt die deutsche Beschriftung '%s'" % pt.get("label"))
+            reins = seite.evaluate("""() => [...document.querySelectorAll('.o_notebook .tab-pane')]
+                .filter(p => !p.className.includes('d-none') && p.offsetParent)
+                .flatMap(p => [...p.querySelectorAll('label.o_form_label')])
+                .filter(l => l.offsetParent && l.innerText.trim())
+                .map(l => l.innerText.replace(/\\s+/g,' ').replace(/\\?/g,'').trim())""")
+            erwartet = [x for x in reins if x in ("Produktart", "Interne Kategorie",
+                                                  "Interne Referenz", "Strichcode")]
+            pruefe(erwartet == ["Produktart", "Interne Kategorie", "Interne Referenz", "Strichcode"],
+                   "Erster Reiter in Odoo-11-Reihenfolge: %s" % erwartet)
+            pruefe("Product-Type" not in " ".join(reins),
+                   "keine englische Beschriftung 'Product-Type' im ersten Reiter")
             for feld in ("product_type_id", "categ_id", "default_code", "list_price"):
                 d = seite.evaluate(FELD, feld)
                 if d.get("text"):
@@ -298,8 +314,34 @@ with sync_playwright() as pw:
                       l.get("hinzufuegen") if l else "-"))
             seite.screenshot(path=os.path.join(VZ, "08_attribute.png"), full_page=True)
 
+    # ---------------------------------------------------------- Abonnement-Produkt
+    print("\n=== Abonnement-Produkt: Abonnementfelder (Reiter 1 und Verkauf) ===")
+    abos = rpc("product.template", "search_read", [[["recurring_invoice", "=", True]], ["id", "name"]],
+               {"limit": 1})
+    if abos:
+        seite.goto("%s/odoo/action-%d/%s" % (url, AKTION, abos[0]["id"]))
+        seite.wait_for_selector(".o_form_view", timeout=90000)
+        seite.wait_for_timeout(5000)
+        haken = seite.evaluate(HAKEN, "recurring_invoice")
+        pruefe(bool(haken) and haken.get("gesetzt") is True,
+               "Produkt %s (%s): 'Abonnement Produkt' im ersten Reiter gesetzt"
+               % (abos[0]["id"], abos[0]["name"]))
+        seite.query_selector(".o_notebook .nav-link:has-text('Verkauf')").click()
+        seite.wait_for_timeout(1500)
+        s = seite.evaluate(FELD, "subscription_template_id")
+        pruefe(bool(s.get("da")) and bool(s.get("sichtbar")),
+               "Reiter Verkauf zeigt die Abonnement-Vorlage (Wert: %s)" % (s.get("text") or "-"))
+        seite.screenshot(path=os.path.join(VZ, "09_abo_verkauf.png"), full_page=True)
+    else:
+        pruefe(False, "kein Abonnement-Produkt in der Instanz gefunden")
+
     # ---------------------------------------------------------- Kopf-Werkzeuge
     print("\n=== Kopf-Werkzeuge (nur oeffnen, nichts speichern) ===")
+    # zurueck zum Ausgangsprodukt (das Abonnement-Produkt ist eine Dienstleistung,
+    # dort gibt es den Etiketten-Knopf nicht - Odoo-18-Regel)
+    seite.goto("%s/odoo/action-%d/%s" % (url, AKTION, pid))
+    seite.wait_for_selector(".o_form_view", timeout=90000)
+    seite.wait_for_timeout(4000)
     for knopf, name in (("Etiketten drucken", "Etiketten"),):
         b = seite.query_selector("button:has-text('%s')" % knopf)
         if b is None:
