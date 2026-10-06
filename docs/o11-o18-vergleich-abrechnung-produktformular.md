@@ -34,9 +34,9 @@ Odoo 11:
 8. Bilder (1 Felder)
 
 Odoo 18 nachher:
-1. Allgemeine Informationen (24 Felder)
+1. Allgemeine Informationen (23 Felder)
 2. Attribute & Varianten (5 Felder)
-3. Verkauf (3 Felder)
+3. Verkauf (4 Felder)
 4. Einkauf (34 Felder)
 5. Lager (18 Felder)
 6. Abrechnung (5 Felder)
@@ -60,6 +60,13 @@ existiert in Odoo 18 nicht mehr, und in Odoo 11 war der Reiter **0 von 649 Produ
 Kopfbereich (wie Odoo 11 das Feld image_medium ausserhalb der Reiter) und Dokumente ueber den
 Smart Button "Dokumente"; die Nachrichten liegen im Chatter am Formularende. Kein Dummy-Reiter.
 
+Zweiter Durchgang 05.10.2026 (Auftrag Anna): Das Formular ist nicht nur um fehlende Reiter
+ergaenzt, sondern je Reiter inhaltlich, funktional und visuell nach Odoo 11 nachgebaut. Der erste
+Reiter hat wieder zwei flache Spalten in Odoo-11-Reihenfolge, alle sichtbaren Beschriftungen
+entsprechen dem Odoo-11-Wortlaut (deutsch, kein "Product-Type" mehr), Verkauf/Einkauf/Lager sind in
+Odoo-11-Gruppen und -Reihenfolge; Odoo-18-Zusaetze bleiben erhalten. Abnahme im echten Browser:
+Reiterpruefung 46 OK / 0 FEHL, Funktionspruefung 43 OK / 0 FEHL - lokal und VM (Abschnitt 9).
+
 ## 2. Feldweise Matrix
 
 Legende: "belegt" = Anzahl der Odoo-11-Produktvorlagen mit einem Wert (von 649 Vorlagen). Bei
@@ -70,13 +77,13 @@ Typverteilung Odoo 11: {'consu': 152, 'general': 273, 'onlineservice': 74, 'serv
 | Reiter | Odoo 11 Feld/Funktion | Odoo 18 vorher | Technische Zuordnung | Aenderung | Odoo 18 nachher | Browser lokal | Browser VM | Migrationsregel | Bewusste Abweichung + Begruendung |
 |---|---|---|---|---|---|---|---|---|---|
 | Allgemeine Informationen | `type` (Produktart, 649/649 belegt) | vorhanden | `type` | unsichtbar wie in Odoo 11 | Allgemeine Informationen | OK (Reiter Allgemeine Informationen) | OK (Reiter Allgemeine Informationen) | Wert 1:1 uebernehmen (type) | nein - Odoo 11 hatte hier die Auswahlwerte der ITK-Produktart; sie liegen in Odoo 18 in product_type_id |
-| Allgemeine Informationen | `product_type_id` (Product-Type, 410/649 belegt) | vorhanden | `product_type_id` | unveraendert | Allgemeine Informationen | OK (Reiter Allgemeine Informationen) | OK (Reiter Allgemeine Informationen) | Wert 1:1 uebernehmen | nein |
-| Allgemeine Informationen | `categ_id` (Interne Kategorie, 649/649 belegt) | vorhanden | `categ_id` | in die erste Gruppe verschoben (Odoo 11) | Allgemeine Informationen | OK (Reiter Allgemeine Informationen) | OK (Reiter Allgemeine Informationen) | Wert 1:1 uebernehmen | nein - Beschriftung auf Odoo-11-Wortlaut 'Interne Kategorie' gesetzt |
-| Allgemeine Informationen | `default_code` (Interne Referenz, 2/649 belegt) | vorhanden | `default_code` | in die erste Gruppe verschoben (Odoo 11) | Allgemeine Informationen | OK (Reiter Allgemeine Informationen) | OK (Reiter Allgemeine Informationen) | Wert 1:1 uebernehmen | nein - Beschriftung 'Interne Referenz' (Odoo 11) |
-| Allgemeine Informationen | `barcode` (Strichcode, 0/649 belegt) | vorhanden | `barcode` | in die erste Gruppe verschoben (Odoo 11) | Allgemeine Informationen | OK (Reiter Allgemeine Informationen) | OK (Reiter Allgemeine Informationen) | Wert 1:1 uebernehmen | nein - 0 von 649 Produkten belegt |
+| Allgemeine Informationen | `product_type_id` (Product-Type, 410/649 belegt) | vorhanden | `product_type_id` | unveraendert, deutsche Beschriftung | Allgemeine Informationen | OK (Reiter Allgemeine Informationen) | OK (Reiter Allgemeine Informationen) | Wert 1:1 uebernehmen | nein - sichtbare Beschriftung 'Produktart' (Anna-Vorgabe 05.10.2026). In Odoo 11 trug die Auswahl type die ITK-Werte (sichtbar als 'Produktart'), product_type_id hiess dort 'Product-Type'; Odoo 18 zeigt die ITK-Produktart in einem Feld |
+| Allgemeine Informationen | `categ_id` (Interne Kategorie, 649/649 belegt) | vorhanden | `categ_id` | in die erste Spalte verschoben (Odoo 11) | Allgemeine Informationen | OK (Reiter Allgemeine Informationen) | OK (Reiter Allgemeine Informationen) | Wert 1:1 uebernehmen | nein - Beschriftung auf Odoo-11-Wortlaut 'Interne Kategorie' gesetzt |
+| Allgemeine Informationen | `default_code` (Interne Referenz, 2/649 belegt) | vorhanden | `default_code` | in die erste Spalte verschoben (Odoo 11) | Allgemeine Informationen | OK (Reiter Allgemeine Informationen) | OK (Reiter Allgemeine Informationen) | Wert 1:1 uebernehmen | nein - Beschriftung 'Interne Referenz' (Odoo 11) |
+| Allgemeine Informationen | `barcode` (Strichcode, 0/649 belegt) | vorhanden | `barcode` | in die erste Spalte verschoben (Odoo 11) | Allgemeine Informationen | OK (Reiter Allgemeine Informationen) | OK (Reiter Allgemeine Informationen) | Wert 1:1 uebernehmen | nein - 0 von 649 Produkten belegt |
 | Allgemeine Informationen | `list_price` (Verkaufspreis, 606/649 belegt) | vorhanden | `list_price` | unveraendert | Allgemeine Informationen | OK (Reiter Allgemeine Informationen) | OK (Reiter Allgemeine Informationen) | Wert 1:1 uebernehmen | nein |
 | Allgemeine Informationen | `is_multi_factor_product` (To multiply by Factor(per 1000), 1/649 belegt) | vorhanden | `is_multi_factor_product` | unveraendert | Allgemeine Informationen | OK (Reiter Allgemeine Informationen) | OK (Reiter Allgemeine Informationen) | Wert 1:1 uebernehmen | nein |
-| Allgemeine Informationen | `recurring_invoice` (Abonnement Produkt, 333/649 belegt) | vorhanden | `recurring_invoice` | unveraendert (Odoo-18-Gruppe Subscription) | Allgemeine Informationen | OK (Reiter Allgemeine Informationen) | OK (Reiter Allgemeine Informationen) | Wert 1:1 uebernehmen | nein |
+| Allgemeine Informationen | `recurring_invoice` (Abonnement Produkt, 333/649 belegt) | vorhanden | `recurring_invoice` | unveraendert (Odoo-11-Position, rechte Spalte) | Allgemeine Informationen | OK (Reiter Allgemeine Informationen) | OK (Reiter Allgemeine Informationen) | Wert 1:1 uebernehmen | nein - Odoo 11 zeigte es zusaetzlich im Reiter Verkauf |
 | Allgemeine Informationen | `valuation` (Bewertung, 649/649 belegt) | fehlte im Formular | kein Zielfeld | Feld im Odoo-18-Modell nicht mehr vorhanden | - | - | - | keine Migration moeglich | ja - Odoo 11: ueberall unsichtbar; Bewertung steuert Odoo 18 ueber die Produktkategorie |
 | Allgemeine Informationen | `cost_method` (Kostenmethode, 649/649 belegt) | fehlte im Formular | kein Zielfeld | Feld im Odoo-18-Modell nicht mehr vorhanden | - | - | - | keine Migration moeglich | ja - Odoo 11: unsichtbar |
 | Allgemeine Informationen | `property_cost_method` (Kalkulationsverfahren, 0/649 belegt) | fehlte im Formular | kein Zielfeld | Feld im Odoo-18-Modell nicht mehr vorhanden | - | - | - | keine Migration moeglich | ja - Odoo 11: unsichtbar |
@@ -96,16 +103,16 @@ Typverteilung Odoo 11: {'consu': 152, 'general': 273, 'onlineservice': 74, 'serv
 | Verkauf | `available_threshold` (Verfügbarkeitsgrenze, 493/649 belegt) | fehlte im Formular | kein Zielfeld | Feld im Odoo-18-Modell nicht vorhanden | - | - | - | keine Migration moeglich | ja - Odoo 11: 0 von 649 belegt |
 | Verkauf | `custom_message` (Persönliche Nachricht, 0/649 belegt) | fehlte im Formular | kein Zielfeld | Feld im Odoo-18-Modell nicht vorhanden | - | - | - | keine Migration moeglich | ja - Odoo 11: 0 von 649 belegt |
 | Verkauf | `website_style_ids` (Style, 0/649 belegt) | fehlte im Formular | kein Zielfeld | Feld im Odoo-18-Modell nicht vorhanden | - | - | - | keine Migration moeglich | ja - Odoo 11: unsichtbar |
-| Verkauf | `recurring_invoice` (Abonnement Produkt, 333/649 belegt) | vorhanden | `recurring_invoice` | unveraendert (Odoo-18-Gruppe Subscription) | Allgemeine Informationen | OK (Reiter Allgemeine Informationen) | OK (Reiter Allgemeine Informationen) | Wert 1:1 uebernehmen | nein |
-| Verkauf | `subscription_template_id` (Vorlage für Abonnements, 292/649 belegt) | vorhanden | `subscription_template_id` | unveraendert | Allgemeine Informationen | OK (Reiter Allgemeine Informationen) | OK (Reiter Allgemeine Informationen) | Wert 1:1 uebernehmen | nein |
-| Einkauf | `seller_ids` (Lieferanten, 0/649 belegt) | vorhanden | `seller_ids` | unveraendert (Reiter Einkauf) | Einkauf | OK (Reiter Einkauf) | OK (Reiter Einkauf) | Wert 1:1 uebernehmen | nein - Odoo 11: 0 von 649 belegt |
-| Einkauf | `variant_seller_ids` (Verkäufer von Variante, 0/649 belegt) | vorhanden | `variant_seller_ids` | unveraendert (Reiter Einkauf) | Einkauf | OK (Reiter Einkauf) | OK (Reiter Einkauf) | keine Werte zu uebernehmen | nein - Steuerung der Anzeige in Odoo 18 ueber die Variantenanzahl |
+| Verkauf | `recurring_invoice` (Abonnement Produkt, 333/649 belegt) | vorhanden | `recurring_invoice` | unveraendert (Odoo-11-Position, rechte Spalte) | Allgemeine Informationen | OK (Reiter Allgemeine Informationen) | OK (Reiter Allgemeine Informationen) | Wert 1:1 uebernehmen | nein - Odoo 11 zeigte es zusaetzlich im Reiter Verkauf |
+| Verkauf | `subscription_template_id` (Vorlage für Abonnements, 292/649 belegt) | vorhanden | `subscription_template_id` | vom ersten Reiter in den Reiter Verkauf verschoben (Odoo 11) | Verkauf | OK (Reiter Verkauf) | OK (Reiter Verkauf) | Wert 1:1 uebernehmen | nein - Odoo 11 fuehrte die Vorlage in der Gruppe subscription im Verkauf |
+| Einkauf | `seller_ids` (Lieferanten, 0/649 belegt) | vorhanden | `seller_ids` | in die Odoo-11-Gruppe 'Lieferanten' gesetzt | Einkauf | OK (Reiter Einkauf) | OK (Reiter Einkauf) | Wert 1:1 uebernehmen | nein - Odoo 11: 0 von 649 belegt |
+| Einkauf | `variant_seller_ids` (Verkäufer von Variante, 0/649 belegt) | vorhanden | `variant_seller_ids` | in die Odoo-11-Gruppe 'Lieferanten' gesetzt | Einkauf | OK (Reiter Einkauf) | OK (Reiter Einkauf) | keine Werte zu uebernehmen | nein - in Odoo 18 nur bei mehreren Varianten sichtbar (Gruppe bleibt sichtbar) |
 | Lager | `route_ids` (Routen, 649/649 belegt) | vorhanden | `route_ids` | unveraendert (Reiter Lager) | Lager | OK (Reiter Lager) | OK (Reiter Lager) | Wert 1:1 uebernehmen | nein |
 | Lager | `route_from_categ_ids` (Routenkategorie, 0/649 belegt) | vorhanden | `route_from_categ_ids` | unveraendert (Reiter Lager) | Lager | OK (Reiter Lager) | OK (Reiter Lager) | berechnet aus der Kategorie, keine Migration | nein |
-| Lager | `sale_delay` (Auslieferungszeit, 0/649 belegt) | vorhanden | `sale_delay` | unveraendert (Reiter Lager, Gruppe Logistik) | Lager | OK (Reiter Lager) | OK (Reiter Lager) | Wert 1:1 uebernehmen | nein - Odoo 11: 0 von 649 belegt |
+| Lager | `sale_delay` (Auslieferungszeit, 0/649 belegt) | vorhanden | `sale_delay` | im Reiter Lager in die Gruppe 'Vorgänge' verschoben (Odoo 11) | Lager | OK (Reiter Lager) | OK (Reiter Lager) | Wert 1:1 uebernehmen | nein - Odoo 11: 0 von 649 belegt |
 | Lager | `weight` (Gewicht, 0/649 belegt) | vorhanden | `weight` | unveraendert (Reiter Lager, Gruppe Logistik) | Lager | OK (Reiter Lager) | OK (Reiter Lager) | Wert 1:1 uebernehmen | nein - Odoo 11: 0 von 649 belegt |
 | Lager | `volume` (Volumen, 0/649 belegt) | vorhanden | `volume` | unveraendert (Reiter Lager, Gruppe Logistik) | Lager | OK (Reiter Lager) | OK (Reiter Lager) | Wert 1:1 uebernehmen | nein - Odoo 11: 0 von 649 belegt |
-| Lager | `responsible_id` (Verantwortlich, 649/649 belegt) | vorhanden | `responsible_id` | unveraendert (Odoo 11: Reiter Lager) | Allgemeine Informationen | OK (Reiter Allgemeine Informationen) | OK (Reiter Allgemeine Informationen) | Wert 1:1 uebernehmen | ja - Zusatz: Odoo 18 zeigt das Feld auch im ersten Reiter (Beschluss Session 120) |
+| Lager | `responsible_id` (Verantwortlich, 649/649 belegt) | vorhanden | `responsible_id` | im Reiter Lager in Odoo-11-Position (Logistik, nach Volumen) | Allgemeine Informationen | OK (Reiter Allgemeine Informationen) | OK (Reiter Allgemeine Informationen) | Wert 1:1 uebernehmen | ja - Zusatz: Odoo 18 zeigt das Feld zusaetzlich im ersten Reiter (Beschluss Session 120, damit Abonnement-Produkte es zeigen) |
 | Lager | `tracking` (Nachverfolgung, 649/649 belegt) | vorhanden | `tracking` | unveraendert (Odoo 11: unsichtbar) | None | OK (Reiter None) | OK (Reiter None) | Wert 1:1 uebernehmen | nein |
 | Lager | `property_stock_production` (Fertigungort (virtuelles Lager), 649/649 belegt) | fehlte im Formular | `property_stock_production` | unveraendert (Odoo 11: unsichtbar) | nicht im Formular (Feld im Modell vorhanden) | - | - | Wert 1:1 uebernehmen | nein |
 | Lager | `property_stock_inventory` (Lagerort Bestandsaufnahme, 649/649 belegt) | fehlte im Formular | `property_stock_inventory` | unveraendert (Odoo 11: unsichtbar) | nicht im Formular (Feld im Modell vorhanden) | - | - | Wert 1:1 uebernehmen | nein |
@@ -307,7 +314,7 @@ Vorlage 300 "Test Produkt 2" (aktiv=False, Typ service, in keinem Beleg verwende
 Werkzeug: `scripts/browser_produktformular_funktionen.py lokal|vm` - oeffnet ein echtes Produkt
 der Menues (id 3 "Produkt B", Ware mit Verkaeufen und Einkaeufen), prueft je Reiter die
 Funktionen und klickt Smart Buttons an (nur oeffnen, nichts speichern).
-Ergebnis: **lokal 38 OK / 0 FEHL, VM 38 OK / 0 FEHL**.
+Ergebnis: **lokal 43 OK / 0 FEHL, VM 43 OK / 0 FEHL** (05.10.2026).
 
 ```
 Kopfbereich  Smart Buttons: Regeln Preislisten, Dokumente, Verkauft (1,000 Einheit(en)),
@@ -318,17 +325,22 @@ Kopfbereich  Smart Buttons: Regeln Preislisten, Dokumente, Verkauft (1,000 Einhe
              Speicherung)
              "Varianten" wird bei nur einer Variante nicht angezeigt (Odoo-18-Regel) -
              dokumentierte Abweichung zu Odoo 11, das den Zaehler immer zeigte
-Allgemeine   Product-Type (itk_product.product_type), Interne Kategorie (product.category),
-Informationen Interne Referenz, Strichcode, Verantwortlich (res.users), Verkaufspreis,
-             Kosten, Kann verkauft/eingekauft werden, Abonnement Produkt (recurring_invoice);
-             Abonnement-Vorlage erscheint, sobald "Abonnement Produkt" gesetzt ist
+Allgemeine   Produktart (itk_product.product_type, deutsche Beschriftung), Interne Kategorie
+Informationen (product.category), Interne Referenz, Strichcode, Verantwortlich (res.users),
+             Verkaufspreis, Kosten, Kann verkauft/eingekauft werden, Abonnement Produkt
+             (recurring_invoice); Reihenfolge im echten Browser geprueft: Produktart, Interne
+             Kategorie, Interne Referenz, Strichcode, Verantwortlich, Bestand verfolgen |
+             Verkaufspreis, To multiply by Factor(per 1000), Abonnement Produkt, Kosten;
+             keine englische Beschriftung "Product-Type" mehr, keine verschachtelten Kaesten
 Verkauf      Optionale Produkte (Odoo-18-Feld fuer alternative/Zubehoer-Produkte),
-             Stichwoerter, Spesen weiter verrechnen (Auswahl aktiv "Nein")
+             Stichwoerter, Spesen weiter verrechnen (Auswahl aktiv "Nein");
+             Abonnement-Vorlage (subscription_template_id) aus dem ersten Reiter hierher,
+             in der Browserpruefung mit Wert "Monatsabrechnung-Abonnement" sichtbar
 Einkauf      Lieferantenliste mit Spalten Lieferant/Menge/Preis/Waehrung/Liefervorlaufzeit
              (Zeile vorhanden, Hinzufuegen moeglich), Einkauf ME editierbar
-Lager        Routen als Auswahl (stock.route, "Einkaufen" gesetzt), Verantwortlich (Avatar),
-             Gewicht, Volumen, Auslieferungszeit, Verpackungen (Liste mit Spalten und
-             Hinzufuegen), Knopf "Diagramm ansehen" vorhanden
+Lager        Odoo-11-Reihenfolge: Vorgaenge (Routen stock.route, Knopf "Diagramm ansehen",
+             Routenkategorie, Auslieferungszeit) | Logistik (Gewicht, Volumen, Verantwortlich
+             als Avatar) | Verpackung (Liste mit Spalten und Hinzufuegen)
 Abrechnung   Steuern (Verkauf) und Steuern (Einkauf) als Chips belegt (20% USt / 20% VSt,
              account.tax), Steuerzeichenkette "+ 1,20 € Inkl. Steuern", Fakturierungsregel und
              Kontrollrichtlinie als Radioknoepfe mit den Werten (Bestellte Mengen / Gelieferte
@@ -341,10 +353,134 @@ Varianten
 ```
 Bilder je Reiter: `Desktop/Odoo18-Abnahme-Session126/produktformular_funktionen/{lokal,vm}`.
 
-## 9. Status
+## 9. Reiterweise Abnahme (05.10.2026, echter Browser lokal und VM)
 
-Umgesetzt und im echten Browser lokal und auf der VM geprueft (jeweils 46 OK / 0 FEHL, Bilder
-gesehen): Reiter Abrechnung und Notizen wiederhergestellt, Feldpositionen und Beschriftungen nach
-Odoo 11, vier Odoo-11-Spalten in der Liste ergaenzt, keine Odoo-18-Funktion entfernt, keine
-Dummy-Felder, kein Feld doppelt im Formular (Arch geprueft).
+Auftrag vom 05.10.2026: jeder Reiter einzeln im echten Browser gegen Odoo 11 vergleichen und
+nachbauen - Felder, deutsche Beschriftungen, Reihenfolge, Gruppen, Sichtbarkeit, Pflicht/readonly,
+Verknuepfungen, Funktionen, Listen. Odoo-18-Zusaetze bleiben erhalten.
+
+### 9.1 Allgemeine Informationen (neu aufgebaut)
+
+```
+Odoo 11 (zwei Spalten)                Odoo 18 vorher                     Odoo 18 nachher
+links:  Produktart (type, ITK-Werte)  links: verschachtelte Untergruppen links:  Produktart
+        Product-Type (product_type_id)        (Product-Type, Verantwortlich,       Interne Kategorie
+        Interne Kategorie (categ_id)          Kategorie/Referenz/Strichcode),      Interne Referenz
+        Interne Referenz (default_code)       dadurch bis zu vier Spalten          Strichcode
+        Strichcode (barcode)          rechts: Verkaufspreis, Kosten,       rechts: Verkaufspreis
+rechts: Verkaufspreis (list_price)             Faktor                                 To multiply by Factor
+        To multiply by Factor         zus.: Kasten "Subscription" mit                (per 1000)
+        Abonnement Produkt            Abonnement Produkt + Vorlage          zus.:  Abonnement Produkt
+        Kosten (standard_price)                                                 Kosten
+                                                                            zusaetze: Verantwortlich,
+                                                                            Bestand verfolgen, Kombi
+```
+
+Umgesetzt:
+- Der erste Block ist wieder **eine Spaltenklammer mit genau zwei flachen Gruppen** (`group_general`,
+  `group_standard_price`); die Hilfsgruppen `product_type`, `itk_responsible` und
+  `itk_kategorie_referenz` sind entfernt (sie erzeugten die zusaetzlichen Spalten).
+- Feldreihenfolge links in Odoo-11-Ordnung: Produktart, Interne Kategorie, Interne Referenz,
+  Strichcode; danach die Odoo-18-Zusaetze Verantwortlich, Bestand verfolgen, Kombination, Service-
+  abwicklung, Tooltip, Bewertung je Los.
+- Feldreihenfolge rechts in Odoo-11-Ordnung: Verkaufspreis, To multiply by Factor(per 1000),
+  Abonnement Produkt, Kosten (die unsichtbaren Odoo-18-Felder liegen dazwischen, sie sind nicht
+  sichtbar).
+- Beschriftungen: `product_type_id` heisst sichtbar **Produktart** (Vorgabe Anna 05.10.2026;
+  Odoo 11 zeigte fuer die ITK-Produktart das Feld `type` als "Produktart" und fuehrte
+  `product_type_id` zusaetzlich als "Product-Type"). Vorher: "Product-Type".
+- "Abonnement Produkt" bleibt im ersten Reiter (Odoo-11-Position, rechte Spalte), die
+  **Abonnement-Vorlage** wechselt in den Reiter Verkauf (Odoo-11-Position).
+- `product_properties` (Odoo-18-Produktmerkmale) liegt jetzt unterhalb der Spaltenklammer, damit
+  die zwei Spalten sauber bleiben.
+
+Funktionen/Verknuepfungen geprueft: Produktart (`itk_product.product_type`), Kategorie
+(`product.category`), Verkaufspreis/Kosten editierbar, To multiply by Factor(per 1000) als
+Auswahlkasten, Abonnement Produkt als Haken, Verantwortlich (`.res.users`, Avatar-Widget).
+Migrationsmapping: `type` 1:1 (unsichtbar), `product_type_id` 1:1 ueber den Namen (Odoo-11-Werte
+consu/service/general/onlineservice/sw/consulting/platform/hw/project/product),
+`categ_id`/`default_code`/`barcode`/`list_price`/`standard_price`/`recurring_invoice`/
+`subscription_template_id` je 1:1. Die Zuordnung der Odoo-11-Auswahlwerte von `type` auf
+`consu`/`service` ist in `docs/o11-o18-testmigration-regel.md` als **offene fachliche
+Bestaetigung** vermerkt (Odoo 11: consu 152, service 47, onlineservice 74, platform 94, sw 9).
+
+Verbleibende Abweichungen: "Verantwortlich" und "Bestand verfolgen" sind Odoo-18-Felder ohne
+Odoo-11-Gegenstueck und stehen deshalb im ersten Reiter (Beschluss Session 120); Odoo 11 zeigte
+"Abonnement Produkt" zusaetzlich im Reiter Verkauf (Odoo 18 zeigt es einmal).
+
+### 9.2 Verkauf
+
+```
+Odoo 11                                    Odoo 18 vorher          Odoo 18 nachher
+Preiskalkulation (Liste der Item-Regeln)   Up-Selling              Up-Selling
+Website (oeffentliche Kategorien,          Weitere Informationen   Weitere Informationen
+Alternative/Zubehoer, Verfuegbarkeit)      Ausgabe                 Ausgabe
+Gruppe subscription:                       (Abonnement-Vorlage     Gruppe ohne Ueberschrift:
+  Abonnement Produkt                        lag im ersten Reiter)   Abonnement-Vorlage
+  Vorlage fuer Abonnements
+```
+
+Umgesetzt: die Abonnement-Vorlage (`subscription_template_id`) steht jetzt im Reiter Verkauf, in
+einer Gruppe ohne Gruppenueberschrift - genau wie die Odoo-11-Gruppe `subscription`. Geprueft im
+Browser (Produkt 6 "Test-Abo monatlich"): Vorlage sichtbar mit Wert "Monatsabrechnung-Abonnement",
+lokal und VM (Bild `produktformular_funktionen/*/09_abo_verkauf.png`).
+Migrationsmapping: `item_ids` Odoo 11 (0 von 649 belegt) -> Odoo 18 fuehrt Preislistenregeln als
+Smart Button "Regeln Preislisten" am Produkt (`product.pricelist.item`); Website-Felder entfallen
+(Modul nicht installiert, in Odoo 11 0 belegt); `optional_product_ids` bildet Odoo-11
+Alternative/Zubehoer ab; `recurring_invoice`/`subscription_template_id` 1:1.
+
+### 9.3 Einkauf
+
+Umgesetzt: die zwei Odoo-11-Gruppen **"Lieferanten"** (Lieferantenliste `seller_ids` und
+Variantenlieferanten `variant_seller_ids`) sind wiederhergestellt; vorher standen beide Felder
+ohne Gruppe direkt im Reiter. Browserpruefung: Lieferantenliste mit Spalten
+Lieferant/Menge/Preis/Waehrung/Liefervorlaufzeit und "Zeile hinzufuegen", Einkauf ME editierbar.
+Migrationsmapping: `seller_ids` 1:1 (Odoo 11: 0 von 649 belegt), `variant_seller_ids` ohne Werte
+(Odoo 11: 0), `uom_po_id` 1:1. Verbleibende Abweichung: die zweite Gruppe "Lieferanten" ist bei
+Einzelvarianten leer (in Odoo 11 war dort nur das Feld unsichtbar); "Einkauf ME" bleibt sichtbar
+(Odoo 11 hatte es unsichtbar).
+
+### 9.4 Lager
+
+Umgesetzt: Odoo-11-Reihenfolge hergestellt - "Vorgaenge" (Routen, Routenkategorie,
+Auslieferungszeit), "Logistik" (Gewicht, Volumen, Verantwortlich), "Verpackung". Vorher stand
+"Verantwortlich" vor Gewicht/Volumen und "Auslieferungszeit" in "Logistik". Browserpruefung:
+Routen-Auswahl (stock.route, "Einkaufen" gesetzt), Knopf "Diagramm ansehen", Gewicht 0,00,
+Volumen 0,00, Verantwortlich mit Avatar, Verpackungsliste mit Hinzufuegen.
+Migrationsmapping: `route_ids`/`route_from_categ_ids`/`weight`/`volume`/`sale_delay`/
+`responsible_id` je 1:1 (alle 0 von 649 belegt).
+
+### 9.5 Abrechnung
+
+Bereits im ersten Durchgang umgesetzt (Reiter war in Odoo 18 durch das Gruppenrecht
+`account.group_account_readonly` unsichtbar): Gruppen "Forderungen" (Steuern Verkauf),
+"Verbindlichkeiten" (Steuern Einkauf), "Abrechnung" (Fakturierungsregel), "Eingangsrechnung"
+(Kontrollrichtlinie). Browserpruefung: Steuern als Chips (20% USt / 20% VSt), Steuerzeichenkette,
+Fakturierungsregel und Kontrollrichtlinie als Radioknoepfe, beide editierbar.
+Migrationsmapping: `invoice_policy` -> Fakturierungsregel, `purchase_method` -> Kontrollrichtlinie,
+`taxes_id`/`supplier_taxes_id` (account.tax) 1:1; `service_policy`, `service_type`, `project_id`
+und `property_stock_account_*` existieren in Odoo 18 nicht (in Odoo 11 unsichtbar bzw. 0 belegt).
+
+### 9.6 Notizen
+
+Umgesetzt: eigener Reiter mit den acht Odoo-11-Gruppen (interne Beschreibung, Kundenbeschreibung,
+Lieferantenbeschreibung, Beschreibung fuer Auslieferungsauftraege, Wareneingang, interne Transfers,
+Warnung Verkauf, Warnung Einkauf). Browserpruefung: alle sechs Beschreibungsfelder sichtbar und
+editierbar, beide Warndropdowns mit Wert "Keine Nachricht". Verbleibende Abweichung: die interne
+Beschreibung ist in Odoo 18 ein HTML-Feld (Odoo 11: Textfeld) - fachlich gleichwertig.
+
+### 9.7 Attribute & Varianten und Bilder
+
+"Attribute & Varianten" ist ein Odoo-18-Zusatzreiter und bleibt erhalten (Attributliste mit
+Spalten Attribut/Werte, Zeile hinzufuegen). Reiter "Bilder": in Odoo 18 nicht nachbaubar, in
+Odoo 11 0 von 649 Produkten belegt (Abschnitt 7.1).
+
+## 10. Status
+
+Umgesetzt und im echten Browser lokal und auf der VM geprueft (Reiterpruefung 46 OK / 0 FEHL,
+Funktionspruefung 43 OK / 0 FEHL, Bilder gesehen): Reiter Abrechnung und Notizen
+wiederhergestellt, erster Reiter neu aufgebaut (zwei flache Spalten in Odoo-11-Reihenfolge,
+deutsche Beschriftungen), Verkauf/Einkauf/Lager in Odoo-11-Gruppen und -Reihenfolge, vier
+Odoo-11-Spalten in der Liste ergaenzt, keine Odoo-18-Funktion entfernt, keine Dummy-Felder,
+kein Feld doppelt im Formular (Arch geprueft).
 **Abrechnung bleibt IN ARBEIT** - nicht als migrationsbereit oder abgeschlossen markiert.

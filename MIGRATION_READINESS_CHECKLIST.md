@@ -1614,9 +1614,14 @@ Nicht nachbaubar (kein Dummy-Feld): product_image_ids (Reiter Bilder, in Odoo 11
 Nachweis: scripts/browser_produktformular_reiter_abnahme.py lokal|vm -> je 46 OK / 0 FEHL,
   Bilder Desktop/Odoo18-Abnahme-Session126/produktformular{,_vorher}/{lokal,vm}.
 Lehren (Odoo 18): position="move" wirkt nur als direktes Kind einer XPath-Angabe; "string" ist
-  kein gueltiger Selektor ("View inheritance may not use attribute 'string' as a selector");
-  ein Feld als direktes Kind einer Gruppe verliert im DOM seine Beschriftung (in eine eigene
-  Gruppe setzen).
+  kein gueltiger Selektor ("View inheritance may not use attribute 'string' as a selector").
+  Korrigiert im zweiten Durchgang: flache Felder direkt in einer Gruppe behalten ihre
+  Beschriftung; die fehlende Beschriftung kam von VERSCHACHTELTEN Gruppen in einer Spalte (sie
+  erzeugen Zusatzspalten - im ersten Reiter waren bis zu vier Spalten sichtbar). XPath-Anker aus
+  Modulen, die nach itk_account_migration geladen werden (itk_multifactor), oder aus der
+  vorherigen Fassung derselben Ansicht (itk_kategorie_referenz) sind bei der View-Validierung
+  nicht aufloesbar; Aufraeum-Specs muessen NACH den Moves stehen (Warngruppen liegen in der
+  Einkaufs-Huelle group col="1").
 Beide Menuepunkte (Aktionen 382/383) verwenden dieselben Ansichten und unterscheiden sich nur im
   Standardfilter (Kann verkauft werden / Kann eingekauft werden); Odoo 11 fuehrte sie auf
   product.product, Odoo 18 auf product.template - Entscheidungspunkt bei Anna.
@@ -1630,13 +1635,38 @@ Absicherung der beiden Abweichungen (Odoo 11 read-only, 05.10.2026):
   Vorlagen mit genau einer Variante -> keine Mehrfachzuordnung, kein Datenverlust, keine falschen
   Verknuepfungen; Zuordnung ueber product.product.product_tmpl_id 1:1 eindeutig.
 Funktionspruefung der sieben Reiter im Browser (browser_produktformular_funktionen.py, Produkt
-  "Produkt B"): lokal und VM je 38 OK / 0 FEHL - Smart Buttons mit Klickproben (Verkaufsanalyse,
+  "Produkt B"): lokal und VM je 43 OK / 0 FEHL - Smart Buttons mit Klickproben (Verkaufsanalyse,
   Einkaufshistorie, Preisregeln), Fakturierungsregel/Kontrollrichtlinie als Radioknoepfe, Steuern
-  als Chips, Lieferantenliste, Routen, Verpackungen, Attributliste, Beschreibungen, Warnhinweise.
+  als Chips, Lieferantenliste, Routen, Verpackungen, Attributliste, Beschreibungen, Warnhinweise;
+  zusaetzlich Abo-Produkt "Test-Abo monatlich" mit der Abonnement-Vorlage im Reiter Verkauf,
+  Beschriftung "Produktart" und Odoo-11-Reihenfolge im ersten Reiter.
   Anpassung: invoice_policy erhaelt widget="radio" (Odoo 11: Radioknoepfe).
   Abweichung: Odoo 18 zeigt den Smart Button "Varianten" bei nur einer Variante nicht.
-Stand 05.10.2026: Produktbereich abgestimmt und NICHT weiter aendern (nur auf konkrete Meldung von
-  Anna). Nicht als abgeschlossen oder migrationsbereit markiert.
+Zweiter Durchgang 05.10.2026 (Auftrag Anna: "Das gesamte Produktformular muss inhaltlich,
+  funktional UND visuell feldweise mit Odoo 11 verglichen und entsprechend nachgebaut werden"):
+  erster Reiter neu aufgebaut - zwei FLACHE Spalten (group_general, group_standard_price), die
+  Hilfsgruppen product_type/itk_responsible/itk_kategorie_referenz entfernt (sie erzeugten bis zu
+  vier Spalten). Links in Odoo-11-Reihenfolge: Produktart, Interne Kategorie, Interne Referenz,
+  Strichcode, danach die Odoo-18-Zusaetze (Verantwortlich, Bestand verfolgen, Kombination,
+  Serviceabwicklung, Tooltip, Bewertung je Los); rechts: Verkaufspreis, To multiply by Factor
+  (per 1000), Abonnement Produkt, Kosten. Sichtbare Beschriftung "Produktart" statt "Product-Type"
+  (Vorgabe Anna; Odoo 11 zeigte die ITK-Produktart im Feld type als "Produktart" und fuehrte
+  product_type_id zusaetzlich als "Product-Type"). subscription_template_id in den Reiter Verkauf
+  verschoben (Odoo 11: Gruppe subscription im Verkauf), ohne Gruppenueberschrift. Reiter Einkauf:
+  zwei Gruppen "Lieferanten" (seller_ids, variant_seller_ids). Reiter Lager: Odoo-11-Reihenfolge
+  (Vorgaenge: Routen, Routenkategorie, Auslieferungszeit | Logistik: Gewicht, Volumen,
+  Verantwortlich | Verpackung). product_properties unter die Spaltenklammer verschoben.
+  Abnahme im echten Browser lokal UND VM: Reiterpruefung 46 OK / 0 FEHL, Funktionspruefung
+  43 OK / 0 FEHL (Bilder gesehen).
+  Reiterweise Abnahme mit je Reiter Odoo-11-Aufbau / vorher / geaendert / nachher / Funktionen /
+  Migrationsmapping / verbleibende Abweichungen: docs/o11-o18-vergleich-abrechnung-produktformular.md,
+  Abschnitt 9.
+Stand 05.10.2026 (zweiter Durchgang): Produktformular je Reiter nach Odoo 11 nachgebaut. Nicht als
+  abgeschlossen oder migrationsbereit markiert - Anna kontrolliert selbst weiter und meldet
+  konkrete Unterschiede.
+Offener fachlicher Punkt: Zuordnung der Odoo-11-Auswahlwerte von type (general 273, consu 152,
+  platform 94, onlineservice 74, service 47, sw 9) auf Odoo-18 consu/service braucht Annas
+  Bestaetigung (docs/o11-o18-testmigration-regel.md); product_type_id wandert 1:1 ueber den Namen.
 Abrechnung bleibt IN ARBEIT.
 Vollstaendigkeitscheck ohne Lese-Limit (scripts/pruefe_teil5_abdeckung.py, Odoo 11 read-only):
 Konten: 34.492 Buchungszeilen gesamt = 5.989 (1201 Bank) + 12.252 (1410 Forderungen)

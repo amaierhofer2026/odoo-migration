@@ -86,8 +86,8 @@ Regel: sichtbare Bezeichnung wie Odoo 11, technischer Feldname bleibt Odoo 18.
 | `product.product.packaging_ids` | Produktverpackungen | `product.product.packaging_ids` | Produktverpackungen | gleich |  |
 | `product.template.partner_ref` | - | `product.template.partner_ref` | - | FELD FEHLT |  |
 | `product.product.partner_ref` | Kunden Ref | `product.product.partner_ref` | Kunden Ref | gleich |  |
-| `product.template.product_type_id` | Product-Type | `product.template.product_type_id` | Product-Type | gleich |  |
-| `product.product.product_type_id` | Product-Type | `product.product.product_type_id` | Product-Type | gleich |  |
+| `product.template.product_type_id` | Product-Type | `product.template.product_type_id` | Produktart | begruendet abweichend | bewusst abweichend |
+| `product.product.product_type_id` | Product-Type | `product.product.product_type_id` | Produktart | begruendet abweichend | bewusst abweichend |
 | `product.template.product_variant_count` | # Produkt Varianten | `product.template.product_variant_count` | # Produkt Varianten | gleich |  |
 | `product.product.product_variant_count` | # Produkt Varianten | `product.product.product_variant_count` | # Produkt Varianten | gleich |  |
 | `product.template.property_account_income_id` | Erlöskonto | `product.template.property_account_income_id` | Erlöskonto | gleich |  |
