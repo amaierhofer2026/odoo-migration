@@ -35,6 +35,7 @@ Die Felder werden bei der spaeteren Migration befuellt; die laufende Odoo-18-Num
         'views/account_move_form_kopf.xml',
         'views/partner_product_labels.xml',
         'views/product_template_form_o11.xml',
+        'views/product_template_list_o11.xml',
         'views/config_sichtbarkeit.xml',
         'views/suchansichten.xml',
     ],

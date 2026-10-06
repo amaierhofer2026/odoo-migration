@@ -74,6 +74,13 @@ with sync_playwright() as pw:
     seite.goto("%s/odoo/action-%d" % (url, AKTION))
     seite.wait_for_selector(".o_list_view, .o_form_view", timeout=90000)
     seite.wait_for_timeout(5000)
+    spalten = seite.evaluate("""() => [...document.querySelectorAll('.o_list_view thead th')]
+        .filter(e => e.offsetParent).map(e => e.innerText.replace(/\\s+/g,' ').trim()).filter(t => t)""")
+    print("Listenspalten:", spalten)
+    print("Zeilen:", seite.evaluate("""() => document.querySelectorAll('.o_list_view tbody tr.o_data_row').length"""))
+    print("Pager:", seite.evaluate("""() => { const e = document.querySelector('.o_pager'); return e ? e.innerText.replace(/\\s+/g,' ') : '-'; }"""))
+    print("Suchleiste:", seite.evaluate("""() => [...document.querySelectorAll('.o_searchview .o_searchview_facet')]
+        .map(e => e.innerText.replace(/\\s+/g,' ').trim())"""))
     seite.screenshot(path=os.path.join(ziel, "00_liste_verkaufbare_produkte.png"), full_page=True)
     seite.goto("%s/odoo/action-%d/%s" % (url, AKTION, p["id"]))
     seite.wait_for_selector(".o_form_view", timeout=90000)
