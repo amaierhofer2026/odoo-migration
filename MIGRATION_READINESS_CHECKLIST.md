@@ -1791,6 +1791,32 @@ BEOBACHTUNG: In dieser Odoo-18-Version hat das Produktformular keinen Bearbeiten
 Doku: docs/o11-o18-vergleich-abrechnung-verkaufsreiter.md. Abrechnung bleibt IN ARBEIT.
 ```
 
+NACHTRAEGE (06.10.2026, zweiter Durchgang - die Punkte 1 bis 5 des Auftrags):
+```
+item_ids haelt keine eigenen Daten: fields_get = one2many / product.pricelist.item /
+  relation_field product_tmpl_id, keine Datenbankspalte in product_template; jede Regel traegt
+  product_tmpl_id (2 von 2). Die Migration legt deshalb ausschliesslich product.pricelist.item-
+  Saetze an, item_ids entsteht daraus automatisch (keine Kopie, kein zweites Feld).
+Browserabnahme scripts/browser_verkauf_reiter_abnahme2.py: lokal 27 OK / 0 FEHL,
+  VM 27 OK / 0 FEHL.
+  Geprueft: bestehender Datensatz im Bearbeitungsmodus (Formular o_form_editable) - Preis 66,00,
+  Mindestbestellmenge 7, Startdatum 01.01.2026, Enddatum 31.12.2026 gespeichert (alle Werte in der
+  Datenbank angekommen) und danach exakt auf die Originalwerte zurueckgestellt; "Alle Aenderungen
+  verwerfen" ohne Datenwirkung; Abonnementvorlage ueber den Verknuepfungspfeil geoeffnet
+  (sale.subscription.template/2, Breadcrumb "Produkte / Test-Abo monatlich /
+  Monatsabrechnung-Abonnement"); Smart Button und Preiskalkulation deckungsgleich (1 Regel,
+  65,00 EUR) mit Gegenprobe Produkt 223 (1 Regel, 15,00 EUR); Regelbestand vor/nach unveraendert
+  [1, 2] - keine Duplikate.
+Gruppentitel jetzt deutsch: "Zusatz- und Querverkauf" statt "Upselling & Cross-Selling"
+  (reine Beschriftung, itk_account_migration 18.0.1.19.0, Gruppenname und optional_product_ids
+  unveraendert).
+OFFENGELEGT: Der erste lokale Testlauf hat das deutsche Zahlenformat nicht beachtet (Preis 65,00
+  wurde zu 6.500) und durch einen Klick in die Neuanlage-Zeile eine leere Zusatzregel erzeugt.
+  Beides wurde exakt korrigiert (Preis zurueck auf 65,00, leere Regel id 3 geloescht); Bestand und
+  Feldwerte lokal = VM = Ausgangszustand. Das Skript prueft Regelbestand und Endzustand seither
+  selbst.
+```
+
 ### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-15: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte, Produktformular), erste Abnahme 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119), Teil 15 am 24.09.2026 (Session 120) auf der VM im Browser abgenommen
 
 Dokument: `docs/o11-o18-vergleich-abo-teil1.md`; Teil 14: `docs/o11-o18-vergleich-abo-teil14.md`; Teil 15: `docs/o11-o18-vergleich-abo-teil15-produktformular.md`; Uebergabe und Vollstaendigkeitsbestaetigung: `docs/uebergabe-session-120-abonnements.md` (24.09.2026: jedes in Odoo 11 verwendete Feld, Reiter, Button, Smart Button, Statuswechsel, Filter, Gruppierung und jeder Geschaeftsprozess ist gleich vorhanden, funktional gleichwertig an anderer Stelle vorhanden oder bewusst dokumentiert; keine offene funktionale Abweichung).
