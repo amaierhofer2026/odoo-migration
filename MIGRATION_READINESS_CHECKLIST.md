@@ -1635,6 +1635,8 @@ Funktionspruefung der sieben Reiter im Browser (browser_produktformular_funktion
   als Chips, Lieferantenliste, Routen, Verpackungen, Attributliste, Beschreibungen, Warnhinweise.
   Anpassung: invoice_policy erhaelt widget="radio" (Odoo 11: Radioknoepfe).
   Abweichung: Odoo 18 zeigt den Smart Button "Varianten" bei nur einer Variante nicht.
+Stand 05.10.2026: Produktbereich abgestimmt und NICHT weiter aendern (nur auf konkrete Meldung von
+  Anna). Nicht als abgeschlossen oder migrationsbereit markiert.
 Abrechnung bleibt IN ARBEIT.
 Vollstaendigkeitscheck ohne Lese-Limit (scripts/pruefe_teil5_abdeckung.py, Odoo 11 read-only):
 Konten: 34.492 Buchungszeilen gesamt = 5.989 (1201 Bank) + 12.252 (1410 Forderungen)

@@ -8574,4 +8574,8 @@ Zahlungen), Pruefung der drei Zusatzfelder und der Beschriftungsdarstellung. Dok
   erhaelt `widget="radio"` (Odoo 11 zeigte Radioknoepfe, Odoo 18 ein Auswahlfeld).
 - **Neue dokumentierte Abweichung:** Odoo 18 blendet den Smart Button "Varianten" bei nur einer
   Variante aus, Odoo 11 zeigte den Zaehler immer.
+- **Stand 05.10.2026:** Der Produktbereich (Verkaufbare/Einkaufbare Produkte) ist abgestimmt und
+  wird **nicht weiter geaendert** - nur noch auf eine konkrete Meldung von Anna hin. Weiterhin
+  **nicht** als abgeschlossen oder migrationsbereit markiert; Anna kontrolliert die uebrigen
+  Bereiche des Abrechnungsmoduls selbst im Browser.
 - **Abrechnung bleibt IN ARBEIT.**
