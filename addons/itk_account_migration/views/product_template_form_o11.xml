@@ -139,6 +139,12 @@
                     </field>
                 </div>
             </xpath>
+            <!-- 2d) Deutsche Beschriftung der Odoo-18-Zusatzgruppe (reine Beschriftung,
+                 technischer Gruppenname 'upsell' und Feld optional_product_ids bleiben
+                 unangetastet; die deutsche Uebersetzung von Odoo enthaelt den Titel nicht). -->
+            <xpath expr="//page[@name='sales']//group[@name='upsell']" position="attributes">
+                <attribute name="string">Zusatz- und Querverkauf</attribute>
+            </xpath>
             <xpath expr="//page[@name='sales']" position="inside">
                 <xpath expr="//page[@name='general_information']//group[@name='subscription']" position="move"/>
             </xpath>
