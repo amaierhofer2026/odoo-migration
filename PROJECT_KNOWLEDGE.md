@@ -8324,10 +8324,10 @@ etwas geaendert hat.
   `account.analytic.account`, `helpdesk.ticket` jede sichtbare Pflichtfeldkennzeichnung in
   Formular- und Listenansichten gegen die Datensaetze. Vorher: **ein** Befund
   (`account.move.partner_id`, leer=2 lokal/3 VM). Nachher: **keiner**, beide Instanzen.
-- **Korrektur:** `views/account_move_form_kopf.xml` - `required="1"` am Feld `partner_id` entfernt
-  (Modul 18.0.1.12.0 -> 18.0.1.13.0). Kein Feld umbenannt, keine Datenlogik geaendert, Odoo-18-
-  Modell und Buchen unangetastet. Sichtbare Folge: ein leerer Kunde wird nicht mehr als
-  Pflichtfeld gekennzeichnet (kein rotes Label/Rahmen); Schriftstaerke unveraendert (500).
+- ~~**Korrektur:** `views/account_move_form_kopf.xml` - `required="1"` am Feld `partner_id` entfernt
+  (Modul 18.0.1.12.0 -> 18.0.1.13.0).~~ **Am selben Tag zurueckgenommen - siehe Nachtrag unten.**
+  Der Fehlschuss beseitigte die Meldung, schaffte aber die Odoo-11-Pflicht ab. Kein Feld umbenannt,
+  keine Datenlogik geaendert, Odoo-18-Modell und Buchen blieben unangetastet.
 - **A/B-Nachweis im Browser** (`scripts/browser_pflichtfeld_ab.py lokal|vm <id>`): Ansicht
   voruebergehend ueber die ORM mit bzw. ohne `required="1"`, gleicher Datensatz, Kunde leer,
   Leistungszeitraum geaendert, Speichern:
@@ -8335,7 +8335,8 @@ etwas geaendert hat.
   B (neu) keine Meldung, Wert gespeichert. Lokal (132/133) und VM (148) identisch.
   Bilder: `Desktop/Odoo18-Abnahme-Session126/pflichtfeld_partner/<instanz>/{A_mit_required,B_ohne_required}.png`.
 - **Abnahme** (`scripts/browser_pflichtfeld_abnahme.py`): **lokal 14 OK / 0 FEHL**, **VM 14 OK /
-  0 FEHL** - Testbeleg ohne Partner oeffnet ohne Meldung, Kunde nicht mehr pflichtig
+  0 FEHL** - *(Stand ohne `required="1"`; durch die Abnahme im Nachtrag ersetzt)* - Testbeleg ohne
+  Partner oeffnet ohne Meldung, Kunde nicht mehr pflichtig
   gekennzeichnet, Aenderung speichert ohne Meldung, Kunde setzen und speichern
   (`[79, '[20201] Magistrat der Stadt Villach']`), `Verkauf > Eingaenge` und `Einkauf > Eingaenge`
   oeffnen ohne Meldung, Neu anlegen moeglich, Reiter "Andere Informationen" und Statusleiste
@@ -8363,3 +8364,49 @@ etwas geaendert hat.
 - **Betriebslehre:** Nach jedem Modul-Upgrade `apply_abrechnung_labels.py --instanz lokal|vm`
   nachziehen (sonst englische Quelltexte auf der VM); Pflichtfelder nie aus Optik in der Ansicht
   setzen/entfernen, sondern vorher messen, ob Odoo 18 das Feld selbst pflichtig fuehrt.
+
+## Session 126, Nachtrag: Partnerpflicht wiederhergestellt, Ursache vollstaendig geklaert (05.10.2026)
+
+Anna hat die Loesung fachlich in Frage gestellt: Wenn Kunde/Partner in Odoo 11 zwingend war, muss die
+Pflicht erhalten bleiben und nicht durch Entfernen des `required` verschwinden. Die Pruefung gibt ihr
+recht.
+
+- **Fachliche Grundlage (Odoo 11 read-only):** `account.invoice.partner_id` war **modellpflichtig**
+  (`required=True`); in den Odoo-11-Produktivdaten gibt es **0 von 6301 Rechnungen** und 0 von 10057
+  Zeilen ohne Partner. Die Pflicht galt fuer alle Rechnungsarten. Odoo 18 fuehrt
+  `account.move.partner_id` **nicht** pflichtig (`required=False`) und prueft den Partner **auch beim
+  Buchen nicht** - die fachliche Pflicht muss deshalb in der Ansicht gehalten werden.
+- **Eigentliche Ursache der Meldung (nicht das Oeffnen):** Odoo 18 speichert ein offenes Formular
+  **automatisch** - `web/static/src/views/form/form_controller.js`: `beforeVisibilityChange()` bei
+  `visibilitychange` auf "hidden" (Tab-Wechsel, Fensterwechsel) ohne Dirty-Pruefung, und
+  `beforeLeave()` beim Verlassen eines geaenderten Belegs. `record.js _save()` ruft dabei zuerst
+  `_checkValidity({displayNotification: true})` und bricht bei leerem Pflichtfeld **vor** dem
+  Schreiben ab. Damit erklaert sich die Meldung beim Tab-Wechsel/Menueklick ohne eigenes Speichern,
+  der fehlende Schreibzugriff im Serverprotokoll und der unveraenderte Datensatz
+  (`write_date` vorher = nachher).
+- **Korrektur (Stand 18.0.1.14.0):** `required="1"` am Feld `partner_id` im ITK-Kopfblock ist
+  **wieder gesetzt** (Modul 18.0.1.13.0 -> 18.0.1.14.0). Fachliche Pflicht wie Odoo 11; keine
+  Feldnamen, keine Datenlogik, keine Odoo-18-Funktion angetastet.
+- **Die drei partnerlosen Entwuerfe:** lokal id 15 (`out_invoice`, 2 Zeilen Produkt A/C, 2,40 EUR,
+  09.07.2026), lokal id 16 (`out_invoice`, **0 Zeilen**, 10.07.2026), VM id 97 (`out_refund`,
+  **0 Zeilen**, 01.10.2026) - alle ohne Name, Nummer, Rechnungsdatum, Referenz und Kunde, angelegt
+  von "Administrator" in frueheren Testsitzungen. Bewertung: **alte Testreste, zwei davon leere
+  Neu-Versuche**, keine Produktivdaten (Odoo 11 kennt 0 Rechnungen ohne Partner). Sie wurden
+  **nicht geloescht** - Entscheidung von Anna offen.
+- **Browser-Abnahme** (`scripts/browser_partnerpflicht_abnahme.py lokal|vm <gueltige_id> <partnerlose_id>`):
+  **lokal 13 OK / 0 FEHL**, **VM 13 OK / 0 FEHL**: Menue Verkauf/Einkauf > Eingaenge ohne Meldung;
+  gueltiger Beleg beim Tab-Wechsel ohne Meldung; partnerloser Entwurf oeffnet ohne Meldung, meldet
+  beim Tab-Wechsel "Ungueltige Felder: Partner" und bleibt unveraendert; **neuer Beleg ohne Partner
+  wird nicht gespeichert** (kein Datensatz angelegt); mit Partner gespeichert, der Partner ist
+  korrekt gesetzt. Testbelege lokal 134 und VM 149 angelegt und restlos entfernt (Bestand lokal 40,
+  VM 62 vorher = nachher).
+- **Protokollbeleg:** im lokalen Serverprotokoll der Abnahme genau **ein** `account.move/web_save`
+  (der erfolgreiche mit Partner); beim partnerlosen Entwurf nur `get_views`, `web_search_read`,
+  `web_read`, `onchange` - kein Schreibzugriff.
+- **Abschlusscheck:** Labels lokal/VM 155 Feldpaare / 0 Abweichungen (VM 20 Labels nachgezogen);
+  Ansicht `account.move.form.itk.o11.kopfbereich` lokal und VM byteidentisch (sha256
+  `0b4ce8ace8a3...`) mit `required="1"`; Modul 18.0.1.14.0 lokal = VM.
+- **Lehre:** Ein Pflichtfeld in der Ansicht ist kein Schoenheitsdetail, sondern die Stelle, an der
+  Odoo 11 seine Modellpflicht im Odoo-18-Bestand behaelt. Eine Meldung "Ungueltige Felder: X" ist
+  nie durch Abschalten der Pflicht zu beheben, sondern nur durch die Ursache des ungewollten
+  Speicherns.

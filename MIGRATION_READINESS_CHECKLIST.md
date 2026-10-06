@@ -1533,6 +1533,16 @@ Der Apply-Lauf setzt die Punkte 2 und 3 nach jedem Upgrade erneut und prueft sie
 
 ABRECHNUNG: IN ARBEIT (01.10.2026) - visuelle Abnahme der fuenf Belegarten erfolgt, Anna kontrolliert manuell im Browser:
 Pruefliste: docs/o11-o18-abrechnung-pruefliste-manuell.md; bis zur Kontrolle keine Umbauten, kein neues Modul.
+
+Nachtrag 05.10.2026 (Session 126): Pflichtfeld "Kunde" im Rechnungsformular. Odoo 11 fuehrte
+account.invoice.partner_id modellpflichtig (0 von 6301 Rechnungen ohne Partner); Odoo 18 fuehrt
+account.move.partner_id nicht pflichtig und prueft ihn auch beim Buchen nicht. Die fachliche Pflicht
+aus Odoo 11 wird deshalb in der Ansicht gehalten (required="1" im ITK-Kopfblock, Modul 18.0.1.14.0).
+Die Meldung "Ungueltige Felder: Partner" kam nicht vom Oeffnen, sondern vom automatischen Speichern
+des offenen Formulars in Odoo 18 (Tab-Wechsel bzw. Verlassen eines geaenderten Belegs). Drei
+partnerlose Testreste (lokal 15/16, VM 97, ohne Name/Nummer/Datum, zwei davon ohne Zeilen) verletzen
+diese Pflicht und melden sie beim Tab-Wechsel - nicht geloescht, Entscheidung von Anna offen.
+Beleg: docs/o11-o18-abrechnung-partner-pflichtfeld.md. Abnahme lokal und VM je 13 OK / 0 FEHL.
 ```
 Vollstaendigkeitscheck ohne Lese-Limit (scripts/pruefe_teil5_abdeckung.py, Odoo 11 read-only):
 Konten: 34.492 Buchungszeilen gesamt = 5.989 (1201 Bank) + 12.252 (1410 Forderungen)
