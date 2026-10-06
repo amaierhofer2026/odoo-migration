@@ -1559,6 +1559,13 @@ Odoo-18-Funktion. Beschriftungen: Ursache der schwaecheren Darstellung sind die 
 klassen fuer readonly/leere Felder (Deckkraft 0,66; Schriftgewicht ueberall 500), keine Fettschrift
 erzwungen. Keine Odoo-18-Funktion entfernt. Abnahme im Browser lokal und VM je 19 OK / 0 FEHL,
 Testdaten restlos entfernt.
+Entscheidungen von Anna (05.10.2026): Der Auswahlwortlaut der Zahlungsart bleibt Odoo-18-Standard
+("Senden"/"Erhalten") - keine Ueberschreibung von Auswahlwerten/Uebersetzungen, die ein Upgrade
+zuruecksetzen kann; die Odoo-18-Smart-Buttons bleiben vollstaendig, kein nachgebauter Odoo-11-Knopf
+"Zahlungsabstimmung" - entscheidend ist die vorhandene Abstimmungsfunktion und die korrekte
+Uebernahme der Verknuepfungen bei der Migration (reconciled_invoice_ids/-bill_ids/
+_statement_line_ids, move_id, account.partial.reconcile; Regel Teil-5-Feldabbildung Punkt B3 und
+Testmigrationsregel Schritt 4). **Zahlungsformular = GEPRUEFT; Abrechnung bleibt IN ARBEIT.**
 ```
 Vollstaendigkeitscheck ohne Lese-Limit (scripts/pruefe_teil5_abdeckung.py, Odoo 11 read-only):
 Konten: 34.492 Buchungszeilen gesamt = 5.989 (1201 Bank) + 12.252 (1410 Forderungen)

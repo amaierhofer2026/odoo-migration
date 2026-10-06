@@ -4,6 +4,9 @@ Stand: 05.10.2026, Session 126. Auftrag von Anna: vollstaendiger fachlicher Abgl
 Zahlungsformulars, Pruefung der drei Zusatzfelder, Ursache der schwaecheren Beschriftungen,
 Feld-fuer-Feld-Vergleich, zusaetzlich Abrechnung > Einkauf > Zahlungen.
 
+**Status: Zahlungsformular GEPRUEFT (Session 126, Abnahme 19 OK / 0 FEHL auf lokaler Instanz und
+VM). Der Bereich Abrechnung bleibt IN ARBEIT** - die abschliessende Kontrolle macht Anna selbst.
+
 Arbeitsweise: Odoo 11 ausschliesslich lesend (`fields_view_get`, `fields_get`, `search_count`,
 `read_group`); Odoo 18 lokal und VM; Abnahme im echten Browser.
 Werkzeuge: `scripts/vergleich_zahlungsformular_vollstaendig.py` (Arch-Vergleich),
@@ -222,17 +225,47 @@ Screenshots: `Desktop/Odoo18-Abnahme-Session126/zahlungsformular_abnahme/<instan
 Testdaten: lokal id 28/29, VM id 24/25 angelegt und restlos entfernt (Bestand lokal 10, VM 11
 vorher = nachher).
 
-## 9. Offene Punkte (dokumentiert, keine Funktionseinbusse)
+## 9. Entscheidungen von Anna (05.10.2026)
 
-1. **Auswahlwortlaut Zahlungsart:** Odoo 11 "Geld schicken" / "Geld erhalten" (plus "Interne
-   Ueberweisungen"), Odoo 18 "Senden" / "Erhalten" (Interne Ueberweisungen sind eine eigene
-   Aktion). Eine Angleichung muesste die Auswahlbeschriftungen des Feldes ueberschreiben
-   (`ir.model.fields.selection`), die ein Upgrade des `account`-Moduls zuruecknehmen kann.
-   Bewusst nicht geaendert - Entscheidung von Anna.
-2. **Smart Button "Zahlungsabstimmung" (Odoo 11)** hat keinen 1:1-Gegenwert; Odoo 18 fuehrt
-   "Transaction" (verbundene Kontoauszugszeilen) und den Buchungsbeleg. Die Abstimmung selbst
-   laeuft in Odoo 18 im Bank-/Abstimmungsbereich - funktional an anderer Stelle vorhanden.
-3. **Beschriftung der Zahlungsmethode:** Odoo 11 zeigte "Manuell", Odoo 18 den Namen der
+**1. Auswahlwortlaut Zahlungsart bleibt Odoo-18-Standard ("Senden" / "Erhalten").**
+Keine technische Umstellung auf den Odoo-11-Wortlaut ("Geld schicken" / "Geld erhalten"), weil
+dafuer die Auswahlwerte bzw. Uebersetzungen des `account`-Moduls ueberschrieben werden muessten und
+ein Modul-Upgrade das zuruecksetzen kann. Massgeblich ist die fachlich richtige Bedeutung und die
+Migration, nicht eine riskante kosmetische Anpassung. Damit entfaellt der Punkt als offener Punkt;
+die Abweichung bleibt allein sprachlich und ist hier dokumentiert.
+
+**2. Die Odoo-18-Smart-Buttons bleiben vollstaendig erhalten.** Es wird **kein** kuenstlicher
+Odoo-11-Knopf "Zahlungsabstimmung" nachgebaut, weil es dafuer keine 1:1-Entsprechung gibt.
+Entscheidend ist, dass die fachliche Funktion der Abstimmung vorhanden ist und die Verknuepfungen
+bei der Migration korrekt uebernommen werden. Beides ist gegeben:
+
+```
+Funktion in Odoo 18 vorhanden:
+  reconciled_invoice_ids / reconciled_bill_ids   Abgestimmte Ausgangs-/Eingangsrechnungen
+  reconciled_statement_line_ids                  Abgestimmte Kontoauszugszeilen
+  move_id (Journalbuchung)                       Buchungsbeleg
+  paired_internal_transfer_payment_id            gekoppelte interne Transferzahlung
+  account.partial.reconcile                      Abstimmungspaare (im Bestand vorhanden)
+  Smart Buttons: Rechnungen (Kunden/Lieferanten), Kontoauszugszeilen,
+                 Buchungsbeleg (gruppenbeschraenkt), Erstattungen
+
+Migration der Verknuepfungen (Regel, dokumentiert und im Testlauf geuebt):
+  docs/o11-o18-vergleich-abrechnung-teil5-feldabbildung.md, Punkt Zahlungen (B3):
+    "Historische Zahlungen werden ueber die Abstimmung abgebildet (Zahlung, Bankjournal BNK1,
+     Memo = Rechnungsnummer). Zahlungsnummern des Altsystems werden nicht neu vergeben;
+     Rechnungen als bezahlt ausweisen."
+  docs/o11-o18-testmigration-regel.md, Schritt 4:
+    "Zahlungen: Zahlung mit Methode und Journal, danach Abstimmung ueber
+     reconciled_invoice_ids/reconciled_bill_ids; Odoo-11-Zahlungsnummer in
+     itk_o11_payment_number."
+```
+
+**Status:** Das Zahlungsformular gilt damit als **geprueft** (Abnahme 19 OK / 0 FEHL je Instanz).
+Der Bereich **Abrechnung bleibt IN ARBEIT**, bis Anna ihn abschliessend kontrolliert.
+
+## 10. Technische Hinweise (kein Handlungsbedarf)
+
+1. **Beschriftung der Zahlungsmethode:** Odoo 11 zeigte "Manuell", Odoo 18 den Namen der
    Journalzeile ("Manuelle Zahlung (Bank)"). Stammdaten, nicht angetastet (aus B3 uebernommen).
-4. **Zahlungstransaktion bleibt heller beschriftet**, weil das Odoo-18-Modul `account_payment`
+2. **Zahlungstransaktion bleibt heller beschriftet**, weil das Odoo-18-Modul `account_payment`
    das Feld readonly fuehrt.

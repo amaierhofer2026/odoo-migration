@@ -8460,6 +8460,17 @@ Zahlungen), Pruefung der drei Zusatzfelder und der Beschriftungsdarstellung. Dok
   Pflichtfelder wie Odoo 11, einheitliches Schriftgewicht, Statuskette, Smart Button "Rechnungen"
   nur bei verknuepfter Rechnung, Lieferantenzahlung ohne Doppelung). Testdaten lokal 28/29, VM
   24/25 angelegt und restlos entfernt (Bestand lokal 10, VM 11 vorher = nachher).
-- **Offen:** Auswahlwortlaut Zahlungsart (O11 "Geld schicken"/"Geld erhalten" gegen O18
-  "Senden"/"Erhalten") bewusst nicht geaendert; Smart Button "Zahlungsabstimmung" hat keinen
-  1:1-Gegenwert (Odoo 18: Kontoauszugszeilen/Buchungsbeleg).
+- **Entscheidungen von Anna (05.10.2026), damit abgeschlossen:**
+  1. **Auswahlwortlaut Zahlungsart bleibt Odoo-18-Standard** ("Senden"/"Erhalten") - keine
+     Ueberschreibung von Auswahlwerten oder Uebersetzungen, die ein Modul-Upgrade zuruecksetzen
+     kann; massgeblich ist die fachlich richtige Bedeutung und die Migration, nicht Kosmetik.
+  2. **Die Odoo-18-Smart-Buttons bleiben vollstaendig erhalten**; es wird **kein** kuenstlicher
+     Odoo-11-Knopf "Zahlungsabstimmung" nachgebaut (keine 1:1-Entsprechung). Entscheidend ist die
+     vorhandene Abstimmungsfunktion und die korrekte Uebernahme der Verknuepfungen bei der
+     Migration: `reconciled_invoice_ids` / `reconciled_bill_ids` /
+     `reconciled_statement_line_ids`, `move_id` (Buchungsbeleg),
+     `paired_internal_transfer_payment_id`, `account.partial.reconcile`; Regel:
+     `docs/o11-o18-vergleich-abrechnung-teil5-feldabbildung.md` (Zahlungen B3) und
+     `docs/o11-o18-testmigration-regel.md` Schritt 4.
+- **Status:** Zahlungsformular **geprueft** (Abnahme 19 OK / 0 FEHL je Instanz). **Abrechnung bleibt
+  IN ARBEIT** - die abschliessende Kontrolle macht Anna selbst.
