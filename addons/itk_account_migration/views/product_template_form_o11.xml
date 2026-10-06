@@ -82,6 +82,11 @@
             <xpath expr="//page[@name='invoicing']//group[@name='itk_invoicing']" position="inside">
                 <xpath expr="//field[@name='invoice_policy']" position="move"/>
             </xpath>
+            <xpath expr="//field[@name='invoice_policy']" position="attributes">
+                <!-- Odoo 11 zeigte die Fakturierungsregel als Radioknoepfe (widget="radio"),
+                     Odoo 18 als Auswahlfeld; Wortlaut und Werte sind identisch. -->
+                <attribute name="widget">radio</attribute>
+            </xpath>
             <xpath expr="//page[@name='invoicing']//group[@name='itk_bill']" position="inside">
                 <xpath expr="//field[@name='purchase_method']" position="move"/>
             </xpath>
