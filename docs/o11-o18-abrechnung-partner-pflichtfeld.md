@@ -96,9 +96,13 @@ Alle drei: kein Name, keine Nummer, kein Rechnungsdatum, kein Referenzbeleg, kei
 von "Administrator" in frueheren Testsitzungen (die Zeilen tragen die Testprodukte "Produkt A"/"Produkt C").
 Es sind **keine Produktivdaten**: Odoo 11 hat 0 von 6301 Rechnungen ohne Partner, sie koennen also
 nicht aus der Migration stammen. Ergebnis der Pruefung: **alte Testreste, teilweise leere
-Neu-Versuche**. Ein Beleg ohne Partner ist in Odoo 11 nie entstanden und kann auch in Odoo 18 nicht
-gebucht werden. Sie wurden **nicht geloescht** (Entscheidung von Anna) - solange sie offen sind,
-meldet Odoo 18 beim Tab-Wechsel die Meldung, weil diese Datensaetze die Odoo-11-Pflicht verletzen.
+Neu-Versuche**.
+
+**Entfernt am 05.10.2026 auf Anweisung von Anna** mit
+`scripts/entferne_partnerlose_entwuerfe.py <instanz> --entfernen`: lokal id 16 und 15, VM id 97, 16
+und 15. Danach: 0 Entwuerfe ohne Partner, Bestand lokal 40 -> 38, VM 62 -> 59; die 14 Buchungszeilen
+(`move_type='entry'`, fachlich ohne Partner) blieben unberuehrt. Kein gebuchter Beleg wurde
+angefasst (das Skript bricht bei nicht-Entwuerfen ab).
 
 ## Nachweis im echten Browser
 
@@ -122,6 +126,29 @@ Bilder: `Desktop/Odoo18-Abnahme-Session126/partnerpflicht/<instanz>/`
 (`03b_tabwechsel_meldung.png` zeigt die Meldung bei offenem Beleg 15,
 `03_entwurf_ohne_partner.png` den roten Kunden, `04_neu_ohne_partner.png` den verhinderten
 Speicherversuch, `05_mit_partner_gespeichert.png` den erfolgreichen).
+
+### Nach dem Aufraeumen (05.10.2026, 14 Pruefungen je Instanz)
+
+`scripts/browser_abrechnung_partnerpflicht_abnahme.py lokal|vm`:
+
+```
+0. kein Rechnungs-/Gutschriftenentwurf ohne Partner vorhanden     OK
+1. Abrechnung > Verkauf > Eingaenge                                keine Meldung
+2. Abrechnung > Einkauf > Eingaenge                                keine Meldung
+3. gueltiger Beleg: oeffnen + Tab-Wechsel                          keine Meldung
+4. gueltiger Beleg: Aenderung + Menuewechsel                       keine Meldung,
+                                                                   Aenderung automatisch gespeichert
+5. neuer Beleg ohne Partner: Speichern                             verhindert, kein Datensatz angelegt
+6. Partner setzen: Speichern                                       gelingt, Partner korrekt zugeordnet
+7. Testdaten entfernt, Bestand                                     unveraendert (lokal 38, VM 59),
+                                                                   weiterhin kein Entwurf ohne Partner
+```
+
+Ergebnis: **lokal 14 OK / 0 FEHL, VM 14 OK / 0 FEHL.** Testbelege: lokal id 135 und 136, VM id 150
+und 151 angelegt und wieder entfernt. Bilder:
+`Desktop/Odoo18-Abnahme-Session126/partnerpflicht_nach_aufraeumen/<instanz>/`.
+Ergaenzend: das Audit `scripts/pruefe_pflichtfelder.py` meldet nach dem Aufraeumen auf **beiden**
+Instanzen **keinen** Befund mehr (vorher `account.move.partner_id`, leer=2 lokal / 3 VM).
 
 ## Messung des Mechanismus (A/B, weiterhin gueltig)
 
@@ -184,15 +211,19 @@ war rein lesend.
 - `scripts/pruefe_pflichtfelder.py lokal|vm` - Audit Pflichtfeld vs. leere Datensaetze
 - `scripts/browser_partnerpflicht_abnahme.py lokal|vm <gueltige_id> <partnerlose_id>` - Abnahme
   (13 Pruefungen: Menue, gueltiger Beleg, partnerloser Entwurf, neuer Beleg ohne/mit Partner)
+- `scripts/browser_abrechnung_partnerpflicht_abnahme.py lokal|vm` - Abnahme nach dem Aufraeumen
+  (14 Pruefungen, ohne partnerlosen Bestandsbeleg)
+- `scripts/entferne_partnerlose_entwuerfe.py lokal|vm --pruefen|--entfernen` - findet und entfernt
+  Rechnungs-/Gutschriftenentwuerfe ohne Partner (laesst Buchungszeilen und gebuchte Belege an)
 - `scripts/browser_pflichtfeld_ab.py lokal|vm <id>` - A/B-Nachweis des Mechanismus
 - `scripts/_pf_testbeleg.py lokal|vm anlegen|entfernen|pruefen` - Testbeleg ohne Partner
 
 ## Offen
 
-- Der genaue Ablauf in Annas Sitzung ist rekonstruiert: Beleg ohne Partner geoeffnet (id 15/16/97),
+- Der genaue Ablauf in Annas Sitzung ist rekonstruiert: Beleg ohne Partner war offen (id 15/16/97),
   dann Tab-Wechsel bzw. Menueklick -> automatisches Speichern -> Meldung. Nicht rekonstruierbar ist,
   **welchen** der drei Belege sie offen hatte; das Protokoll zeigt in dem Zeitfenster nur die beiden
   Menueaufrufe und keine Datensatz-Lesevorgaenge (die Seiten waren vollstaendig neu geladen).
-- Entscheidung von Anna offen: ob die drei partnerlosen Testreste (lokal 15/16, VM 97) geloescht
-  werden sollen. Solange sie existieren, meldet Odoo 18 bei ihrem Tab-Wechsel die Meldung - fachlich
-  korrekt, weil diese Datensaetze die Odoo-11-Pflicht verletzen.
+- Mit dem Entfernen der drei Testreste ist die Ursache der Meldung im Bestand nicht mehr vorhanden
+  (Abschnitt "Die drei partnerlosen Entwuerfe"). Offen bleibt nur die Entscheidung von Anna, wann
+  der Bereich Abrechnung abgeschlossen werden darf - bis dahin bleibt er IN ARBEIT.

@@ -1540,9 +1540,11 @@ account.move.partner_id nicht pflichtig und prueft ihn auch beim Buchen nicht. D
 aus Odoo 11 wird deshalb in der Ansicht gehalten (required="1" im ITK-Kopfblock, Modul 18.0.1.14.0).
 Die Meldung "Ungueltige Felder: Partner" kam nicht vom Oeffnen, sondern vom automatischen Speichern
 des offenen Formulars in Odoo 18 (Tab-Wechsel bzw. Verlassen eines geaenderten Belegs). Drei
-partnerlose Testreste (lokal 15/16, VM 97, ohne Name/Nummer/Datum, zwei davon ohne Zeilen) verletzen
-diese Pflicht und melden sie beim Tab-Wechsel - nicht geloescht, Entscheidung von Anna offen.
-Beleg: docs/o11-o18-abrechnung-partner-pflichtfeld.md. Abnahme lokal und VM je 13 OK / 0 FEHL.
+partnerlose Testreste (lokal 15/16, VM 97, ohne Name/Nummer/Datum, zwei davon ohne Zeilen) verletzten
+diese Pflicht und meldeten sie beim Tab-Wechsel; sie wurden am 05.10.2026 auf Anweisung von Anna
+entfernt (Bestand lokal 40 -> 38, VM 62 -> 59, Buchungszeilen unberuehrt).
+Beleg: docs/o11-o18-abrechnung-partner-pflichtfeld.md. Abnahme lokal und VM je 14 OK / 0 FEHL,
+Audit Pflichtfeld/leere Datensaetze danach ohne Befund.
 ```
 Vollstaendigkeitscheck ohne Lese-Limit (scripts/pruefe_teil5_abdeckung.py, Odoo 11 read-only):
 Konten: 34.492 Buchungszeilen gesamt = 5.989 (1201 Bank) + 12.252 (1410 Forderungen)

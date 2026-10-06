@@ -8391,8 +8391,17 @@ recht.
   09.07.2026), lokal id 16 (`out_invoice`, **0 Zeilen**, 10.07.2026), VM id 97 (`out_refund`,
   **0 Zeilen**, 01.10.2026) - alle ohne Name, Nummer, Rechnungsdatum, Referenz und Kunde, angelegt
   von "Administrator" in frueheren Testsitzungen. Bewertung: **alte Testreste, zwei davon leere
-  Neu-Versuche**, keine Produktivdaten (Odoo 11 kennt 0 Rechnungen ohne Partner). Sie wurden
-  **nicht geloescht** - Entscheidung von Anna offen.
+  Neu-Versuche**, keine Produktivdaten (Odoo 11 kennt 0 Rechnungen ohne Partner). Auf Anweisung von
+  Anna am 05.10.2026 **entfernt** (`scripts/entferne_partnerlose_entwuerfe.py`): lokal 16, 15 und
+  VM 97, 16, 15. Danach 0 Entwuerfe ohne Partner, Bestand lokal 40 -> 38, VM 62 -> 59; die 14
+  Buchungszeilen (`move_type='entry'`) und alle gebuchten Belege unberuehrt.
+- **Abnahme nach dem Aufraeumen** (`scripts/browser_abrechnung_partnerpflicht_abnahme.py lokal|vm`):
+  **lokal 14 OK / 0 FEHL**, **VM 14 OK / 0 FEHL** - kein partnerloser Entwurf vorhanden; Menue
+  Verkauf > Eingaenge und Einkauf > Eingaenge ohne Meldung; gueltiger Beleg oeffnen und Tab-Wechsel
+  ohne Meldung; Aenderung + Menuewechsel speichert automatisch ohne Meldung; neuer Beleg ohne
+  Partner wird nicht gespeichert (kein Datensatz); mit Partner gespeichert und Partner korrekt.
+  Testbelege lokal 135/136, VM 150/151 wieder entfernt, Bestand unveraendert. Audit
+  `scripts/pruefe_pflichtfelder.py`: **kein Befund mehr** auf beiden Instanzen.
 - **Browser-Abnahme** (`scripts/browser_partnerpflicht_abnahme.py lokal|vm <gueltige_id> <partnerlose_id>`):
   **lokal 13 OK / 0 FEHL**, **VM 13 OK / 0 FEHL**: Menue Verkauf/Einkauf > Eingaenge ohne Meldung;
   gueltiger Beleg beim Tab-Wechsel ohne Meldung; partnerloser Entwurf oeffnet ohne Meldung, meldet
