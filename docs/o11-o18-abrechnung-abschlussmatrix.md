@@ -55,6 +55,10 @@ bewusste Abweichung | Begruendung
 | Smart Button "Zahlungsabstimmung" | Abgestimmte Zeilen | unveraendert | teilweise | ja | fachlich verwandt, aber anderer Umfang (Abstimmung statt Assistent) |
 | Smart Button "Buchungszeilen" | Transaktion / Kontoauszugszeilen | unveraendert | teilweise | ja | Odoo 18 trennt Kontoauszugszeilen und Transaktionen |
 | kein "Erstattung" | Erstattung | unveraendert vorhanden | - | nein | Odoo-18-Zusatzfunktion |
+| Feld "Zahlungstransaktion" | sichtbar und auswaehlbar (readonly=False) | sichtbar, readonly | ja | ja | Odoo-18-Standardlogik bewusst beibehalten; in Odoo 11 nie genutzt (0 von 5.994 Zahlungen). Fachlich gleichwertig und bewusst akzeptiert (Entscheidung Anna 05.10.2026, Begruendung in 12.2) |
+| Zahlungsbetrag und Zahlungsmethode | nicht pflichtig | pflichtig | ja | nein | Odoo-11-Modellpflicht in der Ansicht wiederhergestellt (Session 126) |
+| zweites Partnerfeld "Lieferant" | sichtbar (Odoo 18 fuehrt partner_id doppelt) | ausgeblendet | ja | nein | Doppelung desselben Feldes, korrigiert Session 126 |
+| Felder Status (Odoo 18) und Odoo-11-Zahlungsnummer | im Odoo-11-Block | in eigener Gruppe (Status (Odoo 18) / Herkunft (Migration)) | ja | ja | Technische Kontroll- bzw. Migrationsfelder ausserhalb des Odoo-11-Feldsatzes (Session 126) |
 
 ## 4. Listenansichten und Spalten
 
@@ -208,9 +212,13 @@ Aenderung           : keine (Verhalten in beiden Systemen identisch).
 | Kostenstellen: "Kostenstellen Buchungen", "Projekt-Anzahl", "Projekte" | "Kostenstellenbuchungen", "Projekt-Anzahl" | teilweise, erledigt | "Projekt-Anzahl" ist angeglichen; "line_ids"/"project_ids" sind in keiner Odoo-18-Ansicht sichtbar; die Schreibweise "Kostenstellenbuchungen" ist im Odoo-18-Standard gefuehrt |
 | Menueposition Zahlungsbedingungen: Konfiguration > Verwaltung | Konfiguration > Verwaltung | ja, erledigt | Das Menue wurde nach Odoo-11-Vorbild unter Konfiguration > Verwaltung verschoben (Lauf setzt das nach jedem Upgrade erneut) |
 | Berichte: acht Odoo-11-Berichtsassistenten | nicht vorhanden | nein | In Odoo 18 Community nicht enthalten; Entscheidung: kein Enterprise-Modul, Nachbau nur bei Bedarf |
+| Auswahlwerte der Zahlungsart: "Geld schicken" / "Geld erhalten" | "Senden" / "Erhalten" | nein (bewusst akzeptiert) | Odoo-18-Wortlaut bleibt; eine Angleichung muesste Auswahlwerte und Uebersetzungen ueberschreiben, die ein Upgrade des account-Moduls zuruecksetzen kann. Fachliche Bedeutung identisch (outbound/inbound). Entscheidung Anna 05.10.2026 |
+| Feld "Zahlungstransaktion": in Odoo 11 manuell auswaehlbar (readonly=False) | sichtbar, aber readonly | nein (bewusst akzeptiert) | Odoo 18 fuehrt das Feld bewusst readonly, weil das Zahlungssystem die Zuordnung setzt (action_post mit Token, Online-Zahlung im Portal, Assistent payment.link.wizard). In Odoo 11 nie genutzt (0 von 5.994 Zahlungen, 0 Transaktionen, 0 Tokens). Keine Nachbildung der manuellen Auswahl erforderlich; das Feld bleibt sichtbar und readonly, damit die Information bei kuenftigen elektronischen Zahlungen vorhanden ist. Fachlich gleichwertig. Entscheidung Anna 05.10.2026 |
 
 Damit sind alle technisch angleichbaren sichtbaren Unterschiede umgesetzt; es verbleiben nur die
-fachlich oder technisch notwendigen Abweichungen (Zeilen 2 bis 4 und 7 der Tabelle).
+fachlich oder technisch notwendigen sowie die bewusst akzeptierten Abweichungen (Zeilen 2 bis 4 und
+7 der Tabelle sowie die beiden Nachtraege aus Session 126: Wortlaut der Zahlungsart und
+Zahlungstransaktion).
 
 ### 12.3 SMTP (Vorgabe K7) - reiner Infrastrukturpunkt
 

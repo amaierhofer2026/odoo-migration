@@ -19,6 +19,16 @@ class ProductTemplate(models.Model):
     product_type_id = fields.Many2one('itk_product.product_type', string='Produkttyp')
     to_multiply_by_factor = fields.Boolean(string="Mit Faktor multiplizieren (pro 1.000)", default=False)
 
+    # 06.10.2026 (Reiter "Verkauf"): Odoo 11 fuehrte die Preislistenregeln direkt im Produktformular
+    # (Feld item_ids, Beschriftung "Preislisten-Positionen", one2many auf product.pricelist.item
+    # ueber product_tmpl_id). Odoo 18 hat das Feld aus dem Formular entfernt - Preislistenregeln
+    # werden dort ueber den Smart Button "Regeln Preislisten" erreicht. Fuer den Odoo-11-Nachbau
+    # und die Migration wird das Feld mit demselben Namen und derselben Relation neu angelegt.
+    # Belegung Odoo 11 (read-only gemessen): 321 der 653 Vorlagen tragen Regeln, 1.469 Regeln mit
+    # Produktbezug (compute_price formula 1003, fixed 460, percentage 6).
+    item_ids = fields.One2many('product.pricelist.item', 'product_tmpl_id',
+                               string='Preislisten-Positionen')
+
     # 24.09.2026 (Session 120, Teil 15): Odoo 11 hatte am Produkt ein Feld "Verantwortlich"
     # (responsible_id -> res.users). Odoo 17/18 hat es ersatzlos entfernt, in Odoo 11 ist es
     # aber auf allen 649 Produkten gepflegt (Administrator 394, Waiss Martina 252,

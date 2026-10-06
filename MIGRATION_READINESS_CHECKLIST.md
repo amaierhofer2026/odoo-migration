@@ -1533,7 +1533,174 @@ Der Apply-Lauf setzt die Punkte 2 und 3 nach jedem Upgrade erneut und prueft sie
 
 ABRECHNUNG: IN ARBEIT (01.10.2026) - visuelle Abnahme der fuenf Belegarten erfolgt, Anna kontrolliert manuell im Browser:
 Pruefliste: docs/o11-o18-abrechnung-pruefliste-manuell.md; bis zur Kontrolle keine Umbauten, kein neues Modul.
+
+Nachtrag 05.10.2026 (Session 126): Pflichtfeld "Kunde" im Rechnungsformular. Odoo 11 fuehrte
+account.invoice.partner_id modellpflichtig (0 von 6301 Rechnungen ohne Partner); Odoo 18 fuehrt
+account.move.partner_id nicht pflichtig und prueft ihn auch beim Buchen nicht. Die fachliche Pflicht
+aus Odoo 11 wird deshalb in der Ansicht gehalten (required="1" im ITK-Kopfblock, Modul 18.0.1.14.0).
+Die Meldung "Ungueltige Felder: Partner" kam nicht vom Oeffnen, sondern vom automatischen Speichern
+des offenen Formulars in Odoo 18 (Tab-Wechsel bzw. Verlassen eines geaenderten Belegs). Drei
+partnerlose Testreste (lokal 15/16, VM 97, ohne Name/Nummer/Datum, zwei davon ohne Zeilen) verletzten
+diese Pflicht und meldeten sie beim Tab-Wechsel; sie wurden am 05.10.2026 auf Anweisung von Anna
+entfernt (Bestand lokal 40 -> 38, VM 62 -> 59, Buchungszeilen unberuehrt).
+Beleg: docs/o11-o18-abrechnung-partner-pflichtfeld.md. Abnahme lokal und VM je 14 OK / 0 FEHL,
+Audit Pflichtfeld/leere Datensaetze danach ohne Befund.
+
+Nachtrag 05.10.2026 (Session 126), Zahlungsformular (Abrechnung > Verkauf und Einkauf > Zahlungen):
+Feld-fuer-Feld-Abgleich gegen Odoo 11 read-only, Doku docs/o11-o18-vergleich-abrechnung-zahlungsformular.md.
+Ergaenzt: Zahlungsbetrag und Zahlungsmethode sind wieder pflichtig (Odoo-11-Modellpflicht; Odoo 18
+erzwingt beides nicht selbst). Behoben: bei Lieferantenzahlungen erschien ein zweites, leeres
+Partnerfeld "Lieferant" (Odoo 18 fuehrt partner_id im Odoo-18-Block zweimal; position="attributes"
+wirkt nur auf den ersten Treffer). Verschoben: Odoo-11-Zahlungsnummer (Migrationsfeld, in Odoo 11
+nicht vorhanden) und Status (Odoo 18) (Kontrollwert) aus dem Odoo-11-Block in eigene Gruppen
+"Herkunft (Migration)" / "Status (Odoo 18)". Zahlungstransaktion bleibt an Odoo-11-Position
+(Odoo-11-Feld, 0 von 10/11 belegt, nicht migrationsrelevant); Bankkonto des Partners bleibt als
+Odoo-18-Funktion. Beschriftungen: Ursache der schwaecheren Darstellung sind die Odoo-18-Standard-
+klassen fuer readonly/leere Felder (Deckkraft 0,66; Schriftgewicht ueberall 500), keine Fettschrift
+erzwungen. Keine Odoo-18-Funktion entfernt. Abnahme im Browser lokal und VM je 19 OK / 0 FEHL,
+Testdaten restlos entfernt.
+Entscheidungen von Anna (05.10.2026): Der Auswahlwortlaut der Zahlungsart bleibt Odoo-18-Standard
+("Senden"/"Erhalten") - keine Ueberschreibung von Auswahlwerten/Uebersetzungen, die ein Upgrade
+zuruecksetzen kann; die Odoo-18-Smart-Buttons bleiben vollstaendig, kein nachgebauter Odoo-11-Knopf
+"Zahlungsabstimmung" - entscheidend ist die vorhandene Abstimmungsfunktion und die korrekte
+Uebernahme der Verknuepfungen bei der Migration (reconciled_invoice_ids/-bill_ids/
+_statement_line_ids, move_id, account.partial.reconcile; Regel Teil-5-Feldabbildung Punkt B3 und
+Testmigrationsregel Schritt 4). **Zahlungsformular = GEPRUEFT; Abrechnung bleibt IN ARBEIT.**
+Nachtrag "Zahlungstransaktion" (Bedienfunktion, Anna 05.10.2026): Odoo 11 fuehrte
+account.payment.payment_transaction_id (Modul payment) als manuell auswaehlbares Feld - im
+Produktivbestand 0 von 5.994 Zahlungen belegt (0 Transaktionen, 0 Tokens, 10 ungenutzte Anbieter).
+Odoo 18 fuehrt das Feld im Modul account_payment bewusst readonly; die Verknuepfung entsteht
+automatisch (action_post mit Token -> _create_payment_transaction; payment_transaction._create_payment;
+Online-Zahlung im Portal; Assistent payment.link.wizard). Odoo 18 zeigt es selbst nur mit technischen
+Features und bei elektronischen Zahlungsmethoden. Ergebnis: funktional gleichwertig, keine Anpassung;
+Standardlogik unveraendert, Feld bleibt an Odoo-11-Position sichtbar/readonly. Nachweis
+scripts/browser_zahlungstransaktion_check.py lokal|vm. Doku: Abschnitt 11 in
+docs/o11-o18-vergleich-abrechnung-zahlungsformular.md.
+Entscheidung Anna 05.10.2026: Zahlungstransaktion nicht kuenstlich editierbar machen, Odoo-18-
+Standardlogik beibehalten; keine Nachbildung der manuellen Odoo-11-Auswahl (0 von 5.994 Zahlungen).
+Feld bleibt sichtbar und readonly an der Odoo-11-Position. Abweichung als fachlich gleichwertig und
+bewusst akzeptiert dokumentiert (docs/o11-o18-abrechnung-abschlussmatrix.md Abschnitt 12.2, Zeile
+"Feld Zahlungstransaktion"). Abrechnung bleibt IN ARBEIT.
 ```
+
+### 6.16 Teil: Produktformular Verkaufbare/Einkaufbare Produkte (05.10.2026, Session 126)
+
+Vollstaendiger, feldweiser Abgleich gegen Odoo 11 (read-only) und Umsetzung.
+Dokumentation mit vollstaendiger Matrix (66 Feldzeilen):
+**docs/o11-o18-vergleich-abrechnung-produktformular.md**
+
+```
+Reiter Odoo 11 (8)      Allgemeine Informationen, Varianten (in Odoo 11 unsichtbar), Verkauf,
+                        Einkauf, Lager, Abrechnung, Notizen, Bilder
+Reiter Odoo 18 vorher   Allgemeine Informationen, Attribute & Varianten, Verkauf, Einkauf, Lager
+                        (im Browser gemessen, Produkt id 11)
+Reiter Odoo 18 nachher  Allgemeine Informationen, Attribute & Varianten, Verkauf, Einkauf, Lager,
+                        Abrechnung, Notizen
+
+Ursache fehlender Reiter Abrechnung: Seite name=invoicing aus dem account-Modul
+  (Beschriftung "Buchhaltung"), eingeschraenkt ueber die verborgene technische Gruppe
+  account.group_account_readonly - 0 Benutzer in der Instanz (gemessen 05.10.2026).
+Umsetzung (Modul 18.0.1.15.0 -> 18.0.1.16.0):
+  views/product_template_form_o11.xml  Reiter Abrechnung (Beschriftung Odoo 11, Gruppenfilter
+      entfernt, Felder in Odoo-11-Gruppen Forderungen/Verbindlichkeiten/Abrechnung/
+      Eingangsrechnung), Reiter Notizen (acht Odoo-11-Gruppen), Kategorie/Referenz/Strichcode
+      in die erste Gruppe, Beschriftungen nach Odoo-11-Wortlaut
+  views/product_template_list_o11.xml  Bestandsmenge, Geplante Bestandsmenge, Mengeneinheit,
+      Strichcode als Spalten der Menueliste (in Odoo 18 dort nicht vorhanden)
+Nicht nachbaubar (kein Dummy-Feld): product_image_ids (Reiter Bilder, in Odoo 11 0 von 649
+  belegt, product.image in Odoo 18 entfernt), service_policy, project_id, property_valuation,
+  property_stock_account_input/-output, cost_method, property_cost_method, valuation,
+  Website-Felder (Modul in Odoo 18 nicht installiert).
+Nachweis: scripts/browser_produktformular_reiter_abnahme.py lokal|vm -> je 46 OK / 0 FEHL,
+  Bilder Desktop/Odoo18-Abnahme-Session126/produktformular{,_vorher}/{lokal,vm}.
+Lehren (Odoo 18): position="move" wirkt nur als direktes Kind einer XPath-Angabe; "string" ist
+  kein gueltiger Selektor ("View inheritance may not use attribute 'string' as a selector").
+  Korrigiert im zweiten Durchgang: flache Felder direkt in einer Gruppe behalten ihre
+  Beschriftung; die fehlende Beschriftung kam von VERSCHACHTELTEN Gruppen in einer Spalte (sie
+  erzeugen Zusatzspalten - im ersten Reiter waren bis zu vier Spalten sichtbar). XPath-Anker aus
+  Modulen, die nach itk_account_migration geladen werden (itk_multifactor), oder aus der
+  vorherigen Fassung derselben Ansicht (itk_kategorie_referenz) sind bei der View-Validierung
+  nicht aufloesbar; Aufraeum-Specs muessen NACH den Moves stehen (Warngruppen liegen in der
+  Einkaufs-Huelle group col="1").
+Beide Menuepunkte (Aktionen 382/383) verwenden dieselben Ansichten und unterscheiden sich nur im
+  Standardfilter (Kann verkauft werden / Kann eingekauft werden); Odoo 11 fuehrte sie auf
+  product.product, Odoo 18 auf product.template - Entscheidungspunkt bei Anna.
+Absicherung der beiden Abweichungen (Odoo 11 read-only, 05.10.2026):
+  Bilder: product.image 0 Datensaetze, image/image_medium/image_small auf product.template (649)
+  und product.product (648) je 0 belegt, ir.attachment an Produktmodellen je 0 -> keine Bild- oder
+  Anhangsdaten, kein Verlust, keine Migrationsregel noetig.
+  Varianten: 649 Vorlagen/648 Varianten, 0 Vorlagen mit mehr als einer Variante, 0 Varianten mit
+  Attributwerten; Attribute (2/5 Werte) und Attributzeilen nur an der archivierten, unbenutzten
+  Vorlage 300; Vorlage 263 ohne Variante und ohne Verwendung; alle Belegzeilen stammen aus
+  Vorlagen mit genau einer Variante -> keine Mehrfachzuordnung, kein Datenverlust, keine falschen
+  Verknuepfungen; Zuordnung ueber product.product.product_tmpl_id 1:1 eindeutig.
+Funktionspruefung der sieben Reiter im Browser (browser_produktformular_funktionen.py, Produkt
+  "Produkt B"): lokal und VM je 43 OK / 0 FEHL - Smart Buttons mit Klickproben (Verkaufsanalyse,
+  Einkaufshistorie, Preisregeln), Fakturierungsregel/Kontrollrichtlinie als Radioknoepfe, Steuern
+  als Chips, Lieferantenliste, Routen, Verpackungen, Attributliste, Beschreibungen, Warnhinweise;
+  zusaetzlich Abo-Produkt "Test-Abo monatlich" mit der Abonnement-Vorlage im Reiter Verkauf,
+  Beschriftung "Produktart" und Odoo-11-Reihenfolge im ersten Reiter.
+  Anpassung: invoice_policy erhaelt widget="radio" (Odoo 11: Radioknoepfe).
+  Abweichung: Odoo 18 zeigt den Smart Button "Varianten" bei nur einer Variante nicht.
+Zweiter Durchgang 05.10.2026 (Auftrag Anna: "Das gesamte Produktformular muss inhaltlich,
+  funktional UND visuell feldweise mit Odoo 11 verglichen und entsprechend nachgebaut werden"):
+  erster Reiter neu aufgebaut - zwei FLACHE Spalten (group_general, group_standard_price), die
+  Hilfsgruppen product_type/itk_responsible/itk_kategorie_referenz entfernt (sie erzeugten bis zu
+  vier Spalten). Links in Odoo-11-Reihenfolge: Produktart, Interne Kategorie, Interne Referenz,
+  Strichcode, danach die Odoo-18-Zusaetze (Verantwortlich, Bestand verfolgen, Kombination,
+  Serviceabwicklung, Tooltip, Bewertung je Los); rechts: Verkaufspreis, To multiply by Factor
+  (per 1000), Abonnement Produkt, Kosten. Sichtbare Beschriftung "Produktart" statt "Product-Type"
+  (Vorgabe Anna; Odoo 11 zeigte die ITK-Produktart im Feld type als "Produktart" und fuehrte
+  product_type_id zusaetzlich als "Product-Type"). subscription_template_id in den Reiter Verkauf
+  verschoben (Odoo 11: Gruppe subscription im Verkauf), ohne Gruppenueberschrift. Reiter Einkauf:
+  zwei Gruppen "Lieferanten" (seller_ids, variant_seller_ids). Reiter Lager: Odoo-11-Reihenfolge
+  (Vorgaenge: Routen, Routenkategorie, Auslieferungszeit | Logistik: Gewicht, Volumen,
+  Verantwortlich | Verpackung). product_properties unter die Spaltenklammer verschoben.
+  Abnahme im echten Browser lokal UND VM: Reiterpruefung 46 OK / 0 FEHL, Funktionspruefung
+  43 OK / 0 FEHL (Bilder gesehen).
+  Reiterweise Abnahme mit je Reiter Odoo-11-Aufbau / vorher / geaendert / nachher / Funktionen /
+  Migrationsmapping / verbleibende Abweichungen: docs/o11-o18-vergleich-abrechnung-produktformular.md,
+  Abschnitt 9.
+Stand 05.10.2026 (zweiter Durchgang): Produktformular je Reiter nach Odoo 11 nachgebaut. Nicht als
+  abgeschlossen oder migrationsbereit markiert - Anna kontrolliert selbst weiter und meldet
+  konkrete Unterschiede.
+Produktart-Migrationsregel (ENTSCHIEDEN von Anna am 05.10.2026, Variante 1 - nur vorbereitet, keine
+  Datenmigration): `type` 1:1 uebernehmen, soweit der Wert in Odoo 18 vorhanden ist (alle Odoo-11-Werte
+  ausser `product`; `product` ist nicht belegt -> `consu` + `is_storable`). `product_type_id` separat
+  1:1 ueber Name UND ID (itk_product.product_type, IDs 1-6 identisch, 6 Datensaetze). `type` und
+  `product_type_id` werden nicht verschmolzen und nicht gegenseitig abgeleitet (47 Vorlagen mit
+  ITK-`type` ohne Produktart behalten dort nichts). Lagerfuehrung ausschliesslich ueber `is_storable`
+  (Odoo-11 `type` in (consu, product) -> True: 152 Vorlagen). Lagerartikel bleiben bei
+  `product_type_id` leer. Die sechs ITK-Produktarten bleiben unveraendert. Die Odoo-11-Filter
+  muessen dieselben Produktmengen liefern - Filter "Dienstleistungen" bleibt bei 47 aktiven
+  Vorlagen. Regel im Migrationsskript `scripts/testmigration_abrechnung.py` (`typ_ziel`, Modulkopf);
+  Vorlaufpruefung ohne Schreibzugriff: `scripts/pruefe_produktart_regel.py` (Ergebnis: 0 Fehler,
+  Zielverteilung general 274, consu 152, platform 94, onlineservice 75, service 49, sw 9).
+  Grundlage und Entscheidungsmatrix: `docs/o11-o18-produktart-mapping.md` (Abschnitt 0) und
+  `docs/o11-o18-produktart-pruefung.md`. Einzige noch offene Anpassung: die zwei Filter mit
+  `service_type = 'timesheet'` koennen in Odoo 18 nie treffen (Odoo-11-Treffer 33 bzw. 0);
+  drei Moeglichkeiten in der Mapping-Doku, Abschnitt 10.
+Praktischer Lager-Test in Odoo 18 (05.10.2026, temporaeres Testprodukt lokal 233 / VM 286, danach
+  vollstaendig entfernt): Reiter "Lager" erscheint nur bei is_storable; "Bestand verfolgen" gesetzt,
+  Produktart separat (leer, spaeter Plattform) ohne Widerspruch; Lager-Smart-Buttons (Vorrätig,
+  Prognostiziert, Meldebestände, Eingang/Ausgang) vorhanden; Inventuranpassung +5 Stueck auf
+  WH/Bestand gebucht (keine Buchung - Kategorie "Manual"); Filter "Lagerverwaltung" findet das
+  Produkt; Filter "Bestandsauflösung" findet es nur bei Bestand <= 0 und nicht mehr nach der
+  Buchung; Filter "Service Type Platform" findet es trotz type = consu (Belege fuer die
+  Unabhaengigkeit der Felder). Browserabnahme lokal und VM: vorher je 12 OK / 0 FEHL, nachher je
+  16 OK / 0 FEHL. Vorher-/Nachher-Bestand identisch (lokal 13 Vorlagen, VM 10; quants/moves/
+  valuation layers/pickings je 0; account.move 38 bzw. 59; Filterzahlen unveraendert);
+  Testprodukt und Serveraktion entfernt. Werkzeuge: scripts/lagerprodukt_test.py,
+  scripts/browser_lagerprodukt_test.py, scripts/vm_lager_aufraeumen.py. Details:
+  docs/o11-o18-produktart-mapping.md, Abschnitt 11.
+DiensteFilter "Zeitbasierte Dienste" / "Festpreis-Dienste" (gemessen, keine Aenderung): beide nutzen
+  service_type = 'timesheet'; Odoo 11 hatte service_type UND service_tracking parallel,
+  service_tracking war auf allen 653 Vorlagen 'no' (also nicht die Entsprechung). Der Wert
+  'timesheet' existiert in Odoo 18 nur mit dem Modul sale_timesheet (nicht installiert),
+  service_policy nur mit sale_project. Ergebnis: keine Domain-Aenderung; Entscheidung ueber den
+  Modulumfang liegt bei Anna. Offen: das Migrationsskript uebertraegt service_type/service_policy
+  (53 Vorlagen mit Daten) bisher nicht - 1:1 nur moeglich, wenn die Module im Ziel vorhanden sind.
+Abrechnung bleibt IN ARBEIT.
 Vollstaendigkeitscheck ohne Lese-Limit (scripts/pruefe_teil5_abdeckung.py, Odoo 11 read-only):
 Konten: 34.492 Buchungszeilen gesamt = 5.989 (1201 Bank) + 12.252 (1410 Forderungen)
         + 6.241 (1776 Umsatzsteuer 19%) + 10.010 (8400 Erloese 19% USt); 0 Zeilen ohne Konto
@@ -1582,11 +1749,65 @@ VM gleichartig, Regression 886 OK / 0 FEHL.
 Kein Blocker fuer eine spaetere Testmigration eines einzelnen Rechnungsdatensatzes.
 ```
 
+TEIL 6 (06.10.2026, Session 127) - Reiter "Verkauf" feldweise nach Odoo 11:
+```
+Odoo-11-Sollzustand (read-only gemessen, ITK_V1_a): Seite sales mit div#pricelist_item
+  (separator "Preiskalkulation" + Feld item_ids, context default_base=list_price,
+  default_applied_on=1_product), Gruppe sale > Gruppe website ("Website"), leere Gruppe
+  email_template_and_project, Gruppe subscription > Gruppe mit recurring_invoice (nur bei
+  type=service) und subscription_template_id (nur wenn recurring_invoice).
+Belegung Odoo 11 (653 Vorlagen): item_ids 321 Vorlagen / 1.469 Regeln mit Produktbezug
+  (compute_price formula 1003, fixed 460, percentage 6; fixed_price 448, price_discount 951,
+  min_quantity 1, Datumswerte praktisch ungenutzt); subscription_template_id 294;
+  recurring_invoice 337; expense_policy 653 (alle no); Website-Felder 0 belegt
+  (inventory_availability 653 x never, available_threshold 497 x 5,0 = Standardwerte).
+UMSETZUNG: itk_product 18.0.1.0.4 neues Feld item_ids (One2many product.pricelist.item ueber
+  product_tmpl_id, "Preislisten-Positionen", gleicher Name und gleiche Relation wie Odoo 11);
+  itk_account_migration 18.0.1.18.0 Abschnitt "Preiskalkulation" vor der Odoo-18-Gruppe
+  "Upselling & Cross-Selling" mit editierbarer Regelliste (Spalten Preisliste, Ermittle Preis,
+  Festpreis, Min. Bestellmenge, Startdatum, Enddatum; applied_on/Prozentsatz/Rabatt ueber die
+  Spaltenauswahl); Smart Button "Regeln Preislisten" bleibt erhalten; Abhaengigkeit itk_product
+  ergaenzt.
+ABNAHME: scripts/browser_verkauf_reiter_abnahme.py (echter Chrome, Produkt 224 mit bestehender
+  Regel ueber Preisliste 34, zusaetzlich Abo-Produkt 6 und Bearbeitungsmodus): lokal
+  18 OK / 0 FEHL, VM 18 OK / 0 FEHL; kein Testdatensatz hinterlassen (13/13 bzw. 10/10 Vorlagen).
+MIGRATIONSREGELN (dokumentiert, nicht ausgefuehrt): Regeln als product.pricelist.item anlegen -
+  Preisliste ueber Namen, Produkt ueber die migrierte Vorlage, applied_on/compute_price/base/
+  fixed_price/percent_price/price_discount/price_surcharge/price_round 1:1, min_quantity
+  int->float, date_start/date_end date->datetime 00:00:00, currency_id/company_id ueber Namen,
+  name uebernehmen; keine Odoo-11-IDs blind uebernehmen; list_price 1:1 aus dem
+  Odoo-11-Speicherwert und NICHT aus den Regeln neu berechnen; Abo-Vorlagen vorher namentlich
+  anlegen/pruefen (Odoo 11: 5, Odoo-18-Test: 4 lokal / 5 VM); die 403 Odoo-11-Regeln ohne
+  Produktbezug gehoeren zur Preislisten-Migration.
+BEWUSSTE ABWEICHUNGEN: Website-Gruppe nicht nachgebaut (Felder existieren nur mit website_sale,
+  nicht installiert, in Odoo 11 leer - keine Dummy-Felder; fachlicher Nachfolger von
+  alternative/accessory_product_ids ist das erhaltene Odoo-18-Feld optional_product_ids);
+  recurring_invoice bleibt einmal im Reiter "Allgemeine Informationen"; Gruppentitel
+  "Upselling & Cross-Selling" bleibt englisch (Odoo-18-Wortlaut, deutsche Uebersetzung fehlt -
+  Rueckfrage an Anna).
+BEOBACHTUNG: In dieser Odoo-18-Version hat das Produktformular keinen Bearbeiten-Schalter in der
+  Kontrollleiste (kein o_form_button_edit im DOM, auch mit frischem Browserprofil und beim Oeffnen
+  aus der Listenansicht).
+Doku: docs/o11-o18-vergleich-abrechnung-verkaufsreiter.md. Abrechnung bleibt IN ARBEIT.
+```
+
 ### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-15: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte, Produktformular), erste Abnahme 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119), Teil 15 am 24.09.2026 (Session 120) auf der VM im Browser abgenommen
 
 Dokument: `docs/o11-o18-vergleich-abo-teil1.md`; Teil 14: `docs/o11-o18-vergleich-abo-teil14.md`; Teil 15: `docs/o11-o18-vergleich-abo-teil15-produktformular.md`; Uebergabe und Vollstaendigkeitsbestaetigung: `docs/uebergabe-session-120-abonnements.md` (24.09.2026: jedes in Odoo 11 verwendete Feld, Reiter, Button, Smart Button, Statuswechsel, Filter, Gruppierung und jeder Geschaeftsprozess ist gleich vorhanden, funktional gleichwertig an anderer Stelle vorhanden oder bewusst dokumentiert; keine offene funktionale Abweichung).
 
 **STATUS (24.09.2026, Session 120): ABONNEMENTS = VOLLSTAENDIG FUNKTIONSFAEHIG UND MIGRATIONSVORBEREITET (Teile 1-15).**
+
+> **Hinweis 05.10.2026 (Session 126), ohne Aenderung am Bestand:** Dieser Bereich war an diesem Tag
+> kurzzeitig auf "IN ARBEIT" gesetzt worden. Grund war **allein eine falsche Zuordnung von Anna**:
+> sie hatte die Meldung "Ungueltige Felder: Partner" zunaechst dem Modul Abonnements zugeordnet und
+> diese Zuordnung noch am selben Tag korrigiert. Die Meldung gehoert ausschliesslich zum Bereich
+> **Abrechnung** (Menuepunkte Abrechnung > Verkauf/Einkauf > Eingaenge; Rechnungsformular,
+> `account.move.partner_id`) und ist dort dokumentiert:
+> `docs/o11-o18-abrechnung-partner-pflichtfeld.md`.
+> **Im Modul Abonnements lag kein technischer Befund vor, und es wurde dort nichts geaendert** (kein
+> Code, keine Ansicht, keine Daten; die Pflichtfeldpruefung war rein lesend und ergab im Abo-Bereich
+> keinen Befund). Der Status ist deshalb hier auf den zuletzt tatsaechlich bestaetigten Stand
+> zurueckgesetzt.
 Der Unterbereich "Abonnement Produkte" wurde in Teil 15 vollstaendig gegengeprueft (alle Reiter,
 Felder, Bezeichnungen, Typen/Relationen, Sichtbarkeitsregeln, Buttons, Pflichtfelder,
 funktionale Zusammenhaenge; Odoo 11 Prod read-only) und danach auf der VM abgenommen.
@@ -1654,9 +1875,13 @@ Spalten in der Spaltenauswahl (`itk_multifactor` 18.0.1.1.1, Modul haengt jetzt 
 ab). Neue Suchansicht `product.template.search.abo.produkte` mit den Filtern
 "Mit Faktor multipliziert" und "Aktive Abonnement Produkte" sowie den Gruppierungen
 "Status" (`product_type_id`) und "Mit Faktor multipliziert"; die Odoo-18-Filter und
--Gruppierungen bleiben erhalten. Die Odoo-11-Filter "Service Type ..." wurden bewusst nicht
-nachgebaut - sie hatten dort Einzelwerte der ITK-Produktart fest verdrahtet, in Odoo 18 leistet
-das die Gruppierung nach `product_type_id`. `to_multiply_by_factor` ist aus dem Produktformular
+-Gruppierungen bleiben erhalten. **Korrektur 05.10.2026 (gemessen):** Die Odoo-11-Filter
+"Service Type ..." sind nachgebaut (sechs Filter in `itk_product/views/itk_product.xml`, gleiche
+Namen und Domains `[('product_type_id','=','<Name>')]`, Session 123); die frueher hier notierte
+Aussage "bewusst nicht nachgebaut" ist falsch. Eine Gruppierung nach Produktart gab es in Odoo 11
+nicht (nur die Listenspalte "Status"); die Gruppierung "Status" ist eine Odoo-18-Ergaenzung.
+Nachweis: `docs/o11-o18-produktart-pruefung.md`, Abschnitt 3.
+`to_multiply_by_factor` ist aus dem Produktformular
 entfernt (`itk_product` 18.0.1.0.1; Feld bleibt in der DB) - es existiert in Odoo 11 nicht und ist
 eine Dublette zu `is_multi_factor_product`. **Lager:** `stock` wird NICHT installiert; read-only
 belegt (0 erledigte Lagerbewegungen, 0 Bestandszeilen, 0 Produkte mit Bestand, 0 Lagerartikel,
@@ -2160,6 +2385,6 @@ entfernt werden, sonst bleibt eine verwaiste Beschriftung sichtbar ("Waehrung" o
 
 | Modul | Browserabgleich lokal | Browserabgleich VM | Feldmapping | Beziehungen | Stammdaten | Statuswerte | Verknuepfungen | Constraints | Reihenfolge | Screenshots | Stand |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| Abrechnung | vorhanden | vorhanden | 273 belegte Felder, 0 Luecken | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | IN ARBEIT (offen: Produktfilter-Entscheidung, Testmigration, Restansichten) |
+| Abrechnung | vorhanden | vorhanden | 273 belegte Felder, 0 Luecken | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | IN ARBEIT (offen: Produktfilter-Entscheidung, Testmigration, Restansichten; 05.10.2026 Project-Category-Spalte, Statuskette und Spalte Beschreibung in den Rechnungszeilen umgesetzt und lokal + VM im Browser belegt, 73 OK / 112 OK je Instanz, 0 FEHL; 06.10.2026 Reiter "Verkauf" im Produktformular nach Odoo 11 nachgebaut - Preiskalkulation mit Preislistenregeln, Browserabnahme lokal + VM je 18 OK / 0 FEHL) |
 | Verkauf | vorhanden | vorhanden | Teil 5 vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | abgeschlossen (R1-R8) |
 | Abonnements | vorhanden (02.10.) | vorhanden (02.10.) | Feldbestand verglichen (57/64 Felder, 0 echte Luecken); siehe docs/o11-o18-abonnement-abgleich.md | nicht betroffen | Cron/Fristen geprueft | Zustaende 1:1 plus O18-Zusatz pending | 1:1 | nicht betroffen | vorhanden | vorhanden | abgeglichen (PR #184/#185), Abweichungen dokumentiert |

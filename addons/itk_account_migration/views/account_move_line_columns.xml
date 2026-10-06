@@ -29,11 +29,20 @@
                 <attribute name="string">Pos</attribute>
                 <attribute name="optional">show</attribute>
             </xpath>
-            <xpath expr="//field[@name='invoice_line_ids']//field[@name='name']" position="after">
-                <field name="name" id="itk_o11_beschreibung" string="Beschreibung" optional="show"/>
+            <!-- Session 125: genau EINE Spalte "Beschreibung" in Odoo-11-Position (nach Sektion,
+                 vor Kostenstelle).
+                 Ursache des Fehlers: Odoo 18 gibt der Zeilenliste das Widget
+                 product_label_section_and_note_field_o2m. Dessen Renderer loescht die Spalte name
+                 bewusst aus der gerenderten Tabelle und zeichnet den Text in die Produktzelle.
+                 Sichtbar war dadurch gar keine Beschreibung; der zusaetzlich eingefuegte zweite
+                 name-Knoten erschien nur im Spaltenauswahl-Menue (dort zweimal "Beschreibung").
+                 Loesung: Odoo-18-Standardwidget section_and_note_one2many (Abschnitte, Notizen,
+                 Katalog, Griffspalte, alle Spalten bleiben) - damit ist name wieder eine eigene,
+                 editierbare Spalte. Technische Feldnamen und Datenlogik unveraendert. -->
+            <xpath expr="//field[@name='invoice_line_ids']" position="attributes">
+                <attribute name="widget">section_and_note_one2many</attribute>
             </xpath>
             <xpath expr="//field[@name='invoice_line_ids']//field[@name='name']" position="attributes">
-                <attribute name="widget">text</attribute>
                 <attribute name="string">Beschreibung</attribute>
                 <attribute name="optional">show</attribute>
             </xpath>

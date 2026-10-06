@@ -109,8 +109,8 @@ MAPPING = [
     ("product.product", "packaging_ids", "product.product", "packaging_ids", ""),
     ("product.template", "partner_ref", "product.template", "partner_ref", ""),
     ("product.product", "partner_ref", "product.product", "partner_ref", ""),
-    ("product.template", "product_type_id", "product.template", "product_type_id", ""),
-    ("product.product", "product_type_id", "product.product", "product_type_id", ""),
+    ("product.template", "product_type_id", "product.template", "product_type_id", "bewusst abweichend"),
+    ("product.product", "product_type_id", "product.product", "product_type_id", "bewusst abweichend"),
     ("product.template", "product_variant_count", "product.template", "product_variant_count", ""),
     ("product.product", "product_variant_count", "product.product", "product_variant_count", ""),
     ("product.template", "property_account_income_id", "product.template", "property_account_income_id", ""),
@@ -194,6 +194,8 @@ BEGRUENDET = {
     ("account.move", "payment_reference"): "in Odoo 11 nicht vorhanden (Odoo-18-Zusatzfeld)",
     ("account.move", "name"): "Odoo-11-Feld name = Begruendung/Beschreibung, nicht die Belegnummer (Regel in Teil 5)",
     # Produkte
+    ("product.template", "product_type_id"): "Anna-Vorgabe 05.10.2026: sichtbare Beschriftung deutsch 'Produktart' (in Odoo 11 trug das Feld type die ITK-Produktart = sichtbare 'Produktart'; die Odoo-11-m2o product_type_id hiess dort 'Product-Type')",
+    ("product.product", "product_type_id"): "siehe product.template.product_type_id",
     ("product.template", "activity_state"): "Odoo-11-Beschriftung 'Bundesland' ist falsch (Aktivitaetsstatus)",
     ("product.product", "activity_state"): "Odoo-11-Beschriftung 'Bundesland' ist falsch (Aktivitaetsstatus)",
     ("product.template", "activity_summary"): "Standard-Aktivitaetsfeld (Chatter)",
@@ -286,15 +288,19 @@ def main() -> int:
 
     ziel = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
                         "docs", "o11-o18-abrechnung-labelmapping.md")
+    lokal_zeilen = [z for z in zeilen if z[0] == "lokal"]
+    if not lokal_zeilen:
+        print("\nMapping-Tabelle NICHT geschrieben: Dieser Lauf hat die lokale Instanz nicht "
+              "gemessen (frueher wurde die Tabelle dabei leer geschrieben und die Doku damit "
+              "zerstoert). Fuer die Tabelle `--instanz lokal` verwenden.")
+        return 0
     with open(ziel, "w", encoding="utf-8", newline="\n") as fh:
         fh.write("# Label- und Feldmapping Abrechnung (Odoo 11 -> Odoo 18)\n\n")
         fh.write("Erzeugt von `scripts/check_abrechnung_labels.py` (Stand 30.09.2026, Session 122).\n")
         fh.write("Regel: sichtbare Bezeichnung wie Odoo 11, technischer Feldname bleibt Odoo 18.\n\n")
         fh.write("| Odoo-11-Feld | Odoo-11-Bezeichnung | Odoo-18-Zielfeld | Odoo-18-Bezeichnung | Zustand | Anmerkung |\n")
         fh.write("| --- | --- | --- | --- | --- | --- |\n")
-        for z in zeilen:
-            if z[0] != "lokal":
-                continue
+        for z in lokal_zeilen:
             fh.write("| `%s.%s` | %s | `%s.%s` | %s | %s | %s |\n"
                      % (z[1], z[2], z[3], z[4], z[5], z[6], z[7], z[8]))
     print("\nMapping-Tabelle geschrieben: %s" % ziel)

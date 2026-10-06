@@ -86,6 +86,6 @@ Erzeugt von `scripts/check_abrechnung_viewlabels.py` (Stand 30.09.2026, Session 
 - Odoo 11 Reiter: ['Rechnung', 'Andere Informationen']
 - Odoo 18 Reiter: ['Rechnungszeilen', 'Andere Informationen', 'Weitere Informationen']
 - Odoo 11 Gruppen: []
-- Odoo 18 Gruppen: ['Buchhaltung', 'Herkunft (Migration)', 'Rechnung']
+- Odoo 18 Gruppen: ['Buchhaltung', 'Herkunft (Migration)', 'Rechnung', 'Status (Odoo 18)']
 - Odoo 11 Knoepfe: ['Bestätigen', 'Einzahlung erfassen', 'Nach Gutschrift fragen', 'Auf Entwurf setzen']
 - Odoo 18 Knoepfe: ['Abbrechen', 'Als geprüft markieren', 'Auf Entwurf setzen', 'Bestätigen', 'Buchen', 'Buchung stornieren', 'Drucken', 'Einzahlung erfassen', 'Katalog', 'Nach Gutschrift fragen', 'PEPPOL abbrechen', 'Senden', 'Sperren', 'Steuern und Konten aktualisieren', 'Stornierung anfordern', 'Stornobuchung', 'Transaktion erfassen', 'Transaktion stornieren', 'Vorschau', 'Zahlen']

@@ -26,11 +26,16 @@
     </record>
 
     <!-- Suchansicht "Abonnement Produkte": Filter und Gruppierungen.
-         Die Odoo-11-Service-Type-Filter werden bewusst NICHT nachgebaut - sie haben dort
-         einzelne Werte der ITK-Produktart fest verdrahtet; in Odoo 18 leistet das die
-         Gruppierung nach product_type_id (Status). Bestandsfilter (Verfuegbare Produkte,
-         Bestandsaufloesung, Bestandsreichweite) kamen in Odoo 11 aus dem stock-Modul und
-         entfallen, weil kein Lager verwendet wurde. -->
+         KORREKTUR 05.10.2026 (gemessen, docs/o11-o18-produktart-pruefung.md Abschnitt 3):
+         Die Odoo-11-Filter "Service Type ..." SIND nachgebaut - sechs Filter in
+         itk_product/views/itk_product.xml mit denselben Namen und Domains
+         [('product_type_id', '=', '<Name>')] (Session 123). Die frueher hier notierte
+         Aussage "bewusst NICHT nachgebaut" war falsch. In Odoo 11 gab es keine
+         Gruppierung nach Produktart (nur die Listenspalte "Status"); die Gruppierung
+         "Status" hier ist eine Odoo-18-Ergaenzung.
+         Bestandsfilter des stock-Moduls entfallen in Odoo 11 nicht; der Odoo-11-Filter
+         "Bestandsaufloesung" nutzte type not in ('service','consu') und liegt in Odoo 18
+         als itk_real_stock_exhausted mit is_storable = True vor (von Anna bestaetigt). -->
     <record id="view_product_template_search_abo_produkte" model="ir.ui.view">
         <field name="name">product.template.search.abo.produkte</field>
         <field name="model">product.template</field>

@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ================================================================================
+         Produktformular: feldweiser Nachbau des Odoo-11-Formulars
+         (Bereich Abrechnung, Menues Verkauf/Einkauf > Verkaufbare/Einkaufbare Produkte)
+
+         Odoo 11 (Arch-Messung 05.10.2026, read-only):
+           Reiter: Allgemeine Informationen | Varianten (unsichtbar) | Verkauf | Einkauf |
+                   Lager | Abrechnung | Notizen | Bilder
+           Erster Reiter zweispaltig:
+             links  group_general:         Produktart (type mit ITK-Werten), Product-Type,
+                                           Kategorie, Interne Referenz, Strichcode
+             rechts group_standard_price:  Verkaufspreis, To multiply by Factor(per 1000),
+                                           Abonnement Produkt, Kosten
+           Verkauf: group "Website", group subscription (Abonnement-Vorlage)
+           Einkauf: group "Lieferanten" (seller_ids), group "Lieferanten" (variant_seller_ids)
+           Lager:   group operations "Vorgaenge", group group_lots_and_weight "Logistik"
+                    (Gewicht, Volumen, Verantwortlich), group packaging "Verpackung"
+           Abrechnung: group properties > Forderungen/Verbindlichkeiten, group accounting,
+                       group invoicing "Abrechnung"/"Eingangsrechnung"
+           Notizen: acht Gruppen
+           Bilder:  product_image_ids + Chatter (in Odoo 18 nicht nachbaubar, Nutzung 0)
+
+         Umsetzung: die Odoo-11-Felder stehen in Odoo-11-Reihenfolge und -Gruppierung,
+         die Odoo-18-Zusaetze folgen dahinter bzw. bleiben in ihren Odoo-18-Gruppen.
+
+         Technische Hinweise (in Odoo 18 erprobt):
+         * position="move" wirkt nur als direktes Kind der XPath-Angabe; mehrere Moves
+           in einer Angabe halten ihre Reihenfolge ein.
+         * "string" ist kein gueltiger Vererbungs-Selektor; Container werden ueber name
+           oder ein Kindfeld ausgewaehlt.
+         * Felder als direkte Kinder einer Gruppe behalten ihre Beschriftung, solange
+           keine Untergruppe dazwischenliegt - der erste Reiter wird daher flach
+           aufgebaut (genau zwei Spalten).
+         * Als Anker werden nur Knoten verwendet, die in der Ansichtshierarchie dieses
+           Moduls (product.product_template_only_form_view) vorhanden sind.
+         * position="replace" ohne Inhalt entfernt einen Knoten.
+
+         Nicht nachbaubar, weil das Feld im Odoo-18-Modell fehlt (kein Dummy-Feld):
+           service_policy, project_id, property_valuation, property_stock_account_input/-output,
+           cost_method, property_cost_method, valuation, website_url, public_categ_ids,
+           inventory_availability, available_threshold, custom_message, website_style_ids,
+           product_image_ids.
+
+         Dokumentation: docs/o11-o18-vergleich-abrechnung-produktformular.md
+    -->
+    <record id="view_product_template_form_o11_reiter" model="ir.ui.view">
+        <field name="name">product.template.form.itk.o11.reiter</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="priority">999</field>
+        <field name="arch" type="xml">
+
+            <!-- ==============================================================
+                 1. Erster Reiter "Allgemeine Informationen" - zwei saubere
+                 Spalten in Odoo-11-Reihenfolge.
+                 ============================================================== -->
+            <!-- linker Block: Produktart, Interne Kategorie, Interne Referenz, Strichcode,
+                 danach der Odoo-18-Zusatz "Verantwortlich" (Beschluss Session 120).
+                 Alle Moves in einer Angabe, damit die Reihenfolge feststeht. -->
+            <xpath expr="//page[@name='general_information']//field[@name='type']" position="after">
+                <xpath expr="//field[@name='product_type_id']" position="move"/>
+                <xpath expr="//field[@name='categ_id']" position="move"/>
+                <xpath expr="//field[@name='default_code']" position="move"/>
+                <xpath expr="//field[@name='barcode']" position="move"/>
+                <xpath expr="//field[@name='responsible_id']" position="move"/>
+            </xpath>
+            <!-- rechter Block: Abonnement Produkt (Odoo 11: dritte Zeile) vor die Kosten -->
+            <xpath expr="//page[@name='general_information']//group[@name='group_standard_price']" position="inside">
+                <xpath expr="//field[@name='recurring_invoice']" position="move"/>
+            </xpath>
+            <!-- Kosten (Beschriftung + Feldblock) ans Ende der rechten Spalte,
+                 damit die Odoo-11-Reihenfolge Verkaufspreis/Faktor/Abonnement/Kosten entsteht -->
+            <xpath expr="//page[@name='general_information']//group[@name='group_standard_price']" position="inside">
+                <xpath expr="//page[@name='general_information']//label[@for='standard_price']" position="move"/>
+                <xpath expr="//page[@name='general_information']//div[@name='standard_price_uom']" position="move"/>
+            </xpath>
+            <!-- Produktmerkmale aus der Spaltenklammer herausnehmen, damit die Klammer
+                 genau zwei Spalten enthaelt (Odoo-18-Zusatz bleibt vollstaendig) -->
+            <xpath expr="//page[@name='general_information']//group[group[@name='group_general']]" position="after">
+                <xpath expr="//field[@name='product_properties']" position="move"/>
+            </xpath>
+
+            <!-- ==============================================================
+                 2. Reiter "Verkauf"
+                 2a) Preiskalkulation (Odoo-11-Feld item_ids) - Odoo 11 zeigte als
+                     erstes im Reiter Verkauf den Abschnitt "Preiskalkulation" mit
+                     der Liste der Preislistenregeln (one2many product.pricelist.item
+                     ueber product_tmpl_id, Spalten Preisliste, Preis,
+                     Mindestbestellmenge, Startdatum, Enddatum).
+                     In Odoo 18 fehlt das Feld (Regeln nur ueber den Smart Button
+                     "Regeln Preislisten"); es wird in itk_product mit gleichem Namen
+                     und gleicher Relation neu angelegt. Der Smart Button bleibt
+                     unveraendert erhalten.
+                 2b) Website-Gruppe: Odoo 11 zeigte im Reiter Verkauf die Gruppe
+                     "Website" (public_categ_ids, alternative_product_ids,
+                     accessory_product_ids, inventory_availability,
+                     available_threshold, custom_message, website_published).
+                     Diese Felder existieren in Odoo 18 nur mit dem Modul
+                     website_sale - das ist nicht installiert, und in Odoo 11 sind
+                     alle diese Felder leer (0 von 653; inventory_availability steht
+                     auf dem Standardwert 'never', available_threshold auf 5,0).
+                     Deshalb keine Dummy-Felder: der Nachfolger von
+                     alternative_product_ids/accessory_product_ids ist das
+                     Odoo-18-Feld optional_product_ids (Gruppe "Upselling &
+                     Cross-Selling"), das unveraendert erhalten bleibt.
+                 2c) Abonnement-Gruppe (Odoo-11-Gruppe subscription) hinter die
+                     Odoo-18-Gruppen; ohne Ueberschrift wie in Odoo 11.
+                 ============================================================== -->
+            <xpath expr="//page[@name='sales']/group[@name='sale']" position="before">
+                <div name="pricelist_item">
+                    <separator string="Preiskalkulation"/>
+                    <field name="item_ids" nolabel="1"
+                           context="{'default_base': 'list_price', 'default_compute_price': 'fixed', 'default_applied_on': '1_product', 'default_product_tmpl_id': id}">
+                        <list string="Preislisten-Positionen" editable="bottom">
+                            <field name="pricelist_id" string="Preisliste"/>
+                            <field name="applied_on" string="Anzuwenden auf" optional="hide"/>
+                            <field name="compute_price" string="Ermittle Preis"/>
+                            <field name="fixed_price" string="Festpreis"
+                                   invisible="compute_price != 'fixed'"/>
+                            <field name="percent_price" string="Preis über Prozentsatz"
+                                   optional="hide" invisible="compute_price != 'percentage'"/>
+                            <field name="price_discount" string="Rabatt"
+                                   optional="hide" invisible="compute_price != 'formula'"/>
+                            <field name="min_quantity" string="Min. Bestellmenge"/>
+                            <field name="date_start" string="Startdatum"/>
+                            <field name="date_end" string="Enddatum"/>
+                            <field name="name" string="Bezeichnung" optional="hide"/>
+                            <field name="product_tmpl_id" string="Produktvorlage" optional="hide"/>
+                            <field name="product_id" string="Produktvariante" optional="hide"/>
+                            <field name="categ_id" string="Produktkategorie" optional="hide"/>
+                            <field name="base" string="Basiert auf" optional="hide"/>
+                            <field name="price_surcharge" string="Aufschlag" optional="hide"/>
+                            <field name="price_round" string="Rundungsverfahren" optional="hide"/>
+                            <field name="currency_id" optional="hide"/>
+                            <field name="company_id" optional="hide"/>
+                        </list>
+                    </field>
+                </div>
+            </xpath>
+            <xpath expr="//page[@name='sales']" position="inside">
+                <xpath expr="//page[@name='general_information']//group[@name='subscription']" position="move"/>
+            </xpath>
+            <xpath expr="//group[@name='subscription']" position="attributes">
+                <attribute name="string"/>
+            </xpath>
+
+            <!-- ==============================================================
+                 3. Reiter "Einkauf": Odoo-11-Gruppen "Lieferanten"
+                 ============================================================== -->
+            <xpath expr="//page[@name='purchase']//group[@name='purchase']" position="before">
+                <group name="itk_vendors" string="Lieferanten"/>
+                <group name="itk_variant_vendors" string="Lieferanten"/>
+            </xpath>
+            <xpath expr="//group[@name='itk_vendors']" position="inside">
+                <xpath expr="//page[@name='purchase']//field[@name='seller_ids']" position="move"/>
+            </xpath>
+            <xpath expr="//group[@name='itk_variant_vendors']" position="inside">
+                <xpath expr="//page[@name='purchase']//field[@name='variant_seller_ids']" position="move"/>
+            </xpath>
+
+            <!-- ==============================================================
+                 4. Reiter "Lager": Odoo-11-Reihenfolge
+                 Vorgaenge: Routen, Routenkategorie, Auslieferungszeit
+                 Logistik: Gewicht, Volumen, Verantwortlich
+                 ============================================================== -->
+            <xpath expr="//page[@name='inventory']//field[@name='route_from_categ_ids']" position="after">
+                <xpath expr="//page[@name='inventory']//label[@for='sale_delay']" position="move"/>
+                <xpath expr="//page[@name='inventory']//div[field[@name='sale_delay']]" position="move"/>
+            </xpath>
+            <xpath expr="//page[@name='inventory']//div[@name='volume']" position="after">
+                <xpath expr="//page[@name='inventory']//field[@name='responsible_id']" position="move"/>
+            </xpath>
+
+            <!-- ==============================================================
+                 5. Reiter "Abrechnung" (Odoo 11: page invoicing)
+                 Die Seite kommt aus dem account-Modul (Beschriftung "Buchhaltung")
+                 und haengt an der verborgenen technischen Gruppe
+                 account.group_account_readonly (0 Benutzer); Odoo 11 zeigte den
+                 Reiter allen Benutzern.
+                 ============================================================== -->
+            <xpath expr="//page[@name='invoicing']" position="attributes">
+                <attribute name="string">Abrechnung</attribute>
+                <attribute name="groups"/>
+            </xpath>
+            <xpath expr="//page[@name='invoicing']//group[@name='properties']" position="attributes">
+                <attribute name="groups"/>
+            </xpath>
+            <xpath expr="//page[@name='invoicing']//field[@name='property_account_income_id']" position="before">
+                <xpath expr="//label[@for='taxes_id']" position="move"/>
+                <xpath expr="//div[@name='taxes_div']" position="move"/>
+            </xpath>
+            <xpath expr="//page[@name='invoicing']//field[@name='property_account_expense_id']" position="before">
+                <xpath expr="//field[@name='supplier_taxes_id']" position="move"/>
+            </xpath>
+            <xpath expr="//page[@name='invoicing']//group[@name='accounting']" position="after">
+                <group name="itk_invoicing_block">
+                    <group name="itk_invoicing" string="Abrechnung"/>
+                    <group name="itk_bill" string="Eingangsrechnung"/>
+                </group>
+            </xpath>
+            <xpath expr="//page[@name='invoicing']//group[@name='itk_invoicing']" position="inside">
+                <xpath expr="//field[@name='invoice_policy']" position="move"/>
+            </xpath>
+            <xpath expr="//field[@name='invoice_policy']" position="attributes">
+                <!-- Odoo 11 zeigte die Fakturierungsregel als Radioknoepfe -->
+                <attribute name="widget">radio</attribute>
+            </xpath>
+            <xpath expr="//page[@name='invoicing']//group[@name='itk_bill']" position="inside">
+                <xpath expr="//field[@name='purchase_method']" position="move"/>
+            </xpath>
+
+            <!-- ==============================================================
+                 7. Reiter "Notizen" (Odoo 11: page notes) mit den acht Gruppen
+                 ============================================================== -->
+            <xpath expr="//page[@name='invoicing']" position="after">
+                <page string="Notizen" name="notes">
+                    <group string="Description for Internal">
+                        <field name="description" colspan="2"
+                               placeholder="Dieser Hinweis dient nur internen Zwecken."/>
+                    </group>
+                    <group name="description">
+                        <group string="Beschreibung für Kunden">
+                            <field name="description_sale" colspan="2"
+                                   placeholder="Die Notiz wird Verkaufsaufträgen und Rechnungen hinzugefügt."/>
+                        </group>
+                        <group string="Beschreibung für Lieferanten">
+                            <field name="description_purchase"
+                                   placeholder="Diese Notiz wird zu den Bestellungen hinzugefügt."/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Beschreibung für Auslieferungsaufträge">
+                            <field name="description_pickingout"
+                                   placeholder="Dieser Hinweis wird bei Lieferaufträgen hinzugefügt."/>
+                        </group>
+                        <group string="Beschreibung für Wareneingang">
+                            <field name="description_pickingin"
+                                   placeholder="Diese Notiz wird den Eingangsaufträgen hinzugefügt (z. B. wo das Produkt im Lagerhaus gelagert werden soll)."/>
+                        </group>
+                        <group string="Beschreibung für interne Transfers">
+                            <field name="description_picking"/>
+                        </group>
+                    </group>
+                    <group name="warning"/>
+                </page>
+            </xpath>
+            <xpath expr="//page[@name='notes']//group[@name='warning']" position="inside">
+                <xpath expr="//page[@name='sales']//group[field[@name='sale_line_warn']]" position="move"/>
+                <xpath expr="//page[@name='purchase']//group[field[@name='purchase_line_warn']]" position="move"/>
+            </xpath>
+
+            <!-- ==============================================================
+                 7. Aufraeumen: leere Huellen der Odoo-18-Aufbauten.
+                 Muss NACH den Moves laufen (die Warngruppen liegen in der
+                 Einkaufs-Huelle group col="1", die Beschreibungen in ihren
+                 Odoo-18-Gruppen). Es wird nur geloescht, was leer ist.
+                 ============================================================== -->
+            <xpath expr="//page[@name='general_information']//group[@name='product_type']" position="replace"/>
+            <xpath expr="//page[@name='general_information']//group[@name='itk_responsible']" position="replace"/>
+            <xpath expr="//page[@name='general_information']//group[@name='internal_notes']" position="replace"/>
+            <xpath expr="//page[@name='sales']//group[@name='description']" position="replace"/>
+            <xpath expr="//page[@name='purchase']//group[field[@name='description_purchase']]" position="replace"/>
+            <xpath expr="//page[@name='purchase']//group[@col='1']" position="replace"/>
+            <xpath expr="//page[@name='inventory']//group[field[@name='description_pickingin']]" position="replace"/>
+            <xpath expr="//page[@name='inventory']//group[field[@name='description_pickingout']]" position="replace"/>
+            <xpath expr="//page[@name='inventory']/group[last()]" position="replace"/>
+
+            <!-- ==============================================================
+                 8. Sichtbare Beschriftungen im Odoo-11-Wortlaut (deutsch)
+                 ============================================================== -->
+            <xpath expr="//field[@name='product_type_id']" position="attributes">
+                <!-- Anna 05.10.2026: die ITK-Produktart ist in Odoo 11 die sichtbare
+                     "Produktart" (die Odoo-11-Auswahl type trug die ITK-Werte);
+                     das englische "Product-Type" entfaellt. -->
+                <attribute name="string">Produktart</attribute>
+            </xpath>
+            <xpath expr="//field[@name='categ_id']" position="attributes">
+                <attribute name="string">Interne Kategorie</attribute>
+            </xpath>
+            <xpath expr="//field[@name='default_code']" position="attributes">
+                <attribute name="string">Interne Referenz</attribute>
+            </xpath>
+            <xpath expr="//field[@name='barcode']" position="attributes">
+                <attribute name="string">Strichcode</attribute>
+            </xpath>
+            <xpath expr="//field[@name='sale_line_warn']" position="attributes">
+                <attribute name="string">Auftragsposition</attribute>
+            </xpath>
+            <xpath expr="//field[@name='sale_line_warn_msg']" position="attributes">
+                <attribute name="string">Mitteilung für Auftragszeile</attribute>
+            </xpath>
+            <xpath expr="//field[@name='purchase_line_warn']" position="attributes">
+                <attribute name="nolabel"/>
+                <attribute name="string">Bestellposition</attribute>
+            </xpath>
+            <xpath expr="//field[@name='purchase_line_warn_msg']" position="attributes">
+                <attribute name="nolabel"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

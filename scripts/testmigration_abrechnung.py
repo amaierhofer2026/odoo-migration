@@ -15,13 +15,22 @@ Grundsaetze:
   - Jeder Fehler bricht ab (Exit-Code 1), nichts wird still uebersprungen.
   - Erzeugte Datensaetze wandern in ein Protokoll; --aufraeumen loescht nur diese.
 
-Typzuordnung Produkte (Befund 05.10.2026): Odoo 11 fuehrt im Feld `type` auch ITK-Werte
-(consu, service, general, onlineservice, sw, consulting, platform, hw, project, product).
-Odoo 18 kennt nur consu/service/combo. Zuordnung:
-    consu -> consu, product -> consu + is_storable, service -> service,
-    ITK-Werte (onlineservice, sw, consulting, platform, hw, project, general) -> service.
-Zusaetzlich wird `product_type_id` ueber den Namen 1:1 uebernommen. Der Odoo-11-ITK-Wert in `type`
-hat in Odoo 18 keine 1:1-Entsprechung; das ist ein offener Mapping-Punkt fuer die echte Migration.
+Typzuordnung Produkte (Entscheidung Anna 05.10.2026, Variante 1 - siehe
+docs/o11-o18-produktart-mapping.md und docs/o11-o18-produktart-pruefung.md):
+Odoo 11 fuehrt im Feld `type` auch ITK-Werte (consu, service, general, onlineservice, sw,
+consulting, platform, hw, project, product). Die Odoo-18-Auswahl kennt dieselben ITK-Werte
+plus combo. Regel:
+    consu, service und alle ITK-Werte -> 1:1 uebernehmen (Wert existiert in Odoo 18),
+    product -> consu + is_storable (Wert existiert in Odoo 18 nicht, in Odoo 11 nicht belegt).
+`is_storable` wird ausschliesslich aus der Odoo-11-Lagerfuehrung abgeleitet
+(type in (consu, product) -> is_storable = True, sonst False), niemals aus `type` oder
+`product_type_id` abgeleitet.
+`product_type_id` wird separat und 1:1 ueber den Namen uebernommen (Zielmodell
+itk_product.product_type, gleiche IDs 1-6); bleibt in Odoo 11 leer, bleibt in Odoo 18 leer.
+`type` und `product_type_id` werden nicht verschmolzen und nicht gegenseitig abgeleitet.
+Der Filter "Dienstleistungen" (`type = service`) behaelt damit dieselbe Treffermenge wie in
+Odoo 11 (47 aktive Vorlagen); die sechs "Service Type ..."-Filter haengen weiterhin an
+`product_type_id` und bleiben unveraendert.
 """
 from __future__ import annotations
 
@@ -70,11 +79,17 @@ def name(von):
 
 
 def typ_ziel(o11_typ):
-    """Odoo-11-Typ -> (Odoo-18-Typ, is_storable) nach der Regel im Modulkopf."""
+    """Odoo-11-Typ -> (Odoo-18-Typ, is_storable) nach der Regel im Modulkopf (Variante 1).
+
+    is_storable wird ausschliesslich aus der Odoo-11-Lagerfuehrung abgeleitet
+    (type in ('product','consu') -> True), nie aus type oder product_type_id.
+    """
     if o11_typ == "product":
-        return "consu", True          # Odoo-11-Lagerartikel -> consu + Bestand verfolgen
-    if o11_typ == "consu" or o11_typ in ITK_TYPEN:
-        return o11_typ, None          # 1:1, die Zielauswahl kennt dieselben Werte
+        return "consu", True          # Odoo-11-Lagerartikel, in Odoo 18 nicht vorhanden
+    if o11_typ == "consu":
+        return "consu", True          # 1:1 plus Lagerfuehrung ueber is_storable (Vorgabe Anna)
+    if o11_typ == "service" or o11_typ in ITK_TYPEN:
+        return o11_typ, False         # 1:1, die Zielauswahl kennt dieselben Werte
     raise SystemExit("ABBRUCH: unbekannter Odoo-11-Produkttyp %r - Zuordnung fehlt." % o11_typ)
 
 

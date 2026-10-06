@@ -58,5 +58,31 @@
             </xpath>
         </field>
     </record>
+    <!-- Session 123/124: Odoo-11-Statuskette im Rechnungsformular.
+         Umsetzung nach demselben Muster wie beim Zahlungsformular (dort bereits abgenommen):
+         Die Odoo-18-Statusleiste wird nur aus der Ansicht genommen - die Odoo-18-Werte selbst
+         bleiben unveraendert und stehen im Reiter "Andere Informationen" als "Status (Odoo 18)".
+         Die Kette ist eine reine Anzeige (berechnetes Feld itk_o11_status, store=False);
+         Entwurf/Offen/Bezahlt/Abgebrochen wie in Odoo 11, "Gutgeschrieben (Odoo 18)" als
+         bewusster Odoo-18-Zusatz bei vollstaendig gutgeschriebenen Rechnungen. -->
+    <record id="view_move_form_itk_o11_status" model="ir.ui.view">
+        <field name="name">account.move.form.itk.o11.status</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="priority">999</field>
+        <field name="arch" type="xml">
+            <xpath expr="//header//field[@name='state']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//form/header" position="inside">
+                <field name="itk_o11_status" widget="statusbar"
+                       statusbar_visible="draft,open,paid,cancelled"/>
+            </xpath>
+            <xpath expr="//page[@name='other_info']" position="inside">
+                <group name="itk_o18_status" string="Status (Odoo 18)">
+                    <field name="state" nolabel="1" readonly="1"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
 </odoo>
-
