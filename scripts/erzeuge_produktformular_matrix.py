@@ -74,10 +74,11 @@ def in_form18(feld):
 # ------------------------------------------------------------------ Zuordnung je Feld
 # Odoo-11-Feld -> (Odoo-18-Feld, Aenderung, Migrationsregel, Hinweis)
 ZUORDNUNG = {
-    "type": ("type", "unsichtbar wie in Odoo 11", "Wert 1:1 uebernehmen (type)",
+    "type": ("type", "unsichtbar wie in Odoo 11",
+             "OFFEN - Entscheidung Anna, siehe docs/o11-o18-produktart-mapping.md",
              "Odoo 11 hatte hier die Auswahlwerte der ITK-Produktart; sie liegen in Odoo 18 in product_type_id"),
     "product_type_id": ("product_type_id", "unveraendert, deutsche Beschriftung",
-                        "Wert 1:1 uebernehmen",
+                        "OFFEN - Entscheidung Anna, siehe docs/o11-o18-produktart-mapping.md",
                         "sichtbare Beschriftung 'Produktart' (Anna-Vorgabe 05.10.2026). In Odoo 11 "
                         "trug die Auswahl type die ITK-Werte (sichtbar als 'Produktart'), "
                         "product_type_id hiess dort 'Product-Type'; Odoo 18 zeigt die ITK-Produktart "
@@ -597,12 +598,12 @@ Umgesetzt:
 Funktionen/Verknuepfungen geprueft: Produktart (`itk_product.product_type`), Kategorie
 (`product.category`), Verkaufspreis/Kosten editierbar, To multiply by Factor(per 1000) als
 Auswahlkasten, Abonnement Produkt als Haken, Verantwortlich (`.res.users`, Avatar-Widget).
-Migrationsmapping: `type` 1:1 (unsichtbar), `product_type_id` 1:1 ueber den Namen (Odoo-11-Werte
-consu/service/general/onlineservice/sw/consulting/platform/hw/project/product),
-`categ_id`/`default_code`/`barcode`/`list_price`/`standard_price`/`recurring_invoice`/
-`subscription_template_id` je 1:1. Die Zuordnung der Odoo-11-Auswahlwerte von `type` auf
-`consu`/`service` ist in `docs/o11-o18-testmigration-regel.md` als **offene fachliche
-Bestaetigung** vermerkt (Odoo 11: consu 152, service 47, onlineservice 74, platform 94, sw 9).
+Migrationsmapping: Die Zuordnung der Odoo-11-Auswahlwerte von `type` und die 1:1-Uebernahme von
+`product_type_id` sind **offen** - Anna prueft das selbst im Browser (Varianten, Messwerte,
+Kreuztabelle und Abhaengigkeiten in `docs/o11-o18-produktart-mapping.md`). Bis zur Freigabe ist
+keine Regel abgeleitet und nichts umgesetzt. Festgehalten ist nur: `product_type_id` liegt in
+beiden Systemen auf `itk_product.product_type` (Odoo 11: 6 Datensaetze mit denselben Namen,
+Kuerzeln und IDs 1 bis 6), und der Odoo-11-Typ `product` (0 Produkte) entspricht `is_storable`.
 
 Verbleibende Abweichungen: "Verantwortlich" und "Bestand verfolgen" sind Odoo-18-Felder ohne
 Odoo-11-Gegenstueck und stehen deshalb im ersten Reiter (Beschluss Session 120); Odoo 11 zeigte

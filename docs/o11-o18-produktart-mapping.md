@@ -69,8 +69,11 @@ Kuerzel und **technischer ID** ueberein (Odoo 11 und Odoo 18 lokal/VM):
 | 6 / `Förderprojekt` | Förderprojekt | 0 / 0 | ID 6 `Förderprojekt` (FP) | ja | in Odoo 11 nicht belegt | Datensatz vorhanden lassen |
 | (leer) | keine Produktart | 239 / 204 | leer | ja | 204 der 468 verwendeten Produkte haben keine Produktart; 152 davon sind Lagerartikel (`consu`) | leer uebernehmen, keinen Standardwert setzen |
 
-Damit ist die Zuordnung `product_type_id` **eindeutig 1:1** (gleicher Modellname, gleiche Namen,
-gleiche Kuerzel, gleiche IDs, keine Dubletten, keine Umbenennung noetig).
+Damit ist die Zuordnung `product_type_id` **eindeutig 1:1** - gleicher Modellname, gleiche Namen,
+gleiche Kuerzel, gleiche IDs 1 bis 6, keine Dubletten, keine Umbenennung noetig. **Das ist ein
+Messbefund, keine Freigabe:** Anna hat am 05.10.2026 entschieden, auch diesen Punkt erst selbst im
+Browser zu pruefen; bis dahin ist die 1:1-Uebernahme **nicht** bestaetigt und keine
+Migrationsregel daraus abzuleiten.
 
 ## 4. Kreuztabelle Odoo 11: `type` x `product_type_id` (649 Vorlagen)
 
@@ -171,8 +174,15 @@ Verlust des Odoo-11-Wertelaufs in `type`.
 
 ## 9. Offene Punkte fuer die Freigabe durch Anna
 
+**Stand 05.10.2026: alle vier Punkte offen. Nichts umgesetzt, keine Migrationsregel abgeleitet,
+keine Produktdaten, Filter oder Zuordnungen geaendert.** Anna prueft zuerst selbst im Browser
+(sichtbare Produktarten im Odoo-11-Formular, gesetzte Werte bei typischen Produkten, Unterschied
+`type` gegen `product_type_id`, tatsaechliche Verwendung der Filter "Service Type ...", Darstellung
+der Lagerartikel, fachliche Richtigkeit im Odoo-18-Formular).
+
 1. `type`: Variante 1 oder Variante 2 (Abschnitt 7)?
-2. `product_type_id`: 1:1 ueber Name und ID bestaetigen (Abschnitt 3)?
+2. `product_type_id`: 1:1 ueber Name und ID bestaetigen (Abschnitt 3)? - noch **nicht**
+   freigegeben, der Messbefund allein genuegt nicht.
 3. `product_type_id` bei den 152 Lagerartikeln leer lassen (Abschnitt 3, letzte Zeile)?
 4. Falls Variante 1: duerfen die ITK-DiensteFilter weiter nur `type = 'service'` auswerten
-   (dann finden sie 48 statt rund 284 Dienstleistungsprodukte)?
+   (dann finden sie 48 statt rund 346 Dienstleistungsprodukte)?

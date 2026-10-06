@@ -1664,9 +1664,12 @@ Zweiter Durchgang 05.10.2026 (Auftrag Anna: "Das gesamte Produktformular muss in
 Stand 05.10.2026 (zweiter Durchgang): Produktformular je Reiter nach Odoo 11 nachgebaut. Nicht als
   abgeschlossen oder migrationsbereit markiert - Anna kontrolliert selbst weiter und meldet
   konkrete Unterschiede.
-Offener fachlicher Punkt: Zuordnung der Odoo-11-Auswahlwerte von type (general 273, consu 152,
-  platform 94, onlineservice 74, service 47, sw 9) auf Odoo-18 consu/service braucht Annas
-  Bestaetigung (docs/o11-o18-testmigration-regel.md); product_type_id wandert 1:1 ueber den Namen.
+Offene fachliche Punkte (05.10.2026, nichts umgesetzt, keine Migrationsregel abgeleitet): Zuordnung
+  der Odoo-11-Auswahlwerte von type (general 273, consu 152, platform 94, onlineservice 74,
+  service 47, sw 9) offen (Variante 1 oder 2); 1:1-Uebernahme von product_type_id noch NICHT
+  freigegeben (Messbefund: gleiche Namen, Kuerzel, IDs 1 bis 6); Umgang mit den ITK-DiensteFiltern
+  offen. Anna prueft zuerst selbst im Browser. Messwerte, Kreuztabelle, Abhaengigkeiten und beide
+  Varianten: docs/o11-o18-produktart-mapping.md.
 Abrechnung bleibt IN ARBEIT.
 Vollstaendigkeitscheck ohne Lese-Limit (scripts/pruefe_teil5_abdeckung.py, Odoo 11 read-only):
 Konten: 34.492 Buchungszeilen gesamt = 5.989 (1201 Bank) + 12.252 (1410 Forderungen)
