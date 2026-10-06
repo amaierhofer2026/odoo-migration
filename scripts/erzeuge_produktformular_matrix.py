@@ -115,9 +115,12 @@ ZUORDNUNG = {
     "attribute_line_ids": ("attribute_line_ids", "unveraendert (Odoo-18-Reiter 'Attribute & Varianten')",
                            "Wert 1:1 uebernehmen",
                            "Odoo 11 blendete den Reiter 'Varianten' fest aus; Odoo 18 zeigt ihn"),
-    "item_ids": (None, "kein Feld; Odoo-18-Smart Button 'Preislistenregeln'",
-                 "Preislistenregeln sind Verknuepfungen (product.pricelist.item -> product_tmpl_id)",
-                 "Odoo 11: Feld im Reiter Verkauf"),
+    "item_ids": ("item_ids", "neu angelegt (itk_product) und als Abschnitt 'Preiskalkulation' "
+                 "wieder im Reiter Verkauf",
+                 "migriert werden ausschliesslich die product.pricelist.item-Saetze mit "
+                 "product_tmpl_id; item_ids ist eine One2many-Relation und haelt keine eigenen Daten",
+                 "Odoo 11: Feld im Reiter Verkauf (321 der 653 Vorlagen belegt, 1.469 Regeln mit "
+                 "Produktbezug); der Odoo-18-Smart Button 'Regeln Preislisten' bleibt erhalten"),
     "website_url": (None, "Feld im Odoo-18-Modell nicht vorhanden (website/sale nicht installiert)",
                     "keine Migration moeglich", "Odoo 11: unsichtbar"),
     "public_categ_ids": (None, "Feld im Odoo-18-Modell nicht vorhanden", "keine Migration moeglich",
@@ -613,20 +616,35 @@ Odoo-11-Gegenstueck und stehen deshalb im ersten Reiter (Beschluss Session 120);
 
 ```
 Odoo 11                                    Odoo 18 vorher          Odoo 18 nachher
-Preiskalkulation (Liste der Item-Regeln)   Up-Selling              Up-Selling
+Preiskalkulation (Liste der Item-Regeln)   fehlte                 Preiskalkulation (Liste der
+                                                                  Preislistenregeln)
 Website (oeffentliche Kategorien,          Weitere Informationen   Weitere Informationen
 Alternative/Zubehoer, Verfuegbarkeit)      Ausgabe                 Ausgabe
+                                           Up-Selling              Zusatz- und Querverkauf (Odoo 18)
 Gruppe subscription:                       (Abonnement-Vorlage     Gruppe ohne Ueberschrift:
   Abonnement Produkt                        lag im ersten Reiter)   Abonnement-Vorlage
   Vorlage fuer Abonnements
 ```
 
-Umgesetzt: die Abonnement-Vorlage (`subscription_template_id`) steht jetzt im Reiter Verkauf, in
+Umgesetzt (06.10.2026): der Abschnitt "Preiskalkulation" steht wie in Odoo 11 als erstes Element des
+Reiters, mit der Liste der Preislistenregeln (`item_ids`, in `itk_product` neu angelegt - gleicher
+Name und gleiche Relation wie Odoo 11: One2many auf `product.pricelist.item` ueber `product_tmpl_id`,
+keine eigene Datenspeicherung, keine eigene Datenbank-Spalte). Spalten wie in Odoo 11: Preisliste,
+Ermittle Preis, Festpreis, Min. Bestellmenge, Startdatum, Enddatum (Anzuwenden auf, Prozentsatz und
+Rabatt ueber die Spaltenauswahl). Der Odoo-18-Smart-Button "Regeln Preislisten" bleibt erhalten und
+zeigt dieselben Datensaetze. Die Abonnement-Vorlage (`subscription_template_id`) steht in einer
+Gruppe ohne Gruppenueberschrift - genau wie die Odoo-11-Gruppe `subscription`. Der Odoo-18-Titel
+"Upselling & Cross-Selling" heisst jetzt "Zusatz- und Querverkauf" (reine Beschriftung, keine
+technische Aenderung).
+Umgesetzt weiterhin: die Abonnement-Vorlage (`subscription_template_id`) steht im Reiter Verkauf, in
 einer Gruppe ohne Gruppenueberschrift - genau wie die Odoo-11-Gruppe `subscription`. Geprueft im
 Browser (Produkt 6 "Test-Abo monatlich"): Vorlage sichtbar mit Wert "Monatsabrechnung-Abonnement",
 lokal und VM (Bild `produktformular_funktionen/*/09_abo_verkauf.png`).
-Migrationsmapping: `item_ids` Odoo 11 (0 von 649 belegt) -> Odoo 18 fuehrt Preislistenregeln als
-Smart Button "Regeln Preislisten" am Produkt (`product.pricelist.item`); Website-Felder entfallen
+Migrationsmapping: `item_ids` Odoo 11 (321 der 653 Vorlagen belegt, 1.469 Regeln mit Produktbezug)
+-> Odoo 18 `itk_product.item_ids` (One2many auf `product.pricelist.item` ueber `product_tmpl_id`,
+keine eigene Datenhaltung); migriert werden ausschliesslich die `product.pricelist.item`-Saetze,
+`item_ids` entsteht daraus automatisch. Der Smart Button "Regeln Preislisten" bleibt zusaetzlich
+erhalten und zeigt dieselben Datensaetze; Website-Felder entfallen
 (Modul nicht installiert, in Odoo 11 0 belegt); `optional_product_ids` bildet Odoo-11
 Alternative/Zubehoer ab; `recurring_invoice`/`subscription_template_id` 1:1.
 

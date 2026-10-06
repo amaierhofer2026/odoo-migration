@@ -8691,3 +8691,18 @@ Zahlungen), Pruefung der drei Zusatzfelder und der Beschriftungsdarstellung. Dok
 - **Doku:** `docs/o11-o18-vergleich-abrechnung-verkaufsreiter.md` (Sollzustand, feldweise
   Zuordnung mit Migrationsregel, Abweichungen, Abnahme).
   **Abrechnung bleibt IN ARBEIT** - keine Abnahme- oder Freigabeerklaerung.
+- **Zweiter Durchgang 06.10.2026 (Punkte 1 bis 5, Session 127):**
+  `item_ids` haelt keine eigenen Daten (One2many, `relation_field = product_tmpl_id`, keine
+  Datenbankspalte in `product_template`); es werden ausschliesslich `product.pricelist.item`-Saetze
+  migriert, die Anzeige entsteht daraus automatisch. Gruppe "Upselling & Cross-Selling" heisst jetzt
+  "Zusatz- und Querverkauf" (reine Beschriftung, Version 18.0.1.19.0). Neue Browserabnahme
+  `scripts/browser_verkauf_reiter_abnahme2.py`: **lokal 27 OK / 0 FEHL, VM 27 OK / 0 FEHL** -
+  Bearbeitungsmodus eines bestehenden Datensatzes (Preis, Mindestbestellmenge, Startdatum,
+  Enddatum gespeichert und exakt zurueckgestellt; Verwerfen ohne Wirkung), Abonnementvorlage
+  geoeffnet (`sale.subscription.template/2`), Smart Button und Preiskalkulation deckungsgleich
+  (Gegenprobe Produkt 223), Regelbestand unveraendert [1, 2].
+  **Erkenntnis:** Das Produktformular oeffnet in dieser Odoo-18-Version direkt im Bearbeitungsmodus
+  (`o_form_editable`, Speichern-/Verwerfen-Symbole) - es gibt keinen Bearbeiten-Stift; Zellen der
+  Regelliste werden per Klick editierbar. Deutsches Zahlenformat beachten ("66,00", nicht "66.00"):
+  der erste Testlauf hatte den Preis versehentlich auf 6.500 gesetzt und eine leere Zusatzregel
+  erzeugt; beides wurde exakt korrigiert und ist in Doku und Checkliste offengelegt.
