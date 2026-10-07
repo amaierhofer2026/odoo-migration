@@ -16,6 +16,13 @@
         der verschobenen Felder im Odoo-18-Block werden samt Beschriftung ausgeblendet, damit
         nichts doppelt erscheint. Keine verschachtelte Gruppe, kein kuenstliches colspan.
         Technische Feldnamen, Modelle und Odoo-18-Zusatzfunktionen bleiben unveraendert.
+
+        Session 130: `valorisierung_id` war ebenfalls ausgeblendet, obwohl es (anders als die
+        verschobenen Felder) NICHT in den Odoo-11-Kopfblock gehoert und im Odoo-18-Block keine
+        zweite Fundstelle hat - das Feld war damit im Formular ueberhaupt nicht erreichbar.
+        Odoo 11 zeigt den Valorisierungstext im Rechnungsformular sichtbar (Ansicht 1377
+        "account.invoice.valorisierung", Gruppe direkt nach der Rechnungsnotiz,
+        modifiers={} = sichtbar). Die Ausblendung ist entfernt; das Feld ist wieder sichtbar.
     -->
     <record id="view_move_form_kopf_itk_o11" model="ir.ui.view">
         <field name="name">account.move.form.itk.o11.kopfbereich</field>
@@ -56,9 +63,6 @@
                 <attribute name="invisible">1</attribute>
             </xpath>
             <xpath expr="//field[@name='team_id']" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </xpath>
-            <xpath expr="//field[@name='valorisierung_id']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
             <xpath expr="//field[@name='currency_id']" position="attributes">
