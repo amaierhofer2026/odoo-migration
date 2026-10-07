@@ -1886,7 +1886,9 @@ TESTMIGRATIONSREGEL erweitert (Auftrag Anna): Produktfelder supplier_taxes_id, d
     Kategorien 2/11 aufloesbar; 9 Produkte brauchen die Odoo-11-Kategorien
     "Amtssignatur, E-Abfertigung, E-Postfächer" und "Nutzungsentgelt", die im Testbestand fehlen.
     Gesamtbestand Odoo 11: default_code 2/648, standard_price 6/648 - beide 1:1 uebertragbar.
-  OFFEN (Freigabe Anna): Kategorien im Ziel anlegen; danach Lauf mit --ausfuehren.
+  OFFEN (Freigabe Anna) - mit Session 129 am 07.10.2026 ERLEDIGT: Kategorien im Ziel anlegen;
+  Umsetzung, Trockenlauf, Testlauf, Browserabnahme und Aufraeumen siehe Block
+  "PRODUKTKATEGORIEN als Stammdaten" in dieser Datei.
   Protokolle: Desktop/Odoo18-Abnahme-Session129/testmigration_vorlauf/plan_lokal.txt und plan_vm.txt.
   Doku: docs/o11-o18-testmigration-regel.md, Abschnitt 3.1. Es wurde NICHTS geschrieben
   ("TROCKENLAUF"), keine echte Datenmigration.
@@ -2489,10 +2491,77 @@ Lehre aus dem Rechnungsformular (01.10.2026): Der Odoo-18-Kopfbereich besteht au
 label-Elementen und nolabel-Feldern. Wird ein Feld daraus verschoben, MUSS auch seine Beschriftung
 entfernt werden, sonst bleibt eine verwaiste Beschriftung sichtbar ("Waehrung" ohne Wert).
 
+### PRODUKTKATEGORIEN als Stammdaten (07.10.2026, Session 129) - ZUSATZ
+
+AUFTRAG: Produktkategorien als Stammdaten fuer die spaetere Migration pruefen, Mapping erstellen,
+Zuordnung testen, kontrollierten Testlauf fahren, Testdaten vollstaendig entfernen.
+
+QUELLE (Odoo 11, read-only): 30 product.category, davon 26 mit Produkten; alle 26 verwendeten
+Kategorien flach (keine Ueberkategorie). Wurzelkategorie id 1 - deutsch "Alle", englisch "All"
+(**uebersetzbare Namen sind der Kern der Aufgabe**). Verwendete Kategorien mit Produktanzahl
+(Vorlagen): All 175, Nutzungsentgelt 120, Dienstleistungspauschale 53, Amtssignatur/E-Abfertigung/
+E-Postfaecher 41, Betriebskostenpauschale 40, amtsweg.gv.at Formularsammlung Individual Standard 29,
+Hinweisgeber 28, amtsweg.gv.at Region 25, amtsweg.gv.at Bundesland light 22, Mach Mit 16,
+amtsweg.gv.at. BLFS NOE 16, Heurigenanmeldung 14, amtsweg.gv.at Bundesland Standard 14,
+GemeindeCloud 11, Named-user Lizenz 11, amtsweg.gv.at BLFS OOE 8, KI-Antragsassistent 7,
+OOE Bauformulare Var. 3 5, Artikel 3, Corporate-Lizenz 3, DSGVO-Verarbeitungsverzeichnis 2,
+amtsweg.gv.at Bundesland Standard OeStB Sondervariante 2, BLFS OOE Stadt Wels 1,
+Concurrent-User Lizenz 1, OOE Bauformulare Var. 2 1, amtsweg.gv.at. BLFS OOE 1.
+Ohne Produkt (nicht migrieren): id 2 "verkaufbar" (Pfad All/Saleable), 34 "Transaktionen",
+45 "amtsweg.gv.at Premium Standard", 59 "Whistleblowing".
+
+MIGRATIONSWIRKSAME FELDER: property_account_income_categ_id und property_account_expense_categ_id
+in allen 26 Kategorien belegt, aber einheitlich 8400 "Erloese 19% USt" / 3400 "Wareneingang 19%
+Vorsteuer". **Beide Konten existieren im Odoo-18-Testbestand nicht** (dort 240 Konten, anderer
+Kontenrahmen) - die Kontenfelder der Kategorien bleiben offen (Schritt Kontenmigration).
+
+MAPPING: Odoo-11-"All" -> vorhandene Odoo-18-Kategorie "All" (id 1); die uebrigen 25 verwendeten
+Kategorien -> neu anzulegende Kategorie gleichen Namens. Keine Zusammenlegung ueber aehnliche
+Namen. Unbenutzte Odoo-11-Kategorien ohne Zuordnung; Odoo-18-Standard "All / Expenses" und
+"All / Saleable" unveraendert.
+
+REGEL (umgesetzt in scripts/testmigration_abrechnung.py, lade_kategorien/kategorie_im_ziel):
+Odoo-11-Kategorien in beiden Sprachen lesen (de_DE, en_US); Zuordnung nur ueber exakten Namen in
+einer der beiden Sprachen UND exakte Elternkette (parent_id); mehrere Treffer oder abweichende
+Elternkette = Abbruch mit Klartext; kein Treffer = Kategorie nur in der Ziel-Testinstanz anlegen
+(Name zweisprachig, gleiche Elternkategorie), Protokolleintrag neu=true. Odoo 11 wird nie
+veraendert. Dokumentiert in docs/o11-o18-testmigration-regel.md (Abschnitt 3.2) und
+docs/o11-o18-produktkategorien-mapping.md.
+
+TROCKENLAUF (--plan) lokal und VM: identisch, 76 Planpositionen, 24 noch nicht vorhanden, kein
+Abbruch; Kategorien "Amtssignatur, E-Abfertigung, E-Postfaecher" und "Nutzungsentgelt" werden als
+"fehlt im Ziel, wird beim Schreiblauf angelegt" ausgewiesen; "All" als vorhanden.
+
+TESTLAUF (VM, --ausfuehren --ich-habe-freigabe): 23 neu angelegte Datensaetze - 11 Produktvorlagen,
+2 Produktkategorien (id 4 und 5), 4 Partner, 5 Belege, 1 Zahlung; Protokoll 202 Eintraege (179
+vorhandene Ziel-Datensaetze unveraendert wiederverwendet). Beleg-Gegenpruefung wie Odoo 11
+(R-261121 offen 1366,01; R-26800, R-260993, R-26797 bezahlt; ein Entwurf).
+
+BROWSERABNAHME VM (scripts/browser_kategorie_pruefung.py): 7 OK / 0 FEHL. Feld "Interne Kategorie"
+im Produktformular je Produkt gleich der Odoo-11-Kategorie (3 Stichproben aus allen drei
+verwendeten Kategorien); Produktliste nach Produktkategorie gruppiert zeigt genau eine Gruppe je
+Kategorie - All (12), Amtssignatur/E-Abfertigung/E-Postfaecher (2), Nutzungsentgelt (7); keine
+Dubletten. Bilder: Desktop/Odoo18-Abnahme-Session129/kategorien_browser/vm/.
+
+AUFRAEUMEN: 23 Datensaetze entfernt (nur die im Protokoll als neu vermerkten), 0 fehlten. Bestand
+VM vorher = nachher: Kategorien 3, Vorlagen 10, Varianten 10, Belege 59, Partner 70, Steuern 53,
+Zahlungsbedingungen 12; Restkontrolle Kategorien/Produkte/Belege mit Odoo-11-Nummer je 0.
+Es sind KEINE Testdaten zurueckgeblieben.
+
+KEIN STILLES UEBERSPRINGEN (nachgeprueft und nachgezogen): Steuern (Produkt und Belegzeile)
+vierstufig mit Abbruch; Mengeneinheiten genau ein Treffer, sonst Abbruch; Kategorien wie oben;
+Belegzeilen verlangen eindeutiges Produkt, Konto, Steuer, Waehrung und Zahlungsbedingung, sonst
+Abbruch (vorher wurden Produkt, Steuer und Zahlungsbedingung dort still ausgelassen). Vor dem
+Anlegen einer Steuer wird die Zuordnung geprueft - eine vorhandene Zielsteuer wird verwendet, es
+entsteht keine zweite Steuer gleichen Inhalts.
+
+OFFEN: Kontenfelder der Kategorien (anderer Kontenrahmen im Testbestand); dauerhafte Anlage der
+25 Kategorien als eigener, freizugebender Stammdatenschritt. Abrechnung bleibt IN ARBEIT.
+
 ### Pruefprotokoll je Modul (ausfuellen)
 
 | Modul | Browserabgleich lokal | Browserabgleich VM | Feldmapping | Beziehungen | Stammdaten | Statuswerte | Verknuepfungen | Constraints | Reihenfolge | Screenshots | Stand |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| Abrechnung | vorhanden | vorhanden | 273 belegte Felder, 0 Luecken | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | IN ARBEIT (offen: Produktfilter-Entscheidung, Testmigration, Restansichten; 05.10.2026 Project-Category-Spalte, Statuskette und Spalte Beschreibung in den Rechnungszeilen umgesetzt und lokal + VM im Browser belegt, 73 OK / 112 OK je Instanz, 0 FEHL; 06.10.2026 Reiter "Verkauf" im Produktformular nach Odoo 11 nachgebaut - Preiskalkulation mit Preislistenregeln, Browserabnahme lokal + VM je 18 OK / 0 FEHL; Nachtrag Reiter "Verkauf" je 27 OK / 0 FEHL; 06.10.2026 Menuepunkt "Einkaufbare Produkte" auf die Odoo-11-Liste umgebaut (Interne Referenz, Name, Verkaufspreis, Steuern (Verkauf), Steuern (Einkauf)), Odoo-18-Zusatzspalten optional erhalten, falscher Filter "Verfuegbare Produkte" ergaenzt, Browserabnahme lokal + VM je 41 OK / 0 FEHL) |
+| Abrechnung | vorhanden | vorhanden | 273 belegte Felder, 0 Luecken | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | IN ARBEIT (offen: Produktfilter-Entscheidung, Testmigration, Restansichten; 05.10.2026 Project-Category-Spalte, Statuskette und Spalte Beschreibung in den Rechnungszeilen umgesetzt und lokal + VM im Browser belegt, 73 OK / 112 OK je Instanz, 0 FEHL; 06.10.2026 Reiter "Verkauf" im Produktformular nach Odoo 11 nachgebaut - Preiskalkulation mit Preislistenregeln, Browserabnahme lokal + VM je 18 OK / 0 FEHL; Nachtrag Reiter "Verkauf" je 27 OK / 0 FEHL; 06.10.2026 Menuepunkt "Einkaufbare Produkte" auf die Odoo-11-Liste umgebaut (Interne Referenz, Name, Verkaufspreis, Steuern (Verkauf), Steuern (Einkauf)), Odoo-18-Zusatzspalten optional erhalten, falscher Filter "Verfuegbare Produkte" ergaenzt, Browserabnahme lokal + VM je 41 OK / 0 FEHL; 07.10.2026 Produktkategorien als Stammdaten geprueft und getestet - Mapping, Trockenlauf lokal+VM, Testlauf VM mit 2 angelegten Kategorien, Browserabnahme 7 OK / 0 FEHL, danach vollstaendig aufgeraeumt) |
 | Verkauf | vorhanden | vorhanden | Teil 5 vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | abgeschlossen (R1-R8) |
 | Abonnements | vorhanden (02.10.) | vorhanden (02.10.) | Feldbestand verglichen (57/64 Felder, 0 echte Luecken); siehe docs/o11-o18-abonnement-abgleich.md | nicht betroffen | Cron/Fristen geprueft | Zustaende 1:1 plus O18-Zusatz pending | 1:1 | nicht betroffen | vorhanden | vorhanden | abgeglichen (PR #184/#185), Abweichungen dokumentiert |

@@ -74,7 +74,7 @@ Odoo-11-IDs, sondern ueber fachliche Schluessel:
 | `standard_price` | `product.template.standard_price` | 1:1 | Zahl unveraendert (Odoo 11: 6 von 648 belegt) |
 | `uom_id` | `product.template.uom_id` | ueber den Namen der Einheit | genau ein Treffer, sonst Abbruch |
 | `uom_po_id` | `product.template.uom_po_id` | ueber den Namen der Einheit | wie oben |
-| `categ_id` | `product.template.categ_id` | ueber den Namen der Kategorie | genau ein Treffer, sonst Abbruch |
+| `categ_id` | `product.template.categ_id` | ueber exakten Namen (beide Sprachen) und exakte Elternkette; fehlende Kategorien werden in der Ziel-Testinstanz angelegt (Abschnitt 3.2) | nur eindeutige Treffer, sonst Abbruch |
 | `taxes_id` | `product.template.taxes_id` | vierstufig (siehe unten) | in Odoo 11 bei 646 von 648 belegt |
 | `supplier_taxes_id` | `product.template.supplier_taxes_id` | vierstufig | in Odoo 11 bei 647 von 648 belegt |
 
@@ -85,15 +85,51 @@ Steuerzuordnung (`taxes_id` und `supplier_taxes_id`), Stufe fuer Stufe:
    Odoo-18-Name, ohne Gross-/Kleinschreibung - die Steuernamen der Zielinstanz stammen aus
    diesen Beschreibungen,
 3. genau ein Kandidat mit gleichem Satz (`amount`) und gleicher Verwendung (`type_tax_use`),
-4. sonst **Abbruch mit Klartext** (kein stilles Ueberspringen).
+4. sonst: fuer Produktsteuern **Abbruch mit Klartext** (kein stilles Ueberspringen); fuer die
+   Steuerliste selbst wird die Steuer angelegt.
+
+Zusaetzlich gilt fuer die Steuerliste (Session 129 nachgezogen): Vor dem Anlegen einer Steuer
+wird dieselbe Zuordnung geprueft. Eine vorhandene Zielsteuer wird verwendet - es entsteht
+**keine zweite Steuer gleichen Inhalts** (Beispiel: Odoo-11 "20% Umsatzsteuer" wird auf die
+vorhandene Odoo-18-Steuer "20% Ust" abgebildet, nicht neu angelegt).
 
 Sprache: Quelle und Ziel werden mit `context {'lang': 'de_DE'}` gelesen und gesucht. Ohne diesen
 Kontext liefert Odoo 11 englische Anzeigenamen ("Unit(s)"), waehrend die Zielinstanz deutsche
 fuehrt ("Einheit(en)") - die Zuordnung ueber Namen scheitert dann (Befund Session 129, behoben).
 
-Kategorien: fehlt eine Odoo-11-Kategorie im Ziel, bricht der Lauf ab. Das Anlegen der
-Odoo-11-Kategorien ist ein eigener Stammdatenschritt und braucht Freigabe von Anna; im
-Testbestand fehlen z. B. "Amtssignatur, E-Abfertigung, E-Postfächer" und "Nutzungsentgelt".
+Kein stilles Ueberspringen (Auftrag Session 129, nachgezogen und geprueft): Mehrdeutigkeit oder
+fehlende Zuordnung fuehrt immer zu einem Abbruch mit Klartext. Auch in den Belegzeilen muessen
+Produkt, Konto, Steuer, Waehrung und Zahlungsbedingung eindeutig aufloesbar sein - vorher
+wurden Produkt, Steuer und Zahlungsbedingung dort still ausgelassen.
+
+## 3.2 Produktkategorien als Stammdaten (Session 129, 07.10.2026)
+
+Quelle read-only gemessen: 30 Kategorien, 26 mit Produkten, alle 26 flach (keine
+Ueberkategorie). Wurzelkategorie ist Odoo-11-id 1 - deutsch "Alle", englisch "All".
+
+Zuordnung (`kategorie_im_ziel` in `scripts/testmigration_abrechnung.py`):
+
+1. Odoo-11-Kategorien werden in **beiden Sprachen** gelesen (de_DE, en_US).
+2. Treffer im Ziel ausschliesslich ueber **exakten Namen** (in einer der beiden Sprachen) **und
+   exakte Elternkette** (`parent_id`, nicht Pfadtext). Keine Aehnlichkeitszuordnung.
+3. Genau ein Treffer mit passender Elternkette -> verwenden.
+4. Mehrere Treffer oder abweichende Elternkette -> **Abbruch mit Klartext**.
+5. Kein Treffer -> Kategorie **nur in der Ziel-Testinstanz** anlegen (Name in beiden Sprachen,
+   gleiche Elternkategorie wie in Odoo 11). Odoo 11 bleibt unveraendert.
+6. Angelegte Kategorien werden im Protokoll vermerkt (`neu: true`) und von `--aufraeumen`
+   entfernt.
+
+Die Odoo-11-Wurzel "Alle"/"All" wird ueber den englischen Namen auf die vorhandene Odoo-18-
+Kategorie "All" (id 1) abgebildet, nicht neu angelegt.
+
+Ergebnis des kontrollierten Testlaufs auf der VM (07.10.2026): 2 Kategorien angelegt
+("Amtssignatur, E-Abfertigung, E-Postfaecher", "Nutzungsentgelt"), 11 von 11 Produkten mit der
+richtigen Kategorie, im Browser geprueft (7 OK / 0 FEHL), danach 23 Datensaetze entfernt und
+Bestand vorher = nachher. Vollstaendige Tabelle und Belege:
+`docs/o11-o18-produktkategorien-mapping.md`.
+
+Offen: die Kontenfelder der Kategorien (Odoo 11 einheitlich Erloes 8400 / Aufwand 3400) sind im
+Testbestand nicht abbildbar (anderer Kontenrahmen, 240 Konten) - eigener Schritt Kontenmigration.
 
 ## 4. Bekannte Constraints, die der Testlauf pruefen soll
 - `account_move_unique_name` (Belegnummer je Journal und Unternehmen eindeutig)
@@ -253,3 +289,24 @@ bestanden, 0 Abweichungen**, 5 dokumentierte Hinweise. 1:1-Gegenpruefung je Bele
 R-261121 offen/Rest 1366,01; R-26800 bezahlt/0,00; R-261131 bezahlt/0,00; Entwurf Entwurf;
 R-26797 gutgeschrieben/0,00. Danach `--aufraeumen`: 22 Datensaetze entfernt; Bestandsvergleich
 (Anzahlen, Digests je Modell, Belegsummen und Belegnamen) **identisch** zum Ausgangsstand.
+
+## 12. Dritter Testlauf (07.10.2026, Session 129) - Produktkategorien
+
+Anlass: Kategorien waren im Ziel noch nicht aufloesbar (Abbruch) und wurden als offener Punkt
+gefuehrt. Vorgehen und Ergebnis:
+
+- Trockenlauf lokal und VM: identisch, 76 Planpositionen, 24 noch nicht vorhanden, kein Abbruch.
+- Schreiblauf auf der VM: **23 neu angelegte Datensaetze** - 11 Produktvorlagen, 2
+  Produktkategorien, 4 Partner, 5 Belege, 1 Zahlung. Protokoll: 202 Eintraege (179 vorhandene
+  Ziel-Datensaetze unveraendert wiederverwendet).
+- Beleg-Gegenpruefung: R-261121 offen/Rest 1366,01; R-26800, R-260993, R-26797 bezahlt/0,00;
+  ein Entwurf. Keine Abweichung.
+- Browserabnahme VM (`scripts/browser_kategorie_pruefung.py`): **7 OK / 0 FEHL** -
+  Feld "Interne Kategorie" je Produkt gleich der Odoo-11-Kategorie; Gruppierung der Produktliste
+  nach Produktkategorie zeigt genau eine Gruppe je Kategorie, keine Dubletten.
+- Aufraeumen: **23 Datensaetze entfernt** (nur die im Protokoll als neu vermerkten), 0 fehlten.
+  Bestand VM vorher = nachher: Kategorien 3, Vorlagen 10, Varianten 10, Belege 59, Partner 70,
+  Steuern 53, Zahlungsbedingungen 12. Restkontrolle ohne Treffer.
+- Details, Kategorietabelle und Mapping: `docs/o11-o18-produktkategorien-mapping.md`.
+
+Abrechnung bleibt IN ARBEIT.
