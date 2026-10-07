@@ -54,10 +54,35 @@ Odoo 18 erzeugt Feld-XML-IDs mit **doppeltem** Unterstrich vor dem Feldnamen (eb
 `__seq`, `__name`, `__create_uid` ...). Da die Verweise nicht mehr auf ein Feld zeigten,
 blieb die englische Quellbezeichnung sichtbar.
 
-**Korrektur:** Verweise in `i18n/de_DE.po` auf das Odoo-18-Muster umgestellt
-(itk_valorisierung 18.0.1.1.0 -> **18.0.1.2.0**). Nachweis, dass Odoo 18 die `.po`-Datei
-auswertet und nicht die mitgelieferte, aus der Odoo-11-Zeit stammende `de_DE.mo`:
-die Bezeichnungen folgen der geaenderten `.po`-Datei (die `.mo` traegt die alten Verweise).
+**Korrektur:** Verweise in `i18n/de_DE.po` auf das Odoo-18-Muster umgestellt.
+Nachweis, dass Odoo 18 die `.po`-Datei auswertet und nicht die mitgelieferte, aus der
+Odoo-11-Zeit stammende `de_DE.mo`: die Bezeichnungen folgen der geaenderten `.po`-Datei
+(die `.mo` traegt die alten Verweise).
+
+### 3.1 Zweiter Teil derselben Bezeichnungspruefung (nachgezogen)
+
+Bei der Kontrolle der Feldbezeichnung am **Rechnungsformular** fiel eine weitere Abweichung auf,
+die sich zwischen lokal und VM unterschiedlich zeigte:
+
+| Stand | `account.move.valorisierung_id`, deutsch | englisch |
+|---|---|---|
+| Odoo 11 | "Valorisation Text" | "Valorisation Text" |
+| Odoo 18 lokal (vorher) | "Valorisation Text" (nur scheinbar richtig - gespeicherter Altbestand in der Datenbank) | "Valorisierungstext" |
+| Odoo 18 VM (vorher) | "Valorisierungstext" | "Valorisierungstext" |
+
+Ursache: das Modul fuehrte das Feld mit der Quellbezeichnung "Valorisierungstext" (deutsch), die
+von der Odoo-11-Bezeichnung "Valorisation Text" abweicht. Odoo 11 zeigt auch in deutscher Anzeige
+"Valorisation Text" (nachgemessen mit `lang=de_DE`).
+
+**Korrektur:** `addons/itk_valorisierung/models/account_invoice.py` fuehrt das Feld jetzt mit der
+Odoo-11-Bezeichnung `string="Valorisation Text"`; die beiden `.po`-Eintraege
+"Valorisation Text" / "Valorisation Texts" (deutsche Uebersetzung "Valorisierungs Text") sind
+entfernt, damit die deutsche Anzeige wie in Odoo 11 unveraendert die Quellbezeichnung zeigt.
+Modulstand: itk_valorisierung **18.0.1.3.0**.
+
+Lehre fuer den Ablauf: eine `.po`-Aenderung greift schon beim Modul-Upgrade, eine Aenderung an
+**Python**-Bezeichnungen erst nach einem **Neustart** des Odoo-Containers (danach Upgrade).
+Beides wurde lokal und auf der VM so gefahren.
 
 ## 4. Ansichten
 
@@ -133,12 +158,13 @@ Valorisierungstext.
 
 | Nr | Abweichung | Nachweis | Status |
 |---|---|---|---|
-| 1 | Listen-/Formularbezeichnungen "Description"/"Sequence" statt "Beschreibung"/"Nummernfolge" | Browser lokal + VM | **behoben** (Verweise in der `.po`-Datei, itk_valorisierung 18.0.1.2.0) |
-| 2 | `valorisierung_id` war im Rechnungsformular **nicht erreichbar**: die ITK-Kopfbereichs-Ansicht (`account.move.form.itk.o11.kopfbereich`) blendete das Feld aus, obwohl es (anders als die verschobenen Kopffelder) keine zweite Fundstelle hat. Odoo 11 zeigt es sichtbar. | Odoo 11: `fields_view_get(594,"form")` -> `modifiers={}`; Odoo 18: `invisible="1"` im kombinierten Arch, im Browser kein Element `[name="valorisierung_id"]` | **behoben** (Ausblendung entfernt, itk_account_migration 18.0.1.22.0) |
-| 3 | `notice` (Rechnungsnotiz) ist im Rechnungsformular weiterhin ausgeblendet; Odoo 11 zeigt die Beschriftung "Rechnungsnotiz:" mit dem Notizfeld | wie Nr. 2 | **offen - Ihre Entscheidung.** Kein Feld des Valorisierungsbereichs; die Rechnungsnotiz gehoert zum Modul itk_subscription (abgeschlossener Bereich). Auf Ihren Zuruf eine Zeile in `account_move_form_kopf.xml`. |
-| 4 | Zugriffsrechte: Odoo 11 trennt "ITK / User (read only)" und "ITK / Manager (edit)"; Odoo 18 gibt internen Benutzern volle Rechte auf die Valorisierungstexte | `ir.model.access` Odoo 11: 8 Eintraege (2 Saetze); Odoo 18: 4 Eintraege `base.group_user` | **offen - Ihre Entscheidung.** Gleiches Muster wie die uebrigen ITK-Stammdatenmodule in Odoo 18. |
-| 5 | Platzierung des Valorisierungstexts im Formular: Odoo 11 im Bereich "Weitere Informationen" nach der Rechnungsnotiz, Odoo 18 im Kopfbereichsblock | Screenshot `03_rechnung.png` | dokumentierte Abweichung (Feld sichtbar und bedienbar; Verschiebung folgt dem Odoo-18-Ansichtsaufbau) |
-| 6 | Aktionsname deutsch "Valorisierungs Text" statt Odoo 11 "Valorisation Text" | RPC mit `lang=de_DE` | nicht sichtbar (Brotkrumen zeigen den Menuenamen), keine Aenderung |
+| 1 | Listen-/Formularbezeichnungen "Description"/"Sequence" statt "Beschreibung"/"Nummernfolge" | Browser lokal + VM | **behoben** (Verweise in der `.po`-Datei) |
+| 2 | Feldbezeichnung am Beleg: "Valorisierungstext" statt Odoo-11-"Valorisation Text" (auf der VM sichtbar, lokal nur durch einen Altbestand in der Datenbank verdeckt) | RPC `lang=de_DE` / `lang=en_US` auf beiden Instanzen | **behoben** (Feldbezeichnung im Modell auf den Odoo-11-Wortlaut gesetzt, `.po`-Eintrag entfernt, itk_valorisierung 18.0.1.3.0) |
+| 3 | `valorisierung_id` war im Rechnungsformular **nicht erreichbar**: die ITK-Kopfbereichs-Ansicht (`account.move.form.itk.o11.kopfbereich`) blendete das Feld aus, obwohl es (anders als die verschobenen Kopffelder) keine zweite Fundstelle hat. Odoo 11 zeigt es sichtbar. | Odoo 11: `fields_view_get(594,"form")` -> `modifiers={}`; Odoo 18: `invisible="1"` im kombinierten Arch, im Browser kein Element `[name="valorisierung_id"]` | **behoben** (Ausblendung entfernt, itk_account_migration 18.0.1.22.0) |
+| 4 | `notice` (Rechnungsnotiz) ist im Rechnungsformular weiterhin ausgeblendet; Odoo 11 zeigt die Beschriftung "Rechnungsnotiz:" mit dem Notizfeld | wie Nr. 3 | **offen - Ihre Entscheidung.** Kein Feld des Valorisierungsbereichs; die Rechnungsnotiz gehoert zum Modul itk_subscription (abgeschlossener Bereich). Auf Ihren Zuruf eine Zeile in `account_move_form_kopf.xml`. |
+| 5 | Zugriffsrechte: Odoo 11 trennt "ITK / User (read only)" und "ITK / Manager (edit)"; Odoo 18 gibt internen Benutzern volle Rechte auf die Valorisierungstexte | `ir.model.access` Odoo 11: 8 Eintraege (2 Saetze); Odoo 18: 4 Eintraege `base.group_user` | **offen - Ihre Entscheidung.** Gleiches Muster wie die uebrigen ITK-Stammdatenmodule in Odoo 18. |
+| 6 | Platzierung des Valorisierungstexts im Formular: Odoo 11 im Bereich "Weitere Informationen" nach der Rechnungsnotiz, Odoo 18 im Kopfbereichsblock | Screenshot `03_rechnung.png` | dokumentierte Abweichung (Feld sichtbar und bedienbar; Verschiebung folgt dem Odoo-18-Ansichtsaufbau) |
+| 7 | Aktionsname deutsch "Valorisierungs Text" statt Odoo 11 "Valorisation Text" | RPC mit `lang=de_DE` | nicht sichtbar (Brotkrumen zeigen den Menuenamen), keine Aenderung |
 
 ## 8. Datensatz VAL-OK (Herkunft geklaert, nicht geloescht)
 
