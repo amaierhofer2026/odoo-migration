@@ -134,7 +134,7 @@ Regel: sichtbare Bezeichnung wie Odoo 11, technischer Feldname bleibt Odoo 18.
 | `product.product.is_product_variant` | Ist eine Produktvariante | `product.product.is_product_variant` | Ist eine Produktvariante | gleich |  |
 | `product.template.virtual_available` | Geplante Bestandsmenge | `product.template.virtual_available` | Geplante Bestandsmenge | gleich |  |
 | `product.product.virtual_available` | Prognostizierter Bestand | `product.product.virtual_available` | Prognostizierter Bestand | gleich |  |
-| `product.template.website_message_ids` | Website-Nachrichten | `product.template.website_message_ids` | Website Messages | begruendet abweichend |  |
+| `product.template.website_message_ids` | Website-Nachrichten | `product.template.website_message_ids` | Website-Nachrichten | gleich |  |
 | `product.product.website_message_ids` | Website-Nachrichten | `product.product.website_message_ids` | Website Messages | begruendet abweichend |  |
 | `product.template.activity_state` | Bundesland | `product.template.activity_state` | Status der Aktivität | begruendet abweichend | bewusst abweichend |
 | `product.product.activity_state` | Bundesland | `product.product.activity_state` | Status der Aktivität | begruendet abweichend | bewusst abweichend |
@@ -148,9 +148,9 @@ Regel: sichtbare Bezeichnung wie Odoo 11, technischer Feldname bleibt Odoo 18.
 | `product.product.message_is_follower` | Ist ein Abonnent | `product.product.message_is_follower` | Ist Follower | begruendet abweichend | bewusst abweichend |
 | `product.template.message_partner_ids` | Abonnenten (Partner) | `product.template.message_partner_ids` | Follower (Partner) | begruendet abweichend | bewusst abweichend |
 | `product.product.message_partner_ids` | Abonnenten (Partner) | `product.product.message_partner_ids` | Follower (Partner) | begruendet abweichend | bewusst abweichend |
-| `product.template.website_message_ids` | Website-Nachrichten | `product.template.website_message_ids` | Website Messages | begruendet abweichend | bewusst abweichend |
+| `product.template.website_message_ids` | Website-Nachrichten | `product.template.website_message_ids` | Website-Nachrichten | gleich | bewusst abweichend |
 | `product.product.website_message_ids` | Website-Nachrichten | `product.product.website_message_ids` | Website Messages | begruendet abweichend | bewusst abweichend |
-| `product.template.rating_ids` | Bewertung | `product.template.rating_ids` | Ratings | begruendet abweichend | bewusst abweichend |
+| `product.template.rating_ids` | Bewertung | `product.template.rating_ids` | Bewertung | gleich | bewusst abweichend |
 | `product.product.rating_ids` | Bewertung | `product.product.rating_ids` | Ratings | begruendet abweichend | bewusst abweichend |
 | `product.template.write_date` | Zuletzt aktualisiert am | `product.template.write_date` | Zuletzt aktualisiert am | gleich | bewusst abweichend |
 | `product.product.write_date` | Zuletzt aktualisiert am | `product.product.write_date` | Änderungsdatum | begruendet abweichend | bewusst abweichend |

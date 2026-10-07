@@ -138,6 +138,16 @@ LABELS = {
     ("product.product", "is_product_variant"): "Ist eine Produktvariante",
     ("product.template", "virtual_available"): "Geplante Bestandsmenge",
     ("product.product", "virtual_available"): "Prognostizierter Bestand",
+    # --- Instanzangleich lokal/VM (Befund Session 131, 07.10.2026) ---
+    # Beim Beschriftungsvergleich lokal gegen VM zeigten diese Felder des Abrechnungsbereichs
+    # unterschiedliche deutsche Texte. Werte: Odoo-11-Wortlaut, wo es das Feld in Odoo 11 gab,
+    # sonst der Odoo-18-Standardwortlaut (dort hatte lokal einen aelteren Stand).
+    ("account.move", "status_in_payment"): "Status „In Zahlung“",          # Odoo-11-Feld unbekannt; VM zeigte englisch
+    ("account.move", "delivery_date"): "Liefer-/Leistungsdatum",            # Odoo-18-Standard (Odoo 11 hatte das Feld nicht)
+    ("account.move", "show_delivery_date"): "Liefer-/Leistungsdatum anzeigen",
+    ("res.partner", "multi_factor"): "Multiplication Factor/Thsd",          # Odoo-11-Wortlaut
+    ("product.template", "rating_ids"): "Bewertung",                        # Odoo-11-Wortlaut
+    ("product.template", "website_message_ids"): "Website-Nachrichten",     # Odoo-11-Wortlaut
 }
 
 
@@ -341,6 +351,34 @@ def main() -> int:
     else:
         fehlt += 1
         print("  --   Zahlungsbedingungen oder Verwaltung nicht gefunden")
+
+    # --- Aktionsbezeichnung "Bankkonto hinzufuegen" (Befund Session 131, 07.10.2026) -----------
+    # Beim read-only Vergleich der Menuepunkte fiel auf: die Odoo-18-Server-Aktion
+    # account.action_new_bank_setting (Menue Abrechnung > Konfiguration > Bankkonten) heisst
+    # lokal "Ein Bankkonto hinzufuegen", auf der VM dagegen "Bankkonto hinzufuegen" (Odoo-18-
+    # Standarduebersetzung zu "Add a Bank Account"). Lokal trug also einen veralteten
+    # Uebersetzungsstand. Hier wird der Standardwortlaut gesetzt, damit lokal und VM gleich sind.
+    # Keine Odoo-11-Entsprechung vorhanden (Odoo 11 hatte diesen Menuepunkt nicht).
+    print("\nAktionsbezeichnung 'Bankkonto hinzufuegen':")
+    ziel_bank = "Bankkonto hinzufügen"
+    md = kw("ir.model.data", "search_read",
+            [[("module", "=", "account"), ("name", "=", "action_new_bank_setting"),
+              ("model", "=", "ir.actions.server")], ["res_id", "module", "name"]])
+    if not md:
+        fehlt += 1
+        print("  --   Server-Aktion account.action_new_bank_setting nicht gefunden")
+    else:
+        bank_id = md[0]["res_id"]
+        ist = kw("ir.actions.server", "read", [[bank_id], ["name"]], context={"lang": "de_DE"})[0]["name"]
+        if ist == ziel_bank:
+            print("  OK   Server-Aktion %s de_DE = '%s'" % (bank_id, ist))
+        elif a.pruefen:
+            abweichung += 1
+            print("  FEHL Server-Aktion %s de_DE = '%s' (erwartet '%s')" % (bank_id, ist, ziel_bank))
+        else:
+            kw("ir.actions.server", "write", [[bank_id], {"name": ziel_bank}], context={"lang": "de_DE"})
+            gesetzt += 1
+            print("  OK   Server-Aktion %s de_DE '%s' -> '%s'" % (bank_id, ist, ziel_bank))
 
     print("\nErgebnis: %d gesetzt, %d Abweichungen, %d nicht vorhanden%s"
           % (gesetzt, abweichung, fehlt, " (Pruefmodus)" if a.pruefen else ""))
