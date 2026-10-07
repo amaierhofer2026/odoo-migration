@@ -2555,8 +2555,62 @@ Abbruch (vorher wurden Produkt, Steuer und Zahlungsbedingung dort still ausgelas
 Anlegen einer Steuer wird die Zuordnung geprueft - eine vorhandene Zielsteuer wird verwendet, es
 entsteht keine zweite Steuer gleichen Inhalts.
 
-OFFEN: Kontenfelder der Kategorien (anderer Kontenrahmen im Testbestand); dauerhafte Anlage der
-25 Kategorien als eigener, freizugebender Stammdatenschritt. Abrechnung bleibt IN ARBEIT.
+OFFEN/KORRIGIERT (07.10.2026, read-only nachgeprueft):
+
+KONTENZUORDNUNG DER KATEGORIEN = **BLOCKER fuer die echte Datenmigration**.
+  In Odoo 11 traegt KEINE Kategorie eigene Konten: product.category hat 9 property_-Felder,
+  ir.property dazu 8 Eintraege - ALLE global (res_id leer, Firma IT-Kommunal GmbH), 0
+  kategoriespezifisch. Die beiden Konten sind also eine Firmenvorgabe:
+  property_account_income_categ_id -> Konto 1161 = 8400 "Erloese 19% USt" (Kontotyp Erloese),
+  property_account_expense_categ_id -> Konto 839 = 3400 "Wareneingang 19% Vorsteuer"
+  (Kontotyp Aufwand); zusaetzlich global Lagerbewertung 903, Eingang 904, Ausgang 905,
+  Lagerjournal 6. Konsequenz: es gibt nichts Kategoriespezifisches zu migrieren.
+  Zielkontenrahmen Odoo 18 (240 Konten, lokal = VM): Konto 8400 NICHT VORHANDEN, Konto 3400
+  NICHT VORHANDEN, Name "Wareneingang" 0 Treffer; Kandidaten 4000/4001/4100/4110/4200
+  (Brutto-Umsatzerloese 20%/10%/EU/Drittstaaten, income) bzw. 5000 Wareneinsatz und
+  5010/5011/5050/5051/5052/5090 Wareneinkauf (expense_direct_cost) - Steuersaetze im Namen
+  weichen ab (Odoo 11 19%, Ziel 20%/10%). Keine eindeutige fachliche 1:1-Zuordnung -> es wird
+  NICHTS angelegt und NICHTS geraten.
+  Umsetzung: konto_im_ziel in scripts/testmigration_abrechnung.py loest ueber Kontonummer UND
+  Namen auf (nie ueber die ID) und meldet sonst BLOCKER mit Klartext; der Trockenlauf weist beide
+  Konten samt Kandidaten aus, der Schreiblauf setzt die Kontenfelder der Kategorien nicht.
+  Hinweis: fuer die BELEGZEILEN bleibt das dokumentierte Kontenmapping in Anwendung
+  (docs/o11-o18-abrechnung-abschlusspruefung.md: 1201->2801, 1410->2000, 1776->3500, 8400->4000);
+  fuer die Kategorien bewusst nicht uebernommen (keine 1:1-Entsprechung) - Entscheidung Anna.
+
+UNBENUTZTE KATEGORIEN - Referenzpruefung (scripts/pruefe_kategorie_konten_und_referenzen.py):
+  13 Felder in 13 Modellen verweisen in Odoo 11 auf product.category. Ergebnis:
+  id 2 "verkaufbar" (All / Saleable) ohne Referenz; id 34 "Transaktionen" ohne Referenz;
+  id 45 "amtsweg.gv.at Premium Standard" -> product.pricelist.item.categ_id = 9;
+  id 59 "Whistleblowing" -> sale.order.product_category_id = 1.
+  Treffer in sale.report, account.invoice.report, sale.subscription.report und
+  report.all.channels.sales sind SQL-Sichten, keine Datenreferenzen.
+  REGEL: unbenutzte Kategorien werden nicht pauschal und nicht vorab angelegt, sondern nur dann
+  erzeugt, wenn eine migrierte Referenz sie verlangt (Preislistenregel mit categ_id - 9 Regeln auf
+  id 45; Auftrag mit sale.order.product_category_id - 1 Auftrag auf id 59). Preislistenregeln und
+  Auftraege sind heute noch nicht migriert.
+
+KEINE VORAB-ANLAGE DER KATEGORIEN (Auftrag Anna, Punkt 6): die 25 verwendeten Kategorien werden
+  zur Laufzeit von der Migrationslogik angelegt und im Testlauf wieder entfernt; eine dauerhafte
+  Vorab-Anlage ist ausdruecklich nicht vorgesehen.
+
+TROCKENLAUF WIEDERHOLT (07.10.2026, nur lesend): lokal und VM identisch, 72 Planpositionen, davon
+  23 noch nicht vorhanden, kein Abbruch; Kategorien "Amtssignatur, E-Abfertigung, E-Postfaecher"
+  und "Nutzungsentgelt" als "wird beim Schreiblauf angelegt", "All" als vorhanden; beide
+  Kategoriekonten als BLOCKER ausgewiesen. Protokolle:
+  Desktop/Odoo18-Abnahme-Session129/kategorien_testlauf/plan_{lokal,vm}_konten.txt,
+  kontenzuordnung.txt, konten_und_referenzen.txt.
+  Mapping-Vorlauf mit derselben Regel ueber den gesamten Bestand (648 Varianten, Regel-Funktionen
+  aus testmigration_abrechnung, scripts/pruefe_produktfeld_mapping.py): default_code 2/2,
+  standard_price 6/6, uom_id 648/648, uom_po_id 648/648, taxes_id 646/646,
+  supplier_taxes_id 647/647 aufloesbar; categ_id 175 von 648 im Ziel vorhanden, 473 werden
+  angelegt; Kategoriekonten = BLOCKER. Protokoll: mapping_pruefung_vm.txt.
+
+REGRESSION (07.10.2026): Verkauf/Abonnements 886 OK / 0 FEHL ueber 11 Prueflaeufe (lokal + VM);
+  Abrechnung-Beschriftungen 155 Feldpaare, 0 Abweichungen (lokal und VM);
+  Ansichtsbeschriftungen ohne Abweichung.
+
+Abrechnung bleibt IN ARBEIT.
 
 ### Pruefprotokoll je Modul (ausfuellen)
 

@@ -8946,6 +8946,42 @@ Doku: `docs/o11-o18-produktkategorien-mapping.md` (Kategorietabelle, Mapping, Re
 `docs/o11-o18-testmigration-regel.md` (Abschnitte 3.1, 3.2, 12),
 `MIGRATION_READINESS_CHECKLIST.md` (Block "PRODUKTKATEGORIEN als Stammdaten").
 
-Offen: Kontenfelder der Kategorien (anderer Kontenrahmen im Testbestand, Schritt
-Kontenmigration) und eine dauerhafte Vorabanlage der 25 Kategorien (eigener Freigabeschritt).
-**Abrechnung bleibt IN ARBEIT.**
+Offen bzw. korrigiert (07.10.2026, read-only nachgeprueft):
+
+- **Kontenzuordnung der Produktkategorien = BLOCKER fuer die echte Datenmigration.** In Odoo 11
+  traegt **keine** Kategorie eigene Konten: `product.category` hat 9 `property_`-Felder, dazu
+  liegen in `ir.property` 8 Eintraege - **alle global** (`res_id` leer, Firma IT-Kommunal GmbH),
+  0 kategoriespezifisch. Die beiden Konten sind eine Firmenvorgabe: Erloeskonto -> Konto 1161 =
+  8400 "Erloese 19% USt" (Kontotyp Erloese), Aufwandskonto -> Konto 839 = 3400 "Wareneingang
+  19% Vorsteuer" (Kontotyp Aufwand); zusaetzlich global Lagerbewertung 903, Eingang 904,
+  Ausgang 905, Lagerjournal 6. Es gibt also nichts Kategoriespezifisches zu migrieren.
+  Zielkontenrahmen Odoo 18 (240 Konten, lokal = VM): **Konto 8400 und 3400 nicht vorhanden**,
+  Name "Wareneingang" 0 Treffer; Kandidaten 4000/4001/4100/4110/4200 (Brutto-Umsatzerloese,
+  20%/10%/EU/Drittstaaten) bzw. 5000 Wareneinsatz und 5010/5011/5050/5051/5052/5090
+  Wareneinkauf - die Steuersaetze im Namen weichen ab (19 % gegen 20 %/10 %).
+  **Keine eindeutige fachliche 1:1-Zuordnung: es wird nichts angelegt und nichts geraten.**
+  Umsetzung: `konto_im_ziel` in `scripts/testmigration_abrechnung.py` loest ueber Kontonummer UND
+  Namen auf (nie ueber die ID) und meldet sonst BLOCKER mit Klartext; der Trockenlauf weist beide
+  Konten samt Kandidaten aus, der Schreiblauf setzt die Kontenfelder der Kategorien nicht.
+  Fuer die **Belegzeilen** bleibt das dokumentierte Kontenmapping in Anwendung
+  (`docs/o11-o18-abrechnung-abschlusspruefung.md`: 8400->4000 usw.), fuer die Kategorien bewusst
+  nicht uebernommen.
+- **Unbenutzte Kategorien:** 13 Felder in 13 Modellen verweisen in Odoo 11 auf `product.category`.
+  Referenzpruefung (`scripts/pruefe_kategorie_konten_und_referenzen.py`): id 2 "verkaufbar" und
+  id 34 "Transaktionen" ohne Referenz; **id 45 "amtsweg.gv.at Premium Standard"** ->
+  `product.pricelist.item.categ_id` = 9; **id 59 "Whistleblowing"** ->
+  `sale.order.product_category_id` = 1. Treffer in `sale.report`, `account.invoice.report`,
+  `sale.subscription.report`, `report.all.channels.sales` sind SQL-Sichten. Regel: unbenutzte
+  Kategorien werden nicht vorab angelegt, sondern nur dann erzeugt, wenn eine migrierte Referenz
+  sie verlangt (9 Preislistenregeln bzw. 1 Auftrag).
+- **Keine Vorab-Anlage der 25 verwendeten Kategorien** (Auftrag Anna, Punkt 6): sie werden zur
+  Laufzeit von der Regel angelegt und im Testlauf wieder entfernt.
+- Trockenlauf wiederholt (07.10.2026): lokal und VM identisch, 72 Planpositionen, 23 noch nicht
+  vorhanden, kein Abbruch. Mapping-Vorlauf ueber den gesamten Bestand mit denselben Regel-Funktionen
+  (648 Varianten): default_code 2/2, standard_price 6/6, uom_id 648/648, uom_po_id 648/648,
+  taxes_id 646/646, supplier_taxes_id 647/647 aufloesbar, categ_id 175 vorhanden / 473 werden
+  angelegt, Kategoriekonten = BLOCKER. Regression unveraendert (Verkauf/Abos 886 OK / 0 FEHL,
+  Abrechnung-Beschriftungen 155 Feldpaare 0 Abweichungen).
+
+**Abrechnung bleibt IN ARBEIT** - nicht abgeschlossen, nicht eingefroren, nicht migrationsbereit.
+Die finale Freigabe gibt Anna selbst.
