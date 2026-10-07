@@ -1818,6 +1818,50 @@ OFFENGELEGT: Der erste lokale Testlauf hat das deutsche Zahlenformat nicht beach
   selbst.
 ```
 
+ZUSATZ (06.10.2026, Session 128) - Menuepunkt Abrechnung > Einkauf > Einkaufbare Produkte:
+```
+Odoo-11-Sollzustand (read-only gemessen, ITK_V1_a): Menue Abrechnung/Einkauf/Stammdaten/
+  Einkaufbare Produkte (169) -> Aktion 226 "Einkaufbare Produkte", res_model product.product,
+  view_id 571 account.product_product_view_tree, context {'search_default_filter_to_purchase': 1}.
+  Spalten der Ansicht 571: default_code (Interne Referenz) | name (Name) | attribute_value_ids
+  (unsichtbar) | lst_price (Verkaufspreis) | taxes_id (Steuern (Verkauf)) | supplier_taxes_id
+  (Steuern (Einkauf)). Der Zwillingspunkt Verkaufbare Produkte (Aktion 225) nutzt dieselbe Ansicht.
+  Belegung: taxes_id 646/648, supplier_taxes_id 647/648, purchase_ok 646, sale_ok 648,
+  default_code 2, barcode 0, standard_price 6, product_type_id 409, qty_available 0,
+  virtual_available 82, product.supplierinfo 0. Suche: 22 Filtereintraege, keine Gruppierungen,
+  keine Favoriten; Suchfelder name/categ_id/attribute_value_ids/product_tmpl_id/location_id/
+  warehouse_id/pricelist_id.
+Odoo 18 vorher: Aktion 383 account.product_product_action_purchasable hatte KEINE gebundene Liste;
+  angezeigt wurde die Standardliste product.template.product.list (860) mit stock/stock_account/
+  itk_product: 11 sichtbare Spalten in anderer Reihenfolge, OHNE Steuerspalten, auf der VM mit
+  englischen Feldbeschriftungen (Sales Taxes, Purchase Taxes, Quantity On Hand, Forecasted
+  Quantity, Unit of Measure, Purchase Unit, Barcode, Product Category, Sales, Purchase,
+  # Product Variants, Invoicing Policy, Track Service). Die Session-126-Vererbung von
+  account.product_template_view_tree (1023) war wirkungslos; der Filter "Verfuegbare Produkte"
+  fehlte entgegen der damaligen Notiz.
+UMSETZUNG: neue primaere Liste product.template.list.itk.o11.produkte (itk_account_migration
+  18.0.1.20.0) mit den Odoo-11-Spalten in Odoo-11-Reihenfolge und deutschem Odoo-11-Wortlaut;
+  15 Odoo-18-Zusatzspalten bleiben vorhanden, aber optional="hide" (Spaltenauswahl); Bindung an
+  die Aktion ueber ir.actions.act_window.view (view_mode list, sequence 1) - die Aktion selbst
+  unveraendert, daher bleiben Lager-/Verkaufs-/Preislisten unberuehrt. Filter "Verfuegbare
+  Produkte" (qty_available > 0) in itk_product 18.0.1.0.5 ergaenzt.
+ABNAHME: scripts/browser_einkaufbare_produkte.py (echter Chrome, Liste/Spalten/Spaltenauswahl/
+  Filter/Gruppierung/Suche/Formular/Bearbeitungsmodus) lokal und VM ohne Fehlermeldung; Testprodukt
+  angelegt, im Formular geaendert (66,00 -> 77,50), gespeichert, geprueft und wieder geloescht;
+  Bestand vorher == nachher (keine Testdaten).
+BEWUSSTE ABWEICHUNGEN: die Odoo-11-Suchfelder product_tmpl_id/location_id/warehouse_id/
+  pricelist_id sind in dieser Suchansicht nicht nachgebaut (Begruendung in der Doku);
+  "Veroeffentlicht" (website_published) fehlt weiterhin, das Feld gibt es in Odoo 18 nicht
+  (in Odoo 11 0 Treffer). Odoo-18-Zusaetze (Favoriten, Warnungen, Mit Faktor multipliziert,
+  Aktive Abonnement Produkte, Dienstleistungen/Kombi/Lagerverwaltung, vier Gruppierungen)
+  bleiben erhalten.
+OFFEN: Zwillingsmenuepunkt Abrechnung > Verkauf > Verkaufbare Produkte (Aktion 382) nutzt in
+  Odoo 11 dieselbe Ansicht 571, zeigt in Odoo 18 aber weiterhin die Standardliste - Entscheidung
+  von Anna erforderlich.
+Doku: docs/o11-o18-abrechnung-einkaufbare-produktliste.md (Vergleich, Mapping, Migrationsregeln).
+  Abrechnung bleibt IN ARBEIT.
+```
+
 ### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-15: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte, Produktformular), erste Abnahme 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119), Teil 15 am 24.09.2026 (Session 120) auf der VM im Browser abgenommen
 
 Dokument: `docs/o11-o18-vergleich-abo-teil1.md`; Teil 14: `docs/o11-o18-vergleich-abo-teil14.md`; Teil 15: `docs/o11-o18-vergleich-abo-teil15-produktformular.md`; Uebergabe und Vollstaendigkeitsbestaetigung: `docs/uebergabe-session-120-abonnements.md` (24.09.2026: jedes in Odoo 11 verwendete Feld, Reiter, Button, Smart Button, Statuswechsel, Filter, Gruppierung und jeder Geschaeftsprozess ist gleich vorhanden, funktional gleichwertig an anderer Stelle vorhanden oder bewusst dokumentiert; keine offene funktionale Abweichung).
@@ -2412,6 +2456,6 @@ entfernt werden, sonst bleibt eine verwaiste Beschriftung sichtbar ("Waehrung" o
 
 | Modul | Browserabgleich lokal | Browserabgleich VM | Feldmapping | Beziehungen | Stammdaten | Statuswerte | Verknuepfungen | Constraints | Reihenfolge | Screenshots | Stand |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| Abrechnung | vorhanden | vorhanden | 273 belegte Felder, 0 Luecken | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | IN ARBEIT (offen: Produktfilter-Entscheidung, Testmigration, Restansichten; 05.10.2026 Project-Category-Spalte, Statuskette und Spalte Beschreibung in den Rechnungszeilen umgesetzt und lokal + VM im Browser belegt, 73 OK / 112 OK je Instanz, 0 FEHL; 06.10.2026 Reiter "Verkauf" im Produktformular nach Odoo 11 nachgebaut - Preiskalkulation mit Preislistenregeln, Browserabnahme lokal + VM je 18 OK / 0 FEHL) |
+| Abrechnung | vorhanden | vorhanden | 273 belegte Felder, 0 Luecken | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | IN ARBEIT (offen: Produktfilter-Entscheidung, Testmigration, Restansichten; 05.10.2026 Project-Category-Spalte, Statuskette und Spalte Beschreibung in den Rechnungszeilen umgesetzt und lokal + VM im Browser belegt, 73 OK / 112 OK je Instanz, 0 FEHL; 06.10.2026 Reiter "Verkauf" im Produktformular nach Odoo 11 nachgebaut - Preiskalkulation mit Preislistenregeln, Browserabnahme lokal + VM je 18 OK / 0 FEHL; Nachtrag Reiter "Verkauf" je 27 OK / 0 FEHL; 06.10.2026 Menuepunkt "Einkaufbare Produkte" auf die Odoo-11-Liste umgebaut (Interne Referenz, Name, Verkaufspreis, Steuern (Verkauf), Steuern (Einkauf)), Odoo-18-Zusatzspalten optional erhalten, falscher Filter "Verfuegbare Produkte" ergaenzt, Browserabnahme lokal + VM je 41 OK / 0 FEHL) |
 | Verkauf | vorhanden | vorhanden | Teil 5 vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | abgeschlossen (R1-R8) |
 | Abonnements | vorhanden (02.10.) | vorhanden (02.10.) | Feldbestand verglichen (57/64 Felder, 0 echte Luecken); siehe docs/o11-o18-abonnement-abgleich.md | nicht betroffen | Cron/Fristen geprueft | Zustaende 1:1 plus O18-Zusatz pending | 1:1 | nicht betroffen | vorhanden | vorhanden | abgeglichen (PR #184/#185), Abweichungen dokumentiert |
