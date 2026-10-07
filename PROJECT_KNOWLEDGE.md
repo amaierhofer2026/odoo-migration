@@ -8710,3 +8710,95 @@ Zahlungen), Pruefung der drei Zusatzfelder und der Beschriftungsdarstellung. Dok
   Regelliste werden per Klick editierbar. Deutsches Zahlenformat beachten ("66,00", nicht "66.00"):
   der erste Testlauf hatte den Preis versehentlich auf 6.500 gesetzt und eine leere Zusatzregel
   erzeugt; beides wurde exakt korrigiert und ist in Doku und Checkliste offengelegt.
+
+## Session 128 (06.10.2026): Abrechnung > Einkauf > Einkaufbare Produkte
+
+Auftrag von Anna: den Menuepunkt vollstaendig selbst mit Odoo 11 vergleichen (nicht nur die
+Spalten aus ihrem Bildschirmfoto) und Odoo 18 angleichen; Liste, Suche/Filter/Gruppierungen,
+Formular, Mapping, Datenbestand und Browserabnahme lokal und VM. **Abrechnung bleibt IN ARBEIT.**
+
+### Odoo-11-Sollzustand (read-only gemessen, DB ITK_V1_a)
+
+- Menue `Abrechnung/Einkauf/Stammdaten/Einkaufbare Produkte` (ir.ui.menu 169) -> Aktion 226
+  "Einkaufbare Produkte", res_model `product.product`, `view_id 571` =
+  `account.product_product_view_tree`, context `{'search_default_filter_to_purchase': 1}`.
+- Spalten der Ansicht 571 (Dokumentreihenfolge): `default_code` (Interne Referenz) | `name` (Name) |
+  `attribute_value_ids` (Attribute, unsichtbar, `groups product.group_product_variant`) |
+  `lst_price` (Verkaufspreis) | `taxes_id` (Steuern (Verkauf)) | `supplier_taxes_id`
+  (Steuern (Einkauf)). Der Zwillingspunkt Verkaufbare Produkte (Aktion 225) zeigt dieselbe Ansicht.
+- Belegung (648 Varianten): taxes_id 646, supplier_taxes_id 647, purchase_ok 646, sale_ok 648,
+  default_code 2, barcode 0, standard_price 6, product_type_id 409, qty_available 0,
+  virtual_available 82, `product.supplierinfo` 0 Saetze.
+- Suche: 22 Filtereintraege, **keine** Gruppierungen, keine Favoriten; Suchfelder `name`,
+  `categ_id`, `attribute_value_ids`, `product_tmpl_id`, `location_id`, `warehouse_id`,
+  `pricelist_id`.
+
+### Ursache der Abweichung (Odoo 18 vorher)
+
+Die Aktion 383 `account.product_product_action_purchasable` hatte **keine gebundene Liste**; der
+Menuepunkt zeigte die Odoo-18-Standardliste `product.template.product.list` (id 860) mit den
+Erweiterungen stock/stock_account/itk_product: 11 sichtbare Spalten in anderer Reihenfolge,
+**keine Steuerspalten**, und auf der VM englische Feldbeschriftungen (Sales Taxes, Purchase Taxes,
+Quantity On Hand, Forecasted Quantity, Unit of Measure, Purchase Unit, Barcode, Product Category,
+Sales, Purchase, # Product Variants, Invoicing Policy, Track Service - die deutschen
+Feldbeschreibungen fehlten in der VM-Datenbank; Regel: `scripts/apply_abrechnung_labels.py` nach
+jedem Modul-Upgrade, laeuft in `scripts/upgrade_modules.py` automatisch mit).
+Die in Session 126 angelegte Vererbung `view_product_template_list_o11_spalten` erweiterte die
+Ansicht `account.product_template_view_tree` (1023) - eine Ansicht, die diese Aktion nie benutzt;
+sie war wirkungslos. Ebenso war die damalige Notiz falsch, der Odoo-11-Filter "Verfuegbare
+Produkte" sei in Odoo 18 schon vorhanden (der Kernfilter haengt an `product.product_search_form_view`
+und erscheint in diesem Menue nicht).
+
+**Lehre:** Ein Menuepunkt zeigt in Odoo 18 die Ansicht, die an seiner Aktion gebunden ist
+(`ir.actions.act_window.view`) beziehungsweise die Modell-Standardliste - nie die Ansicht, die
+thematisch passt. Vor jeder Aussage ueber "was zeigt Menue X" die Aktion lesen (`view_id` in
+Odoo 11, `act_window.view`-Saetze in Odoo 18) und den zusammengefuehrten Arch **dieser** Ansicht
+holen. `get_views([[False, 'list']])` liefert die Standardliste, nicht die Ansicht der Aktion.
+
+### Umsetzung
+
+- **Neue primaere Liste** `product.template.list.itk.o11.produkte`
+  (`itk_account_migration.view_product_template_list_o11_spalten`, jetzt `mode=primary`,
+  `inherit_id=False`, priority 99): die fuenf Odoo-11-Spalten in Odoo-11-Reihenfolge, jede mit
+  `string=` im Odoo-11-Wortlaut (Interne Referenz, Name, Verkaufspreis, Steuern (Verkauf),
+  Steuern (Einkauf)), `list_price` mit `widget="monetary"`/`currency_field` und
+  `decoration-muted="not sale_ok"`, Steuern mit `widget="many2many_tags"`.
+- **Odoo-18-Zusatzspalten erhalten:** 15 Felder als `optional="hide"` mit deutschem Odoo-11-Wortlaut
+  (# Produkt Varianten, Interne Kategorie, Status, Produktart, Kosten, Mengeneinheit, Einkauf ME,
+  Strichcode, Bestandsmenge, Prognostizierter Bestand, Verantwortlich, Stichwoerter, Favorit,
+  Kann verkauft werden, Kann eingekauft werden) plus Aktivitaetssymbol; technische Hilfsspalten
+  currency_id/cost_currency_id/active/show_on_hand_qty_status_button.
+- **Bindung** ueber `ir.actions.act_window.view` (`..._purchasable_view_list`, view_mode `list`,
+  sequence 1) an die Aktion 383; die Aktion selbst und damit alle uebrigen Produktlisten bleiben
+  unveraendert.
+- **Filter "Verfuegbare Produkte"** (`qty_available > 0`, Odoo-11-Wortlaut) in
+  `itk_product/views/itk_product.xml` ergaenzt (`itk_real_stock_available`); die falsche Notiz
+  korrigiert.
+- Versionen: `itk_account_migration` 18.0.1.20.0, `itk_product` 18.0.1.0.5.
+- **Lehre (Manifest-Version):** Nach dem Aendern einer Modulversion vor dem Upgrade den Container
+  neu starten - sonst meldet die Datenbank weiter die alte Version (Odoo liest die Manifestversion
+  beim Upgrade aus dem Prozess-Cache); die Ansichtsdateien werden trotzdem neu geladen.
+
+### Browser-Abnahme (echter Chrome, `scripts/browser_einkaufbare_produkte.py`)
+
+lokal **41 OK / 0 FEHL**, VM **41 OK / 0 FEHL**. Geprueft: Liste mit den fuenf Odoo-11-Spalten in
+Odoo-11-Reihenfolge und ohne englische Beschriftung; Standardfilter "Kann eingekauft werden" beim
+Oeffnen aktiv und deckungsgleich mit dem Datenbestand; Filter aus-/einschalten; alle Odoo-11-Filter
+und "Verfuegbare Produkte" im Suchmenue; Gruppierungen; Suche; Spaltenauswahl mit allen
+Odoo-18-Zusatzspalten in Deutsch und Zuschalten/Abschalten; Formular mit sieben Reitern, Smart
+Buttons, deutschen Beschriftungen und den Feldern default_code/barcode/uom_id/uom_po_id/
+standard_price/list_price/categ_id/taxes_id/supplier_taxes_id; Bearbeitungsmodus mit temporaerem
+Testprodukt (Verkaufspreis 66,00 -> 77,50 im Formular geaendert, gespeichert, in der Datenbank
+geprueft, Testprodukt danach geloescht); **Bestand vorher == nachher**. Bilder:
+`Desktop/Odoo18-Abnahme-Session128/einkaufbare_produkte/<lokal|vm>/`.
+
+### Offene Punkte
+
+- Zwillingsmenuepunkt `Abrechnung > Verkauf > Verkaufbare Produkte` (Aktion 382): in Odoo 11
+  dieselbe Ansicht 571, in Odoo 18 weiterhin die Standardliste - Entscheidung von Anna offen.
+- Odoo-11-Suchfelder `product_tmpl_id`/`location_id`/`warehouse_id`/`pricelist_id` in dieser
+  Suchansicht nicht nachgebaut (Begruendung in der Doku); "Veroeffentlicht" fehlt weiterhin.
+- Modell der Liste (Odoo 11 Varianten vs. Odoo 18 Vorlagen) unveraendert wie Session 126.
+
+Doku: `docs/o11-o18-abrechnung-einkaufbare-produktliste.md` (Vergleich, Mapping, Migrationsregeln);
+Korrektur des falschen Listenabschnitts in `docs/o11-o18-vergleich-abrechnung-produktformular.md`.

@@ -65,8 +65,15 @@
                     <!-- Bestand (Odoo 11: product.template.search.stock.form).
                          Achtung Uebersetzung: In Odoo 11 stand "type not in (service, consu)"
                          fuer den Typ "product" (Lagerartikel); in Odoo 18 entspricht dem
-                         is_storable = True. "Verfuegbare Produkte" (qty_available > 0) gibt es
-                         in Odoo 18 bereits identisch und wird nicht doppelt angelegt. -->
+                         is_storable = True.
+                         "Verfuegbare Produkte" (qty_available > 0) ergaenzt am 06.10.2026
+                         (Session 128): Die frueher hier notierte Annahme, der Filter sei in
+                         Odoo 18 schon vorhanden, war falsch - der Kernfilter
+                         "real_stock_available" haengt in Odoo 18 an der Suchansicht
+                         product.product_search_form_view (Lager-/Variantenmenue) und
+                         erscheint im Menue Abrechnung > Einkauf > Einkaufbare Produkte nicht
+                         (im Browser geprueft). Wortlaut und Domain 1:1 aus Odoo 11. -->
+                    <filter name="itk_real_stock_available" string="Verfügbare Produkte" domain="[('qty_available', '&gt;', 0)]"/>
                     <filter name="itk_real_stock_exhausted" string="Bestandsauflösung" domain="[('qty_available', '&lt;=', 0), ('is_storable', '=', True)]"/>
                     <filter name="itk_real_stock_negative" string="Bestandsreichweite" domain="[('qty_available', '&lt;', 0)]"/>
                 </xpath>

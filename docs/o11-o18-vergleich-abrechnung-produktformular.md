@@ -145,38 +145,48 @@ Typverteilung Odoo 11: {'consu': 152, 'general': 273, 'onlineservice': 74, 'serv
 
 ## 3. Liste, Suche, Kanban, Aktionen
 
-Beide Menuepunkte verwenden **dieselben Ansichten**; sie unterscheiden sich nur im Standardfilter.
+> **Korrektur 06.10.2026 (Session 128):** Die Angaben dieses Abschnitts zur Liste waren falsch und
+> wurden ersetzt. Odoo 11 zeigte **nicht** Bestandsmenge/Prognose/ME/Strichcode, und die Aktion 383
+> verwendete **nicht** die Ansicht `account.product_template_view_tree` (1023). Gemessen wurde:
+> Odoo 11 bindet ueber `view_id` die Ansicht 571 `account.product_product_view_tree`
+> (Interne Referenz | Name | Attributwerte | Verkaufspreis | Steuern (Verkauf) | Steuern (Einkauf)),
+> Odoo 18 hatte gar keine gebundene Liste und zeigte die Standardliste
+> `product.template.product.list` (860). Die vier in Session 126 ergaenzten Spalten waren damit
+> wirkungslos. Die Liste wurde in Session 128 als eigene primaere Ansicht neu gebaut und an die
+> Aktion gebunden; vollstaendige Dokumentation:
+> `docs/o11-o18-abrechnung-einkaufbare-produktliste.md`.
+
+Beide Menuepunkte (382 Verkaufbare Produkte, 383 Einkaufbare Produkte) liegen in Odoo 18 auf
+`product.template` und unterscheiden sich nur im Standardfilter.
 
 ```
 Aktion Verkaufbare Produkte (382):  res_model product.template, view_mode kanban,list,form,activity,
-                                    Listenansicht product.template.list (account), view_id 1023,
                                     context {'search_default_filter_to_sell': 1}
 Aktion Einkaufbare Produkte (383):  identisch, context {'search_default_filter_to_purchase': 1}
-Odoo 11: beide Aktionen auf product.product (Varianten), context entsprechend
+Odoo 11: beide Aktionen auf product.product (Varianten), view_id 571, context entsprechend
 ```
 
 Listenansicht:
 
 ```
-Odoo 11 (product.product)   Interne Referenz | Name | Attributwerte | Verkaufspreis | Verfuegbar |
-                            Prognostiziert | Mengeneinheit | Strichcode
-Odoo 18 vorher              Interne Referenz | Name | Verkaufspreis | Steuern (Verkauf) |
-                            Steuern (Einkauf)
-Odoo 18 nachher             Interne Referenz | Name | Verkaufspreis | Bestandsmenge |
-                            Geplante Bestandsmenge | Mengeneinheit | Strichcode |
-                            Steuern (Verkauf) | Steuern (Einkauf)
+Odoo 11 (Ansicht 571)   Interne Referenz | Name | [Attributwerte, unsichtbar] | Verkaufspreis |
+                        Steuern (Verkauf) | Steuern (Einkauf)
+Odoo 18 vorher          Standardliste product.template.product.list (860) mit stock/stock_account/
+                        itk_product: 11 sichtbare Spalten in anderer Reihenfolge, ohne Steuern,
+                        auf der VM mit englischen Beschriftungen
+Odoo 18 nachher         Interne Referenz | Name | Verkaufspreis | Steuern (Verkauf) |
+(ab Session 128)        Steuern (Einkauf)   [15 Odoo-18-Zusatzspalten optional zuschaltbar]
 ```
-Ergaenzt wurden die vier fehlenden Odoo-11-Spalten (alle als `optional="show"`, also sichtbar,
-aber abschaltbar). Die Odoo-18-Zusatzspalten bleiben. Die Odoo-11-Spalte "Attributwerte" entfaellt:
-Odoo 18 fuehrt die Menues auf `product.template` (eine Zeile je Vorlage), Attribute stehen im Reiter
-"Attribute & Varianten". Im Odoo-11-Bestand gibt es keine Produkte mit Attributen, die sichtbare
-Wirkung ist deshalb identisch. **Entscheidungspunkt fuer Anna:** Odoo 11 listete `product.product`
-(eine Zeile je Variante), Odoo 18 `product.template` (eine Zeile je Vorlage) - ein Umbau auf
-Varianten waere moeglich, aendert aber Zaehlung und Standardverhalten der Menues.
 
-Suche: Odoo 11 hatte 11 Filter und **keine** Gruppierungen; Odoo 18 zeigt dieselben 11 Filter im
-Odoo-11-Wortlaut (Session 123) plus die Odoo-18-Standardfilter sowie zwei eigene Gruppierungen
-(Status, Mit Faktor multipliziert). Keine Aenderung in Session 126.
+Die Odoo-11-Spalte "Attributwerte" entfaellt: Odoo 18 fuehrt die Menues auf `product.template`
+(eine Zeile je Vorlage), Attribute stehen im Reiter "Attribute & Varianten". Im Odoo-11-Bestand
+gibt es keine Produkte mit Attributen, die sichtbare Wirkung ist deshalb identisch.
+
+Suche: Odoo 11 hatte 22 Filtereintraege und **keine** Gruppierungen; Odoo 18 zeigt die
+Odoo-11-Filter im Odoo-11-Wortlaut (Session 123) plus die Odoo-18-Standardfilter sowie vier
+Gruppierungen (Produktart, Produktkategorie, Status, Mit Faktor multipliziert). In Session 128
+wurde der fehlende Odoo-11-Filter "Verfuegbare Produkte" (`qty_available > 0`) ergaenzt.
+Der Standardfilter "Kann eingekauft werden" ist in beiden Systemen fachlich gleich.
 
 Kanban: Odoo 11 (image_small, lst_price, type, product_variant_count, qty_available, uom_id),
 Odoo 18 (image_128, list_price, qty_available, uom_id, product_properties, Aktivitaet)
