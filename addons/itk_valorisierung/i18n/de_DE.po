@@ -18,7 +18,7 @@ msgstr ""
 "X-Generator: Poedit 2.0.6\n"
 
 #. module: itk_valorisierung
-#: model:ir.model.fields,field_description:itk_valorisierung.field_itk_valorisierung_valorisierung_name
+#: model:ir.model.fields,field_description:itk_valorisierung.field_itk_valorisierung_valorisierung__name
 msgid "Code"
 msgstr "Code"
 
@@ -33,27 +33,27 @@ msgid "Create the first Valorisation Text"
 msgstr "Erstelle den ersten Valorisierungstext"
 
 #. module: itk_valorisierung
-#: model:ir.model.fields,field_description:itk_valorisierung.field_itk_valorisierung_valorisierung_create_uid
+#: model:ir.model.fields,field_description:itk_valorisierung.field_itk_valorisierung_valorisierung__create_uid
 msgid "Created by"
 msgstr "Erstellt von"
 
 #. module: itk_valorisierung
-#: model:ir.model.fields,field_description:itk_valorisierung.field_itk_valorisierung_valorisierung_create_date
+#: model:ir.model.fields,field_description:itk_valorisierung.field_itk_valorisierung_valorisierung__create_date
 msgid "Created on"
 msgstr "Erstellt am"
 
 #. module: itk_valorisierung
-#: model:ir.model.fields,field_description:itk_valorisierung.field_itk_valorisierung_valorisierung_description
+#: model:ir.model.fields,field_description:itk_valorisierung.field_itk_valorisierung_valorisierung__description
 msgid "Description"
 msgstr "Beschreibung"
 
 #. module: itk_valorisierung
-#: model:ir.model.fields,field_description:itk_valorisierung.field_itk_valorisierung_valorisierung_display_name
+#: model:ir.model.fields,field_description:itk_valorisierung.field_itk_valorisierung_valorisierung__display_name
 msgid "Display Name"
 msgstr "Anzeigename"
 
 #. module: itk_valorisierung
-#: model:ir.model.fields,field_description:itk_valorisierung.field_itk_valorisierung_valorisierung_id
+#: model:ir.model.fields,field_description:itk_valorisierung.field_itk_valorisierung_valorisierung__id
 msgid "ID"
 msgstr "ID"
 
@@ -68,23 +68,22 @@ msgid "Last Modified on"
 msgstr "Zuletzt geändert am"
 
 #. module: itk_valorisierung
-#: model:ir.model.fields,field_description:itk_valorisierung.field_itk_valorisierung_valorisierung_write_uid
+#: model:ir.model.fields,field_description:itk_valorisierung.field_itk_valorisierung_valorisierung__write_uid
 msgid "Last Updated by"
 msgstr "Zuletzt aktualisiert durch"
 
 #. module: itk_valorisierung
-#: model:ir.model.fields,field_description:itk_valorisierung.field_itk_valorisierung_valorisierung_write_date
+#: model:ir.model.fields,field_description:itk_valorisierung.field_itk_valorisierung_valorisierung__write_date
 msgid "Last Updated on"
 msgstr "Zuletzt aktualisiert am"
 
 #. module: itk_valorisierung
-#: model:ir.model.fields,field_description:itk_valorisierung.field_itk_valorisierung_valorisierung_seq
+#: model:ir.model.fields,field_description:itk_valorisierung.field_itk_valorisierung_valorisierung__seq
 msgid "Sequence"
 msgstr "Nummernfolge"
 
 #. module: itk_valorisierung
 #: model:ir.actions.act_window,name:itk_valorisierung.menu_finance_configuration_valorisierung_action
-#: model:ir.model.fields,field_description:itk_valorisierung.field_account_invoice_valorisierung_id
 #: model:ir.ui.view,arch_db:itk_valorisierung.form_view_valorisierung
 msgid "Valorisation Text"
 msgstr "Valorisierungs Text"
