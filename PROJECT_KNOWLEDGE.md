@@ -8842,9 +8842,14 @@ fachliche Schluessel, nie ueber Odoo-11-IDs:
 Belege: Steuern 11/11 aufloesbar (`20% Umsatzsteuer` -> Odoo-18 "20% Ust" ueber die Odoo-11-
 Beschreibung "20% USt"; `20% Vorsteuer` -> "20% Vst" ueber "20% VSt" - **das Feld mit 647/648
 Belegung ist damit fachlich zugeordnet**), Einheiten 11/11 ("ITK Einheit" 8, "Einheit(en)" 3).
-Kategorien 2/11: 9 Produkte brauchen die Odoo-11-Kategorien "Amtssignatur, E-Abfertigung,
-E-Postfächer" und "Nutzungsentgelt", die im Testbestand fehlen (Odoo 18 hat nur All/Expenses/
-Saleable) - **offen, Anlage braucht Annas Freigabe, es wurde nichts angelegt**.
+Kategorien (Session 129, 07.10.2026 abgeschlossen): Zuordnung ueber exakten Namen in beiden
+Sprachen und exakte Elternkette; fehlende Odoo-11-Kategorien werden in der Ziel-Testinstanz
+angelegt (inkl. Protokoll und Aufraeumen). Messung Odoo 11: 30 Kategorien, 26 mit Produkten,
+alle flach; Wurzel id 1 deutsch "Alle", englisch "All". Ergebnis Testlauf VM: 2 Kategorien
+angelegt, 11/11 Produkte richtig, Browser 7 OK / 0 FEHL, danach 23 Datensaetze entfernt,
+Bestand vorher = nachher. Vollstaendige Tabelle: `docs/o11-o18-produktkategorien-mapping.md`.
+Offen bleiben die Kontenfelder der Kategorien (Odoo-11-Konten 8400/3400 fehlen im Testbestand)
+und eine dauerhafte Vorabanlage der 25 Kategorien (eigener Freigabeschritt).
 Protokolle: `Desktop/Odoo18-Abnahme-Session129/testmigration_vorlauf/plan_{lokal,vm}.txt`.
 Regel dokumentiert in `docs/o11-o18-testmigration-regel.md`, Abschnitt 3.1.
 
@@ -8883,3 +8888,64 @@ Regel dokumentiert in `docs/o11-o18-testmigration-regel.md`, Abschnitt 3.1.
 
 Doku: `docs/o11-o18-abrechnung-einkaufbare-produktliste.md` (jetzt beide Menuepunkte),
 `docs/o11-o18-testmigration-regel.md` (Abschnitt 3.1), `MIGRATION_READINESS_CHECKLIST.md`.
+
+## Session 129 - Nachtrag: Produktkategorien als Stammdaten (07.10.2026)
+
+Auftrag: Produktkategorien fuer die spaetere Migration pruefen, Mapping erstellen, Zuordnung
+testen, kontrollierten Testlauf fahren, Testdaten vollstaendig entfernen. Odoo 11 nur lesend.
+
+### Messung Odoo 11 (read-only, `scripts/erhebe_produktkategorien.py`)
+
+- 30 `product.category`, davon **26 mit Produkten**; die 4 uebrigen (id 2 "verkaufbar"/All-Saleable,
+  34 "Transaktionen", 45 "amtsweg.gv.at Premium Standard", 59 "Whistleblowing") sind unbenutzt.
+- **Alle 26 verwendeten Kategorien sind flach** (keine Ueberkategorie) - die einzige Hierarchie
+  im Bestand ist die unbenutzte Odoo-11-Standardkategorie "verkaufbar".
+- Groesste Kategorien: All 175, Nutzungsentgelt 120, Dienstleistungspauschale 53,
+  Amtssignatur/E-Abfertigung/E-Postfaecher 41, Betriebskostenpauschale 40 (Rest siehe Doku).
+- **Wurzelkategorie id 1 heisst deutsch "Alle" und englisch "All"** - uebersetzbare Namen sind
+  der Kern der Zuordnung.
+- Kontenfelder: alle 26 Kategorien einheitlich Erloes 8400 "Erloese 19% USt" und Aufwand 3400
+  "Wareneingang 19% Vorsteuer".
+
+### Zuordnungsregel (neu, umgesetzt)
+
+`lade_kategorien` liest die Odoo-11-Kategorien in **beiden Sprachen**; `kategorie_im_ziel`
+ordnet ueber **exakten Namen (in einer der beiden Sprachen) UND exakte Elternkette**
+(Vergleich `parent_id`, nicht Pfadtext) zu. Genau ein Treffer mit passender Elternkette wird
+verwendet; mehrere Treffer oder abweichende Elternkette brechen mit Klartext ab; kein Treffer
+fuehrt zum Anlegen der Kategorie **nur in der Ziel-Testinstanz** (Name zweisprachig, gleiche
+Elternkategorie, Protokolleintrag `neu: true`, Aufraeumen entfernt sie wieder). Odoo 11 wird
+nie veraendert. Ohne die englische Lesung scheiterte die Zuordnung der Wurzel: Odoo 11 liefert
+"Alle", Odoo 18 fuehrt "All" - die Kategorie waere faelschlich neu angelegt worden.
+
+### Nachgezogen: kein stilles Ueberspringen
+
+- Steuerliste: vor dem Anlegen wird die Zuordnung geprueft - eine vorhandene Zielsteuer wird
+  verwendet (keine zweite Steuer gleichen Inhalts).
+- Belegzeilen: Produkt, Konto, Steuer, Waehrung und Zahlungsbedingung muessen eindeutig sein,
+  sonst Abbruch (vorher wurden Produkt, Steuer und Zahlungsbedingung dort still ausgelassen).
+- Mengeneinheiten und Produktsteuern brechen bei fehlender oder mehrdeutiger Zuordnung ab.
+
+### Nachweise
+
+| Schritt | Ergebnis |
+|---|---|
+| Trockenlauf `--plan` lokal und VM | identisch, 76 Planpositionen, 24 noch nicht vorhanden, kein Abbruch |
+| Testlauf VM (`--ausfuehren --ich-habe-freigabe`) | 23 neu angelegt: 11 Produktvorlagen, 2 Kategorien (id 4 "Amtssignatur, E-Abfertigung, E-Postfaecher", id 5 "Nutzungsentgelt"), 4 Partner, 5 Belege, 1 Zahlung; Protokoll 202 Eintraege |
+| Beleg-Gegenpruefung | R-261121 offen 1366,01; R-26800, R-260993, R-26797 bezahlt; ein Entwurf - wie Odoo 11 |
+| Produkt -> Kategorie (RPC) | 11 von 11 Produkten gleich der Odoo-11-Kategorie |
+| Browser VM (`scripts/browser_kategorie_pruefung.py`) | **7 OK / 0 FEHL**: Feld "Interne Kategorie" im Formular; Gruppierung der Produktliste nach Produktkategorie je Kategorie genau eine Gruppe - All (12), Amtssignatur/E-Abfertigung/E-Postfaecher (2), Nutzungsentgelt (7), keine Dubletten |
+| Aufraeumen | 23 Datensaetze entfernt, 0 fehlten; Bestand VM vorher = nachher (Kategorien 3, Vorlagen 10, Varianten 10, Belege 59, Partner 70, Steuern 53, Zahlungsbedingungen 12); Restkontrolle 0 |
+| Regression | unveraendert: Verkauf/Abos 886 OK / 0 FEHL, Abrechnung-Beschriftungen 155 Feldpaare 0 Abweichungen |
+
+Lehre fuer Browserpruefungen: das Feld "Interne Kategorie" ist im ITK-Produktformular ein
+Auswahlfeld - der Wert steht im `input`-Element (`.o_field_widget[name="categ_id"] input`),
+nicht im sichtbaren Text des Widgets.
+
+Doku: `docs/o11-o18-produktkategorien-mapping.md` (Kategorietabelle, Mapping, Regel),
+`docs/o11-o18-testmigration-regel.md` (Abschnitte 3.1, 3.2, 12),
+`MIGRATION_READINESS_CHECKLIST.md` (Block "PRODUKTKATEGORIEN als Stammdaten").
+
+Offen: Kontenfelder der Kategorien (anderer Kontenrahmen im Testbestand, Schritt
+Kontenmigration) und eine dauerhafte Vorabanlage der 25 Kategorien (eigener Freigabeschritt).
+**Abrechnung bleibt IN ARBEIT.**

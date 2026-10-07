@@ -130,10 +130,15 @@ def steuer_im_ziel(z, steuer11):
          Gross-/Kleinschreibung - die Odoo-18-Steuernamen dieses Bestands stammen aus den
          Odoo-11-Beschreibungen,
       3. genau ein Kandidat mit gleichem Satz und gleicher Verwendung (sale/purchase/none),
-      4. sonst Abbruch mit Klartext (kein stilles Ueberspringen).
+      4. keine Entsprechung -> (None, Begruendung); der Aufrufer entscheidet, ob das ein Fehler
+         ist (Produktsteuer: Abbruch) oder ein Anzulegender Stammdatensatz (Steuerliste).
+    Mehrdeutigkeit bricht immer ab (kein stilles Ueberspringen).
     """
     treffer = rpc(z, "account.tax", "search", [[("name", "=", steuer11["name"])]],
                   "Steuer ueber den Namen suchen", context=CTX)
+    if len(treffer) > 1:
+        raise SystemExit("ABBRUCH: Steuername %r ist im Ziel %d Mal vorhanden - Zuordnung nicht "
+                         "eindeutig." % (steuer11["name"], len(treffer)))
     if len(treffer) == 1:
         return treffer[0], "gleicher Name %r" % steuer11["name"]
     beschreibung = (steuer11.get("description") or "").strip()
@@ -141,6 +146,9 @@ def steuer_im_ziel(z, steuer11):
         kandidaten = rpc(z, "account.tax", "search_read",
                          [[("name", "=ilike", beschreibung), ("type_tax_use", "=", steuer11["type_tax_use"])],
                           ["name", "amount"]], "Steuer ueber die Odoo-11-Beschreibung suchen", context=CTX)
+        if len(kandidaten) > 1:
+            raise SystemExit("ABBRUCH: Odoo-11-Beschreibung %r passt im Ziel auf %d Steuern - "
+                             "Zuordnung nicht eindeutig." % (beschreibung, len(kandidaten)))
         if len(kandidaten) == 1:
             return kandidaten[0]["id"], "Odoo-11-Beschreibung %r = Odoo-18-Name %r" % (
                 beschreibung, kandidaten[0]["name"])
@@ -148,13 +156,86 @@ def steuer_im_ziel(z, steuer11):
                      [[("amount", "=", steuer11["amount"]), ("type_tax_use", "=", steuer11["type_tax_use"]),
                        ("active", "=", True)], ["name"]], "Steuer ueber Satz und Verwendung suchen",
                      context=CTX)
+    if len(kandidaten) > 1:
+        raise SystemExit("ABBRUCH: Odoo-11-Steuer %r (%s%%, %s) ist im Ziel nicht eindeutig - %d "
+                         "Kandidaten mit gleichem Satz und gleicher Verwendung."
+                         % (steuer11["name"], steuer11["amount"], steuer11["type_tax_use"],
+                            len(kandidaten)))
     if len(kandidaten) == 1:
         return kandidaten[0]["id"], "einziger Treffer mit %s%% und %s" % (
             steuer11["amount"], steuer11["type_tax_use"])
-    raise SystemExit("ABBRUCH: Odoo-11-Steuer %r (%s%%, %s) ist im Ziel nicht eindeutig "
-                     "aufloesbar - %d Kandidaten mit gleichem Satz und gleicher Verwendung."
-                     % (steuer11["name"], steuer11["amount"], steuer11["type_tax_use"],
-                        len(kandidaten)))
+    return None, "keine Entsprechung im Ziel (Name %r, %s%%, %s, Beschreibung %r)" % (
+        steuer11["name"], steuer11["amount"], steuer11["type_tax_use"], steuer11.get("description"))
+
+
+def lade_kategorien(k):
+    """Alle Odoo-11-Produktkategorien mit Hierarchie und Namen in beiden Sprachen lesen (nur lesend).
+
+    Die Namen sind uebersetzbar: die Odoo-11-Wurzel heisst in der Quelle deutsch "Alle" und
+    englisch "All" - fuer die Zuordnung werden deshalb beide Namen gefuehrt.
+    """
+    felder = ["id", "name", "complete_name", "parent_id"]
+    kats = {}
+    for sprache in ("de_DE", "en_US"):
+        for x in rpc(k, "product.category", "search_read", [[], felder],
+                     "Kategorien lesen (%s)" % sprache, context={"lang": sprache}):
+            e = kats.setdefault(x["id"], {"id": x["id"], "name": x["name"],
+                                          "parent_id": x["parent_id"],
+                                          "complete_name": x["complete_name"], "namen": []})
+            if x["name"] not in e["namen"]:
+                e["namen"].append(x["name"])
+    return kats
+
+
+def kategorie_im_ziel(z, kategorien, kat_id, mitschrift=None):
+    """Odoo-11-Produktkategorie im Ziel bestimmen: Name (beide Sprachen) UND exakte Elternkette.
+
+    Keine Zusammenlegung ueber aehnliche Namen (Auftrag Anna, Session 129):
+      * genau ein Treffer mit passender Elternkette -> verwenden,
+      * mehrere Treffer oder abweichende Elternkette  -> Abbruch mit Klartext,
+      * nicht vorhanden -> im Plan als "wird angelegt" ausweisen; im Schreiblauf
+        (mitschrift uebergeben) in der Testinstanz anlegen.
+    Rueckgabe: (id oder None, Zustand).
+    """
+    k11 = kategorien.get(kat_id)
+    if not k11:
+        raise SystemExit("ABBRUCH: Odoo-11-Kategorie id %s ist nicht gelesen." % kat_id)
+    name11 = k11["name"]
+    treffer = set()
+    for kandidat in k11["namen"]:
+        for sprache in ("de_DE", "en_US"):
+            treffer.update(rpc(z, "product.category", "search", [[("name", "=", kandidat)]],
+                               "Produktkategorie ueber den Namen suchen (%s)" % sprache,
+                               context={"lang": sprache}))
+    treffer = sorted(treffer)
+    if len(treffer) > 1:
+        raise SystemExit("ABBRUCH: Kategorie %r existiert im Ziel %d Mal - Zuordnung nicht eindeutig "
+                         "(keine Zusammenlegung ueber den Namen)." % (name11, len(treffer)))
+    eltern11 = k11.get("parent_id")
+    eltern_ziel = None
+    if eltern11:
+        eltern_ziel, _ = kategorie_im_ziel(z, kategorien, eltern11[0], mitschrift)
+    if len(treffer) == 1:
+        ziel = rpc(z, "product.category", "read", [treffer, ["parent_id"]],
+                   "Produktkategorie lesen", context=CTX)[0]
+        if bool(ziel["parent_id"]) != bool(eltern11):
+            raise SystemExit("ABBRUCH: Kategorie %r liegt im Ziel unter %r, in Odoo 11 aber unter %r "
+                             "- keine Zusammenlegung ueber den Namen."
+                             % (name11, ziel["parent_id"], eltern11))
+        if eltern11 and ziel["parent_id"][0] != eltern_ziel:
+            raise SystemExit("ABBRUCH: Elternkette der Kategorie %r weicht ab." % name11)
+        return treffer[0], "vorhanden"
+    if mitschrift is None:
+        return None, "fehlt im Ziel, wird beim Schreiblauf angelegt"
+    werte = {"name": name11}
+    if eltern_ziel:
+        werte["parent_id"] = eltern_ziel
+    neue = lege_an(mitschrift, z, "product.category", werte, "name", name11, "Produktkategorie")
+    # Namen zusaetzlich in der Quellsprache hinterlegen, damit die Kategorie in beiden
+    # Oberflaechensprachen gleich heisst (Odoo 11 fuehrt die Namen ebenfalls zweisprachig).
+    rpc(z, "product.category", "write", [[neue], {"name": name11}],
+        "Produktkategorie zweisprachig beschriften", context={"lang": "en_US"})
+    return neue, "angelegt"
 
 
 def waehle_belege(k):
@@ -281,13 +362,13 @@ def waehle_stammdaten(k, belege, zeilen):
                                                "description", "tax_group_id"]], "Steuern lesen",
                    context=CTX)
                if steuer_ids else [])
-    return partner, journale, konten, steuern, bedingungen, produkte
+    return partner, journale, konten, steuern, bedingungen, produkte, lade_kategorien(k)
 
 
 # --------------------------------------------------------------------------
 # 2. Plan gegen die Zielinstanz pruefen (nur lesend)
 # --------------------------------------------------------------------------
-def pruefe_ziel(z, partner, journale, konten, steuern, bedingungen, produkte):
+def pruefe_ziel(z, partner, journale, konten, steuern, bedingungen, produkte, kategorien):
     plan = []
     def pruefe(modell, feld, wert, was):
         treffer = rpc(z, modell, "search_count", [[(feld, "=", wert)]], "Zielpruefung %s %r" % (modell, wert))
@@ -306,15 +387,22 @@ def pruefe_ziel(z, partner, journale, konten, steuern, bedingungen, produkte):
         code = KONTO_MAPPING.get(str(K["code"]), str(K["code"]))
         pruefe("account.account", "code", code, "Konto (gemappt von %s)" % K["code"])
     for s in steuern:
-        pruefe("account.tax", "name", s["name"], "Steuer %s %s%%" % (s["name"], s["amount"]))
+        try:
+            ziel_steuer, wie = steuer_im_ziel(z, s)
+            zustand = ("vorhanden (%s)" % wie) if ziel_steuer else "fehlt im Ziel"
+        except SystemExit as fehler:
+            zustand = "nicht eindeutig"
+            wie = str(fehler)[:160]
+        plan.append({"modell": "account.tax", "schluessel": s["name"], "zustand": zustand,
+                     "was": "Steuer %s %s%%" % (s["name"], s["amount"])})
+        print("      Steuer %-24s -> %s" % (s["name"], zustand if ziel_steuer else wie))
     for b in bedingungen:
         pruefe("account.payment.term", "name", b["name"], "Zahlungsbedingung")
     steuern11 = {s["id"]: s for s in steuern}
     for pr in produkte:
         pruefe("product.template", "name", pr["name"], "Produkt")
         for feld, modell, beschriftung in (("uom_id", "uom.uom", "Mengeneinheit"),
-                                           ("uom_po_id", "uom.uom", "Einkauf ME"),
-                                           ("categ_id", "product.category", "Interne Kategorie")):
+                                           ("uom_po_id", "uom.uom", "Einkauf ME")):
             wert = pr.get(feld)
             if not wert:
                 continue
@@ -330,6 +418,16 @@ def pruefe_ziel(z, partner, journale, konten, steuern, bedingungen, produkte):
                          "was": "%s fuer Produkt %s" % (beschriftung, pr["name"])})
             print("      %-18s %-44s -> %-14s %s" % (feld, zeige(wert), zustand,
                                                       wie if ziel else ""))
+        # Produktkategorie: exakter Name und exakte Elternkette, keine Aehnlichkeitszuordnung
+        if pr.get("categ_id"):
+            kat_id = pr["categ_id"][0]
+            kat11 = kategorien.get(kat_id, {})
+            ziel_id, zustand = kategorie_im_ziel(z, kategorien, kat_id)
+            plan.append({"modell": "product.category", "schluessel": kat11.get("complete_name", ""),
+                         "zustand": "vorhanden" if ziel_id else
+                                    "fehlt im Ziel, wird beim Schreiblauf angelegt",
+                         "was": "Interne Kategorie fuer Produkt %s" % pr["name"]})
+            print("      %-18s %-44s -> %s" % ("categ_id", kat11.get("complete_name", "")[:44], zustand))
         for feld, beschriftung in (("taxes_id", "Steuern (Verkauf)"),
                                    ("supplier_taxes_id", "Steuern (Einkauf)")):
             for tid in (pr.get(feld) or []):
@@ -338,9 +436,9 @@ def pruefe_ziel(z, partner, journale, konten, steuern, bedingungen, produkte):
                     continue
                 try:
                     ziel_id, wie = steuer_im_ziel(z, t11)
-                    zustand = "vorhanden"
+                    zustand = "vorhanden" if ziel_id else "fehlt im Ziel"
                 except SystemExit as fehler:
-                    ziel_id, wie, zustand = None, str(fehler)[:120], "fehlt im Ziel"
+                    ziel_id, wie, zustand = None, str(fehler)[:120], "nicht eindeutig"
                 plan.append({"modell": "account.tax", "schluessel": t11["name"], "zustand": zustand,
                              "was": "%s fuer Produkt %s (%s)" % (beschriftung, pr["name"], wie)})
                 print("      %-18s %-44s -> %-14s %s" % (feld, t11["name"], zustand,
@@ -388,11 +486,22 @@ def hole_steuergruppe(z, steuer):
 
 
 def fuehre_aus(z, k, belege, zeilen, partner, journale, konten, steuern, bedingungen, produkte,
-               mitschrift):
+               kategorien, mitschrift):
     # --- Stammdaten in der dokumentierten Reihenfolge -----------------------
     # Journale werden NICHT angelegt: die Odoo-11-Journale werden ueber JOURNAL_MAPPING auf die
     # vorhandenen Zieljournale abgebildet (Punkt 3).
     for s in steuern:
+        # Erst zuordnen: vorhandene Zielsteuer verwenden (z. B. Odoo-18 "20% Ust" fuer die
+        # Odoo-11-Steuer "20% Umsatzsteuer" ueber deren Beschreibung "20% USt"), sonst anlegen.
+        # Verhindert doppelte Steuern in der Testinstanz.
+        try:
+            ziel_steuer, wie = steuer_im_ziel(z, s)
+        except SystemExit as fehler:
+            raise SystemExit("ABBRUCH: Steuer %r nicht eindeutig zuordenbar - %s"
+                             % (s["name"], str(fehler)[:200]))
+        if ziel_steuer:
+            print("      Steuer %-24s -> vorhanden (id %s, %s)" % (s["name"], ziel_steuer, wie))
+            continue
         lege_an(mitschrift, z, "account.tax",
                 {"name": s["name"], "amount": s["amount"], "amount_type": s["amount_type"],
                  "type_tax_use": s["type_tax_use"], "tax_group_id": hole_steuergruppe(z, s)},
@@ -451,8 +560,7 @@ def fuehre_aus(z, k, belege, zeilen, partner, journale, konten, steuern, bedingu
         if pr.get("standard_price"):
             werte["standard_price"] = pr["standard_price"]
         for feld, modell, beschriftung in (("uom_id", "uom.uom", "Mengeneinheit"),
-                                           ("uom_po_id", "uom.uom", "Einkauf ME"),
-                                           ("categ_id", "product.category", "Interne Kategorie")):
+                                           ("uom_po_id", "uom.uom", "Einkauf ME")):
             wert = pr.get(feld)
             if not wert:
                 continue
@@ -465,6 +573,15 @@ def fuehre_aus(z, k, belege, zeilen, partner, journale, konten, steuern, bedingu
                 raise SystemExit("ABBRUCH: %s %r fuer Produkt %r ist im Ziel nicht eindeutig "
                                  "(%d Treffer)." % (beschriftung, zeige(wert), pr["name"], len(treffer)))
             werte[feld] = treffer[0]
+        # Produktkategorie: exakter Name und exakte Elternkette; fehlende Kategorien werden
+        # ausschliesslich hier in der Testinstanz angelegt (Auftrag Anna, Session 129).
+        if pr.get("categ_id"):
+            kat_id_ziel, zustand = kategorie_im_ziel(z, kategorien, pr["categ_id"][0], mitschrift)
+            if not kat_id_ziel:
+                raise SystemExit("ABBRUCH: Kategorie fuer Produkt %r konnte nicht bestimmt werden (%s)."
+                                 % (pr["name"], zustand))
+            werte["categ_id"] = kat_id_ziel
+            print("      %-18s %-24s -> %s" % ("categ_id", pr["categ_id"][1][:24], zustand))
         for feld, beschriftung in (("taxes_id", "Steuern (Verkauf)"),
                                    ("supplier_taxes_id", "Steuern (Einkauf)")):
             ziel_steuern = []
@@ -474,6 +591,9 @@ def fuehre_aus(z, k, belege, zeilen, partner, journale, konten, steuern, bedingu
                     raise SystemExit("ABBRUCH: Odoo-11-Steuer id %s fuer Produkt %r nicht gelesen."
                                      % (tid, pr["name"]))
                 ziel_id, wie = steuer_im_ziel(z, t11)
+                if not ziel_id:
+                    raise SystemExit("ABBRUCH: %s fuer Produkt %r nicht zuordenbar - %s"
+                                     % (beschriftung, pr["name"], wie))
                 ziel_steuern.append(ziel_id)
                 print("      %-18s %-24s -> Odoo 18 id=%-5s (%s)"
                       % (beschriftung, t11["name"], ziel_id, wie))
@@ -508,38 +628,52 @@ def fuehre_aus(z, k, belege, zeilen, partner, journale, konten, steuern, bedingu
             wz = {"name": z_["name"], "quantity": z_["quantity"], "price_unit": z_["price_unit"],
                   "discount": z_["discount"] or 0.0}
             if z_.get("product_id"):
-                treffer = rpc(z, "product.product", "search",
-                              [[("name", "=", produkt_name[z_["product_id"][0]])]], "Produkt suchen")
-                if treffer:
-                    wz["product_id"] = treffer[0]
+                pname = produkt_name[z_["product_id"][0]]
+                treffer = rpc(z, "product.product", "search", [[("name", "=", pname)]], "Produkt suchen")
+                if len(treffer) != 1:
+                    raise SystemExit("ABBRUCH: Produkt %r aus Beleg %s ist im Ziel nicht eindeutig "
+                                     "vorhanden (%d Treffer)." % (pname, b["number"] or "Entwurf",
+                                                                  len(treffer)))
+                wz["product_id"] = treffer[0]
             if z_.get("account_id"):
                 alt = str(z_["account_id"][1]).split()[0]
                 code = KONTO_MAPPING.get(alt, alt)
                 treffer = rpc(z, "account.account", "search", [[("code", "=", code)]], "Konto suchen")
-                if not treffer:
-                    raise SystemExit("ABBRUCH: Konto %s (Odoo 11: %s) fehlt im Ziel."
-                                     % (code, z_["account_id"][1]))
+                if len(treffer) != 1:
+                    raise SystemExit("ABBRUCH: Konto %s (Odoo 11: %s) fehlt im Ziel oder ist nicht "
+                                     "eindeutig (%d Treffer)." % (code, z_["account_id"][1], len(treffer)))
                 wz["account_id"] = treffer[0]
             steuer_ids = []
             for t_ in (z_.get("invoice_line_tax_ids") or []):
                 s = next((x for x in steuern if x["id"] == t_), None)
-                if s:
-                    treffer = rpc(z, "account.tax", "search", [[("name", "=", s["name"])]], "Steuer suchen")
-                    if treffer:
-                        steuer_ids.append(treffer[0])
+                if not s:
+                    raise SystemExit("ABBRUCH: Odoo-11-Steuer id %s aus Beleg %s ist nicht gelesen."
+                                     % (t_, b["number"] or "Entwurf"))
+                ziel_steuer, wie = steuer_im_ziel(z, s)
+                if not ziel_steuer:
+                    raise SystemExit("ABBRUCH: Steuer %r aus Beleg %s nicht zuordenbar - %s"
+                                     % (s["name"], b["number"] or "Entwurf", wie))
+                steuer_ids.append(ziel_steuer)
             if steuer_ids:
                 wz["tax_ids"] = [(6, 0, steuer_ids)]
             zeilen_werte.append((0, 0, wz))
+        waehrung = rpc(z, "res.currency", "search", [[("name", "=", name(b["currency_id"]))]],
+                       "Waehrung suchen")
+        if len(waehrung) != 1:
+            raise SystemExit("ABBRUCH: Waehrung %r aus Beleg %s ist im Ziel nicht eindeutig (%d Treffer)."
+                             % (name(b["currency_id"]), b["number"] or "Entwurf", len(waehrung)))
         werte = {"move_type": b["type"], "partner_id": ziel_partner[0], "journal_id": ziel_journal[0],
                  "invoice_date": b["date_invoice"], "invoice_date_due": b["date_due"],
-                 "currency_id": rpc(z, "res.currency", "search",
-                                    [[("name", "=", name(b["currency_id"]))]], "Waehrung suchen")[0],
+                 "currency_id": waehrung[0],
                  "invoice_line_ids": zeilen_werte}
         if b.get("payment_term_id"):
             treffer = rpc(z, "account.payment.term", "search",
                           [[("name", "=", name(b["payment_term_id"]))]], "Zahlungsbedingung suchen")
-            if treffer:
-                werte["invoice_payment_term_id"] = treffer[0]
+            if len(treffer) != 1:
+                raise SystemExit("ABBRUCH: Zahlungsbedingung %r aus Beleg %s ist im Ziel nicht "
+                                 "eindeutig (%d Treffer)." % (name(b["payment_term_id"]),
+                                                              b["number"] or "Entwurf", len(treffer)))
+            werte["invoice_payment_term_id"] = treffer[0]
         werte["itk_o11_invoice_number"] = b["number"] or ""
         # Doppelanlage bei Wiederholung verhindern: erst ueber die Odoo-11-Nummer suchen,
         # bei Entwuerfen (ohne Nummer) ueber Partner + Art + Datum.
@@ -803,16 +937,19 @@ def main() -> int:
             print("   %-20s %-12s %-8s %6d Zeilen, brutto %.2f, Rest %.2f"
                   % (t, b["number"] or "Entwurf", b["state"], len(b["invoice_line_ids"]),
                      b["amount_total"], b["residual"]))
-    partner, journale, konten, steuern, bedingungen, produkte = waehle_stammdaten(k, belege, zeilen)
-    print("Stammdaten: %d Partner, %d Journale, %d Konten, %d Steuern, %d Zahlungsbedingungen, %d Produkte"
-          % (len(partner), len(journale), len(konten), len(steuern), len(bedingungen), len(produkte)))
+    (partner, journale, konten, steuern, bedingungen, produkte,
+     kategorien) = waehle_stammdaten(k, belege, zeilen)
+    print("Stammdaten: %d Partner, %d Journale, %d Konten, %d Steuern, %d Zahlungsbedingungen, "
+          "%d Produkte, %d Kategorien (Odoo 11)"
+          % (len(partner), len(journale), len(konten), len(steuern), len(bedingungen), len(produkte),
+             len(kategorien)))
     for pr in produkte:
         print("   Produkt %-58s O11-Typ %-14s -> O18 %s%s" % (
             pr["name"][:58], pr["type"], typ_ziel(pr["type"])[0],
             " + is_storable" if typ_ziel(pr["type"])[1] else ""))
 
-    plan = pruefe_ziel(z, partner, journale, konten, steuern, bedingungen, produkte)
-    fehlend = [x for x in plan if x["zustand"] == "fehlt im Ziel"]
+    plan = pruefe_ziel(z, partner, journale, konten, steuern, bedingungen, produkte, kategorien)
+    fehlend = [x for x in plan if "fehlt im Ziel" in x["zustand"]]
     print("\nPlan: %d Positionen, davon %d im Ziel noch nicht vorhanden." % (len(plan), len(fehlend)))
     for x in fehlend:
         print("   fehlt: %-22s %-30s %s" % (x["modell"], x["schluessel"][:30], x["was"]))
@@ -837,7 +974,7 @@ def main() -> int:
               % (len(offen), len(alt)))
     try:
         fuehre_aus(z, k, belege, zeilen, partner, journale, konten, steuern, bedingungen, produkte,
-                   mitschrift)
+                   kategorien, mitschrift)
     finally:
         with open(PROTOKOLL, "w", encoding="utf-8") as fh:
             json.dump({"angelegt": mitschrift}, fh, ensure_ascii=False, indent=1)
