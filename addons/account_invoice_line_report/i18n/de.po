@@ -26,6 +26,9 @@ msgid ""
 "customers. The search tool can also be used to personalise your Invoices "
 "reports and so, match this analysis to your needs."
 msgstr ""
+"Dieser Bericht gibt einen Überblick über die fakturierten Beträge Ihrer "
+"Kunden. Mit der Suche können Sie die Rechnungsberichte an Ihre "
+"Auswertungswünsche anpassen."
 
 #. module: account_invoice_line_report
 #: model_terms:ir.ui.view,arch_db:account_invoice_line_report.view_invoice_report_tree_info
@@ -46,14 +49,14 @@ msgstr "Partner-Schlagworte"
 #. module: account_invoice_line_report
 #: model_terms:ir.ui.view,arch_db:account_invoice_line_report.view_account_invoice_report_search
 msgid "Vendor contains"
-msgstr ""
+msgstr "Lieferant enthält"
 
 #. module: account_invoice_line_report
 #: model_terms:ir.ui.view,arch_db:account_invoice_line_report.view_account_invoice_report_search
 msgid "With Price"
-msgstr ""
+msgstr "Mit Preis"
 
 #. module: account_invoice_line_report
 #: model_terms:ir.ui.view,arch_db:account_invoice_line_report.view_account_invoice_report_search
 msgid "Without Price"
-msgstr ""
+msgstr "Ohne Preis"

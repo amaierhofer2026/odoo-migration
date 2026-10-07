@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <!-- side menu category -->
-    <menuitem id="menu_finance_configuration" name="Configuration" parent="account.menu_finance"/>
+    <!--
+        Menueplatzierung (Session 131, 07.10.2026):
+        Das Modul legte bisher eine EIGENE Navigationssektion "Konfiguration" unter der App
+        Abrechnung an (menuitem menu_finance_configuration parent=account.menu_finance).
+        Odoo 11 hatte diesen Menuepunkt nicht: dort gab es kein Menue und keine Fensteraktion
+        fuer itk_projectcategory.projectcategory (read-only geprueft), nur das Feld am Beleg.
+        In Odoo 18 erschien dadurch eine dritte Sektion "Konfiguration" in der Navigationsleiste
+        (Odoo-11-Stand: zwei - account und itk_valorisierung).
+        Der Menuepunkt liegt jetzt wie "Produktkategorien" unter Abrechnung > Konfiguration >
+        Verwaltung. Funktion und Daten bleiben unveraendert; die eigene Sektion entfaellt.
+    -->
+    <delete model="ir.ui.menu" id="menu_finance_configuration"/>
+
     <!--START Action and Menuentry-->
     <record model="ir.actions.act_window" id="menu_finance_configuration_projectcategory_action">
         <field name="name">Project Category</field>
@@ -15,7 +26,7 @@
     </record>
 
     <menuitem id="menu_finance_configuration_projectcategory" name="Project Category"
-              parent="menu_finance_configuration"
+              parent="account.account_management_menu" sequence="5"
               action="menu_finance_configuration_projectcategory_action"/>
     <!--END Action and Menuentry-->
 
@@ -26,7 +37,10 @@
             <field name="name">itk_projectcategory.projectcategory.tree</field>
             <field name="model">itk_projectcategory.projectcategory</field>
             <field name="arch" type="xml">
-                <list string="Fields of Law">
+                <!-- Odoo 11 hat fuer dieses Modell keine Listenansicht; die Beschriftung war
+                     ein Altbestand aus dem Quellprojekt ("Fields of Law") und wird auf die
+                     Beschriftung des Modells gesetzt (Odoo 11 und Odoo 18: "Project Category"). -->
+                <list string="Project Category">
                     <field name="name"/>
                     <field name="code"/>
                     <field name ="seq"/>

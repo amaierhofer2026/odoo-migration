@@ -23,11 +23,6 @@ msgid "Code"
 msgstr "Code"
 
 #. module: itk_projectcategory
-#: model:ir.ui.menu,name:itk_projectcategory.menu_finance_configuration
-msgid "Configuration"
-msgstr "Konfiguration"
-
-#. module: itk_projectcategory
 #: model:ir.actions.act_window,help:itk_projectcategory.menu_finance_configuration_projectcategory_action
 msgid "Create the first Project Category"
 msgstr "Erstelle die erste Projekt Kategorie"
@@ -46,11 +41,6 @@ msgstr "Erstellt am"
 #: model:ir.model.fields,field_description:itk_projectcategory.field_itk_projectcategory_projectcategory_display_name
 msgid "Display Name"
 msgstr "Anzeigename"
-
-#. module: itk_projectcategory
-#: model:ir.ui.view,arch_db:itk_projectcategory.tree_view_projektcategory
-msgid "Fields of Law"
-msgstr "Fields of Law"
 
 #. module: itk_projectcategory
 #: model:ir.model.fields,field_description:itk_projectcategory.field_itk_projectcategory_projectcategory_id
@@ -88,6 +78,7 @@ msgstr "Name"
 #: model:ir.model.fields,field_description:itk_projectcategory.field_account_invoice_projectcategory_id
 #: model:ir.ui.menu,name:itk_projectcategory.menu_finance_configuration_projectcategory
 #: model:ir.ui.view,arch_db:itk_projectcategory.form_view_projektcategory
+#: model:ir.ui.view,arch_db:itk_projectcategory.tree_view_projektcategory
 msgid "Project Category"
 msgstr "Projekt Kategorie"
 

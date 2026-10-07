@@ -12,7 +12,8 @@
                 <field name="ref"/>
             </xpath>
             <xpath expr="//filter[@name='salesperson']" position="after">
-                <filter context="{'group_by': 'ref'}" name="title" string="Community Code"/>
+                <!-- Wortlaut wie Odoo 11 (dort sichtbar "Gemeindekennzahl", Session 131) -->
+                <filter context="{'group_by': 'ref'}" name="title" string="Gemeindekennzahl"/>
                 <filter context="{'group_by': 'status_of_partner_id'}" name="title" string="Status"/>
             </xpath>
         </field>
@@ -27,7 +28,8 @@
                 <field name="ref" string="GKZ"/>
             </xpath>
             <xpath expr="//field[@name='email']" position="after">
-                <field name="user_id" string="Salesperson"/>
+                <!-- Wortlaut wie Odoo 11 (dort sichtbar "Verkäufer", Session 131) -->
+                <field name="user_id" string="Verkäufer"/>
                 <field name="status_of_partner_id" string="Status"/>
             </xpath>
         </field>

@@ -338,3 +338,59 @@ Anna.
 - Namenszuordnung der Abo-Vorlagen vor der Produktmigration.
 - Unbenutzte Kategorien (id 45, id 59) erst mit Preislistenregeln bzw. Auftraegen anlegen.
 - Abrechnung bleibt IN ARBEIT; die finale Freigabe gibt Anna nach ihrer Sichtkontrolle.
+
+## 14. Abschlussdurchgang 07.10.2026 (Session 131) - Menue, Konfiguration, Berichtswesen
+
+Auftrag: Abschlussdurchgang des gesamten Moduls Abrechnung mit Schwerpunkt Konfiguration und
+Berichtswesen, vollstaendige Menue-Matrix gegen Odoo 11, Klaerung der mehrfach sichtbaren
+Menueueberschrift "Konfiguration", Browserpruefung jedes Menuepunkts lokal und VM,
+Beschriftungspruefung, Regression, Dreistand. Odoo 11 nur lesend, keine Produktivmigration.
+
+Details und vollstaendige Matrix: `docs/o11-o18-abrechnung-menue-matrix.md`.
+
+### 14.1 Ergebnis der Menuepruefung
+
+| Bereich | Menuezeilen (Odoo 18) | davon Fensteraktionen | Entsprechung in Odoo 11 | ohne Entsprechung | Status |
+|---|---|---|---|---|---|
+| Verkauf | 7 (inkl. Gruppe) | 6 | 5 | 1 (Zusatz "Eingaenge") | OK, Zusatz erhalten |
+| Einkauf | 7 (inkl. Gruppe) | 6 | 5 | 1 (Zusatz "Eingaenge") | OK, Zusatz erhalten |
+| Berichtswesen | 5 (inkl. Gruppen) | 3 | 1 (Rechnungsanalyse) | 2 Zusaetze (Abrechnungspositionen, Pruefpfad) | OK; 3 Odoo-11-Assistenten entfallen (K3) |
+| Konfiguration | 24 (inkl. Gruppen und 1 Assistent) | 15 | 15 | 6 Zusaetze (Waehrungen, Kostenstellenplaene, Verteilungsschluessel, Produktkategorien, Zahlungsmethoden, Projekt Kategorie) | OK; 1 Sektion bereinigt (Projekt Kategorie), 1 Konzept entfallen (Kostenstellen Tags) |
+| **gesamt** | **44** | **30** | - | - | **kein Odoo-11-Menuepunkt ohne fachliche Entsprechung** |
+
+### 14.2 Umsetzungen in diesem Durchgang
+
+| Nr | Aenderung | Datei/Modul | Begruendung |
+|---|---|---|---|
+| 1 | Dritte Sektion "Konfiguration" entfernt, Menuepunkt "Projekt Kategorie" unter Konfiguration > Verwaltung | `addons/itk_projectcategory/views/projectcategory_views.xml` (18.0.1.0.1) | Odoo 11 hatte Menue/Aktion/Liste dieses Modells nicht (0 Treffer in `ir.ui.menu`/`ir.actions.act_window`); Odoo 11 hatte zwei Konfigurations-Sektionen |
+| 2 | Listenbeschriftung "Fields of Law" -> "Project Category" | dito, `i18n/de_DE.po` | Altbestand aus dem Quellprojekt, deutsch und englisch sichtbar englisch |
+| 3 | Listenspalte "Salesperson" -> "Verkäufer" | `addons/itk_crm/views/res_partner.xml` (18.0.1.5.8) | Odoo 11 zeigte "Verkäufer" |
+| 4 | Suchfilter "Community Code" -> "Gemeindekennzahl" | dito | Odoo 11 zeigte "Gemeindekennzahl" |
+| 5 | Berichtsfilter "With Price"/"Without Price" -> "Mit Preis"/"Ohne Preis", "Vendor contains" -> "Lieferant enthält", Hilfe-Text | `addons/account_invoice_line_report/i18n/de.po` (18.0.1.0.1) | leere `msgstr` in der deutschen Uebersetzung |
+| 6 | Sieben Beschriftungen lokal/VM angeglichen | `scripts/apply_abrechnung_labels.py` | sichtbare Unterschiede zwischen den Instanzen |
+
+Modulstaende nach diesem Durchgang: itk_crm 18.0.1.5.8, itk_projectcategory 18.0.1.0.1,
+account_invoice_line_report 18.0.1.0.1; unveraendert itk_valorisierung 18.0.1.3.0,
+itk_account_migration 18.0.1.22.0, itk_product 18.0.1.0.5.
+
+### 14.3 Nachweise
+
+| Pruefung | Ergebnis |
+|---|---|
+| Menuebaum Odoo 11 gegen Odoo 18 (lokal und VM) | siehe Abschnitt 14.1; lokal = VM in Struktur, Pfaden, Aktionen, Ansichtsarten und Sequenzen |
+| Ansichten je Menuepunkt (Liste/Formular/Suche) | lokal = VM; Abweichungen nur interne IDs und die Reihenfolge nicht abrechnungsrelevanter Einstellungsfelder |
+| Beschriftungen der Abrechnungsmodelle | vollstaendige Messung; 7 sichtbare Unterschiede korrigiert, Rest dokumentiert |
+| Browser-Gesamtcheck je Menuepunkt (lokal) | 31 Menuepunkte: Teil 1 (Verkauf/Einkauf) 97 OK / 4 FEHL, Teil 2 (Konfiguration/Berichtswesen) 70 OK / 20 FEHL, Speicherprobe Produktkategorien 5 OK / 0 FEHL; **alle FEHL sind Erwartungen des Pruefscripts, kein Produktfehler** (Einordnung: `docs/o11-o18-abrechnung-menue-matrix.md`, Abschnitt 12); keine JS-, Konsolen- oder Serverfehler |
+| Browser-Gesamtcheck je Menuepunkt (VM) | nach dem Deploy; Ergebnis im Session-Abschluss |
+| Regression | `check_abrechnung_labels.py`, `check_abrechnung_viewlabels.py`, `abschluss_verkauf_regression.py` lokal und VM |
+| Bestand vorher/nachher | Testkategorie `ITK-TEST-S131` angelegt und entfernt; Bestand unveraendert |
+
+### 14.4 Offene Punkte aus diesem Durchgang
+
+- **Menuebezeichnung "Projekt Kategorie"**: englischer Ursprungsname ohne Odoo-11-Vorlage; deutsche
+  Alternative ("Projektkategorien") waere Ihre Wortlautentscheidung.
+- **"Kostenstellen" statt "Kostenstellenkonten"** (Odoo-11-Menuebezeichnung): Wortlautfrage.
+- **Kundenliste mit Defaultfilter leer**: Odoo 18 berechnet `customer_rank` aus Belegen, die
+  Odoo-11-Booleans `customer`/`supplier` entfallen - Migrationshinweis, keine Anpassung moeglich.
+- **BLOCKER Kontenstammdaten 8400/3400** unveraendert (Abschnitt 13.5).
+- **Abrechnung bleibt IN ARBEIT**; die Freigabe gibt Anna nach eigener Sichtkontrolle.

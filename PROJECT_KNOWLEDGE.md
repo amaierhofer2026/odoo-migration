@@ -9032,3 +9032,95 @@ markieren. Odoo 11 ausschliesslich lesend. Vollstaendige Matrix:
   Abo-Vorlagen vor der Produktmigration, unbenutzte Kategorien (id 45, id 59) erst mit den
   referenzierenden Bereichen anlegen.
 - **Abrechnung bleibt IN ARBEIT**; die finale Freigabe gibt Anna nach ihrer Sichtkontrolle.
+
+## Session 131 (07.10.2026): Abschlussdurchgang Abrechnung - Menue-Matrix, Konfiguration, Berichtswesen
+
+Auftrag (Anna): vollstaendiger technischer Abschlussdurchgang des Moduls Abrechnung mit
+Schwerpunkt **Konfiguration** und **Berichtswesen**, vollstaendige Menue-Matrix (Odoo-11-Menuepunkt,
+Odoo-18-Menuepunkt, Modell, Aktion, View, fachliche Entsprechung, Abweichung, Massnahme,
+migrationsrelevant), Klaerung der mehrfach sichtbaren Menueueberschrift "Konfiguration",
+Browserpruefung **jedes** Menuepunkts lokal und auf der VM, Pruefung auf sichtbare englische
+Beschriftungen, Regression, Commit/PR/Merge, VM per Git nachziehen, Dreistand. Odoo 11
+ausschliesslich lesend, keine Produktivdaten, Abrechnung bleibt IN ARBEIT.
+
+Matrix und Vergleich: `docs/o11-o18-abrechnung-menue-matrix.md`.
+Kurzblock in der Checkliste: `MIGRATION_READINESS_CHECKLIST.md`, Abschnitt "Session 131".
+
+### 1. Neues Erhebungswerkzeug (read-only)
+
+`scripts/erhebe_abrechnung_menue_matrix.py` erhebt je System den kompletten Menuebaum mit Pfad,
+Menue-ID, XML-ID und Modul, Aktionsart/-ID/-Name, Modell, view_mode, gebundener Ansicht, Domain,
+Anzahl Datensaetze, Untermenues und Zugriffsgruppen. Alles in Sammelabfragen - ein Aufruf je
+Menuepunkt laeuft gegen die Odoo-11-Produktion ins Timeout (323 Menues, 210 Fensteraktionen,
+150 Modelle in Odoo 11; 443 Menues je Odoo-18-Instanz).
+
+Weiter: `scripts/vergleiche_abrechnung_menuepunkte.py` (wirksame Ansichten je Menuepunkt:
+Spalten, Reiter, Felder mit required/readonly, Buttons, Smart Buttons, Statusleiste, Filter,
+Gruppierungen, Suchfelder), `scripts/werte_abrechnung_menuevergleich_aus.py` (Vergleichsbericht),
+`scripts/pruefe_abrechnung_beschriftungen_vollstaendig.py` (Beschriftungen aller Feldpaare der
+Abrechnungsmodelle statt nur der dokumentierten 155),
+`scripts/browser_abrechnung_gesamtcheck.py` (Browser-Gesamtcheck je Menuepunkt).
+
+### 2. Die drei Menueueberschriften "Konfiguration" (geklaert und bereinigt)
+
+In Odoo 18 standen **drei** Sektionen "Konfiguration" in der Navigationsleiste der App Abrechnung,
+in Odoo 11 **zwei**. Herkunft: `account.menu_finance_configuration` (Standard),
+`itk_valorisierung.menu_finance_configuration` (in Odoo 11 vorhanden) und
+`itk_projectcategory.menu_finance_configuration` (**neu** in Odoo 18). Beleg fuer Odoo 11:
+`ir.ui.menu` enthaelt dort kein Menue "Project Category" und `ir.actions.act_window` keine
+Fensteraktion auf `itk_projectcategory.projectcategory` (je 0 Treffer); nur die Formularerweiterung
+am Beleg existiert (View 1389, Modell `account.invoice`).
+
+Umsetzung: eigene Sektion des Moduls entfernt (`<delete .../>`), Menuepunkt "Projekt Kategorie"
+unter Abrechnung > Konfiguration > Verwaltung (neben Produktkategorien), Listenbeschriftung
+"Fields of Law" -> "Project Category". Modul `itk_projectcategory` 18.0.1.0.1.
+
+### 3. Sichtbare englische Beschriftungen (korrigiert)
+
+| Befund | vorher | jetzt | Modul |
+|---|---|---|---|
+| Listenspalte Kunden/Lieferanten | Salesperson | Verkäufer | itk_crm 18.0.1.5.8 |
+| Suchfilter Kunden/Lieferanten | Community Code | Gemeindekennzahl | itk_crm 18.0.1.5.8 |
+| Berichtsfilter | With Price / Without Price | Mit Preis / Ohne Preis | account_invoice_line_report 18.0.1.0.1 |
+| Suchfeld im Bericht | Vendor contains | Lieferant enthält | account_invoice_line_report 18.0.1.0.1 |
+| Listenbeschriftung | Fields of Law | Project Category | itk_projectcategory 18.0.1.0.1 |
+
+### 4. Instanzangleich lokal gegen VM
+
+Vergleich der Feldbeschriftungen von 30 Modellpaaren und der Menuebaeume beider Instanzen ergab
+sieben sichtbare Unterschiede. Alle in `scripts/apply_abrechnung_labels.py` reproduzierbar
+ergaenzt und auf beiden Instanzen gesetzt: `account.move.status_in_payment` (VM zeigte englisch
+"Status In Payment"), `account.move.delivery_date`, `account.move.show_delivery_date`,
+`res.partner.multi_factor`, `product.template.rating_ids`, `product.template.website_message_ids`,
+Aktion "Bankkonto hinzufügen" (lokal hatte einen veralteten Uebersetzungsstand). Nicht abzurechnende
+Reste (Helpdesk-Einstellungen, Tenor/Klipy, technische Felder ohne sichtbare Stelle) sind
+dokumentiert, nicht geaendert.
+
+### 5. Befunde ohne Aenderung
+
+- **Menue-Matrix:** kein Odoo-11-Menuepunkt des Bereichs ohne Entsprechung, ausser den drei
+  Enterprise-Berichtsassistenten ("PDF Berichte"), dem Wurzelmenue "Finanzberichte" und dem
+  entfallenen Konzept "Kostenstellen Tags" (0 Daten). Kein Nachbau als Dummy-Funktion.
+- "Kostenstellenbuchungen" ist in Odoo 18 eine eigene Wurzel (Standard `account`), mit mehr
+  Ansichtsarten als in Odoo 11 (pivot) - gleichwertig.
+- "Bankkonten": Odoo 11 listete dort die Bankjournale, Odoo 18 zeigt den Assistenten
+  "Bankkonto hinzufügen"; die Journalliste steht unter "Finanzen > Journale" (8 Journale).
+- Zugriffsrechte: Odoo 11 "Abrechnung"/"Abrechnungsmanager" gegen Odoo 18 "Rechnungsstellung" und
+  "Buchhaltungsfunktionen anzeigen (schreibgeschützt)", Konfiguration ueber "Administrator" -
+  gleiche Abstufung.
+- Kundenliste der Testinstanz ist mit dem Defaultfilter leer, weil Odoo 18 die Kundenkennzeichnung
+  aus Belegen berechnet (`customer_rank`) und die Odoo-11-Booleans `customer`/`supplier` entfallen
+  sind. Migrationshinweis, kein Fehler.
+
+### 6. Zwischenfall (lokale Instanz) und Behebung
+
+`docker compose run --rm -T odoo odoo -u ... -d odoo18_test` hat den lokalen **db-Container neu
+erzeugt** und dabei das projektbezogene, leere Volume `odoo-test_odoo18_pgdata` benutzt; die
+Testdatenbank wirkte leer (Anmeldung "Login failed ... Access Denied"). Ursache: `docker-compose.yml`
+deklarierte `odoo18_pgdata:` ohne `external`, waehrend die Daten im vorhandenen Volume
+`odoo18_pgdata` liegen. Das Volume war unversehrt; es ist jetzt ausdruecklich eingebunden
+(`external: true, name: odoo18_pgdata`), Container neu erzeugt, Bestand geprueft (39 Belege,
+13 aktive Produktvorlagen, 11 Valorisierungstexte, 3 Kategorien, 76 Partner, 17 Benutzer).
+Kein Datenverlust. Lehre im Skill: `references/docker-compose-volume-falle.md`.
+
+**Abrechnung bleibt IN ARBEIT**; ein fachlicher BLOCKER (Kontenstammdaten 8400/3400) ist offen.

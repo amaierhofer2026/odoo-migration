@@ -7,6 +7,9 @@ services:
       POSTGRES_USER: odoo
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
+      # ACHTUNG (07.10.2026): Das Datenverzeichnis liegt im vorhandenen Volume "odoo18_pgdata".
+      # Ohne "external: true" legt Compose bei abweichendem Projektnamen ein NEUES, leeres
+      # Volume (z. B. odoo-test_odoo18_pgdata) an und die Testdatenbank ist scheinbar weg.
       - odoo18_pgdata:/var/lib/postgresql/data
     restart: unless-stopped
 
@@ -30,3 +33,5 @@ services:
 
 volumes:
   odoo18_pgdata:
+    external: true
+    name: odoo18_pgdata

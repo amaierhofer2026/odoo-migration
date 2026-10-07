@@ -2665,6 +2665,72 @@ BLOCKER (unveraendert, vor Produktivmigration zu entscheiden): Kontenstammdaten 
 
 Abrechnung bleibt IN ARBEIT; die finale Freigabe gibt Anna nach ihrer Sichtkontrolle.
 
+### Session 131 (07.10.2026): Abschlussdurchgang Abrechnung - Menue-Matrix, Konfiguration, Berichtswesen
+
+Auftrag: vollstaendiger technischer Abschlussdurchgang des Moduls Abrechnung mit Schwerpunkt
+Konfiguration und Berichtswesen, vollstaendige Menue-Matrix, Klaerung der mehrfach sichtbaren
+Menueueberschrift "Konfiguration", Browserpruefung jedes Menuepunkts lokal und VM, Beschriftungs-
+pruefung, Regression, Dreistand. Odoo 11 ausschliesslich lesend.
+
+Eine Matrix mit jeder Zeile (Odoo-11-Menuepunkt, Odoo-18-Menuepunkt, Modell, Aktion, Views,
+fachliche Entsprechung, Abweichung, Massnahme, Migrationsrelevanz) liegt in
+`docs/o11-o18-abrechnung-menue-matrix.md`.
+
+Befunde und Umsetzung:
+
+- **Menue-Matrix:** 42 Menuezeilen unter Abrechnung in Odoo 11, 44 in Odoo 18 (lokal = VM),
+  davon 30 Menuepunkte mit Fensteraktion. Kein Odoo-11-Menuepunkt ohne Entsprechung, ausser den
+  drei Enterprise-Berichtsassistenten (PDF Berichte), dem Wurzelmenue "Finanzberichte" und dem
+  entfallenen Konzept "Kostenstellen Tags" (0 Daten in Odoo 11) - alle als bewusste Abweichung
+  dokumentiert, kein Nachbau.
+- **Drei Sektionen "Konfiguration":** technisch geklaert - zwei stammen von ITK-Modulen
+  (`itk_valorisierung` = schon in Odoo 11 vorhanden, `itk_projectcategory` = **neu** in Odoo 18),
+  eine von `account`. Odoo 11 hatte zwei. Der Menuepunkt "Projekt Kategorie" liegt jetzt unter
+  Abrechnung > Konfiguration > Verwaltung (neben Produktkategorien); die eigene Sektion des Moduls
+  wird per `<delete>` entfernt. Zusaetzlich korrigiert: Listenbeschriftung "Fields of Law" ->
+  "Project Category". Modul `itk_projectcategory` 18.0.1.0.1.
+- **Berichtswesen:** Rechnungen -> Rechnungsanalyse (gleiches Modell/Aktion), Kostenstellenbuchungen
+  ist in Odoo 18 eine eigene Wurzel (Standard `account`), Pruefpfad und Abrechnungspositionen sind
+  Odoo-18-Zusaetze. PDF Berichte/Finanzberichte fehlen in Community (K3).
+- **Englische Beschriftungen im Abrechnungsbereich korrigiert:** Liste Kunden/Lieferanten
+  "Salesperson" -> "Verkäufer", Suchfilter "Community Code" -> "Gemeindekennzahl"
+  (`itk_crm` 18.0.1.5.8); Berichtsfilter "With Price"/"Without Price" -> "Mit Preis"/"Ohne Preis"
+  plus "Vendor contains" und Hilfe-Text (`account_invoice_line_report` 18.0.1.0.1);
+  "Fields of Law" -> "Project Category".
+- **Instanzangleich lokal/VM (7 Stellen):** `account.move.status_in_payment` (VM zeigte englisch
+  "Status In Payment"), `delivery_date`, `show_delivery_date`, `res.partner.multi_factor`,
+  `product.template.rating_ids`, `product.template.website_message_ids` und die Aktionsbezeichnung
+  "Bankkonto hinzufügen" (lokal trug einen veralteten Uebersetzungsstand). Alle in
+  `scripts/apply_abrechnung_labels.py` reproduzierbar ergaenzt.
+- **Zugriffsrechte:** Odoo 11 sperrt die App auf "Abrechnung"/"Abrechnungsmanager", die
+  Konfigurationszweige zusaetzlich auf Gruppen; Odoo 18 nutzt dieselbe Abstufung mit den
+  Standardgruppen "Rechnungsstellung" und "Buchhaltungsfunktionen anzeigen (schreibgeschützt)",
+  Konfiguration ueber "Administrator". Keine Funktion verloren; die ITK-Feinsicht zur
+  Valorisierung bleibt der offene Punkt aus der Uebergabe.
+- **Defaultfilter** je Menuepunkt sind fachlich gleich (z. B. `filter_to_sell`, `filter_to_purchase`,
+  `search_default_customer`); Odoo 18 ergaenzt belegartspezifische Defaultfilter
+  (`out_invoice`, `out_refund`, `in_invoice`, `in_refund`).
+- **Auswahlwerte** der Konfigurationsmodelle: Odoo 18 hat mehr Werte (z. B. Journal-Typ
+  zusaetzlich `credit`), keine fuer die Migration benoetigte Auswahl ist entfallen. Alle 8
+  Odoo-11-Journale tragen `bank_statements_source = undefined` (in Odoo 18 weiterhin vorhanden);
+  die uebrigen Werte des Feldes sind entfallen, weil Bank-Feeds ausgelagert wurden - ohne
+  Auswirkung auf diesen Bestand.
+- **Migrationshinweis (neu):** Die Odoo-11-Kunden-/Lieferantenkennzeichnung ist ein manuelles
+  Boolean-Feld (`res.partner.customer`/`supplier`, 5.845 bzw. 5.845 Partner). Odoo 18 kennt diese
+  Felder nicht mehr, sondern berechnete Raenge (`customer_rank`/`supplier_rank`) aus Belegen.
+  Deshalb ist die Kundenliste der Testinstanz mit dem Defaultfilter derzeit leer (Testbestand ohne
+  Belege). Nach der Datenmigration fuellen die uebernommenen Belege die Raenge; eine Uebernahme der
+  Odoo-11-Booleans ist nicht vorgesehen und nicht moeglich.
+- **Zwischenfall und Behebung (lokale Instanz):** `docker compose run` hat den lokalen
+  db-Container neu erzeugt und dabei ein leeres, projektbezogenes Volume benutzt; die lokale
+  Testdatenbank wirkte dadurch leer. Ursache war die Volume-Deklaration ohne `external`. Das
+  vorhandene Volume ist unversehrt und wieder eingebunden
+  (`docker-compose.yml`: `external: true, name: odoo18_pgdata`); Bestand geprueft (39 Belege,
+  13 aktive Produktvorlagen, 11 Valorisierungstexte, 3 Kategorien, 76 Partner). Kein Datenverlust.
+  Lehre im Skill: `references/docker-compose-volume-falle.md`.
+
+BLOCKER unveraendert: Kontenstammdaten 8400/3400 (siehe oben). Abrechnung bleibt IN ARBEIT.
+
 ### Pruefprotokoll je Modul (ausfuellen)
 
 | Modul | Browserabgleich lokal | Browserabgleich VM | Feldmapping | Beziehungen | Stammdaten | Statuswerte | Verknuepfungen | Constraints | Reihenfolge | Screenshots | Stand |
