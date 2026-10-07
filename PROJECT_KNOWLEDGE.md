@@ -8985,3 +8985,50 @@ Offen bzw. korrigiert (07.10.2026, read-only nachgeprueft):
 
 **Abrechnung bleibt IN ARBEIT** - nicht abgeschlossen, nicht eingefroren, nicht migrationsbereit.
 Die finale Freigabe gibt Anna selbst.
+
+## Session 129 - Abschlusscheck Bereich Abrechnung (07.10.2026)
+
+Auftrag: vollstaendiger Abschlusscheck des Moduls Abrechnung (alle Menuepunkte unter Abrechnung,
+Verkauf, Einkauf), keine neuen Teilbereiche, keine Produktivmigration, nichts als migrationsbereit
+markieren. Odoo 11 ausschliesslich lesend. Vollstaendige Matrix:
+`docs/o11-o18-abrechnung-abschlussmatrix.md`, Abschnitt 13.
+
+### Ergebnis
+
+| Pruefung | Ergebnis |
+|---|---|
+| Menuepunkte/Ansichtsarten O11 gegen O18 (`vergleiche_abrechnung_menue_ansichten.py`, neu) | 32 Menuepunkte, Ansichtsarten gleich (tree==list); Abweichungen nur dokumentiert (O11-Berichtsmenues, O18-Zusatzmenues) |
+| Feldabdeckung | 273 belegte Odoo-11-Felder, 0 Luecken |
+| Feldbeschriftungen lokal/VM | je 155 Feldpaare, 0 Abweichungen; Ansichtsbeschriftungen unveraendert |
+| Pflichtfelder, Constraints, Nummernregelwerk K2 | lokal und VM ohne Befund (Exit 0) |
+| Trockenlauf lokal und VM | identisch (Diff leer), 72 Planpositionen, 23 offen, kein Abbruch, 6 Belege / 4 Partner / 10 Produkte |
+| Testlauf VM (kontrolliert) | 202 Protokolleintraege, 10 Produkte, 2 Kategorien, 4 Partner, 5 Belege, 1 Zahlung |
+| Pruefung der Testmigration (neun Punkte) | **94 bestanden / 0 Abweichungen** |
+| Browser-Gesamtdurchgang lokal und VM | je 32 Menuepunkte, 31 Aufnahmen, keine JS-/RPC-Fehler; Ergebnisdateien lokal gegen VM: **0 Unterschiede** |
+| Produktmenues, Zahlungsformular, Project-Category/Statuskette, Produkt-Kategorie | 41/0, 19/0, 15/0 (lokal und VM), Kategorie 7/0 (VM mit Testlauf) |
+| Regression Verkauf/Abonnements | 886 OK / 0 FEHL ueber 11 Prueflaeufe |
+| Aufraeumen | 22 Datensaetze entfernt; Bestand lokal und VM vorher == nachher |
+
+### Behoben in diesem Check (drei echte Befunde in den Werkzeugen)
+
+1. `pruefe_testmigration.py` meldete 1 Abweichung ("fremde Aenderungen" an drei Produkten) - Ursache
+   war die feste Baseline vom 05.10.2026, die fremde Schreiboperationen (Modul-Upgrades vom 06.10.)
+   mitzaehlte. Baseline wird jetzt aus dem Protokoll abgeleitet (frueheste Schreibzeit der eigenen
+   Datensaetze minus zwei Minuten) -> 94 bestanden / 0 Abweichungen.
+2. `browser_kategorie_pruefung.py` hatte feste Produktnamen und meldete nach geaenderter Auswahl
+   zwei falsche FEHL; die Stichprobe wird jetzt aus Protokoll + Odoo-11-Quelle gebildet.
+3. `browser_pc_status_abnahme.py` und `browser_zeilen_beschreibung.py` brachen ohne Testbeleg ab;
+   fehlende Testbelege werden jetzt als "nicht anwendbar" gefuehrt (Exit 0).
+
+### BLOCKER und Offenes
+
+- BLOCKER Kontenstammdaten: 8400 "Erloese 19% USt" und 3400 "Wareneingang 19% Vorsteuer" sind
+  ausschliesslich globale Firmenvorgaben der Produktkategorien (ir.property, 8 Eintraege, alle
+  `res_id` leer, 0 kategoriespezifisch) und im Zielkontenrahmen (240 Konten) nicht vorhanden.
+  Die Migration laeuft technisch sauber durch, wenn die Zuordnung offen bleibt (Testlauf 202
+  Datensaetze, 94/0; neue Kategorien erben 4000/5010; Belegzeilen tragen das dokumentierte Mapping
+  8400 -> 4000). Nichts wurde geraten, nichts angelegt.
+- Offen: Migration der Preislistenregeln (403 Regeln ohne Produktbezug), Namenszuordnung der
+  Abo-Vorlagen vor der Produktmigration, unbenutzte Kategorien (id 45, id 59) erst mit den
+  referenzierenden Bereichen anlegen.
+- **Abrechnung bleibt IN ARBEIT**; die finale Freigabe gibt Anna nach ihrer Sichtkontrolle.

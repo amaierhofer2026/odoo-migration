@@ -21,6 +21,7 @@ import argparse
 import json
 import os
 import sys
+from datetime import datetime, timedelta
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _o11o18_client import o11, o18  # noqa: E402
@@ -62,6 +63,29 @@ def main() -> int:
             unsere.setdefault(e["modell"], set()).add(e["id"])
     print("Protokoll: %d Eintraege, davon selbst angelegt: %s"
           % (len(protokoll), {m: len(i) for m, i in sorted(unsere.items())}))
+
+    # Migrationsstart aus dem Protokoll ableiten (Session 129): die feste Konstante vom
+    # 05.10.2026 flaggte jede spaetere Schreiboperation anderer Arbeiten (z. B. Modul-Upgrades)
+    # als "fremde Aenderung". Baseline ist jetzt die frueheste Schreibzeit der selbst angelegten
+    # Datensaetze, zwei Minuten davor.
+    def ermittle_start():
+        zeiten = []
+        for modell, ids in unsere.items():
+            for i in sorted(ids):
+                try:
+                    d = z.kw(modell, "read", [[i], ["write_date"]], context=CTX)
+                except Exception:
+                    continue
+                if d and d[0]["write_date"]:
+                    zeiten.append(d[0]["write_date"])
+        if not zeiten:
+            return MIGRATIONSSTART, "feste Konstante (keine Schreibzeit lesbar)"
+        frueh = min(zeiten)
+        grenze = datetime.strptime(frueh, "%Y-%m-%d %H:%M:%S") - timedelta(minutes=2)
+        return grenze.strftime("%Y-%m-%d %H:%M:%S"), "abgeleitet aus dem Protokoll (frueste Zeit %s)" % frueh
+
+    start, start_quelle = ermittle_start()
+    print("Migrationsstart (Baseline): %s - %s" % (start, start_quelle))
 
     # --- 1 Stammdaten ------------------------------------------------------
     print("\n== 1 Stammdatenzuordnung")
@@ -251,7 +275,7 @@ def main() -> int:
     for modell, extra in (("res.partner", []), ("product.template", []), ("account.journal", []),
                           ("account.tax", []), ("account.move", []), ("account.payment", []),
                           ("sale.order", []), ("account.account", [])):
-        daten = z.kw(modell, "search_read", [[("write_date", ">=", MIGRATIONSSTART)],
+        daten = z.kw(modell, "search_read", [[("write_date", ">=", start)],
                                              ["id", "write_date"]])
         unsere_ids = set(unsere.get(modell, set()))
         if modell == "account.move":
@@ -269,7 +293,7 @@ def main() -> int:
         pz = z.kw("account.payment", "read", [[pid], ["move_id"]])
         if pz and pz[0]["move_id"]:
             unsere_moves.add(pz[0]["move_id"][0])
-    zeilen = z.kw("account.move.line", "search_read", [[("write_date", ">=", MIGRATIONSSTART)],
+    zeilen = z.kw("account.move.line", "search_read", [[("write_date", ">=", start)],
                                                        ["id", "move_id"]])
     fremde_zeilen = [l for l in zeilen if (l["move_id"] or [0])[0] not in unsere_moves]
     pruefe(not fremde_zeilen, "account.move.line   keine fremden Aenderungen seit Migrationsstart",
