@@ -9123,4 +9123,25 @@ deklarierte `odoo18_pgdata:` ohne `external`, waehrend die Daten im vorhandenen 
 13 aktive Produktvorlagen, 11 Valorisierungstexte, 3 Kategorien, 76 Partner, 17 Benutzer).
 Kein Datenverlust. Lehre im Skill: `references/docker-compose-volume-falle.md`.
 
+### 7. Deploy und VM-Abnahme (07.10.2026, Abschluss Session 131)
+
+- Git: Arbeitsbranch `s131-abschluss-abrechnung` (Commit 724c8a1) und `s131-volume-fix` (Commit
+  d274fdf) ueber PR #209 und #210 nach main gemergt; lokaler main danach 5f479afd.
+- VM: `git pull` in `/opt/odoo18` auf den neuen main-Stand, Modul-Upgrade
+  `itk_crm,itk_projectcategory,account_invoice_line_report` (`docker compose run --no-deps`, exit 0,
+  keine Fehler), Container-Neustart, danach `apply_abrechnung_labels.py --instanz vm`
+  (22 gesetzt, 0 Abweichungen). Module: itk_crm 18.0.1.5.8, itk_projectcategory 18.0.1.0.1,
+  account_invoice_line_report 18.0.1.0.1.
+- Menuebaum VM nach dem Deploy identisch zu lokal und zu Odoo 11: Verkauf (2), Einkauf (3),
+  Konfiguration (10, itk_valorisierung), Berichtswesen (20), Konfiguration (35, account);
+  Menue 897 entfernt; Projekt Kategorie unter Konfiguration > Verwaltung, Sequenz 5.
+- Browser VM: 31 Menuepunkte geprueft; erster Anlauf 4 Seiten-Timeouts im Pruefskript, Nachlauf
+  mit 30 s Timeout 30 OK / 0 FEHL; Speicherprobe Produktkategorien 5 OK / 0 FEHL
+  (Testkategorie id 8 angelegt und entfernt); deutsche Labels im Browser sichtbar identisch zu lokal.
+- Beschriftungspruefung VM: 155 Feldpaare, 0 Abweichungen. Regression lokal und VM:
+  886 OK / 0 FEHL ueber 11 Prueflaeufe.
+- Bestand nach allen Laeufen: lokal und VM unveraendert, keine Testreste
+  (keine Datensaetze mit ITK-TEST in Produkten, Kategorien, Kostenstellen, Belegen, Zahlungen,
+  Partnern, Valorisierungstexten, Projektkategorien).
+
 **Abrechnung bleibt IN ARBEIT**; ein fachlicher BLOCKER (Kontenstammdaten 8400/3400) ist offen.
