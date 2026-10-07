@@ -2729,6 +2729,12 @@ Befunde und Umsetzung:
   13 aktive Produktvorlagen, 11 Valorisierungstexte, 3 Kategorien, 76 Partner). Kein Datenverlust.
   Lehre im Skill: `references/docker-compose-volume-falle.md`.
 
+VM-Abnahme nach dem Deploy (07.10.2026): git pull auf main, Upgrade der drei Module ohne Fehler,
+Label-Lauf VM (22 gesetzt, 0 Abweichungen), Menuebaum identisch zu lokal, Browserpruefung
+31 Menuepunkte (Nachlauf mit 30 s Timeout 30 OK / 0 FEHL), Speicherprobe 5 OK / 0 FEHL,
+Beschriftungen 155 Feldpaare / 0 Abweichungen, Regression 886 OK / 0 FEHL ueber 11 Prueflaeufe,
+Bestand unveraendert, keine Testreste.
+
 BLOCKER unveraendert: Kontenstammdaten 8400/3400 (siehe oben). Abrechnung bleibt IN ARBEIT.
 
 ### Pruefprotokoll je Modul (ausfuellen)

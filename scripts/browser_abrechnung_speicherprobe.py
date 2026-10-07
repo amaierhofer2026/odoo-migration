@@ -26,6 +26,7 @@ VZ = os.path.join(os.path.expanduser("~"), "Desktop", "Odoo18-Abnahme-Session131
 def main() -> int:
     p = argparse.ArgumentParser()
     p.add_argument("--instanz", choices=["lokal", "vm"], required=True)
+    p.add_argument("--timeout", type=int, default=30000, help="Standard-Timeout in ms")
     a = p.parse_args()
     env = lade_env(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), ".env"))
     url, domain = (("https://k001959vsx.ipax.at", "k001959vsx.ipax.at") if a.instanz == "vm"
@@ -80,7 +81,7 @@ def main() -> int:
                                                     viewport={"width": 1800, "height": 1300})
         ctx.add_cookies([{"name": "session_id", "value": sid, "domain": domain, "path": "/"}])
         s = ctx.pages[0] if ctx.pages else ctx.new_page()
-        ctx.set_default_timeout(12000)
+        ctx.set_default_timeout(a.timeout)
         neu = []
         try:
             s.goto("%s/odoo/action-299" % url)          # Produktkategorien

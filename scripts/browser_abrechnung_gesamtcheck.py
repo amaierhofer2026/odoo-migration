@@ -43,6 +43,8 @@ def main() -> int:
     p.add_argument("--bis", type=int, default=0, help="letzter Menuepunkt (0 = bis Ende)")
     p.add_argument("--ohne-speicherprobe", action="store_true",
                    help="Speicherprobe ueberspringen (fuer Parallel-Laeufe)")
+    p.add_argument("--timeout", type=int, default=8000,
+                   help="Standard-Timeout in ms (VM ueber HTTPS braucht mehr, z. B. 30000)")
     a = p.parse_args()
     env = lade_env(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), ".env"))
     url, domain = (("https://k001959vsx.ipax.at", "k001959vsx.ipax.at") if a.instanz == "vm"
@@ -133,7 +135,7 @@ def main() -> int:
             viewport={"width": 1900, "height": 1400})
         ctx.add_cookies([{"name": "session_id", "value": sid, "domain": domain, "path": "/"}])
         s = ctx.pages[0] if ctx.pages else ctx.new_page()
-        ctx.set_default_timeout(8000)   # kurze Timeouts: fehlende Selektoren sollen nicht bremsen
+        ctx.set_default_timeout(a.timeout)   # fehlende Selektoren sollen nicht bremsen
         js_fehler, seiten_fehler = [], []
         s.on("pageerror", lambda e: seiten_fehler.append(str(e)[:300]))
         s.on("console", lambda m: js_fehler.append(m.text[:300]) if m.type == "error" else None)

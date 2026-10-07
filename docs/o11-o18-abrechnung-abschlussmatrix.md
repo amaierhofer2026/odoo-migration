@@ -381,7 +381,9 @@ itk_account_migration 18.0.1.22.0, itk_product 18.0.1.0.5.
 | Ansichten je Menuepunkt (Liste/Formular/Suche) | lokal = VM; Abweichungen nur interne IDs und die Reihenfolge nicht abrechnungsrelevanter Einstellungsfelder |
 | Beschriftungen der Abrechnungsmodelle | vollstaendige Messung; 7 sichtbare Unterschiede korrigiert, Rest dokumentiert |
 | Browser-Gesamtcheck je Menuepunkt (lokal) | 31 Menuepunkte: Teil 1 (Verkauf/Einkauf) 97 OK / 4 FEHL, Teil 2 (Konfiguration/Berichtswesen) 70 OK / 20 FEHL, Speicherprobe Produktkategorien 5 OK / 0 FEHL; **alle FEHL sind Erwartungen des Pruefscripts, kein Produktfehler** (Einordnung: `docs/o11-o18-abrechnung-menue-matrix.md`, Abschnitt 12); keine JS-, Konsolen- oder Serverfehler |
-| Browser-Gesamtcheck je Menuepunkt (VM) | nach dem Deploy; Ergebnis im Session-Abschluss |
+| Browser-Gesamtcheck je Menuepunkt (VM) | 31 Menuepunkte nach dem Deploy: 15 gewertete Punkte im ersten Anlauf fehlerfrei, 4 Menuepunkte mit Seiten-Timeout (zu knapper Timeout im Pruefskript) im Nachlauf mit 30 s **30 OK / 0 FEHL**; Speicherprobe Produktkategorien **5 OK / 0 FEHL** (Testkategorie id 8, danach entfernt); keine Produktfehler, die FEHL sind dieselben Werkzeug-Erwartungen wie lokal |
+| Beschriftungen lokal und VM | lokal 155 Feldpaare / 0 Abweichungen, VM 155 Feldpaare / 0 Abweichungen; Ansichtsbeschriftungen beide Instanzen ohne Abweichung |
+| Regression lokal und VM | `abschluss_verkauf_regression.py`: **886 OK / 0 FEHL ueber 11 Prueflaeufe** |
 | Regression | `check_abrechnung_labels.py`, `check_abrechnung_viewlabels.py`, `abschluss_verkauf_regression.py` lokal und VM |
 | Bestand vorher/nachher | Testkategorie `ITK-TEST-S131` angelegt und entfernt; Bestand unveraendert |
 

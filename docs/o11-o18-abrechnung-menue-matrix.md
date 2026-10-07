@@ -288,9 +288,18 @@ JS-Konsole und Seitenfehler, RPC-/Serverfehler.
 
 | Lauf | Menuepunkte | Ergebnis |
 |---|---|---|
-| Teil 1 (Verkauf, Einkauf) | 1-16 | **97 OK / 4 FEHL** |
-| Teil 2 (Konfiguration, Berichtswesen, Valorisierung, Projekt Kategorie) | 17-31 | **70 OK / 20 FEHL** |
-| Speicherprobe (Produktkategorien, ueber die Oberflaeche) | - | **5 OK / 0 FEHL** |
+| lokal, Teil 1 (Verkauf, Einkauf) | 1-16 | **97 OK / 4 FEHL** |
+| lokal, Teil 2 (Konfiguration, Berichtswesen, Valorisierung, Projekt Kategorie) | 17-31 | **70 OK / 20 FEHL** |
+| lokal, Speicherprobe (Produktkategorien, ueber die Oberflaeche) | - | **5 OK / 0 FEHL** |
+| VM, Teil 1 | 1-16 | 73 OK / 8 FEHL; davon 4 Menuepunkte (1-4) mit Seiten-Timeout im ersten Anlauf |
+| VM, Nachlauf Menuepunkte 1-4 (Timeout 30 s) | 1-4 | **30 OK / 0 FEHL** |
+| VM, Teil 2 | 17-31 | 88 OK / 16 FEHL; davon 2 Menuepunkte (Einstellungen, Bankkonto hinzufuegen) mit Seiten-Timeout |
+| VM, Nachlauf Menuepunkte 17-18 (Timeout 30 s) | 17-18 | **4 OK / 0 FEHL** |
+| VM, Speicherprobe (Produktkategorien) | - | **5 OK / 0 FEHL** (Testkategorie id 8, danach entfernt) |
+| VM, Beschriftungspruefung | - | **155 Feldpaare, 0 Abweichungen**; Ansichtsbeschriftungen ohne Abweichung |
+
+Die Zeitueberschreitungen der VM-Laeufe waren ein zu knapper Standard-Timeout meines Pruefskripts
+(8 s) gegen die entfernte Instanz; die Nachlaeufe mit 30 s sind fehlerfrei. Kein Produktfehler.
 
 **Alle FEHL sind zu enge oder falsch geratene Erwartungen des Pruefscripts, kein Produktfehler.**
 Sie wurden einzeln nachgeprueft und in vier Gruppen eingeordnet:
