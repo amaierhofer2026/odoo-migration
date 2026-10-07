@@ -156,6 +156,19 @@ Valorisierungstext.
 
 ## 7. Gefundene Abweichungen in Odoo 18 und ihr Status
 
+**Zusaetzlicher Befund beim Ausrollen auf die VM (nicht den Valorisierungsbereich selbst
+betreffend, aber beim Vergleich aufgefallen):** die VM zeigte 22 Feldbezeichnungen im
+Rechnungsbereich englisch bzw. mit abweichendem Wortlaut ("Date" statt "Buchungsdatum",
+"Sales Team" statt "Vertriebskanal", "Commercial Entity" statt "Gewerbliche Einheit",
+"Due Date" statt "Fälligkeit" ...). Ursache: die deutschen Feldbeschriftungen im Bereich
+Abrechnung werden von `scripts/apply_abrechnung_labels.py` gesetzt und muessen nach jedem
+Modul-Upgrade erneut laufen - auf der VM war das nach dem letzten Upgrade nicht passiert.
+Nach dem Lauf (`--instanz lokal`: 0 gesetzt, `--instanz vm`: 24 gesetzt) messen beide
+Instanzen wieder **155 Feldpaare, 0 Abweichungen**. Zusaetzlich wurde in
+`scripts/fix_ui_labels_de.py` (aelterer, breiterer Label-Lauf aus Session 81) der Eintrag fuer
+`account.move.valorisierung_id` von "Valorisierungstext" auf den Odoo-11-Wortlaut
+"Valorisation Text" geaendert - er haette die korrekte Bezeichnung sonst wieder ueberschrieben.
+
 | Nr | Abweichung | Nachweis | Status |
 |---|---|---|---|
 | 1 | Listen-/Formularbezeichnungen "Description"/"Sequence" statt "Beschreibung"/"Nummernfolge" | Browser lokal + VM | **behoben** (Verweise in der `.po`-Datei) |

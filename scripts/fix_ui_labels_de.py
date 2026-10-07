@@ -177,7 +177,11 @@ SPECIAL = {
     ("sale.order", "subscription_count"): "Anzahl Abonnements",
     ("sale.order", "subscription_management"): "Abo-Verwaltung",
     ("sale.order.line", "qty_multiplication_factor"): "Multiplikationsfaktor (pro 1.000)",
-    ("account.move", "valorisierung_id"): "Valorisierungstext",
+    # Session 130: Odoo 11 fuehrt account.invoice.valorisierung_id mit der Quellbezeichnung
+    # "Valorisation Text" und zeigt sie auch deutsch so (nachgemessen mit lang=de_DE).
+    # Der Eintrag hier wurde frueher auf "Valorisierungstext" gesetzt und haette die richtige
+    # Modulbezeichnung in de_DE wieder ueberschrieben - deshalb auf den Odoo-11-Wortlaut geaendert.
+    ("account.move", "valorisierung_id"): "Valorisation Text",
     ("account.bank.statement.line", "valorisierung_id"): "Valorisierungstext",
     ("account.move", "projectcategory_id"): "Projektkategorie",
     ("account.bank.statement.line", "projectcategory_id"): "Projektkategorie",
