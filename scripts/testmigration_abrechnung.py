@@ -102,6 +102,60 @@ BELEG_FELDER = ["id", "number", "type", "state", "partner_id", "journal_id", "da
 ZEILEN_FELDER = ["id", "name", "quantity", "price_unit", "discount", "product_id", "account_id",
                  "invoice_line_tax_ids", "account_analytic_id"]
 
+# Produktfelder fuer die Testmigration (Session 129 erweitert; Entscheidung Anna:
+# supplier_taxes_id, default_code, uom_id/uom_po_id, categ_id, standard_price ergaenzen).
+PRODUKT_FELDER = ["id", "name", "type", "list_price", "sale_ok", "purchase_ok", "product_type_id",
+                  "invoice_policy", "taxes_id", "supplier_taxes_id", "default_code", "standard_price",
+                  "uom_id", "uom_po_id", "categ_id"]
+
+# Beide Seiten werden mit derselben Sprache gelesen und gesucht. Wichtig fuer die Zuordnung
+# ueber Namen: ohne Kontext liefert Odoo 11 englische Anzeigenamen ("Unit(s)"), waehrend die
+# Zielinstanz deutsche Namen fuehrt ("Einheit(en)") - die Zuordnung wuerde dann scheitern.
+CTX = {"lang": "de_DE"}
+
+
+def zeige(wert):
+    """Anzeigename eines m2o-Wertes ([id, name]) oder der Wert selbst."""
+    if isinstance(wert, (list, tuple)) and len(wert) > 1:
+        return wert[1]
+    return wert
+
+
+def steuer_im_ziel(z, steuer11):
+    """Odoo-11-Steuer im Odoo-18-Ziel bestimmen - fachlich, ohne ID-Uebernahme.
+
+    Reihenfolge (dokumentiert in docs/o11-o18-testmigration-regel.md):
+      1. gleicher Name,
+      2. der Odoo-11-Beschreibungstext (z. B. "20% USt") als Odoo-18-Name, ohne
+         Gross-/Kleinschreibung - die Odoo-18-Steuernamen dieses Bestands stammen aus den
+         Odoo-11-Beschreibungen,
+      3. genau ein Kandidat mit gleichem Satz und gleicher Verwendung (sale/purchase/none),
+      4. sonst Abbruch mit Klartext (kein stilles Ueberspringen).
+    """
+    treffer = rpc(z, "account.tax", "search", [[("name", "=", steuer11["name"])]],
+                  "Steuer ueber den Namen suchen", context=CTX)
+    if len(treffer) == 1:
+        return treffer[0], "gleicher Name %r" % steuer11["name"]
+    beschreibung = (steuer11.get("description") or "").strip()
+    if beschreibung:
+        kandidaten = rpc(z, "account.tax", "search_read",
+                         [[("name", "=ilike", beschreibung), ("type_tax_use", "=", steuer11["type_tax_use"])],
+                          ["name", "amount"]], "Steuer ueber die Odoo-11-Beschreibung suchen", context=CTX)
+        if len(kandidaten) == 1:
+            return kandidaten[0]["id"], "Odoo-11-Beschreibung %r = Odoo-18-Name %r" % (
+                beschreibung, kandidaten[0]["name"])
+    kandidaten = rpc(z, "account.tax", "search_read",
+                     [[("amount", "=", steuer11["amount"]), ("type_tax_use", "=", steuer11["type_tax_use"]),
+                       ("active", "=", True)], ["name"]], "Steuer ueber Satz und Verwendung suchen",
+                     context=CTX)
+    if len(kandidaten) == 1:
+        return kandidaten[0]["id"], "einziger Treffer mit %s%% und %s" % (
+            steuer11["amount"], steuer11["type_tax_use"])
+    raise SystemExit("ABBRUCH: Odoo-11-Steuer %r (%s%%, %s) ist im Ziel nicht eindeutig "
+                     "aufloesbar - %d Kandidaten mit gleichem Satz und gleicher Verwendung."
+                     % (steuer11["name"], steuer11["amount"], steuer11["type_tax_use"],
+                        len(kandidaten)))
+
 
 def waehle_belege(k):
     """Je Belegart einen kleinen, mehrzeiligen Beleg; zusaetzlich eine bezahlte Rechnung mit Zahlung."""
@@ -213,15 +267,20 @@ def waehle_stammdaten(k, belege, zeilen):
     journale = rpc(k, "account.journal", "read", [sorted(journal_ids), ["id", "name", "code", "type"]],
                    "Journale lesen")
     konten = rpc(k, "account.account", "read", [sorted(konto_ids), ["id", "code", "name"]], "Konten lesen")
-    steuern = (rpc(k, "account.tax", "read", [sorted(steuer_ids),
-                                              ["id", "name", "amount", "amount_type", "type_tax_use",
-                                               "tax_group_id"]], "Steuern lesen") if steuer_ids else [])
+    steuern = []  # wird nach dem Lesen der Produkte gefuellt (Belegsteuern + Produktsteuern)
     bedingungen = (rpc(k, "account.payment.term", "read", [sorted(bedingung_ids), ["id", "name"]],
                        "Zahlungsbedingungen lesen") if bedingung_ids else [])
-    produkte = rpc(k, "product.product", "read", [sorted(produkt_ids),
-                                                  ["id", "name", "type", "list_price", "sale_ok",
-                                                   "purchase_ok", "product_type_id", "invoice_policy",
-                                                   "taxes_id", "supplier_taxes_id"]], "Produkte lesen")
+    produkte = rpc(k, "product.product", "read", [sorted(produkt_ids), PRODUKT_FELDER],
+                   "Produkte lesen", context=CTX)
+    # Steuern der Produkte mitlesen (Verkaufs- und Einkaufssteuern, Session 129)
+    for pr in produkte:
+        steuer_ids.update(pr.get("taxes_id") or [])
+        steuer_ids.update(pr.get("supplier_taxes_id") or [])
+    steuern = (rpc(k, "account.tax", "read", [sorted(steuer_ids),
+                                              ["id", "name", "amount", "amount_type", "type_tax_use",
+                                               "description", "tax_group_id"]], "Steuern lesen",
+                   context=CTX)
+               if steuer_ids else [])
     return partner, journale, konten, steuern, bedingungen, produkte
 
 
@@ -250,8 +309,48 @@ def pruefe_ziel(z, partner, journale, konten, steuern, bedingungen, produkte):
         pruefe("account.tax", "name", s["name"], "Steuer %s %s%%" % (s["name"], s["amount"]))
     for b in bedingungen:
         pruefe("account.payment.term", "name", b["name"], "Zahlungsbedingung")
+    steuern11 = {s["id"]: s for s in steuern}
     for pr in produkte:
         pruefe("product.template", "name", pr["name"], "Produkt")
+        for feld, modell, beschriftung in (("uom_id", "uom.uom", "Mengeneinheit"),
+                                           ("uom_po_id", "uom.uom", "Einkauf ME"),
+                                           ("categ_id", "product.category", "Interne Kategorie")):
+            wert = pr.get(feld)
+            if not wert:
+                continue
+            ziel = rpc(z, modell, "search", [[("name", "=", zeige(wert))]], "%s suchen" % beschriftung,
+                       context=CTX)
+            wie = "gleicher Name"
+            if not ziel:
+                ziel = rpc(z, modell, "search", [[("name", "=ilike", zeige(wert))]],
+                           "%s suchen (ohne Gross-/Kleinschreibung)" % beschriftung, context=CTX)
+                wie = "Name ohne Gross-/Kleinschreibung"
+            zustand = "vorhanden" if len(ziel) == 1 else ("nicht eindeutig" if ziel else "fehlt im Ziel")
+            plan.append({"modell": modell, "schluessel": zeige(wert), "zustand": zustand,
+                         "was": "%s fuer Produkt %s" % (beschriftung, pr["name"])})
+            print("      %-18s %-44s -> %-14s %s" % (feld, zeige(wert), zustand,
+                                                      wie if ziel else ""))
+        for feld, beschriftung in (("taxes_id", "Steuern (Verkauf)"),
+                                   ("supplier_taxes_id", "Steuern (Einkauf)")):
+            for tid in (pr.get(feld) or []):
+                t11 = steuern11.get(tid)
+                if not t11:
+                    continue
+                try:
+                    ziel_id, wie = steuer_im_ziel(z, t11)
+                    zustand = "vorhanden"
+                except SystemExit as fehler:
+                    ziel_id, wie, zustand = None, str(fehler)[:120], "fehlt im Ziel"
+                plan.append({"modell": "account.tax", "schluessel": t11["name"], "zustand": zustand,
+                             "was": "%s fuer Produkt %s (%s)" % (beschriftung, pr["name"], wie)})
+                print("      %-18s %-44s -> %-14s %s" % (feld, t11["name"], zustand,
+                                                          wie if ziel_id is not None else ""))
+        for feld, beschriftung in (("default_code", "Interne Referenz"),
+                                   ("standard_price", "Kosten")):
+            if pr.get(feld) not in (None, False, ""):
+                plan.append({"modell": "product.template", "schluessel": str(pr[feld]), "zustand": "1:1",
+                             "was": "%s fuer Produkt %s" % (beschriftung, pr["name"])})
+                print("      %-18s %-30s -> 1:1" % (feld, pr[feld]))
     return plan
 
 
@@ -331,6 +430,7 @@ def fuehre_aus(z, k, belege, zeilen, partner, journale, konten, steuern, bedingu
                 raise SystemExit("ABBRUCH: Land %s fehlt im Ziel." % land)
             werte["country_id"] = treffer[0]
         lege_an(mitschrift, z, "res.partner", werte, "name", sichtbarer_name, "Partner")
+    steuern11 = {s["id"]: s for s in steuern}
     for pr in produkte:
         ziel_typ, storable = typ_ziel(pr["type"])
         werte = {"name": pr["name"], "type": ziel_typ, "list_price": pr["list_price"],
@@ -345,12 +445,40 @@ def fuehre_aus(z, k, belege, zeilen, partner, journale, konten, steuern, bedingu
             if not treffer:
                 raise SystemExit("ABBRUCH: Produkttyp %r fehlt im Ziel." % name(pr["product_type_id"]))
             werte["product_type_id"] = treffer[0]
-        if pr.get("taxes_id"):
-            s = next((x for x in steuern if x["id"] == pr["taxes_id"][0]), None)
-            if s:
-                treffer = rpc(z, "account.tax", "search", [[("name", "=", s["name"])]], "Steuer suchen")
-                if treffer:
-                    werte["taxes_id"] = [(6, 0, treffer)]
+        # --- Session 129: zusaetzliche Produktfelder fachlich zuordnen (keine ID-Uebernahme) ---
+        if pr.get("default_code"):
+            werte["default_code"] = pr["default_code"]
+        if pr.get("standard_price"):
+            werte["standard_price"] = pr["standard_price"]
+        for feld, modell, beschriftung in (("uom_id", "uom.uom", "Mengeneinheit"),
+                                           ("uom_po_id", "uom.uom", "Einkauf ME"),
+                                           ("categ_id", "product.category", "Interne Kategorie")):
+            wert = pr.get(feld)
+            if not wert:
+                continue
+            treffer = rpc(z, modell, "search", [[("name", "=", zeige(wert))]], "%s suchen" % beschriftung,
+                          context=CTX)
+            if not treffer:
+                treffer = rpc(z, modell, "search", [[("name", "=ilike", zeige(wert))]],
+                              "%s suchen (ohne Gross-/Kleinschreibung)" % beschriftung, context=CTX)
+            if len(treffer) != 1:
+                raise SystemExit("ABBRUCH: %s %r fuer Produkt %r ist im Ziel nicht eindeutig "
+                                 "(%d Treffer)." % (beschriftung, zeige(wert), pr["name"], len(treffer)))
+            werte[feld] = treffer[0]
+        for feld, beschriftung in (("taxes_id", "Steuern (Verkauf)"),
+                                   ("supplier_taxes_id", "Steuern (Einkauf)")):
+            ziel_steuern = []
+            for tid in (pr.get(feld) or []):
+                t11 = steuern11.get(tid)
+                if not t11:
+                    raise SystemExit("ABBRUCH: Odoo-11-Steuer id %s fuer Produkt %r nicht gelesen."
+                                     % (tid, pr["name"]))
+                ziel_id, wie = steuer_im_ziel(z, t11)
+                ziel_steuern.append(ziel_id)
+                print("      %-18s %-24s -> Odoo 18 id=%-5s (%s)"
+                      % (beschriftung, t11["name"], ziel_id, wie))
+            if ziel_steuern:
+                werte[feld] = [(6, 0, ziel_steuern)]
         lege_an(mitschrift, z, "product.template", werte, "name", pr["name"], "Produkt")
 
     # --- Belege -------------------------------------------------------------

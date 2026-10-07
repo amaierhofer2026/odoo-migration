@@ -1,4 +1,4 @@
-"""Browser-Abnahme Session 128: Abrechnung > Einkauf > Einkaufbare Produkte.
+"""Browser-Abnahme Session 128/129: Abrechnung > Verkauf/Einkauf > Verkaufbare/Einkaufbare Produkte.
 
 Prueft im echten Chrome (lokal und VM):
   1. Liste oeffnet als Liste, Spalten in Odoo-11-Reihenfolge und Odoo-11-Wortlaut, keine englischen
@@ -9,7 +9,12 @@ Prueft im echten Chrome (lokal und VM):
   5. Produktformular oeffnen: Reiter, Steuerfelder, Smart Buttons
   6. Bearbeitungsmodus mit temporaerem Testprodukt (wird danach vollstaendig entfernt)
 
-Aufruf: uv run --with playwright python scripts/browser_einkaufbare_produkte.py lokal|vm
+Aufruf: uv run --with playwright python scripts/browser_einkaufbare_produkte.py lokal|vm [einkauf|verkauf]
+
+   einkauf (Standard): Menuepunkt Abrechnung > Einkauf > Einkaufbare Produkte (Aktion 383),
+                       Standardfilter "Kann eingekauft werden"
+   verkauf           : Menuepunkt Abrechnung > Verkauf > Verkaufbare Produkte (Aktion 382),
+                       Standardfilter "Kann verkauft werden"
 """
 from __future__ import annotations
 
@@ -23,12 +28,23 @@ import urllib.request
 from playwright.sync_api import sync_playwright
 
 INST = sys.argv[1] if len(sys.argv) > 1 else "lokal"
+WAHL = sys.argv[2] if len(sys.argv) > 2 else "einkauf"
+MENU = {
+    "einkauf": {"aktion": 383, "filter": "Kann eingekauft werden", "feld": "purchase_ok",
+                "ordner": "einkaufbare_produkte", "titel": "Einkaufbare Produkte"},
+    "verkauf": {"aktion": 382, "filter": "Kann verkauft werden", "feld": "sale_ok",
+                "ordner": "verkaufbare_produkte", "titel": "Verkaufbare Produkte"},
+}
+M = MENU[WAHL]
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 URL = "http://localhost:8069" if INST == "lokal" else "https://k001959vsx.ipax.at"
 DOMAIN = "localhost" if INST == "lokal" else "k001959vsx.ipax.at"
-VZ = os.path.expanduser("~") + "/Desktop/Odoo18-Abnahme-Session128/einkaufbare_produkte/" + INST
+VZ = os.path.expanduser("~") + "/Desktop/Odoo18-Abnahme-Session129/" + M["ordner"] + "/" + INST
 os.makedirs(VZ, exist_ok=True)
-AKTION = 383
+AKTION = M["aktion"]
+FILTER = M["filter"]
+SUCHFELD = M["feld"]
+TITEL = M["titel"]
 CTX = {"lang": "de_DE"}
 ERGEBNISSE = []
 
@@ -84,8 +100,8 @@ SID = next(c.value for c in jar if c.name == "session_id")
 vorher = {
     "vorlagen": rpc("product.template", "search_count", [[]]),
     "varianten": rpc("product.product", "search_count", [[]]),
-    "einkaufbar": rpc("product.template", "search_count", [[("purchase_ok", "=", True)]]),
-    "varianten_einkaufbar": rpc("product.product", "search_count", [[("purchase_ok", "=", True)]]),
+    "gefiltert": rpc("product.template", "search_count", [[(SUCHFELD, "=", True)]]),
+    "varianten_gefiltert": rpc("product.product", "search_count", [[(SUCHFELD, "=", True)]]),
     "bestellzeilen": rpc("purchase.order.line", "search_count", [[]]),
     "verkaufszeilen": rpc("sale.order.line", "search_count", [[]]),
     "rechnungszeilen": rpc("account.move.line", "search_count", [[]]),
@@ -125,9 +141,10 @@ with sync_playwright() as p:
     ist_liste = seite.locator(".o_list_view").count() > 0
     kopf = spaltenkoepfe()
     zeilen_ist = zeilen()
-    print("   Ansicht  : %s" % ("Liste" if ist_liste else "andere Ansicht"))
+    print("   Ansicht  : %s | Menuepunkt: %s (Aktion %d)" % ("Liste" if ist_liste else "andere Ansicht", TITEL, AKTION))
     print("   Spalten  : %s" % kopf)
-    print("   Zeilen   : %d | einkaufbare Vorlagen laut Datenbank: %d" % (zeilen_ist, vorher["einkaufbar"]))
+    print("   Zeilen   : %d | nach Filter %s laut Datenbank: %d"
+          % (zeilen_ist, SUCHFELD, vorher["gefiltert"]))
     pruefe(ist_liste, "Der Menuepunkt oeffnet eine Listenansicht")
     pruefe(kopf[:5] == ERWARTETE_SPALTEN,
            "Die ersten fuenf Spalten sind die Odoo-11-Spalten in Odoo-11-Reihenfolge: %s" % kopf[:5])
@@ -135,9 +152,9 @@ with sync_playwright() as p:
     pruefe(not englisch, "Keine englische Spaltenbeschriftung sichtbar (%s)" % (englisch or "keine"))
     rest = [s for s in kopf if s not in ERWARTETE_SPALTEN]
     print("   Weitere Spaltenkoepfe: %s" % (rest or "keine"))
-    pruefe(zeilen_ist == vorher["einkaufbar"],
-           "Der Standardfilter zeigt genau die einkaufbaren Vorlagen (%d von %d)"
-           % (zeilen_ist, vorher["einkaufbar"]))
+    pruefe(zeilen_ist == vorher["gefiltert"],
+           "Der Standardfilter zeigt genau die gefilterten Vorlagen (%d von %d)"
+           % (zeilen_ist, vorher["gefiltert"]))
     seite.screenshot(path=os.path.join(VZ, "01_liste.png"), full_page=True)
 
     # ------------------------------------------------------------ 2. Filter und Gruppierungen
@@ -145,8 +162,8 @@ with sync_playwright() as p:
     facette = seite.evaluate("""() => [...document.querySelectorAll('.o_searchview_facet')]
         .map(f => f.innerText.replace(/\\s+/g,' ').trim())""")
     print("   Aktive Filter: %s" % facette)
-    pruefe(any("Kann eingekauft werden" in f for f in facette),
-           "Standardfilter 'Kann eingekauft werden' ist beim Oeffnen aktiv")
+    pruefe(any(FILTER in f for f in facette),
+           "Standardfilter '%s' ist beim Oeffnen aktiv" % FILTER)
     suchmenue_oeffnen()
     filter_ist = menue_eintraege(".o_filter_menu")
     gruppen_ist = menue_eintraege(".o_group_by_menu")
@@ -163,10 +180,11 @@ with sync_playwright() as p:
     seite.wait_for_timeout(1200)
 
     # ------------------------------------------------------------ 3. Filter ausschalten/einschalten
-    print("\n=== 3. Filter 'Kann eingekauft werden' aus- und einschalten ===")
+    print("\n=== 3. Filter '%s' aus- und einschalten ===" % FILTER)
     seite.evaluate("""() => { const f = [...document.querySelectorAll('.o_searchview_facet')]
-        .find(x => /Kann eingekauft werden/.test(x.innerText));
-        if (f) { const x = f.querySelector('.o_facet_remove, .fa-times, button'); if (x) x.click(); } }""")
+        .find(x => x.innerText.indexOf(%s) >= 0);
+        if (f) { const x = f.querySelector('.o_facet_remove, .fa-times, button'); if (x) x.click(); } }"""
+        % json.dumps(FILTER))
     seite.wait_for_timeout(3500)
     ohne_filter = zeilen()
     alle = vorher["vorlagen"]
@@ -175,13 +193,13 @@ with sync_playwright() as p:
     seite.screenshot(path=os.path.join(VZ, "03_ohne_filter.png"), full_page=True)
     suchmenue_oeffnen()
     seite.evaluate("""() => { const e = [...document.querySelectorAll('.o_filter_menu .dropdown-item')]
-        .find(x => /^Kann eingekauft werden$/.test(x.innerText.replace(/\\s+/g,' ').trim()));
-        if (e) e.click(); }""")
+        .find(x => x.innerText.replace(/\\s+/g,' ').trim() === %s);
+        if (e) e.click(); }""" % json.dumps(FILTER))
     seite.wait_for_timeout(3500)
     mit_filter = zeilen()
     print("   Zeilen mit Filter: %d" % mit_filter)
-    pruefe(mit_filter == vorher["einkaufbar"],
-           "Filter 'Kann eingekauft werden' findet genau die einkaufbaren Vorlagen (%d)" % mit_filter)
+    pruefe(mit_filter == vorher["gefiltert"],
+           "Filter '%s' findet genau die gefilterten Vorlagen (%d)" % (FILTER, mit_filter))
 
     # ------------------------------------------------------------ 4. Spaltenauswahl
     print("\n=== 4. Spaltenauswahl (Odoo-18-Zusatzspalten) ===")
@@ -230,14 +248,14 @@ with sync_playwright() as p:
     # ------------------------------------------------------------ 6. Suche
     print("\n=== 6. Suche ===")
     erstes = rpc("product.template", "search_read",
-                 [[("purchase_ok", "=", True)], ["name"]], {"context": CTX, "limit": 1})
+                 [[(SUCHFELD, "=", True)], ["name"]], {"context": CTX, "limit": 1})
     suchbegriff = erstes[0]["name"]
     seite.fill(".o_searchview_input", suchbegriff[:12])
     seite.keyboard.press("Enter")
     seite.wait_for_timeout(5000)
     treffer = zeilen()
     erwartet_suche = rpc("product.template", "search_count",
-                         [[("purchase_ok", "=", True), ("name", "ilike", suchbegriff[:12])]], {"context": CTX})
+                         [[(SUCHFELD, "=", True), ("name", "ilike", suchbegriff[:12])]], {"context": CTX})
     print("   Suchbegriff '%s': %d Zeilen (Datenbank: %d)" % (suchbegriff[:12], treffer, erwartet_suche))
     pruefe(treffer == erwartet_suche, "Die Suche findet dieselbe Anzahl wie die Datenbank (%d)" % erwartet_suche)
     seite.screenshot(path=os.path.join(VZ, "07_suche.png"), full_page=True)
@@ -296,7 +314,7 @@ with sync_playwright() as p:
 
     # Zweites Produkt: Warenprodukt (Produktart Produkte) aus derselben Liste
     waren = rpc("product.template", "search_read",
-                [[("purchase_ok", "=", True), ("type", "=", "consu")], ["id", "name"]],
+                [[(SUCHFELD, "=", True), ("type", "=", "consu")], ["id", "name"]],
                 {"context": CTX, "limit": 1})
     if waren:
         print("   Zweites Produkt (Warenprodukt): %s (%s)" % (waren[0]["name"], waren[0]["id"]))
@@ -383,8 +401,8 @@ with sync_playwright() as p:
     nachher = {
         "vorlagen": rpc("product.template", "search_count", [[]]),
         "varianten": rpc("product.product", "search_count", [[]]),
-        "einkaufbar": rpc("product.template", "search_count", [[("purchase_ok", "=", True)]]),
-        "varianten_einkaufbar": rpc("product.product", "search_count", [[("purchase_ok", "=", True)]]),
+        "gefiltert": rpc("product.template", "search_count", [[(SUCHFELD, "=", True)]]),
+        "varianten_gefiltert": rpc("product.product", "search_count", [[(SUCHFELD, "=", True)]]),
         "bestellzeilen": rpc("purchase.order.line", "search_count", [[]]),
         "verkaufszeilen": rpc("sale.order.line", "search_count", [[]]),
         "rechnungszeilen": rpc("account.move.line", "search_count", [[]]),
@@ -395,7 +413,7 @@ with sync_playwright() as p:
     ctx.close()
 
 ok = sum(1 for e, _ in ERGEBNISSE if e)
-print("\n=== Ergebnis %s: %d OK / %d FEHL ===" % (INST, ok, len(ERGEBNISSE) - ok))
+print("\n=== Ergebnis %s / %s: %d OK / %d FEHL ===" % (INST, TITEL, ok, len(ERGEBNISSE) - ok))
 for e, t in ERGEBNISSE:
     if not e:
         print("   FEHL: %s" % t)

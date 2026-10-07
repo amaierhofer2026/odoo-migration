@@ -63,8 +63,39 @@ Ansprechpartner als Person.
 6. Kontrolle: Summenvergleich Odoo 11 gegen Odoo 18 (Anzahl Belege, Netto, Steuer, Brutto,
    Anzahl Zahlungen), danach Regression
 
-## 4. Bekannte Constraints, die der Testlauf pruefen soll
+## 3.1 Produktfelder: Zuordnung und Migrationsregel (Session 129, 06.10.2026)
 
+Auf Annas Auftrag uebertraegt die Testmigration zusaetzlich diese Produktfelder - nie ueber
+Odoo-11-IDs, sondern ueber fachliche Schluessel:
+
+| Odoo-11-Feld | Odoo-18-Zielfeld | Zuordnung | Regel |
+|---|---|---|---|
+| `default_code` | `product.template.default_code` | 1:1 | Text unveraendert (Odoo 11: 2 von 648 belegt) |
+| `standard_price` | `product.template.standard_price` | 1:1 | Zahl unveraendert (Odoo 11: 6 von 648 belegt) |
+| `uom_id` | `product.template.uom_id` | ueber den Namen der Einheit | genau ein Treffer, sonst Abbruch |
+| `uom_po_id` | `product.template.uom_po_id` | ueber den Namen der Einheit | wie oben |
+| `categ_id` | `product.template.categ_id` | ueber den Namen der Kategorie | genau ein Treffer, sonst Abbruch |
+| `taxes_id` | `product.template.taxes_id` | vierstufig (siehe unten) | in Odoo 11 bei 646 von 648 belegt |
+| `supplier_taxes_id` | `product.template.supplier_taxes_id` | vierstufig | in Odoo 11 bei 647 von 648 belegt |
+
+Steuerzuordnung (`taxes_id` und `supplier_taxes_id`), Stufe fuer Stufe:
+
+1. gleicher Name im Ziel,
+2. der Odoo-11-**Beschreibungstext** der Steuer (Feld `description`, z. B. "20% USt") als
+   Odoo-18-Name, ohne Gross-/Kleinschreibung - die Steuernamen der Zielinstanz stammen aus
+   diesen Beschreibungen,
+3. genau ein Kandidat mit gleichem Satz (`amount`) und gleicher Verwendung (`type_tax_use`),
+4. sonst **Abbruch mit Klartext** (kein stilles Ueberspringen).
+
+Sprache: Quelle und Ziel werden mit `context {'lang': 'de_DE'}` gelesen und gesucht. Ohne diesen
+Kontext liefert Odoo 11 englische Anzeigenamen ("Unit(s)"), waehrend die Zielinstanz deutsche
+fuehrt ("Einheit(en)") - die Zuordnung ueber Namen scheitert dann (Befund Session 129, behoben).
+
+Kategorien: fehlt eine Odoo-11-Kategorie im Ziel, bricht der Lauf ab. Das Anlegen der
+Odoo-11-Kategorien ist ein eigener Stammdatenschritt und braucht Freigabe von Anna; im
+Testbestand fehlen z. B. "Amtssignatur, E-Abfertigung, E-Postfächer" und "Nutzungsentgelt".
+
+## 4. Bekannte Constraints, die der Testlauf pruefen soll
 - `account_move_unique_name` (Belegnummer je Journal und Unternehmen eindeutig)
 - `account_journal_code_company_uniq`
 - `account_payment_check_amount_not_negative`

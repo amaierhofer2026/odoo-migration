@@ -1862,6 +1862,43 @@ Doku: docs/o11-o18-abrechnung-einkaufbare-produktliste.md (Vergleich, Mapping, M
   Abrechnung bleibt IN ARBEIT.
 ```
 
+ZUSATZ (06.10.2026, Session 129) - Zwillingsmenuepunkt Verkaufbare Produkte und Testmigrationsregel:
+```
+ZWILLINGSMENUEPUNKT: Menue Abrechnung/Verkauf/Stammdaten/Verkaufbare Produkte (Aktion 225) nutzt in
+  Odoo 11 DIESELBE Ansicht 571 wie der Einkaufspunkt (Aktion 226), nur der Standardfilter
+  unterscheidet sich (search_default_filter_to_sell statt ..._to_purchase; sale_ok 648/648 belegt).
+  UMBAU: dieselbe neue Liste (itk_account_migration 18.0.1.21.0) ueber ir.actions.act_window.view
+  auch an die Aktion 382 (account.product_product_action_sellable) gebunden. Aktionen unveraendert;
+  Nachweis: nur die Aktionen 382 und 383 tragen eine gebundene Liste (alle uebrigen Produktmenues -
+  Verkauf 444, Einkauf 1171, Lager 1544, Abo-Produkte 1102, Preislisten 302 - unveraendert).
+  Keine Testdaten hinterlassen (10 Vorlagen auf der VM, 13 lokal, unveraendert).
+
+TESTMIGRATIONSREGEL erweitert (Auftrag Anna): Produktfelder supplier_taxes_id, default_code,
+  uom_id/uom_po_id, categ_id, standard_price. Zuordnung ueber fachliche Schluessel, keine
+  ID-Uebernahme: default_code und standard_price 1:1; Einheiten und Kategorien ueber den Namen;
+  Steuern vierstufig (gleicher Name -> Odoo-11-Beschreibungstext als Odoo-18-Name -> eindeutiger
+  Satz plus Verwendung -> Abbruch). Sprache beidseitig context {'lang': 'de_DE'} (Befund: ohne
+  Kontext liefert Odoo 11 "Unit(s)", die Zielinstanz "Einheit(en)" - Zuordnung scheiterte).
+  READ-ONLY VORLAUF (--plan, schreibt nichts) lokal und VM, 11 Produkte der ausgewaehlten Belege:
+    Steuern je 11/11 aufloesbar (20% Umsatzsteuer -> Odoo-18 "20% Ust" ueber die Odoo-11-Beschreibung
+    "20% USt"; 20% Vorsteuer -> "20% Vst" ueber "20% VSt"),
+    Einheiten je 11/11 aufloesbar ("ITK Einheit" 8, "Einheit(en)" 3),
+    Kategorien 2/11 aufloesbar; 9 Produkte brauchen die Odoo-11-Kategorien
+    "Amtssignatur, E-Abfertigung, E-Postfächer" und "Nutzungsentgelt", die im Testbestand fehlen.
+    Gesamtbestand Odoo 11: default_code 2/648, standard_price 6/648 - beide 1:1 uebertragbar.
+  OFFEN (Freigabe Anna): Kategorien im Ziel anlegen; danach Lauf mit --ausfuehren.
+  Protokolle: Desktop/Odoo18-Abnahme-Session129/testmigration_vorlauf/plan_lokal.txt und plan_vm.txt.
+  Doku: docs/o11-o18-testmigration-regel.md, Abschnitt 3.1. Es wurde NICHTS geschrieben
+  ("TROCKENLAUF"), keine echte Datenmigration.
+
+ABNAHME Browser (echter Chrome, scripts/browser_einkaufbare_produkte.py <instanz> <einkauf|verkauf>):
+  Verkaufbare Produkte  lokal 41 OK / 0 FEHL, VM 41 OK / 0 FEHL
+  Einkaufbare Produkte  lokal 41 OK / 0 FEHL, VM 41 OK / 0 FEHL
+  Formulare unveraendert (sieben Reiter und Smart Buttons in beiden Menuepunkten geprueft),
+  Testprodukt angelegt, geaendert, geprueft und entfernt, Bestand vorher == nachher.
+  Bilder: Desktop/Odoo18-Abnahme-Session129/<menue>/<instanz>/
+```
+
 ### 6.14 Abonnements / Subscriptions - **ABGESCHLOSSEN: ABONNEMENTS VOLLSTAENDIG FUNKTIONSFAEHIG UND VOLLSTAENDIG MIGRATIONSVORBEREITET** (Teile 1-15: Modulstatus, Feldinventar, Zustandslogik, Mapping, Stammdaten, Zusatzverkaeufe/EUR, Rechnungserzeugung, Smart Buttons, manueller Rechnungsweg, Reiterbeschriftung, Abonnement Produkte, Produktformular), erste Abnahme 18.09.2026 (Session 118), Teil 14 am 22.09.2026 (Session 119), Teil 15 am 24.09.2026 (Session 120) auf der VM im Browser abgenommen
 
 Dokument: `docs/o11-o18-vergleich-abo-teil1.md`; Teil 14: `docs/o11-o18-vergleich-abo-teil14.md`; Teil 15: `docs/o11-o18-vergleich-abo-teil15-produktformular.md`; Uebergabe und Vollstaendigkeitsbestaetigung: `docs/uebergabe-session-120-abonnements.md` (24.09.2026: jedes in Odoo 11 verwendete Feld, Reiter, Button, Smart Button, Statuswechsel, Filter, Gruppierung und jeder Geschaeftsprozess ist gleich vorhanden, funktional gleichwertig an anderer Stelle vorhanden oder bewusst dokumentiert; keine offene funktionale Abweichung).
