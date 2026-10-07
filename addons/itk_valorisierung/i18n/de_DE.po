@@ -83,17 +83,6 @@ msgid "Sequence"
 msgstr "Nummernfolge"
 
 #. module: itk_valorisierung
-#: model:ir.actions.act_window,name:itk_valorisierung.menu_finance_configuration_valorisierung_action
-#: model:ir.ui.view,arch_db:itk_valorisierung.form_view_valorisierung
-msgid "Valorisation Text"
-msgstr "Valorisierungs Text"
-
-#. module: itk_valorisierung
-#: model:ir.ui.view,arch_db:itk_valorisierung.tree_view_valorisierung
-msgid "Valorisation Texts"
-msgstr "Valorisierungs Texte"
-
-#. module: itk_valorisierung
 #: model:ir.model,name:itk_valorisierung.model_itk_valorisierung_valorisierung
 #: model:ir.ui.menu,name:itk_valorisierung.menu_finance_configuration_valorisierung
 msgid "Valorisierung"
