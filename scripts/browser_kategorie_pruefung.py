@@ -27,14 +27,44 @@ DOMAIN = "localhost" if INST == "lokal" else "k001959vsx.ipax.at"
 VZ = os.path.expanduser("~") + "/Desktop/Odoo18-Abnahme-Session129/kategorien_browser/" + INST
 os.makedirs(VZ, exist_ok=True)
 
-# Erwartung aus der Odoo-11-Quelle (Testlauf-Bericht, 11 Produkte)
-ERWARTET = {
-    "Amtssignatur Verlängerung bis 1.000 Einwohner": "Amtssignatur, E-Abfertigung, E-Postfächer",
-    "IFG-Portal Nutzungsentgelt je weiterem Mandanten": "Nutzungsentgelt",
-    "Einrichtungsgebühr der Österreichischen Post AG": "All",
-}
-ERWARTETE_GRUPPEN = {"All": 2, "Nutzungsentgelt": 7,
-                     "Amtssignatur, E-Abfertigung, E-Postfächer": 2}
+# Erwartung dynamisch aus der Quelle (Odoo 11, read-only) und dem Protokoll des Testlaufs:
+# je neu angelegtem Produkt die Odoo-11-Kategorie. Keine fest verdrahteten Namen mehr - die
+# Auswahl der Testmigration aendert sich mit den Quelldaten (Befund 07.10.2026: zwei falsche FEHL,
+# weil zwei gleichnamige Ziel-Produkte ausserhalb des Migrationsumfangs mitgeprueft wurden).
+PROTOKOLL = os.path.join(os.environ.get("LOCALAPPDATA", "/tmp"), "Temp",
+                         "testmigration_protokoll.json")
+
+
+def erwartung_aus_quelle(url, env):
+    """Produkte des Testlaufs aus dem Protokoll lesen und ihre Odoo-11-Kategorie bestimmen."""
+    if not os.path.exists(PROTOKOLL):
+        raise SystemExit("ABBRUCH: kein Protokoll %s - zuerst die Testmigration ausfuehren."
+                         % PROTOKOLL)
+    daten = json.load(open(PROTOKOLL, encoding="utf-8"))["angelegt"]
+    ids = [e["id"] for e in daten if e.get("modell") == "product.template" and e.get("neu", True)]
+    produkte = rpc("product.template", "search_read", [[("id", "in", ids)], ["name", "categ_id"]],
+                   {"context": {"lang": "de_DE"}})
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    from _o11o18_client import o11  # noqa: E402  (Quelle nur lesend)
+    k11 = o11()
+    erwartet, kategorien = {}, {}
+    for p in sorted(produkte, key=lambda x: x["name"]):
+        treffer = k11.kw("product.template", "search", [[("name", "=", p["name"])]],
+                         context={"lang": "de_DE"})
+        if len(treffer) != 1:
+            continue
+        kat11 = k11.kw("product.template", "read", [treffer, ["categ_id"]],
+                       context={"lang": "de_DE"})[0]["categ_id"]
+        if not kat11:
+            continue
+        name_kat = kat11[1]
+        kategorien[name_kat] = kategorien.get(name_kat, 0) + 1
+        if name_kat not in [v for v in erwartet.values()]:
+            erwartet[p["name"]] = name_kat          # je Kategorie ein Beispiel
+        if len(erwartet) >= 3:
+            break
+    return erwartet, kategorien
+
 
 umg = {}
 for zeile in open(os.path.join(REPO, ".env"), encoding="utf-8"):
@@ -73,8 +103,12 @@ xmlid = rpc("ir.model.data", "search_read",
             [[("module", "=", "product"), ("name", "=", "product_template_action")],
              ["res_id"]])[0]["res_id"]
 kategorien = rpc("product.category", "search_read", [[], ["complete_name"]], {"context": {"lang": "de_DE"}})
+ERWARTET, KATEGORIE_ANZAHL = erwartung_aus_quelle(URL, umg)
+ERWARTETE_GRUPPEN = sorted(set(ERWARTET.values()))
 print("=== Bestand (%s) ===" % INST)
 print("   Produktkategorien (%d): %s" % (len(kategorien), [k["complete_name"] for k in kategorien]))
+print("   Testlauf-Produkte je Odoo-11-Kategorie: %s" % KATEGORIE_ANZAHL)
+print("   Stichprobe im Browser: %s" % ERWARTET)
 
 ergebnisse = []
 with sync_playwright() as p:
@@ -161,7 +195,8 @@ with sync_playwright() as p:
                                  "Genau eine Gruppe fuer %r (gefundene Gruppen: %d)"
                                  % (name, gefunden.get(name, 0))))
     ergebnisse.append(pruefe(len(gruppen) >= len(ERWARTETE_GRUPPEN),
-                             "Gruppierung zeigt %d Gruppen" % len(gruppen)))
+                             "Gruppierung zeigt %d Gruppen (erwartet mindestens %d)"
+                             % (len(gruppen), len(ERWARTETE_GRUPPEN))))
     ctx.close()
 
 print("\n=== Ergebnis ===")

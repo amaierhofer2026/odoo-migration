@@ -239,4 +239,102 @@ Abschlusspruefung erfuellt (01.10.2026): kompletter Browser-Menuewalk lokal und 
 Fehler (35 OK / 1 Hinweis: Gutschriften koennen in Odoo 18 nicht erneut storniert werden),
 Regression 0 Fehler, Modul-Upgrades ohne Ansichtsfehler, Testbeleg restlos entfernt,
 lokal = GitHub = VM. Es verbleiben nur die in den Abschnitten 1 bis 10 begruendeten bewussten
-Abweichungen. Der Bereich Abrechnung ist damit **funktional vollstaendig und migrationsvorbereitet**.
+Abweichungen. Der Bereich Abrechnung ist damit funktional vollstaendig - **die endgueltige
+Freigabe als migrationsbereit liegt bei Anna und steht noch aus** (Stand 07.10.2026: IN ARBEIT,
+ein fachlicher BLOCKER offen, siehe Abschnitt 13).
+
+## 13. Abschlusscheck 07.10.2026 (Session 129) - Gesamtdurchgang
+
+Auftrag: vollstaendiger Abschlusscheck des Moduls Abrechnung auf Basis aller bisherigen Arbeiten.
+Odoo 11 nur lesend, keine Produktivmigration, Abrechnung bleibt IN ARBEIT bis zur Freigabe durch
+Anna.
+
+### 13.1 Abschlussmatrix
+
+| Bereich | Odoo-11-Abgleich | Odoo-18-Ansicht | Funktionen | Mapping | Testmigration | Browser lokal | Browser VM | Status |
+|---|---|---|---|---|---|---|---|---|
+| Ausgangsrechnungen | Menue, Modell, Spalten, Reiter, Filter/Gruppierungen verglichen (read-only) | Liste mit 10 O11-Spalten, Reiter "Rechnungszeilen"/"Andere Informationen", 37 Such-/Gruppeneintraege | Buttons "Auf Entwurf setzen", "Nach Gutschrift fragen", "Einzahlung erfassen" vorhanden | 273 belegte Felder, 0 Luecken; Konten-/Steuerzuordnung dokumentiert | Beleg R-261121 1:1 (brutto 1366,01, Rest 1366,01, Status posted/not_paid) | 41 OK / 0 FEHL (Produktmenues), Durchgang 32 Menuepunkte ohne JS-/RPC-Fehler | wie lokal, Ergebnisliste identisch | OK, 1 bewusste Abweichung (Ansichtsarten) |
+| Kunden-Gutschriften | wie Ausgangsrechnungen (O11 gleiche Ansicht) | Liste 10 Spalten, Reiter wie Rechnung | "Nach Gutschrift fragen", "Auf Entwurf setzen" vorhanden | wie Rechnung | R-26800 1:1 (2094,00/0,00, "Gutschreiben" statt "Bezahlt") | wie lokal | wie lokal | OK |
+| Zahlungen (Verkauf) | Menue, Spalten, Suche, Statuswerte | Liste 8 Spalten, Filter/Gruppierungen 17 Eintraege | Zahlungsformular 19 Pruefpunkte, Feld "Zahlungstransaktion" vorhanden (readonly) | Zahlungsnummern K2a/K2b dokumentiert; O11-Nummer im Herkunftsfeld | Zahlung CUST.IN/2026/1072 (30,50, 06.10.2026) 1:1, abgestimmt | 19 OK / 0 FEHL (Zahlungsformular) | 19 OK / 0 FEHL | OK |
+| Kunden | Menue, Modell, Ansichtsarten | Kanban als Standard wie in Odoo 11, Liste/Formular vorhanden | Partnerpflichtfeld, Anzeigename, Interne Referenz | Stammdatenzuordnung 4 Partner 1:1 (Name, Firma/VAT/Adresse, Referenz) | 4 Partner 1:1 | Durchgang ohne Fehler | wie lokal | OK |
+| Verkaufbare Produkte | O11-Aktion 225 nutzt dieselbe Ansicht 571 wie der Einkauf | ITK-Liste mit O11-Spalten (5) | 41 Pruefpunkte je Instanz | Produktfelder 648/648 bzw. 646/647 aufloesbar | 10 Produkte 1:1 (Typ/Preis/Verkauf/Einkauf/Produktart/Kategorie) | 41 OK / 0 FEHL | 41 OK / 0 FEHL | OK |
+| Eingangsrechnungen | Menue, Ansicht, Suche | Liste 10 Spalten | wie Ausgangsrechnungen | wie Rechnung | Odoo 11 hat 0 in_invoice - nichts zu migrieren (dokumentiert) | Durchgang ohne Fehler | wie lokal | OK (keine Daten in O11) |
+| Lieferanten-Gutschriften | wie Eingangsrechnungen | Liste 10 Spalten | wie oben | wie Rechnung | 0 in_refund in Odoo 11 | Durchgang ohne Fehler | wie lokal | OK (keine Daten in O11) |
+| Zahlungen (Einkauf) | Menue, Ansicht | Liste 8 Spalten | Formular wie Verkauf | wie Verkauf | Odoo 11: 0 Lieferantenzahlungen in der Auswahl | Durchgang ohne Fehler | wie lokal | OK |
+| Lieferanten | Menue, Modell, Ansichtsarten | Kanban wie Odoo 11 | wie Kunden | Stammdaten ueber Namen/Referenz | keine Lieferanten im Migrationsumfang | Durchgang ohne Fehler | wie lokal | OK |
+| Einkaufbare Produkte | O11-Aktion 226, Ansicht 571 | ITK-Liste mit O11-Spalten (5) | 41 Pruefpunkte | wie Verkaufbare Produkte | wie oben | 41 OK / 0 FEHL | 41 OK / 0 FEHL | OK |
+| Produktkategorien | 30 Kategorien gelesen, 26 mit Produkten, alle flach | Konfigurationsliste vorhanden | Zuordnung ueber exakten Namen (beide Sprachen) + Elternkette | Kategorien 1:1; 2 Kategorien im Testlauf angelegt und wieder entfernt | 10 Produkte mit korrekter Kategorie | nicht anwendbar (kein Testbestand lokal) | 7 OK / 0 FEHL (Formularwert + Gruppierung) | OK; Kontenzuordnung = BLOCKER |
+| Konfiguration (Steuern, Journale, Waehrungen, Zahlungsbedingungen, Kostenrechnung, Bankkonten, Zahlungsmethoden, Einstellungen) | Menuepunkte, Ansichtsarten und Spalten verglichen | Ansichtsarten gleich (tree==list); O18-Zusatzmenues vorhanden | — | Steuerzuordnung vierstufig, Journale ueber Code, Zahlungsbedingungen ueber Namen | Steuern/Zahlungsbedingungen/Journale der Auswahl 1:1 | Durchgang ohne Fehler | wie lokal, Ergebnisliste identisch | OK |
+| Berichte/Verwaltung (Rechnungsanalyse, Pruefpfad, Abrechnungspositionen) | O11-Bericht "Rechnungen" (graph,pivot) und Enterprise-Berichte nicht vorhanden | O18-Zusatzfunktionen unveraendert vorhanden | — | nicht migrationsrelevant | — | Durchgang ohne Fehler | wie lokal | bewusste Abweichung (K3) |
+
+### 13.2 Nachweise des Abschlusschecks
+
+| Pruefung | Ergebnis |
+|---|---|
+| Menuepunkte/Aktionsansichten O11 gegen O18 (Skript `vergleiche_abrechnung_menue_ansichten.py`) | 32 Menuepunkte; Ansichtsarten gleich; Abweichungen nur die dokumentierten (O11-Berichtsmenues, O18-Zusatzmenues) |
+| Feldabdeckung (`pruefe_abschluss_feldabdeckung.py`) | 273 belegte Odoo-11-Felder, 0 Luecken |
+| Formularabgleich (`abgleiche_abrechnung_formulare.py`) | 13 Formularbloecke verglichen, Exit 0; Restliste sind Wortlaut-/Zusatzfelder (dokumentiert in den Labeltabellen) |
+| Feldbeschriftungen (`check_abrechnung_labels.py`) | lokal und VM je 155 Feldpaare, 0 Abweichungen |
+| Ansichtsbeschriftungen (`check_abrechnung_viewlabels.py`) | lokal und VM Exit 0, Tabellen unveraendert (Diff leer) |
+| Pflichtfelder (`pruefe_pflichtfelder.py`) | lokal und VM: keine Pflichtfeld-Luecke in Datensaetzen |
+| Nummernregelwerk K2 (`pruefe_k2_nummernformat.py`) | Exit 0; Kollisionsprobe nennt den einzigen Odoo-11-Fall (R-25001 als Rechnung und Gutschrift) - uebernommen wird die Odoo-11-Nummer im Herkunftsfeld, die Odoo-18-Nummer kommt aus der Zielsequenz |
+| Beziehungen/Constraints (`pruefe_beziehungen_constraints.py`) | Exit 0, Constraints je Modell ausgewiesen |
+| Trockenlauf lokal | 72 Planpositionen, 23 offen, kein Abbruch; 6 Belege, 4 Partner, 10 Produkte, 2 Steuern, 1 Zahlungsbedingung, 2 Journale |
+| Trockenlauf VM | identisch zum lokalen Lauf (Diff nach Normalisierung leer) |
+| Testlauf VM (kontrolliert) | 202 Protokolleintraege, 10 neu angelegte Produkte, 2 Kategorien, 4 Partner, 5 Belege, 1 Zahlung; Belegsummen und Restbetraege 1:1 |
+| Pruefung der Testmigration (`pruefe_testmigration.py`, neun Punkte) | **94 bestanden, 0 Abweichungen** (Baseline aus dem Protokoll abgeleitet) |
+| Browser-Gesamtdurchgang lokal | 32 Menuepunkte, 31 Aufnahmen, keine JS-/RPC-Fehler |
+| Browser-Gesamtdurchgang VM | dito; Ergebnisdatei lokal/VM-Vergleich: **0 Unterschiede** in Spalten, Reitern, Formularfeldern, Buttons, Filtern/Gruppierungen |
+| Produktmenues (Browser) | Verkaufbare und Einkaufbare Produkte lokal und VM je 41 OK / 0 FEHL |
+| Zahlungsformular (Browser) | lokal und VM je 19 OK / 0 FEHL |
+| Zahlungs-/Project-Category-Pruefung (Browser) | lokal und VM je 15 OK / 0 FEHL; Spalte "Project Category" in Liste und Gutschrift, direkt hinter "Status" |
+| Zeilen/Beschreibung (Browser) | lokal und VM 2 OK / 0 FEHL - die vier Belegarten sind ohne Testbeleg "nicht anwendbar" (belegt in Sitzung 125/126 und durch die Testmigration) |
+| Regression Verkauf/Abonnements | 886 OK / 0 FEHL ueber 11 Prueflaeufe |
+| Aufraeumen und Bestand | 22 Datensaetze entfernt; Bestand lokal und VM **vorher == nachher** (Anzahlen, Belege mit Nummer/Zustand/Summe/Rest, Kategorien, Produkte, Partner) |
+
+### 13.3 Angepasst in diesem Check
+
+- `scripts/pruefe_testmigration.py`: Baseline des Unversehrtheitsnachweises wird jetzt aus dem
+  Protokoll abgeleitet (frueheste Schreibzeit der selbst angelegten Datensaetze, zwei Minuten
+  davor) statt aus der festen Konstante vom 05.10.2026. Grund: die alte Konstante meldete jede
+  spaetere fremde Schreiboperation (z. B. Modul-Upgrades vom 06.10.) als Abweichung. Vorher
+  93 bestanden / 1 Abweichung, jetzt 94 / 0.
+- `scripts/browser_kategorie_pruefung.py`: Stichprobe wird aus dem Protokoll und der Odoo-11-
+  Quelle gebildet (vorher fest verdrahtete Produktnamen, die bei geaenderter Auswahl zwei falsche
+  FEHL ergaben).
+- `scripts/browser_pc_status_abnahme.py`, `scripts/browser_zeilen_beschreibung.py`: fehlende
+  Testbelege werden als "nicht anwendbar" ausgewiesen und lassen den Lauf mit Exit 0 enden
+  (vorher FEHL bzw. Ausnahme).
+- Neu: `scripts/abrechnung_abschluss_bestand.py` (Vorher/Nachher-Bestand),
+  `scripts/vergleiche_abrechnung_menue_ansichten.py` (Ansichtsarten je Menuepunkt).
+
+### 13.4 Bewusst akzeptierte Abweichungen (Stand 07.10.2026)
+
+- Rechnungs-/Gutschriftmenues: Odoo 11 bot zusaetzlich Kalender-, Pivot- und Graph-Ansicht; Odoo 18
+  fuehrt dafuer keine Ansichten (0 views). Fachlich gleichwertig ueber "Rechnungsanalyse" und
+  "Abrechnungspositionen" (graph, pivot).
+- Berichtswesen: Odoo-11-Berichtsmenue "Rechnungen" und die Enterprise-PDF-Berichte
+  (Umsatzsteuerbericht, alter Partner Saldo, Audit Journale) haben in Odoo 18 Community keine
+  Entsprechung (K3, Entscheidung Anna).
+- Bezeichnung "Gutgeschrieben" statt "Bezahlt" bei voll gutgeschriebenen Belegen (Rest 0).
+- Odoo-18-Zusatzmenues und Zusatzfunktionen bleiben vollstaendig erhalten (Eingaenge,
+  Rechnungsanalyse, Pruefpfad, Abrechnungspositionen, Projekt Kategorie, Valorisierung,
+  Kostenrechnung, Kostenstellenplaene, Zahlungsmethoden, Waehrungen).
+- Produktformular: Website-Gruppe nur mit website_sale nachbaubar; 15 optionale Zusatzspalten.
+- Ohne SMTP-Zugangsdaten kein tatsaechlicher Mailversand (Infrastrukturthema, Abschnitt 12.3).
+
+### 13.5 Offene Punkte
+
+- **BLOCKER: Kontenstammdaten / fachliche Zuordnung vor Produktivmigration erforderlich.**
+  Die Odoo-11-Konten 8400 "Erloese 19% USt" und 3400 "Wareneingang 19% Vorsteuer" sind
+  ausschliesslich globale Firmenvorgaben der Produktkategorien (8 ir.property-Eintraege, alle
+  `res_id` leer, 0 kategoriespezifisch) und im Zielkontenrahmen (240 Konten) nicht vorhanden;
+  Kandidaten 4000/4001/4100/4110/4200 bzw. 5000/5010/5011/5050/5051/5052/5090 weichen im
+  Steuersatz im Namen ab. Es wird nichts angelegt und nichts geraten. Die Migration laeuft
+  technisch sauber durch (Testlauf 202 Datensaetze, 94/0 Pruefungen); die neu angelegten
+  Kategorien erben die Odoo-18-Vorgabe 4000/5010, die Belegzeilen tragen das dokumentierte
+  Mapping (8400 -> 4000).
+- Migration der Odoo-11-Preislistenregeln (403 Regeln ohne Produktbezug).
+- Namenszuordnung der Abo-Vorlagen vor der Produktmigration.
+- Unbenutzte Kategorien (id 45, id 59) erst mit Preislistenregeln bzw. Auftraegen anlegen.
+- Abrechnung bleibt IN ARBEIT; die finale Freigabe gibt Anna nach ihrer Sichtkontrolle.

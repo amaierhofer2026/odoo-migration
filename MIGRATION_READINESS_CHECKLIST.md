@@ -2612,10 +2612,63 @@ REGRESSION (07.10.2026): Verkauf/Abonnements 886 OK / 0 FEHL ueber 11 Prueflaeuf
 
 Abrechnung bleibt IN ARBEIT.
 
+### ABSCHLUSSCHECK Abrechnung - Gesamtdurchgang (07.10.2026, Session 129) - ZUSATZ
+
+AUFTRAG: vollstaendiger Abschlusscheck des Moduls Abrechnung; keine neue Teilbereiche, keine
+Produktivmigration, nichts als migrationsbereit markieren. Odoo 11 nur lesend.
+
+GEPRUEFT (Menuepunkte Abrechnung/Verkauf/Einkauf):
+  Ausgangsrechnungen, Kunden-Gutschriften, Zahlungen, Kunden, Verkaufbare Produkte,
+  Eingangsrechnungen, Lieferanten-Gutschriften, Zahlungen (Einkauf), Lieferanten,
+  Einkaufbare Produkte, Berichte/Verwaltung/Konfiguration - je Listenansicht, Formular, Reiter,
+  Felder, Feldreihenfolge, Beschriftungen, Pflichtfelder, Statusketten, Smart Buttons, Filter,
+  Gruppierungen, Verknuepfungen, Odoo-11-Funktionen und bewusst erhaltene Odoo-18-Zusatzfunktionen.
+  Ansichtsarten je Menuepunkt jetzt automatisiert verglichen:
+  scripts/vergleiche_abrechnung_menue_ansichten.py (32 Menuepunkte, tree==list normalisiert).
+
+ERGEBNISSE (Detailmatrix: docs/o11-o18-abrechnung-abschlussmatrix.md, Abschnitt 13):
+  - Feldabdeckung 273 belegte Odoo-11-Felder, 0 Luecken.
+  - Feldbeschriftungen lokal und VM je 155 Feldpaare, 0 Abweichungen; Ansichtsbeschriftungen
+    unveraendert (Tabellen neu erzeugt, Diff leer).
+  - Pflichtfelder lokal und VM ohne Luecke; Nummernregelwerk K2 und Constraints Exit 0.
+  - Trockenlauf lokal und VM identisch: 72 Planpositionen, 23 offen, kein Abbruch
+    (10 Produkte, 4 Partner, 6 Belege, 2 Steuern, 1 Zahlungsbedingung, 2 Journale).
+  - Kontrollierter Testlauf VM: 202 Protokolleintraege, 10 Produkte, 2 Kategorien, 4 Partner,
+    5 Belege, 1 Zahlung; Pruefung der Testmigration (neun Punkte) 94 bestanden / 0 Abweichungen.
+  - Browser-Gesamtdurchgang lokal UND VM: je 32 Menuepunkte, 31 Aufnahmen, keine JS-/RPC-Fehler;
+    Ergebnisdateien lokal gegen VM verglichen: 0 Unterschiede (Spalten, Reiter, Formularfelder,
+    Buttons, Filter/Gruppierungen).
+  - Produktmenues im Browser lokal und VM je 41 OK / 0 FEHL; Zahlungsformular je 19 OK / 0 FEHL;
+    Project-Category/Statuskette je 15 OK / 0 FEHL; Produkt-Kategorie (VM, mit Testlauf)
+    7 OK / 0 FEHL (Stichprobe jetzt dynamisch aus Protokoll + Odoo-11-Quelle).
+  - Regression Verkauf/Abonnements 886 OK / 0 FEHL ueber 11 Prueflaeufe.
+  - Aufraeumen: 22 Datensaetze entfernt; Bestand lokal und VM vorher == nachher (Anzahlen, Belege
+    mit Nummer/Zustand/Summe/Restbetrag, Kategorien, Produkte, Partner).
+
+BEHOBEN IN DIESEM CHECK:
+  - pruefe_testmigration.py: Baseline des Unversehrtheitsnachweises aus dem Protokoll abgeleitet
+    (vorher feste Konstante 05.10.2026, die fremde Schreiboperationen als Abweichung meldete):
+    93/1 -> 94/0.
+  - browser_kategorie_pruefung.py: Stichprobe dynamisch (vorher feste Produktnamen, zwei falsche
+    FEHL); browser_pc_status_abnahme.py und browser_zeilen_beschreibung.py: fehlende Testbelege
+    werden als "nicht anwendbar" gefuehrt (Exit 0) statt als FEHL/Ausnahme.
+  - Neu: scripts/abrechnung_abschluss_bestand.py, scripts/vergleiche_abrechnung_menue_ansichten.py.
+
+BLOCKER (unveraendert, vor Produktivmigration zu entscheiden): Kontenstammdaten / fachliche
+  Zuordnung der Odoo-11-Konten 8400 "Erloese 19% USt" und 3400 "Wareneingang 19% Vorsteuer".
+  Abschliessend geprueft: beide sind ausschliesslich globale Firmenvorgaben der Produktkategorien
+  (ir.property, 8 Eintraege, alle res_id leer, 0 kategoriespezifisch); im Zielkontenrahmen
+  (240 Konten) nicht vorhanden. Die Migration laeuft technisch sauber durch, wenn die Zuordnung
+  offen bleibt: Testlauf 202 Datensaetze, 94/0 Pruefungen, neu angelegte Kategorien erben die
+  Odoo-18-Vorgabe 4000/5010, Belegzeilen tragen das dokumentierte Mapping (8400 -> 4000).
+  Es wird nichts angelegt und nichts geraten.
+
+Abrechnung bleibt IN ARBEIT; die finale Freigabe gibt Anna nach ihrer Sichtkontrolle.
+
 ### Pruefprotokoll je Modul (ausfuellen)
 
 | Modul | Browserabgleich lokal | Browserabgleich VM | Feldmapping | Beziehungen | Stammdaten | Statuswerte | Verknuepfungen | Constraints | Reihenfolge | Screenshots | Stand |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| Abrechnung | vorhanden | vorhanden | 273 belegte Felder, 0 Luecken | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | IN ARBEIT (offen: Produktfilter-Entscheidung, Testmigration, Restansichten; 05.10.2026 Project-Category-Spalte, Statuskette und Spalte Beschreibung in den Rechnungszeilen umgesetzt und lokal + VM im Browser belegt, 73 OK / 112 OK je Instanz, 0 FEHL; 06.10.2026 Reiter "Verkauf" im Produktformular nach Odoo 11 nachgebaut - Preiskalkulation mit Preislistenregeln, Browserabnahme lokal + VM je 18 OK / 0 FEHL; Nachtrag Reiter "Verkauf" je 27 OK / 0 FEHL; 06.10.2026 Menuepunkt "Einkaufbare Produkte" auf die Odoo-11-Liste umgebaut (Interne Referenz, Name, Verkaufspreis, Steuern (Verkauf), Steuern (Einkauf)), Odoo-18-Zusatzspalten optional erhalten, falscher Filter "Verfuegbare Produkte" ergaenzt, Browserabnahme lokal + VM je 41 OK / 0 FEHL; 07.10.2026 Produktkategorien als Stammdaten geprueft und getestet - Mapping, Trockenlauf lokal+VM, Testlauf VM mit 2 angelegten Kategorien, Browserabnahme 7 OK / 0 FEHL, danach vollstaendig aufgeraeumt) |
+| Abrechnung | vorhanden | vorhanden | 273 belegte Felder, 0 Luecken | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | IN ARBEIT (offen: Produktfilter-Entscheidung, Testmigration, Restansichten; 05.10.2026 Project-Category-Spalte, Statuskette und Spalte Beschreibung in den Rechnungszeilen umgesetzt und lokal + VM im Browser belegt, 73 OK / 112 OK je Instanz, 0 FEHL; 06.10.2026 Reiter "Verkauf" im Produktformular nach Odoo 11 nachgebaut - Preiskalkulation mit Preislistenregeln, Browserabnahme lokal + VM je 18 OK / 0 FEHL; Nachtrag Reiter "Verkauf" je 27 OK / 0 FEHL; 06.10.2026 Menuepunkt "Einkaufbare Produkte" auf die Odoo-11-Liste umgebaut (Interne Referenz, Name, Verkaufspreis, Steuern (Verkauf), Steuern (Einkauf)), Odoo-18-Zusatzspalten optional erhalten, falscher Filter "Verfuegbare Produkte" ergaenzt, Browserabnahme lokal + VM je 41 OK / 0 FEHL; 07.10.2026 Produktkategorien als Stammdaten geprueft und getestet - Mapping, Trockenlauf lokal+VM, Testlauf VM mit 2 angelegten Kategorien, Browserabnahme 7 OK / 0 FEHL, danach vollstaendig aufgeraeumt; 07.10.2026 ABSCHLUSSDURCHGANG des gesamten Moduls Abrechnung: 32 Menuepunkte verglichen, Feldabdeckung 273/0 Luecken, Beschriftungen 155 Paare/0 Abweichungen, Pflichtfelder und Constraints ohne Befund, Trockenlauf lokal/VM identisch (72 Positionen), Testlauf VM 202 Datensaetze mit 94/0 Pruefungen, Browser-Gesamtdurchgang lokal und VM je 32 Menuepunkte ohne Unterschied (Ergebnisdateien deckungsgleich), 886 OK/0 FEHL Regression, Testdaten entfernt, Bestand vorher == nachher - ein fachlicher BLOCKER offen (Kontenstammdaten 8400/3400); finale Freigabe durch Anna steht aus) |
 | Verkauf | vorhanden | vorhanden | Teil 5 vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | abgeschlossen (R1-R8) |
 | Abonnements | vorhanden (02.10.) | vorhanden (02.10.) | Feldbestand verglichen (57/64 Felder, 0 echte Luecken); siehe docs/o11-o18-abonnement-abgleich.md | nicht betroffen | Cron/Fristen geprueft | Zustaende 1:1 plus O18-Zusatz pending | 1:1 | nicht betroffen | vorhanden | vorhanden | abgeglichen (PR #184/#185), Abweichungen dokumentiert |
