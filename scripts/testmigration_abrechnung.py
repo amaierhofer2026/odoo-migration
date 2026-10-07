@@ -55,6 +55,12 @@ KONTO_MAPPING = {"1201": "2801", "1410": "2000", "1776": "3500", "8400": "4000"}
 # Mapping laeuft daher ueber den Journalcode. Die Odoo-11-Rechnungsnummer bleibt in
 # itk_o11_invoice_number erhalten, die Odoo-18-Nummer kommt aus der Zielsequenz (Regel K2a/K2b).
 JOURNAL_MAPPING = {"Re.:": "RE"}
+
+# Blocker-Sammelliste (Session 129): Odoo-11-Konten der Produktkategorien ohne eindeutige
+# Entsprechung im Ziel. Es wird nichts angelegt und nichts geraten - der Lauf weist den Punkt
+# ausdruecklich aus (siehe docs/o11-o18-produktkategorien-mapping.md, Abschnitt 5).
+BLOCKER_KONTEN = []
+
 # Punkt 1 (05.10.2026): Die Odoo-18-Typauswahl des Moduls itk_product kennt dieselben
 # ITK-Werte wie Odoo 11 (consu, service, combo, general, onlineservice, sw, consulting,
 # platform, hw, project) - nachgewiesen per fields_get auf lokal und VM. Deshalb wird der Typ
@@ -168,13 +174,18 @@ def steuer_im_ziel(z, steuer11):
         steuer11["name"], steuer11["amount"], steuer11["type_tax_use"], steuer11.get("description"))
 
 
+KONTO_FELDER = ["property_account_income_categ_id", "property_account_expense_categ_id"]
+
+
 def lade_kategorien(k):
-    """Alle Odoo-11-Produktkategorien mit Hierarchie und Namen in beiden Sprachen lesen (nur lesend).
+    """Alle Odoo-11-Produktkategorien mit Hierarchie, Namen (beide Sprachen) und Konten lesen.
 
     Die Namen sind uebersetzbar: die Odoo-11-Wurzel heisst in der Quelle deutsch "Alle" und
-    englisch "All" - fuer die Zuordnung werden deshalb beide Namen gefuehrt.
+    englisch "All" - fuer die Zuordnung werden deshalb beide Namen gefuehrt. Zu jeder Kategorie
+    werden die beiden Kontenfelder mitgelesen (Nummer, Name, Kontotyp) - Grundlage fuer die
+    fachliche Kontenzuordnung ueber stabile Schluessel.
     """
-    felder = ["id", "name", "complete_name", "parent_id"]
+    felder = ["id", "name", "complete_name", "parent_id"] + KONTO_FELDER
     kats = {}
     for sprache in ("de_DE", "en_US"):
         for x in rpc(k, "product.category", "search_read", [[], felder],
@@ -184,7 +195,74 @@ def lade_kategorien(k):
                                           "complete_name": x["complete_name"], "namen": []})
             if x["name"] not in e["namen"]:
                 e["namen"].append(x["name"])
+            for feld in KONTO_FELDER:
+                if x.get(feld) and not e.get(feld):
+                    e[feld] = x[feld]
+    # Konten der Kategorien read-only nachlesen (Nummer, Name, Kontotyp)
+    konto_ids = set()
+    for e in kats.values():
+        for feld in KONTO_FELDER:
+            if e.get(feld):
+                konto_ids.add(e[feld][0])
+    konten = {}
+    for kid in sorted(konto_ids):
+        treffer = rpc(k, "account.account", "read", [[kid], ["code", "name", "user_type_id",
+                                                             "internal_type"]],
+                      "Kategoriekonto in Odoo 11 lesen", context=CTX)
+        if treffer:
+            konten[kid] = treffer[0]
+    for e in kats.values():
+        e["konten"] = {feld: (konten.get(e[feld][0]) if e.get(feld) else None) for feld in KONTO_FELDER}
     return kats
+
+
+def kontotyp_ziel(konto11):
+    """Odoo-11-Kontotyp fachlich auf Odoo-18-Kontotypen abbilden (keine ID-Uebernahme)."""
+    bezeichnung = (konto11.get("user_type_id") or [0, ""])[1] or ""
+    if "erl" in bezeichnung.lower():
+        return ["income", "income_other"]
+    if "aufwand" in bezeichnung.lower():
+        return ["expense", "expense_direct_cost"]
+    return ["income", "income_other", "expense", "expense_direct_cost"]
+
+
+def konto_im_ziel(z, konto11):
+    """Odoo-11-Konto im Ziel aufloesen - ueber Kontonummer UND Namen, nie ueber die ID.
+
+    Es wird **nichts angelegt** (Konten sind Stammdaten). Rueckgabe: (id oder None, Begruendung).
+    Kein Treffer bedeutet Blocker fuer die echte Datenmigration; die Begruendung nennt die
+    konkreten Kandidaten bzw. die fehlenden Konten.
+    """
+    code = str(konto11.get("code") or "").strip()
+    name11 = (konto11.get("name") or "").strip()
+    typen = kontotyp_ziel(konto11)
+    if code:
+        treffer = rpc(z, "account.account", "search_read", [[("code", "=", code)], ["code", "name"]],
+                      "Kontonummer im Ziel suchen", context=CTX)
+        if len(treffer) > 1:
+            raise SystemExit("ABBRUCH: Kontonummer %s ist im Ziel %d Mal vorhanden - Zuordnung nicht "
+                             "eindeutig." % (code, len(treffer)))
+        if len(treffer) == 1:
+            if treffer[0]["name"].strip() == name11:
+                return treffer[0]["id"], "gleiche Nummer %s und gleicher Name %r" % (code, name11)
+            return None, ("Nummer %s ist im Ziel mit %r belegt, in Odoo 11 mit %r - Nummer und Name "
+                          "weichen ab, keine Zuordnung ueber die Nummer"
+                          % (code, treffer[0]["name"], name11))
+    gleich = rpc(z, "account.account", "search_read", [[("name", "=", name11)], ["code", "name"]],
+                 "Kontoname im Ziel suchen", context=CTX) if name11 else []
+    if len(gleich) == 1:
+        return None, ("Konto %s %r fehlt; im Ziel gibt es %s %r (andere Nummer) - nur ueber die "
+                      "Nummer zuordenbar, deshalb keine Zuordnung" % (code, name11, gleich[0]["code"],
+                                                                      gleich[0]["name"]))
+    if len(gleich) > 1:
+        return None, ("Konto %s %r fehlt; der Name %r ist im Ziel %d Mal vorhanden"
+                      % (code, name11, name11, len(gleich)))
+    typkonten = rpc(z, "account.account", "search_read", [[("account_type", "in", typen)],
+                                                          ["code", "name", "account_type"]],
+                    "Konten des passenden Typs suchen", context=CTX)
+    return None, ("Konto %s %r fehlt vollstaendig; im Ziel gibt es %d Konten der fachlich passenden "
+                  "Typen %s: %s" % (code, name11, len(typkonten), "/".join(typen),
+                                    ", ".join("%s %s" % (a["code"], a["name"][:26]) for a in typkonten[:6])))
 
 
 def kategorie_im_ziel(z, kategorien, kat_id, mitschrift=None):
@@ -370,6 +448,7 @@ def waehle_stammdaten(k, belege, zeilen):
 # --------------------------------------------------------------------------
 def pruefe_ziel(z, partner, journale, konten, steuern, bedingungen, produkte, kategorien):
     plan = []
+    konto_geprueft = set()
     def pruefe(modell, feld, wert, was):
         treffer = rpc(z, modell, "search_count", [[(feld, "=", wert)]], "Zielpruefung %s %r" % (modell, wert))
         if treffer > 1:
@@ -428,6 +507,31 @@ def pruefe_ziel(z, partner, journale, konten, steuern, bedingungen, produkte, ka
                                     "fehlt im Ziel, wird beim Schreiblauf angelegt",
                          "was": "Interne Kategorie fuer Produkt %s" % pr["name"]})
             print("      %-18s %-44s -> %s" % ("categ_id", kat11.get("complete_name", "")[:44], zustand))
+            # Konten der Kategorie (Session 129): eigener Pruefpunkt. Es wird nichts angelegt
+            # und nichts geraten - fehlt die Entsprechung, ist das ein Blocker.
+            for feld, beschriftung in (("property_account_income_categ_id", "Erloeskonto"),
+                                       ("property_account_expense_categ_id", "Aufwandskonto")):
+                konto11 = (kat11.get("konten") or {}).get(feld)
+                if not konto11:
+                    continue
+                schluessel = (feld, konto11["id"])
+                if schluessel in konto_geprueft:
+                    continue
+                konto_geprueft.add(schluessel)
+                ziel_konto, begruendung = konto_im_ziel(z, konto11)
+                zustand = "vorhanden" if ziel_konto else "BLOCKER"
+                plan.append({"modell": "account.account",
+                             "schluessel": "%s %s" % (konto11["code"], konto11["name"]),
+                             "zustand": zustand,
+                             "was": "%s der Kategorie %s" % (beschriftung,
+                                                             kat11.get("complete_name", ""))})
+                print("      %-18s %-30s -> %-8s %s"
+                      % (beschriftung, ("%s %s" % (konto11["code"], konto11["name"]))[:30], zustand,
+                         begruendung if not ziel_konto else ""))
+                if not ziel_konto:
+                    BLOCKER_KONTEN.append("%s %r (Kategorie %s): %s"
+                                          % (konto11["code"], konto11["name"],
+                                             kat11.get("complete_name", ""), begruendung))
         for feld, beschriftung in (("taxes_id", "Steuern (Verkauf)"),
                                    ("supplier_taxes_id", "Steuern (Einkauf)")):
             for tid in (pr.get(feld) or []):
@@ -490,6 +594,10 @@ def fuehre_aus(z, k, belege, zeilen, partner, journale, konten, steuern, bedingu
     # --- Stammdaten in der dokumentierten Reihenfolge -----------------------
     # Journale werden NICHT angelegt: die Odoo-11-Journale werden ueber JOURNAL_MAPPING auf die
     # vorhandenen Zieljournale abgebildet (Punkt 3).
+    if BLOCKER_KONTEN:
+        print("\n   HINWEIS: Die Kontenfelder der Produktkategorien werden NICHT gesetzt - "
+              "%d Odoo-11-Konten ohne eindeutige Entsprechung (siehe Plan/Blocker)."
+              % len(BLOCKER_KONTEN))
     for s in steuern:
         # Erst zuordnen: vorhandene Zielsteuer verwenden (z. B. Odoo-18 "20% Ust" fuer die
         # Odoo-11-Steuer "20% Umsatzsteuer" ueber deren Beschreibung "20% USt"), sonst anlegen.
@@ -953,6 +1061,13 @@ def main() -> int:
     print("\nPlan: %d Positionen, davon %d im Ziel noch nicht vorhanden." % (len(plan), len(fehlend)))
     for x in fehlend:
         print("   fehlt: %-22s %-30s %s" % (x["modell"], x["schluessel"][:30], x["was"]))
+    if BLOCKER_KONTEN:
+        print("\nBLOCKER (keine eindeutige Zuordnung, es wird nichts angelegt und nichts geraten):")
+        for b in BLOCKER_KONTEN:
+            print("   %s" % b)
+        print("   -> Kontenstammdaten sind ein eigener, freizugebender Schritt (Kontenmigration).")
+        print("      Die Odoo-11-Kategorien tragen keine eigenen Konten: beide Werte kommen aus der")
+        print("      Firmenvorgabe (ir.property, res_id leer).")
 
     if not a.ausfuehren:
         print("\nTROCKENLAUF: Es wurde nichts geschrieben.")
