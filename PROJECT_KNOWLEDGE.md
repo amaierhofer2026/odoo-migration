@@ -8802,3 +8802,84 @@ geprueft, Testprodukt danach geloescht); **Bestand vorher == nachher**. Bilder:
 
 Doku: `docs/o11-o18-abrechnung-einkaufbare-produktliste.md` (Vergleich, Mapping, Migrationsregeln);
 Korrektur des falschen Listenabschnitts in `docs/o11-o18-vergleich-abrechnung-produktformular.md`.
+
+## Session 129 (06.10.2026): Verkaufbare Produkte, Testmigrationsregel, Regression
+
+Auftrag von Anna: (1) den Zwillingsmenuepunkt Verkaufbare Produkte angleichen, (2) die
+Testmigrationsregel um die fehlenden Produktfelder ergaenzen und read-only nachweisen,
+(3) Regression beider Menuepunkte. **Abrechnung bleibt IN ARBEIT.**
+
+### 1. Zwillingsmenuepunkt Abrechnung > Verkauf > Verkaufbare Produkte
+
+- **Odoo 11 (read-only gemessen):** Menue Abrechnung/Verkauf/Stammdaten/Verkaufbare Produkte ->
+  Aktion 225 `Verkaufbare Produkte`, res_model `product.product`, **view_id 571 (dieselbe Ansicht
+  wie der Einkaufspunkt 226)**, context `{'search_default_filter_to_sell': 1}`, `sale_ok` bei
+  648/648 Produkten belegt. Odoo 11 zeigte also in beiden Menuepunkten dieselbe Liste; nur der
+  Standardfilter unterschied sie.
+- **Umsetzung:** dieselbe primaere Liste `product.template.list.itk.o11.produkte` ueber
+  `ir.actions.act_window.view` auch an die Aktion 382 (`account.product_product_action_sellable`)
+  gebunden (`itk_account_migration` 18.0.1.21.0). Die Aktionen selbst blieben unveraendert.
+- **Nachweis, dass nur diese zwei Menuepunkte betroffen sind:** von allen Produktmenues tragen
+  ausschliesslich die Aktionen 382 und 383 eine gebundene Liste; Verkauf > Produkte (444),
+  Einkauf > Produkte (1171), Lager > Produkte (1544), Abo-Produkte (1102) und Preislisten (302)
+  haengen weiter an der Odoo-18-Standardliste (lokal und VM geprueft,
+  `scripts/pruefe_produktlisten_unveraendert.py`).
+
+### 2. Testmigrationsregel um Produktfelder ergaenzt (keine Migration)
+
+`scripts/testmigration_abrechnung.py` uebertraegt nun zusaetzlich `supplier_taxes_id`,
+`default_code`, `uom_id`, `uom_po_id`, `categ_id` und `standard_price` - ausschliesslich ueber
+fachliche Schluessel, nie ueber Odoo-11-IDs:
+
+- `default_code`, `standard_price`: 1:1 (Odoo 11: 2 bzw. 6 von 648 belegt).
+- `uom_id`, `uom_po_id`: ueber den Namen der Einheit; genau ein Treffer, sonst Abbruch.
+- `categ_id`: ueber den Namen der Kategorie; genau ein Treffer, sonst Abbruch.
+- `taxes_id`, `supplier_taxes_id`: vierstufig - gleicher Name, dann der Odoo-11-
+  **Beschreibungstext** der Steuer (z. B. "20% USt") als Odoo-18-Name ohne Gross-/Kleinschreibung,
+  dann genau ein Kandidat mit gleichem Satz und gleicher Verwendung, sonst Abbruch mit Klartext.
+
+**Read-only Vorlauf (`--plan`, schreibt nichts) lokal und VM**, 11 Produkte der ausgewaehlten
+Belege: Steuern 11/11 aufloesbar (`20% Umsatzsteuer` -> Odoo-18 "20% Ust" ueber die Odoo-11-
+Beschreibung "20% USt"; `20% Vorsteuer` -> "20% Vst" ueber "20% VSt" - **das Feld mit 647/648
+Belegung ist damit fachlich zugeordnet**), Einheiten 11/11 ("ITK Einheit" 8, "Einheit(en)" 3).
+Kategorien 2/11: 9 Produkte brauchen die Odoo-11-Kategorien "Amtssignatur, E-Abfertigung,
+E-Postfächer" und "Nutzungsentgelt", die im Testbestand fehlen (Odoo 18 hat nur All/Expenses/
+Saleable) - **offen, Anlage braucht Annas Freigabe, es wurde nichts angelegt**.
+Protokolle: `Desktop/Odoo18-Abnahme-Session129/testmigration_vorlauf/plan_{lokal,vm}.txt`.
+Regel dokumentiert in `docs/o11-o18-testmigration-regel.md`, Abschnitt 3.1.
+
+**Lehren:**
+- Beide Seiten einer namensbasierten Zuordnung mit demselben `context {'lang': 'de_DE'}` lesen und
+  suchen. Ohne Kontext liefert Odoo 11 englische Anzeigenamen ("Unit(s)"), die Zielinstanz
+  deutsche ("Einheit(en)") - die Zuordnung scheitert dann, obwohl beide Seiten denselben
+  Datensatz meinen.
+- Steuernamen allein reichen in diesem Bestand nicht: die Odoo-18-Steuern tragen die Odoo-11-
+  **Beschreibungen** als Namen. Der Umweg ueber `description` loest das ohne Handtabelle.
+- `many2many`-Felder liefern im RPC eine Liste von IDs, keine `[id, name]`-Paare - Aufloesung
+  deshalb ueber eine separat gelesene ID-Namens-Tabelle.
+
+### 3. Regression und Abnahme
+
+- Browser (echter Chrome, `scripts/browser_einkaufbare_produkte.py <instanz> <einkauf|verkauf>`):
+  Verkaufbare Produkte lokal 41 OK / 0 FEHL, VM 41 OK / 0 FEHL; Einkaufbare Produkte lokal
+  41 OK / 0 FEHL, VM 41 OK / 0 FEHL. Beide Menuepunkte zeigen die fuenf Odoo-11-Spalten in
+  Odoo-11-Reihenfolge, deutschen Wortlaut, den jeweils richtigen Standardfilter und identische
+  Filter-/Gruppierungs-/Spaltenauswahl-Funktionen; das Produktformular hat unveraendert sieben
+  Reiter und seine Smart Buttons; Testprodukt angelegt, geaendert, geprueft und wieder geloescht
+  (Bestand vorher == nachher, keine Testdaten). Bilder:
+  `Desktop/Odoo18-Abnahme-Session129/{verkaufbare,einkaufbare}_produkte/<lokal|vm>/`.
+### 4. Regression
+
+- Verkauf und Abonnements `scripts/abschluss_verkauf_regression.py`: **886 OK / 0 FEHL** ueber
+  11 Prueflaeufe, alle auf Referenzniveau (lokal und VM).
+- Abrechnung `scripts/check_abrechnung_labels.py`: **155 Feldpaare, 0 Abweichungen** (lokal und
+  VM); Ansichtsbeschriftungen `scripts/check_abrechnung_viewlabels.py`: ohne Abweichung.
+- Produktformulare unveraendert: in beiden Menuepunkten wurden ueber den Browser alle sieben
+  Reiter und die Smart Buttons geoeffnet (Dienstleistung und Warenprodukt), Beschriftungen
+  unveraendert deutsch; das Testprodukt wurde im Formular geaendert, gespeichert, geprueft und
+  geloescht.
+- Nur diese zwei Menuepunkte betroffen: ausschliesslich die Aktionen 382/383 tragen eine gebundene
+  Liste (Abfrage lokal und VM).
+
+Doku: `docs/o11-o18-abrechnung-einkaufbare-produktliste.md` (jetzt beide Menuepunkte),
+`docs/o11-o18-testmigration-regel.md` (Abschnitt 3.1), `MIGRATION_READINESS_CHECKLIST.md`.

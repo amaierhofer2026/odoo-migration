@@ -1,8 +1,9 @@
-# Menuepunkt Abrechnung > Einkauf > Einkaufbare Produkte: Odoo 11 gegen Odoo 18
+# Menuepunkte Abrechnung > Verkauf/Einkauf > Verkaufbare bzw. Einkaufbare Produkte: Odoo 11 gegen Odoo 18
 
-Session 128, 06.10.2026. Auftrag von Anna: den Menuepunkt vollstaendig selbst durchgehen
-(Liste, Suche/Filter/Gruppierungen, Formular, Mapping, Datenbestand, Browser lokal und VM) und
-Odoo 18 an Odoo 11 angleichen. Odoo 11 diente ausschliesslich lesend als fachliche Referenz.
+Session 128 (Einkauf) und Session 129 (Verkauf), 06.10.2026. Auftrag von Anna: den Bereich
+vollstaendig selbst durchgehen (Liste, Suche/Filter/Gruppierungen, Formular, Mapping,
+Datenbestand, Browser lokal und VM) und Odoo 18 an Odoo 11 angleichen. Odoo 11 diente
+ausschliesslich lesend als fachliche Referenz.
 
 **Status des Bereichs: Abrechnung bleibt IN ARBEIT** (keine Abschluss-, Einfrier- oder
 Migrationsbereitschaftsaussage). Anna kontrolliert anschliessend selbst im Browser.
@@ -110,11 +111,13 @@ mit den Odoo-11-Spalten in Odoo-11-Reihenfolge und deutschem Odoo-11-Wortlaut. D
 Zusatzspalten sind **vorhanden, aber standardmaessig ausgeblendet** (`optional="hide"`) und ueber
 die Spaltenauswahl zuschaltbar. Keine Spalte wurde geloescht.
 
-**Bindung.** An die Aktion gebunden ueber `ir.actions.act_window.view`
-(`action_product_product_action_purchasable_view_list`, view_mode `list`, sequence 1). Die Aktion
-selbst wurde nicht veraendert - dadurch bleiben alle uebrigen Produktlisten (Lager, Verkauf,
-Einkauf, Preislisten) unberuehrt. Das entspricht dem Odoo-11-Vorbild, wo die Aktion 226 ueber
-`view_id` auf die Ansicht 571 zeigte.
+**Bindung.** An die Aktionen gebunden ueber `ir.actions.act_window.view` (je view_mode `list`,
+sequence 1): seit Session 128 an Aktion 383 (Einkaufbare Produkte), seit Session 129 auch an
+Aktion 382 (Verkaufbare Produkte) - Odoo 11 zeigte in beiden Menuepunkten dieselbe Ansicht 571.
+Die Aktionen selbst wurden nicht veraendert; dadurch bleiben alle uebrigen Produktlisten (Lager,
+Verkauf > Produkte, Einkauf > Produkte, Abo-Produkte, Preislisten) unberuehrt. Nachweis:
+`scripts/pruefe_produktlisten_unveraendert.py` - nur die Aktionen 382 und 383 tragen eine
+gebundene Liste.
 
 **Filter.** "Verfuegbare Produkte" (`qty_available > 0`) wurde im Odoo-11-Wortlaut und mit der
 Odoo-11-Domain in `addons/itk_product/views/itk_product.xml` ergaenzt
@@ -251,6 +254,16 @@ spaetere echte Produktmigration fehlen `supplier_taxes_id`, `default_code`, `uom
 `categ_id` und `standard_price` - das ist ein Befund, **keine** durchgefuehrte Erweiterung. Die
 Regel wird erst nach Freigabe von Anna erweitert; eine echte Datenmigration fand nicht statt.
 
+**Nachtrag Session 129:** Die Regel wurde auf Annas Auftrag erweitert (siehe
+`docs/o11-o18-testmigration-regel.md`, Abschnitt "Produktfelder"): `default_code` und
+`standard_price` 1:1, `uom_id`/`uom_po_id` ueber den Einheitennamen, `categ_id` ueber den
+Kategorienamen, `taxes_id`/`supplier_taxes_id` in vier Stufen (gleicher Name, Odoo-11-
+Beschreibungstext als Odoo-18-Name, eindeutiger Satz plus Verwendung, sonst Abbruch).
+Vorlauf (`--plan`, schreibt nichts) lokal und VM: 11 Produkte der ausgewaehlten Belege, Steuern
+11/11 und Einheiten 11/11 aufloesbar, Kategorien 2/11 (9 fehlen im Testbestand).
+Vorlaufprotokolle: `Desktop/Odoo18-Abnahme-Session129/testmigration_vorlauf/plan_lokal.txt`
+und `plan_vm.txt`.
+
 ## 8. Abnahme
 
 ```
@@ -264,17 +277,19 @@ Fehlermeldung, Bestand vorher == nachher, keine Testdaten zurueckgeblieben.
 
 ## 8. Offene Punkte
 
-1. **Zwillingsmenuepunkt Abrechnung > Verkauf > Verkaufbare Produkte (Aktion 382)** nutzt in
-   Odoo 11 dieselbe Ansicht 571, zeigt in Odoo 18 aber weiterhin die Standardliste. Der Auftrag
-   betraf nur den Einkaufspunkt; eine Angleichung ist mit derselben Liste in wenigen Zeilen
-   moeglich und wartet auf Annas Entscheidung.
+1. **Produktkategorien fehlen im Testbestand (Befund Session 129):** Die Odoo-11-Produkte fuehren
+   eigene Kategorien (z. B. "Amtssignatur, E-Abfertigung, E-Postfächer", "Nutzungsentgelt",
+   "Dienstleistungspauschale"); die Odoo-18-Testinstanz hat nur All/Expenses/Saleable. Im
+   Vorlauf der Testmigration lassen sich deshalb 9 von 11 Produkten keine Kategorie zuordnen.
+   Die Kategorieanlage ist ein eigener Stammdatenschritt und braucht Annas Freigabe - es wurden
+   **keine** Kategorien angelegt.
 2. **Modell der Liste:** Odoo 11 listet Varianten (`product.product`, eine Zeile je Variante),
    Odoo 18 Vorlagen (`product.template`). Bestehende Entscheidung aus Session 126, unveraendert.
 3. **Website-Gruppe** (`public_categ_ids` usw.): nur mit `website_sale` nachbaubar, in Odoo 11
    ohne Daten - unveraendert wie im Reiter "Verkauf" dokumentiert.
 4. **Feldbeschreibungen lokal/VM:** die VM-Datenbank fuehrte fuer mehrere Produktfelder englische
    Beschreibungen. Nach jedem Modul-Upgrade muessen `scripts/apply_abrechnung_labels.py` (und die
-   Ansichtspruefungen) laufen - das macht `scripts/upgrade_modules.py` automatisch. Die neue Liste
+   Ansichtspruefungen) laufen - das macht `scripts/upgrade_modules.py` automatisch. Die Liste
    setzt ihre Wortlaute zusaetzlich selbst im Repo (`string="..."`), damit die sichtbare Liste
    unabhaengig von den Datenbank-Slots stimmt.
 

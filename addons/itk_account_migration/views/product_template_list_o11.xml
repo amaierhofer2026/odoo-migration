@@ -2,39 +2,41 @@
 <odoo>
 
     <!-- ================================================================================
-         Liste des Menuepunkts Abrechnung > Einkauf > Einkaufbare Produkte (Session 128).
+         Listenansicht der Menuepunkte Abrechnung > Verkauf/Einkauf > Verkaufbare bzw.
+         Einkaufbare Produkte (Session 128 Einkauf, Session 129 Verkauf).
 
          Odoo-11-Sollzustand (read-only gemessen, ITK_V1_a):
              Menue Abrechnung/Einkauf/Stammdaten/Einkaufbare Produkte (id 169)
              -> Aktion 226 "Einkaufbare Produkte", res_model product.product,
                 view_id 571 = account.product_product_view_tree (primaere Liste),
                 context {'search_default_filter_to_purchase': 1}
+             Menue Abrechnung/Verkauf/Stammdaten/Verkaufbare Produkte
+             -> Aktion 225 "Verkaufbare Produkte", res_model product.product,
+                view_id 571 (DIESELBE Ansicht), context {'search_default_filter_to_sell': 1}
              Spalten der Ansicht 571 (Dokumentreihenfolge):
                  default_code (Interne Referenz) | name (Name) |
                  attribute_value_ids (unsichtbar, groups product.group_product_variant) |
                  lst_price (Verkaufspreis) | taxes_id (Steuern (Verkauf)) |
                  supplier_taxes_id (Steuern (Einkauf))
-             Der Zwillingspunkt Abrechnung/Verkauf/Stammdaten/Verkaufbare Produkte
-             (Aktion 225) verwendet dieselbe Ansicht 571.
 
          Odoo 18 vorher:
-             Aktion 383 account.product_product_action_purchasable hatte KEINE eigene
-             Liste; angezeigt wurde die Standardliste product.template.product.list
-             (id 860) mit den Erweiterungen stock/stock_account/itk_product -
-             rund zwanzig Spalten, andere Reihenfolge, ohne Steuerspalten, und auf der
-             VM englische Beschriftungen (Sales Taxes, Purchase Taxes, Quantity On Hand,
-             Forecasted Quantity, Unit of Measure, Barcode, Sales, Purchase,
-             # Product Variants).
+             Beide Aktionen (382 account.product_product_action_sellable,
+             383 account.product_product_action_purchasable) hatten KEINE eigene Liste;
+             angezeigt wurde die Standardliste product.template.product.list (id 860) mit
+             den Erweiterungen stock/stock_account/itk_product - rund zwanzig Feldzeilen,
+             andere Reihenfolge, ohne Steuerspalten, und auf der VM englische
+             Beschriftungen (Sales Taxes, Purchase Taxes, Quantity On Hand, Forecasted
+             Quantity, Unit of Measure, Barcode, Sales, Purchase, # Product Variants).
              Die frueher angelegte Vererbung view_product_template_list_o11_spalten
              (Ergaenzung von qty_available/virtual_available/uom_id/barcode in der Ansicht
-             1023 account.product_template_view_tree) war wirkungslos, weil die Aktion
-             diese Ansicht nie benutzt hat.
+             1023 account.product_template_view_tree) war wirkungslos, weil keine der
+             Aktionen diese Ansicht benutzt.
 
          Odoo 18 nachher: eigene primaere Liste mit den Odoo-11-Spalten in Odoo-11-
          Reihenfolge und deutschem Odoo-11-Wortlaut; die Odoo-18-Zusatzspalten bleiben
          vorhanden, sind aber standardmaessig ausgeblendet (Spaltenauswahl).
-         An die Aktion gebunden ueber ir.actions.act_window.view (kein Eingriff in die
-         Aktion selbst, dadurch bleiben die uebrigen Produktlisten unveraendert).
+         An beide Aktionen gebunden ueber ir.actions.act_window.view (kein Eingriff in die
+         Aktionen selbst, dadurch bleiben die uebrigen Produktlisten unveraendert).
          Dokumentation: docs/o11-o18-abrechnung-einkaufbare-produktliste.md
     -->
     <record id="view_product_template_list_o11_spalten" model="ir.ui.view">
@@ -94,11 +96,18 @@
         </field>
     </record>
 
-    <!-- Die Liste an den Menuepunkt binden (Odoo-11-Vorbild: view_id der Aktion 226).
-         Nur der Einkaufspunkt; der Verkaufspunkt 382 bleibt vorerst auf der
-         Odoo-18-Standardliste (siehe Dokumentation, Abschnitt offene Punkte). -->
+    <!-- Die Liste an die beiden Menuepunkte binden (Odoo-11-Vorbild: view_id 571 der
+         Aktionen 225 und 226). Beide Punkte unterscheiden sich nur im Standardfilter;
+         in Odoo 11 zeigten sie dieselbe Ansicht 571. -->
     <record id="action_product_product_action_purchasable_view_list" model="ir.actions.act_window.view">
         <field name="act_window_id" ref="account.product_product_action_purchasable"/>
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="view_product_template_list_o11_spalten"/>
+        <field name="sequence">1</field>
+    </record>
+
+    <record id="action_product_product_action_sellable_view_list" model="ir.actions.act_window.view">
+        <field name="act_window_id" ref="account.product_product_action_sellable"/>
         <field name="view_mode">list</field>
         <field name="view_id" ref="view_product_template_list_o11_spalten"/>
         <field name="sequence">1</field>
