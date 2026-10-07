@@ -32,6 +32,9 @@ services:
     restart: unless-stopped
 
 volumes:
+  # Der Volume-Name ist je Umgebung verschieden (lokal "odoo18_pgdata", auf der VM
+  # "odoo18_odoo18_pgdata"). Er wird deshalb aus der Umgebungsvariable PGDATA_VOLUME gelesen;
+  # Standard ist der lokale Name. Auf der VM steht die Zeile in /opt/odoo18/.env (nicht im Repo).
   odoo18_pgdata:
     external: true
-    name: odoo18_pgdata
+    name: ${PGDATA_VOLUME:-odoo18_pgdata}
