@@ -208,5 +208,20 @@ Instanzen wieder **155 Feldpaare, 0 Abweichungen**. Zusaetzlich wurde in
 | Detailpruefung Texte, Referenzen, Namen, Verwendung | `...\valorisierung\valorisierung_details.txt` |
 | Browser-Abnahme lokal | `...\valorisierung\browser_lokal.txt`, Bilder `browser\lokal\01_liste.png`, `02_formular.png`, `03_rechnung.png` |
 | Browser-Abnahme VM | `...\valorisierung\browser_vm.txt`, Bilder `browser\vm\` |
-| Regression und Bezeichnungspruefungen | `...\valorisierung\regression_lokal.txt`, `regression_vm.txt` |
-| Pruefskripte | `scripts/vergleiche_valorisierung.py`, `scripts/pruefe_valorisierung_details.py`, `scripts/browser_valorisierung_abnahme.py` |
+| Bedienprobe (Feld sichtbar und bedienbar, Bestand vorher/nachher) | `...\valorisierung\browser_lokal_bedienprobe.txt`, `browser_vm_bedienprobe.txt`, Bilder `04_rechnung_feld_sichtbar.png`, `05_rechnung_auswahlliste.png` |
+| Bezeichnungspruefung nach der Korrektur | `...\valorisierung\labels_nach_korrektur.txt` (lokal und VM je 155 Feldpaare, 0 Abweichungen) |
+| VM-Bezeichnungslauf (Ausgangsbefund und Korrektur) | `...\valorisierung\labels_vm_voll.txt`, `labels_vm_nach.txt`, `apply_labels_beide.txt` |
+| Regression und Abschlusslauf | `...\valorisierung\regression_abschluss.txt` (886 OK / 0 FEHL ueber 11 Prueflaeufe, lokal und VM) |
+| Pruefskripte | `scripts/vergleiche_valorisierung.py`, `scripts/pruefe_valorisierung_details.py`, `scripts/browser_valorisierung_abnahme.py`, `scripts/browser_valorisierung_bedienprobe.py` |
+
+### 10.1 Bedienprobe (Feld sichtbar und verwendbar)
+
+Auf beiden Instanzen wurde im echten Browser eine Rechnung geoeffnet, der Reiter "Andere
+Informationen" aufgerufen und das Feld "Valorisation Text" angeklickt; die Auswahlliste wurde
+gelesen und die Seite **ohne Speichern** verlassen. Ergebnis lokal und VM je **5 OK / 0 FEHL**:
+
+- Feld im Formular sichtbar, Auswahlliste zeigt die Valorisierungstexte (VAL-OK,
+  VALORISIERUNGSHINWEIS 2019 bis 2024, "VALORISIERUNGSHINWEIS 2024 Acta Nova", ...)
+- Bestand vorher/nachher identisch: 11 Valorisierungstexte mit unveraenderten `write_date`,
+  der eine Beleg mit Valorisierungstext (Entwurf "Test Firma", VAL-OK) unveraendert
+- VAL-OK vorhanden und unveraendert (`write_date` 01.07.2026 09:58:42)
