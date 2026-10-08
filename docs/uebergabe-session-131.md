@@ -67,14 +67,15 @@ Reihenfolge:
 
 ## 4. Stand 08.10.2026 (Ende Session 131)
 
-- main = lokal = GitHub = VM = **716fe926e0e85a80a6527f9ae399f85f1de1d728**,
-  Baum **76205cf7f51abccb8e7a1b00761e2156a8da62b2**,
-  Dateidifferenz-Nachweis (sha1 ueber `git ls-tree -r HEAD`) **97a10ba617e2241fa0f9a776568517322f072cdc**;
-  Arbeitsbaeume lokal und VM sauber.
+- main = lokal = GitHub = VM = **a6a4b8a50821b784679e200b03694cff54111db3**,
+  Baum **59a946e1c8c822e272d9b5ad6f6585d78c543bd7**,
+  Dateidifferenz-Nachweis (sha1 ueber `git ls-tree -r HEAD`) **7ad59128b72543a8a56f1a312a027acb893c64d5**;
+  Arbeitsbaeume lokal und VM sauber. Stand am 08.10.2026 erneut in allen vier Punkten
+  nachgeprueft (lokal, GitHub via `origin/main`, VM via Git in `/opt/odoo18`).
 - PRs dieser Session gemergt: #209 (Menue/Beschriftungen/Werkzeuge), #210 (Volume je Umgebung),
   #211 (VM-Abnahme), #212 (Konten 8400/4000 + Wortlaute), #213 (haengendes `<delete>` entfernt),
   #214 (Entscheidung 3400 -> 5010), #215 (Steuern-Pruefung), #216 (Sonderfall R-24832),
-  #217 (Sonderzeichen in Steuerbeschreibungen).
+  #217 (Sonderzeichen in Steuerbeschreibungen), #218 (Uebergabedokumentation, dieser Stand).
 - Module lokal und VM: `itk_projectcategory` **18.0.1.0.3**, `itk_crm` **18.0.1.5.8**,
   `account_invoice_line_report` **18.0.1.0.1**, `itk_valorisierung` **18.0.1.3.0**,
   `itk_account_migration` **18.0.1.22.0**, `itk_product` **18.0.1.0.5**.
