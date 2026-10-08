@@ -1,10 +1,22 @@
-from odoo import api, fields, models, _
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError
+
+# Kanaele nach Odoo 11 (siehe data/helpdesk_channels.xml)
+KANAL_MANUAL = "itk_helpdesk_compat.helpdesk_ticket_channel_manual"
+KANAL_WEBSITE_PUBLIC = "itk_helpdesk_compat.helpdesk_ticket_channel_website_public"
+KANAL_WEBSITE_USER = "itk_helpdesk_compat.helpdesk_ticket_channel_website_user"
+
+KANAL_JE_HERKUNFT = {
+    "manual": KANAL_MANUAL,
+    "website_public": KANAL_WEBSITE_PUBLIC,
+    "website_user": KANAL_WEBSITE_USER,
+}
 
 
 class HelpdeskTicket(models.Model):
     _inherit = "helpdesk.ticket"
 
+    # ---- Felder nach Odoo 11 (website_support) ----
     sub_category_id = fields.Many2one(
         comodel_name="helpdesk.ticket.category",
         string="Unterkategorie",
@@ -17,20 +29,56 @@ class HelpdeskTicket(models.Model):
     dynamic_field_value_ids = fields.One2many(
         comodel_name="itk.helpdesk.subcategory.field.value",
         inverse_name="ticket_id",
-        string="Zusätzliche Felder",
+        string="Extra Details",
         copy=False,
     )
     close_comment = fields.Text(
-        string="Abschluss",
+        string="Kommentar bei Abschluss",
+    )
+    closed_by_id = fields.Many2one(
+        comodel_name="res.users",
+        string="Geschlossen von",
+        readonly=True,
+        copy=False,
+        help="Benutzer, der das Ticket abgeschlossen hat (Odoo 11: Geschlossen von).",
     )
     support_comment = fields.Text(
         string="Partner Kommentar",
+        readonly=True,
     )
+    # Odoo 11 verlangte keine Beschreibung am Ticket
+    description = fields.Html(required=False, sanitize_style=True)
 
-    # ---- Ticket Actions ----
+    # ---- Kanal automatisch aus dem Entstehungsweg ----
+
+    @api.model
+    def _itk_kanal(self, schluessel):
+        """Liefert den Kanal-Datensatz zu einem Herkunftsschluessel."""
+        xmlid = KANAL_JE_HERKUNFT.get(schluessel or "manual", KANAL_MANUAL)
+        return self.env.ref(xmlid, raise_if_not_found=False)
+
+    @api.model
+    def default_get(self, fields_list):
+        res = super().default_get(fields_list)
+        if "channel_id" in fields_list and not res.get("channel_id"):
+            kanal = self._itk_kanal(self.env.context.get("itk_kanal") or "manual")
+            if kanal:
+                res["channel_id"] = kanal.id
+        return res
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if not vals.get("channel_id") and not self.env.context.get("fetchmail_cron_running"):
+                kanal = self._itk_kanal(self.env.context.get("itk_kanal") or "manual")
+                if kanal:
+                    vals["channel_id"] = kanal.id
+        return super().create(vals_list)
+
+    # ---- Ticket-Aktionen ----
 
     def action_close_ticket(self):
-        """Close ticket: set stage to 'Geschlossen/Behoben', record close time."""
+        """Ticket schliessen: Status auf 'Geschlossen/Behoben', Abschlusszeitpunkt setzen."""
         closed_stage = self.env["helpdesk.ticket.stage"].search([
             ("name", "=", "Geschlossen/Behoben"),
         ], limit=1)
@@ -43,10 +91,11 @@ class HelpdeskTicket(models.Model):
             ticket.write({
                 "stage_id": closed_stage.id,
                 "closed_date": fields.Datetime.now(),
+                "closed_by_id": self.env.user.id,
             })
 
     def action_reply_ticket(self):
-        """Open mail compose wizard to reply to this ticket's customer."""
+        """Antwort an den Kunden schreiben (Mail-Verfassen-Fenster)."""
         self.ensure_one()
         ctx = {
             "default_model": "helpdesk.ticket",

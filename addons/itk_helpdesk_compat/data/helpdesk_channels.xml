@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- ============================================================
+         Kanaele nach Odoo 11 (website_support).
+         Odoo 11 fuehrte die vier Werte Email, Manual, Website (Public),
+         Website (User) als Auswahlliste. Odoo 18 (OCA) kennt
+         Web, Email, Phone, Other. Email bleibt, Web wird durch die
+         beiden Website-Kanaele ersetzt (archiviert), Phone und Other
+         bleiben als Odoo-18-Zusatz erhalten.
+         ============================================================ -->
+    <data noupdate="1">
+        <record id="helpdesk_ticket_channel_manual" model="helpdesk.ticket.channel">
+            <field name="name">Manual</field>
+        </record>
+        <record id="helpdesk_ticket_channel_website_public" model="helpdesk.ticket.channel">
+            <field name="name">Website (Public)</field>
+        </record>
+        <record id="helpdesk_ticket_channel_website_user" model="helpdesk.ticket.channel">
+            <field name="name">Website (User)</field>
+        </record>
+    </data>
+
+    <data noupdate="0">
+        <!-- OCA-Kanal "Web" wird nicht mehr vergeben: die beiden
+             Odoo-11-Kanaele unterscheiden oeffentlich/angemeldet.
+             (Der Datensatz ist beim OCA-Modul noupdate=1, deshalb
+             wird er ueber eine Funktion und nicht ueber ein record
+             gesetzt.) -->
+        <function model="helpdesk.ticket.channel" name="write"
+                  eval="[[ref('helpdesk_mgmt.helpdesk_ticket_channel_web')], {'active': False}]"/>
+    </data>
+</odoo>

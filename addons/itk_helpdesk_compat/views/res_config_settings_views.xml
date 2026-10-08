@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Einstellungen fuer das oeffentliche Ticketformular -->
+    <record id="res_config_settings_view_form_itk" model="ir.ui.view">
+        <field name="name">itk.res.config.settings.form.helpdesk</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="helpdesk_mgmt.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//app[@name='helpdesk_mgmt']" position="inside">
+                <block title="Öffentliches Ticketformular (Website)" name="itk_helpdesk_public">
+                    <setting string="Team für öffentliche Tickets"
+                             id="itk_helpdesk_public_team">
+                        <field name="itk_helpdesk_public_team_id"/>
+                    </setting>
+                    <setting string="Spamschutz je Zeitfenster"
+                             id="itk_helpdesk_public_limit"
+                             help="Höchstzahl der Eingaben je IP-Adresse und insgesamt je Stunde.">
+                        <div class="content-group">
+                            <div class="row mt8">
+                                <label for="itk_helpdesk_public_rate_limit"
+                                       class="col-6 o_light_label"/>
+                                <field name="itk_helpdesk_public_rate_limit" class="col-6"/>
+                            </div>
+                            <div class="row">
+                                <label for="itk_helpdesk_public_global_limit"
+                                       class="col-6 o_light_label"/>
+                                <field name="itk_helpdesk_public_global_limit" class="col-6"/>
+                            </div>
+                        </div>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>

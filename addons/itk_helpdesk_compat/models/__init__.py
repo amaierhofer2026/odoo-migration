@@ -1,5 +1,7 @@
 from . import helpdesk_ticket
 from . import helpdesk_ticket_category
 from . import itk_helpdesk_priority
+from . import itk_helpdesk_public_submission
 from . import itk_helpdesk_subcategory_field
 from . import itk_helpdesk_subcategory_field_value
+from . import res_config_settings

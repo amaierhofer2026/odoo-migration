@@ -79,7 +79,9 @@ class ITKHelpdeskPortal(http.Controller):
             "description": plaintext2html(kw.get("description")),
             "name": kw.get("subject"),
             "attachment_ids": False,
-            "channel_id": request.env.ref("helpdesk_mgmt.helpdesk_ticket_channel_web", False).id,
+            "channel_id": request.env.ref(
+                "itk_helpdesk_compat.helpdesk_ticket_channel_website_user", False
+            ).id,
             "partner_id": request.env.user.partner_id.id,
             "partner_name": request.env.user.partner_id.name,
             "partner_email": request.env.user.partner_id.email,
