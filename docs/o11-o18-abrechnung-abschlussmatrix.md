@@ -147,6 +147,30 @@ Währungen 80 Zeilen (Währung, Symbol, Name, Letzte Aktualisierung, Einheit pro
 Steuerzuordnung 4, Zahlungsbedingungen 12, Produktkategorien 3, Kostenstellen 5,
 Kostenstellenplaene 1, Bargeldrundungen, Zahlungsmethoden, Einstellungen.
 
+## 8b. Bereich Steuern (Pruefung 08.10.2026, Session 131)
+
+Vollstaendige Pruefung Abrechnung > Konfiguration > Finanzen > Steuern read-only gegen Odoo 11;
+Details und Merkmalstabelle in `docs/o11-o18-steuern-mapping.md`.
+
+| Punkt | Ergebnis |
+|---|---|
+| Steuern Odoo 11 | 77 |
+| davon produktiv verwendet | 2 (20% Umsatzsteuer sale, 20% Vorsteuer purchase) |
+| 1:1 zugeordnet | 2 von 2 (ueber die Odoo-11-Beschreibung: 20% USt -> 20% Ust, 20% VSt -> 20% Vst) |
+| im Ziel fehlend | keine verwendete Steuer |
+| bewusst nicht migriert | 75 unbenutzte Odoo-11-Steuern (Ueberbleibsel des deutschen Kontenrahmens, 19%/7%) |
+| Steuerkonten | Odoo 11 1776 (Verbindlichkeit) / 1576 (Umlaufvermoegen) gegen Odoo 18 3500 / 2500, Kontenart identisch; 1776 -> 3500 ist dokumentiert, 1576 -> 2500 entspricht der Kontenart und ist im Ziel gesetzt |
+| Steuerlogik | Satz, Berechnung (percent), Preis inklusive (nein), Inklusiv-Basis (nein) und Rueckerstattung (dasselbe Konto) gleich; Testbelege buchen 20,00 EUR auf 3500 bzw. 2500 |
+| Browser | lokal 10 OK / 0 FEHL, VM 10 OK / 0 FEHL (Liste, Suche, Filter Verkauf/Einkauf, beide Formulare mit Repartitionskonten, beide Testbelege) |
+| Testdaten | zwei Testbelege je Instanz nach der Pruefung entfernt, Bestand vorher = nachher, keine Reste |
+| Odoo-18-Bestand | 53 Steuern, keine geloescht, ersetzt oder umbenannt |
+
+Offener Einzelpunkt mit Migrationsrelevanz: **Beleg R-24832** (Ausgangsrechnung 06.11.2024) traegt
+Zeilensteuer 20%, hat aber keine gebuchte Steuer (Summe 0,00, keine Steuerzeile) - einziger solcher
+Fall unter 6.281 steuerbehafteten Belegen. Bei der Migration wandert die Zeilensteuer mit und
+erzeugt rund 55,63 EUR Steuer, die Odoo 11 nicht gebucht hat. Kein Mapping- und kein Zielfehler;
+Entscheidung offen (Abschnitt 7 der Steuer-Doku).
+
 ## 9. Assistenten und Dialoge
 
 | Odoo 11 | Odoo 18 | gleich | Abweichung | Begruendung |

@@ -2752,6 +2752,13 @@ Abschlusspruefung 08.10.2026: Planlauf ohne BLOCKER (Ertragskonto 4000 und Aufwa
 restlos entfernt, Bestand vorher = nachher (17 Modelle), Browser lokal 4/0 und VM 4/0,
 Regression 886 OK / 0 FEHL, Modul itk_projectcategory 18.0.1.0.3 auf beiden Instanzen.
 
+Bereich Steuern (Pruefung 08.10.2026): Odoo 11 77 Steuern, davon 2 produktiv verwendet, beide 1:1
+zugeordnet (20% Umsatzsteuer -> 20% Ust, 20% Vorsteuer -> 20% Vst); 75 unbenutzte Steuern bewusst
+nicht migriert; Steuerkonten 1776/1576 gegen 3500/2500 stimmig; Testbelege buchen korrekt; Browser
+lokal und VM je 10 OK / 0 FEHL; Testbelege entfernt, Bestand vorher = nachher. Details:
+`docs/o11-o18-steuern-mapping.md`. Offener Einzelpunkt: Beleg R-24832 (Zeilensteuer ohne gebuchte
+Steuer, 1 von 6.281 Belegen) - Entscheidung Anna offen.
+
 **Modul Abrechnung: MIGRATIONSBEREIT (technisch und fachlich freigegeben am 08.10.2026).**
 
 ### Pruefprotokoll je Modul (ausfuellen)
