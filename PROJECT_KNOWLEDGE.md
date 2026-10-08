@@ -9193,6 +9193,19 @@ Kein Datenverlust. Lehre im Skill: `references/docker-compose-volume-falle.md`.
 `scripts/browser_abrechnung_wortlaut_konten.py`; Entscheidungsregister `ENTSCHEIDUNGEN_KONTEN`
 und Firmenvorgabepruefung in `scripts/testmigration_abrechnung.py`.
 
+### 9. Steuern-Pruefung (08.10.2026, Session 131)
+
+Read-only gegen Odoo 11 (77 Steuern) und Odoo 18 (53 Steuern): nur **2 Odoo-11-Steuern sind
+produktiv verwendet** (20% Umsatzsteuer sale, 20% Vorsteuer purchase); beide werden ueber die
+Odoo-11-Beschreibung eindeutig zugeordnet (20% USt -> 20% Ust id 15, 20% VSt -> 20% Vst id 43).
+Die 75 uebrigen Steuern sind unbenutzt (Ueberbleibsel des deutschen Kontenrahmens, 19%/7%) und
+werden bewusst NICHT angelegt oder zugeordnet. Steuerkonten und Logik stimmen: Odoo 11 1776/1576
+gegen Odoo 18 3500/2500 (Kontenart identisch); Testbelege buchen 20,00 EUR Steuer auf 3500 bzw.
+2500. Im Browser lokal und VM je 10 OK / 0 FEHL. Doku: `docs/o11-o18-steuern-mapping.md`.
+
+Befund mit Migrationsrelevanz: Beleg R-24832 hat Zeilensteuer, aber keine gebuchte Steuer
+(einziger Fall unter 6.281 steuerbehafteten Belegen) - Entscheidung offen.
+
 **Status Modul Abrechnung (08.10.2026): MIGRATIONSBEREIT.** Anna hat am 08.10.2026 mit der
 Entscheidung zu 3400 (5010, bestehende globale Odoo-18-Vorgabe) den letzten fachlichen Punkt
 freigegeben und die ausdrueckliche Freigabe zur Kennzeichnung als migrationsbereit erteilt.
