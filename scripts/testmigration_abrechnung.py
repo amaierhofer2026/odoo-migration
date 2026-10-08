@@ -145,9 +145,44 @@ def typ_ziel(o11_typ):
 # --------------------------------------------------------------------------
 BELEG_FELDER = ["id", "number", "type", "state", "partner_id", "journal_id", "date_invoice",
                 "date_due", "payment_term_id", "currency_id", "amount_untaxed", "amount_tax",
-                "amount_total", "residual", "invoice_line_ids", "payment_ids", "move_id"]
+                "amount_total", "residual", "invoice_line_ids", "payment_ids", "move_id",
+                "tax_line_ids"]
 ZEILEN_FELDER = ["id", "name", "quantity", "price_unit", "discount", "product_id", "account_id",
                  "invoice_line_tax_ids", "account_analytic_id"]
+
+# --------------------------------------------------------------------------
+# Sonderfall "Zeilensteuer ohne Steuerbuchung" (Entscheidung Anna, 08.10.2026)
+# --------------------------------------------------------------------------
+# Beleg R-24832 (Ausgangsrechnung vom 06.11.2024) traegt in Odoo 11 auf beiden Zeilen die Steuer
+# "20% Umsatzsteuer", hat aber keine gebuchte Steuer: amount_tax = 0,00, keine Steuerbuchungszeile
+# (account.invoice.tax), und die Buchung enthaelt nur Forderung (1410) und Erloese (8400).
+# Der Beleg wird nach seinem GEBUCHTEN Ist-Zustand migriert: ohne Steuer auf den Zeilen;
+# Gesamtbetrag, Restbetrag, Zahlungsstatus, Forderung und Erloes bleiben unveraendert. Es wird
+# keine Steuer nachgerechnet und keine Steuerbuchung erzeugt.
+#
+# Die Regel greift NUR, wenn alle drei Bedingungen am Odoo-11-Beleg belegt sind:
+#   1. mindestens eine Belegzeile traegt eine Steuer,
+#   2. amount_tax des Belegs ist 0,00,
+#   3. es gibt keine Steuerbuchungszeile zum Beleg.
+# Sonst wird die Steuer wie bisher uebernommen. Es werden KEINE Steuern allgemein entfernt.
+SONDERFALL_OHNE_STEUERBUCHUNG = []
+
+
+def ist_sonderfall_ohne_steuerbuchung(k, beleg):
+    """Die drei Bedingungen am Odoo-11-Beleg pruefen (read-only). Rueckgabe: (ja/nein, Begruendung)."""
+    betrag = beleg.get("amount_tax") or 0.0
+    if abs(betrag) > 0.005:
+        return False, "amount_tax = %.2f" % betrag
+    if beleg.get("tax_line_ids"):
+        return False, "%d Steuerbuchungszeile(n) vorhanden" % len(beleg["tax_line_ids"])
+    zeilen = rpc(k, "account.invoice.line", "read", [beleg["invoice_line_ids"],
+                                                    ["invoice_line_tax_ids"]],
+                 "Zeilensteuern pruefen")
+    mit_steuer = [z for z in zeilen if z.get("invoice_line_tax_ids")]
+    if not mit_steuer:
+        return False, "keine Zeilensteuer vorhanden"
+    return True, ("Zeilensteuer auf %d Zeile(n), amount_tax = 0,00, keine Steuerbuchungszeile"
+                  % len(mit_steuer))
 
 # Produktfelder fuer die Testmigration (Session 129 erweitert; Entscheidung Anna:
 # supplier_taxes_id, default_code, uom_id/uom_po_id, categ_id, standard_price ergaenzen).
@@ -377,8 +412,36 @@ def kategorie_im_ziel(z, kategorien, kat_id, mitschrift=None):
     return neue, "angelegt"
 
 
-def waehle_belege(k):
-    """Je Belegart einen kleinen, mehrzeiligen Beleg; zusaetzlich eine bezahlte Rechnung mit Zahlung."""
+def waehle_belege(k, nur_nummer=None):
+    """Je Belegart einen kleinen, mehrzeiligen Beleg; zusaetzlich eine bezahlte Rechnung mit Zahlung.
+
+    Mit `nur_nummer` wird ausschliesslich der benannte Odoo-11-Beleg ausgewaehlt (gezielter
+    Nachweis einzelner Faelle, z. B. des Sonderfalls R-24832).
+    """
+    if nur_nummer:
+        ids = rpc(k, "account.invoice", "search", [[("number", "=", nur_nummer)]],
+                  "Beleg %s suchen" % nur_nummer)
+        if len(ids) != 1:
+            raise SystemExit("ABBRUCH: Beleg %r ist in Odoo 11 %d Mal vorhanden (erwartet genau 1)."
+                             % (nur_nummer, len(ids)))
+        b = rpc(k, "account.invoice", "read", [ids, BELEG_FELDER], "Beleg %s lesen" % nur_nummer)[0]
+        aus = {b["type"]: b}
+        # Ist der Beleg in Odoo 11 ueber genau eine gebuchte Zahlung bezahlt, wird sie mitgezogen,
+        # damit der Zahlungsstatus (paid) im Ziel reproduzierbar ist.
+        zahlungs_ids = b.get("payment_ids") or []
+        if len(zahlungs_ids) == 1:
+            p = rpc(k, "account.payment", "read",
+                    [zahlungs_ids, ["id", "name", "amount", "payment_date", "partner_id",
+                                    "journal_id", "payment_method_id", "payment_type", "state",
+                                    "invoice_ids"]], "Zahlung zum Beleg lesen")[0]
+            if p["state"] == "posted" and abs(p["amount"] - b["amount_total"]) < 0.01:
+                aus = {"bezahlte_rechnung": b, "zahlung": p}
+                print("   Zahlung %s (%.2f, %s) wird mitgezogen."
+                      % (p["name"], p["amount"], p["payment_date"]))
+        print("   Gezielte Auswahl: %s (%s, %s Zeilen, brutto %.2f, Steuer %.2f, Rest %.2f)"
+              % (b["number"], b["state"], len(b["invoice_line_ids"]), b["amount_total"],
+                 b["amount_tax"], b["residual"]))
+        return aus
     auswahl = {}
     for art, zustaende in (("out_invoice", ["open", "paid"]), ("out_refund", ["paid", "open"])):
         ids = rpc(k, "account.invoice", "search",
@@ -792,6 +855,13 @@ def fuehre_aus(z, k, belege, zeilen, partner, journale, konten, steuern, bedingu
             raise SystemExit("ABBRUCH: Zieljournal mit Code %r fehlt." % journal_ziel_code)
         if not ziel_partner or not ziel_journal:
             raise SystemExit("ABBRUCH: Partner oder Journal fuer %s fehlt im Ziel." % b["number"])
+        # Sonderfall "Zeilensteuer ohne Steuerbuchung": gebuchter Ist-Zustand ohne Steuer.
+        sonderfall, begruendung = ist_sonderfall_ohne_steuerbuchung(k, b)
+        if sonderfall:
+            SONDERFALL_OHNE_STEUERBUCHUNG.append({"nummer": b["number"], "id": b["id"],
+                                                  "begruendung": begruendung})
+            print("   SONDERFALL: Beleg %s wird nach dem gebuchten Ist-Zustand OHNE Steuer "
+                  "migriert (%s)." % (b["number"], begruendung))
         zeilen_werte = []
         for z_ in zeilen[t]:
             wz = {"name": z_["name"], "quantity": z_["quantity"], "price_unit": z_["price_unit"],
@@ -823,8 +893,14 @@ def fuehre_aus(z, k, belege, zeilen, partner, journale, konten, steuern, bedingu
                     raise SystemExit("ABBRUCH: Steuer %r aus Beleg %s nicht zuordenbar - %s"
                                      % (s["name"], b["number"] or "Entwurf", wie))
                 steuer_ids.append(ziel_steuer)
-            if steuer_ids:
+            if steuer_ids and not sonderfall:
                 wz["tax_ids"] = [(6, 0, steuer_ids)]
+            elif sonderfall:
+                # Ausdruecklich leere Steuermenge: sonst zieht Odoo 18 die Standardsteuer der
+                # Produktvorlage nach (Befund 08.10.2026, Testfall R-24832: 55,63 EUR Steuer).
+                wz["tax_ids"] = [(6, 0, [])]
+                print("      Zeile ohne Steuer uebernommen (Sonderfall): %s -> %s"
+                      % (str(z_["name"])[:45], "Steuermenge ausdruecklich leer"))
             zeilen_werte.append((0, 0, wz))
         waehrung = rpc(z, "res.currency", "search", [[("name", "=", name(b["currency_id"]))]],
                        "Waehrung suchen")
@@ -834,7 +910,15 @@ def fuehre_aus(z, k, belege, zeilen, partner, journale, konten, steuern, bedingu
         werte = {"move_type": b["type"], "partner_id": ziel_partner[0], "journal_id": ziel_journal[0],
                  "invoice_date": b["date_invoice"], "invoice_date_due": b["date_due"],
                  "currency_id": waehrung[0],
-                 "invoice_line_ids": zeilen_werte}
+                 "invoice_line_ids": zeilen_werte,
+                 # Keine automatische Steuerzuordnung im Ziel (Befund 08.10.2026):
+                 # Odoo 18 wendet bei Partnern aus EU/Drittland von sich aus eine Steuerzuordnung an
+                 # (z. B. "Europaeische Union") und bildet dabei KONTEN ab - im Testfall R-24832
+                 # wurde das Forderungskonto 2000 auf 2100 umgebogen, wodurch die Zahlung (Konto
+                 # 2000) nicht mehr abgestimmt werden konnte. Die Odoo-11-Steuerzuordnung wird
+                 # nicht uebertragen; damit die dokumentierten Konten gelten, wird das Feld auf
+                 # migrierten Belegen ausdruecklich leer gesetzt.
+                 "fiscal_position_id": False}
         if b.get("payment_term_id"):
             treffer = rpc(z, "account.payment.term", "search",
                           [[("name", "=", name(b["payment_term_id"]))]], "Zahlungsbedingung suchen")
@@ -1151,6 +1235,7 @@ def main() -> int:
     p.add_argument("--ausfuehren", action="store_true")
     p.add_argument("--ich-habe-freigabe", action="store_true")
     p.add_argument("--aufraeumen", action="store_true")
+    p.add_argument("--beleg", help="nur diesen Odoo-11-Beleg migrieren (z. B. R-24832)")
     a = p.parse_args()
 
     env = lade_env()
@@ -1166,7 +1251,7 @@ def main() -> int:
         raeume_auf(z)
         return 0
 
-    belege = waehle_belege(k)
+    belege = waehle_belege(k, a.beleg)
     zeilen = sammle_zeilen(k, belege)
     print("\nAusgewaehlte Datensaetze:")
     for t, b in belege.items():
@@ -1176,6 +1261,13 @@ def main() -> int:
             print("   %-20s %-12s %-8s %6d Zeilen, brutto %.2f, Rest %.2f"
                   % (t, b["number"] or "Entwurf", b["state"], len(b["invoice_line_ids"]),
                      b["amount_total"], b["residual"]))
+    for t, b in belege.items():
+        if t == "zahlung":
+            continue
+        ist_sf, begr = ist_sonderfall_ohne_steuerbuchung(k, b)
+        if ist_sf:
+            print("   SONDERFALL erkannt: %s wird nach dem gebuchten Ist-Zustand ohne Steuer "
+                  "migriert (%s)." % (b["number"], begr))
     (partner, journale, konten, steuern, bedingungen, produkte,
      kategorien) = waehle_stammdaten(k, belege, zeilen)
     print("Stammdaten: %d Partner, %d Journale, %d Konten, %d Steuern, %d Zahlungsbedingungen, "

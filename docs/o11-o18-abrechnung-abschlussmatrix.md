@@ -165,11 +165,23 @@ Details und Merkmalstabelle in `docs/o11-o18-steuern-mapping.md`.
 | Testdaten | zwei Testbelege je Instanz nach der Pruefung entfernt, Bestand vorher = nachher, keine Reste |
 | Odoo-18-Bestand | 53 Steuern, keine geloescht, ersetzt oder umbenannt |
 
-Offener Einzelpunkt mit Migrationsrelevanz: **Beleg R-24832** (Ausgangsrechnung 06.11.2024) traegt
-Zeilensteuer 20%, hat aber keine gebuchte Steuer (Summe 0,00, keine Steuerzeile) - einziger solcher
-Fall unter 6.281 steuerbehafteten Belegen. Bei der Migration wandert die Zeilensteuer mit und
-erzeugt rund 55,63 EUR Steuer, die Odoo 11 nicht gebucht hat. Kein Mapping- und kein Zielfehler;
-Entscheidung offen (Abschnitt 7 der Steuer-Doku).
+**Beleg R-24832 (Ausgangsrechnung 06.11.2024): entschieden und umgesetzt (08.10.2026).** Der Beleg
+traegt Zeilensteuer 20%, hat aber keine gebuchte Steuer (Summe 0,00, keine Steuerzeile) - einziger
+solcher Fall unter 6.281 steuerbehafteten Belegen. Laut Entscheidung Anna wird er nach dem
+**gebuchten Ist-Zustand** migriert: ohne Steuer auf den Zeilen, ohne Nachberechnung, ohne
+Steuerbuchung; Gesamtbetrag, Restbetrag, Zahlungsstatus, Forderung und Erloes unveraendert.
+
+- Sonderregel `ist_sonderfall_ohne_steuerbuchung()` in `scripts/testmigration_abrechnung.py`,
+  greift nur bei (1) Zeilensteuer vorhanden, (2) amount_tax = 0,00 und (3) keiner
+  Steuerbuchungszeile. Kein allgemeines Entfernen von Steuern.
+- Nachweis `scripts/pruefe_sonderfall_r24832.py`: 6.281 Belege geprueft, genau 1 Treffer,
+  6.280 Belege behalten ihre Steuer; migrierter Beleg ohne 278,15 / Steuer 0,00 / total 278,15 /
+  Rest 0,00 / Zahlung paid; 0 Steuerbuchungszeilen, 0 steuerbehaftete Zeilen; Buchungszeilen
+  1410 -> 2000 und 8400 -> 4000 wie dokumentiert.
+- Zusatzbefund und Behebung: die automatisch angewendete Steuerzuordnung des Ziels bog das
+  Forderungskonto 2000 auf 2100 um und die Produktvorlage zog ihre Standardsteuer nach. Migrierte
+  Belege erhalten deshalb ausdruecklich `fiscal_position_id = False`, der Sonderfall eine
+  ausdruecklich leere Steuermenge.
 
 ## 9. Assistenten und Dialoge
 
