@@ -63,52 +63,60 @@ Umsetzung im Werkzeug (`scripts/testmigration_abrechnung.py`):
 - neue Pruefung `pruefe_firmenvorgabe()`: liest die Firmenvorgabe (`ir.default`) im Ziel und
   haelt sie gegen die Entscheidung.
 
-## 4. Offener Punkt: 3400 "Wareneingang 19% Vorsteuer"
+## 4. Entschiedene Zuordnung: 3400 -> 5010 (Entscheidung Anna, 08.10.2026)
 
-**Keine eindeutige Entsprechung nachweisbar - deshalb bleibt der Punkt BLOCKER.** Es wird nichts
-zugeordnet und nichts angelegt.
+3400 "Wareneingang 19% Vorsteuer" wird auf **5010 "Wareneinkauf 20%"** abgebildet - das ist die im
+Ziel **bereits gesetzte globale Firmenvorgabe** des Aufwandskontos der Produktkategorien
+(`ir.default`, firmenweit). Es wird **kein Konto angelegt**, **kein Mapping auf 5000 erzwungen** und
+es werden **keine kategoriespezifischen Konten** erzeugt; die Kategorien erben die firmenweite
+Vorgabe.
 
-Kandidaten im Odoo-18-Kontenrahmen (alle Kontotyp `expense_direct_cost`, Gruppe `expense`):
+Begruendung der Entscheidung:
 
-| Nummer | Name | Belegzeilen im Ziel | Bewertung |
+1. 3400 hatte in Odoo 11 **0 Belegzeilen** und diente ausschliesslich als globale Firmenvorgabe der
+   Produktkategorien - es gibt keine historischen Buchungen, aus denen eine andere Zuordnung folgen
+   wuerde.
+2. 5010 ist fachlich **naeher an "Wareneingang/Wareneinkauf"** als 5000 "Wareneinsatz"
+   (Einsatz = Materialverbrauch, weiter gefasst).
+3. Es soll **kein neues Konto mit 19%-Bezeichnung** angelegt werden.
+4. 5010 ist bereits die Odoo-18-Vorgabe; die Kategorien erben sie wie vorgesehen.
+
+Damit ist die Abweichung zum Odoo-11-Namen (19% gegen 20%) bewusst und dokumentiert: sie folgt der
+fachlichen Entscheidung, nicht einer automatischen Zuordnung ueber den Namen.
+
+### 4.1 Verworfene Kandidaten (nicht zugeordnet, nichts angelegt)
+
+Alle Kandidaten haben im Ziel 0 Belegzeilen; es gab damit keine Verwendungsevidenz.
+
+| Nummer | Name | Kontotyp | Verwendung im Ziel | Bewertung |
+|---|---|---|---|---|
+| 5000 | Wareneinsatz | expense_direct_cost | 0 Belegzeilen | verworfen: Begriff weiter gefasst als "Wareneingang"; kein Mapping erzwungen |
+| 5010 | Wareneinkauf 20% | expense_direct_cost | 0 Belegzeilen | **gewaehlt**: bestehende globale Aufwandsvorgabe, fachlich naechste Entsprechung |
+| 5011 | Wareneinkauf 10% | expense_direct_cost | 0 Belegzeilen | verworfen: ermaessigter Satz, in Odoo 11 nicht vorhanden |
+| 5050 | Wareneinkauf ig. Erwerb 20% | expense_direct_cost | 0 Belegzeilen | verworfen: innergemeinschaftlicher Erwerb, in Odoo 11 nicht vorhanden |
+| 5051 | Wareneinkauf ig. Erwerb 10% | expense_direct_cost | 0 Belegzeilen | verworfen: dito |
+| 5052 | Wareneinkauf ig. Erwerb 0% nach Art. 6 Abs. 2 | expense_direct_cost | 0 Belegzeilen | verworfen: dito |
+| 5090 | Wareneinkauf 0% | expense_direct_cost | 0 Belegzeilen | verworfen: Nullsatz, in Odoo 11 nicht vorhanden |
+
+### 4.2 Wirksamkeit
+
+Da 3400 weder in Belegen noch in Steuern vorkommt, betrifft die Zuordnung **ausschliesslich die
+Vorgabekonfiguration** der Produktkategorien, nicht die zu uebertragenden Daten (0 zu uebertragende
+Belegzeilen). Die bestehende Odoo-18-Firmenvorgabe bleibt unveraendert - es wurde nichts
+geschrieben, nur die Zuordnung dokumentiert und im Werkzeug hinterlegt.
+
+## 5. Endgueltige Entscheidungen
+
+| Odoo 11 | Odoo 18 | Art | Stand |
 |---|---|---|---|
-| 5000 | Wareneinsatz | 0 | fachlich "Einsatz" (Materialverbrauch), nicht "Wareneingang" - moegliche Entsprechung, aber Begriff weiter gefasst |
-| 5010 | Wareneinkauf 20% | 0 | entspricht dem Satz des Zielkontenrahmens; Odoo-11-Konto nennt 19% (deutscher Satz), oesterreichischer Normalsatz ist 20% - Satzanalogie, nicht belegt |
-| 5011 | Wareneinkauf 10% | 0 | ermaessigter Satz - in Odoo 11 nicht vorhanden |
-| 5050 | Wareneinkauf ig. Erwerb 20% | 0 | innergemeinschaftlicher Erwerb - in Odoo 11 nicht vorhanden |
-| 5051 | Wareneinkauf ig. Erwerb 10% | 0 | dito |
-| 5052 | Wareneinkauf ig. Erwerb 0% nach Art. 6 Abs. 2 | 0 | dito |
-| 5090 | Wareneinkauf 0% | 0 | Nullsatz - in Odoo 11 nicht vorhanden |
+| 8400 "Erloese 19% USt" | 4000 "Brutto-Umsatzerloese im Inland (20%)" | Belegzeilen-Mapping und globale Firmenvorgabe | entschieden und umgesetzt |
+| 3400 "Wareneingang 19% Vorsteuer" | 5010 "Wareneinkauf 20%" | globale Firmenvorgabe (bestehende Odoo-18-Vorgabe beibehalten) | entschieden |
+| - | keine kategoriespezifischen Konten | - | entschieden |
+| - | keine neuen Konten | - | entschieden |
 
-Gruende, warum daraus kein eindeutiger Nachfolger hervorgeht:
-
-1. Es gibt **keine Verwendungsevidenz**: 3400 hat 0 Belegzeilen, und im Ziel hat **keines** der
-   Kandidatenkonten auch nur eine Belegzeile (0/0/0/0/0/0/0). Weder Quelle noch Ziel liefern
-   einen Nutzungshinweis.
-2. Es gibt **keine Steuerlogik**, die eingrenzt: 3400 wird von keiner Odoo-11-Steuer referenziert
-   und Odoo 18 fuehrt Konten nicht an Steuern (`account.tax` kennt kein Kontofeld mehr, geprueft:
-   nur `cash_basis_transition_account_id`).
-3. Der Name nennt einen **Steuersatz (19%)**, den es im Zielkontenrahmen nicht gibt (20% / 10% /
-   0%). Eine Zuordnung ueber den Satz waere eine Annahme, keine Ableitung.
-4. Auf der Aufwandsseite gibt es in Odoo 11 **keinen einzigen Einkaufsbeleg** (0 `in_invoice`) -
-   es fehlt damit auch jede fachliche Spur, welcher Aufwandskontotyp gemeint war.
-5. Der bestehende Odoo-18-Wert 5010 ist der Kontenrahmen-Standard, nicht das Ergebnis eines
-   Vergleichs mit Odoo 11.
-
-Auswirkung: da 3400 weder in Belegen noch in Steuern vorkommt, betrifft der offene Punkt
-**ausschliesslich die Vorgabekonfiguration** der Produktkategorien, nicht die zu migrierenden
-Daten (0 zu uebertragende Belegzeilen).
-
-## 5. Benoetigte Entscheidungen (von Anna)
-
-1. Welches Konto ersetzt 3400 als **Aufwandsvorgabe** der Produktkategorien: 5000 Wareneinsatz,
-   5010 Wareneinkauf 20% oder ein anderes Konto?
-2. Falls ein anderes Konto gewuenscht ist, das im Zielkontenrahmen fehlt: Anlegen durch wen, mit
-   welcher Nummer und Bezeichnung? (Die Migration legt keine Konten an.)
-3. Soll die Aufwandsvorgabe im Ziel ueberhaupt gesetzt werden, oder bleibt sie auf dem
-   Kontenrahmen-Standard 5010? (Fachliche Folge: Produkte ohne eigenes Aufwandskonto buchen dann
-   auf 5010, nicht auf ein aus Odoo 11 abgeleitetes Konto.)
-4. Bestaetigung, dass 8400 -> 4000 (Abschnitt 3) so bleibt - auch fuer die Firmenvorgabe.
+Beide Zuordnungen sind im Werkzeug als Register `ENTSCHEIDUNGEN_KONTEN` hinterlegt
+(`scripts/testmigration_abrechnung.py`) und werden dort ueber Kontonummer **und** Namen geprueft;
+weicht der Name ab oder ist die Nummer nicht eindeutig, bricht der Lauf ab.
 
 ## 6. Was bewusst NICHT gemacht wurde
 

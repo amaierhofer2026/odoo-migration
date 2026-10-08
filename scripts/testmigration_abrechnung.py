@@ -51,24 +51,28 @@ CTX = {"lang": "de_DE"}
 KONTO_MAPPING = {"1201": "2801", "1410": "2000", "1776": "3500", "8400": "4000"}
 
 # --------------------------------------------------------------------------
-# Entschiedene Kontenzuordnungen (Anna, Session 131, 08.10.2026)
+# Entschiedene Kontenzuordnungen (Anna, Session 131)
 # --------------------------------------------------------------------------
 # Ausgangslage (belegt, siehe docs/o11-o18-abrechnung-kontenzuordnung-8400-3400.md):
 # 8400 "Erloese 19% USt" und 3400 "Wareneingang 19% Vorsteuer" sind in Odoo 11
 # ausschliesslich globale Firmenvorgaben der Produktkategorien (ir.property, res_id leer;
-# keine Kategorie hat ein eigenes Konto).
+# keine Kategorie hat ein eigenes Konto). Odoo 11 fuehrt 1.286 Konten, das Ziel 240.
 #
-# Entschieden:
-#   * 8400 "Erloese 19% USt" (Typ Erloese, 10.040 Belegzeilen in Odoo 11)
+# Entschieden (Anna):
+#   * 8400 "Erloese 19% USt" (Typ Erloese, 10.040 Belegzeilen in Odoo 11), Entscheidung 08.10.2026
 #     -> 4000 "Brutto-Umsatzerloese im Inland (20%)" (Typ income, 39 Belegzeilen im Ziel).
 #     Begruendung: das Mapping ist fuer die Belegzeilen bereits dokumentiert (KONTO_MAPPING,
-#     docs/o11-o18-abrechnung-abschlusspruefung.md Abschnitt 3) und gilt laut Entscheidung
-#     vom 08.10.2026 auch fuer die globale Firmenvorgabe der Kategorien - nicht pro Kategorie.
-#     Beleg im Ziel: ir.default "Ertragskonto (Produktkategorie)" zeigt bereits auf 4000.
+#     docs/o11-o18-abrechnung-abschlusspruefung.md Abschnitt 3) und gilt auch fuer die globale
+#     Firmenvorgabe der Kategorien - nicht pro Kategorie.
 #   * 3400 "Wareneingang 19% Vorsteuer" (Typ Aufwand, 0 Belegzeilen, von keiner Steuer
-#     referenziert) -> KEINE Entscheidung. Im Ziel gibt es mehrere unbeschaeftigte Kandidaten
-#     (5000 Wareneinsatz, 5010/5011 Wareneinkauf 20%/10%, 5050/5051/5052 ig. Erwerb,
-#     5090 0%). Deshalb bleibt dieser Punkt BLOCKER: keine Zuordnung, kein Anlegen.
+#     referenziert), Entscheidung 08.10.2026
+#     -> 5010 "Wareneinkauf 20%", also die im Ziel bereits gesetzte globale Firmenvorgabe.
+#     Begruendung: keine historischen Buchungen, aus denen eine andere Zuordnung folgen wuerde;
+#     5010 ist fachlich naeher an "Wareneingang/Wareneinkauf" als 5000 "Wareneinsatz"; es wird
+#     ausdruecklich KEIN neues Konto mit 19%-Bezeichnung angelegt und KEIN Mapping auf 5000
+#     erzwungen; die Produktkategorien erben die firmenweite Odoo-18-Vorgabe.
+#
+# Beide Zuordnungen werden ueber Nummer UND Namen geprueft; Konten werden nie angelegt.
 ENTSCHEIDUNGEN_KONTEN = {
     "8400": {
         "ziel_code": "4000",
@@ -76,6 +80,14 @@ ENTSCHEIDUNGEN_KONTEN = {
         "entscheidung": "Anna, 08.10.2026",
         "begruendung": ("Belegzeilen-Mapping 8400 -> 4000 gilt auch fuer die globale "
                         "Firmenvorgabe der Produktkategorien"),
+    },
+    "3400": {
+        "ziel_code": "5010",
+        "ziel_name": "Wareneinkauf 20%",
+        "entscheidung": "Anna, 08.10.2026",
+        "begruendung": ("bestehende globale Odoo-18-Aufwandsvorgabe beibehalten: Odoo-11-Konto hatte "
+                        "0 Belegzeilen und diente nur als Firmenvorgabe; kein neues Konto, kein "
+                        "Mapping auf 5000, keine kategoriespezifischen Konten"),
     },
 }
 # Punkt 3 (05.10.2026): Der Odoo-11-Journalcode "Re.:" wird NICHT uebernommen. Er erzeugt im
