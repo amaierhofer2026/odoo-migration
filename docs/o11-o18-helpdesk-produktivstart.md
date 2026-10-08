@@ -1,8 +1,19 @@
-# Helpdesk: Konfiguration für den Produktivstart (Vorschlag, nichts angelegt)
+# Helpdesk: Konfiguration für den Produktivstart (umgesetzt)
 
 Stand: 08.10.2026, Session 132. Alle Werte sind aus der read-only-Erhebung von
-Odoo 11 belegt. Es wurde **nichts** davon angelegt - die Liste ist zur Freigabe
-gedacht; nach Freigabe lege ich sie in der Zielinstanz an.
+Odoo 11 belegt und mit Freigabe von Anna **umgesetzt** (lokal und VM), mit
+`scripts/helpdesk_produktivstart.py` (idempotent, `--pruefen` schreibt nichts).
+
+Ergebnis in der Instanz: Team "IT-Kommunal Support" (SLA aktiv, im Portal
+sichtbar, Alias `help`), SLA "Standard SLA Support ITK Produkte" (48 h,
+Kategorien amtsweg.gv.at / Amtssignatur / E-Learning / Verwaltungsmanager,
+Zielstufe Geschlossen/Behoben, Pause bei on Hold), 4 Prioritäten mit den
+Odoo-11-Farben, 17 Kategorien und 20 Unterkategorien. Der Testdatensatz
+"Test-SLA" wurde entfernt, ebenso ein Ticket-Testdatensatz aus dem Bestand.
+
+Nicht erfunden und deshalb offen (externe Produktivparameter):
+`mail.catchall.domain` sowie `recaptcha_public_key` und
+`recaptcha_private_key`. Honigtopf und Rate-Limit arbeiten unabhängig davon.
 
 ## 1. Gruppen und Rechte
 

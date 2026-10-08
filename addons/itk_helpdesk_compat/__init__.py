@@ -12,7 +12,7 @@ def post_init_hook(env):
             "name": "Neues Ticket bei IT-Kommunal",
             "model_id": env.ref("helpdesk_mgmt.model_helpdesk_ticket").id,
             "subject": "Neues Ticket {{ object.number }}: {{ object.name }}",
-            "email_from": "{{ object.team_id.alias_email or object.company_id.email or 'office@it-kommunal.at' }}",
+            "email_from": "{{ object.team_id.alias_email or 'ITK-Support <office@it-kommunal.at>' }}",
             "email_to": "{{ object.partner_id.email or object.partner_email }}",
             "auto_delete": True,
             "lang": "{{ object.partner_id.lang }}",
