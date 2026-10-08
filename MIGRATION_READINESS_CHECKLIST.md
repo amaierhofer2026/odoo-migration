@@ -2735,7 +2735,16 @@ Label-Lauf VM (22 gesetzt, 0 Abweichungen), Menuebaum identisch zu lokal, Browse
 Beschriftungen 155 Feldpaare / 0 Abweichungen, Regression 886 OK / 0 FEHL ueber 11 Prueflaeufe,
 Bestand unveraendert, keine Testreste.
 
-BLOCKER unveraendert: Kontenstammdaten 8400/3400 (siehe oben). Abrechnung bleibt IN ARBEIT.
+Kontenkl aerung 08.10.2026: 8400 "Erloese 19% USt" -> 4000 "Brutto-Umsatzerloese im Inland
+(20%)" entschieden (Belegzeilen und globale Firmenvorgabe der Produktkategorien, nicht pro
+Kategorie) und im Werkzeug umgesetzt (Register ENTSCHEIDUNGEN_KONTEN, Firmenvorgabepruefung im
+Plan: "passt zur Entscheidung"). Wortlaute angeglichen: "Kostenstellenkonten" und
+"Projektkategorien". Testmigration im Testbestand: 203 Protokolleintraege, 94/0 Pruefungen,
+Testdaten restlos entfernt, Bestand vorher = nachher.
+
+BLOCKER jetzt nur noch Kontenstammdaten 3400 "Wareneingang 19% Vorsteuer" (0 Belegzeilen, keine
+Steuerreferenz, sieben unbeschaeftigte Kandidaten im Ziel - Entscheidung von Anna offen).
+Abrechnung bleibt IN ARBEIT.
 
 ### Pruefprotokoll je Modul (ausfuellen)
 

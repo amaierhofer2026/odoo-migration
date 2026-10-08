@@ -380,6 +380,56 @@ def main() -> int:
             gesetzt += 1
             print("  OK   Server-Aktion %s de_DE '%s' -> '%s'" % (bank_id, ist, ziel_bank))
 
+    # --- Menuebezeichnungen nach Odoo-11-Wortlaut (Session 131, 08.10.2026, Entscheidung Anna) ---
+    # Belege (read-only, siehe docs/o11-o18-abrechnung-kontenzuordnung-8400-3400.md und
+    # docs/o11-o18-abrechnung-menue-matrix.md):
+    #   Odoo 11 fuehrt unter Abrechnung/Konfiguration/Kostenrechnung das Menue 179
+    #   "Kostenstellenkonten" auf dem Modell account.analytic.account. Odoo 18 zeigt an
+    #   derselben Stelle dasselbe Menue als "Kostenstellen" (englisch "Analytic Accounts").
+    #   Fuer Projektkategorien fuehrt Odoo 11 KEIN Menue (0 Treffer); der Odoo-11-Wortlaut fuer
+    #   die Sache ist "Projektkategorie" (Aktion "Massenverarbeitung Projektkategorie setzen").
+    #   Odoo 18 zeigt das Menue unseres Moduls unter Konfiguration > Verwaltung.
+    # WICHTIG: Auswahl ausschliesslich ueber die technische Kennung (ir.model.data), NICHT ueber
+    # den Namen oder complete_name. Eine Namenssuche traf am 08.10.2026 gleichnamige Standardmenues
+    # ("Kostenstellenkonten" unter Einstellungen/Benutzer & Unternehmen bzw. base.menu_action_res_users,
+    # base_setup.menu_config) und benannte sie faelschlich um; die Korrektur ist unten dokumentiert.
+    print("\nMenuebezeichnungen nach Odoo-11-Wortlaut:")
+    umbenennungen = [
+        ("account", "account_analytic_def_account", "Kostenstellenkonten", "Analytic Accounts",
+         "Odoo 11 Menue 179 'Kostenstellenkonten' (account.analytic.account)"),
+        ("itk_projectcategory", "menu_finance_configuration_projectcategory", "Projektkategorien",
+         "Project Categories",
+         "Odoo 18 Menue unseres Moduls; Odoo 11 kennt kein Menue (Wortlaut dort "
+         "'Projektkategorie')"),
+    ]
+    for modul, kennung, ziel, quelle_en, begruendung in umbenennungen:
+        md = kw("ir.model.data", "search_read",
+                [[("module", "=", modul), ("name", "=", kennung), ("model", "=", "ir.ui.menu")],
+                 ["res_id"]])
+        if not md:
+            fehlt += 1
+            print("  --   Menue %s.%s nicht gefunden" % (modul, kennung))
+            continue
+        mid = md[0]["res_id"]
+        vorher = kw("ir.ui.menu", "read", [[mid], ["name", "complete_name"]], context={"lang": "de_DE"})[0]
+        if not a.pruefen:
+            # Beide Sprachen ausdruecklich schreiben: ein Schreibvorgang in nur einer Sprache kann
+            # in Odoo 18 den Quellwert mitziehen. Danach wird zurueckgelesen und verglichen.
+            kw("ir.ui.menu", "write", [[mid], {"name": ziel}], context={"lang": "de_DE"})
+            kw("ir.ui.menu", "write", [[mid], {"name": quelle_en}], context={"lang": "en_US"})
+        ist = kw("ir.ui.menu", "read", [[mid], ["name", "complete_name"]], context={"lang": "de_DE"})[0]
+        en = kw("ir.ui.menu", "read", [[mid], ["name"]], context={"lang": "en_US"})[0]["name"]
+        if ist["name"] == ziel and en == quelle_en:
+            if vorher["name"] != ziel:
+                gesetzt += 1
+                print("  OK   Menue '%s' -> '%s'  (%s)" % (ist["complete_name"], ziel, begruendung))
+            else:
+                print("  OK   Menue '%s' = '%s' (englisch '%s')" % (ist["complete_name"], ziel, en))
+            continue
+        abweichung += 1
+        print("  FEHL Menue %s.%s: de='%s' en='%s' (erwartet de='%s' en='%s')"
+              % (modul, kennung, ist["name"], en, ziel, quelle_en))
+
     print("\nErgebnis: %d gesetzt, %d Abweichungen, %d nicht vorhanden%s"
           % (gesetzt, abweichung, fehlt, " (Pruefmodus)" if a.pruefen else ""))
     return 0 if abweichung == 0 else 1

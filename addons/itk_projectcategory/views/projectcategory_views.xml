@@ -11,12 +11,16 @@
         (Odoo-11-Stand: zwei - account und itk_valorisierung).
         Der Menuepunkt liegt jetzt wie "Produktkategorien" unter Abrechnung > Konfiguration >
         Verwaltung. Funktion und Daten bleiben unveraendert; die eigene Sektion entfaellt.
+        Wortlaut (Session 131, 08.10.2026, Entscheidung Anna): Menue und Aktion heissen deutsch
+        "Projektkategorien" (Plural wie im Menue "Produktkategorien"). Beleg: Odoo 11 fuehrt
+        KEIN Menue fuer dieses Modell (read-only geprueft, 0 Treffer); der Odoo-11-Wortlaut fuer
+        die Sache ist "Projektkategorie" (Aktion "Massenverarbeitung Projektkategorie setzen").
     -->
     <delete model="ir.ui.menu" id="menu_finance_configuration"/>
 
     <!--START Action and Menuentry-->
     <record model="ir.actions.act_window" id="menu_finance_configuration_projectcategory_action">
-        <field name="name">Project Category</field>
+        <field name="name">Project Categories</field>
         <field name="res_model">itk_projectcategory.projectcategory</field>
         <field name="view_mode">list,form</field>
         <field name="help" type="html">
@@ -25,7 +29,7 @@
         </field>
     </record>
 
-    <menuitem id="menu_finance_configuration_projectcategory" name="Project Category"
+    <menuitem id="menu_finance_configuration_projectcategory" name="Project Categories"
               parent="account.account_management_menu" sequence="5"
               action="menu_finance_configuration_projectcategory_action"/>
     <!--END Action and Menuentry-->

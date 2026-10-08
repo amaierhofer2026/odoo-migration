@@ -229,9 +229,17 @@ Menuepunkte mit Fensteraktion sowie die Feldbeschriftungen von 30 Modellpaaren.
    Menuepunkt ist ein Odoo-18-Zusatz ohne Odoo-11-Vorlage, deshalb gibt es keinen Odoo-11-Wortlaut.
    Fachlich konsistent zu "Produktkategorien" waere ebenfalls eine deutsche Bezeichnung; der
    Feldname am Beleg bleibt in jedem Fall "Project Category" (Odoo-11-Wortlaut).
-2. **"Kostenstellen" statt "Kostenstellenkonten"** (Menue unter Konfiguration > Kostenrechnung):
-   Odoo 11 benannte das Menue "Kostenstellenkonten", Odoo 18 "Kostenstellen". Gleiches Modell
-   (`account.analytic.account`), gleiche Daten. Wortlautfrage.
+2. **Wortlaut "Kostenstellenkonten" und "Projektkategorien" - erledigt (08.10.2026).**
+   Odoo 11 fuehrt das Menue unter Konfiguration > Kostenrechnung als "Kostenstellenkonten"
+   (Menue-ID 179, Modell `account.analytic.account`); Odoo 18 zeigt an derselben Stelle dasselbe
+   Menue als "Kostenstellen" (englisch "Analytic Accounts"). Modell, Daten und Funktion sind 1:1,
+   daher wurde der Odoo-11-Wortlaut uebernommen. Fuer Projektkategorien fuehrt Odoo 11 gar kein
+   Menue (0 Treffer); belegt ist nur der Einzahl-Wortlaut "Projektkategorie" (Aktionsbezeichnung
+   "Massenverarbeitung Projektkategorie setzen"). Das Odoo-18-Menue unseres Moduls heisst jetzt
+   "Projektkategorien" (Plural wie "Produktkategorien") - die Abweichung Einzahl/Mehrzahl gegenueber
+   Odoo 11 ist bewusst und hier dokumentiert.
+   Umsetzung: `addons/itk_projectcategory` (Menue und Aktion, Version 18.0.1.0.2) sowie
+   `scripts/apply_abrechnung_labels.py` (Menues ueber die technische Kennung, beide Sprachen).
 3. **Kontenzuordnung 8400 / 3400 bleibt BLOCKER** fuer die echte Datenmigration (unveraendert,
    siehe Abschnitt 8).
 4. **Preislistenregeln (403 Regeln ohne Produktbezug)**, **Namenszuordnung der Abo-Vorlagen**,
@@ -241,7 +249,7 @@ Menuepunkte mit Fensteraktion sowie die Feldbeschriftungen von 30 Modellpaaren.
 
 | BLOCKER | Bereich | Odoo-11-Verhalten | Odoo-18-Verhalten | Ursache | moegliche Loesungen | Empfehlung |
 |---|---|---|---|---|---|---|
-| Kontenstammdaten | Abrechnung > Konfiguration > Verwaltung > Produktkategorien (Kontenfelder) | 8400 "Erloese 19% USt" und 3400 "Wareneingang 19% Vorsteuer" als **globale Firmenvorgabe** der Produktkategorien (8 `ir.property`-Eintraege, `res_id` leer) | Konto 8400 und 3400 existieren im Zielkontenrahmen (240 Konten) nicht; Kandidaten 4000/4001/4100/4110/4200 bzw. 5000/5010/5011/5050/5051/5052/5090 weichen im Steuersatz im Namen ab | anderer Kontenrahmen (1.286 gegen 240 Konten) | (a) Kontenstammdaten in Odoo 18 durch ITK fachlich festlegen und dann zuordnen, (b) Dokumentation des festgelegten Mappings fuer die Kategorien, (c) Kategorien ohne Kontenfelder migrieren und die Firmenvorgabe nutzen | nichts anlegen, nichts raten; Entscheidung der Fachabteilung (unveraendert seit Session 129) |
+| Kontenstammdaten 3400 (offen) | Abrechnung > Konfiguration > Verwaltung > Produktkategorien (Aufwandskonto) | 3400 "Wareneingang 19% Vorsteuer" als **globale Firmenvorgabe** der Produktkategorien (8 `ir.property`-Eintraege, `res_id` leer; **0 Belegzeilen**, von keiner Steuer referenziert) | Konto 3400 existiert im Zielkontenrahmen (240 Konten) nicht; Kandidaten 5000/5010/5011/5050/5051/5052/5090 (alle 0 Belegzeilen) weichen im Steuersatz im Namen ab | anderer Kontenrahmen (1.286 gegen 240 Konten) | (a) Kontenstammdaten in Odoo 18 durch ITK fachlich festlegen und dann zuordnen, (b) Dokumentation des festgelegten Mappings fuer die Kategorien, (c) Kategorien ohne Kontenfelder migrieren und die Firmenvorgabe nutzen | nichts anlegen, nichts raten; Entscheidung der Fachabteilung (unveraendert seit Session 129) |
 
 ## 9. Bewusste Abweichungen (bleiben)
 
