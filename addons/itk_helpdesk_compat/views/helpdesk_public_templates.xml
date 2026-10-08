@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- ============================================================
+         Oeffentliches Ticket-Formular (ohne Anmeldung)
+         Entspricht dem Odoo-11-Formular mit Kanal "Website (Public)".
+         ============================================================ -->
+    <template id="public_ticket_form" name="ITK Helpdesk: oeffentliches Ticketformular">
+        <t t-call="website.layout">
+            <div class="container my-4" id="itk-helpdesk-public">
+                <div class="row">
+                    <div class="col-lg-8 offset-lg-2">
+                        <h1 class="mb-4">Support-Ticket einreichen</h1>
+
+                        <t t-if="erfolg">
+                            <div class="alert alert-success">
+                                <p class="mb-0">
+                                    Vielen Dank! Ihr Ticket
+                                    <t t-if="ticket_nummer">
+                                        <b>Nr. <t t-esc="ticket_nummer"/></b>
+                                    </t>
+                                    wurde angelegt. Wir melden uns bei Ihnen.
+                                </p>
+                            </div>
+                        </t>
+                        <t t-else="">
+                            <div class="alert alert-danger" t-if="fehler">
+                                <t t-esc="fehler"/>
+                            </div>
+
+                            <form action="/support/ticket/submit" method="post"
+                                  enctype="multipart/form-data" class="o_website_form">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                                <!-- Honigtopf: bleibt fuer Menschen leer -->
+                                <div class="mb-3" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;">
+                                    <label for="website_url">Website</label>
+                                    <input type="text" id="website_url" name="website_url"
+                                           class="form-control" autocomplete="off" tabindex="-1"/>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="contact_name">Name</label>
+                                        <input type="text" class="form-control" id="contact_name"
+                                               name="contact_name" t-att-value="name"/>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="contact_email">E-Mail</label>
+                                        <input type="email" class="form-control" id="contact_email"
+                                               name="contact_email" t-att-value="email" required="required"/>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="subject">Betreff</label>
+                                    <input type="text" class="form-control" id="subject" name="subject"
+                                           t-att-value="betreff" required="required"/>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="category_id">Kategorie</label>
+                                        <select class="form-control" id="category_id" name="category_id">
+                                            <option value=""/>
+                                            <t t-foreach="hauptkategorien" t-as="kat">
+                                                <option t-attf-value="#{kat.id}"
+                                                        t-att-selected="'selected' if kategorie_id and int(kategorie_id) == kat.id else None">
+                                                    <t t-esc="kat.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="sub_category_id">Unterkategorie</label>
+                                        <select class="form-control" id="sub_category_id" name="sub_category_id">
+                                            <option value=""/>
+                                            <t t-foreach="unterkategorien" t-as="unter">
+                                                <option t-attf-value="#{unter.id}"
+                                                        t-att-data-parent="unter.parent_id.id"
+                                                        t-att-selected="'selected' if unterkategorie_id and int(unterkategorie_id) == unter.id else None">
+                                                    <t t-esc="unter.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="description">Beschreibung</label>
+                                    <textarea class="form-control" id="description" name="description"
+                                              rows="6" required="required"><t t-esc="beschreibung"/></textarea>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="attachment">Anhang</label>
+                                    <input type="file" class="form-control" id="attachment" name="attachment"/>
+                                </div>
+
+                                <!-- Zusatzfelder der Unterkategorie (Odoo 11: Extra Details) -->
+                                <t t-foreach="unterkategorien" t-as="unter">
+                                    <t t-set="felder" t-value="dyn_felder.get(unter.id, [])"/>
+                                    <div class="itk-dyn" t-if="felder" t-att-data-parent="unter.id" style="display:none;">
+                                        <h5 class="mt-3" t-esc="unter.parent_id.name + ' / ' + unter.name"/>
+                                        <t t-foreach="felder" t-as="fdef">
+                                            <div class="mb-3">
+                                                <label t-att-for="'dyn_field_%s' % fdef.id" t-esc="fdef.name"/>
+                                                <input t-if="fdef.field_type in ('char', 'integer', 'float')"
+                                                       type="text" class="form-control"
+                                                       t-att-id="'dyn_field_%s' % fdef.id"
+                                                       t-att-name="'dyn_field_%s' % fdef.id"/>
+                                                <textarea t-if="fdef.field_type == 'text'" class="form-control"
+                                                          t-att-id="'dyn_field_%s' % fdef.id"
+                                                          t-att-name="'dyn_field_%s' % fdef.id" rows="3"/>
+                                                <input t-if="fdef.field_type == 'date'" type="date"
+                                                       class="form-control"
+                                                       t-att-id="'dyn_field_%s' % fdef.id"
+                                                       t-att-name="'dyn_field_%s' % fdef.id"/>
+                                                <div t-if="fdef.field_type == 'boolean'" class="form-check">
+                                                    <input type="checkbox" class="form-check-input"
+                                                           t-att-id="'dyn_field_%s' % fdef.id"
+                                                           t-att-name="'dyn_field_%s' % fdef.id"/>
+                                                </div>
+                                                <t t-if="fdef.field_type == 'selection'">
+                                                    <select class="form-control"
+                                                            t-att-id="'dyn_field_%s' % fdef.id"
+                                                            t-att-name="'dyn_field_%s' % fdef.id">
+                                                        <option value=""/>
+                                                        <t t-foreach="(fdef.selection_options or '').splitlines()" t-as="opt">
+                                                            <option t-attf-value="#{opt.strip()}" t-esc="opt.strip()"/>
+                                                        </t>
+                                                    </select>
+                                                </t>
+                                            </div>
+                                        </t>
+                                    </div>
+                                </t>
+
+                                <input type="hidden" name="recaptcha_token_response" id="recaptcha_token_response"
+                                       t-if="recaptcha_public_key"/>
+
+                                <button type="submit" class="btn btn-primary">Ticket absenden</button>
+                            </form>
+
+                            <script t-if="recaptcha_public_key">
+                                (function () {
+                                    var key = "<t t-esc="recaptcha_public_key"/>";
+                                    var s = document.createElement('script');
+                                    s.src = "https://www.recaptcha.net/recaptcha/api.js?render=" + encodeURIComponent(key);
+                                    document.head.appendChild(s);
+                                    var form = document.querySelector('#itk-helpdesk-public form');
+                                    if (form) {
+                                        form.addEventListener('submit', function (ev) {
+                                            ev.preventDefault();
+                                            grecaptcha.ready(function () {
+                                                grecaptcha.execute(key, {action: 'itk_helpdesk_public_ticket'})
+                                                    .then(function (token) {
+                                                        document.getElementById('recaptcha_token_response').value = token;
+                                                        form.submit();
+                                                    });
+                                            });
+                                        });
+                                    }
+                                })();
+                            </script>
+                        </t>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                (function () {
+                    function filterSub() {
+                        var kat = document.getElementById('category_id');
+                        var sub = document.getElementById('sub_category_id');
+                        if (!kat || !sub) { return; }
+                        var wahl = kat.value;
+                        Array.prototype.forEach.call(sub.options, function (o) {
+                            var passt = !wahl || !o.dataset.parent || o.dataset.parent === wahl;
+                            o.hidden = !passt;
+                            if (!passt) {
+                                if (o.selected) { sub.value = ''; }
+                            }
+                        });
+                    }
+                    function zeigeDynFelder() {
+                        var sub = document.getElementById('sub_category_id');
+                        var wahl = sub ? sub.value : '';
+                        Array.prototype.forEach.call(document.querySelectorAll('.itk-dyn'), function (d) {
+                            d.style.display = (d.dataset.parent === wahl) ? '' : 'none';
+                        });
+                    }
+                    var k = document.getElementById('category_id');
+                    var s = document.getElementById('sub_category_id');
+                    if (k) { k.addEventListener('change', function () { filterSub(); zeigeDynFelder(); }); }
+                    if (s) { s.addEventListener('change', zeigeDynFelder); }
+                    document.addEventListener('DOMContentLoaded', function () { filterSub(); zeigeDynFelder(); });
+                })();
+            </script>
+        </t>
+    </template>
+</odoo>

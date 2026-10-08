@@ -1,3 +1,4 @@
+from . import controllers
 from . import models
 
 def post_init_hook(env):
@@ -10,21 +11,32 @@ def post_init_hook(env):
         tpl = MailTemplate.create({
             "name": "Neues Ticket bei IT-Kommunal",
             "model_id": env.ref("helpdesk_mgmt.model_helpdesk_ticket").id,
-            "subject": "Neues Ticket: {{ object.name }}",
-            "email_from": "{{ object.team_id.email or user.company_id.email }}",
-            "email_to": "{{ object.partner_id.email }}",
+            "subject": "Neues Ticket {{ object.number }}: {{ object.name }}",
+            "email_from": "{{ object.team_id.alias_email or object.company_id.email or 'office@it-kommunal.at' }}",
+            "email_to": "{{ object.partner_id.email or object.partner_email }}",
             "auto_delete": True,
             "lang": "{{ object.partner_id.lang }}",
-            "body_html": """<div style="font-family:Arial,sans-serif;max-width:600px">
-<h2 style="color:#875A7B">Ihr Ticket wurde erstellt</h2>
-<p>Guten Tag ${object.partner_id.name},</p>
-<p>vielen Dank für Ihre Anfrage. Wir haben ein Ticket erstellt:</p>
-<table style="width:100%;border-collapse:collapse">
-<tr><td style="padding:8px;border:1px solid #ddd;background:#f9f9f9;font-weight:bold">Ticket</td><td style="padding:8px;border:1px solid #ddd">${object.name}</td></tr>
-<tr><td style="padding:8px;border:1px solid #ddd;background:#f9f9f9;font-weight:bold">Kategorie</td><td style="padding:8px;border:1px solid #ddd">${object.category_id.name or ''}</td></tr>
-</table>
-<p>Wir kümmern uns schnellstmöglich darum.</p>
-<p>Ihr IT-Kommunal Team</p></div>""",
+            "body_html": """<div style="font-family:Arial,Helvetica,sans-serif;max-width:600px">
+  <h2 style="color:#875A7B">Ihr Ticket wurde erstellt</h2>
+  <p>Guten Tag {{ object.partner_id.name or object.partner_name or '' }},</p>
+  <p>vielen Dank für Ihre Anfrage. Wir haben ein Ticket mit folgenden Details erstellt:</p>
+  <table style="width:100%;border-collapse:collapse">
+    <tr>
+      <td style="padding:8px;border:1px solid #ddd;background:#f9f9f9;font-weight:bold">Ticket</td>
+      <td style="padding:8px;border:1px solid #ddd">{{ object.number }} - {{ object.name }}</td>
+    </tr>
+    <tr>
+      <td style="padding:8px;border:1px solid #ddd;background:#f9f9f9;font-weight:bold">Kategorie</td>
+      <td style="padding:8px;border:1px solid #ddd">{{ object.category_id.name or '' }}</td>
+    </tr>
+    <tr t-if="object.sub_category_id">
+      <td style="padding:8px;border:1px solid #ddd;background:#f9f9f9;font-weight:bold">Unterkategorie</td>
+      <td style="padding:8px;border:1px solid #ddd">{{ object.sub_category_id.name }}</td>
+    </tr>
+  </table>
+  <p>Wir kümmern uns schnellstmöglich um Ihr Anliegen.</p>
+  <p>Mit freundlichen Grüßen,<br/>Ihr IT-Kommunal Team</p>
+</div>""",
         })
         mail_template = tpl
     else:

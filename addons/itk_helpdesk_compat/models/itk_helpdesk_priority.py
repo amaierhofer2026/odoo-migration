@@ -6,7 +6,7 @@ class ITKHelpdeskPriority(models.Model):
     _description = "Helpdesk Priority"
     _order = "sequence, id"
 
-    name = fields.Char(required=True, translate=True)
-    sequence = fields.Integer(default=10)
-    color = fields.Char(string="Color", default="#FFFFFF")
-    active = fields.Boolean(default=True)
+    name = fields.Char(string="Priorität Name", required=True, translate=True)
+    sequence = fields.Integer(string="Nummernfolge", default=10)
+    color = fields.Char(string="Farbe", default="#FFFFFF")
+    active = fields.Boolean(string="Aktiv", default=True)

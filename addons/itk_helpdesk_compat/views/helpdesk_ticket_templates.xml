@@ -27,7 +27,7 @@
                         <option value=""/>
                         <t t-foreach="subcategories" t-as="sub">
                             <option t-attf-value="#{sub.id}"
-                                    t-att-data-parent="#{sub.parent_id.id}"
+                                    t-att-data-parent="sub.parent_id.id"
                                     t-att-selected="'selected' if sub_category_id and int(sub_category_id) == sub.id else None">
                                 <t t-esc="sub.name"/>
                             </option>

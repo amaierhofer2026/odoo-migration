@@ -41,12 +41,6 @@
         ]"/>
     </record>
 
-    <!-- Help pages placeholder -->
-    <record id="action_help_page_placeholder" model="ir.actions.client">
-        <field name="name">Hilfeseiten</field>
-        <field name="tag">itk_helpdesk_help_pages</field>
-    </record>
-
     <!-- Dynamic subcategory fields action -->
     <record id="action_subcategory_field" model="ir.actions.act_window">
         <field name="name">Zusätzliche Felder</field>
@@ -70,10 +64,10 @@
         <field name="priority">20</field>
         <field name="arch" type="xml">
             <list string="Kategorien" editable="bottom">
-                <field name="sequence" widget="handle"/>
+                <field name="sequence" string="Nummernfolge" widget="handle"/>
                 <field name="name" string="Kategorie Name"/>
                 <field name="user_ids"
-                       string="Zuständige Benutzer"
+                       string="Kategorie Benutzer"
                        widget="many2many_tags"
                        optional="show"/>
                 <field name="show_in_portal" widget="boolean_toggle"/>
@@ -96,7 +90,7 @@
                     </div>
                     <group>
                         <field name="user_ids"
-                               string="Zuständige Benutzer"
+                               string="Kategorie Benutzer"
                                widget="many2many_tags"/>
                         <field name="show_in_portal" widget="boolean_toggle"/>
                         <field name="sequence"/>

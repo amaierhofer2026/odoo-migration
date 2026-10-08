@@ -63,7 +63,15 @@ class MailActivitySchedule(models.TransientModel):
 
     @api.onchange('itk_target_res_id')
     def _onchange_itk_target_res_id(self):
-        """Kein Zieldokument, kein res_model -> Anzeige konsistent halten."""
+        """Nur beim Standalone-Start ohne Kontext-Dokument zuruecksetzen.
+
+        Wird der Assistent aus dem Chatter eines Belegs geoeffnet, liefert der
+        Kontext active_model/active_ids. Dann darf der onchange das Ziel NICHT
+        loeschen - sonst ist res_model/res_model_id leer und das Anlegen der
+        Aktivitaet scheitert mit "Pflichtfeld ist nicht eingestellt".
+        """
+        if self.env.context.get('active_model'):
+            return
         if not self.itk_target_res_id and self.res_model:
             self.res_model = False
             self.res_model_id = False

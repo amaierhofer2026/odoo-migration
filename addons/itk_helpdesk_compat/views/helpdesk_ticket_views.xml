@@ -2,7 +2,8 @@
 <odoo>
 
     <!-- ============================================================
-         ITK Ticket List View — 8 columns in Odoo 11 order
+         Support-Tickets - Liste in der Spaltenfolge von Odoo 11
+         (website.support.ticket tree view)
          ============================================================ -->
     <record id="view_itk_ticket_list" model="ir.ui.view">
         <field name="name">itk.helpdesk.ticket.list</field>
@@ -14,17 +15,25 @@
                 <field name="create_date" string="Erstellt am" optional="show"/>
                 <field name="number" string="Ticket-Nummer"/>
                 <field name="priority_id" string="Priorität"/>
-                <field name="user_id" string="Zugewiesener Benutzer"/>
+                <field name="user_id" string="Zugewiesener Benutzer" widget="many2one_avatar_user"/>
                 <field name="partner_name" string="Personenname"/>
                 <field name="category_id" string="Kategorie"/>
-                <field name="stage_id" string="Status"/>
+                <field name="stage_id" string="Status" widget="badge"/>
                 <field name="name" string="Betreff"/>
+                <field name="sub_category_id" string="Unterkategorie" optional="hide"/>
+                <field name="partner_id" string="Partner" optional="hide"/>
+                <field name="channel_id" string="Kanal" optional="hide"/>
+                <field name="sla_deadline" string="SLA-Frist" optional="hide"/>
+                <field name="closed_date" string="Abschlusszeitpunkt" optional="hide"/>
             </list>
         </field>
     </record>
 
     <!-- ============================================================
-         ITK Ticket Search View
+         Support-Tickets - Suche
+         Odoo 11: Suche nach Ticket-Nummer, Betreff, Stichwörtern,
+         Partner; Filter "Unbeaufsichtigte Tickets"; Gruppierung
+         nach Kategorie und Benutzer.
          ============================================================ -->
     <record id="view_itk_ticket_search" model="ir.ui.view">
         <field name="name">itk.helpdesk.ticket.search</field>
@@ -35,39 +44,38 @@
             <search>
                 <field string="Ticket-Nummer" name="number"
                        filter_domain="['|',('number','ilike',self),('name','ilike',self)]"/>
-                <field name="partner_id"/>
-                <field name="partner_name"/>
-                <field name="partner_email"/>
-                <field name="user_id"/>
-                <field name="name"/>
-                <field name="category_id"/>
-                <field name="sub_category_id"/>
-                <field name="tag_ids"/>
-                <field name="stage_id"/>
-                <filter string="Unattended Tickets" name="unattended_tickets"
+                <field name="name" string="Betreff"/>
+                <field name="tag_ids" string="Stichwörter"/>
+                <field name="partner_id" string="Partner"/>
+                <field name="partner_name" string="Personenname"/>
+                <field name="partner_email" string="E-Mail"/>
+                <field name="user_id" string="Zugewiesener Benutzer"/>
+                <field name="category_id" string="Kategorie"/>
+                <field name="sub_category_id" string="Unterkategorie"/>
+                <field name="stage_id" string="Status"/>
+                <filter string="Unbeaufsichtigte Tickets" name="unattended_tickets"
                         domain="[('unattended','=',True)]"/>
-                <filter string="Offen" name="open"
-                        domain="[('closed','=',False)]"/>
                 <separator/>
-                <filter string="Archiviert" name="archived"
-                        domain="[('active','=',False)]"/>
+                <filter string="Offen" name="open" domain="[('closed','=',False)]"/>
+                <filter string="Meine Tickets" name="mytickets" domain="[('user_id','=',uid)]"/>
+                <filter string="Archiviert" name="archived" domain="[('active','=',False)]"/>
                 <separator/>
-                <filter string="Meine Tickets" name="mytickets"
-                        domain="[('user_id','=',uid)]"/>
                 <group expand="0" string="Gruppieren nach">
-                    <filter string="Status" name="group_stage"
-                            domain="[]" context="{'group_by':'stage_id'}"/>
                     <filter string="Kategorie" name="group_category"
                             domain="[]" context="{'group_by':'category_id'}"/>
-                    <filter string="Zugewiesener Benutzer" name="group_user"
+                    <filter string="Benutzer" name="group_user"
                             domain="[]" context="{'group_by':'user_id'}"/>
+                    <filter string="Status" name="group_stage"
+                            domain="[]" context="{'group_by':'stage_id'}"/>
+                    <filter string="Partner" name="group_partner"
+                            domain="[]" context="{'group_by':'partner_id'}"/>
                 </group>
             </search>
         </field>
     </record>
 
     <!-- ============================================================
-         ITK Ticket Form View — Odoo 11 layout, inherit from OCA form
+         Support-Tickets - Formular in der Anordnung von Odoo 11
          ============================================================ -->
     <record id="view_itk_ticket_form" model="ir.ui.view">
         <field name="name">itk.helpdesk.ticket.form</field>
@@ -77,46 +85,45 @@
         <field name="priority">30</field>
         <field name="arch" type="xml">
 
-            <!-- Hide OCA star priority — we use ITK priority_id -->
+            <!-- OCA-Sterne-Prioritaet ausblenden: ITK nutzt priority_id -->
             <field name="priority" position="attributes">
                 <attribute name="invisible">1</attribute>
             </field>
 
-            <!-- Hide sequence (show only to developers) -->
+            <!-- OCA-Reihenfolge nur fuer Entwickler -->
             <field name="sequence" position="attributes">
                 <attribute name="groups">base.group_no_one</attribute>
             </field>
 
-            <!-- Hide duplicate tracking field -->
             <field name="duplicate_tracking_enabled" position="attributes">
                 <attribute name="invisible">1</attribute>
             </field>
 
-            <!-- Replace the entire sheet content -->
             <xpath expr="//sheet" position="replace">
                 <sheet>
                     <widget name="web_ribbon" title="Archiviert" bg_color="bg-danger"
                             invisible="active"/>
 
-                    <!-- Action buttons — clearly visible at top -->
+                    <!-- Knoepfe wie Odoo 11 (ohne Genehmigung und Umfrage) -->
                     <div class="d-flex gap-2 mb-3">
-                        <button string="Antworten"
+                        <button string="Offen / Antworten"
                                 name="action_reply_ticket"
                                 type="object"
                                 class="btn btn-primary"/>
-                        <button string="Ticket schließen"
+                        <button string="Ticket schliessen"
                                 name="action_close_ticket"
                                 type="object"
                                 class="btn btn-secondary"
-                                confirm="Ticket wirklich schließen?"/>
+                                confirm="Ticket wirklich schliessen?"/>
                     </div>
 
-                    <!-- Title -->
+                    <!-- Betreff als Titel -->
                     <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
                         <h1><field name="name" string="Betreff"/></h1>
                     </div>
 
-                    <!-- 2-column field layout matching Odoo 11 -->
+                    <!-- Zwei Spalten wie in Odoo 11 -->
                     <group name="main">
                         <group name="left">
                             <field name="number" string="Ticket-Nummer"/>
@@ -134,37 +141,42 @@
                             <field name="stage_id" string="Status"/>
                         </group>
                         <group name="right">
+                            <!-- Team ist ein Odoo-18-Zusatz (Odoo 11 kannte keine Teams);
+                                 es steuert SLA und Zuständigkeit und bleibt sichtbar. -->
+                            <field name="team_id" string="Team" options="{'always_reload': True}"/>
                             <field name="user_id"
                                    string="Zugewiesener Benutzer"
                                    widget="many2one_avatar_user"/>
                             <field name="partner_id" string="Partner"/>
                             <field name="partner_name" string="Personenname"/>
                             <field name="partner_email" string="E-Mail"/>
-                            <field name="close_comment" string="Abschluss"/>
+                            <field name="support_comment" string="Partner Kommentar"/>
+                            <field name="close_comment" string="Kommentar bei Abschluss"/>
                             <field name="closed_date" string="Abschlusszeitpunkt"/>
+                            <field name="closed_by_id" string="Geschlossen von"/>
                         </group>
                     </group>
 
-                    <!-- Notebook tabs matching Odoo 11 -->
+                    <!-- Reiter wie in Odoo 11 -->
                     <notebook>
                         <page string="Beschreibung" name="description">
                             <field name="description" widget="html"/>
                         </page>
                         <page string="Zusätzliche Felder" name="extra_fields">
                             <field name="dynamic_field_value_ids"
-                                   string="Zusätzliche Felder"
+                                   string="Extra Details"
                                    nolabel="1"/>
                         </page>
                         <page string="Dateianhänge" name="attachments">
                             <field name="attachment_ids"
-                                   string="Dateianhänge"
+                                   string="Media Anhänge"
                                    widget="many2many_binary"/>
                         </page>
                         <page string="SLA" name="sla">
                             <group>
-                                <field name="sla_ids"
-                                       string="SLA"
-                                       widget="many2many_tags"/>
+                                <field name="sla_ids" string="SLA" widget="many2many_tags"/>
+                                <field name="sla_deadline" string="SLA-Frist"/>
+                                <field name="sla_expired" string="SLA überschritten"/>
                             </group>
                         </page>
                         <page string="Zeiterfassung" name="timesheets">
@@ -189,32 +201,35 @@
         </field>
     </record>
 
-    <!-- ============================================================
-         Default tree view for dynamic field values (required by form)
-         ============================================================ -->
+    <!-- Standardliste fuer die dynamischen Werte -->
     <record id="view_itk_field_value_tree" model="ir.ui.view">
         <field name="name">itk.helpdesk.subcategory.field.value.tree</field>
         <field name="model">itk.helpdesk.subcategory.field.value</field>
         <field name="mode">primary</field>
         <field name="priority">30</field>
         <field name="arch" type="xml">
-            <list>
-                <field name="field_id"/>
-                <field name="value_display"/>
+            <list editable="bottom">
+                <field name="field_id" string="Buchungstext"/>
+                <field name="value_display" string="Wert"/>
             </list>
         </field>
     </record>
 
     <!-- ============================================================
-         ITK Support Tickets — Dedicated Action (MUST be after views)
+         Aktion Support-Tickets: Liste, Kanban, Formular
+         (Odoo 11: Baum, Kanban, Formular, Grafik; die Grafik ist in
+         Odoo 18 ueber Berichtswesen/Pivot abgedeckt)
          ============================================================ -->
     <record id="action_itk_support_tickets" model="ir.actions.act_window">
         <field name="name">Support-Tickets</field>
         <field name="res_model">helpdesk.ticket</field>
-        <field name="view_mode">list,form</field>
-        <field name="context">{"search_default_unattended_tickets": 1}</field>
+        <field name="view_mode">list,kanban,form</field>
+        <!-- Odoo 11 zeigte beim Aufruf alle Tickets (kein Vorfilter) -->
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
         <field name="view_ids" eval="[(5,0,0),
             (0,0,{'view_mode':'list','view_id': ref('view_itk_ticket_list')}),
+            (0,0,{'view_mode':'kanban','view_id': ref('helpdesk_mgmt.view_helpdesk_ticket_kanban')}),
             (0,0,{'view_mode':'form','view_id': ref('view_itk_ticket_form')}),
         ]"/>
     </record>

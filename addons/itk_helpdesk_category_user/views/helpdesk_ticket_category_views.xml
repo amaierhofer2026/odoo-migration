@@ -9,7 +9,7 @@
             <field name="show_in_portal" position="after">
                 <field
                     name="user_ids"
-                    string="Zuständige Benutzer"
+                    string="Kategorie Benutzer"
                     widget="many2many_tags"
                 />
             </field>
@@ -25,7 +25,7 @@
             <field name="parent_id" position="after">
                 <field
                     name="user_ids"
-                    string="Zuständige Benutzer"
+                    string="Kategorie Benutzer"
                     widget="many2many_tags"
                     optional="show"
                 />
@@ -41,7 +41,7 @@
                ref="helpdesk_mgmt.view_helpdesk_ticket_category_search"/>
         <field name="arch" type="xml">
             <field name="parent_id" position="after">
-                <field name="user_ids" string="Zuständige Benutzer"/>
+                <field name="user_ids" string="Kategorie Benutzer"/>
             </field>
         </field>
     </record>
