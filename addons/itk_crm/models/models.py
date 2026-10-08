@@ -87,6 +87,31 @@ class MailActivitySchedule(models.TransientModel):
             return [self.itk_target_res_id]
         return super()._evaluate_res_ids()
 
+    @api.model_create_multi
+    def create(self, vals_list):
+        """Zielmodell serverseitig nachziehen.
+
+        Der Web-Client sendet das im Formular nicht gerenderte Feld res_model
+        beim Speichern nicht mit. Ohne res_model bleibt res_model_id leer und
+        das Anlegen scheitert mit "Pflichtfeld res_model_id ist nicht
+        eingestellt" - auch beim Start aus dem Chatter eines Belegs (dort
+        liefert der Kontext active_model/active_ids). Deshalb das Ziel hier
+        aus dem Kontext bzw. aus dem gewaehlten Dokumenttyp setzen.
+        """
+        IrModel = self.env['ir.model']
+        for vals in vals_list:
+            if not vals.get('res_model'):
+                if vals.get('itk_target_model_id'):
+                    ziel = IrModel.browse(vals['itk_target_model_id'])
+                    vals['res_model'] = ziel.model or False
+                elif self.env.context.get('active_model'):
+                    vals['res_model'] = self.env.context['active_model']
+            if vals.get('res_model') and not vals.get('res_model_id'):
+                modell = IrModel.search([('model', '=', vals['res_model'])], limit=1)
+                if modell:
+                    vals['res_model_id'] = modell.id
+        return super().create(vals_list)
+
     def _get_applied_on_records(self):
         """Standalone-Start: Dokument aus itk_target_res_id ableiten.
 
