@@ -15,9 +15,11 @@
         "Projektkategorien" (Plural wie im Menue "Produktkategorien"). Beleg: Odoo 11 fuehrt
         KEIN Menue fuer dieses Modell (read-only geprueft, 0 Treffer); der Odoo-11-Wortlaut fuer
         die Sache ist "Projektkategorie" (Aktion "Massenverarbeitung Projektkategorie setzen").
+        Nachtrag 08.10.2026: Das frueher hier stehende <delete id="menu_finance_configuration"/>
+        ist entfernt. Die technische Kennung existiert nach der einmaligen Bereinigung nicht mehr
+        (weder lokal noch auf der VM; ir.model.data geprueft), und ein <delete> auf eine fehlende
+        Kennung laesst das Upgrade mit "External ID not found in the system" scheitern.
     -->
-    <delete model="ir.ui.menu" id="menu_finance_configuration"/>
-
     <!--START Action and Menuentry-->
     <record model="ir.actions.act_window" id="menu_finance_configuration_projectcategory_action">
         <field name="name">Project Categories</field>
