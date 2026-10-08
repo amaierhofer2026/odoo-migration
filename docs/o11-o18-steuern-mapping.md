@@ -184,6 +184,66 @@ Belege, nicht nur fuer den Sonderfall.
 - Die Odoo-18-Zusatzsteuern des Kontenrahmens (53 Steuern, u. a. Ausfuhr-, EU-, §13b- und
   Eigenverbrauchssteuern) bleiben unveraendert erhalten.
 
+## 8a. Sonderzeichen in den Steuerbeschreibungen (Korrektur 08.10.2026)
+
+**Befund (Auftrag Anna):** In der Oberflaeche erschienen Beschreibungen wie
+"UST_019 Grundstuecksumsaetze 0% (T° 6 Abs. 1 Z 9 lit. a)" und
+"UST_016 Kleinunternehmer 0% (T° 6 Abs. 1 Z 27)" - statt "§ 6" stand "T°".
+
+**Tatsaechlicher Wert in Odoo 18 (gemessen):** In den Beschreibungen stand nicht "§", sondern die
+Zeichenfolge **U+252C U+00BA** ("┬º"). Das ist der UTF-8-Code des Paragrafzeichens (C2 A7),
+faelschlich als CP437/CP850 gelesen. Umlaute und ß waren korrekt (ä 21, ß 7, ü 2, Ü 1 Vorkommen) -
+betroffen war ausschliesslich das Paragrafzeichen.
+
+**Herkunft:** Der Kontenrahmen Oesterreich (`l10n_at`) liefert die Beschreibungen aus
+`/usr/lib/python3/dist-packages/odoo/addons/l10n_at/data/template/account.tax-at.csv`. Diese
+Quelldatei ist **korrekt UTF-8**; die Zeile fuer UST_019 enthaelt die Bytes `C2 A7` (= "§") und
+"Grundstuecksumsaetze" mit korrekten Umlauten. Der Fehler entstand beim Import/der Datenhaltung
+dieser Instanz, nicht in der Quelle. (Die Datei ist Teil des Odoo-Images und wird nicht veraendert.)
+
+**Umfang und Korrektur (Werkzeug `scripts/korrigiere_steuerbeschreibungen.py`):**
+
+| Feld | Sprache | betroffene Steuern | korrigierte Stellen |
+|---|---|---|---|
+| Beschreibung (`description`) | de_DE | 19 aktive + 1 archivierte (id 6) | 21 |
+| Beschreibung (`description`) | en_US | 14 | 15 |
+| Bezeichnung auf Rechnungen (`invoice_label`) | de_DE | 6 | 6 |
+| Bezeichnung auf Rechnungen (`invoice_label`) | en_US | 6 | 6 |
+| Steuerbezeichnung (`name`) | beide | 0 | 0 |
+| **Summe** | | **46 Feldkorrekturen** | **48 Stellen** |
+
+Zwei Felder fielen erst bei der Nachpruefung auf:
+
+- **Bezeichnung auf Rechnungen** (`invoice_label`): mit `description` und `name` das dritte
+  uebersetzbare Textfeld der Steuer; in der Steuerliste eine eigene Spalte (z. B. "RC 20% T° 19
+  Abs. 1a"). Wurde mitkorrigiert.
+- **Archivierte Steuer id 6** ("0% Ust L 1e", `active = False`): sie ist in der Liste sichtbar und
+  trug den Fehler noch. Die Suche beruecksichtigt jetzt ausdruecklich auch archivierte Datensaetze
+  (`active in (True, False)`), damit nichts uebersehen wird.
+
+Korrigiert wurden ausschliesslich die Textfelder der Steuern, in beiden Sprachen: "┬º" -> "§".
+Weitere geprüfte Modelle ohne Befund: `account.account`, `account.journal`, `account.tax.group`,
+`account.fiscal.position`, `product.category`, `account.payment.term`, `itk_valorisierung`,
+`account.move`.
+
+**Bewusst NICHT geaendert:** In zwei Beschreibungen (id 39, 40) steht "&gt;=" statt ">". Das Feld
+`account.tax.description` ist in Odoo 18 ein HTML-Feld (`type=html`, `sanitize=True`); der
+Sanitizer speichert ">" als "&gt;" und zeigt es in HTML-Kontexten korrekt als ">" an. Ein
+Schreibversuch mit ">" wird sofort wieder in "&gt;" gewandelt (geprueft) - das ist der korrekte
+Speicherzustand, kein Darstellungsfehler.
+
+**Unveraendert geblieben ist alle Steuerlogik:** Saetze, Berechnungsart, Preis inklusive,
+Steuergruppen, Sequenzen, Aktiv-Status, Steuerkonten, Repartitionszeilen, Verknuepfungen und die
+Steuerzuordnungen. Es wurden keine Steuern angelegt, geloescht oder umbenannt.
+
+**Wiederholbarkeit:** Das Werkzeug ist idempotent (`--pruefen` meldet 0 offene Stellen). Wird der
+Kontenrahmen neu installiert, kann der Fehler erneut auftreten - dann das Werkzeug erneut
+ausfuehren (analog zu `apply_abrechnung_labels.py` nach Upgrades).
+
+**Browserbeleg:** Liste und Formulare (UST_019, UST_016, UST_021, VST_061) zeigen "§" und kein
+fehlerhaftes Zeichen; Screenshots unter
+`Desktop/Odoo18-Abnahme-Session131/steuern/browser/<instanz>/`.
+
 ## 9. Bezug
 
 - `docs/o11-o18-abrechnung-abschlusspruefung.md` (Belegzeilen-Mapping samt 1776 -> 3500)

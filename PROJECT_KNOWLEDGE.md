@@ -9213,6 +9213,14 @@ Zusatzbefund: Odoo 18 wendet automatisch eine Steuerzuordnung an und bildet dabe
 (Forderung 2000 -> 2100), wodurch die Zahlungsabstimmung scheiterte; migrierte Belege erhalten
 deshalb ausdruecklich `fiscal_position_id = False`.
 
+Sonderzeichen in Steuerbeschreibungen (Befund Anna 08.10.2026): In 19 der 53 Steuerbeschreibungen
+(de) stand statt "§" die Zeichenfolge U+252C U+00BA ("T°" in der Oberflaeche; C2 A7 als CP437/CP850
+gelesen); die Quelle (l10n_at CSV) ist korrekt UTF-8. Korrigiert mit
+`scripts/korrigiere_steuerbeschreibungen.py` (nur name/description, beide Sprachen, idempotent):
+35 Stellen, danach 0 offen, lokal und VM. "&gt;=" in zwei Beschreibungen bleibt: das Feld ist ein
+HTML-Feld mit Sanitizer, dort ist die Entitaet der korrekte Speicherzustand. Steuerlogik, Konten,
+Saetze und Verknuepfungen unveraendert.
+
 Moeglichkeit der gezielten Einzelmigration: `--beleg <Odoo-11-Nummer>` in
 `scripts/testmigration_abrechnung.py` (mit automatischem Mitziehen der zugehoerigen Zahlung).
 

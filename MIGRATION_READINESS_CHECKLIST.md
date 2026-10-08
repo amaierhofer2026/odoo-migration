@@ -2762,6 +2762,14 @@ Zeilen, umgesetzt als eng begrenzte Sonderregel; Nachweis: 6.281 Belege geprueft
 6.280 behalten ihre Steuer, migrierter Beleg in Betraegen und Zahlungsstatus identisch, keine
 Steuerbuchung. Damit ist kein Punkt des Bereichs Steuern mehr offen.
 
+Sonderzeichen in den Steuerbeschreibungen (Korrektur 08.10.2026): In den Textfeldern der Steuern
+stand statt "§" die Zeichenfolge U+252C U+00BA ("T°" in der Oberflaeche). Korrigiert mit
+`scripts/korrigiere_steuerbeschreibungen.py` in beiden Sprachen und in allen drei Textfeldern
+(Steuerbezeichnung, Beschreibung, Bezeichnung auf Rechnungen), einschliesslich der archivierten
+Steuer id 6: 46 Feldkorrekturen, 48 fehlerhafte Stellen, danach 0 offen auf lokal und VM.
+Steuerlogik, Konten, Saetze, Gruppen, Sequenzen und Verknuepfungen unveraendert. Browserpruefung
+Liste und Formular lokal und VM. Details: `docs/o11-o18-steuern-mapping.md`, Abschnitt 8a.
+
 **Modul Abrechnung: MIGRATIONSBEREIT (technisch und fachlich freigegeben am 08.10.2026).**
 
 ### Pruefprotokoll je Modul (ausfuellen)
