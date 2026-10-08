@@ -126,9 +126,54 @@ Steuerzuordnung nicht; die Auswirkung wurde daher belegt gemessen:
   von rund 55,63 EUR, die Odoo 11 nicht gebucht hat. Der Beleg waere danach um diesen Betrag hoeher.
 - Bewertung: kein Fehler der Steuerzuordnung und kein Fehler des Zielkontenrahmens, sondern eine
   Inkonsistenz im Odoo-11-Altbestand bei einem einzelnen Beleg (0,02% aller steuerbehafteten
-  Belege). Es wird nichts automatisch korrigiert.
-- **Offene Entscheidung:** Beleg wie im Quellsystem ohne Steuer uebernehmen (Sonderregel) oder mit
-  der Zeilensteuer migrieren und die Abweichung dokumentieren?
+  Belege).
+
+**Entscheidung Anna, 08.10.2026:** Der historische Beleg wird nach seinem **tatsaechlich gebuchten
+finanziellen Zustand** migriert - ohne Steuer auf den Rechnungszeilen, ohne Nachberechnung der
+20% USt und ohne Erzeugung einer Steuerbuchung. Gesamtbetrag, Restbetrag, Zahlungsstatus,
+Forderung und Erloes bleiben unveraendert.
+
+### 7.1 Eng begrenzte Sonderregel in der Testmigration
+
+Umgesetzt in `scripts/testmigration_abrechnung.py` als `ist_sonderfall_ohne_steuerbuchung()`. Die
+Regel greift **nur**, wenn am Odoo-11-Beleg alle drei Bedingungen belegt sind:
+
+1. mindestens eine Belegzeile traegt eine Steuer,
+2. `amount_tax` des Belegs ist 0,00,
+3. es gibt keine Steuerbuchungszeile (`account.invoice.tax`).
+
+Trifft eine Bedingung nicht zu, wird die Steuer wie bisher uebernommen. Es werden **keine Steuern
+allgemein entfernt**. Beim Treffer werden die Zeilen mit ausdruecklich leerer Steuermenge angelegt
+(`tax_ids = [(6, 0, [])]`), damit das Ziel nicht die Standardsteuer der Produktvorlage nachzieht.
+Der Lauf protokolliert jeden Treffer im Klartext.
+
+Nachweis (Werkzeug `scripts/pruefe_sonderfall_r24832.py`):
+
+| Pruefung | Ergebnis |
+|---|---|
+| Odoo-11-Belege mit steuerbehafteten Zeilen geprueft | 6.281 |
+| davon Sonderfall-Kandidat | **1** (R-24832) |
+| uebrige Belege, die ihre Steuer normal erhalten | 6.280 |
+| Odoo 11 R-24832 | paid, ohne 278,15, Steuer 0,00, total 278,15, Rest 0,00 |
+| Odoo 18 R-24832 (RE/2024/0002) | posted, ohne 278,15, Steuer 0,00, total 278,15, Rest 0,00, Zahlung paid |
+| Steuerbuchungszeilen in Odoo 18 | 0 |
+| Belegzeilen mit Steuer in Odoo 18 | 0 |
+| Buchungszeilen | Odoo 11 3 (1410 Forderung, zweimal 8400) gegen Odoo 18 3 (2000 Forderung, zweimal 4000) |
+| Zahlung | CUST.IN/2024/0821 mitgezogen und abgestimmt, Zustand paid |
+
+### 7.2 Zusatzbefund: automatische Steuerzuordnung im Ziel aendert Konten
+
+Bei der ersten Umsetzung scheiterte die Abstimmung der Zahlung. Ursache (belegt): Odoo 18 wendet bei
+Partnern aus EU/Drittland von sich aus eine Steuerzuordnung an. Im Testfall setzte die automatische
+Zuordnung "Europaeische Union" das Forderungskonto 2000 auf 2100 um; die Zahlung buchte auf 2000,
+die Abstimmung war damit unmoeglich. Ausserdem zog die Produktvorlage ihre Standardsteuer nach
+(55,63 EUR statt 0,00), solange die Zeilensteuermenge nicht ausdruecklich leer gesetzt war.
+
+Behebung, dokumentiert im Werkzeug: migrierte Belege erhalten ausdruecklich
+`fiscal_position_id = False` (die Odoo-11-Steuerzuordnung wird nicht uebertragen; damit gelten die
+dokumentierten Konten 2000/4000 statt der automatisch abgebildeten 2100) und im Sonderfall eine
+ausdruecklich leere Steuermenge. Beides ist im Code kommentiert und gilt fuer alle migrierten
+Belege, nicht nur fuer den Sonderfall.
 
 ## 8. Was bewusst NICHT gemacht wurde
 

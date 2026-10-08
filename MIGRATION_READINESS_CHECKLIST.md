@@ -2756,8 +2756,11 @@ Bereich Steuern (Pruefung 08.10.2026): Odoo 11 77 Steuern, davon 2 produktiv ver
 zugeordnet (20% Umsatzsteuer -> 20% Ust, 20% Vorsteuer -> 20% Vst); 75 unbenutzte Steuern bewusst
 nicht migriert; Steuerkonten 1776/1576 gegen 3500/2500 stimmig; Testbelege buchen korrekt; Browser
 lokal und VM je 10 OK / 0 FEHL; Testbelege entfernt, Bestand vorher = nachher. Details:
-`docs/o11-o18-steuern-mapping.md`. Offener Einzelpunkt: Beleg R-24832 (Zeilensteuer ohne gebuchte
-Steuer, 1 von 6.281 Belegen) - Entscheidung Anna offen.
+`docs/o11-o18-steuern-mapping.md`. Beleg R-24832 (Zeilensteuer ohne gebuchte Steuer, 1 von 6.281
+Belegen): entschieden am 08.10.2026 - Migration nach dem gebuchten Ist-Zustand ohne Steuer auf den
+Zeilen, umgesetzt als eng begrenzte Sonderregel; Nachweis: 6.281 Belege geprueft, genau 1 Treffer,
+6.280 behalten ihre Steuer, migrierter Beleg in Betraegen und Zahlungsstatus identisch, keine
+Steuerbuchung. Damit ist kein Punkt des Bereichs Steuern mehr offen.
 
 **Modul Abrechnung: MIGRATIONSBEREIT (technisch und fachlich freigegeben am 08.10.2026).**
 

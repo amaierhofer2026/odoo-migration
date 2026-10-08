@@ -9203,8 +9203,18 @@ werden bewusst NICHT angelegt oder zugeordnet. Steuerkonten und Logik stimmen: O
 gegen Odoo 18 3500/2500 (Kontenart identisch); Testbelege buchen 20,00 EUR Steuer auf 3500 bzw.
 2500. Im Browser lokal und VM je 10 OK / 0 FEHL. Doku: `docs/o11-o18-steuern-mapping.md`.
 
-Befund mit Migrationsrelevanz: Beleg R-24832 hat Zeilensteuer, aber keine gebuchte Steuer
-(einziger Fall unter 6.281 steuerbehafteten Belegen) - Entscheidung offen.
+Beleg R-24832 (Zeilensteuer ohne gebuchte Steuer, einziger Fall unter 6.281 Belegen):
+Entscheidung Anna 08.10.2026 - Migration nach dem gebuchten Ist-Zustand, ohne Steuer auf den Zeilen.
+Umgesetzt als eng begrenzte Sonderregel `ist_sonderfall_ohne_steuerbuchung()` (drei Bedingungen:
+Zeilensteuer vorhanden, amount_tax = 0,00, keine Steuerbuchungszeile); Nachweis
+`scripts/pruefe_sonderfall_r24832.py`: 6.281 Belege geprueft, genau 1 Treffer, 6.280 behalten ihre
+Steuer, migrierter Beleg in allen Betraegen und im Zahlungsstatus identisch, 0 Steuerbuchungszeilen.
+Zusatzbefund: Odoo 18 wendet automatisch eine Steuerzuordnung an und bildet dabei Konten ab
+(Forderung 2000 -> 2100), wodurch die Zahlungsabstimmung scheiterte; migrierte Belege erhalten
+deshalb ausdruecklich `fiscal_position_id = False`.
+
+Moeglichkeit der gezielten Einzelmigration: `--beleg <Odoo-11-Nummer>` in
+`scripts/testmigration_abrechnung.py` (mit automatischem Mitziehen der zugehoerigen Zahlung).
 
 **Status Modul Abrechnung (08.10.2026): MIGRATIONSBEREIT.** Anna hat am 08.10.2026 mit der
 Entscheidung zu 3400 (5010, bestehende globale Odoo-18-Vorgabe) den letzten fachlichen Punkt
