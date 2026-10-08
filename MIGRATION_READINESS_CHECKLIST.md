@@ -2742,9 +2742,17 @@ Plan: "passt zur Entscheidung"). Wortlaute angeglichen: "Kostenstellenkonten" un
 "Projektkategorien". Testmigration im Testbestand: 203 Protokolleintraege, 94/0 Pruefungen,
 Testdaten restlos entfernt, Bestand vorher = nachher.
 
-BLOCKER jetzt nur noch Kontenstammdaten 3400 "Wareneingang 19% Vorsteuer" (0 Belegzeilen, keine
-Steuerreferenz, sieben unbeschaeftigte Kandidaten im Ziel - Entscheidung von Anna offen).
-Abrechnung bleibt IN ARBEIT.
+Kontenstammdaten 3400 "Wareneingang 19% Vorsteuer": entschieden am 08.10.2026 durch Anna ->
+5010 "Wareneinkauf 20%" (bestehende globale Odoo-18-Aufwandsvorgabe beibehalten, 0 Belegzeilen in
+Odoo 11, kein neues Konto, kein Mapping auf 5000, keine kategoriespezifischen Konten). Damit ist
+der letzte fachliche Blocker des Bereichs Abrechnung geschlossen.
+
+Abschlusspruefung 08.10.2026: Planlauf ohne BLOCKER (Ertragskonto 4000 und Aufwandskonto 5010 je
+"passt zur Entscheidung"), Testmigration 204 Protokolleintraege und 94/0 Pruefungen, Testdaten
+restlos entfernt, Bestand vorher = nachher (17 Modelle), Browser lokal 4/0 und VM 4/0,
+Regression 886 OK / 0 FEHL, Modul itk_projectcategory 18.0.1.0.3 auf beiden Instanzen.
+
+**Modul Abrechnung: MIGRATIONSBEREIT (technisch und fachlich freigegeben am 08.10.2026).**
 
 ### Pruefprotokoll je Modul (ausfuellen)
 

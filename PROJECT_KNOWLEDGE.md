@@ -9151,11 +9151,14 @@ Kein Datenverlust. Lehre im Skill: `references/docker-compose-volume-falle.md`.
 - 8400 "Erloese 19% USt" -> **4000 "Brutto-Umsatzerloese im Inland (20%)"**. Gilt fuer die
   Belegzeilen (war dort schon dokumentiert) und konsistent fuer die **globale Firmenvorgabe** der
   Produktkategorien - ausdruecklich **nicht** pro Kategorie. Umgesetzt.
-- 3400 "Wareneingang 19% Vorsteuer" -> **keine Zuordnung**. Nachweis: 0 Belegzeilen in Odoo 11,
-  von keiner Steuer referenziert, im Ziel sieben unbeschaeftigte Kandidaten (5000 Wareneinsatz,
-  5010/5011 Wareneinkauf 20%/10%, 5050/5051/5052 ig. Erwerb, 5090 0%). Bleibt BLOCKER; nichts
-  angelegt, nichts geraten. Kandidatenbericht:
-  `docs/o11-o18-abrechnung-kontenzuordnung-8400-3400.md`.
+- 3400 "Wareneingang 19% Vorsteuer" -> **5010 "Wareneinkauf 20%"**, also die im Ziel bereits
+  gesetzte globale Firmenvorgabe (Entscheidung Anna, 08.10.2026). Begruendung: 0 Belegzeilen in
+  Odoo 11, keine Steuerreferenz, keine anderen historischen Buchungen; 5010 ist fachlich naeher an
+  "Wareneingang/Wareneinkauf" als 5000 "Wareneinsatz"; kein neues Konto mit 19%-Bezeichnung, kein
+  Mapping auf 5000, keine kategoriespezifischen Konten. Verworfene Kandidaten: 5000, 5011, 5050,
+  5051, 5052, 5090. Nachweis: `docs/o11-o18-abrechnung-kontenzuordnung-8400-3400.md`.
+- **Damit sind beide Kontenpunkte entschieden; der bisherige BLOCKER Kontenstammdaten 8400/3400 ist
+  geschlossen.**
 
 **Belege (read-only gemessen):**
 
@@ -9190,5 +9193,11 @@ Kein Datenverlust. Lehre im Skill: `references/docker-compose-volume-falle.md`.
 `scripts/browser_abrechnung_wortlaut_konten.py`; Entscheidungsregister `ENTSCHEIDUNGEN_KONTEN`
 und Firmenvorgabepruefung in `scripts/testmigration_abrechnung.py`.
 
-**Abrechnung bleibt IN ARBEIT**; der fachliche BLOCKER Kontenstammdaten 8400/3400 ist auf **3400**
-eingegrenzt (8400 ist entschieden und umgesetzt).
+**Status Modul Abrechnung (08.10.2026): MIGRATIONSBEREIT.** Anna hat am 08.10.2026 mit der
+Entscheidung zu 3400 (5010, bestehende globale Odoo-18-Vorgabe) den letzten fachlichen Punkt
+freigegeben und die ausdrueckliche Freigabe zur Kennzeichnung als migrationsbereit erteilt.
+Abschlusspruefung dieser Session: Planlauf ohne BLOCKER (beide Firmenvorgaben "passt zur
+Entscheidung"), Testmigration 204 Protokolleintraege und 94/0 Pruefungen, Testdaten restlos
+entfernt, Bestand vorher = nachher, Browser lokal und VM gruen, Regression 886 OK / 0 FEHL,
+Dreistand main = lokal = GitHub = VM belegt. Technische und fachliche Freigabe dokumentiert in
+MIGRATION_READINESS_CHECKLIST.md.

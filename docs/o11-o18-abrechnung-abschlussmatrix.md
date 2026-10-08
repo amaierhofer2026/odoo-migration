@@ -331,16 +331,18 @@ Anna.
   `docs/o11-o18-abrechnung-kontenzuordnung-8400-3400.md`; Werkzeugregister `ENTSCHEIDUNGEN_KONTEN`
   in `scripts/testmigration_abrechnung.py`; Pruefung der Firmenvorgabe (`ir.default`) im Ziel laeuft
   im Plan mit (Ergebnis: "passt zur Entscheidung").
-- **BLOCKER: Kontenstammdaten / fachliche Zuordnung vor Produktivmigration erforderlich.**
+- **Kontenstammdaten 8400/3400: geklaert und entschieden (08.10.2026) - kein Blocker mehr.**
   Die Odoo-11-Konten 8400 "Erloese 19% USt" und 3400 "Wareneingang 19% Vorsteuer" sind
   ausschliesslich globale Firmenvorgaben der Produktkategorien (8 ir.property-Eintraege, alle
   `res_id` leer, 0 kategoriespezifisch) und im Zielkontenrahmen (240 Konten) nicht vorhanden.
   **8400 ist entschieden und umgesetzt: Zielkonto 4000 "Brutto-Umsatzerloese im Inland (20%)"**
   (Entscheidung Anna 08.10.2026, Nachweis `docs/o11-o18-abrechnung-kontenzuordnung-8400-3400.md`).
-  **Offen bleibt allein 3400:** 0 Belegzeilen in Odoo 11, von keiner Steuer referenziert, im Ziel
-  sieben unbeschaeftigte Kandidaten (5000 Wareneinsatz, 5010/5011 Wareneinkauf 20%/10%,
-  5050/5051/5052 ig. Erwerb, 5090 0%) - keine eindeutige Entsprechung, deshalb BLOCKER. Es wird
-  nichts angelegt und nichts geraten. Die Migration laeuft technisch sauber durch
+  **3400 ist ebenfalls entschieden (Anna, 08.10.2026):** Zielkonto ist **5010 "Wareneinkauf 20%"**,
+  also die im Ziel bereits gesetzte globale Firmenvorgabe. Begruendung: 0 Belegzeilen in Odoo 11,
+  keine Steuerreferenz, keine anderen historischen Buchungen; 5010 ist fachlich naeher an
+  "Wareneingang/Wareneinkauf" als 5000 "Wareneinsatz"; es wird kein neues Konto angelegt, kein
+  Mapping auf 5000 erzwungen und keine kategoriespezifischen Konten erzeugt. Verworfene Kandidaten:
+  5000, 5011, 5050, 5051, 5052, 5090 (alle 0 Belegzeilen). Die Migration laeuft technisch sauber durch
   (Testlauf 203 Protokolleintraege, 94/0 Pruefungen); die neu angelegten Kategorien erben die
   Odoo-18-Vorgaben (Ertrag 4000, Aufwand 5010 = Kontenrahmen-Standard, nicht als Zuordnung zu
   3400 gewertet), die Belegzeilen tragen das entschiedene Mapping (8400 -> 4000, im Ziel geprueft).

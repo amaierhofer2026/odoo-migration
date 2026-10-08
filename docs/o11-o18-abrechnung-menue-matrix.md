@@ -240,8 +240,9 @@ Menuepunkte mit Fensteraktion sowie die Feldbeschriftungen von 30 Modellpaaren.
    Odoo 11 ist bewusst und hier dokumentiert.
    Umsetzung: `addons/itk_projectcategory` (Menue und Aktion, Version 18.0.1.0.2) sowie
    `scripts/apply_abrechnung_labels.py` (Menues ueber die technische Kennung, beide Sprachen).
-3. **Kontenzuordnung 8400 / 3400 bleibt BLOCKER** fuer die echte Datenmigration (unveraendert,
-   siehe Abschnitt 8).
+3. **Kontenzuordnung 8400 / 3400 ist geklaert und entschieden (08.10.2026)**: 8400 -> 4000,
+   3400 -> 5010 (globale Firmenvorgabe, kein neues Konto, keine kategoriespezifischen Konten).
+   Siehe docs/o11-o18-abrechnung-kontenzuordnung-8400-3400.md.
 4. **Preislistenregeln (403 Regeln ohne Produktbezug)**, **Namenszuordnung der Abo-Vorlagen**,
    **Rechnungsnotiz (`notice`)** und **Zugriffsrechte der Odoo-11-Gruppen**: unveraendert offen.
 
@@ -249,7 +250,7 @@ Menuepunkte mit Fensteraktion sowie die Feldbeschriftungen von 30 Modellpaaren.
 
 | BLOCKER | Bereich | Odoo-11-Verhalten | Odoo-18-Verhalten | Ursache | moegliche Loesungen | Empfehlung |
 |---|---|---|---|---|---|---|
-| Kontenstammdaten 3400 (offen) | Abrechnung > Konfiguration > Verwaltung > Produktkategorien (Aufwandskonto) | 3400 "Wareneingang 19% Vorsteuer" als **globale Firmenvorgabe** der Produktkategorien (8 `ir.property`-Eintraege, `res_id` leer; **0 Belegzeilen**, von keiner Steuer referenziert) | Konto 3400 existiert im Zielkontenrahmen (240 Konten) nicht; Kandidaten 5000/5010/5011/5050/5051/5052/5090 (alle 0 Belegzeilen) weichen im Steuersatz im Namen ab | anderer Kontenrahmen (1.286 gegen 240 Konten) | (a) Kontenstammdaten in Odoo 18 durch ITK fachlich festlegen und dann zuordnen, (b) Dokumentation des festgelegten Mappings fuer die Kategorien, (c) Kategorien ohne Kontenfelder migrieren und die Firmenvorgabe nutzen | nichts anlegen, nichts raten; Entscheidung der Fachabteilung (unveraendert seit Session 129) |
+| Kontenstammdaten 3400 (entschieden 08.10.2026) | Abrechnung > Konfiguration > Verwaltung > Produktkategorien (Aufwandskonto) | 3400 "Wareneingang 19% Vorsteuer" als **globale Firmenvorgabe** der Produktkategorien (8 `ir.property`-Eintraege, `res_id` leer; **0 Belegzeilen**, von keiner Steuer referenziert) | Konto 3400 existiert im Zielkontenrahmen (240 Konten) nicht; Kandidaten 5000/5010/5011/5050/5051/5052/5090 (alle 0 Belegzeilen) weichen im Steuersatz im Namen ab | anderer Kontenrahmen (1.286 gegen 240 Konten) | (a) Kontenstammdaten in Odoo 18 durch ITK fachlich festlegen und dann zuordnen, (b) Dokumentation des festgelegten Mappings fuer die Kategorien, (c) Kategorien ohne Kontenfelder migrieren und die Firmenvorgabe nutzen | nichts anlegen, nichts raten; Entscheidung der Fachabteilung (unveraendert seit Session 129) |
 
 ## 9. Bewusste Abweichungen (bleiben)
 
