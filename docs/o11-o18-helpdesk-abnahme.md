@@ -53,15 +53,17 @@ Belegt wurden unter anderem:
 
 ## 4. Abweichungen und Befunde
 
-1. **Aktivitäten (Odoo-18-Zusatz)**: Das Anlegen einer Aktivität aus dem Chatter scheitert
-   in dieser Instanz mit "Pflichtfeld res_model_id ist nicht eingestellt". Der Fehler
-   tritt bei einem Kontakt (res.partner) genauso auf und ist damit **kein Helpdesk-Fehler**,
-   sondern liegt im ITK-Aktivitäten-Assistenten (`itk_crm`, Ansicht
-   `itk_mail_activity_schedule_view_form`). Odoo 11 kannte keine Aktivitäten; die
-   Helpdesk-Verwendbarkeit nach Odoo 11 ist davon nicht betroffen.
-   Teilverbesserung in dieser Session: `_onchange_itk_target_res_id` löscht das Ziel nicht
-   mehr, wenn der Assistent aus dem Chatter eines Belegs geöffnet wird.
-   Empfehlung: eigener Auftrag für den Assistenten.
+1. **Aktivitäten**: Behoben in `itk_crm` 18.0.1.5.10. Ursache: Der Assistent
+   `mail.activity.schedule` sendet das im Formular nicht gerenderte Feld `res_model`
+   beim Speichern nicht mit; ohne `res_model` blieb `res_model_id` leer und das Anlegen
+   brach mit "Pflichtfeld ist nicht eingestellt" ab - beim Start aus dem Chatter eines
+   Belegs wie beim Start aus dem Aktivitätenmenü. Der ITK-Erbe zieht das Ziel jetzt
+   serverseitig aus dem Kontext (`active_model`) beziehungsweise aus dem gewählten
+   Dokumenttyp nach. Zusätzlich löscht `_onchange_itk_target_res_id` das Ziel nicht
+   mehr, wenn der Assistent aus dem Chatter geöffnet wurde.
+   Nachweis im echten Browser (08.10.2026): Aktivität im Chatter eines Helpdesk-Tickets
+   und eines Kontakts angelegt (je 1 Datensatz, danach wieder entfernt, Bestand 0).
+   Der Fehler war instanceweit und betraf nicht nur das Helpdesk.
 2. **Eingeklappte Stufen**: "on Hold" und "Verrechnung mit Kunde geklärt" sind in der
    Statusleiste eingeklappt (fold, wie in Odoo 11 konfiguriert). Die Prüfautomatik erreicht
    sie über die eingeklappten Umschalter nicht zuverlässig; die Stufen selbst sind im
