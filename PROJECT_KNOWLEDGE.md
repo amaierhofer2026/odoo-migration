@@ -9144,4 +9144,51 @@ Kein Datenverlust. Lehre im Skill: `references/docker-compose-volume-falle.md`.
   (keine Datensaetze mit ITK-TEST in Produkten, Kategorien, Kostenstellen, Belegen, Zahlungen,
   Partnern, Valorisierungstexten, Projektkategorien).
 
-**Abrechnung bleibt IN ARBEIT**; ein fachlicher BLOCKER (Kontenstammdaten 8400/3400) ist offen.
+### 8. Fachliche Klaerung Konten 8400/3400 und Wortlaute (08.10.2026, Session 131)
+
+**Entscheidung von Anna (08.10.2026):**
+
+- 8400 "Erloese 19% USt" -> **4000 "Brutto-Umsatzerloese im Inland (20%)"**. Gilt fuer die
+  Belegzeilen (war dort schon dokumentiert) und konsistent fuer die **globale Firmenvorgabe** der
+  Produktkategorien - ausdruecklich **nicht** pro Kategorie. Umgesetzt.
+- 3400 "Wareneingang 19% Vorsteuer" -> **keine Zuordnung**. Nachweis: 0 Belegzeilen in Odoo 11,
+  von keiner Steuer referenziert, im Ziel sieben unbeschaeftigte Kandidaten (5000 Wareneinsatz,
+  5010/5011 Wareneinkauf 20%/10%, 5050/5051/5052 ig. Erwerb, 5090 0%). Bleibt BLOCKER; nichts
+  angelegt, nichts geraten. Kandidatenbericht:
+  `docs/o11-o18-abrechnung-kontenzuordnung-8400-3400.md`.
+
+**Belege (read-only gemessen):**
+
+- Odoo 11: 8400 = Typ Erloese, 10.040 Belegzeilen; 3400 = Typ Aufwand, 0 Belegzeilen; beide nur
+  global (8 ir.property-Eintraege, res_id leer); 0 Kategorien mit eigenem Konto (30 Kategorien
+  zeigen den Vorgabewert); 1.286 Konten; 0 Einkaufsbelege; 34.592 Belegzeilen.
+- Odoo 18: 240 Konten; Konto 8400/3400 existieren nicht; Firmenvorgabe liegt in `ir.default`
+  (das Modell `ir.property` gibt es in Odoo 18 nicht mehr) - Ertragskonto = 4000, Aufwandskonto =
+  5010 = Kontenrahmen-Standard (wird nicht als Zuordnung zu 3400 gewertet).
+- Steuern: Odoo 11 verweist mit keiner Steuer auf 8400/3400; Odoo 18 fuehrt Konten nicht an Steuern.
+
+**Wortlaute angeglichen (Auftrag Anna):**
+
+- Menue "Kostenstellen" -> **"Kostenstellenkonten"** (Odoo 11 Menue 179, gleiches Modell
+  `account.analytic.account`, gleiche Position). Umsetzung in `apply_abrechnung_labels.py`.
+- Menue und Aktion "Project Category" -> **"Projektkategorien"** (Modul itk_projectcategory
+  18.0.1.0.2, de_DE.po). Odoo 11 fuehrt kein solches Menue (0 Treffer); der Odoo-11-Wortlaut fuer
+  die Sache ist "Projektkategorie" (Einzahl) - die Abweichung ist bewusst und dokumentiert.
+
+**Neue Lehren (Skill odoo-migration-ops, references/):**
+
+- `.po`-Aenderungen greifen nur mit `--i18n-overwrite` im Upgrade; ohne den Schalter bleibt die
+  Datenbank auf dem alten Wortlaut (belegt: .mo unveraendert 16.06., Menuelabel unveraendert).
+- Menues nie ueber Name/`complete_name` auwaehlen: eine Namenssuche traf am 08.10.2026 die
+  Standardmenues `base.menu_action_res_users` ("Benutzer") und `base_setup.menu_config`
+  ("Allgemeine Einstellungen") und benannte sie faelschlich um - beide wurden aus dem
+  Odoo-18-Quelltext wiederhergestellt (de "Benutzer"/"Allgemeine Einstellungen",
+  en "Users"/"General Settings"). Auswahl jetzt ausschliesslich ueber `ir.model.data`.
+- Uebersetzbare Felder in beiden Sprachen schreiben und zuruecklesen.
+
+**Werkzeuge:** `scripts/erhebe_konterverwendung_8400_3400.py` (plus `_teil2`/`_teil3`),
+`scripts/browser_abrechnung_wortlaut_konten.py`; Entscheidungsregister `ENTSCHEIDUNGEN_KONTEN`
+und Firmenvorgabepruefung in `scripts/testmigration_abrechnung.py`.
+
+**Abrechnung bleibt IN ARBEIT**; der fachliche BLOCKER Kontenstammdaten 8400/3400 ist auf **3400**
+eingegrenzt (8400 ist entschieden und umgesetzt).

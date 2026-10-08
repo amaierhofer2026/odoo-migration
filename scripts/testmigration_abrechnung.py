@@ -49,6 +49,35 @@ CTX = {"lang": "de_DE"}
 
 # Konten-Mapping aus docs/o11-o18-abrechnung-abschlusspruefung.md, Abschnitt 3
 KONTO_MAPPING = {"1201": "2801", "1410": "2000", "1776": "3500", "8400": "4000"}
+
+# --------------------------------------------------------------------------
+# Entschiedene Kontenzuordnungen (Anna, Session 131, 08.10.2026)
+# --------------------------------------------------------------------------
+# Ausgangslage (belegt, siehe docs/o11-o18-abrechnung-kontenzuordnung-8400-3400.md):
+# 8400 "Erloese 19% USt" und 3400 "Wareneingang 19% Vorsteuer" sind in Odoo 11
+# ausschliesslich globale Firmenvorgaben der Produktkategorien (ir.property, res_id leer;
+# keine Kategorie hat ein eigenes Konto).
+#
+# Entschieden:
+#   * 8400 "Erloese 19% USt" (Typ Erloese, 10.040 Belegzeilen in Odoo 11)
+#     -> 4000 "Brutto-Umsatzerloese im Inland (20%)" (Typ income, 39 Belegzeilen im Ziel).
+#     Begruendung: das Mapping ist fuer die Belegzeilen bereits dokumentiert (KONTO_MAPPING,
+#     docs/o11-o18-abrechnung-abschlusspruefung.md Abschnitt 3) und gilt laut Entscheidung
+#     vom 08.10.2026 auch fuer die globale Firmenvorgabe der Kategorien - nicht pro Kategorie.
+#     Beleg im Ziel: ir.default "Ertragskonto (Produktkategorie)" zeigt bereits auf 4000.
+#   * 3400 "Wareneingang 19% Vorsteuer" (Typ Aufwand, 0 Belegzeilen, von keiner Steuer
+#     referenziert) -> KEINE Entscheidung. Im Ziel gibt es mehrere unbeschaeftigte Kandidaten
+#     (5000 Wareneinsatz, 5010/5011 Wareneinkauf 20%/10%, 5050/5051/5052 ig. Erwerb,
+#     5090 0%). Deshalb bleibt dieser Punkt BLOCKER: keine Zuordnung, kein Anlegen.
+ENTSCHEIDUNGEN_KONTEN = {
+    "8400": {
+        "ziel_code": "4000",
+        "ziel_name": "Brutto-Umsatzerlöse im Inland (20%)",
+        "entscheidung": "Anna, 08.10.2026",
+        "begruendung": ("Belegzeilen-Mapping 8400 -> 4000 gilt auch fuer die globale "
+                        "Firmenvorgabe der Produktkategorien"),
+    },
+}
 # Punkt 3 (05.10.2026): Der Odoo-11-Journalcode "Re.:" wird NICHT uebernommen. Er erzeugt im
 # Ziel unbrauchbare Nummern ("Re.:/2026/00001", bei Gutschriften "RRe.:/2026/00001"). Odoo 11
 # hat genau ein Verkaufsjournal; im Ziel heisst es "Kundenrechnungen" mit Code "RE". Das
@@ -236,6 +265,26 @@ def konto_im_ziel(z, konto11):
     code = str(konto11.get("code") or "").strip()
     name11 = (konto11.get("name") or "").strip()
     typen = kontotyp_ziel(konto11)
+    # 1. Entschiedene Zuordnung (Anna) hat Vorrang - Zielkonto wird ueber Nummer UND Name
+    #    geprueft; weicht der Name ab oder ist die Nummer nicht eindeutig, bricht der Lauf ab
+    #    (keine stille Fehlzuordnung).
+    entscheidung = ENTSCHEIDUNGEN_KONTEN.get(code)
+    if entscheidung:
+        treffer = rpc(z, "account.account", "search_read",
+                      [[("code", "=", entscheidung["ziel_code"])], ["code", "name", "account_type"]],
+                      "Entschiedenes Zielkonto %s suchen" % entscheidung["ziel_code"], context=CTX)
+        if len(treffer) != 1:
+            raise SystemExit("ABBRUCH: entschiedenes Zielkonto %s ist im Ziel %d Mal vorhanden - "
+                             "Zuordnung nicht eindeutig." % (entscheidung["ziel_code"], len(treffer)))
+        if treffer[0]["name"].strip() != entscheidung["ziel_name"]:
+            raise SystemExit("ABBRUCH: entschiedenes Zielkonto %s heisst im Ziel %r, erwartet war %r "
+                             "- Kontenrahmen weicht von der Entscheidung ab."
+                             % (entscheidung["ziel_code"], treffer[0]["name"],
+                                entscheidung["ziel_name"]))
+        return treffer[0]["id"], "Entscheidung %s: %s -> %s %r (%s)" % (
+            entscheidung["entscheidung"], code, treffer[0]["code"], treffer[0]["name"],
+            entscheidung["begruendung"])
+    # 2. Allgemeine Aufloesung ueber Nummer UND Namen (nie ueber die ID).
     if code:
         treffer = rpc(z, "account.account", "search_read", [[("code", "=", code)], ["code", "name"]],
                       "Kontonummer im Ziel suchen", context=CTX)
@@ -969,6 +1018,76 @@ def stelle_ab(z, k, belege, neue_belege, mitschrift):
                              % (b["number"] or "Entwurf"))
 
 
+def firmenvorgabe_kategoriekonten(z):
+    """Firmenvorgabe (ir.default) der Konto-Felder von product.category im Ziel lesen.
+
+    Odoo 18 fuehrt Firmenvorgaben als `ir.default` (das Modell `ir.property` gibt es nicht
+    mehr); fachlich entspricht das den Odoo-11-`ir.property`-Eintraegen mit leerem `res_id`.
+    Rueckgabe: {Feldname: {code, name, account_type, id} oder None}.
+    """
+    feldids = rpc(z, "ir.model.fields", "search",
+                  [[("model", "=", "product.category"),
+                    ("name", "in", ["property_account_income_categ_id",
+                                    "property_account_expense_categ_id"])]],
+                  "Konto-Felder der Produktkategorie suchen", context=CTX)
+    if not feldids:
+        return {}
+    namen = {f["id"]: f["name"] for f in rpc(z, "ir.model.fields", "read",
+                                             [feldids, ["name", "field_description"]],
+                                             "Konto-Felder benennen", context=CTX)}
+    vorgaben = rpc(z, "ir.default", "search_read",
+                   [[("field_id", "in", feldids)], ["field_id", "json_value", "company_id"]],
+                   "Firmenvorgabe der Kategoriekonten lesen", context=CTX)
+    aus = {}
+    for v in vorgaben:
+        roh = str(v.get("json_value") or "").strip()
+        konto = None
+        if roh.isdigit():
+            k = rpc(z, "account.account", "read", [[int(roh)], ["code", "name", "account_type"]],
+                    "Firmenvorgabekonto lesen", context=CTX)
+            if k:
+                konto = k[0]
+        aus[namen.get(v["field_id"][0], v["field_id"][1])] = {"konto": konto,
+                                                              "firma": v.get("company_id")}
+    return aus
+
+
+def pruefe_firmenvorgabe(z):
+    """Firmenvorgabe der Kategoriekonten im Ziel pruefen und gegen die Entscheidungen halten.
+
+    Erwartung aus Odoo 11: Ertragskonto = 8400 (entschieden -> 4000), Aufwandskonto = 3400
+    (keine Entscheidung -> BLOCKER, der im Ziel vorhandene Odoo-18-Kontenrahmenwert wird
+    ausdruecklich NICHT als Zuordnung gewertet).
+    """
+    vorgabe = firmenvorgabe_kategoriekonten(z)
+    print("\nFirmenvorgabe der Produktkategorien im Ziel (ir.default, Firmenweit):")
+    plan = []
+    for feld, beschriftung, quelle in (
+            ("property_account_income_categ_id", "Ertragskonto", "8400"),
+            ("property_account_expense_categ_id", "Aufwandskonto", "3400")):
+        eintrag = vorgabe.get(feld) or {}
+        konto = eintrag.get("konto")
+        zeigt = ("%s %s" % (konto["code"], konto["name"])) if konto else "nicht gesetzt"
+        entscheidung = ENTSCHEIDUNGEN_KONTEN.get(quelle)
+        if entscheidung and konto and konto["code"] == entscheidung["ziel_code"]:
+            zustand = "passt zur Entscheidung"
+            hinweis = "Entscheidung %s: %s -> %s" % (entscheidung["entscheidung"], quelle,
+                                                     entscheidung["ziel_code"])
+        elif entscheidung:
+            zustand = "ABWEICHUNG"
+            hinweis = ("Entscheidung erwartet %s, Ziel zeigt %s - vor dem Schreiblauf klaeren"
+                       % (entscheidung["ziel_code"], zeigt))
+        else:
+            zustand = "keine Entscheidung (BLOCKER bleibt)"
+            hinweis = ("Odoo-11-Quelle %s hat keine freigegebene Entsprechung; der Zielwert ist "
+                       "der Kontenrahmen-Standard und wird nicht als Zuordnung gewertet" % quelle)
+        print("   %-14s Odoo-11 %s  ->  Ziel %-46s %s" % (beschriftung, quelle, zeigt, zustand))
+        print("      %s" % hinweis)
+        plan.append({"modell": "ir.default", "schluessel": "%s (Odoo 11: %s)" % (beschriftung, quelle),
+                     "zustand": zustand, "was": zeigt})
+    return plan
+
+
 def raeume_auf(z):
     if not os.path.exists(PROTOKOLL):
         raise SystemExit("ABBRUCH: kein Protokoll %s - nichts zu entfernen." % PROTOKOLL)
@@ -1057,6 +1176,7 @@ def main() -> int:
             " + is_storable" if typ_ziel(pr["type"])[1] else ""))
 
     plan = pruefe_ziel(z, partner, journale, konten, steuern, bedingungen, produkte, kategorien)
+    plan.extend(pruefe_firmenvorgabe(z))
     fehlend = [x for x in plan if "fehlt im Ziel" in x["zustand"]]
     print("\nPlan: %d Positionen, davon %d im Ziel noch nicht vorhanden." % (len(plan), len(fehlend)))
     for x in fehlend:
