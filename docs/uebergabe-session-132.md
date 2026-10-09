@@ -42,7 +42,10 @@ Module: `itk_helpdesk_compat` 18.0.1.1.3, `itk_helpdesk_category_user`,
 
 - Browser lokal: 58 OK / 1 Meldung (Werkzeuggrenze: die Stufe „on Hold" ist in
   der Statusleiste eingeklappt und wird vom Prüfskript nicht aufgeklappt).
-- Browser VM: siehe Abschlussbericht Session 132.
+- Browser VM: 55 OK / 4 Meldungen (drei davon: die Textsuche im Menüband der VM
+  findet „Support Tickets" und „Arbeitszeittabelle" nicht - per RPC widerlegt,
+  die Menüs existieren als Helpdesk/Support Tickets und Helpdesk/Arbeitszeittabelle;
+  eine wie lokal die eingeklappte Stufe „on Hold").
 - SLA-Mechanik per RPC belegt: Frist 48 h, `on_hold` bei Stufe „on Hold"
   (Frist wird nicht gezählt), Rückkehr nach „in Bearbeitung" setzt dieselbe
   Frist fort, „Geschlossen/Behoben" beendet die SLA als erfüllt.
@@ -71,7 +74,37 @@ Optionale Werte, die keine Entscheidung blockieren: `mail.default.from`
   `--pruefen` schreibt nichts), `browser_helpdesk_abnahme.py`, `helpdesk_bestand.py`,
   `erhebe_helpdesk_o11*.py`, `erhebe_helpdesk_o18.py`, `vergleiche_helpdesk_labels.py`.
 
-## 7. Nächster Schritt
+## 7. Systeme, Zugang und Stand
+
+- Lokal: Docker-Compose in `C:\Odoo-Test`, Odoo unter `http://localhost:8069`,
+  Testdatenbank `odoo18_test`, DB-Volume `odoo18_pgdata` (VM: `odoo18_odoo18_pgdata`).
+- VM: `k001959vsx.ipax.at`; Shell nur über `$LOCALAPPDATA/Temp/vm_exec.py`
+  (Paramiko, Passwortdatei `vm_pw.txt`), SSH nur mit VPN/Teleport, sonst Port 443.
+  **Falle:** die VM hat in `/opt/odoo18/.env` keine Odoo-Zugangsdaten - alle
+  Skripte laufen vom lokalen Client und werden mit `--instanz lokal|vm` gesteuert.
+- Odoo 11 (Produktion): `portal.it-kommunal.at`, nur lesend, Client
+  `scripts/_o11o18_client.py`.
+- Upgrade-Befehl: `docker compose run --rm --no-deps -T odoo odoo -u <modul> -d
+  odoo18_test --stop-after-init`, danach Neustart. `.po` greift nur mit
+  `--i18n-overwrite`, Python-Labels erst nach dem Neustart.
+- Dreistand bei Sitzungsende: main = lokal = GitHub = VM =
+  `ca1281de9de0d2300f06da7fdd4410eb0f6b0ce4`, Baum
+  `4e88ea969c42ba3ed7a8589e8744c07eaadc5679`, Nachweis
+  `0967fb23baacd2453272760c758b62ac1b07ad22`, Arbeitsbäume sauber (PR #224).
+- Git-Weg: Arbeitsbranch pushen, PR über `scripts/github_pr.py` (kein gh-CLI),
+  selbst mergen, VM auf main nachziehen. Kein Force-Push, kein Rebase.
+
+## 8. Pflichtlektüre in dieser Reihenfolge
+
+1. Memory und USER-Profil (Arbeitsregeln, Sprachregeln, Berichtsraster).
+2. Skill `odoo-migration-ops` samt `references/`.
+3. `PROJECT_KNOWLEDGE.md` und die Migrations-Checkliste.
+4. Diese Übergabedatei, dann die drei Helpdesk-Dokumente (Abschnitt 6).
+5. Den neuen Bereich zuerst read-only in Odoo 11 erheben, dann mit Odoo 18
+   (lokal und VM) vergleichen und die Abweichungsliste als Entscheidungsgrundlage
+   vorlegen - erst danach ändern.
+
+## 9. Nächster Schritt
 
 Helpdesk ist abgeschlossen - keine weiteren Änderungen ohne neuen Auftrag.
 Kandidaten für den nächsten Bereich: Preislisten/Regeln, Abonnements, Produkte,
