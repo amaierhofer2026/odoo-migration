@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!--
+            Aufgabenstufe (project.task.type): deutsche Bezeichnungen.
+            Reine Ansichtsaenderungen.
+        -->
+        <record id="view_task_type_form_itk_labels" model="ir.ui.view">
+            <field name="name">project.task.type.form (itk_project - deutsche Bezeichnungen)</field>
+            <field name="model">project.task.type</field>
+            <field name="inherit_id" ref="project.task_type_edit"/>
+            <field name="priority">99</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="string">Bezeichnung Stufe</attribute>
+                </xpath>
+                <xpath expr="//field[@name='disabled_rating_warning']" position="attributes">
+                    <attribute name="string">Hinweis: Bewertung deaktiviert</attribute>
+                </xpath>
+                <xpath expr="//field[@name='project_ids']" position="attributes">
+                    <attribute name="string">Projekte</attribute>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="attributes">
+                    <attribute name="string">Stufenverantwortlicher</attribute>
+                </xpath>
+                <xpath expr="//field[@name='active']" position="attributes">
+                    <attribute name="string">Aktiv</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_task_type_list_itk_labels" model="ir.ui.view">
+            <field name="name">project.task.type.list (itk_project - deutsche Bezeichnungen)</field>
+            <field name="model">project.task.type</field>
+            <field name="inherit_id" ref="project.task_type_tree"/>
+            <field name="priority">99</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="string">Bezeichnung Stufe</attribute>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

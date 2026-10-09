@@ -1,0 +1,436 @@
+# German translation override - ITK Projekt (itk_project)
+# Setzt deutsche Bezeichnungen fuer Projekt-, Aufgaben-, Stufen- und Tag-Felder,
+# die Odoo 18 englisch ausliefert. Reine Uebersetzung, keine Datenmigration.
+msgid ""
+msgstr ""
+"Project-Id-Version: itk_project 18.0.1.0.1\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_project__access_instruction_message
+msgid "Access Instruction Message"
+msgstr "Hinweis zur Freigabe"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_project__active
+#: model:ir.model.fields,field_description:project.field_project_task__active
+#: model:ir.model.fields,field_description:project.field_project_task_type__active
+msgid "Active"
+msgstr "Aktiv"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_project__activity_exception_icon
+#: model:ir.model.fields,field_description:project.field_project_task__activity_exception_icon
+msgid "Icon"
+msgstr "Symbol"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_project_project__analytic_account_active
+msgid "Active Account"
+msgstr "Aktive Kostenstelle"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_project__can_mark_milestone_as_done
+msgid "Can Mark Milestone As Done"
+msgstr "Meilenstein abschliessbar"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_project__closed_task_count
+msgid "Closed Task Count"
+msgstr "Abgeschlossene Aufgaben"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_project__collaborator_count
+msgid "# Collaborators"
+msgstr "Anzahl Mitwirkende"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_project__collaborator_ids
+msgid "Collaborators"
+msgstr "Mitwirkende"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_project__color
+#: model:ir.model.fields,field_description:project.field_project_task__color
+msgid "Color Index"
+msgstr "Farbkennzeichnung"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_project__currency_id
+msgid "Currency"
+msgstr "Währung"
+
+#. module: sale_project
+#: model:ir.model.fields,field_description:sale_project.field_project_project__display_sales_stat_buttons
+msgid "Display Sales Stat Buttons"
+msgstr "Verkaufs-Kennzahlen anzeigen"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_project_project__encode_uom_in_days
+#: model:ir.model.fields,field_description:hr_timesheet.field_project_task__encode_uom_in_days
+msgid "Encode Uom In Days"
+msgstr "Zeiteinheit in Tagen"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_project__favorite_user_ids
+msgid "Members"
+msgstr "Mitglieder"
+
+#. module: sale_project
+#: model:ir.model.fields,field_description:sale_project.field_project_project__has_any_so_to_invoice
+msgid "Has SO to Invoice"
+msgstr "Auftrag mit offener Rechnung"
+
+#. module: sale_project
+#: model:ir.model.fields,field_description:sale_project.field_project_project__has_any_so_with_nothing_to_invoice
+msgid "Has a SO with an invoice status of No"
+msgstr "Auftrag ohne Rechnungsbedarf"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_project__is_favorite
+msgid "Show Project on Dashboard"
+msgstr "Projekt auf dem Dashboard anzeigen"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_project_project__is_internal_project
+msgid "Is Internal Project"
+msgstr "Internes Projekt"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_project__is_milestone_deadline_exceeded
+msgid "Is Milestone Deadline Exceeded"
+msgstr "Meilenstein-Frist überschritten"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_project__is_milestone_exceeded
+msgid "Is Milestone Exceeded"
+msgstr "Meilenstein überschritten"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_project_project__is_project_overtime
+msgid "Project in Overtime"
+msgstr "Projekt über Plan"
+
+#. module: helpdesk_mgmt_project
+#: model:ir.model.fields,field_description:helpdesk_mgmt_project.field_project_project__label_tickets
+#: model:ir.model.fields,field_description:helpdesk_mgmt_project.field_project_task__label_tickets
+msgid "Use Tickets as"
+msgstr "Tickets verwenden als"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_project__last_update_color
+msgid "Last Update Color"
+msgstr "Farbe Projektstatus"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_project__last_update_id
+msgid "Last Update"
+msgstr "Letzte Aktualisierung"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_project__last_update_status
+msgid "Last Update Status"
+msgstr "Projektstatus"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_project__milestone_count
+msgid "Milestone Count"
+msgstr "Anzahl Meilensteine"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_project__milestone_count_reached
+msgid "Milestone Count Reached"
+msgstr "Erreichte Meilensteine"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_project__milestone_ids
+msgid "Milestone"
+msgstr "Meilensteine"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_project__milestone_progress
+msgid "Milestones Reached"
+msgstr "Meilensteine erreicht"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_project__next_milestone_id
+msgid "Next Milestone"
+msgstr "Nächster Meilenstein"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_project__open_task_count
+msgid "Open Task Count"
+msgstr "Offene Aufgaben"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_project__privacy_visibility_warning
+msgid "Privacy Visibility Warning"
+msgstr "Hinweis zur Sichtbarkeit"
+
+#. module: project_purchase
+#: model:ir.model.fields,field_description:project_purchase.field_project_project__purchase_orders_count
+msgid "# Purchase Orders"
+msgstr "Anzahl Bestellungen"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_project__rating_request_deadline
+msgid "Rating Request Deadline"
+msgstr "Frist Bewertungsanfrage"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_project__resource_calendar_id
+msgid "Working Time"
+msgstr "Arbeitszeit"
+
+#. module: sale_timesheet
+#: model:ir.model.fields,field_description:sale_timesheet.field_project_project__sale_line_employee_ids
+msgid "Sale line/Employee map"
+msgstr "Zuordnung Auftragsposition/Mitarbeiter"
+
+#. module: sale_project
+#: model:ir.model.fields,field_description:sale_project.field_project_project__sale_order_count
+msgid "Sale Order Count"
+msgstr "Verkaufsaufträge"
+
+#. module: sale_project
+#: model:ir.model.fields,field_description:sale_project.field_project_project__sale_order_id
+msgid "Order Reference"
+msgstr "Auftragsreferenz"
+
+#. module: sale_project
+#: model:ir.model.fields,field_description:sale_project.field_project_project__sale_order_line_count
+msgid "Sale Order Line Count"
+msgstr "Anzahl Auftragspositionen"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_project__sequence
+#: model:ir.model.fields,field_description:project.field_project_task__sequence
+msgid "Sequence"
+msgstr "Nummernfolge"
+
+#. module: project_timesheet_time_control
+#: model:ir.model.fields,field_description:project_timesheet_time_control.field_project_project__show_time_control
+#: model:ir.model.fields,field_description:project_timesheet_time_control.field_project_task__show_time_control
+msgid "Show Time Control"
+msgstr "Zeitsteuerung anzeigen"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_project__task_completion_percentage
+msgid "Task Completion Percentage"
+msgstr "Aufgabenfortschritt (%)"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_project__task_count
+msgid "Task Count"
+msgstr "Aufgaben"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_project__task_ids
+#: model:ir.model.fields,field_description:project.field_project_tags__task_ids
+msgid "Tasks"
+msgstr "Aufgaben"
+
+#. module: helpdesk_mgmt_project
+#: model:ir.model.fields,field_description:helpdesk_mgmt_project.field_project_project__ticket_count
+#: model:ir.model.fields,field_description:helpdesk_mgmt_project.field_project_task__ticket_count
+msgid "Ticket Count"
+msgstr "Tickets"
+
+#. module: helpdesk_mgmt_project
+#: model:ir.model.fields,field_description:helpdesk_mgmt_project.field_project_project__ticket_ids
+#: model:ir.model.fields,field_description:helpdesk_mgmt_project.field_project_task__ticket_ids
+msgid "Tickets"
+msgstr "Tickets"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_project_project__timesheet_encode_uom_id
+msgid "Timesheet Encode Uom"
+msgstr "Zeiteinheit der Zeiterfassung"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_project_project__timesheet_ids
+msgid "Associated Timesheets"
+msgstr "Zeiterfassung"
+
+#. module: helpdesk_mgmt_project
+#: model:ir.model.fields,field_description:helpdesk_mgmt_project.field_project_project__todo_ticket_count
+#: model:ir.model.fields,field_description:helpdesk_mgmt_project.field_project_task__todo_ticket_count
+msgid "Number of tickets"
+msgstr "Anzahl Tickets"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_project_project__total_timesheet_time
+msgid "Total number of time (in the proper UoM) recorded in the project, rounded to the unit."
+msgstr "Gesamtzeit (Projekteinheit, gerundet)"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_project__type_ids
+msgid "Tasks Stages"
+msgstr "Aufgabenstufen"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_project__update_count
+msgid "Update Count"
+msgstr "Anzahl Aktualisierungen"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_project__update_ids
+msgid "Update"
+msgstr "Aktualisierungen"
+
+#. module: sale_timesheet
+#: model:ir.model.fields,field_description:sale_timesheet.field_project_project__warning_employee_rate
+msgid "Warning Employee Rate"
+msgstr "Warnung Mitarbeitersatz"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_task__allow_milestones
+msgid "Milestones"
+msgstr "Meilensteine"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_task__allow_task_dependencies
+msgid "Task Dependencies"
+msgstr "Aufgabenabhängigkeiten"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_project_task__allow_timesheets
+msgid "Allow timesheets"
+msgstr "Zeiterfassungen erlauben"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_project_task__analytic_account_active
+msgid "Active Analytic Account"
+msgstr "Aktive Kostenstelle"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_task__attachment_ids
+msgid "Attachments"
+msgstr "Hauptanhänge"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_task__child_ids
+msgid "Sub-tasks"
+msgstr "Unteraufgaben"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_task__closed_subtask_count
+msgid "Closed Sub-tasks Count"
+msgstr "Abgeschlossene Unteraufgaben"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_task__current_user_same_company_partner
+msgid "Current User Same Company Partner"
+msgstr "Aktueller Benutzer aus derselben Firma"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_task__dependent_ids
+msgid "Block"
+msgstr "Blockiert"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_task__dependent_tasks_count
+msgid "Dependent Tasks"
+msgstr "Blockierte Aufgaben"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_task__display_follow_button
+msgid "Display Follow Button"
+msgstr "Folgen-Knopf anzeigen"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_task__display_in_project
+msgid "Display In Project"
+msgstr "In Projekt anzeigen"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_task__display_parent_task_button
+msgid "Display Parent Task Button"
+msgstr "Knopf Übergeordnete Aufgabe anzeigen"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_task__has_late_and_unreached_milestone
+msgid "Has Late And Unreached Milestone"
+msgstr "Meilenstein überschritten und offen"
+
+#. module: project_timesheet_holidays
+#: model:ir.model.fields,field_description:project_timesheet_holidays.field_project_task__is_timeoff_task
+msgid "Is Time off Task"
+msgstr "Abwesenheitsaufgabe"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_task__link_preview_name
+msgid "Link Preview Name"
+msgstr "Linkvorschau"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_task__personal_stage_type_ids
+msgid "Personal Stages"
+msgstr "Persönliche Phasen"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_task__portal_user_names
+msgid "Portal User Names"
+msgstr "Portal-Benutzer"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_project_task__remaining_hours_percentage
+msgid "Remaining Hours Percentage"
+msgstr "Verbleibende Zeit (%)"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_task__subtask_allocated_hours
+msgid "Sub-tasks Allocated Time"
+msgstr "Zugewiesene Zeit der Unteraufgaben"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_task__subtask_completion_percentage
+msgid "Subtask Completion Percentage"
+msgstr "Unteraufgaben-Fortschritt (%)"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_task__subtask_count
+msgid "Sub-task Count"
+msgstr "Anzahl Unteraufgaben"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_project_task__timesheet_ids
+msgid "Timesheets"
+msgstr "Zeiterfassung"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_task__website_message_ids
+msgid "Website Messages"
+msgstr "Website-Nachrichten"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_task_type__disabled_rating_warning
+msgid "Disabled Rating Warning"
+msgstr "Hinweis: Bewertung deaktiviert"
+
+#. module: project
+#: model:ir.model.fields,field_description:project.field_project_tags__project_ids
+msgid "Projects"
+msgstr "Projekte"
+
+#. module: project_timesheet_time_control
+#: model_terms:ir.ui.view,arch_db:project_timesheet_time_control.project_invoice_form
+#: model_terms:ir.ui.view,arch_db:project_timesheet_time_control.view_project_kanban_inherited
+#: model_terms:ir.ui.view,arch_db:project_timesheet_time_control.view_project_tree
+#: model_terms:ir.ui.view,arch_db:project_timesheet_time_control.view_task_form2_inherited
+#: model_terms:ir.ui.view,arch_db:project_timesheet_time_control.view_task_kanban
+#: model_terms:ir.ui.view,arch_db:project_timesheet_time_control.view_task_tree2_inherited
+msgid "Start work"
+msgstr "Arbeit starten"
+
+#. module: project_timesheet_time_control
+#: model_terms:ir.ui.view,arch_db:project_timesheet_time_control.project_invoice_form
+#: model_terms:ir.ui.view,arch_db:project_timesheet_time_control.view_project_kanban_inherited
+#: model_terms:ir.ui.view,arch_db:project_timesheet_time_control.view_project_tree
+#: model_terms:ir.ui.view,arch_db:project_timesheet_time_control.view_task_form2_inherited
+#: model_terms:ir.ui.view,arch_db:project_timesheet_time_control.view_task_kanban
+#: model_terms:ir.ui.view,arch_db:project_timesheet_time_control.view_task_tree2_inherited
+msgid "Stop"
+msgstr "Stopp"
+

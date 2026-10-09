@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!--
+            Menuetexte und ein fehlendes Odoo-11-Menue:
+            - "Start work" (project_timesheet_time_control) heisst lokal noch englisch,
+              auf der VM schon deutsch ("Arbeit starten"). Sichtbarer Name wird deutsch.
+            - Odoo 11 hatte "Projekt/Konfiguration/Status" (Aufgabenstufen). Odoo 18
+              kennt die Aufgabenstufen-Aktion, blendet sie aber nicht in ein Menue ein.
+              Damit die Funktion auffindbar bleibt, wird "Stufen" unter der
+              Projekt-Konfiguration ergaenzt (kein 1:1-Nachbau, nur Auffindbarkeit).
+        -->
+        <record id="project_timesheet_time_control.hr_timesheet_switch_menu" model="ir.ui.menu">
+            <field name="name">Arbeit starten</field>
+        </record>
+
+        <menuitem id="menu_project_task_stage_itk"
+                  name="Stufen"
+                  parent="project.menu_project_config"
+                  action="project.open_task_type_form"
+                  sequence="8"/>
+
+    </data>
+</odoo>

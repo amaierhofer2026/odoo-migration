@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--
+            Projektphasen (project.project.stage): Odoo 18 liefert vier Standardphasen
+            mit englischen Namen (To Do, In Progress, Done, Cancelled). Odoo 11 hatte
+            keine Projektphasen; das Odoo-18-Standardmodell bleibt erhalten, nur die
+            sichtbaren Bezeichnungen werden deutsch. Keine neuen Phasen, keine
+            ITK-Namen (Entscheidung Anna, Session 133).
+        -->
+        <record id="project.project_project_stage_0" model="project.project.stage">
+            <field name="name">Zu erledigen</field>
+        </record>
+        <record id="project.project_project_stage_1" model="project.project.stage">
+            <field name="name">In Arbeit</field>
+        </record>
+        <record id="project.project_project_stage_2" model="project.project.stage">
+            <field name="name">Erledigt</field>
+        </record>
+        <record id="project.project_project_stage_3" model="project.project.stage">
+            <field name="name">Abgebrochen</field>
+        </record>
+    </data>
+</odoo>
