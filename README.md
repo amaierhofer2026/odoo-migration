@@ -632,6 +632,15 @@ zeigen. **Fix:** diese Anhänge löschen (`ir.attachment` mit URL `/web/assets/%
 laden – Odoo regeneriert die CSS/JS-Bundles automatisch. Details siehe PROJECT_KNOWLEDGE.md
 (Session 12 Nachtrag & Session 21).
 
+## Stand
+
+- **09.10.2026 (Session 133):** Bereich **Projekt** migrationsbereit (Struktur).
+  Modul `itk_project` 18.0.1.0.1; `sale_project`/`sale_timesheet` installiert;
+  deutsche Bezeichnungen, Startdatum der Aufgabe, Prioritaet Niedrig/Normal,
+  Projektphasen deutsch. Strukturpruefung 20/20 und Browserabnahme 26/26
+  (lokal und VM), Regression Verkauf/Abo/Angebote 881 OK / 0 FEHL.
+  Dokumente: `docs/o11-o18-projekt-vergleich.md`, `docs/o11-o18-projekt-abnahme.md`.
+
 ## Lizenz
 
 LGPL-3

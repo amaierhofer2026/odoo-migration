@@ -1,0 +1,16 @@
+[
+ {
+  "pruefung": "Straße Volltext",
+  "ok": true,
+  "soll": "Prüfstraße 12/4, Stiege 2 – NÖ (Öffnungszeiten 8–12 Uhr) 100 % & mehr"
+ },
+ {
+  "pruefung": "Ort (insertText)",
+  "ok": true
+ },
+ {
+  "pruefung": "many2one uebernehmen",
+  "ok": true,
+  "ist": "{\"input\":\"Würrer Florian\",\"text\":\"\"}"
+ }
+]

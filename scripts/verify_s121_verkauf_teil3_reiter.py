@@ -117,7 +117,8 @@ def main() -> int:
     nvm = kvm.kw("ir.ui.view", "search_count", [[["model", "=", "sale.order.line"], ["type", "=", "form"]]])
     print("       eigene Formularansichten sale.order.line: Odoo 11 %d | lokal %d | VM %d" % (n11, n18, nvm))
     pruefe(n11 == 0, "Odoo 11 fuehrt keine eigene Zeilenformularansicht (eingebettet)")
-    pruefe(n18 == nvm == 1, "Odoo 18 fuehrt genau eine Zeilenformularansicht (lokal = VM)")
+    pruefe(n18 == nvm and n18 >= 1,
+           "Odoo 18 fuehrt eigene Zeilenformularansichten, lokal = VM (seit S133 mit sale_timesheet)")
 
     print("\n5) Ansichten und Menueaktionen")
     for schluessel, k, ist18, anzahl in (("Odoo 11", k11, False, 2), ("Odoo 18 lokal", k18, True, 6),

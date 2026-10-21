@@ -1,0 +1,42 @@
+[
+ {
+  "pruefung": "Suchfeld Umlaut-Treffer",
+  "ok": true
+ },
+ {
+  "pruefung": "Koordinatenklick 1",
+  "ok": true,
+  "ziel": "o_kanban",
+  "ergebnis": "o_kanban"
+ },
+ {
+  "pruefung": "Koordinatenklick 2",
+  "ok": true,
+  "ziel": "o_list",
+  "ergebnis": "o_list"
+ },
+ {
+  "pruefung": "Koordinatenklick 3",
+  "ok": true,
+  "ziel": "o_kanban",
+  "ergebnis": "o_kanban"
+ },
+ {
+  "pruefung": "Koordinatenklick 4",
+  "ok": true,
+  "ziel": "o_list",
+  "ergebnis": "o_list"
+ },
+ {
+  "pruefung": "Koordinatenklick 5",
+  "ok": true,
+  "ziel": "o_activity",
+  "ergebnis": "o_activity"
+ },
+ {
+  "pruefung": "Koordinatenklick 6",
+  "ok": true,
+  "ziel": "o_kanban",
+  "ergebnis": "o_kanban"
+ }
+]

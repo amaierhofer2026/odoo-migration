@@ -2366,6 +2366,25 @@ VM-Nachzug und Abschluss dokumentiert in PROJECT_KNOWLEDGE.md (Session 92); loka
 
 ---
 
+### 6.17 Projekt (Modul project) — **MIGRATIONSBEREIT (Struktur)**, 09.10.2026 (Session 133)
+
+**Vergleich:** `docs/o11-o18-projekt-vergleich.md` (Odoo 11 read-only: 28 Projekte,
+598 Aufgaben, 87 Stufen, 13 Tags, 12.657 Zeiterfassungszeilen gegen Odoo 18 lokal/VM).
+**Umsetzung/Abnahme:** `docs/o11-o18-projekt-abnahme.md`.
+
+Entscheidungen (Anna) und Umsetzung:
+- `sale_project`/`sale_timesheet` installiert (Verkauf/Projekt/Zeiterfassung).
+- Neues Modul `itk_project` 18.0.1.0.1: Feld `itk_date_start` (Startdatum, Odoo 18 ohne
+  Standardfeld) in Formular/Liste/Suche; Prioritaet sichtbar Niedrig/Normal; deutsche
+  Bezeichnungen (Ansichten + de.po, 79 Eintraege); Projektphasen deutsch; Menue
+  "Arbeit starten"; Knoepfe Start/Stopp; Menue Projekt/Konfiguration/Stufen.
+- Projekt-Dashboard nicht nachgebaut; Odoo-18-Zusaetze beibehalten.
+
+Nachweise: Strukturpruefung 20/20 und Browserabnahme 26/26 (lokal und VM);
+Regression Verkauf/Abo/Angebote 881 OK / 0 FEHL; Testdaten entfernt (5 Projekte/8 Aufgaben).
+
+Offen: Stammdaten (Stufen, Tags) nicht migriert; Rechte-Mitgliederlisten spaeter abgleichen.
+
 ## 7. Testreihenfolge (Aufgabe 4) — Vorschlag
 
 Reihenfolge mit Priorität (fachlich motiviert: erst Darstellung/Sprache, dann Stammdaten, dann Geschäftsdaten, dann Ausgabe/Infrastruktur):

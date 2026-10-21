@@ -9232,3 +9232,45 @@ Entscheidung"), Testmigration 204 Protokolleintraege und 94/0 Pruefungen, Testda
 entfernt, Bestand vorher = nachher, Browser lokal und VM gruen, Regression 886 OK / 0 FEHL,
 Dreistand main = lokal = GitHub = VM belegt. Technische und fachliche Freigabe dokumentiert in
 MIGRATION_READINESS_CHECKLIST.md.
+
+---
+
+### Session 133 (09.10.2026): Bereich Projekt (Odoo 11 -> Odoo 18)
+
+**Auftrag:** Projektmodul in Odoo 18 fachlich wie Odoo 11 nutzbar machen; Odoo 11 nur lesend;
+keine Produktivdaten. Read-only Erhebung Odoo 11 (28 Projekte, 598 Aufgaben, 87 Stufen,
+13 Tags, 12.657 Zeiterfassungszeilen) gegen Odoo 18 lokal und VM.
+
+**Dokumente:** `docs/o11-o18-projekt-vergleich.md` (Vergleich, Entscheidungspunkte),
+`docs/o11-o18-projekt-abnahme.md` (Umsetzung, Nachweise).
+
+**Entscheidungen und Umsetzung:**
+- `sale_project` und `sale_timesheet` installiert (Odoo-11-Integration Verkauf/Projekt/
+  Zeiterfassung); damit `sale_line_id`, Verkaufs-Kennzahlen, Abrechnung nach Aufwand.
+- Neues Modul `itk_project` 18.0.1.0.1: Feld `itk_date_start` (Startdatum, Odoo 18 hat keines)
+  in Formular/Liste/Suche; Prioritaet sichtbar Niedrig/Normal (Werte 0/1 bleiben); deutsche
+  Bezeichnungen als erbende Ansichten **und** `i18n/de.po` (79 Eintraege, Overwrite-Ladung mit
+  `scripts/load_terms_de.py`, danach Neustart); Projektphasen deutsch (Zu erledigen/In Arbeit/
+  Erledigt/Abgebrochen); Menue "Arbeit starten"; Knoepfe Start/Stopp in Formular, Liste, Kanban;
+  Menue Projekt/Konfiguration/Stufen (Odoo-11-Funktion, in Odoo 18 ohne Menue).
+- Projekt-Dashboard nicht nachgebaut (funktional ueber Projekt/Projekte); Odoo-18-Zusaetze
+  beibehalten, nichts ungefragt aktiviert.
+
+**Besonderheiten/Lehren (Werkzeuge):**
+- Kanban-Knoepfe der Zeitsteuerung sind `<a>`-Elemente (Textknoten/Titel), nicht `<button>`.
+- `ir.ui.view.arch_db` per `search` mit `like` ist unzuverlaessig (jsonb) -> Views ueber
+  Quellcode/Arch lesen.
+- Feldetiketten deutsch nur per Ansicht (`string=`) reicht nicht fuer Export/Dialoge; die
+  `de.po` mit exakten `model:ir.model.fields,field_description:<modul>.<xmlid>`-Referenzen und
+  Overwrite-Ladung deckt auch diese ab. Der PO-Reader erzeugt je `#:`-Referenzzeile einen Eintrag.
+- Regression Verkauf: durch die bewusste Installation sind Felder neu vorhanden
+  (project_ids/tasks_count/tasks_ids/timesheet_count an sale.order, task_id an sale.order.line)
+  und eine zweite Zeilenformularansicht -> in `verify_s121_verkauf_teil2.py`/
+  `_teil3_reiter.py` als "seit S133 vorhanden" gefuehrt, Referenz angepasst.
+
+**Nachweise:** Strukturpruefung 20/20 und Browserabnahme 26/26 (lokal und VM, echter Chrome);
+Regression Verkauf/Abo/Angebote 881 OK / 0 FEHL (elf Prueflaeufe, lokal und VM); Testdaten
+restlos entfernt (5 Projekte/8 Aufgaben vorher = nachher). Odoo 11 unveraendert.
+
+**Status Projekt (09.10.2026): MIGRATIONSBEREIT (Struktur).** Stammdaten (Stufen, Tags)
+noch nicht migriert; Rechte-Mitgliederlisten spaeter abzugleichen.

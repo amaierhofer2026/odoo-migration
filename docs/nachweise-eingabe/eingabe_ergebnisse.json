@@ -1,0 +1,34 @@
+[
+ {
+  "pruefung": "Ersetzen (Strg+A+Tippen)",
+  "ok": true,
+  "soll_len": 41,
+  "ist_len": 41,
+  "soll": "Neu: Stadtgemeinde Gröbming, Hauptplatz 3",
+  "ist": "Neu: Stadtgemeinde Gröbming, Hauptplatz 3"
+ },
+ {
+  "pruefung": "Backspace x5 am Ende",
+  "ok": true,
+  "soll_len": 22,
+  "ist_len": 22,
+  "soll": "Straße Öffnungszeiten ",
+  "ist": "Straße Öffnungszeiten "
+ },
+ {
+  "pruefung": "Entf x3 ab Anfang",
+  "ok": true,
+  "soll_len": 19,
+  "ist_len": 19,
+  "soll": "aße Öffnungszeiten ",
+  "ist": "aße Öffnungszeiten "
+ },
+ {
+  "pruefung": "leeren per Backspace",
+  "ok": true,
+  "soll_len": 0,
+  "ist_len": 0,
+  "soll": "",
+  "ist": ""
+ }
+]

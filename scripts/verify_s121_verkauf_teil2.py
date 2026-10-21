@@ -44,6 +44,16 @@ NEU_SEIT_TEIL5 = {
     "sale.order.line": ["move_ids", "route_id"],
 }
 
+# Seit Session 133 (Bereich Projekt): sale_project und sale_timesheet sind bewusst
+# installiert (Entscheidung Anna), damit die Odoo-11-Verknuepfung Verkauf/Projekt/
+# Zeiterfassung vorhanden ist. Diese Felder standen in Odoo 11 und waren in Odoo 18
+# zuvor als "kein Ziel" dokumentiert (sale_timesheet nicht installiert); sie sind
+# jetzt vorhanden.
+NEU_SEIT_S133 = {
+    "sale.order": ["project_ids", "tasks_count", "tasks_ids", "timesheet_count"],
+    "sale.order.line": ["task_id"],
+}
+
 
 def inventar(k, modell, mit_nutzung=False):
     fg = k.kw(modell, "fields_get", [[], ["string", "type", "relation", "selection", "required", "store"]],
@@ -103,6 +113,9 @@ def main() -> int:
             print("       %s" % x)
 
         for n in ohne:
+            if n in NEU_SEIT_S133.get(modell, []):
+                pruefe(n in b, "seit S133 (Verkauf/Projekt/Zeiterfassung) vorhanden: '%s' in Odoo 18" % n)
+                continue
             pruefe(n not in b, "dokumentiert entfallen: '%s' fehlt in Odoo 18 wirklich" % n)
             pruefe(n in a, "dokumentiert entfallen: '%s' existiert in Odoo 11" % n)
 

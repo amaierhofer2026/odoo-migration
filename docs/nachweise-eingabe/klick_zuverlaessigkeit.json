@@ -1,0 +1,68 @@
+[
+ {
+  "durchgang": 1,
+  "klick": [
+   1152,
+   71
+  ],
+  "ziel": "o_kanban",
+  "vorher": "o_kanban",
+  "nachher": "o_kanban",
+  "ok": true
+ },
+ {
+  "durchgang": 2,
+  "klick": [
+   1189,
+   71
+  ],
+  "ziel": "o_list",
+  "vorher": "o_kanban",
+  "nachher": "o_list",
+  "ok": true
+ },
+ {
+  "durchgang": 3,
+  "klick": [
+   1152,
+   71
+  ],
+  "ziel": "o_kanban",
+  "vorher": "o_list",
+  "nachher": "o_kanban",
+  "ok": true
+ },
+ {
+  "durchgang": 4,
+  "klick": [
+   1189,
+   71
+  ],
+  "ziel": "o_list",
+  "vorher": "o_kanban",
+  "nachher": "o_list",
+  "ok": true
+ },
+ {
+  "durchgang": 5,
+  "klick": [
+   1225,
+   71
+  ],
+  "ziel": "o_activity",
+  "vorher": "o_list",
+  "nachher": "o_activity",
+  "ok": true
+ },
+ {
+  "durchgang": 6,
+  "klick": [
+   1152,
+   71
+  ],
+  "ziel": "o_kanban",
+  "vorher": "o_activity",
+  "nachher": "o_kanban",
+  "ok": true
+ }
+]

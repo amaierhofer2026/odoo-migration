@@ -1,0 +1,68 @@
+[
+ {
+  "pruefung": "fill_input Volltext 95",
+  "ok": true,
+  "soll": "Gemeindeamt St. Pölten, Rathausplatz 1/2, 3100 St. Pölten – Telefon 02742/1234-56 Durchwahl 789",
+  "ist": "Gemeindeamt St. Pölten, Rathausplatz 1/2, 3100 St. Pölten – Telefon 02742/1234-56 Durchwahl 789"
+ },
+ {
+  "pruefung": "type_text Umlaute 39",
+  "ok": true,
+  "soll": "Ärger äöüß ÄÖÜ Mühlviertel Straße Nr. 5",
+  "ist": "Ärger äöüß ÄÖÜ Mühlviertel Straße Nr. 5"
+ },
+ {
+  "pruefung": "type_text Sonderzeichen 78",
+  "ok": true,
+  "soll": "Test 100% & mehr: #Nr.3, (NÖ); \"Zitat\" €uro? +*/-=<>@[]{}|~^ Letzte Zeile Ende",
+  "ist": "Test 100% & mehr: #Nr.3, (NÖ); \"Zitat\" €uro? +*/-=<>@[]{}|~^ Letzte Zeile Ende"
+ },
+ {
+  "pruefung": "press_key Zeichen 44",
+  "ok": true,
+  "soll": "Prüfstraße 12/4 – NÖ (Öffnungszeit) 8-12 Uhr",
+  "ist": "Prüfstraße 12/4 – NÖ (Öffnungszeit) 8-12 Uhr"
+ },
+ {
+  "pruefung": "dispatch_key (kein Text)",
+  "ok": false,
+  "soll": "DOM-Ereignis-Test",
+  "ist": ""
+ },
+ {
+  "pruefung": "Ersetzen (Strg+A+Tippen) 41",
+  "ok": true,
+  "soll": "Neu: Stadtgemeinde Gröbming, Hauptplatz 3",
+  "ist": "Neu: Stadtgemeinde Gröbming, Hauptplatz 3"
+ },
+ {
+  "pruefung": "Backspace x5",
+  "ok": true,
+  "soll": "Straße Öffnungszeiten ",
+  "ist": "Straße Öffnungszeiten "
+ },
+ {
+  "pruefung": "Entf x3 ab Anfang",
+  "ok": true,
+  "soll": "aße Öffnungszeiten ",
+  "ist": "aße Öffnungszeiten "
+ },
+ {
+  "pruefung": "leeren per Backspace",
+  "ok": true,
+  "soll": "",
+  "ist": ""
+ },
+ {
+  "pruefung": "Wert nach Fokuswechsel",
+  "ok": true
+ },
+ {
+  "pruefung": "Strasse Umlaute/Sonderzeichen",
+  "ok": true
+ },
+ {
+  "pruefung": "many2one uebernehmen",
+  "ok": true
+ }
+]
