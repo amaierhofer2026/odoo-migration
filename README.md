@@ -644,3 +644,10 @@ laden – Odoo regeneriert die CSS/JS-Bundles automatisch. Details siehe PROJECT
 ## Lizenz
 
 LGPL-3
+
+## Stand Session 134 (21.10.2026) - Personal
+
+Bereich Personal umgesetzt und migriert: Modul `itk_hr` 18.0.1.0.1 (Ansichten, Labels,
+Rechte), Datenmigration 25 Mitarbeiter, 8 Arbeitszeitmodelle, 2 Arbeitsorte, 25 Urlaubsarten,
+65 Urlaubsansprueche, 482 Urlaubsantraege, 192 Anwesenheiten. Details:
+`docs/o11-o18-strukturvergleich-personal.md`, `docs/o11-o18-personal-migration.md`.

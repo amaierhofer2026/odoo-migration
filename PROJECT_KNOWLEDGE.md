@@ -9274,3 +9274,38 @@ restlos entfernt (5 Projekte/8 Aufgaben vorher = nachher). Odoo 11 unveraendert.
 
 **Status Projekt (09.10.2026): MIGRATIONSBEREIT (Struktur).** Stammdaten (Stufen, Tags)
 noch nicht migriert; Rechte-Mitgliederlisten spaeter abzugleichen.
+
+## Session 134 (21.10.2026) - Bereich Personal (Odoo 11 -> Odoo 18)
+
+Auftrag: Personal in Odoo 18 funktional wie Odoo 11, inklusive echter Datenuebernahme
+(Anna hat die Datenmigration fuer dieses Modul ausdruecklich freigegeben). Odoo 11 nur lesend.
+
+1. Read-only Bestandserhebung: `docs/o11-o18-strukturvergleich-personal.md`
+   (Module, Menues, Reiter, Feldmapping mit 5 Spalten, Filter, Rechte, Beziehungen,
+   Zuordnungsregel, 7 Blocker). Werkzeuge: `scripts/hr_*.py`.
+2. Struktur: neues Modul `itk_hr` 18.0.1.0.1 (nur Ansichten/Rechte):
+   Gruppen "Kontaktinformationen"/"Position", Feld `notes` als "Weitere Informationen",
+   "Position"/"Ausbilder"/"Arbeitsstelle" im Odoo-11-Wortlaut, Gruppierung "Ausbilder",
+   Aktivitaetsspalten aus, Listentitel/Menues "Personal", Leserecht interne Benutzer auf
+   `hr.employee`/`hr.job`, Menue "Abteilungen" nur Personalsachbearbeiter.
+   de_DE-Slots ueber `scripts/hr_labels_de.py --setzen` (Modul-Record setzt nur Basistext).
+3. Datenmigration `scripts/hr_migration.py` (Trockenlauf Standard; Schreiben nur mit
+   `--ausfuehren --ich-habe-freigabe`; Ruecknahme `scripts/hr_migration_cleanup.py`):
+   25 Mitarbeiter (24 feldweise ueberschrieben, Meraner Daniel neu), 8 Arbeitszeitmodelle
+   (9 Odoo-11-Modelle, zwei gleichnamige mit identischen Zeiten zusammengefuehrt, Zeiten
+   exakt uebernommen), 2 Arbeitsorte, 19 Urlaubsarten (28 Eintraege -> 20 Namen),
+   65 Ansprueche, 482 Antraege, 192 Anwesenheiten. Keine Zeiterfassung (Projektbereich).
+4. Sonderfaelle vollstaendig geloest: 5 Antraege ohne Anspruch (Gating datengetrieben:
+   `requires_allocation` nur "yes", wenn Odoo 11 jeden Antrag gedeckt hatte), 2
+   ueberschneidende Altantraege (Kontext `leave_skip_date_check` NUR im Migrationsaufruf),
+   9 Antraege mit 0 Tagen (Originaldaten, nichts aufgerundet).
+5. Kategorie-Anspruch Odoo 11 ID 7 (25 Tage, Kategorie "IT-Kommunal GmbH"): read-only
+   geprueft - `get_days` liefert fuer das Kategorie-Mitglied Maierhofer Anna `max_leaves=0`,
+   die 5 ungedeckten Antraege betreffen andere Arten (Augleichstage/Krankheitsstaende) und
+   zwei Betroffene sind nicht Kategorie-Mitglied. Deshalb KEINE persoenlichen Ansprueche
+   daraus abgeleitet (nichts geraten); Datensatz als Ausnahme dokumentiert.
+6. Bewusste Abweichungen (Tabelle in `docs/o11-o18-personal-migration.md`): Resturlaub-
+   Guthaben nur bei Arten mit Anspruchspflicht; Kategorie-Anspruch und 0-Tage-Ansprueche
+   nicht uebertragbar; private Felder bleiben auf HR-Gruppen beschraenkt (Feldrechte).
+7. Pruefungen: `scripts/verify_personal.py` lokal 54 OK / 0 FEHL,
+   `scripts/browser_personal_abnahme.py` (echter Chrome) lokal 22 OK / 0 FEHL.

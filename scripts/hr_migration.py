@@ -188,10 +188,12 @@ class Migration:
                                                 "name": k["name"]})
 
         # Odoo-11-Kalender -> Odoo-18-Modell (fuer die Mitarbeiterzuordnung)
+        # Referenz auf die Gruppe (nicht auf eine Kopie), damit die beim Anlegen
+        # vergebene Odoo-18-ID auch fuer die Mitarbeiterzuordnung gilt.
         self.kalender_map = {}
         for g in self.kalender_gruppen:
             for o11_id in g["o11_ids"]:
-                self.kalender_map[o11_id] = {"o18_id": g["o18_id"]}
+                self.kalender_map[o11_id] = g
 
         # 2. Arbeitsorte aus den O11-Texten
         texte = {}
