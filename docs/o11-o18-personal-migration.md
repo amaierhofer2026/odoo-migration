@@ -1,5 +1,10 @@
 # Bereich PERSONAL: Umsetzung und Datenmigration (Odoo 11 -> Odoo 18)
 
+Status: **technisch fertig, manuelle Abnahme durch Anna offen** (21.10.2026).
+Die Migration ist ausgefuehrt und automatisiert geprueft; die fachliche Abnahme erfolgt
+durch Annas eigene Browserkontrolle gegen Odoo 11. Bis dahin werden keine Personaldaten
+mehr geaendert.
+
 Stand 21.10.2026. Grundlage: `docs/o11-o18-strukturvergleich-personal.md` (read-only
 Bestandsaufnahme). Odoo 11 wurde ausschliesslich gelesen.
 
