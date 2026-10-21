@@ -9309,3 +9309,7 @@ Auftrag: Personal in Odoo 18 funktional wie Odoo 11, inklusive echter Datenueber
    nicht uebertragbar; private Felder bleiben auf HR-Gruppen beschraenkt (Feldrechte).
 7. Pruefungen: `scripts/verify_personal.py` lokal 54 OK / 0 FEHL,
    `scripts/browser_personal_abnahme.py` (echter Chrome) lokal 22 OK / 0 FEHL.
+
+Status Personal: technisch fertig, Migration ausgefuehrt, automatisiert geprueft.
+Fachliche Abnahme durch Anna offen (manuelle Browserkontrolle gegen Odoo 11) -
+bis zur Freigabe keine Aenderungen an Personaldaten, keine Endabnahme.

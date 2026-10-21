@@ -4,7 +4,9 @@ Stand 21.10.2026. Einstieg fuer die naechste Session.
 
 ## 1. Ergebnis
 
-Personal ist umgesetzt und migriert. Modul `itk_hr` 18.0.1.0.1, Datenbestand:
+Personal ist technisch umgesetzt und migriert, **fachlich noch nicht abgenommen**: Anna
+kontrolliert das Modul selbst im Browser gegen Odoo 11. Bis zu ihrer Freigabe keine
+Aenderungen an Personaldaten. Modul `itk_hr` 18.0.1.0.1, Datenbestand:
 25 Mitarbeiter (13 aktiv), 8 Arbeitszeitmodelle, 2 Arbeitsorte, 25 Urlaubsarten,
 65 Urlaubsansprueche, 482 Urlaubsantraege, 192 Anwesenheiten - lokal und VM.
 
