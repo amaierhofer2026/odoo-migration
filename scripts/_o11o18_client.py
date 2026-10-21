@@ -41,7 +41,9 @@ class Client:
         with self.opener.open(req, timeout=300) as antwort:
             daten = json.loads(antwort.read().decode())
         if "error" in daten:
-            raise RuntimeError(json.dumps(daten["error"])[:500])
+            text = json.dumps(daten["error"])
+            # Kopf und Ende zeigen: die eigentliche Fehlermeldung steht am Ende des Tracebacks
+            raise RuntimeError(text[:400] + (" ... " + text[-900:] if len(text) > 1300 else ""))
         return daten.get("result")
 
     def kw(self, model: str, methode: str, args: list, **kwargs):

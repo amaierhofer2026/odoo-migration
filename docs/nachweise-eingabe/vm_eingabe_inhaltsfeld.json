@@ -1,0 +1,26 @@
+[
+ {
+  "pruefung": "insertText Inhaltsfeld",
+  "ok": true,
+  "soll": "Erster Absatz mit Umlauten äöüß und Sonderzeichen 100 % & (NÖ) – Straße 1/2",
+  "ist": "Erster Absatz mit Umlauten äöüß und Sonderzeichen 100 % & (NÖ) – Straße 1/2"
+ },
+ {
+  "pruefung": "press_key Inhaltsfeld",
+  "ok": true,
+  "soll": "Zweiter Text: Öffnungszeiten 8–12 Uhr, Größe 5 m²",
+  "ist": "Zweiter Text: Öffnungszeiten 8–12 Uhr, Größe 5 m²"
+ },
+ {
+  "pruefung": "Ersetzen Inhaltsfeld",
+  "ok": true,
+  "soll": "Ersetzt: Stadtgemeinde Gröbming",
+  "ist": "Ersetzt: Stadtgemeinde Gröbming"
+ },
+ {
+  "pruefung": "Backspace x6 Inhaltsfeld",
+  "ok": true,
+  "soll": "Ersetzt: Stadtgemeinde Gr",
+  "ist": "Ersetzt: Stadtgemeinde Gr"
+ }
+]

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Odoo 11: alle internen Benutzer duerfen Mitarbeiter und Stellen lesen
+         (Gruppe "Personal / Mitarbeiter" = interner Benutzer). Odoo 18 beschraenkt
+         hr.employee auf die HR-Gruppen; hier wird das Leserecht wiederhergestellt. -->
+    <record id="access_hr_employee_internal_user" model="ir.model.access">
+        <field name="name">hr.employee internal user read (ITK)</field>
+        <field name="model_id" ref="hr.model_hr_employee"/>
+        <field name="group_id" ref="base.group_user"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+    <record id="access_hr_job_internal_user" model="ir.model.access">
+        <field name="name">hr.job internal user read (ITK)</field>
+        <field name="model_id" ref="hr.model_hr_job"/>
+        <field name="group_id" ref="base.group_user"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+</odoo>

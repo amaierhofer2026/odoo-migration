@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ================================================================
+         Mitarbeiterformular: Aufbau wie Odoo 11
+         Odoo 11 hatte im Kopfbereich die Gruppen "Kontaktinformationen" und
+         "Position" sowie am Ende von "Arbeitsinformation" das Feld "Notizen"
+         ("Weitere Informationen"). Odoo 18 zeigt die Felder ohne Ueberschrift
+         und hat das Feld notes in keiner Ansicht eingebaut.
+         Priority 90: die eigenen Regeln greifen nach allen Modul-Views.
+         ================================================================ -->
+    <record id="view_employee_form_itk_personal" model="ir.ui.view">
+        <field name="name">hr.employee.form.itk.personal</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="priority">90</field>
+        <field name="arch" type="xml">
+            <xpath expr="//group/group[field[@name='work_email']]" position="attributes">
+                <attribute name="string">Kontaktinformationen</attribute>
+            </xpath>
+            <xpath expr="//group/group[field[@name='department_id']]" position="attributes">
+                <attribute name="string">Position</attribute>
+            </xpath>
+            <xpath expr="//group/group[field[@name='department_id']]/field[@name='job_id']" position="attributes">
+                <attribute name="string">Position</attribute>
+            </xpath>
+            <xpath expr="//group/group[field[@name='department_id']]/field[@name='coach_id']" position="attributes">
+                <attribute name="string">Ausbilder</attribute>
+            </xpath>
+            <xpath expr="//page[@name='public']//field[@name='resource_calendar_id']/ancestor::group[1]" position="after">
+                <field name="notes" placeholder="Weitere Informationen" colspan="4"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- ================================================================
+         Mitarbeiterliste: Spalten wie Odoo 11
+         Odoo 11 zeigte Name, Telefon, E-Mail, Abteilung, Position, Manager.
+         Odoo 18 bringt zusaetzlich Aktivitaetsspalten mit - sie bleiben
+         vorhanden, sind aber standardmaessig ausgeblendet (ueber die
+         Spaltenauswahl wieder zuschaltbar).
+         ================================================================ -->
+    <record id="view_employee_tree_itk_personal" model="ir.ui.view">
+        <field name="name">hr.employee.tree.itk.personal</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_tree"/>
+        <field name="priority">90</field>
+        <field name="arch" type="xml">
+            <xpath expr="//list" position="attributes">
+                <attribute name="string">Personal</attribute>
+            </xpath>
+            <xpath expr="//field[@name='job_id']" position="attributes">
+                <attribute name="string">Position</attribute>
+            </xpath>
+            <xpath expr="//field[@name='activity_ids']" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </xpath>
+            <xpath expr="//field[@name='activity_date_deadline']" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- ================================================================
+         Mitarbeitersuche: Gruppierung "Ausbilder" wie Odoo 11
+         (Odoo 11: Manager, Ausbilder, Abteilung, Arbeitsstelle).
+         ================================================================ -->
+    <record id="view_employee_filter_itk_personal" model="ir.ui.view">
+        <field name="name">hr.employee.filter.itk.personal</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_filter"/>
+        <field name="priority">90</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='job_id']" position="attributes">
+                <attribute name="string">Position</attribute>
+            </xpath>
+            <xpath expr="//filter[@name='group_manager']" position="after">
+                <filter name="group_coach" string="Ausbilder" domain="[]" context="{'group_by': 'coach_id'}"/>
+            </xpath>
+            <xpath expr="//filter[@name='group_job']" position="attributes">
+                <attribute name="string">Arbeitsstelle</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -2366,6 +2366,25 @@ VM-Nachzug und Abschluss dokumentiert in PROJECT_KNOWLEDGE.md (Session 92); loka
 
 ---
 
+### 6.17 Projekt (Modul project) — **MIGRATIONSBEREIT (Struktur)**, 09.10.2026 (Session 133)
+
+**Vergleich:** `docs/o11-o18-projekt-vergleich.md` (Odoo 11 read-only: 28 Projekte,
+598 Aufgaben, 87 Stufen, 13 Tags, 12.657 Zeiterfassungszeilen gegen Odoo 18 lokal/VM).
+**Umsetzung/Abnahme:** `docs/o11-o18-projekt-abnahme.md`.
+
+Entscheidungen (Anna) und Umsetzung:
+- `sale_project`/`sale_timesheet` installiert (Verkauf/Projekt/Zeiterfassung).
+- Neues Modul `itk_project` 18.0.1.0.1: Feld `itk_date_start` (Startdatum, Odoo 18 ohne
+  Standardfeld) in Formular/Liste/Suche; Prioritaet sichtbar Niedrig/Normal; deutsche
+  Bezeichnungen (Ansichten + de.po, 79 Eintraege); Projektphasen deutsch; Menue
+  "Arbeit starten"; Knoepfe Start/Stopp; Menue Projekt/Konfiguration/Stufen.
+- Projekt-Dashboard nicht nachgebaut; Odoo-18-Zusaetze beibehalten.
+
+Nachweise: Strukturpruefung 20/20 und Browserabnahme 26/26 (lokal und VM);
+Regression Verkauf/Abo/Angebote 881 OK / 0 FEHL; Testdaten entfernt (5 Projekte/8 Aufgaben).
+
+Offen: Stammdaten (Stufen, Tags) nicht migriert; Rechte-Mitgliederlisten spaeter abgleichen.
+
 ## 7. Testreihenfolge (Aufgabe 4) — Vorschlag
 
 Reihenfolge mit Priorität (fachlich motiviert: erst Darstellung/Sprache, dann Stammdaten, dann Geschäftsdaten, dann Ausgabe/Infrastruktur):
@@ -2779,3 +2798,15 @@ Liste und Formular lokal und VM. Details: `docs/o11-o18-steuern-mapping.md`, Abs
 | Abrechnung | vorhanden | vorhanden | 273 belegte Felder, 0 Luecken | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | IN ARBEIT (offen: Produktfilter-Entscheidung, Testmigration, Restansichten; 05.10.2026 Project-Category-Spalte, Statuskette und Spalte Beschreibung in den Rechnungszeilen umgesetzt und lokal + VM im Browser belegt, 73 OK / 112 OK je Instanz, 0 FEHL; 06.10.2026 Reiter "Verkauf" im Produktformular nach Odoo 11 nachgebaut - Preiskalkulation mit Preislistenregeln, Browserabnahme lokal + VM je 18 OK / 0 FEHL; Nachtrag Reiter "Verkauf" je 27 OK / 0 FEHL; 06.10.2026 Menuepunkt "Einkaufbare Produkte" auf die Odoo-11-Liste umgebaut (Interne Referenz, Name, Verkaufspreis, Steuern (Verkauf), Steuern (Einkauf)), Odoo-18-Zusatzspalten optional erhalten, falscher Filter "Verfuegbare Produkte" ergaenzt, Browserabnahme lokal + VM je 41 OK / 0 FEHL; 07.10.2026 Produktkategorien als Stammdaten geprueft und getestet - Mapping, Trockenlauf lokal+VM, Testlauf VM mit 2 angelegten Kategorien, Browserabnahme 7 OK / 0 FEHL, danach vollstaendig aufgeraeumt; 07.10.2026 ABSCHLUSSDURCHGANG des gesamten Moduls Abrechnung: 32 Menuepunkte verglichen, Feldabdeckung 273/0 Luecken, Beschriftungen 155 Paare/0 Abweichungen, Pflichtfelder und Constraints ohne Befund, Trockenlauf lokal/VM identisch (72 Positionen), Testlauf VM 202 Datensaetze mit 94/0 Pruefungen, Browser-Gesamtdurchgang lokal und VM je 32 Menuepunkte ohne Unterschied (Ergebnisdateien deckungsgleich), 886 OK/0 FEHL Regression, Testdaten entfernt, Bestand vorher == nachher - ein fachlicher BLOCKER offen (Kontenstammdaten 8400/3400); finale Freigabe durch Anna steht aus) |
 | Verkauf | vorhanden | vorhanden | Teil 5 vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | abgeschlossen (R1-R8) |
 | Abonnements | vorhanden (02.10.) | vorhanden (02.10.) | Feldbestand verglichen (57/64 Felder, 0 echte Luecken); siehe docs/o11-o18-abonnement-abgleich.md | nicht betroffen | Cron/Fristen geprueft | Zustaende 1:1 plus O18-Zusatz pending | 1:1 | nicht betroffen | vorhanden | vorhanden | abgeglichen (PR #184/#185), Abweichungen dokumentiert |
+
+### Personal (Session 134, 21.10.2026) - MIGRATIONSBEREIT
+
+| Bereich | Funktion/Feld | Istzustand | Status | Anpassung | getestet |
+|---|---|---|---|---|---|
+| Personal | Struktur (Menues, Reiter, Labels, Filter, Rechte) | Odoo-11-Stand hergestellt, Modul itk_hr | OK | itk_hr 18.0.1.0.1 | verify 54/0, Browser 22/0 |
+| Personal | Mitarbeiterdaten | 25 (13 aktiv) wie Odoo 11, Beziehungen ueber E-Mail/Name | OK | hr_migration.py | Feldvergleich aller 25 |
+| Personal | Arbeitszeitmodelle/Arbeitsorte | 8 Modelle mit Odoo-11-Zeiten, 2 Orte | OK | hr_migration.py | Zeitenvergleich |
+| Personal | Urlaubsarten/Ansprueche/Antraege | 25 Arten, 65 Ansprueche, 482 Antraege | OK | hr_migration.py | Zaehlung + Sonderfaelle |
+| Personal | Anwesenheiten | 192 | OK | hr_migration.py | Zaehlung |
+| Personal | Kategorie-Anspruch O11 ID 7 | nicht uebertragbar, dokumentiert | NICHT RELEVANT | - | get_days-Nachweis |
+| Personal | 0-Tage-Ansprueche | 2 Datensaetze, SQL-Constraint | NICHT RELEVANT | - | dokumentiert |

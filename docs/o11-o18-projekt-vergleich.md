@@ -462,3 +462,22 @@ stoeren. Endgueltig je Punkt entscheidet Anna.
 - Rechte-Mitgliederlisten (Projekt/Manager und Projekt/Benutzer) sind spaeter
   gegen die Odoo-11-Benutzerlisten abzugleichen.
 - Browsernachweise (lokal und VM) und Regression folgen erst nach der Umsetzung.
+
+## 10. Umsetzung (Session 133, 09.10.2026)
+
+Alle acht Entscheidungspunkte aus Abschnitt 8 wurden von Anna entschieden und
+umgesetzt (Modul `itk_project` 18.0.1.0.1, Installation von `sale_project` und
+`sale_timesheet`). Einzelheiten, Nachweise und Abweichungen:
+`docs/o11-o18-projekt-abnahme.md`. Kurz:
+
+- sale_project/sale_timesheet installiert (Verkauf/Projekt/Zeiterfassung).
+- Startdatum der Aufgabe als ITK-Feld `itk_date_start` (Odoo 18 hat keines).
+- Prioritaet sichtbar Niedrig/Normal (technische Werte 0/1 unveraendert).
+- Menues funktional, deutsche Bezeichnungen (Ansichten + de.po, 79 Eintraege),
+  Kanban-Knoepfe "Arbeit starten"/"Stopp", Menue "Arbeit starten".
+- Projektphasen deutsch: Zu erledigen, In Arbeit, Erledigt, Abgebrochen.
+- Projekt-Dashboard nicht nachgebaut (funktional "Projekt/Projekte").
+- Stufen-Konfiguration als Menue Projekt/Konfiguration/Stufen ergaenzt.
+- Odoo-18-Zusatzfunktionen beibehalten, nichts ungefragt aktiviert.
+- Pruefungen: Struktur je 20/20 und Browser je 26/26 (lokal und VM),
+  Regression Verkauf/Abo/Angebote 881 OK / 0 FEHL.

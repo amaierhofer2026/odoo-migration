@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!--
+            Projekt (project.project): deutsche Bezeichnungen im Odoo-11-Wortlaut.
+            Reine Ansichtsaenderungen (string=), keine Daten, keine Felder.
+            Prioritaet 99, damit die Regeln zuletzt greifen.
+        -->
+        <record id="view_project_form_itk_labels" model="ir.ui.view">
+            <field name="name">project.project.form (itk_project - deutsche Bezeichnungen)</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="priority">99</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='task_count']" position="attributes">
+                    <attribute name="string">Aufgaben</attribute>
+                </xpath>
+                <xpath expr="//field[@name='closed_task_count']" position="attributes">
+                    <attribute name="string">Abgeschlossene Aufgaben</attribute>
+                </xpath>
+                <xpath expr="//field[@name='task_completion_percentage']" position="attributes">
+                    <attribute name="string">Aufgabenfortschritt (%)</attribute>
+                </xpath>
+                <xpath expr="//field[@name='ticket_count']" position="attributes">
+                    <attribute name="string">Tickets</attribute>
+                </xpath>
+                <xpath expr="//field[@name='last_update_status']" position="attributes">
+                    <attribute name="string">Projektstatus</attribute>
+                </xpath>
+                <xpath expr="//field[@name='last_update_color']" position="attributes">
+                    <attribute name="string">Farbe Projektstatus</attribute>
+                </xpath>
+                <xpath expr="//field[@name='update_count']" position="attributes">
+                    <attribute name="string">Anzahl Aktualisierungen</attribute>
+                </xpath>
+                <xpath expr="//field[@name='is_favorite']" position="attributes">
+                    <attribute name="string">Projekt auf dem Dashboard anzeigen</attribute>
+                </xpath>
+                <xpath expr="//field[@name='label_tickets']" position="attributes">
+                    <attribute name="string">Tickets verwenden als</attribute>
+                </xpath>
+                <xpath expr="//field[@name='analytic_account_active']" position="attributes">
+                    <attribute name="string">Aktive Kostenstelle</attribute>
+                </xpath>
+                <xpath expr="//field[@name='access_instruction_message']" position="attributes">
+                    <attribute name="string">Hinweis zur Freigabe</attribute>
+                </xpath>
+                <xpath expr="//field[@name='privacy_visibility_warning']" position="attributes">
+                    <attribute name="string">Hinweis zur Sichtbarkeit</attribute>
+                </xpath>
+                <xpath expr="//field[@name='account_id']" position="attributes">
+                    <attribute name="string">Kostenstelle</attribute>
+                </xpath>
+                <xpath expr="//field[@name='active']" position="attributes">
+                    <attribute name="string">Aktiv</attribute>
+                </xpath>
+                <xpath expr="//field[@name='show_time_control']" position="attributes">
+                    <attribute name="string">Zeitsteuerung anzeigen</attribute>
+                </xpath>
+                <xpath expr="//field[@name='currency_id']" position="attributes">
+                    <attribute name="string">Währung</attribute>
+                </xpath>
+                <xpath expr="//field[@name='sale_order_count']" position="attributes">
+                    <attribute name="string">Verkaufsaufträge</attribute>
+                </xpath>
+                <xpath expr="//field[@name='sale_order_id']" position="attributes">
+                    <attribute name="string">Auftragsreferenz</attribute>
+                </xpath>
+                <xpath expr="//field[@name='display_sales_stat_buttons']" position="attributes">
+                    <attribute name="string">Verkaufs-Kennzahlen anzeigen</attribute>
+                </xpath>
+                <xpath expr="//field[@name='has_any_so_to_invoice']" position="attributes">
+                    <attribute name="string">Auftrag mit offener Rechnung vorhanden</attribute>
+                </xpath>
+                <xpath expr="//field[@name='has_any_so_with_nothing_to_invoice']" position="attributes">
+                    <attribute name="string">Auftrag ohne Rechnungsbedarf vorhanden</attribute>
+                </xpath>
+                <xpath expr="//field[@name='sale_line_employee_ids']" position="attributes">
+                    <attribute name="string">Zuordnung Auftragsposition/Mitarbeiter</attribute>
+                </xpath>
+                <xpath expr="//button[@name='button_start_work']" position="attributes">
+                    <attribute name="string">Arbeit starten</attribute>
+                </xpath>
+                <xpath expr="//button[@name='button_end_work']" position="attributes">
+                    <attribute name="string">Stopp</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_project_list_itk_labels" model="ir.ui.view">
+            <field name="name">project.project.list (itk_project - deutsche Bezeichnungen)</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.view_project"/>
+            <field name="priority">99</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='sequence']" position="attributes">
+                    <attribute name="string">Nummernfolge</attribute>
+                </xpath>
+                <xpath expr="//field[@name='active']" position="attributes">
+                    <attribute name="string">Aktiv</attribute>
+                </xpath>
+                <xpath expr="//field[@name='last_update_status']" position="attributes">
+                    <attribute name="string">Projektstatus</attribute>
+                </xpath>
+                <xpath expr="//field[@name='last_update_color']" position="attributes">
+                    <attribute name="string">Farbe Projektstatus</attribute>
+                </xpath>
+                <xpath expr="//field[@name='next_milestone_id']" position="attributes">
+                    <attribute name="string">Nächster Meilenstein</attribute>
+                </xpath>
+                <xpath expr="//field[@name='milestone_progress']" position="attributes">
+                    <attribute name="string">Meilensteine erreicht</attribute>
+                </xpath>
+                <xpath expr="//field[@name='is_milestone_exceeded']" position="attributes">
+                    <attribute name="string">Meilenstein überschritten</attribute>
+                </xpath>
+                <xpath expr="//field[@name='is_milestone_deadline_exceeded']" position="attributes">
+                    <attribute name="string">Meilenstein-Frist überschritten</attribute>
+                </xpath>
+                <xpath expr="//field[@name='can_mark_milestone_as_done']" position="attributes">
+                    <attribute name="string">Meilenstein abschliessbar</attribute>
+                </xpath>
+                <xpath expr="//field[@name='is_favorite']" position="attributes">
+                    <attribute name="string">Projekt auf dem Dashboard anzeigen</attribute>
+                </xpath>
+                <xpath expr="//field[@name='show_time_control']" position="attributes">
+                    <attribute name="string">Zeitsteuerung anzeigen</attribute>
+                </xpath>
+                <xpath expr="//button[@name='button_start_work']" position="attributes">
+                    <attribute name="string">Arbeit starten</attribute>
+                </xpath>
+                <xpath expr="//button[@name='button_end_work']" position="attributes">
+                    <attribute name="string">Stopp</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_project_search_itk_labels" model="ir.ui.view">
+            <field name="name">project.project.search (itk_project - deutsche Bezeichnungen)</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.view_project_project_filter"/>
+            <field name="priority">99</field>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='open_tickets']" position="attributes">
+                    <attribute name="string">Offene Tickets</attribute>
+                </xpath>
+                <xpath expr="//filter[@name='status']" position="attributes">
+                    <attribute name="string">Projektstatus</attribute>
+                </xpath>
+                <xpath expr="//field[@name='sale_order_id']" position="attributes">
+                    <attribute name="string">Auftragsreferenz</attribute>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

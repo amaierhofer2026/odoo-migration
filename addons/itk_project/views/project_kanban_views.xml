@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!--
+            Kanban-Karten: die Zeitsteuerungs-Knoepfe (project_timesheet_time_control)
+            sind im Kanban KEINE <button>, sondern <a>-Elemente.
+            - Projektkanban: sichtbarer Text im <span class="o_label">.
+            - Aufgabenkanban: reine Icon-Knoepfe mit title-Tooltip.
+            Formular/Liste nutzen <button> und werden in den jeweiligen Dateien gesetzt.
+        -->
+        <record id="view_project_kanban_itk_labels" model="ir.ui.view">
+            <field name="name">project.project.kanban (itk_project - deutsche Knoepfe)</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project_timesheet_time_control.view_project_kanban_inherited"/>
+            <field name="priority">99</field>
+            <field name="arch" type="xml">
+                <xpath expr="//a[@name='button_start_work']//span[hasclass('o_label')]" position="replace">
+                    <span class="o_label">
+                        <i class="fa fa-lg fa-play-circle text-success"/> Arbeit starten
+                    </span>
+                </xpath>
+                <xpath expr="//a[@name='button_end_work']//span[hasclass('o_label')]" position="replace">
+                    <span class="o_label">
+                        <i class="fa fa-lg fa-stop-circle text-warning"/> Stopp
+                    </span>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_task_kanban_itk_labels" model="ir.ui.view">
+            <field name="name">project.task.kanban (itk_project - deutsche Tooltips)</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project_timesheet_time_control.view_task_kanban"/>
+            <field name="priority">99</field>
+            <field name="arch" type="xml">
+                <xpath expr="//a[@name='button_start_work']" position="attributes">
+                    <attribute name="title">Arbeit starten</attribute>
+                </xpath>
+                <xpath expr="//a[@name='button_end_work']" position="attributes">
+                    <attribute name="title">Stopp</attribute>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

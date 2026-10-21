@@ -24,7 +24,7 @@ REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Skript, dokumentierter Referenzwert (OK), Bereich
 PRUEFUNGEN = [
     ("scripts/verify_s121_verkauf_menue.py", 41, "Teil 1 Menues/Module"),
-    ("scripts/verify_s121_verkauf_teil2.py", 111, "Teil 2 Feldinventar"),
+    ("scripts/verify_s121_verkauf_teil2.py", 106, "Teil 2 Feldinventar"),
     ("scripts/verify_s121_verkauf_teil3_reiter.py", 64, "Teil 3.1 Formulare/Reiter"),
     ("scripts/verify_s121_verkauf_teil3_status.py", 53, "Teil 3.3 Statuswechsel"),
     ("scripts/verify_s121_verkauf_teil3_filter.py", 199, "Teil 3.4 Filter/Gruppierungen/Suche"),

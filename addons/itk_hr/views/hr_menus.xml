@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ================================================================
+         Menuebenennung im Odoo-11-Wortlaut
+         Odoo 11: App "Personal" > Menue "Personal" (Mitarbeiterliste) und
+         Menue "Abteilungen". Odoo 18 nennt App, Untermenue und Aktion
+         "Mitarbeiter".
+         ================================================================ -->
+    <record id="hr.menu_hr_root" model="ir.ui.menu">
+        <field name="name">Personal</field>
+    </record>
+
+    <record id="hr.menu_hr_employee_payroll" model="ir.ui.menu">
+        <field name="name">Personal</field>
+    </record>
+
+    <record id="hr.menu_hr_employee_user" model="ir.ui.menu">
+        <field name="name">Personal</field>
+    </record>
+
+    <record id="hr.open_view_employee_list_my" model="ir.actions.act_window">
+        <field name="name">Personal</field>
+    </record>
+
+    <!-- Odoo 11 zeigt das Menue "Abteilungen" nur Personalsachbearbeitern
+         (Gruppe "Personal / Personalsachbearbeiter"). -->
+    <record id="hr.menu_hr_department_kanban" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('hr.group_hr_user')])]"/>
+    </record>
+
+</odoo>
