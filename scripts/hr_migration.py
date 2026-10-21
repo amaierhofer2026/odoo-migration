@@ -499,6 +499,10 @@ class Migration:
                 raise Blocker("Vorgesetzter fuer %s noch nicht angelegt" % p["o11"]["name"])
             k.kw("hr.employee", "write", [[p["o18_id"]], {"parent_id": ziel}])
 
+        if getattr(self, "ohne_belegdaten", False):
+            self.protokoll.append({"modell": "belegdaten", "uebersprungen": "Stammdatenlauf"})
+            return
+
         # Anwesenheiten
         angelegt = 0
         for a in self.anw11:
@@ -778,11 +782,14 @@ def main():
     p.add_argument("--instanz", choices=["lokal", "vm"], default="lokal")
     p.add_argument("--ausfuehren", action="store_true")
     p.add_argument("--ich-habe-freigabe", action="store_true")
+    p.add_argument("--ohne-belegdaten", action="store_true",
+                   help="nur Stammdaten und Mitarbeiter abgleichen (keine Anwesenheiten/Urlaube)")
     a = p.parse_args()
     schreiben = a.ausfuehren and a.ich_habe_freigabe
     if a.ausfuehren and not a.ich_habe_freigabe:
         raise SystemExit("--ausfuehren verlangt zusaetzlich --ich-habe-freigabe")
     m = Migration(a.instanz, schreiben)
+    m.ohne_belegdaten = a.ohne_belegdaten
     try:
         return m.lauf()
     except Blocker as exc:

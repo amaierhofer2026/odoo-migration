@@ -2799,13 +2799,11 @@ Liste und Formular lokal und VM. Details: `docs/o11-o18-steuern-mapping.md`, Abs
 | Verkauf | vorhanden | vorhanden | Teil 5 vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | vorhanden | abgeschlossen (R1-R8) |
 | Abonnements | vorhanden (02.10.) | vorhanden (02.10.) | Feldbestand verglichen (57/64 Felder, 0 echte Luecken); siehe docs/o11-o18-abonnement-abgleich.md | nicht betroffen | Cron/Fristen geprueft | Zustaende 1:1 plus O18-Zusatz pending | 1:1 | nicht betroffen | vorhanden | vorhanden | abgeglichen (PR #184/#185), Abweichungen dokumentiert |
 
-### Personal (Session 134, 21.10.2026) - TECHNISCH FERTIG, MANUELLE ABNAHME DURCH ANNA OFFEN
+### Personal (Session 134, 21.10.2026) - ABGENOMMEN (Browserabnahme lokal und VM durchgefuehrt)
 
-> Status 21.10.2026: Migration ausgefuehrt und automatisiert geprueft (verify 54/0, Browser 22/0,
-> Regression 881/0 - lokal und VM). **Keine endgueltige Abnahme.** Anna prueft Mitarbeiter,
-> Arbeitszeitmodelle, Arbeitsorte, Urlaubsarten, Ansprueche, Antraege, Anwesenheiten,
-> Berechtigungen und Zuordnungen manuell im Browser gegen Odoo 11. Bis zur Freigabe werden
-> keine Personaldaten mehr geaendert.
+> Status 21.10.2026: fachliche Browserabnahme durchgefuehrt (verify 54/0, Browserabnahme 70/0,
+> Regression 881/0 - lokal und VM), Berechtigungsprobe mit temporaerem Benutzer bestanden.
+> Dokument: `docs/o11-o18-personal-abnahme.md`. Das Modul wird nicht mehr geaendert.
 
 | Bereich | Funktion/Feld | Istzustand | Status | Anpassung | getestet |
 |---|---|---|---|---|---|
