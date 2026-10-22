@@ -173,9 +173,32 @@ Echter Browser (Chrome via Playwright), Login als anna.maierhofer:
 Screenshots: `%TEMP%\zeit_abn\lokal_1_liste_meine.png` ... `_6_start_stopp.png`,
 Messwerte `%TEMP%\zeit_abn\lokal.json`.
 
-## 8. VM-Abnahme
+## 8. VM-Abnahme (22.10.2026, Abnahmeumgebung)
 
-(folgt - wird nach Deploy und Modul-Upgrade auf der VM eingetragen)
+- Deploy: Branch `s135-zeiterfassung-struktur` auf der VM geprueft, danach
+  `main` (Merge-Commit `4909edf`, PR #231), `docker compose restart odoo`,
+  Modul `itk_timesheet` 18.0.1.0.3 installiert/aktualisiert.
+- `verify_s135_zeiterfassung.py --instanz vm`: **50 OK / 0 FEHLER** (lokal
+  ebenfalls 50/0).
+- Rechte auf der VM gesetzt (gleiches Skript): Gruppe 607 + 11 Benutzer,
+  Gruppe 608 + 10 Benutzer; Endstand VM 607 = 13, 608 = 12 - identisch zu lokal.
+- Browser auf der VM (Chrome/Playwright, https://k001959vsx.ipax.at):
+  Spalten "Datum, Projekt, Aufgabe, Beschreibung, Zeit (Stunden)" (alle Zeiten
+  zusaetzlich "Mitarbeiter"), Breadcrumb/Aktion "Meine Stundenzettel",
+  Formularlabels "Projekt, Aufgabe, Ticket, Mitarbeiter, Datum, Startzeit,
+  Endzeit, Zeit (Stunden)", Favorit "Abrechnungsrate", Bericht
+  "Kosten und Erloese" oeffnet, Start/Stopp-Assistent antwortet.
+- Regression: Verkauf/Abrechnung **881 OK / 0 FEHL** in 11 Prueflaeufen,
+  Personal **54 OK / 0 FEHL** (lokal).
+
+### Pruefzahlen im Ueberblick
+
+| Pruefung | lokal | VM |
+|---|---|---|
+| `verify_s135_zeiterfassung.py` | 50 / 0 | 50 / 0 |
+| Browserabnahme (Spalten, Formular, Suche, Favorit, Bericht, Start/Stopp) | bestanden | bestanden |
+| Regression Verkauf/Abrechnung | 881 / 0 | (Referenzstand 881 / 0) |
+| Regression Personal | 54 / 0 | (Referenzstand 54 / 0) |
 
 ## 9. Offene Punkte
 
@@ -185,3 +208,8 @@ Messwerte `%TEMP%\zeit_abn\lokal.json`.
 4. 19 vorhandene Testzeilen und 3 offene Timer aus frueheren Sitzungen:
    dokumentiert, nicht geloescht (fremder Bestand).
 5. Favorit 131 nicht abbildbar (siehe Abschnitt 3).
+
+### Dreistand
+
+`main` = lokal = GitHub = VM = Merge-Commit `4909edf` (PR #231), Arbeitsbaeume
+sauber; VM-Strukturpruefung 50/0.
