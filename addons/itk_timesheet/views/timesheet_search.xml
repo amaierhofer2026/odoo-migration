@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!--
+            Suche der Zeiterfassung im Odoo-11-Wortlaut.
+            Odoo 11: "Meine Stundenzettel", "Diese Woche", "Dieser Monat",
+            "Abrechenbare Stunden", "Projekte mit Festpreis",
+            "Nicht abrechenbare Stunden", Gruppierung "Monatliche Zeiterfassung".
+            Odoo 18 hatte "Meine Zeiterfassungen", "Datum", "Abrechnung nach
+            Zeiterfassung", "Abrechnung zum Festpreis", "Nicht abrechenbar",
+            "With ticket" und keinen Filter "Dieser Monat".
+            Prioritaet 90: greift nach allen Odoo-18-Erweiterungen
+            (helpdesk_mgmt_timesheet 16, sale_timesheet 16).
+        -->
+        <record id="view_timesheet_search_itk" model="ir.ui.view">
+            <field name="name">account.analytic.line.search (itk_timesheet - Odoo-11-Wortlaut, Dieser Monat)</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_search"/>
+            <field name="priority">90</field>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='mine']" position="attributes">
+                    <attribute name="string">Meine Stundenzettel</attribute>
+                </xpath>
+                <xpath expr="//filter[@name='ticket']" position="attributes">
+                    <attribute name="string">Mit Ticket</attribute>
+                </xpath>
+                <xpath expr="//filter[@name='billable_time']" position="attributes">
+                    <attribute name="string">Abrechenbare Stunden</attribute>
+                </xpath>
+                <xpath expr="//filter[@name='billable_fixed']" position="attributes">
+                    <attribute name="string">Projekte mit Festpreis</attribute>
+                </xpath>
+                <xpath expr="//filter[@name='non_billable']" position="attributes">
+                    <attribute name="string">Nicht abrechenbare Stunden</attribute>
+                </xpath>
+                <xpath expr="//filter[@name='group_date']" position="attributes">
+                    <attribute name="string">Monatliche Zeiterfassung</attribute>
+                </xpath>
+                <!-- Odoo 11 hatte "Dieser Monat" neben "Diese Woche" -->
+                <xpath expr="//filter[@name='date_this_week']" position="before">
+                    <filter name="date_this_month" string="Dieser Monat"
+                            domain="[('date', '&gt;=', (context_today() + relativedelta(day=1)).strftime('%Y-%m-%d')), ('date', '&lt;=', (context_today() + relativedelta(day=31)).strftime('%Y-%m-%d'))]"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Eigene Zeiten (Menue "Meine Stundenzettel") -->
+        <record id="view_timesheet_search_mine_itk" model="ir.ui.view">
+            <field name="name">view.search.my.timesheet.menu (itk_timesheet - Odoo-11-Wortlaut)</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_my_timesheet_search"/>
+            <field name="priority">90</field>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='ticket']" position="attributes">
+                    <attribute name="string">Mit Ticket</attribute>
+                </xpath>
+                <xpath expr="//filter[@name='billable_time']" position="attributes">
+                    <attribute name="string">Abrechenbare Stunden</attribute>
+                </xpath>
+                <xpath expr="//filter[@name='billable_fixed']" position="attributes">
+                    <attribute name="string">Projekte mit Festpreis</attribute>
+                </xpath>
+                <xpath expr="//filter[@name='non_billable']" position="attributes">
+                    <attribute name="string">Nicht abrechenbare Stunden</attribute>
+                </xpath>
+                <xpath expr="//filter[@name='group_date']" position="attributes">
+                    <attribute name="string">Monatliche Zeiterfassung</attribute>
+                </xpath>
+                <xpath expr="//filter[@name='date_this_week']" position="before">
+                    <filter name="date_this_month" string="Dieser Monat"
+                            domain="[('date', '&gt;=', (context_today() + relativedelta(day=1)).strftime('%Y-%m-%d')), ('date', '&lt;=', (context_today() + relativedelta(day=31)).strftime('%Y-%m-%d'))]"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

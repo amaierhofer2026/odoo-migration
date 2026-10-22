@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!--
+            Favorit aus Odoo 11 (ir.filters 25): "Abrechnungsrate" - alle Zeilen
+            mit Projekt, Spaltengruppierung Monat und Abrechnungsart, als
+            Standardfilter. Der zweite Odoo-11-Favorit (131
+            "Support Ticket Arbeitszeittabelle Bericht") verweist auf die
+            Kostenstelle "Sendhybrid Aufwaende verrechenbar", die es als Projekt
+            in Odoo 18 nicht gibt -> nicht uebernommen (siehe Vergleichsdoku).
+        -->
+        <record id="filter_timesheet_abrechnungsrate_itk" model="ir.filters">
+            <field name="name">Abrechnungsrate</field>
+            <field name="model_id">account.analytic.line</field>
+            <field name="domain">[('project_id', '!=', False)]</field>
+            <field name="context">{'col_group_by': ['date:month', 'timesheet_invoice_type']}</field>
+            <field name="is_default" eval="True"/>
+        </record>
+
+    </data>
+</odoo>
