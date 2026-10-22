@@ -45,6 +45,32 @@ class Pruefung:
         return 0 if not self.fehler else 1
 
 
+XMLIDS = {
+    "liste_meine": ("hr_timesheet", "hr_timesheet_line_tree"),
+    "liste_alle": ("hr_timesheet", "timesheet_view_tree_user"),
+    "form_meine": ("hr_timesheet", "hr_timesheet_line_form"),
+    "form_alle": ("hr_timesheet", "timesheet_view_form_user"),
+    "suche": ("hr_timesheet", "hr_timesheet_line_search"),
+    "suche_meine": ("hr_timesheet", "hr_timesheet_line_my_timesheet_search"),
+    "menue_meine": ("hr_timesheet", "timesheet_menu_activity_mine"),
+    "menue_rate": ("sale_timesheet", "menu_timesheet_billing_analysis"),
+    "menue_anwesenheit": ("hr_timesheet_attendance", "menu_hr_timesheet_attendance_report"),
+    "menue_berichte": ("hr_timesheet", "menu_timesheets_reports"),
+    "aktion_meine": ("hr_timesheet", "act_hr_timesheet_line"),
+}
+
+
+def aufloesen(cli):
+    """XML-IDs -> Datenbank-IDs. IDs sind zwischen lokal und VM NICHT stabil."""
+    ids = {}
+    for key, (modul, name) in XMLIDS.items():
+        treffer = cli.kw("ir.model.data", "search_read",
+                         [[("module", "=", modul), ("name", "=", name)]],
+                         fields=["res_id"], limit=1)
+        ids[key] = treffer[0]["res_id"] if treffer else None
+    return ids
+
+
 def arch(cli, modell, view_id, typ):
     res = cli.kw(modell, "get_views", [[(view_id, typ)]], options={"toolbar": False}, context=CTX)
     return list(res["views"].values())[0]["arch"]
@@ -58,6 +84,8 @@ def main() -> int:
     cli = o18(a.instanz)
     p = Pruefung()
     print("### Instanz:", a.instanz)
+    xid = aufloesen(cli)
+    print("  XML-IDs:", xid)
 
     print("\n=== 1 Modul ===")
     m = cli.kw("ir.module.module", "search_read", [[("name", "=", "itk_timesheet")]],
@@ -66,7 +94,7 @@ def main() -> int:
     p.pruefe("itk_timesheet Version", m[0]["installed_version"] if m else "-", "18.0.1.0.3")
 
     print("\n=== 2 Liste 'Meine Stundenzettel' (2657) ===")
-    ar = arch(cli, "account.analytic.line", 2657, "list")
+    ar = arch(cli, "account.analytic.line", xid["liste_meine"], "list")
     p.pruefe_wahr("Spaltenlabel Zeit (Stunden)", 'string="Zeit (Stunden)"' in ar, ar[:200])
     p.pruefe_wahr("Spaltensumme Gesamtdauer", 'sum="Gesamtdauer"' in ar)
     p.pruefe_wahr("Beschreibung Pflicht", 'name="name"' in ar and 'required="1"' in ar)
@@ -75,7 +103,7 @@ def main() -> int:
                   'optional="hide"' in ar.split('<field name="date_time"')[1][:120])
 
     print("\n=== 3 Liste 'Alle Zeiterfassungen' (2659) ===")
-    ar = arch(cli, "account.analytic.line", 2659, "list")
+    ar = arch(cli, "account.analytic.line", xid["liste_alle"], "list")
     p.pruefe_wahr("Spaltenlabel Zeit (Stunden)", 'string="Zeit (Stunden)"' in ar)
     p.pruefe_wahr("Spaltensumme Gesamtdauer", 'sum="Gesamtdauer"' in ar)
     # Mitarbeiter muss als Spalte sichtbar sein (Odoo 11), nicht optional versteckt
@@ -85,7 +113,7 @@ def main() -> int:
                   and 'required="1"' in stueck, stueck)
 
     print("\n=== 4 Formulare (2667 eigene, 2668 alle) ===")
-    for vid in (2667, 2668):
+    for vid in (xid["form_meine"], xid["form_alle"]):
         ar = arch(cli, "account.analytic.line", vid, "form")
         p.pruefe_wahr("%s: Datum sichtbar" % vid,
                       'invisible="0" string="Datum"' in ar or 'string="Datum"' in ar, ar[:200])
@@ -93,31 +121,37 @@ def main() -> int:
         p.pruefe_wahr("%s: Beschreibung Pflicht" % vid, 'required="1"' in ar)
 
     print("\n=== 5 Suche ===")
-    ar = arch(cli, "account.analytic.line", 2669, "search")
+    ar = arch(cli, "account.analytic.line", xid["suche"], "search")
     for wort in ["Meine Stundenzettel", "Abrechenbare Stunden", "Projekte mit Festpreis",
                  "Nicht abrechenbare Stunden", "Monatliche Zeiterfassung", "Dieser Monat", "Mit Ticket"]:
         p.pruefe_wahr("Suchfilter/Wortlaut: %s" % wort, wort in ar)
     p.pruefe_wahr("Filter 'Dieser Monat' mit Datumsdomain",
                   "date_this_month" in ar and "context_today" in ar)
-    ar2 = arch(cli, "account.analytic.line", 2671, "search")
+    ar2 = arch(cli, "account.analytic.line", xid["suche_meine"], "search")
     p.pruefe_wahr("Eigene Suche: Dieser Monat", "Dieser Monat" in ar2)
     p.pruefe_wahr("Eigene Suche: Monatliche Zeiterfassung", "Monatliche Zeiterfassung" in ar2)
 
     print("\n=== 6 Menues ===")
-    menues = {664: "Meine Stundenzettel", 947: "Nach Abrechnungsrate", 672: "Anwesenheit"}
-    gelesen = cli.kw("ir.ui.menu", "read", [list(menues)], fields=["name"], context=CTX)
+    menues = {"menue_meine": "Meine Stundenzettel", "menue_rate": "Nach Abrechnungsrate",
+              "menue_anwesenheit": "Anwesenheit"}
+    gelesen = cli.kw("ir.ui.menu", "read",
+                     [[xid[k] for k in menues if xid[k]]],
+                     fields=["name"], context=CTX)
     ist = {x["id"]: x["name"] for x in gelesen}
-    for mid, soll in menues.items():
-        p.pruefe("Menue %s" % mid, ist.get(mid), soll)
-    xid = cli.kw("ir.model.data", "search_read", [[("module", "=", "itk_timesheet"),
-                                                  ("model", "=", "ir.ui.menu")]],
-                 fields=["name", "res_id"], limit=0)
-    p.pruefe_wahr("Menue 'Kosten und Erloese' vorhanden", bool(xid), xid)
-    if xid:
-        nm = cli.kw("ir.ui.menu", "read", [[x["res_id"] for x in xid]], fields=["name", "parent_id"],
-                    context=CTX)
+    for key, soll in menues.items():
+        p.pruefe("Menue %s (%s)" % (key, xid[key]), ist.get(xid[key]), soll)
+    akt_name = cli.kw("ir.actions.act_window", "read", [[xid["aktion_meine"]]],
+                      fields=["name"], context=CTX)[0]["name"]
+    p.pruefe("Aktion 'Meine Stundenzettel'", akt_name, "Meine Stundenzettel")
+    menu_xids = cli.kw("ir.model.data", "search_read",
+                       [[("module", "=", "itk_timesheet"), ("model", "=", "ir.ui.menu")]],
+                       fields=["name", "res_id"], limit=0)
+    p.pruefe_wahr("Menue 'Kosten und Erloese' vorhanden", bool(menu_xids), menu_xids)
+    if menu_xids:
+        nm = cli.kw("ir.ui.menu", "read", [[x["res_id"] for x in menu_xids]],
+                    fields=["name", "parent_id"], context=CTX)
         p.pruefe("Menue Kosten und Erloese heisst", nm[0]["name"], "Kosten und Erloese")
-        p.pruefe("Menue haengt unter Berichtswesen", nm[0]["parent_id"][0], 666)
+        p.pruefe("Menue haengt unter Berichtswesen", nm[0]["parent_id"][0], xid["menue_berichte"])
 
     print("\n=== 7 Bericht Kosten und Erloese ===")
     akt = cli.kw("ir.actions.act_window", "search_read",
@@ -139,10 +173,13 @@ def main() -> int:
                       "date:month" in str(f[0]["context"]), f[0]["context"])
 
     print("\n=== 9 Odoo-18-Zusatzfunktionen erhalten ===")
-    for mid, name in [(756, "Arbeit starten")]:
-        nm = cli.kw("ir.ui.menu", "read", [[mid]], fields=["name"], context=CTX)
-        p.pruefe("Menue %s" % mid, nm[0]["name"], name)
-    a1187 = cli.kw("ir.actions.act_window", "read", [[1187]], fields=["view_mode"])[0]
+    start = cli.kw("ir.model.data", "search_read",
+                   [[("module", "=", "project_timesheet_time_control"),
+                     ("name", "=", "hr_timesheet_switch_menu")]], fields=["res_id"], limit=1)
+    if start:
+        nm = cli.kw("ir.ui.menu", "read", [[start[0]["res_id"]]], fields=["name"], context=CTX)
+        p.pruefe("Menue 'Arbeit starten'", nm[0]["name"], "Arbeit starten")
+    a1187 = cli.kw("ir.actions.act_window", "read", [[xid["aktion_meine"]]], fields=["view_mode"])[0]
     for vw in ("list", "form", "kanban", "pivot", "graph"):
         p.pruefe_wahr("Aktion 1187 bietet %s" % vw, vw in a1187["view_mode"])
 
