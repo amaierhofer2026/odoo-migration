@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!--
+            Zeiterfassung: Spalten und Formular im Odoo-11-Wortlaut.
+            Odoo 11 zeigte in Liste und Formular "Zeit (Stunden)" mit der
+            Spaltensumme "Gesamtdauer"; Odoo 18 zeigt "Zeitaufwand"/"Gesamt".
+            Die Odoo-18-Spalten Startzeit/Endzeit bleiben erhalten, sind aber
+            (wie in Odoo 11 nicht vorhanden) standardmaessig ausgeblendet und
+            ueber die Spaltenauswahl einblendbar.
+            Prioritaet 90: greift nach allen Odoo-18-Erweiterungen.
+        -->
+        <record id="view_timesheet_list_own_itk" model="ir.ui.view">
+            <field name="name">account.analytic.line.list.hr_timesheet (itk_timesheet - Odoo-11-Spalten)</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_tree"/>
+            <field name="priority">90</field>
+            <field name="arch" type="xml">
+                <!-- Odoo 18 blendet die Datumsspalte aus; Odoo 11 zeigte sie -->
+                <xpath expr="//field[@name='date']" position="attributes">
+                    <attribute name="column_invisible">0</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date_time']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+                <xpath expr="//field[@name='employee_id']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="optional">show</attribute>
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='unit_amount']" position="attributes">
+                    <attribute name="string">Zeit (Stunden)</attribute>
+                    <attribute name="sum">Gesamtdauer</attribute>
+                </xpath>
+                <xpath expr="//field[@name='so_line']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+                <xpath expr="//field[@name='ticket_id']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+                <xpath expr="//field[@name='ticket_partner_id']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date_time_end']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_timesheet_list_all_itk" model="ir.ui.view">
+            <field name="name">account.analytic.line.list.with.user (itk_timesheet - Odoo-11-Spalten)</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="hr_timesheet.timesheet_view_tree_user"/>
+            <field name="priority">90</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date']" position="attributes">
+                    <attribute name="column_invisible">0</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date_time']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+                <!-- Odoo 11 zeigte den Mitarbeiter in dieser Liste fest an -->
+                <xpath expr="//field[@name='employee_id']" position="attributes">
+                    <attribute name="optional">show</attribute>
+                    <attribute name="column_invisible">0</attribute>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="optional">show</attribute>
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='unit_amount']" position="attributes">
+                    <attribute name="string">Zeit (Stunden)</attribute>
+                    <attribute name="sum">Gesamtdauer</attribute>
+                </xpath>
+                <xpath expr="//field[@name='so_line']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+                <xpath expr="//field[@name='ticket_id']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+                <xpath expr="//field[@name='ticket_partner_id']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date_time_end']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_timesheet_form_own_itk" model="ir.ui.view">
+            <field name="name">account.analytic.line.form (itk_timesheet - Datum sichtbar, Beschreibung Pflicht)</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_form"/>
+            <field name="priority">90</field>
+            <field name="arch" type="xml">
+                <!-- Odoo 18 blendet das Datum aus (nur Startzeit); Odoo 11 fuehrte das Datum -->
+                <xpath expr="//field[@name='date']" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                    <attribute name="string">Datum</attribute>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='unit_amount']" position="attributes">
+                    <attribute name="string">Zeit (Stunden)</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date_time']" position="attributes">
+                    <attribute name="string">Startzeit</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date_time_end']" position="attributes">
+                    <attribute name="string">Endzeit</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_timesheet_form_all_itk" model="ir.ui.view">
+            <field name="name">account.analytic.line.form.with.user (itk_timesheet - Datum sichtbar, Beschreibung Pflicht)</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="hr_timesheet.timesheet_view_form_user"/>
+            <field name="priority">90</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date']" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                    <attribute name="string">Datum</attribute>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='unit_amount']" position="attributes">
+                    <attribute name="string">Zeit (Stunden)</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date_time']" position="attributes">
+                    <attribute name="string">Startzeit</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date_time_end']" position="attributes">
+                    <attribute name="string">Endzeit</attribute>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
