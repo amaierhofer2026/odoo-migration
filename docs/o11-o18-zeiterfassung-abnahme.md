@@ -347,3 +347,67 @@ Screenshots: `%TEMP%\zeit_daten_*.png`, `%TEMP%\zeit_rechte_*.png`; Messwerte
 Das Sammelprojekt "Ohne Projekt (Uebernahme Odoo 11)" ist das einzige neue
 Projekt; die 33 migrierten Projekte und 715 Aufgaben des Projektmoduls sind
 unveraendert (Pruefung zaehlt sie ohne Sammelprojekt).
+
+## 11. Session 136: VM-Abnahme und Angleichung an die Odoo-18-Regeln
+
+### 11.1 Aufgabe aus einem fremden Projekt (7 Zeilen)
+
+Odoo 11 erlaubt Zeilen, deren Aufgabe zu einem anderen Projekt gehoert (7 Zeilen:
+IFG-Portal-Zeilen mit der Aufgabe "Neue Features" bzw. "Bugfixes" aus
+"ITK-Formularserver - Entwicklung"). Odoo 18 laesst diese Kombination nicht zu:
+`_compute_task_id` setzt die Aufgabe zurueck. Auf der VM war das nach dem ersten
+Lauf sichtbar (Projekt blieb, Aufgabe leer), lokal standen beide Werte.
+
+Entscheidung: Es gilt die Odoo-18-Regel. Das Projekt bleibt wie in Odoo 11
+(Kostenstelle unveraendert), die Aufgabe wird nicht gesetzt, der Aufgabentitel
+bleibt als Referenz `O11-Aufgabe <Name>` erhalten. Beide Instanzen sind damit
+gleich; die Stunden bleiben beim richtigen Projekt.
+
+### 11.2 Abwesenheiten auf der VM
+
+Auf der VM sind 11 Zeilen ohne Abwesenheitsbezug, weil die zugehoerige
+Odoo-11-Abwesenheit 168 (Koch Katharina, 2021-06-01, 11 Tage) in Odoo 18 nur im
+Status **"Zu genehmigen"** (`confirm`, #87) vorliegt - lokal ist dieselbe
+Abwesenheit gebucht (`validate`, #1090). Die Zeiterfassungsmigration erfindet
+keine Abwesenheit: nach dem Buchen der Abwesenheit auf der VM zieht ein erneuter
+(idempotenter) Lauf den Bezug nach. Kein Fehler der Migration, Abweichung im
+Abwesenheitsbestand.
+
+### 11.3 Pruefzahlen
+
+| Pruefung | lokal | VM |
+|---|---|---|
+| `verify_s136_zeiterfassung.py` | 81 OK / 0 FEHLER | 81 OK / 0 FEHLER |
+| `verify_s135_zeiterfassung.py` (Struktur) | 56 OK / 0 FEHLER | 56 OK / 0 FEHLER |
+| Zeilen Odoo 11 = Odoo 18 migriert | 12.917 = 12.917 | 12.917 = 12.917 |
+| Stunden | 16.832,47 | 16.832,47 |
+| Abwesenheitsbezug | 1.131 | 1.120 (+11 Abwesenheit nicht gebucht) |
+
+### 11.4 Browserabnahme VM (27.10.2026)
+
+| Pruefung | Ergebnis VM |
+|---|---|
+| "Meine Stundenzettel" | Spalten wie lokal, Favorit "Abrechnungsrate", 7 eigene Zeilen |
+| "Alle Zeiterfassungen" | Liste "10000+", echte Zahl 12.936 per RPC |
+| Suche "IFG-Portal" | 81 Treffer |
+| Filter "Mit historischer Referenz" | 582 (= 308 Ticket + 274 Aufgabe) |
+| Filter "Dieser Monat" | 262 |
+| Gruppierung "Projekt" | 29 Gruppen, "Ohne Projekt (Uebernahme Odoo 11) (282) 90:25" |
+| Formular migrierte Zeile | Projekt, Aufgabe, Ticket leer, Mitarbeiter, Datum, Startzeit, Endzeit, 00:15, Beschreibung, Referenz "O11-Ticket 15" |
+| Bericht "Kosten und Erloese" | Pivot, Titel korrekt |
+| Start/Stopp | Assistent antwortet (3 Alt-Timer) |
+| Rechte 607 (Testbenutzer) | keine fremden Zeilen, fremde Zeile per URL -> Zugriffsfehler, Suche 0 |
+| Rechte 608 (Testbenutzer) | 12.936 Zeilen sichtbar, fremde Zeile oeffnet |
+| Testbenutzer | geloescht |
+
+Screenshots: `%TEMP%\zeit_daten_*.png` (vom VM-Lauf), `%TEMP%\zeit_rechte_*.png`.
+
+### 11.5 Regression lokal (Endstand)
+
+| Bereich | Ergebnis |
+|---|---|
+| Verkauf/Abrechnung | 881 OK / 0 FEHL |
+| Personal | 54 OK / 0 FEHL |
+| Projekt | 20 OK / 0 FEHL |
+| Zeiterfassung Struktur | 56 OK / 0 FEHL (lokal und VM) |
+| Zeiterfassung Daten | 81 OK / 0 FEHL (lokal und VM) |

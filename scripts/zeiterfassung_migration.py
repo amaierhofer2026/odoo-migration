@@ -409,6 +409,7 @@ class Migration:
         projekt_konto = {p["o11_id"]: p["o18_id"] for p in self.plan["projekte"]}
         aufgabe_map = {a["o11_id"]: a["o18_id"] for a in self.plan["aufgaben"]}
         privat_map = {a["o11_id"]: a["name"] for a in self.plan["aufgaben"] if a["privat11"]}
+        aufgabe_projekt = {a["o11_id"]: a["projekt11"] for a in self.plan["aufgaben"]}
         offen = defaultdict(list)
         for z in self.zeilen18:
             schluessel = self.fingerabdruck(
@@ -448,6 +449,13 @@ class Migration:
             if z["task_id"] and z["task_id"][0] in privat_map:
                 refs.append("O11-Aufgabe %s" % privat_map[z["task_id"][0]])
                 tid = None      # private Aufgabe: Odoo 18 verweigert Zeiterfassung
+            elif (z["task_id"] and z["project_id"]
+                  and aufgabe_projekt.get(z["task_id"][0]) not in (None, z["project_id"][0])):
+                # Odoo 11 erlaubt eine Aufgabe aus einem anderen Projekt; Odoo 18
+                # setzt die Aufgabe beim Anlegen zurueck. Projekt bleibt wie in
+                # Odoo 11, der Aufgabentitel bleibt als Referenz erhalten.
+                refs.append("O11-Aufgabe %s" % z["task_id"][1])
+                tid = None
             if not z["project_id"] and z["account_id"]:
                 refs.append("O11-Kostenstelle %s" % z["account_id"][1])
             ref = " | ".join(refs) or False
