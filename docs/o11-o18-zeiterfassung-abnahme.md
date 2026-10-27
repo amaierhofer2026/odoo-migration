@@ -232,6 +232,7 @@ diese 4 Zeilen nachgezogen (12.913 uebersprungen, 4 neu).
 | Stunden | 16.832,47 = 16.832,47 |
 | Zeilen ohne Projekt -> Sammelprojekt | 282 (Kostenstelle bleibt als Referenz) |
 | Zeilen mit privater Odoo-11-Aufgabe | 267 (Aufgabenname bleibt als Referenz) |
+| Zeilen mit Aufgabe aus fremdem Projekt | 7 (Aufgabenname bleibt als Referenz, siehe 11.1) |
 | Zeilen mit Ticket-Referenz | 308 (`ref` = "O11-Ticket <Nummer>") |
 | Zeilen mit Abwesenheitsbezug | 1.131, alle eindeutig zugeordnet |
 | Zeilen archivierter Mitarbeiter | 1.605 (11 Mitarbeiter kurz aktiviert, danach wieder archiviert) |
@@ -319,7 +320,7 @@ Abwesenheitszeilen: 1.131 eindeutig, 0 ohne Treffer, 0 mehrdeutig.
 | "Meine Stundenzettel" | Spalten Datum, Projekt, Aufgabe, Beschreibung, Zeit (Stunden); Favorit "Abrechnungsrate"; 7 eigene Zeilen des Logins |
 | "Alle Zeiterfassungen" | Spalten inkl. Mitarbeiter; Liste zeigt "10000+" (Odoo-Obergrenze der Anzeige), echte Zahl 12.936 per RPC |
 | Suche "IFG-Portal" | 81 Treffer |
-| Filter "Mit historischer Referenz" | 575 Zeilen (= 308 Ticket + 267 Aufgabe) |
+| Filter "Mit historischer Referenz" | 582 Zeilen (= 308 Ticket + 274 Aufgabe; 274 = 267 private Aufgabe + 7 Aufgabe aus fremdem Projekt) |
 | Filter "Dieser Monat" | 258 Zeilen |
 | Gruppierung "Projekt" | 29 Gruppen, darunter "Ohne Projekt (Uebernahme Odoo 11) (282) 90:25" |
 | Formular einer migrierten Zeile | Projekt, Aufgabe, Ticket leer, Mitarbeiter, Datum 02.01.2020, Startzeit, Endzeit, Zeit 00:15, Beschreibung, Referenz "O11-Ticket 15" |
