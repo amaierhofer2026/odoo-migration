@@ -176,12 +176,17 @@ def main() -> int:
                 tid18 = kandidaten[0]["id"]
             else:
                 tid18 = kandidaten[0]["id"] if kandidaten else None
+        fremd_projekt = bool(
+            tid11 and pid11
+            and (aufgaben11[tid11].get("project_id") or [0])[0] != pid11)
+        if fremd_projekt:
+            tid18 = None
         refs = []
         if z["support_ticket_id"]:
             t = t11.get(z["support_ticket_id"][0])
             if t and t.get("ticket_number"):
                 refs.append("O11-Ticket %s" % t["ticket_number"])
-        if privat:
+        if privat or fremd_projekt:
             refs.append("O11-Aufgabe %s" % aufgaben11[tid11]["name"])
         if not pid11 and z["account_id"]:
             refs.append("O11-Kostenstelle %s" % z["account_id"][1])
@@ -400,10 +405,26 @@ def main() -> int:
              k18.kw("account.analytic.line", "search_count", [[("ticket_id", "!=", False)]]), 0)
 
     fehlende_abw = [e for e in erwartet if e["hatte_abw"] and not e["holiday"]]
-    p.pruefe("Abwesenheitszeilen ohne Zuordnung", len(fehlende_abw), 0)
-    p.pruefe("Abwesenheitszeilen mit Zuordnung",
-             sum(1 for e in erwartet if e["holiday"]),
-             sum(1 for z in z11 if z["holiday_id"]))
+    # Ursache je Zeile ermitteln: gibt es eine Abwesenheit am selben Tag, die nicht
+    # gebucht ist? Dann ist der Bestand in Odoo 18 (noch) nicht gebucht - das ist
+    # kein Fehler der Zeiterfassungsmigration, sondern ein Abwesenheits-Status.
+    nicht_gebucht = 0
+    for e in fehlende_abw:
+        z = next(x for x in z11 if x["id"] == e["o11_id"])
+        h = h11.get((z["holiday_id"] or [0])[0])
+        if not h or not h["employee_id"]:
+            continue
+        beginn = str(h["date_from"])[:10]
+        kandidaten = [x for x in lv18.values()
+                      if (x["employee_id"] or [0])[0] == ma_map.get(h["employee_id"][0])
+                      and str(x["date_from"])[:10] == beginn]
+        if kandidaten and not any(x["state"] == "validate" for x in kandidaten):
+            nicht_gebucht += 1
+    p.pruefe("Abwesenheitszeilen ohne gebuchte Entsprechung (Abwesenheit nicht gebucht)",
+             len(fehlende_abw), nicht_gebucht)
+    p.pruefe("Abwesenheitszeilen mit Zuordnung (Odoo 18)",
+             k18.kw("account.analytic.line", "search_count", [[("holiday_id", "!=", False)]]),
+             sum(1 for e in erwartet if e["holiday"]))
     falsche_abw = []
     for x in migriert:
         if not x["holiday_id"]:
@@ -421,13 +442,19 @@ def main() -> int:
     aufgabe_fehler = [x["id"] for x in migriert
                       if x["task_id"] and (auf18.get(x["task_id"][0]) or {}).get("project_id", [0])[0]
                       != (x["project_id"] or [0])[0]]
-    # Odoo 11 erlaubt Zeilen, deren Aufgabe zu einem anderen Projekt gehoert; diese
-    # 7 Zeilen werden unveraendert uebernommen (kein Bereinigen von Altdaten).
+    # Odoo 11 erlaubt Zeilen, deren Aufgabe zu einem anderen Projekt gehoert. Odoo 18
+    # setzt eine solche Aufgabe beim Anlegen zurueck; das Projekt bleibt wie in
+    # Odoo 11, der Aufgabentitel wird als Referenz "O11-Aufgabe <Name>" gespeichert.
     aufgabe11_fremd = sum(
         1 for z in z11 if z["task_id"] and z["project_id"]
         and (aufgaben11[z["task_id"][0]]["project_id"] or [0])[0] != z["project_id"][0])
-    p.pruefe("Zeilen mit Aufgabe aus anderem Projekt (wie Odoo 11)", len(aufgabe_fehler),
-             aufgabe11_fremd)
+    p.pruefe("Zeilen mit Aufgabe aus fremdem Projekt (Aufgabe zurueckgesetzt)",
+             len(aufgabe_fehler), 0)
+    p.pruefe("davon mit Aufgabentitel als Referenz",
+             sum(1 for e in erwartet if e["privat"] or
+                 (e["aufgabe"] is None and e["ref"] and "O11-Aufgabe" in str(e["ref"])
+                  and e["ref"] != "O11-Ticket")),
+             sum(1 for e in erwartet if e["privat"]) + aufgabe11_fremd)
 
     archiviert11 = {m["id"] for m in ma11.values() if not m["active"]}
     archiviert18 = {x["id"] for x in ma18.values() if not x["active"]}
