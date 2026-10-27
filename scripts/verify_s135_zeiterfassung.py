@@ -91,7 +91,7 @@ def main() -> int:
     m = cli.kw("ir.module.module", "search_read", [[("name", "=", "itk_timesheet")]],
                fields=["name", "state", "installed_version"])
     p.pruefe("itk_timesheet installiert", m and m[0]["state"], "installed")
-    p.pruefe("itk_timesheet Version", m[0]["installed_version"] if m else "-", "18.0.1.0.3")
+    p.pruefe("itk_timesheet Version", m[0]["installed_version"] if m else "-", "18.0.1.0.6")
 
     print("\n=== 2 Liste 'Meine Stundenzettel' (2657) ===")
     ar = arch(cli, "account.analytic.line", xid["liste_meine"], "list")
@@ -205,16 +205,25 @@ def main() -> int:
     p.pruefe_wahr("Gruppe 608 ist Teilmenge von 607",
                   mitglieder.get(608, set()) <= mitglieder.get(607, set()) | mitglieder.get(608, set()))
 
+    print("\n=== 11 Historische Referenz (Session 136) ===")
+    ar = arch(cli, "account.analytic.line", xid["liste_meine"], "list")
+    p.pruefe_wahr("Spalte Referenz in 'Meine Stundenzettel'", 'name="ref"' in ar)
+    ar = arch(cli, "account.analytic.line", xid["liste_alle"], "list")
+    p.pruefe_wahr("Spalte Referenz in 'Alle Zeiterfassungen'", 'name="ref"' in ar)
+    ar = arch(cli, "account.analytic.line", xid["form_meine"], "form")
+    p.pruefe_wahr("Formularfeld Referenz", 'name="ref"' in ar and 'string="Referenz"' in ar)
+    ar = arch(cli, "account.analytic.line", xid["suche"], "search")
+    p.pruefe_wahr("Filter 'Mit historischer Referenz'", "Mit historischer Referenz" in ar)
+
     if a.nach_migration:
-        print("\n=== 11 Datenbestand ===")
-        md = "account.analytic.line"
-        p.pruefe("Zeilen gesamt", cli.kw(md, "search_count", [[]]), 12885 + 19)
-        p.pruefe("Zeilen mit Projekt", cli.kw(md, "search_count", [[("project_id", "!=", False)]]),
-                 12885 + 19 - 282)
-        p.pruefe("Zeilen mit Aufgabe", cli.kw(md, "search_count", [[("task_id", "!=", False)]]),
-                 12744 + 19)
-        p.pruefe("Projekte", cli.kw("project.project", "search_count", [[]]), 5 + 33 + 1)
-        p.pruefe("Aufgaben", cli.kw("project.task", "search_count", [[]]), 8 + 714)
+        print("\n=== 12 Datenbestand ===")
+        print("  Vollstaendiger Datenabgleich Odoo 11 <-> Odoo 18 (Multimengen, Summen,")
+        print("  Felder, Beziehungen): scripts/verify_s136_zeiterfassung.py")
+        p.pruefe("Zeiterfassungszeilen vorhanden",
+                 cli.kw("account.analytic.line", "search_count", [[]]) > 0, True)
+        p.pruefe("Zeilen ohne Projekt (muss 0 sein)",
+                 cli.kw("account.analytic.line", "search_count",
+                        [[("project_id", "=", False)]]), 0)
 
     return p.ergebnis()
 

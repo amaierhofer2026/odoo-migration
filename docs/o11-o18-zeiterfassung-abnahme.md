@@ -213,3 +213,137 @@ Messwerte `%TEMP%\zeit_abn\lokal.json`.
 
 `main` = lokal = GitHub = VM = Merge-Commit `4909edf` (PR #231), Arbeitsbaeume
 sauber; VM-Strukturpruefung 50/0.
+
+## 10. Session 136 (27.10.2026): Datenmigration abgeschlossen (lokal)
+
+Odoo 11 wird produktiv weiterbenutzt, deshalb wurde der Bestand vor dem Lauf neu
+erhoben. Endstand lokal: **12.917 Zeilen / 16.832,47 Stunden** (Zeitraum
+2019-08-12 bis 2026-10-27, 22 Mitarbeiter, 27 Projekte mit Zeilen). Waehrend der
+Arbeit kamen 4 neue Odoo-11-Zeilen hinzu; ein zweiter (idempotenter) Lauf hat nur
+diese 4 Zeilen nachgezogen (12.913 uebersprungen, 4 neu).
+
+### 10.1 Ergebnisse lokal
+
+| Punkt | Wert |
+|---|---|
+| Zeilen Odoo 11 (live) | 12.917 |
+| davon nach Odoo 18 uebernommen | 12.917 (0 fehlend, 0 doppelt) |
+| Zeilen Odoo 18 gesamt | 12.936 (12.917 migriert + 19 fremder Testbestand) |
+| Stunden | 16.832,47 = 16.832,47 |
+| Zeilen ohne Projekt -> Sammelprojekt | 282 (Kostenstelle bleibt als Referenz) |
+| Zeilen mit privater Odoo-11-Aufgabe | 267 (Aufgabenname bleibt als Referenz) |
+| Zeilen mit Ticket-Referenz | 308 (`ref` = "O11-Ticket <Nummer>") |
+| Zeilen mit Abwesenheitsbezug | 1.131, alle eindeutig zugeordnet |
+| Zeilen archivierter Mitarbeiter | 1.605 (11 Mitarbeiter kurz aktiviert, danach wieder archiviert) |
+| Zeilen auf archivierten Projekten | 1.226 |
+| Zeilen auf archivierten Aufgaben | 4.362 |
+| Neue Helpdesk-Tickets | 0 (keine Verknuepfung, `ticket_id` leer) |
+| Pruefung | `verify_s136_zeiterfassung.py`: **80 OK / 0 FEHLER** |
+| Strukturpruefung | `verify_s135_zeiterfassung.py`: **56 OK / 0 FEHLER** |
+
+### 10.2 Die vier mehrdeutigen Abwesenheitszeilen (Odoo-11-Abwesenheit 147)
+
+Odoo-11-Abwesenheit 147 = Soritz Gerd, 2020-09-01 bis 2020-09-06, 4 Tage,
+Status `validate`. Betroffene Zeilen: O11 #394 bis #397 ("Urlaub (1/4)" bis
+"(4/4)", je 8 h, Projekt "Internal Project", Aufgabe "Leaves").
+
+Odoo 18 hat am 2020-09-01 **zwei** Abwesenheiten dieses Mitarbeiters:
+
+| Odoo-18-Abwesenheit | Zeitraum | Tage | Status |
+|---|---|---|---|
+| #1078 | 2020-09-01 bis 2020-09-06 | 4,0 | gebucht (`validate`) |
+| #1060 | 2020-09-01 bis 2020-09-07 | 5,0 | abgelehnt (`refuse`) |
+
+Aufloesung ohne Rueckfrage, weil technisch eindeutig: abgelehnte und offene
+Antraege sind keine gebuchten Abwesenheiten. Kandidaten sind nur Zeilen mit
+Status `validate`; bei mehreren Treffern entscheidet zusaetzlich die gleiche
+Tagesanzahl. Ergebnis: alle vier Zeilen -> **#1078**. Ueber alle 1.131
+Abwesenheitszeilen: 1.131 eindeutig, 0 ohne Treffer, 0 mehrdeutig.
+
+### 10.3 Zwei technische Sperren von Odoo 18 und ihre Folgen
+
+1. **Private Aufgaben tragen keine Zeiterfassung.** Odoo 18 antwortet "Fuer eine
+   private Aufgabe koennen keine Zeiterfassungen erstellt werden" - auch wenn im
+   selben Aufruf ein Projekt mitgegeben wird (am 27.10.2026 belegt). Die 267
+   Zeilen der 5 projektlosen Odoo-11-Aufgaben (FSW Update, FSW update, 3x BRZ
+   Wahlkartenantraege) gehen deshalb ins Sammelprojekt; der Aufgabentitel bleibt
+   als `ref` = "O11-Aufgabe <Name>" erhalten. Die Aufgaben selbst wurden nicht
+   veraendert (Modul Projekt bleibt unangetastet).
+2. **Zeiterfassungen mit Abwesenheitsbezug sind schreibgeschuetzt.** Ein
+   nachtraegliches Zurueckschreiben von Beschreibungen ist bei 298 Zeilen
+   gesperrt. Deshalb werden Beschreibungen einheitlich ohne Rand-Leerzeichen
+   geschrieben: 665 Odoo-11-Zeilen hatten solche (" (1/1)", "neues Formular
+   erstellt "), der Text selbst ist unveraendert (Pruefung: 0 inhaltliche
+   Abweichungen, 665 reine Leerzeichen-Abweichungen).
+
+### 10.4 Weitere Befunde aus dem Bestand (unveraendert uebernommen)
+
+- **7 Zeilen** haben eine Aufgabe aus einem **anderen** Projekt (IFG-Portal-Zeilen
+  mit der Aufgabe "Neue Features" aus "ITK-Formularserver - Entwicklung"). Odoo 11
+  erlaubt das; die Zeilen bleiben genau so.
+- **Doppelaufgaben**: "Overhead" existiert 2x in "IFG-Portal - Entwicklung",
+  "[31622] Gemeinde Hochleithen" 2x in "Datenschutz in den Gemeinden". Zuordnung
+  1:1 ueber exakt gleichen Namen bzw. Reihenfolge der IDs; die 14 Zeilen der
+  Odoo-11-Aufgabe 320 liegen auf Odoo-18-Aufgabe 692.
+- **Startzeit**: gespeichert wird 00:00 UTC des Odoo-11-Datums (Odoo 11 kannte
+  keine Startzeit). Die Oberflaeche zeigt Wiener Zeit, also 01:00 bzw. 02:00; das
+  Datum und die Dauer sind exakt. Die Endzeit setzt Odoo 18 selbst auf
+  Startzeit + Dauer (0 Abweichungen bei 12.917 Zeilen).
+- **Abrechenbarkeit**: Odoo 11 hat ausschliesslich `non_billable` (12.779),
+  `non_billable_project` (122) und leer (12). Odoo 18 berechnet den Typ selbst;
+  alle migrierten Zeilen stehen auf "Nicht abrechenbar".
+- **Eine historische Benutzerzuordnung** weicht ab: eine Zeile von Breiteneder
+  Lorenz wurde in Odoo 11 unter dem Benutzer von Agnes Tiefling erfasst; die
+  Zuordnung bleibt so erhalten.
+- **Eigener Login**: der Browser-Login `anna.maierhofer@...` ist in Odoo 18 der
+  Benutzer "Administrator" (id 2), nicht "Maierhofer Anna" (id 16). "Meine
+  Stundenzettel" zeigt daher 7 eigene Zeilen des Administrators; die 339 Zeilen
+  von Maierhofer Anna sind ueber "Alle Zeiterfassungen" bzw. die Gruppierung
+  sichtbar. Kein Datenfehler, nur eine Login-Zuordnung.
+
+### 10.5 Modul-Zusatz (Version 18.0.1.0.6)
+
+- Optionale Spalte **"Referenz"** in beiden Listen, Formularfeld "Referenz"
+  (schreibgeschuetzt), Suchfilter **"Mit historischer Referenz"**.
+- Menuezeile `hr_timesheet.timesheet_menu_activity_user` heisst jetzt ebenfalls
+  "Meine Stundenzettel" (Odoo 11); vorher stand dort "Meine Zeiterfassungen".
+- Lehre: `hr_timesheet.timesheet_view_form_user` und `..._tree_user` **erben** von
+  den Basisansichten. Ein Feld, das in Basis- und Folgeansicht eingefuegt wird,
+  erscheint doppelt (im Formular sichtbar als "O11-Ticket 15O11-Ticket 15").
+  Felder deshalb nur in der Basisansicht ergaenzen.
+
+### 10.6 Browserabnahme lokal (echter Browser, 27.10.2026)
+
+| Pruefung | Ergebnis |
+|---|---|
+| "Meine Stundenzettel" | Spalten Datum, Projekt, Aufgabe, Beschreibung, Zeit (Stunden); Favorit "Abrechnungsrate"; 7 eigene Zeilen des Logins |
+| "Alle Zeiterfassungen" | Spalten inkl. Mitarbeiter; Liste zeigt "10000+" (Odoo-Obergrenze der Anzeige), echte Zahl 12.936 per RPC |
+| Suche "IFG-Portal" | 81 Treffer |
+| Filter "Mit historischer Referenz" | 575 Zeilen (= 308 Ticket + 267 Aufgabe) |
+| Filter "Dieser Monat" | 258 Zeilen |
+| Gruppierung "Projekt" | 29 Gruppen, darunter "Ohne Projekt (Uebernahme Odoo 11) (282) 90:25" |
+| Formular einer migrierten Zeile | Projekt, Aufgabe, Ticket leer, Mitarbeiter, Datum 02.01.2020, Startzeit, Endzeit, Zeit 00:15, Beschreibung, Referenz "O11-Ticket 15" |
+| Projekt-/Aufgabenformular aus der Zeile | beide oeffnen mit richtigem Titel |
+| Zeile eines archivierten Mitarbeiters | oeffnet, Mitarbeiter und Beschreibung korrekt |
+| Bericht "Kosten und Erloese" | Pivot mit Monatsspalten ab August 2019 |
+| Start/Stopp | Assistent antwortet ("3 laufende Timer gefunden" = Altbestand) |
+| Rechte Gruppe 607 (Testbenutzer) | leere Liste, fremde Zeile per URL -> Zugriffsfehler, Suche 0 Treffer |
+| Rechte Gruppe 608 (Testbenutzer) | 12.936 Zeilen sichtbar, fremde Zeile oeffnet |
+| Testbenutzer | beide nach der Pruefung geloescht |
+
+Screenshots: `%TEMP%\zeit_daten_*.png`, `%TEMP%\zeit_rechte_*.png`; Messwerte
+`%TEMP%\zeit_daten.json`, `%TEMP%\zeit_rechte.json`.
+
+### 10.7 Regression (lokal, nach der Migration)
+
+| Bereich | Ergebnis |
+|---|---|
+| Verkauf/Abrechnung (11 Prueflaeufe) | 881 OK / 0 FEHL |
+| Personal | 54 OK / 0 FEHL |
+| Projekt | 20 OK / 0 FEHL (Sammelprojekt der Zeiterfassung ausgenommen) |
+| Zeiterfassung Struktur | 56 OK / 0 FEHL |
+| Zeiterfassung Daten | 80 OK / 0 FEHL |
+
+Das Sammelprojekt "Ohne Projekt (Uebernahme Odoo 11)" ist das einzige neue
+Projekt; die 33 migrierten Projekte und 715 Aufgaben des Projektmoduls sind
+unveraendert (Pruefung zaehlt sie ohne Sammelprojekt).

@@ -42,6 +42,11 @@
                     <filter name="date_this_month" string="Dieser Monat"
                             domain="[('date', '&gt;=', (context_today() + relativedelta(day=1)).strftime('%Y-%m-%d')), ('date', '&lt;=', (context_today() + relativedelta(day=31)).strftime('%Y-%m-%d'))]"/>
                 </xpath>
+                <!-- Historische Odoo-11-Referenz (Ticketnummer, Aufgabe, Kostenstelle) -->
+                <xpath expr="//filter[@name='ticket']" position="before">
+                    <filter name="itk_historische_referenz" string="Mit historischer Referenz"
+                            domain="[('ref', '!=', False)]"/>
+                </xpath>
             </field>
         </record>
 
@@ -70,6 +75,11 @@
                 <xpath expr="//filter[@name='date_this_week']" position="before">
                     <filter name="date_this_month" string="Dieser Monat"
                             domain="[('date', '&gt;=', (context_today() + relativedelta(day=1)).strftime('%Y-%m-%d')), ('date', '&lt;=', (context_today() + relativedelta(day=31)).strftime('%Y-%m-%d'))]"/>
+                </xpath>
+                <!-- Historische Odoo-11-Referenz (Ticketnummer, Aufgabe, Kostenstelle) -->
+                <xpath expr="//filter[@name='ticket']" position="before">
+                    <filter name="itk_historische_referenz" string="Mit historischer Referenz"
+                            domain="[('ref', '!=', False)]"/>
                 </xpath>
             </field>
         </record>

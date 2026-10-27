@@ -47,11 +47,15 @@
                 <xpath expr="//field[@name='date_time_end']" position="attributes">
                     <attribute name="optional">hide</attribute>
                 </xpath>
+                <!-- Referenz: historische Odoo-11-Ticketnummer/Aufgabe/Kostenstelle -->
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="ref" optional="hide" string="Referenz"/>
+                </xpath>
             </field>
         </record>
 
         <record id="view_timesheet_list_all_itk" model="ir.ui.view">
-            <field name="name">account.analytic.line.list.with.user (itk_timesheet - Odoo-11-Spalten)</field>
+            <field name="name">account.analytic.line.list.with.user (itk_timesheet - Odoo-11-Spalten, erbt Basisliste)</field>
             <field name="model">account.analytic.line</field>
             <field name="inherit_id" ref="hr_timesheet.timesheet_view_tree_user"/>
             <field name="priority">90</field>
@@ -104,6 +108,10 @@
                 <xpath expr="//field[@name='name']" position="attributes">
                     <attribute name="required">1</attribute>
                 </xpath>
+                <!-- Referenz: historische Odoo-11-Ticketnummer/Aufgabe/Kostenstelle -->
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="ref" readonly="1" string="Referenz"/>
+                </xpath>
                 <xpath expr="//field[@name='unit_amount']" position="attributes">
                     <attribute name="string">Zeit (Stunden)</attribute>
                 </xpath>
@@ -117,7 +125,7 @@
         </record>
 
         <record id="view_timesheet_form_all_itk" model="ir.ui.view">
-            <field name="name">account.analytic.line.form.with.user (itk_timesheet - Datum sichtbar, Beschreibung Pflicht)</field>
+            <field name="name">account.analytic.line.form.with.user (itk_timesheet - erbt Basisformular)</field>
             <field name="model">account.analytic.line</field>
             <field name="inherit_id" ref="hr_timesheet.timesheet_view_form_user"/>
             <field name="priority">90</field>

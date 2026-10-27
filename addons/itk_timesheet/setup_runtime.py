@@ -13,6 +13,8 @@ _logger = logging.getLogger(__name__)
 # xmlid -> sichtbarer Name (Odoo-11-Wortlaut)
 MENUE_WORTLAUTE = {
     "hr_timesheet.timesheet_menu_activity_mine": "Meine Stundenzettel",
+    # Odoo 11: die obere Menuezeile hiess ebenfalls "Meine Stundenzettel"
+    "hr_timesheet.timesheet_menu_activity_user": "Meine Stundenzettel",
     "sale_timesheet.menu_timesheet_billing_analysis": "Nach Abrechnungsrate",
     "hr_timesheet_attendance.menu_hr_timesheet_attendance_report": "Anwesenheit",
 }

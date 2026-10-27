@@ -104,10 +104,15 @@ def main() -> int:
     p.wahr("Projekt: Kostenstelle/Abrechnung vorhanden", "account_id" in ar2)
 
     print("\n=== 4 Datenbestand (nach Migration) ===")
-    p.pruefe("Projekte inkl. archiviert",
-             cli.kw("project.project", "search_count", [[]], context={"active_test": False}),
+    # Sammelprojekt der Zeiterfassungsmigration (Session 136) zaehlt nicht zum
+    # Projektbereich: es wird dort weder fachlich noch strukturell verwendet.
+    sammel = {"active_test": False}
+    sammel_domain = [("name", "!=", "Ohne Projekt (Uebernahme Odoo 11)")]
+    p.pruefe("Projekte inkl. archiviert (ohne Zeiterfassungs-Sammelprojekt)",
+             cli.kw("project.project", "search_count", [sammel_domain], context=sammel),
              ERWARTUNG["projekte_gesamt"])
-    p.pruefe("Projekte aktiv", cli.kw("project.project", "search_count", [[]]),
+    p.pruefe("Projekte aktiv (ohne Zeiterfassungs-Sammelprojekt)",
+             cli.kw("project.project", "search_count", [sammel_domain]),
              ERWARTUNG["projekte_aktiv"])
     p.pruefe("Aufgaben inkl. archiviert",
              cli.kw("project.task", "search_count", [[]], context={"active_test": False}),

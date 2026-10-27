@@ -16,11 +16,13 @@ Odoo 11, ohne Odoo-18-Funktionen zu entfernen:
 * Menues im Odoo-11-Wortlaut: "Meine Stundenzettel", "Nach Abrechnungsrate",
   "Anwesenheit"; neues Berichtsmenue "Kosten und Erloese" (Odoo 11).
 * Favorit "Abrechnungsrate" (Odoo 11) wieder vorhanden.
+* Spalte "Referenz" (optional) und Formularfeld fuer die historische Odoo-11-
+  Ticketnummer/Aufgabe/Kostenstelle, Filter "Mit historischer Referenz".
 
 Reine Ansichts-/Anzeigeanpassung, keine Datenmigration.
 Vergleich: docs/o11-o18-zeiterfassung-vergleich.md
 """,
-    "version": "18.0.1.0.3",
+    "version": "18.0.1.0.6",
     "license": "LGPL-3",
     "category": "ITK - Specific Industry Applications",
     "author": "IT-Kommunal GmbH",
