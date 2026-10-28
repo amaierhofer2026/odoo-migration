@@ -39,20 +39,53 @@
 
 ---
 
-## 0.0 Abgenommene Module (Stand 27.10.2026, Session 136)
+## 0.0 Abgenommene Module (Stand 28.10.2026, Session 137)
 
 | Modul | Status | Nachweis |
 |---|---|---|
 | **Projekt** | ABGENOMMEN (Session 135) | 33 Projekte, 715 Aufgaben, 87 Stufen, 13 Stichwoerter migriert; `verify_s135_projekt.py` 20 OK / 0 FEHLER; Browser lokal und VM |
-| **Personal** | ABGENOMMEN | `verify_personal.py` 54 OK / 0 FEHLER |
+| **Personal** | ABGENOMMEN | `verify_personal.py` 54 OK / 0 FEHLER (Referenzbestand 28.10.: 483 Antraege, 66 Ansprueche, 196 Anwesenheiten) |
 | **Zeiterfassung** | **ABGENOMMEN / Datenmigration abgeschlossen / keine offenen Blocker** | siehe unten |
+| **Anwesenheiten und Urlaubsantraege** | **ABGENOMMEN und GESPERRT (Session 137)** | `verify_s137_anwesenheiten.py` 65 OK / 0 FEHLER, Browser 28 OK / 0 FEHLER, lokal und VM; Doku `docs/o11-o18-anwesenheiten-urlaub-vergleich.md` |
 
-### Zeiterfassung — Referenz-Endstand (27.10.2026)
+### Anwesenheiten und Urlaubsantraege — Referenz-Endstand (28.10.2026)
 
 | Punkt | Wert |
 |---|---|
-| migrierte Zeiterfassungszeilen | **12.917** |
-| Stunden | **16.832,47** |
+| Urlaubsantraege | **483** (Odoo 11: 483) |
+| Urlaubsansprueche | **66** (Odoo 11: 69, davon 3 nicht uebertragbar) |
+| Anwesenheiten | **196** (Odoo 11: 196) |
+| Home-Office-Zeilen | **116** (Odoo 11: 116) |
+| Summe Anspruchstage (uebertragbar) | **1.231,16 = 1.231,16** |
+| Summe Antragstage | Odoo 11 1.092,42 / Odoo 18 1.156,00 (141 Abweichungen, dokumentiert) |
+| Summe Arbeitsstunden | **1.221,72 = 1.221,72** |
+| Verifikation `verify_s137_anwesenheiten.py` | **65 OK / 0 FEHLER lokal und VM** |
+| Browserabnahme | **28 OK / 0 FEHLER lokal und VM** |
+| Regression Verkauf/Abrechnung | 881 OK / 0 FEHL |
+| Regression Personal / Projekt / Zeiterfassung | 54 / 20 / 81 OK, 0 FEHL (lokal und VM) |
+| Rechte | Odoo-11-Gruppen 34/32/79/80 ueber Login zugeordnet (22/3/8/4 Benutzer), Browser- und RPC-Probe |
+| Testreste | keine (lokal und VM) |
+| Modulstand | `itk_hr_leave_compat` 18.0.1.0.0 |
+
+**Ab jetzt keine Aenderungen mehr an Anwesenheiten und Urlaubsantraegen.**
+
+Die Tagesanzahl folgt der Odoo-18-Logik (Entscheidung Anna, 28.10.2026); der Odoo-11-Wert bleibt im
+Feld `x_o11_number_of_days` erhalten. Vollstaendige Abweichungsliste:
+`docs/o11-o18-anwesenheiten-tagesabweichungen.csv` (141 Zeilen).
+
+### Zeiterfassung — Referenz-Endstand (Stand 28.10.2026, nachgezogen in Session 137)
+
+> Nachtrag Session 137: Odoo 11 ist weiter produktiv, der Bestand ist auf 12.936 Zeilen / 16.851,14 h
+> gewachsen (18 Zeilen am 28.10., 1 Zeile waehrend der Sitzung). Nachgezogen mit dem idempotenten
+> `scripts/zeiterfassung_migration.py` (lokal und VM, je 19 neue Zeilen, 0 Fehler). Der Abwesenheitsbezug
+> der Zeiterfassung wurde mit `scripts/anwesenheiten_zeiterfassung_bezug.py` nachgezogen (lokal 23,
+> VM 33 Zeilen) — damit ist der Punkt "Abwesenheit #87 / Zeilen ohne Bezug" geschlossen:
+> `verify_s136_zeiterfassung.py` meldet **81 OK / 0 FEHLER** auf lokal und VM.
+
+| Punkt | Wert |
+|---|---|
+| migrierte Zeiterfassungszeilen | **12.936** (Stand 28.10.2026) |
+| Stunden | **16.851,14** |
 | fehlende Zeilen | **0** |
 | doppelte Zeilen | **0** |
 | Verifikation `verify_s136_zeiterfassung.py` | **81 OK / 0 FEHLER lokal und VM** |
@@ -71,7 +104,7 @@ Dokumentierte Punkte ausserhalb der Zeiterfassung (keine offenen Blocker der Zei
 
 | Punkt | Zustand | Zustaendiger Bereich |
 |---|---|---|
-| Abwesenheit #87 auf der VM (Koch Katharina, 2021-06-01) ist nur „Zu genehmigen" (`confirm`); lokal gebucht (`validate`, #1090). Deshalb 11 Zeiterfassungszeilen auf der VM ohne Abwesenheitsbezug. | dokumentiert, nicht geaendert | **Anwesenheiten/Urlaub** (nach dem Buchen zieht ein idempotenter Lauf den Bezug nach) |
+| Abwesenheit #87 auf der VM (Koch Katharina, 2021-06-01) war nur „Zu genehmigen" (`confirm`) | **BEHOBEN in Session 137**: Status auf `validate` gesetzt (Odoo 11 ist massgeblich), die 11 Zeiterfassungszeilen haben ihren Bezug erhalten | Anwesenheiten/Urlaub (abgenommen) |
 | Zwei Projektkunden fehlen in Odoo 18: „[70101] Statutarstadt Innsbruck", „[WLV-Voeslau] Wasserleitungsverband der Triestingtal- und Suedbahngemeinden" | dokumentiert, nicht geaendert | **Kunden-/Partnerzuordnung** (Abhaengigkeit, kein Punkt der Zeiterfassung) |
 | Startzeit historischer Zeilen ist als 00:00 UTC gespeichert (Odoo 11 kannte keine Startzeit); die Oberflaeche zeigt Wiener Zeit, also 01:00 bzw. 02:00. Datum und Dauer sind exakt, die Endzeit setzt Odoo 18 auf Startzeit + Dauer. | dokumentiert, technisch bedingt | **bekannte Zeitzonen-Darstellung** (kein offener Punkt, solange Datum und Dauer korrekt sind) |
 

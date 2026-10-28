@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ================================================================
+         Anwesenheiten: Spalte und Feld "Home-Office"
+         Odoo 11: Studio-Feld x_homeoffice in Liste und Formular
+         (Beschriftung "Home-Office", 116 von 196 Zeilen wahr).
+         Odoo 18 hat kein solches Feld. Die Odoo-11-Beschriftung
+         "Check In"/"Check Out" wird gesetzt (Odoo 18: "Anmeldung"/
+         "Abmeldung").
+         ================================================================ -->
+    <record id="view_attendance_tree_itk_leave" model="ir.ui.view">
+        <field name="name">hr.attendance.list.itk.leave</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.view_attendance_tree"/>
+        <field name="priority">90</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='check_in']" position="attributes">
+                <attribute name="string">Check In</attribute>
+            </xpath>
+            <xpath expr="//field[@name='check_out']" position="attributes">
+                <attribute name="string">Check Out</attribute>
+            </xpath>
+            <xpath expr="//field[@name='check_out']" position="after">
+                <field name="x_homeoffice" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_attendance_form_itk_leave" model="ir.ui.view">
+        <field name="name">hr.attendance.form.itk.leave</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form"/>
+        <field name="priority">90</field>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@col='1']/field[@name='check_in']" position="attributes">
+                <attribute name="string">Check In</attribute>
+            </xpath>
+            <xpath expr="//group[@col='1']/field[@name='check_out']" position="attributes">
+                <attribute name="string">Check Out</attribute>
+            </xpath>
+            <xpath expr="//group[@col='1']/field[@name='check_out']" position="after">
+                <field name="x_homeoffice"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Filter "Home-Office" als Odoo-18-Zusatz (Odoo 11 hatte nur die Spalte). -->
+    <record id="view_attendance_search_itk_leave" model="ir.ui.view">
+        <field name="name">hr.attendance.search.itk.leave</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_filter"/>
+        <field name="priority">90</field>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='nocheckout']" position="after">
+                <filter string="Home-Office" name="x_homeoffice" domain="[('x_homeoffice', '=', True)]"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

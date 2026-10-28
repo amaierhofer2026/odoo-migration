@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ================================================================
+         Abwesenheiten: Spalte "Tage (Odoo 11)"
+         Odoo 11 zeigte in der Liste "Anzahl der Tage" mit der Summe
+         "Resturlaub". Odoo 18 zeigt "Dauer" (berechnet). Der in Odoo 11
+         gespeicherte Wert bleibt als eigene Spalte abrufbar.
+         Die Odoo-11-Beschriftung "Abwesenheitstyp" wird gesetzt
+         (Odoo 18: "Abwesenheitsart").
+         ================================================================ -->
+    <record id="view_leave_tree_itk_leave" model="ir.ui.view">
+        <field name="name">hr.leave.list.itk.leave</field>
+        <field name="model">hr.leave</field>
+        <field name="inherit_id" ref="hr_holidays.hr_leave_view_tree"/>
+        <field name="priority">90</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='holiday_status_id']" position="attributes">
+                <attribute name="string">Abwesenheitstyp</attribute>
+            </xpath>
+            <xpath expr="//field[@name='duration_display']" position="after">
+                <field name="x_o11_number_of_days" string="Anzahl der Tage (Odoo 11)" optional="hide" sum="Anzahl der Tage (Odoo 11)"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_leave_form_itk_leave" model="ir.ui.view">
+        <field name="name">hr.leave.form.itk.leave</field>
+        <field name="model">hr.leave</field>
+        <field name="inherit_id" ref="hr_holidays.hr_leave_view_form"/>
+        <field name="priority">90</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='holiday_status_id']" position="attributes">
+                <attribute name="string">Abwesenheitstyp</attribute>
+            </xpath>
+            <xpath expr="//field[@name='duration_display']" position="after">
+                <field name="x_o11_number_of_days" string="Anzahl der Tage (Odoo 11)" readonly="1"
+                       invisible="x_o11_number_of_days &lt;= 0"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- ================================================================
+         Suche: Filter und Gruppierungen aus Odoo 11
+         Odoo 11 (hr.holidays.filter): "Zur Genehmigung", "Aktive Typen",
+         "Ungelesene Nachrichten", "Urlaube meiner Abteilung", "Mein
+         Teamurlaub"; Gruppen "Manager" und "Pruefer".
+         Odoo 18 hat "Erste/Zweite Genehmigung", "Mein Team" (ueber
+         leave_manager_id) und "Meine Abteilung" (member_of_department) -
+         beides bleibt erhalten, die Odoo-11-Filter kommen dazu.
+         ================================================================ -->
+    <record id="view_leave_search_itk_leave" model="ir.ui.view">
+        <field name="name">hr.leave.search.itk.leave</field>
+        <field name="model">hr.leave</field>
+        <field name="inherit_id" ref="hr_holidays.hr_leave_view_search_manager"/>
+        <field name="priority">90</field>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='approve']" position="before">
+                <filter string="Zur Genehmigung" name="itk_zur_genehmigung"
+                        domain="[('state', 'in', ('confirm', 'validate1'))]"/>
+            </xpath>
+            <xpath expr="//filter[@name='validated']" position="after">
+                <filter string="Aktive Typen" name="itk_aktive_typen"
+                        domain="[('holiday_status_id.active', '=', True)]"/>
+                <filter string="Ungelesene Nachrichten" name="itk_ungelesen"
+                        domain="[('message_needaction', '=', True)]"/>
+                <filter string="Urlaube meiner Abteilung" name="itk_abteilung"
+                        domain="[('employee_id.department_id.manager_id.user_id', '=', uid)]"/>
+                <filter string="Mein Teamurlaub" name="itk_teamurlaub"
+                        domain="[('employee_id.parent_id.user_id', '=', uid)]"/>
+            </xpath>
+            <xpath expr="//filter[@name='group_date_from']" position="before">
+                <filter name="itk_group_abteilung" string="Abteilung" context="{'group_by': 'department_id'}"/>
+                <filter name="itk_group_manager" string="Manager" context="{'group_by': 'manager_id'}"/>
+                <filter name="itk_group_pruefer" string="Prüfer" context="{'group_by': 'second_approver_id'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- ================================================================
+         Berichtsliste "Urlaubdetails" (Odoo 11: hr.holidays.report_tree)
+         Odoo 11 zeigte je Zeile Mitarbeiter, Abwesenheitstyp, Beschreibung,
+         Anzahl der Tage, Start-/Enddatum und Status.
+         ================================================================ -->
+    <record id="view_holiday_list_itk_leave" model="ir.ui.view">
+        <field name="name">hr.holidays.report.list.itk.leave</field>
+        <field name="model">hr.leave</field>
+        <field name="inherit_id" ref="hr_holidays.view_holiday_list"/>
+        <field name="priority">90</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date_from']" position="before">
+                <field name="holiday_status_id" string="Abwesenheitstyp" optional="show"/>
+            </xpath>
+            <xpath expr="//field[@name='number_of_days']" position="after">
+                <field name="x_o11_number_of_days" string="Anzahl der Tage (Odoo 11)" optional="hide"
+                       sum="Anzahl der Tage (Odoo 11)"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

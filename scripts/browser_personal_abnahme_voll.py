@@ -361,7 +361,8 @@ with sync_playwright() as p:
     seite.goto(URL + "/odoo/action-%s" % A_ANS)
     seite.wait_for_timeout(2400)
     ans_n = gesamt(seite)
-    pruefe("65 Urlaubsansprueche", ans_n == 65, ans_n)
+    # Referenzbestand 28.10.2026 (Session 137): 69 - 1 ohne Mitarbeiter - 2 mit 0 Tagen = 66
+    pruefe("66 Urlaubsansprueche", ans_n == 66, ans_n)
     schuss(seite, "urlaubsansprueche")
     # einen Anspruch oeffnen (Waiss Martina, 23.75 Tage)
     ziel = rpc("hr.leave.allocation", "search_read",
@@ -394,7 +395,7 @@ with sync_playwright() as p:
     seite.goto(URL + "/odoo/action-%s" % A_ABW)
     seite.wait_for_timeout(2600)
     abw_n = gesamt(seite)
-    pruefe("483 Abwesenheiten (482 + 1 Altbestand)", abw_n == 483, abw_n)
+    pruefe("483 Abwesenheiten (Odoo-11-Bestand 28.10.2026)", abw_n == 483, abw_n)
     schuss(seite, "abwesenheiten")
     # Sonderfall: ueberschneidender Alt-Antrag Waiss 16.07.2023
     sonder = rpc("hr.leave", "search_read",
@@ -435,7 +436,7 @@ with sync_playwright() as p:
     anw_n = gesamt(seite)
     pager = " ".join(seite.locator(".o_pager").inner_text().split()) if seite.locator(".o_pager").count() else ""
     rpc_n = rpc("hr.attendance", "search_count", [[]])
-    pruefe("192 Anwesenheiten (Pager/Schnittstelle)", anw_n == 192 and rpc_n == 192,
+    pruefe("196 Anwesenheiten (Pager/Schnittstelle)", anw_n == 196 and rpc_n == 196,
            "Pager=%s rpc=%s %s" % (anw_n, rpc_n, pager))
     txt = " ".join(seite.inner_text("body").split())
     pruefe("Anwesenheiten zeigen Ein-/Ausbuchungen", ":" in txt and "2026" in txt)
