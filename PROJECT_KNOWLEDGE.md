@@ -9313,3 +9313,99 @@ Auftrag: Personal in Odoo 18 funktional wie Odoo 11, inklusive echter Datenueber
 Status Personal: technisch fertig, Migration ausgefuehrt, automatisiert geprueft.
 Fachliche Abnahme durch Anna offen (manuelle Browserkontrolle gegen Odoo 11) -
 bis zur Freigabe keine Aenderungen an Personaldaten, keine Endabnahme.
+
+
+================================================================================
+SESSION 137 - 28.10.2026 - Bereich ANWESENHEITEN UND URLAUBSANTRAEGE: ABGENOMMEN
+================================================================================
+
+1. Ergebnis: Bereich Anwesenheiten und Urlaubsantraege ist **abgenommen und gesperrt**.
+   Neues Modul `addons/itk_hr_leave_compat` 18.0.1.0.0 (nur Ansichten, zwei Felder,
+   eine Gruppe - keine Aenderung an Personal/Projekt/Zeiterfassung).
+
+2. Odoo-11-Bestand live neu erhoben (read-only, 28.10.2026): 483 Antraege, 69 Ansprueche,
+   196 Anwesenheiten, 25 Mitarbeiter (13 aktiv, 12 archiviert), Home-Office 116.
+   Odoo 11 waechst weiter: seit 21.10. +1 Antrag (711), +4 Anwesenheiten, spaeter +19
+   Zeiterfassungszeilen. Migration ist idempotent und wurde mehrfach nachgezogen.
+
+3. Gefundene und behobene Luecken in Odoo 18:
+   L1 Home-Office fehlte komplett (Odoo-11-Studio-Feld x_homeoffice) -> Feld, Spalte,
+      Formularfeld, Suchfilter im neuen Modul; 116 Werte migriert.
+   L2 Beschreibung aus Odoo 11 war verloren: Odoo 18 `name` ist BERECHNET
+      (`_compute_description` liest `private_name`, `_inverse_description` schreibt
+      `private_name`). Schreiben von `name` landet nirgends -> immer `private_name`
+      schreiben. 348 Beschreibungen nachgezogen.
+   L3 Tagesanzahl: `number_of_days` ist `compute='_compute_duration', store=True` OHNE
+      inverse -> nicht schreibbar. Odoo-11-Wert bleibt im eigenen Feld
+      `x_o11_number_of_days` (schreibgeschuetzt, Formular/Liste/Berichtsliste).
+   L4 Menues hiessen "Abwesenheiten/Meine Zeit/Verwaltung" -> Odoo-11-Struktur
+      (App "Urlaubsantraege", "Mein Urlaubskonto", "Zu bestaetigender Urlaub",
+      "Berichtswesen" mit Auswertung Urlaubskonto / Urlaubsantraege / Urlaub nach
+      Abteilung). Odoo-18-Zusaetze bleiben.
+   L5 "Anmeldung/Abmeldung" -> Odoo-11-Wortlaut "Check In"/"Check Out".
+   L6 Odoo-11-Suchfilter fehlten (Zur Genehmigung, Aktive Typen, Ungelesene Nachrichten,
+      Urlaube meiner Abteilung, Mein Teamurlaub; Gruppen Abteilung/Manager/Pruefer).
+   L7 Interne Benutzer durften Anwesenheiten nur LESEN; Odoo 11 erlaubte 24 Benutzern
+      (Gruppe 34) das Pflegen der EIGENEN Zeiten -> neue Gruppe "Anwesenheit manuell"
+      mit ir.model.access (r/w/c, kein unlink) und Datensatzregel
+      `employee_id.user_id = user.id`.
+   L8 Anspruch Wuerer 25,0 Tage fehlte (in Session 134 als "gleichwertige Dublette"
+      verworfen). Odoo 11 fuehrt zwei 25-Tage-Ansprueche; Odoo 18 erlaubt Mehrfach-
+      ansprueche -> nachgezogen. Merkregel: Dublettenpruefung nur bei exakt gleichem
+      Schluessel (Mitarbeiter+Art+Tage+Status), nicht "fachlich gleichwertig".
+   L9 Zeiterfassung: 23 (lokal) bzw. 34 (VM) Zeilen ohne Abwesenheitsbezug, davon 11 der
+      Fall #87 -> neues Werkzeug `scripts/anwesenheiten_zeiterfassung_bezug.py` zieht
+      `holiday_id` aus Odoo 11 nach (eindeutig, 0 mehrdeutig).
+   L10 Fremder Odoo-18-Testantrag (Administrator / "Bezahlte Abwesenheit") entfernt.
+   L11 Arbeitsstunden lokal um genau 1 Stunde zu niedrig (183 Zeilen): `worked_hours` ist
+      berechnet und wurde ermittelt, bevor das Zeitzonenfeld des Arbeitsplans gesetzt war.
+      Fix: `check_in` mit gleichem Wert neu schreiben -> Neuberechnung (5,0836 -> 6,0836).
+   L12 Offene Anmeldung (21.10., kein Check Out) blockierte das Anlegen weiterer Zeilen
+      ("Der Mitarbeiter ist seit ... nicht abgemeldet") -> erst Check-out korrigieren,
+      dann neue Zeilen anlegen (Reihenfolge im Skript gedreht).
+
+4. Fall Abwesenheit #87 (VM): Odoo 11 Datensatz 168 (Koch Katharina, 01.-15.06.2021,
+   `validate`, 10 Tage nach Odoo-11-Rechnung). Odoo 18 VM: #87 `confirm`, lokal #1090
+   `validate`. Ursache: die Migration prueft "vorhanden" VOR dem Statusschreiben und
+   ueberspringt den Datensatz danach fuer immer. Status jetzt `validate` (Odoo 11 ist
+   massgeblich), 11 Zeiterfassungszeilen haben ihren Bezug. Lehre: Idempotenz-Pruefung
+   darf Reparaturen (Status, Felder) nicht mit ueberspringen.
+
+5. Fachliche Entscheidung Anna (28.10.2026) zur Tagesanzahl: Odoo-18-Logik bleibt,
+   keine kuenstlichen Ausgleichsansprueche, Odoo-11-Werte bleiben nachvollziehbar.
+   Umfang: 141 von 483 Antraegen weichen ab; Summe Odoo 11 400,42 gegen Odoo 18 464,00
+   Tage (+63,58); Gesamtsumme 1.092,42 gegen 1.156,00. Vollstaendige Liste:
+   `docs/o11-o18-anwesenheiten-tagesabweichungen.csv`. Ursachen: Odoo 11 rechnete ueber
+   Arbeitsstunden mit Abzug bereits gebuchter Abwesenheiten (krumme Werte 0,67/2,5),
+   veraltete Odoo-11-Werte, kein Feiertagskalender in Odoo 11, Halbtage.
+
+6. Rechte: Odoo-11-Gruppen 34/32/79/80 ueber den LOGIN auf
+   `itk_hr_leave_compat.group_itk_anwesenheit_manuell`,
+   `hr_attendance.group_hr_attendance_manager`, `hr_holidays.group_hr_holidays_user`,
+   `hr_holidays.group_hr_holidays_manager` abgebildet (22/3/8/4 Benutzer).
+   ACHTUNG: `res.groups.users` zaehlt nur AKTIVE Benutzer (12 statt 22) - Gegenprobe
+   immer mit `context active_test=False`.
+
+7. Pruefungen (lokal und VM): `verify_s137_anwesenheiten.py` 65/0,
+   `browser_anwesenheiten_abnahme.py` 28/0, `verify_personal.py` 54/0 (Referenz auf
+   483/66/196 angepasst), `verify_s135_projekt.py` 20/0,
+   `verify_s136_zeiterfassung.py` 81/0, `abschluss_verkauf_regression.py` 881/0.
+
+8. Werkzeug-Lehren:
+   - `ir.ui.view.get_views` erwartet numerische View-IDs; eine XML-ID liefert
+     "Expected singleton: ir.ui.view('h','r',...)".
+   - `Client.kw(model, method, args, **kwargs)` - `res.users.write` braucht
+     `[[ids], {vals}]` als EIN Argument, nicht zwei Positionsargumente.
+   - argparse: `--ich-habe-freigabe` erzeugt `a.ich_habe_freigabe` (nicht ich_have_).
+   - Loeschen einer abgelehnten Abwesenheit ist gesperrt -> vorher `state='cancel'`.
+   - Odoo-11-Domain `('employee_id.active','=',False)` lieferte 141 statt 121 Antraege;
+     Zaehlung je Mitarbeiter ist verlaesslich.
+   - Menue-DE-Slots: Modul-Record setzt nur den Basistext, die Oberflaeche liest de_DE ->
+     `scripts/anwesenheiten_labels_de.py --setzen`.
+
+9. Dokumentation: `docs/o11-o18-anwesenheiten-urlaub-vergleich.md` (Bestandsaufnahme,
+   Mapping mit vier Kategorien, Sonderfaelle, Tagesabweichungen, Pruefungen),
+   `docs/o11-o18-anwesenheiten-tagesabweichungen.csv`, Checkliste Abschnitt 0.0,
+   Uebergabe `docs/uebergabe-session-137.md`.
+
+Status: Anwesenheiten und Urlaubsantraege ABGENOMMEN und GESPERRT (28.10.2026).

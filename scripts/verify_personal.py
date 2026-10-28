@@ -166,20 +166,20 @@ def main():
     ma_aktiv18 = k18.kw("hr.employee", "search_count", [[]])
     pruefe(ma_aktiv18 == ma_aktiv11, "Mitarbeiter aktiv: Anzahl wie Odoo 11", ma_aktiv18, ma_aktiv11)
 
-    # Belegdaten (Soll aus dem Migrationsplan: 482 Antraege, 16 nicht uebertragbar)
+    # Belegdaten: Soll = aktueller Odoo-11-Produktivstand (28.10.2026, Session 137)
     leaves = k18.kw("hr.leave", "search_count", [[]])
     allos = k18.kw("hr.leave.allocation", "search_count", [[]])
     anw = k18.kw("hr.attendance", "search_count", [[]])
-    print("        Urlaubsantraege Odoo 18: %d (Odoo 11: 482, davon 16 nicht uebertragbar + 1 Altbestand)"
-          % leaves)
+    print("        Urlaubsantraege Odoo 18: %d (Odoo 11: 483)" % leaves)
     print("        Urlaubsansprueche Odoo 18: %d (Odoo 11: 69, davon 1 ohne Mitarbeiter,"
           " 2 mit 0 Tagen)" % allos)
-    print("        Anwesenheiten Odoo 18: %d (Odoo 11: 192)" % anw)
-    pruefe(anw == 192, "Anwesenheiten vollstaendig", anw, 192)
-    # 482 Antraege aus Odoo 11 + 1 Altbestand vor der Migration (Testantrag) = 483
-    pruefe(leaves == 483, "Urlaubsantraege vollstaendig (482 + 1 Altbestand)", leaves, 483)
-    pruefe(allos == 65, "Urlaubsansprueche vollstaendig (69 - 1 ohne Mitarbeiter -"
-          " 2 mit 0 Tagen - 1 gleichwertige Dublette)", allos, 65)
+    print("        Anwesenheiten Odoo 18: %d (Odoo 11: 196)" % anw)
+    pruefe(anw == 196, "Anwesenheiten vollstaendig", anw, 196)
+    # 483 Antraege aus Odoo 11 (Stand 28.10.2026; der Odoo-18-Testantrag wurde entfernt)
+    pruefe(leaves == 483, "Urlaubsantraege vollstaendig", leaves, 483)
+    # 69 Ansprueche - 1 Kategorie-Anspruch ohne Mitarbeiter - 2 Ansprueche mit 0 Tagen = 66
+    pruefe(allos == 66, "Urlaubsansprueche vollstaendig (69 - 1 ohne Mitarbeiter"
+          " - 2 mit 0 Tagen)", allos, 66)
     typen = k18.kw("hr.leave.type", "search_count", [[]], context={"active_test": False})
     print("        Urlaubsarten Odoo 18: %d (6 Odoo-Standard + 19 ITK)" % typen)
     pruefe(typen >= 25, "Urlaubsarten angelegt", typen, ">=25")

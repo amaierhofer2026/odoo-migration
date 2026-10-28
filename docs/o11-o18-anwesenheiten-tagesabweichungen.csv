@@ -1,0 +1,142 @@
+o11_id;o18_id;mitarbeiter;abwesenheitsart;von;bis;status;tage_odoo11;tage_odoo18;differenz;beschreibung
+26;1011;Breiteneder Lorenz;gesetzlicher Jahresurlaub;2019-12-23;2019-12-23;validate;0.67;1.0;0.33;Urlaub
+35;1017;ausgeschieden/Steinecker Julia;Unbezahlt;2019-10-30;2019-10-31;validate;1.5;2.0;0.5;Urlaub
+47;1021;Soritz Gerd;gesetzlicher Jahresurlaub;2019-12-23;2020-01-06;validate;4.0;11.0;7.0;
+50;1024;ausgeschieden/Steinecker Julia;Unbezahlt;2020-01-02;2020-01-03;validate;1.5;2.0;0.5;Urlaub
+53;1026;Waiss Martina;gesetzlicher Jahresurlaub;2020-01-20;2020-01-23;validate;3.0;4.0;1.0;
+54;1027;Waiss Martina;gesetzlicher Jahresurlaub;2020-02-03;2020-02-07;validate;4.0;5.0;1.0;
+56;1028;ausgeschieden/Steinecker Julia;Unbezahlt;2020-02-17;2020-02-21;validate;4.5;5.5;1.0;Urlaub
+57;1029;Breiteneder Lorenz;Augleichstage;2020-04-30;2020-05-04;validate;2.0;3.0;1.0;Zeitausgleich für verlängertes Staatsfeiertagswochenende
+59;1031;ausgeschieden/Steinecker Julia;Unbezahlt;2020-07-20;2020-07-31;validate;9.5;11.0;1.5;Urlaub
+61;1032;Breiteneder Lorenz;Ausgleich der restlichen 9 Urlaubstage, die ausbezahlt wurden, damit Konto auf 0 steht!;2020-08-03;2020-08-13;validate;8.0;9.0;1.0;Sommerurlaub
+62;1033;Breiteneder Lorenz;Augleichstage;2020-08-17;2020-08-27;validate;8.0;9.0;1.0;Sommerurlaub
+66;1034;Breiteneder Lorenz;Ausgleich der restlichen 9 Urlaubstage, die ausbezahlt wurden, damit Konto auf 0 steht!;2020-02-16;2020-02-19;validate;4.0;3.0;-1.0;
+71;1036;Waiss Martina;Unbezahlt;2020-02-23;2020-02-23;validate;1.0;0.0;-1.0;
+74;1037;Soritz Gerd;gesetzlicher Jahresurlaub;2020-04-08;2020-04-10;validate;2.0;3.0;1.0;Urlaub
+76;1039;ausgeschieden/Steinecker Julia;Unbezahlt;2020-04-09;2020-04-10;validate;1.5;2.0;0.5;Firmensperre
+79;1042;Soritz Gerd;gesetzlicher Jahresurlaub;2020-05-21;2020-05-22;validate;1.0;2.0;1.0;Urlaub
+80;1043;Soritz Gerd;gesetzlicher Jahresurlaub;2020-06-11;2020-06-12;validate;1.0;2.0;1.0;Urlaub
+85;1047;ausgeschieden/Steinecker Julia;Unbezahlt;2020-05-22;2020-05-22;validate;0.5;1.0;0.5;Urlaub/Firmensperre
+86;1048;ausgeschieden/Steinecker Julia;Unbezahlt;2020-06-02;2020-06-02;validate;0.5;1.0;0.5;Arzttermin
+87;1049;ausgeschieden/Steinecker Julia;Unbezahlt;2020-06-12;2020-06-12;validate;0.5;1.0;0.5;Urlaub/Firmensperre
+88;1050;ausgeschieden/Steinecker Julia;Unbezahlt;2020-08-31;2020-09-13;validate;10.0;11.0;1.0;Urlaub
+94;1053;Waiss Martina;Gesetzlicher Jahresurlaub 20 Tage (4 Tagewoche) aliquotiert;2020-07-05;2020-07-09;validate;5.0;4.0;-1.0;Urlaub
+95;1054;Waiss Martina;Gesetzlicher Jahresurlaub 20 Tage (4 Tagewoche) aliquotiert;2020-07-19;2020-07-23;validate;5.0;4.0;-1.0;Urlaub
+112;1059;Soritz Gerd;gesetzlicher Jahresurlaub;2020-08-09;2020-08-20;validate;10.0;9.0;-1.0;Urlaub
+121;1064;ausgeschieden/Steinecker Julia;Unbezahlt;2020-10-23;2020-10-23;validate;0.5;1.0;0.5;Urlaub
+122;1065;ausgeschieden/Steinecker Julia;Unbezahlt;2020-10-30;2020-10-30;validate;0.5;1.0;0.5;Urlaub
+123;1066;ausgeschieden/Steinecker Julia;Unbezahlt;2020-11-02;2020-11-02;validate;0.5;1.5;1.0;Urlaub
+125;1068;Waiss Martina;Gesetzlicher Jahresurlaub 20 Tage (4 Tagewoche) aliquotiert;2020-11-08;2020-11-08;validate;1.0;0.0;-1.0;Urlaub
+131;1073;Würrer Florian;gesetzlicher Jahresurlaub;2021-01-04;2021-01-08;validate;4.0;5.0;1.0;Weihnachts-Urlaub 2020
+133;1075;ausgeschieden/Steinecker Julia;Unbezahlt;2020-12-29;2020-12-30;validate;1.5;2.0;0.5;Urlaub
+148;1079;Soritz Gerd;gesetzlicher Jahresurlaub;2020-12-22;2020-12-22;validate;0.5;1.0;0.5;Urlaub
+149;1080;Soritz Gerd;gesetzlicher Jahresurlaub;2020-12-28;2021-01-04;validate;4.0;6.0;2.0;
+150;1081;Waiss Martina;gesetzlicher Jahresurlaub;2021-01-27;2021-01-27;validate;0.75;1.0;0.25;
+162;1087;Breiteneder Lorenz;Ausgleich der restlichen 9 Urlaubstage, die ausbezahlt wurden, damit Konto auf 0 steht!;2021-04-22;2021-04-29;validate;5.0;6.0;1.0;Urlaub Ende April
+168;1090;ausgeschieden/Koch Katharina;gesetzlicher Jahresurlaub;2021-06-01;2021-06-15;validate;10.0;11.0;1.0;Urlaub (11 Tage)
+179;1099;Sallmann Alexander;Gesetzlicher Jahresurlaub aliquotiert;2021-06-01;2021-06-01;refuse;0.5;1.0;0.5;Termin bei KFZ Prüfstelle
+184;1104;Waiss Martina;Gesetzlicher Jahresurlaub 20 Tage (4 Tagewoche) aliquotiert;2021-08-08;2021-08-09;validate;2.0;1.0;-1.0;
+185;1105;Waiss Martina;gesetzlicher Jahresurlaub;2021-08-10;2021-08-14;validate;3.0;4.0;1.0;Urlaub
+191;1108;Soritz Gerd;gesetzlicher Jahresurlaub;2021-07-25;2021-08-12;validate;15.0;14.0;-1.0;Urlaub
+193;1109;Sallmann Alexander;Gesetzlicher Jahresurlaub aliquotiert;2021-08-10;2021-08-13;validate;3.0;4.0;1.0;Urlaub
+194;1110;Waiss Martina;gesetzlicher Jahresurlaub;2021-08-22;2021-08-24;validate;3.0;2.0;-1.0;Urlaub
+197;1113;Soritz Gerd;gesetzlicher Jahresurlaub;2021-09-05;2021-09-05;validate;1.0;0.0;-1.0;Urlaub
+198;1114;Waiss Martina;gesetzlicher Jahresurlaub;2021-10-24;2021-10-28;refuse;5.0;4.0;-1.0;Urlaub
+214;1126;Waiss Martina;gesetzlicher Jahresurlaub;2021-12-26;2021-12-27;validate;2.0;1.0;-1.0;Weihnachtsurlaub
+215;1127;Sallmann Alexander;Gesetzlicher Jahresurlaub aliquotiert;2021-12-26;2021-12-26;validate;1.0;0.0;-1.0;
+224;1129;Waiss Martina;gesetzlicher Jahresurlaub;2022-01-23;2022-01-26;validate;4.0;3.0;-1.0;Urlaub
+226;1131;ausgeschieden/Steinecker Julia;Unbezahlt;2022-02-23;2022-02-25;validate;2.5;3.0;0.5;Urlaub
+229;1134;ausgeschieden/Steinecker Julia;Unbezahlt;2022-04-11;2022-04-18;validate;5.0;7.0;2.0;Urlaub
+230;1135;ausgeschieden/Steinecker Julia;Unbezahlt;2022-07-25;2022-08-05;validate;9.0;11.0;2.0;Sommerurlaub
+231;1136;ausgeschieden/Steinecker Julia;Unbezahlt;2022-08-26;2022-09-09;validate;10.0;12.0;2.0;Sommerurlaub
+232;1137;Waiss Martina;gesetzlicher Jahresurlaub;2022-04-10;2022-04-11;validate;2.0;1.0;-1.0;Urlaub
+239;1139;Waiss Martina;gesetzlicher Jahresurlaub;2022-05-02;2022-05-02;refuse;0.5;1.0;0.5;
+241;1141;Soritz Gerd;Gesetzlicher Jahresurlaub 2022;2022-07-17;2022-08-04;validate;15.0;14.0;-1.0;Urlaub
+245;1145;Sallmann Alexander;Gesetzlicher Jahresurlaub aliquotiert;2022-07-14;2022-07-15;validate;1.0;2.0;1.0;Urlaub
+247;1147;ausgeschieden/Steinecker Julia;Unbezahlt;2022-07-08;2022-07-08;validate;0.5;1.0;0.5;Urlaub
+253;1151;Waiss Martina;gesetzlicher Jahresurlaub;2022-08-07;2022-08-08;validate;2.0;1.0;-1.0;
+255;1153;Waiss Martina;gesetzlicher Jahresurlaub 2022;2022-08-21;2022-08-23;refuse;3.0;2.0;-1.0;
+256;1154;Breit Christiane;Gesetzlicher Jahresurlaub aliquotiert 2021;2022-07-17;2022-07-19;validate;3.0;2.0;-1.0;Urlaub
+259;1156;Sallmann Alexander;Gesetzlicher Jahresurlaub aliquotiert;2022-07-28;2022-07-29;validate;1.0;2.0;1.0;
+264;1160;Breit Christiane;gesetzlicher Jahresurlaub 2022;2022-08-10;2022-08-17;validate;5.0;6.0;1.0;Urlaub
+267;1161;ausgeschieden/Steinecker Julia;Unbezahlt;2022-10-24;2022-10-31;validate;5.0;7.0;2.0;Urlaub
+269;1163;Soritz Gerd;gesetzlicher Jahresurlaub;2022-09-04;2022-09-04;validate;1.0;0.0;-1.0;Urlaub
+274;1165;Würrer Florian;gesetzlicher Jahresurlaub 2022;2022-10-28;2022-10-28;validate;2.0;1.0;-1.0;Urlaub
+276;1166;Waiss Martina;gesetzlicher Jahresurlaub 2022;2022-10-23;2022-10-24;validate;2.0;1.0;-1.0;
+282;1170;Waiss Martina;gesetzlicher Jahresurlaub 2022;2022-11-20;2022-11-20;validate;1.0;0.0;-1.0;
+293;1175;Sallmann Alexander;Gesetzlicher Jahresurlaub aliquotiert;2022-12-29;2022-12-30;validate;1.0;2.0;1.0;Urlaub
+301;1178;Waiss Martina;gesetzlicher Jahresurlaub 2022;2023-02-05;2023-02-06;validate;2.0;1.0;-1.0;
+302;1179;ausgeschieden/Steinecker Julia;Unbezahlt;2023-02-20;2023-02-24;validate;4.5;5.5;1.0;Urlaub
+305;1182;Würrer Florian;gesetzlicher Jahresurlaub 2022;2023-06-23;2023-06-30;validate;5.0;6.0;1.0;Urlaub
+309;1185;Waiss Martina;gesetzlicher Jahresurlaub 2022;2023-04-02;2023-04-05;validate;4.0;3.0;-1.0;
+310;1186;ausgeschieden/Steinecker Julia;Unbezahlt;2023-04-03;2023-04-07;validate;4.5;5.5;1.0;Urlaub
+320;1192;ausgeschieden/Steinecker Julia;Unbezahlt;2023-07-24;2023-08-04;validate;10.0;11.0;1.0;Sommerurlaub
+321;1193;ausgeschieden/Steinecker Julia;Unbezahlt;2023-08-28;2023-09-08;validate;10.0;11.0;1.0;Sommerurlaub
+322;1194;Waiss Martina;gesetzlicher Jahresurlaub 2022;2023-05-21;2023-05-23;validate;3.0;2.0;-1.0;
+338;1204;Breit Christiane;gesetzlicher Jahresurlaub 2022;2023-06-25;2023-06-25;validate;1.0;0.0;-1.0;Urlaub
+343;1208;Sallmann Alexander;Gesetzlicher Jahresurlaub aliquotiert;2023-06-11;2023-06-11;validate;1.0;0.0;-1.0;Urlaub
+346;1209;Soritz Gerd;gesetzlicher Jahresurlaub;2023-07-16;2023-07-25;validate;8.0;7.0;-1.0;Urlaub
+351;1212;Czarnecki Clemens;gesetzlicher Jahresurlaub 2023;2023-08-13;2023-08-13;validate;1.0;0.0;-1.0;Urlaub Clemens
+353;1214;Sallmann Alexander;Gesetzlicher Jahresurlaub aliquotiert;2023-07-09;2023-07-09;validate;1.0;0.0;-1.0;Urlaub
+355;1216;Sallmann Alexander;Gesetzlicher Jahresurlaub aliquotiert;2023-07-16;2023-07-16;validate;1.0;0.0;-1.0;Urlaub
+356;1217;Waiss Martina;gesetzlicher Jahresurlaub 2023;2023-07-19;2023-07-26;validate;5.0;6.0;1.0;
+357;1218;Waiss Martina;gesetzlicher Jahresurlaub 2023;2023-08-10;2023-08-14;validate;2.0;3.0;1.0;
+363;1221;Breit Christiane;gesetzlicher Jahresurlaub 2023;2023-08-13;2023-08-13;validate;1.0;0.0;-1.0;Urlaub
+367;1225;Sallmann Alexander;Gesetzlicher Jahresurlaub aliquotiert;2023-09-07;2023-09-08;validate;1.0;2.0;1.0;Urlaub
+375;1230;Breit Christiane;gesetzlicher Jahresurlaub 2023;2023-10-01;2023-10-05;validate;5.0;4.0;-1.0;Urlaub
+391;1240;ausgeschieden/Vercimak Daniel;gesetzlicher Jahresurlaub 2021;2022-09-20;2022-09-20;validate;2.0;1.0;-1.0;
+411;1259;Soritz Gerd;gesetzlicher Jahresurlaub 2023;2023-10-29;2023-10-30;validate;2.0;1.0;-1.0;Urlaub
+412;1260;Pellkvist Tobias;gesetzlicher Jahresurlaub;2023-11-13;2023-11-26;validate;4.0;10.0;6.0;Urlaub
+438;1273;Czarnecki Clemens;gesetzlicher Jahresurlaub 2024;2024-02-04;2024-02-08;validate;5.0;4.0;-1.0;Urlaub Clemens
+442;1277;Pellkvist Tobias;gesetzlicher Jahresurlaub;2024-02-19;2024-03-07;validate;6.0;14.0;8.0;Urlaub
+444;1279;Breit Christiane;gesetzlicher Jahresurlaub 2023;2024-03-28;2024-04-04;validate;5.0;6.0;1.0;Urlaub
+472;1298;Breit Christiane;gesetzlicher Jahresurlaub 2023;2024-05-27;2024-05-31;validate;4.0;5.0;1.0;Urlaub
+483;1308;Breit Christiane;gesetzlicher Jahresurlaub 2023;2024-07-07;2024-07-11;validate;5.0;4.0;-1.0;Urlaub
+486;1311;Breit Christiane;gesetzlicher Jahresurlaub 2023;2024-07-14;2024-07-14;validate;1.0;0.0;-1.0;Urlaub
+494;1318;Pellkvist Tobias;gesetzlicher Jahresurlaub 2024;2024-07-28;2024-08-02;validate;3.0;5.0;2.0;Urlaub
+495;1319;Pellkvist Tobias;gesetzlicher Jahresurlaub 2024;2024-08-18;2024-08-23;validate;3.0;5.0;2.0;Urlaub
+496;1320;Tiefling Agnes;gesetzlicher Jahresurlaub;2024-08-16;2024-08-16;validate;0.5;1.0;0.5;Halber Urlaubstag
+499;1322;Soritz Gerd;gesetzlicher Jahresurlaub 2024;2024-09-01;2024-09-01;validate;1.0;0.0;-1.0;Urlaub
+503;1324;Breit Christiane;gesetzlicher Jahresurlaub 2023;2024-10-06;2024-10-07;validate;0.0;1.0;1.0;Krank
+511;1332;Soritz Gerd;gesetzlicher Jahresurlaub 2024;2024-12-22;2024-12-22;validate;1.0;0.0;-1.0;Urlaub
+516;1337;Sallmann Alexander;gesetzlicher Jahresurlaub 2023;2024-12-22;2024-12-22;validate;1.0;0.0;-1.0;Urlaub
+524;1340;Breit Christiane;gesetzlicher Jahresurlaub 2023;2024-12-22;2024-12-22;validate;1.0;0.0;-1.0;Urlaub
+530;1341;Tiefling Agnes;Krankheitsstände;2025-01-07;2025-01-10;validate;0.0;4.0;4.0;
+531;1342;Sallmann Alexander;Krankheitsstände;2025-01-07;2025-01-10;validate;0.0;4.0;4.0;
+532;1343;Tiefling Agnes;gesetzlicher Jahresurlaub;2025-02-10;2025-02-12;validate;2.5;3.0;0.5;
+533;1344;Tiefling Agnes;gesetzlicher Jahresurlaub 2025;2025-02-12;2025-02-12;validate;0.5;1.0;0.5;
+539;1348;Sallmann Alexander;gesetzlicher Jahresurlaub 2023;2025-02-02;2025-02-02;validate;1.0;0.0;-1.0;Urlaub Alex
+544;1353;Soritz Gerd;gesetzlicher Jahresurlaub 2024;2025-03-09;2025-03-10;validate;2.0;1.0;-1.0;Urlaub
+546;1354;Breit Christiane;gesetzlicher Jahresurlaub 2023;2025-02-02;2025-02-02;validate;1.0;0.0;-1.0;Urlaub
+548;1356;Waiss Martina;gesetzlicher Jahresurlaub 2024;2025-03-27;2025-03-27;validate;0.5;1.0;0.5;
+555;1363;Waiss Martina;gesetzlicher Jahresurlaub 2024;2025-04-30;2025-04-30;validate;0.5;1.0;0.5;
+556;1364;Pellkvist Tobias;gesetzlicher Jahresurlaub 2024;2025-05-04;2025-05-05;validate;2.0;1.0;-1.0;Urlaub
+558;1366;Sallmann Alexander;gesetzlicher Jahresurlaub 2023;2025-05-25;2025-05-25;validate;1.0;0.0;-1.0;Urlaub
+566;1371;Soritz Gerd;gesetzlicher Jahresurlaub 2025;2025-07-06;2025-07-13;validate;6.0;5.0;-1.0;Urlaub
+570;1374;Breit Christiane;gesetzlicher Jahresurlaub 2024;2025-08-03;2025-08-13;validate;9.0;8.0;-1.0;Urlaub
+573;1377;Sallmann Alexander;gesetzlicher Jahresurlaub 2024;2025-08-03;2025-08-03;validate;1.0;0.0;-1.0;Urlaub
+576;1380;Pellkvist Tobias;gesetzlicher Jahresurlaub 2024;2025-08-25;2025-08-27;validate;2.0;3.0;1.0;Urlaub
+578;1381;Pellkvist Tobias;gesetzlicher Jahresurlaub 2025;2025-09-01;2025-09-03;validate;2.0;3.0;1.0;Urlaub
+579;1382;Pellkvist Tobias;gesetzlicher Jahresurlaub 2025;2025-09-08;2025-09-10;validate;2.0;3.0;1.0;Urlaub
+580;1383;Pellkvist Tobias;gesetzlicher Jahresurlaub 2025;2025-09-15;2025-09-17;validate;2.0;3.0;1.0;Urlaub
+591;1391;Tiefling Agnes;Krankheitsstände;2025-09-08;2025-09-17;validate;0.0;8.0;8.0;
+614;1409;Sallmann Alexander;gesetzlicher Jahresurlaub 2024;2025-12-28;2025-12-28;validate;1.0;0.0;-1.0;Urlaub
+622;1410;Waiss Martina;Pflegeurlaub;2026-01-08;2026-01-08;validate;0.0;1.0;1.0;
+623;1411;Waiss Martina;Krankheitsstände;2026-01-09;2026-01-09;validate;0.0;1.0;1.0;
+625;1412;Pellkvist Tobias;gesetzlicher Jahresurlaub 2025;2026-02-09;2026-02-10;validate;1.0;2.0;1.0;
+637;1422;Pellkvist Tobias;Krankheitsstände;2026-02-12;2026-02-13;validate;0.0;2.0;2.0;
+652;1434;Blagojevic Dejvid;gesetzlicher Jahresurlaub;2026-04-02;2026-04-03;validate;1.0;2.0;1.0;Urlaub
+654;1436;Würrer Florian;Krankheitsstände;2026-04-20;2026-04-20;validate;0.0;1.0;1.0;
+666;1448;Osagie Jonathan;gesetzlicher Jahresurlaub 2026;2026-06-04;2026-06-04;refuse;2.0;1.0;-1.0;Urlaub
+667;1449;Osagie Jonathan;gesetzlicher Jahresurlaub 2026;2026-06-08;2026-06-08;validate;2.0;1.0;-1.0;Urlaub
+668;1450;Osagie Jonathan;gesetzlicher Jahresurlaub 2026;2026-06-15;2026-06-15;validate;2.0;1.0;-1.0;Urlaub
+673;1454;Waiss Martina;gesetzlicher Jahresurlaub 2025;2026-07-12;2026-07-20;validate;7.0;6.0;-1.0;
+676;1457;Würrer Florian;Pflegeurlaub;2026-06-08;2026-06-12;validate;0.0;5.0;5.0;
+683;1464;Pellkvist Tobias;Krankheitsstände;2026-07-06;2026-07-06;validate;0.0;1.0;1.0;
+686;1467;Sallmann Alexander;gesetzlicher Jahresurlaub 2025;2026-07-26;2026-07-27;validate;2.0;1.0;-1.0;Urlaub Alexander 
+688;1469;Osagie Jonathan;Krankheitsstände;2026-07-19;2026-07-23;validate;0.0;4.0;4.0;
+695;1476;Osagie Jonathan;Umzugstage;2026-08-20;2026-08-21;validate;0.0;2.0;2.0;
+699;1480;Blagojevic Dejvid;gesetzlicher Jahresurlaub;2026-08-27;2026-08-28;validate;1.0;2.0;1.0;Urlaub
+706;1487;Osagie Jonathan;Arbeitssuchtag;2026-09-02;2026-09-02;validate;0.0;1.0;1.0;
+707;1488;Osagie Jonathan;Arbeitssuchtag;2026-09-11;2026-09-11;validate;0.0;1.0;1.0;Osagie Jonathan
+711;1491;Blagojevic Dejvid;gesetzlicher Jahresurlaub;2026-10-26;2026-10-30;confirm;4.0;5.0;1.0;Herbstferien
