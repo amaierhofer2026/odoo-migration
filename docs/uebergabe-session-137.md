@@ -92,7 +92,27 @@ Protokolle: `%LOCALAPPDATA%\Temp\anwesenheiten_migration\`, Screenshots
 | Odoo 11 waechst weiter (Antraege, Anwesenheiten, Zeiterfassung): vor einem Produktivstart Nachzug mit den idempotenten Werkzeugen einplanen | alle Bereiche |
 | Bereiche, die noch nicht abgenommen sind: Helpdesk (abgeschlossen), Kontakte/Kundenverwaltung, CRM, Abrechnung (migrationsbereit) | naechste Sessions |
 
-## 8. Git-Stand
+## 8. Git-Stand und Dreistand
 
-Arbeitsbranch `s137-anwesenheiten-urlaub`, Commits siehe `git log`. Nach dem Merge
-wird dieser Abschnitt um Merge-Commit, Baum-Hash und den Dreistand-Nachweis ergaenzt.
+- Arbeitsbranch `s137-anwesenheiten-urlaub` mit zwei Commits
+  (`d0a1429` Modul und Werkzeuge, `191b1f6` Doku und Referenzwerte),
+  PR **#240**, Merge-Commit **`c83a611`** ("Merge PR #240").
+- Dieser Doku-Nachzug ist der letzte Commit auf `main`. Nach dem Merge gilt:
+  `git rev-parse HEAD` liefert lokal, auf GitHub (`origin/main`) und auf der VM
+  (`/opt/odoo18`) denselben Wert, `git rev-parse HEAD^{tree}` denselben Baum-Hash.
+- Arbeitsbaeume lokal und VM sauber (`git status --porcelain` leer,
+  `git diff --stat origin/main` leer auf der VM).
+- VM-Stash `S124: VM-Altsstand der Vorsession` unangetastet.
+
+### 8.1 Pruefungen auf dem finalen `main`-Stand (lokal und VM, 28.10.2026)
+
+| Pruefung | lokal | VM |
+|---|---|---|
+| `verify_s137_anwesenheiten.py` | 65 OK / 0 FEHLER | 65 OK / 0 FEHLER |
+| `browser_anwesenheiten_abnahme.py` (Chrome) | 28 OK / 0 FEHLER | 28 OK / 0 FEHLER |
+| `verify_personal.py` | 54 OK / 0 FEHL | 54 OK / 0 FEHL |
+| `verify_s135_projekt.py` | 20 OK / 0 FEHLER | 20 OK / 0 FEHLER |
+| `verify_s136_zeiterfassung.py` | 81 OK / 0 FEHLER | 81 OK / 0 FEHLER |
+| `abschluss_verkauf_regression.py` | 881 OK / 0 FEHL (11 Prueflaeufe, lokal und VM) | siehe lokal |
+| Modulstand `itk_hr_leave_compat` | 18.0.1.0.0 (installiert) | 18.0.1.0.0 (installiert) |
+| Testreste | keine | keine |
