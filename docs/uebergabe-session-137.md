@@ -98,7 +98,8 @@ Protokolle: `%LOCALAPPDATA%\Temp\anwesenheiten_migration\`, Screenshots
   (`d0a1429` Modul und Werkzeuge, `191b1f6` Doku und Referenzwerte),
   PR **#240**, Merge-Commit **`c83a611`** ("Merge PR #240").
 - Doku-Nachzug: Branch `s137-abschluss-doku`, Commit `2f79d98`, PR **#241**,
-  Merge-Commit **`f7f72c5`** = aktueller Stand auf `main`.
+  Merge-Commit **`f7f72c5`**. Danach folgen nur noch Doku-Nachzuege am Sitzungsende
+  (diese Uebergabe selbst); massgeblich ist immer der HEAD von `main` (`git log -1`).
 - Dreistand-Nachweis vom 28.10.2026:
 
 | Nachweis | Wert |
