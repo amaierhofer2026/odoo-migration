@@ -39,6 +39,46 @@
 
 ---
 
+## 0.0 Abgenommene Module (Stand 27.10.2026, Session 136)
+
+| Modul | Status | Nachweis |
+|---|---|---|
+| **Projekt** | ABGENOMMEN (Session 135) | 33 Projekte, 715 Aufgaben, 87 Stufen, 13 Stichwoerter migriert; `verify_s135_projekt.py` 20 OK / 0 FEHLER; Browser lokal und VM |
+| **Personal** | ABGENOMMEN | `verify_personal.py` 54 OK / 0 FEHLER |
+| **Zeiterfassung** | **ABGENOMMEN / Datenmigration abgeschlossen / keine offenen Blocker** | siehe unten |
+
+### Zeiterfassung — Referenz-Endstand (27.10.2026)
+
+| Punkt | Wert |
+|---|---|
+| migrierte Zeiterfassungszeilen | **12.917** |
+| Stunden | **16.832,47** |
+| fehlende Zeilen | **0** |
+| doppelte Zeilen | **0** |
+| Verifikation `verify_s136_zeiterfassung.py` | **81 OK / 0 FEHLER lokal und VM** |
+| Struktur `verify_s135_zeiterfassung.py` | 56 OK / 0 FEHLER lokal und VM |
+| Browserabnahme | **bestanden, lokal und VM** (Listen, Suche, Filter, Gruppierungen, Formular, Pivot, Start/Stopp, Rechte 607/608) |
+| Regression Verkauf/Abrechnung | **881 OK / 0 FEHL** |
+| Regression Personal | **54 OK / 0 FEHL** |
+| Regression Projekt | **20 OK / 0 FEHL** |
+| Testreste | **keine** (0 Testzeilen, 0 Testbenutzer, lokal und VM) |
+| Dreistand | **main = lokal = GitHub = VM** |
+| Modulstand | `itk_timesheet` 18.0.1.0.6 |
+
+**Ab jetzt keine Aenderungen mehr an der Zeiterfassung** (Auflage Session 136).
+
+Dokumentierte Punkte ausserhalb der Zeiterfassung (keine offenen Blocker der Zeiterfassung):
+
+| Punkt | Zustand | Zustaendiger Bereich |
+|---|---|---|
+| Abwesenheit #87 auf der VM (Koch Katharina, 2021-06-01) ist nur „Zu genehmigen" (`confirm`); lokal gebucht (`validate`, #1090). Deshalb 11 Zeiterfassungszeilen auf der VM ohne Abwesenheitsbezug. | dokumentiert, nicht geaendert | **Anwesenheiten/Urlaub** (nach dem Buchen zieht ein idempotenter Lauf den Bezug nach) |
+| Zwei Projektkunden fehlen in Odoo 18: „[70101] Statutarstadt Innsbruck", „[WLV-Voeslau] Wasserleitungsverband der Triestingtal- und Suedbahngemeinden" | dokumentiert, nicht geaendert | **Kunden-/Partnerzuordnung** (Abhaengigkeit, kein Punkt der Zeiterfassung) |
+| Startzeit historischer Zeilen ist als 00:00 UTC gespeichert (Odoo 11 kannte keine Startzeit); die Oberflaeche zeigt Wiener Zeit, also 01:00 bzw. 02:00. Datum und Dauer sind exakt, die Endzeit setzt Odoo 18 auf Startzeit + Dauer. | dokumentiert, technisch bedingt | **bekannte Zeitzonen-Darstellung** (kein offener Punkt, solange Datum und Dauer korrekt sind) |
+
+Details: `docs/o11-o18-zeiterfassung-abnahme.md`, Abschnitte 10 und 11.
+
+---
+
 ## 0. Modulinventar (Aufgabe 1) — Stand 01.09.2026
 
 **Zahlensetzung:** Die 158 technisch installierten Module sind **nicht** „zu testende Module“. Sie zerfallen in:

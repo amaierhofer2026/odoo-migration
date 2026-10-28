@@ -91,17 +91,40 @@ Protokolle: `%LOCALAPPDATA%\Temp\zeiterfassung_migration\` (u. a. `ergebnis_loka
 `ergebnis_vm.json`, `abnahme_lokal.json`, `abnahme_vm.json`).
 Screenshots: `%LOCALAPPDATA%\Temp\zeit_daten_*.png`, `zeit_rechte_*.png`.
 
-## 6. Offene Punkte
+## 6. Abnahmestatus (Anna, 27.10.2026)
 
-1. **Abwesenheit #87 auf der VM** (Koch Katharina, 2021-06-01) ist "Zu genehmigen";
-   nach dem Buchen 11 Zeilen nachziehen (`zeiterfassung_migration.py --instanz vm
-   --ausfuehren ...`, idempotent).
-2. Zwei Projektkunden fehlen in Odoo 18 ("[70101] Statutarstadt Innsbruck",
-   "[WLV-Voeslau] Wasserleitungsverband ...") - Kundenmigration offen.
-3. 19 Zeilen fremder Testbestand und 3 offene Alt-Timer bleiben stehen
-   (bewusst nicht geloescht).
-4. Favorit 131 (Support-Ticket-Bericht) bewusst nicht uebernommen (in Odoo 11
-   schon ohne Treffer).
+**Zeiterfassung: ABGENOMMEN / Datenmigration abgeschlossen / keine offenen Blocker.**
+
+Ab jetzt **keine Aenderungen mehr an der Zeiterfassung**.
+
+Referenz-Endstand:
+
+| Punkt | Wert |
+|---|---|
+| migrierte Zeiterfassungszeilen | 12.917 |
+| Stunden | 16.832,47 |
+| fehlende | 0 |
+| doppelte | 0 |
+| Verifikation | 81 OK / 0 FEHLER lokal und VM |
+| Struktur | 56 OK / 0 FEHLER lokal und VM |
+| Browser | bestanden, lokal und VM |
+| Regression Verkauf/Abrechnung | 881 OK / 0 FEHL |
+| Regression Personal | 54 OK / 0 FEHL |
+| Regression Projekt | 20 OK / 0 FEHL |
+| Testreste | keine |
+| Dreistand | main = lokal = GitHub = VM |
+
+Drei Punkte sind ausschliesslich fuer die spaeter zustaendigen Bereiche
+dokumentiert (keine offenen Blocker der Zeiterfassung):
+
+| Punkt | Zustaendiger Bereich |
+|---|---|
+| Abwesenheit #87 auf der VM (Koch Katharina, 2021-06-01) ist nur "Zu genehmigen"; dadurch 11 Zeiterfassungszeilen ohne Bezug. Nach dem Buchen zieht ein idempotenter Lauf den Bezug nach. | **Anwesenheiten/Urlaub** |
+| Zwei Projektkunden fehlen in Odoo 18 ("[70101] Statutarstadt Innsbruck", "[WLV-Voeslau] Wasserleitungsverband ..."). | **Kunden-/Partnerzuordnung** (Abhaengigkeit) |
+| Startzeit als 00:00 UTC gespeichert, Anzeige in Wiener Zeit 01:00/02:00; Datum und Dauer exakt, Endzeit = Start + Dauer. | **bekannte Zeitzonen-Darstellung** |
+
+Weiterhin bewusst unveraendert: 19 Zeilen fremder Testbestand und 3 offene
+Alt-Timer (nicht geloescht), Favorit 131 nicht uebernommen.
 
 ## 7. Git-Stand
 
