@@ -97,9 +97,18 @@ Protokolle: `%LOCALAPPDATA%\Temp\anwesenheiten_migration\`, Screenshots
 - Arbeitsbranch `s137-anwesenheiten-urlaub` mit zwei Commits
   (`d0a1429` Modul und Werkzeuge, `191b1f6` Doku und Referenzwerte),
   PR **#240**, Merge-Commit **`c83a611`** ("Merge PR #240").
-- Dieser Doku-Nachzug ist der letzte Commit auf `main`. Nach dem Merge gilt:
-  `git rev-parse HEAD` liefert lokal, auf GitHub (`origin/main`) und auf der VM
-  (`/opt/odoo18`) denselben Wert, `git rev-parse HEAD^{tree}` denselben Baum-Hash.
+- Doku-Nachzug: Branch `s137-abschluss-doku`, Commit `2f79d98`, PR **#241**,
+  Merge-Commit **`f7f72c5`** = aktueller Stand auf `main`.
+- Dreistand-Nachweis vom 28.10.2026:
+
+| Nachweis | Wert |
+|---|---|
+| GitHub `main` | `f7f72c5792282baeac5e9f58dcdcd05d8f6bc30b` |
+| lokal `HEAD` | `f7f72c5792282baeac5e9f58dcdcd05d8f6bc30b` |
+| VM `/opt/odoo18` `HEAD` | `f7f72c5792282baeac5e9f58dcdcd05d8f6bc30b` |
+| Baum-Hash (lokal = VM) | `eadbb7ceab1bf4f2621cbd4664eb5d091a0e98de` |
+| `git ls-tree -r HEAD \| sha1sum` (lokal = VM) | `068d631e2fb351675b43a461c7f82f3a24dcdb1d` |
+| `git diff --stat origin/main` | leer (lokal und VM) |
 - Arbeitsbaeume lokal und VM sauber (`git status --porcelain` leer,
   `git diff --stat origin/main` leer auf der VM).
 - VM-Stash `S124: VM-Altsstand der Vorsession` unangetastet.
@@ -116,3 +125,41 @@ Protokolle: `%LOCALAPPDATA%\Temp\anwesenheiten_migration\`, Screenshots
 | `abschluss_verkauf_regression.py` | 881 OK / 0 FEHL (11 Prueflaeufe, lokal und VM) | siehe lokal |
 | Modulstand `itk_hr_leave_compat` | 18.0.1.0.0 (installiert) | 18.0.1.0.0 (installiert) |
 | Testreste | keine | keine |
+
+## 9. Start der naechsten Session
+
+Erste Befehle (Stand und VM-Gleichstand pruefen):
+
+```
+cd C:\Odoo-Test
+git status --short --branch && git log --oneline -3
+python "$LOCALAPPDATA/Temp/vm_exec.py" "cd /opt/odoo18 && git log --oneline -1; git status --porcelain | wc -l"
+```
+
+Schnelle Regression vor dem ersten Eingriff (jeweils `--instanz lokal` und `--instanz vm`):
+
+```
+python scripts/verify_s137_anwesenheiten.py --instanz lokal
+python scripts/verify_personal.py --instanz lokal
+python scripts/verify_s135_projekt.py --instanz lokal
+python scripts/verify_s136_zeiterfassung.py --instanz lokal
+python scripts/abschluss_verkauf_regression.py
+```
+
+Odoo 11 ist weiter produktiv: Personal, Zeiterfassung und Urlaub wachsen. Vor jedem
+Produktivstart die idempotenten Werkzeuge erneut laufen lassen
+(`hr_migration.py`, `zeiterfassung_migration.py`, `anwesenheiten_migration.py`,
+`anwesenheiten_zeiterfassung_bezug.py`) und die Pruefzahlen in der Checkliste nachziehen.
+
+## 10. Offene Bereiche (Kandidaten fuer die naechste Session)
+
+| Bereich | Struktur | Datenmigration | Bemerkung |
+|---|---|---|---|
+| Kontakte / Kundenverwaltung (Checkliste 6.1-6.10) | migrationsbereit | **offen** | Bestand Odoo 11: 2.380 Unternehmen, 3.461 Personen, 3.355 Kontakte mit `parent_id`, 5.307 Tag-Zuordnungen; Migrationsregel Organisation = Unternehmen, Ansprechpartner = Person |
+| CRM / Verkaufschancen (6.11, 6.12) | migrationsbereit, VM-abgenommen | **offen** | Stages, Teams, Kategorien vorhanden |
+| Abrechnung (6.16) | MIGRATIONSBEREIT seit 08.10.2026 | **offen** | keine Aenderungen ohne konkreten Fehler (Auflage Anna); Konten 8400/3400 als globale Firmenvorgabe, Steuern 77/2 geprueft |
+| Helpdesk | abgenommen (Session 132) | erledigt | offen nur extern: `mail.catchall.domain`, recaptcha-Schluessel |
+| Projekt, Personal, Zeiterfassung, Anwesenheiten/Urlaub, Verkauf, Abonnements | **abgenommen und gesperrt** | erledigt | keine Aenderungen ohne neuen Auftrag |
+
+Empfehlung fuer den Einstieg: Kontakte/Kundenverwaltung, weil dort die meisten
+Abhaengigkeiten fuer die uebrigen Bereiche liegen (zwei Projektkunden fehlen in Odoo 18).
