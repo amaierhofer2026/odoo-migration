@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ================================================================
+         Menues im Odoo-11-Wortlaut
+         Odoo 11: App "Urlaubsantraege" mit "Mein Urlaubskonto",
+         "Zu bestaetigender Urlaub" und "Berichtswesen".
+         Odoo 18: App "Abwesenheiten" mit "Meine Zeit", "Uebersicht",
+         "Verwaltung", "Berichtswesen", "Konfiguration", "Feiertage".
+         Die Odoo-18-Eintraege bleiben erhalten (Dashboard, Uebersicht,
+         Verwaltung, Konfiguration, Saldo, Feiertage); die Odoo-11-Namen
+         werden gesetzt und die fehlenden Odoo-11-Eintraege ergaenzt.
+         ================================================================ -->
+
+    <record id="hr_holidays.menu_hr_holidays_root" model="ir.ui.menu">
+        <field name="name">Urlaubsanträge</field>
+    </record>
+
+    <record id="hr_holidays.menu_hr_holidays_my_leaves" model="ir.ui.menu">
+        <field name="name">Mein Urlaubskonto</field>
+        <field name="sequence">2</field>
+    </record>
+
+    <record id="hr_holidays.hr_leave_menu_my" model="ir.ui.menu">
+        <field name="name">Urlaubsantrag</field>
+    </record>
+
+    <record id="hr_holidays.menu_open_allocation" model="ir.ui.menu">
+        <field name="name">Urlaubsanspruch anfragen</field>
+    </record>
+
+    <record id="hr_holidays.menu_hr_holidays_management" model="ir.ui.menu">
+        <field name="name">Zu bestätigender Urlaub</field>
+        <field name="sequence">3</field>
+        <field name="groups_id" eval="[(6, 0, [ref('hr_holidays.group_hr_holidays_user')])]"/>
+    </record>
+
+    <record id="hr_holidays.menu_open_department_leave_approve" model="ir.ui.menu">
+        <field name="name">Urlaubsanträge</field>
+    </record>
+
+    <record id="hr_holidays.hr_holidays_menu_manager_approve_allocations" model="ir.ui.menu">
+        <field name="name">Urlaubsanspruch</field>
+    </record>
+
+    <record id="hr_holidays.menu_hr_available_holidays_report_tree" model="ir.ui.menu">
+        <field name="name">Urlaubdetails</field>
+    </record>
+
+    <!-- Auswertung Urlaubskonto (Odoo 11: Menue 405, Aktion 558) -->
+    <record id="action_itk_urlaubskonto" model="ir.actions.act_window">
+        <field name="name">Auswertung Urlaubskonto</field>
+        <field name="res_model">hr.leave</field>
+        <field name="view_mode">list,pivot,graph</field>
+        <field name="domain">[('state', '!=', 'cancel')]</field>
+        <field name="context">{'search_default_group_employee': 1, 'search_default_group_type': 1}</field>
+        <field name="search_view_id" ref="hr_holidays.hr_leave_view_search_report"/>
+    </record>
+
+    <menuitem id="menu_itk_urlaubskonto" name="Auswertung Urlaubskonto"
+              parent="hr_holidays.menu_hr_holidays_my_leaves"
+              action="action_itk_urlaubskonto" sequence="21"/>
+
+    <!-- Bericht "Urlaubsantraege" (Odoo 11: Menue 411, Aktion 574) -->
+    <record id="action_itk_urlaubsantraege_bericht" model="ir.actions.act_window">
+        <field name="name">Urlaubsanträge</field>
+        <field name="res_model">hr.leave</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[]</field>
+        <field name="view_id" ref="hr_holidays.view_holiday_list"/>
+        <field name="search_view_id" ref="hr_holidays.hr_leave_view_search_report"/>
+    </record>
+
+    <menuitem id="menu_itk_urlaubsantraege_bericht" name="Urlaubsanträge"
+              parent="hr_holidays.menu_hr_holidays_report"
+              action="action_itk_urlaubsantraege_bericht" sequence="5"
+              groups="hr_holidays.group_hr_holidays_user"/>
+
+    <!-- Bericht "Urlaub nach Abteilung" (Odoo 11: Menue 410, Aktion 571) -->
+    <record id="action_itk_urlaub_nach_abteilung" model="ir.actions.act_window">
+        <field name="name">Urlaub nach Abteilung</field>
+        <field name="res_model">hr.leave</field>
+        <field name="view_mode">graph,pivot,list</field>
+        <field name="domain">[('state', '!=', 'cancel')]</field>
+        <field name="context">{'search_default_group_department': 1}</field>
+        <field name="search_view_id" ref="hr_holidays.hr_leave_view_search_report"/>
+    </record>
+
+    <menuitem id="menu_itk_urlaub_nach_abteilung" name="Urlaub nach Abteilung"
+              parent="hr_holidays.menu_hr_holidays_report"
+              action="action_itk_urlaub_nach_abteilung" sequence="10"
+              groups="hr_holidays.group_hr_holidays_user"/>
+
+    <!-- ================================================================
+         Anwesenheiten: Odoo-11-Bezeichnungen
+         Odoo 11: App "Anwesenheiten" > "Check In / Check Out" und
+         "Anwesenheitszeiten verwalten > Anwesenheiten"; Bericht
+         "Anwesenheits-Analyse".
+         Odoo 18: "Uebersicht", "Verwaltung", "Kioskmodus",
+         "Berichtswesen", "Konfiguration". Check In/Check Out erfolgt in
+         Odoo 18 ueber die Uhr in der Kopfleiste bzw. den Kioskmodus.
+         ================================================================ -->
+    <record id="hr_attendance.menu_hr_attendance_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4, ref('group_itk_anwesenheit_manuell'))]"/>
+    </record>
+
+    <record id="hr_attendance.menu_hr_attendance_view_attendances" model="ir.ui.menu">
+        <field name="name">Anwesenheiten</field>
+        <field name="groups_id" eval="[(4, ref('group_itk_anwesenheit_manuell'))]"/>
+    </record>
+
+    <record id="hr_attendance.menu_hr_attendance_reporting" model="ir.ui.menu">
+        <field name="name">Anwesenheits-Analyse</field>
+    </record>
+
+</odoo>

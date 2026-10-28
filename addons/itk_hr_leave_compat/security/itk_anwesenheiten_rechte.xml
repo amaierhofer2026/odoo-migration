@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ================================================================
+         Gruppe "Anwesenheit manuell" = Odoo-11-Gruppe 34
+         Odoo 11: 24 Benutzer durften die EIGENEN Anwesenheiten erfassen und
+         korrigieren (ir.model.access 355 r/w/c ohne Loeschen und die
+         Datensatzregeln 69/141 employee_id.user_id = user.id).
+         Odoo 18: interne Benutzer duerfen Anwesenheiten nur lesen (Gruppe
+         "Technisch / Benutzer: Die eigenen Anwesenheiten lesen").
+         ================================================================ -->
+    <record id="group_itk_anwesenheit_manuell" model="res.groups">
+        <field name="name">Anwesenheit manuell</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <record id="rule_itk_anwesenheit_eigene" model="ir.rule">
+        <field name="name">Anwesenheit manuell: nur eigene Zeiten (ITK)</field>
+        <field name="model_id" ref="hr_attendance.model_hr_attendance"/>
+        <field name="groups" eval="[(4, ref('group_itk_anwesenheit_manuell'))]"/>
+        <field name="domain_force">[('employee_id.user_id', '=', user.id)]</field>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="access_itk_anwesenheit_manuell" model="ir.model.access">
+        <field name="name">hr.attendance anwesenheit manuell</field>
+        <field name="model_id" ref="hr_attendance.model_hr_attendance"/>
+        <field name="group_id" ref="group_itk_anwesenheit_manuell"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+</odoo>
