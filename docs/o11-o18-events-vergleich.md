@@ -433,12 +433,16 @@ Kennungen und Schluessel, keine Namen und keine E-Mail-Adressen).
    bei 2 Veranstaltungen `auto_confirm = False`.
 5. **Kein Chatter, keine Anhaenge.** 99 Prozent der Odoo-11-Nachrichten sind automatische
    Systemnotizen; die 6 Teilnehmerausweis-PDFs sind regenerierbar.
-6. **Rechte weichen ab (Odoo-18-Standard, nicht geaendert):** Odoo 11 erlaubte Benutzern
-   nur Lesen von Veranstaltungen (`r1 w0 c0 u0`), Odoo 18 erlaubt Lesen, Schreiben und
-   Anlegen (`r1 w1 c1 u0`), Loeschen nur Manager. Umgekehrt erlaubte Odoo 11 Benutzern
-   volles Arbeiten an Teilnehmern und Mailplanern, Odoo 18 nicht. Eine Verengung haette
-   Odoo-18-Standardablaeufe (Anmeldeschalter, Mailplanung) gebrochen; die Abweichung wird
-   dokumentiert statt per Record Rule erzwungen. Entscheidung Anna offen.
+6. **Rechte: Odoo-18-Standard bleibt ausdruecklich bestehen (Entscheidung Anna,
+   30.10.2026).** Odoo 11 erlaubte Benutzern nur Lesen von Veranstaltungen
+   (`r1 w0 c0 u0`), Odoo 18 erlaubt Lesen, Schreiben und Anlegen (`r1 w1 c1 u0`),
+   Loeschen nur Manager. **Kein Rueckbau auf die engeren Odoo-11-Rechte.**
+   Soll-Stand fuer normale Event-Benutzer: lesen ja, anlegen ja, bearbeiten ja,
+   loeschen nein; Loeschen und administrative Funktionen nur fuer Manager.
+   Geprueft mit zwei Testbenutzern (lokal und VM): Benutzer liest/schreibt/legt an,
+   Loeschen wird verweigert; Manager darf alles. Die Gruppen sind ueber den Login aus
+   Odoo 11 abgebildet (23 Benutzer, 14 Manager vorhanden; die uebrigen Logins gibt es in
+   Odoo 18 nicht und werden nicht angelegt).
 7. **Mailversand ist aus.** Cron stillgelegt, bis der Bereich Kontakte/Teilnehmer migriert
    ist. Reaktivierung: `scripts/events_cron_schalten.py` (Folgeauftrag) bzw. Feld `active`.
 
@@ -468,3 +472,37 @@ Die Pruefskripte vergleichen gegen den **Livebestand Odoo 11**, das weiter produ
   Bereich Events schreibt nur in event.* und itk_events_compat. Nachzug mit den
   idempotenten Werkzeugen (`anwesenheiten_migration.py`, `zeiterfassung_migration.py`) vor
   einem Produktivstart, wie in der Uebergabe Session 137 festgehalten.
+
+### 17.6 Endstand und Abnahme (30.10.2026)
+
+| Pruefung | lokal | VM |
+|---|---|---|
+| `verify_s138_events.py` | 61 OK / 0 FEHLER | 61 OK / 0 FEHLER |
+| `browser_events_abnahme.py` (Chrome) | 35 OK / 0 FEHLER | 35 OK / 0 FEHLER |
+| `events_labels_de.py` | 0 offen | 0 offen |
+| Rechteprobe mit zwei Testbenutzern | bestanden | bestanden |
+| Migration (ausgefuehrt) | 122 Veranstaltungen, 2 Kategorien, 170 Mailplaner | identisch |
+| Zweiter Lauf (Idempotenz) | 0 Neuanlagen, 122 Aktualisierungen, 170 Planer vorhanden | identisch |
+| Kontrollzahl Kontakte | 96 aktiv, 7 inaktiv, keine Neuanlage | 89 aktiv, 6 inaktiv, keine Neuanlage |
+| Teilnehmer | 0 | 0 |
+| Modulstand `itk_events_compat` | 18.0.1.0.3 | 18.0.1.0.3 |
+
+**Kein Mailversand moeglich (Nachweis):**
+1. Cron "Event: Mail Scheduler" ist auf beiden Instanzen `active = False`
+   (`scripts/events_cron_schalten.py` zeigt den Zustand).
+2. Alle 170 uebernommenen Mailplaner tragen `mail_done = True`.
+3. Es gibt 0 Teilnehmer in Odoo 18, damit auch keine `event.mail.registration`-Zeile, die
+   der Cron auswerten koennte (`search_count = 0`).
+4. Odoo-18-Standardplaner (mail_done = False) an uebernommenen Veranstaltungen wurden
+   entfernt; die Migration raeumt sie bei jedem Lauf erneut ab.
+
+**Keine personenbezogenen Daten (Nachweis):** `res.partner` hat exakt den Stand vor der
+Migration (lokal 96 aktive, VM 89 aktive), kein Kontakt mit `create_date` nach der ersten
+uebernommenen Veranstaltung, `event.registration = 0`, `event.organizer_id` und
+`event.address_id` bei allen 122 Veranstaltungen leer, keine E-Mail-Adresse in `event.*`.
+
+**Status: EVENTS ABGENOMMEN und GESPERRT (30.10.2026, Session 138).**
+Keine funktionalen Aenderungen mehr ohne neuen Auftrag. Nachzuziehen sind ausschliesslich:
+Kontakt-/Teilnehmermigration (eigener Bereich), Nachverknuepfung ueber
+`x_o11_organizer_id`/`x_o11_address_id` und die beiden CSV-Listen, danach Reaktivierung des
+Mailversands.

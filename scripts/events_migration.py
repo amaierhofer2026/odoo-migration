@@ -40,7 +40,8 @@ from _o11o18_client import o11, o18  # noqa: E402
 DE = {"lang": "de_DE"}
 BASIS = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROTO = os.path.join(os.environ.get("LOCALAPPDATA", "."), "Temp", "events_migration")
-CSV_PFAD = os.path.join(BASIS, "docs", "o11-o18-events-nachverknuepfung.csv")
+# Die Odoo-18-IDs sind je Instanz verschieden -> eine Liste je Instanz
+CSV_PFAD = os.path.join(BASIS, "docs", "o11-o18-events-nachverknuepfung-%s.csv")
 
 # Odoo-11-Status -> Reihenfolge der Odoo-18-Phase
 STATUS_PHASE = {"draft": 1, "confirm": 2, "done": 5, "cancel": 6}
@@ -341,8 +342,9 @@ class Lauf:
     def schreibe_csv(self):
         if not self.schreiben:
             return
-        os.makedirs(os.path.dirname(CSV_PFAD), exist_ok=True)
-        with open(CSV_PFAD, "w", encoding="utf-8", newline="") as fh:
+        pfad = CSV_PFAD % self.instanz
+        os.makedirs(os.path.dirname(pfad), exist_ok=True)
+        with open(pfad, "w", encoding="utf-8", newline="") as fh:
             w = csv.writer(fh, delimiter=";")
             w.writerow(["typ", "o11_id", "o18_id", "schluessel", "partner_o11_id", "hinweis"])
             for zeile in self.nach:
@@ -362,7 +364,7 @@ class Lauf:
                 print("   -", o)
         print("\nModus:", "AUSGEFUEHRT" if self.schreiben else "TROCKENLAUF (nichts geschrieben)")
         if self.schreiben:
-            print("Nachverknuepfung:", CSV_PFAD)
+            print("Nachverknuepfung:", CSV_PFAD % self.instanz)
 
 
 def main():

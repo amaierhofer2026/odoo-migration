@@ -12,7 +12,7 @@ Migration aller Odoo-Module von **Version 11 nach Version 18** für ITK (IT Komm
 
 ## Status: Bereich Events migriert (nicht personenbezogen)
 
-**EVENTS: STRUKTUR UND NICHT PERSONENBEZOGENE DATEN MIGRIERT** (28.10.2026, Session 138).
+**EVENTS: ABGENOMMEN UND GESPERRT** (30.10.2026, Session 138) - Struktur und nicht personenbezogene Daten migriert, lokal und VM abgenommen.
 Der Bereich war in Odoo 18 nicht vorhanden; `event` 18.0.1.9 und `website_event` 18.0.1.4
 wurden installiert, das neue Modul `itk_events_compat` 18.0.1.0.3 stellt Menues, Statusphasen,
 Felder und Berichte im Odoo-11-Wortlaut her.
