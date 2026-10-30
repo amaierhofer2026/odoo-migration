@@ -56,7 +56,8 @@ def main():
         quelle = quelle[0]["id"]
 
     try:
-        url = env.get("ODOO18_URL", "http://localhost:8069") if a.instanz == "lokal" else "https://k001959vsx.ipax.local"
+        url = (env.get("ODOO18_URL", "http://localhost:8069") if a.instanz == "lokal"
+               else "https://k001959vsx.ipax.at")
         c = Client(url, env["ODOO18_DB"], login, pwd)
         print("\n=== Rechteprobe als Benutzer der Gruppe E-Mail-Marketing ===")
         print("  Mailings lesen:", c.kw("mailing.mailing", "search_count", [[]]))
