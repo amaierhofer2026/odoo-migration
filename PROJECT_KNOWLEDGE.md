@@ -9472,3 +9472,13 @@ beiden Instanzen bestanden, zweiter Migrationslauf je 0 Neuanlagen. Entscheidung
 Odoo-18-Rechte bleiben (Event-Benutzer lesen/anlegen/bearbeiten, kein Loeschen; Loeschen
 und Administration nur Manager) - kein Rueckbau auf die engeren Odoo-11-Rechte.
 Status: EVENTS ABGENOMMEN und GESPERRT. Nachzug nur ueber den Bereich Kontakte/Personen.
+
+Nachtrag E-Mail-Marketing (read-only, 30.10.2026): Bestand Odoo 11 = 161 Massenmailings
+(130 gesendet, 31 Entwurf, 3 mit geplantem Sendedatum), 8 Mailinglisten (4.430 Kontakte in
+Listen), 13.501 Listeneintraege mit 32 Opt-outs, 9 Kampagnen mit 3 Stufen, 1 Tag; Summen
+50.871 gesendet / 19.295 geoeffnet / 9.900 fehlgeschlagen. Odoo 18 hat mass_mailing
+18.0.2.7 installiert (Modelle mailing.mailing/-list/-contact/-trace/-subscription), aber
+kein Kampagnen-/Stufenmodell und derzeit nur Demodaten. Vergleich und sieben
+Entscheidungspunkte (M1 Kampagnenabbildung, M2 Statistik, M3 geplante Entwuerfe,
+M4 Demodaten, M5 website_mass_mailing, M6 mass_mailing_event, M7 Opt-out):
+docs/o11-o18-email-marketing-vergleich.md. Keine Daten uebernommen.
