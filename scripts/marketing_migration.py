@@ -450,12 +450,17 @@ def main():
     lauf = Lauf(a.instanz, bool(a.ausfuehren))
     lauf.lese()
     lauf.crons_aus()
-    lauf.demo_entfernen()
-    lauf.migrieren()
-    lauf.restdemo_entfernen()
-    lauf.schreibe_csv()
-    lauf.bericht()
-    lauf.crons_zurueck()
+    # Crons MUESSEN auch bei einem Abbruch wiederhergestellt werden, sonst
+    # bleibt der Mailversand stillgelegt (Vorfall Session 138: abgebrochener
+    # Lauf liess "Mail: Email Queue Manager" deaktiviert).
+    try:
+        lauf.demo_entfernen()
+        lauf.migrieren()
+        lauf.restdemo_entfernen()
+        lauf.schreibe_csv()
+        lauf.bericht()
+    finally:
+        lauf.crons_zurueck()
     with open(os.path.join(PROTO, "lauf_%s.json" % a.instanz), "w", encoding="utf-8") as fh:
         json.dump({"zahlen": lauf.zahlen, "hinweise": lauf.hinweise, "offen": lauf.offen,
                    "modus": "ausgefuehrt" if a.ausfuehren else "trockenlauf"},
