@@ -2458,7 +2458,7 @@ Regression Verkauf/Abo/Angebote 881 OK / 0 FEHL; Testdaten entfernt (5 Projekte/
 
 Offen: Stammdaten (Stufen, Tags) nicht migriert; Rechte-Mitgliederlisten spaeter abgleichen.
 
-### 6.18 Events / Veranstaltungen (Modul event) - **MIGRATIONSBEREIT (Struktur und nicht personenbezogene Daten)**, 28.10.2026 (Session 138)
+### 6.18 Events / Veranstaltungen (Modul event) - **ABGENOMMEN und GESPERRT**, 30.10.2026 (Session 138)
 
 **Vergleich:** `docs/o11-o18-events-vergleich.md` (Odoo 11 read-only: 122 Veranstaltungen,
 760 Teilnehmer, 2 Anlasskategorien, 170 Mailplaner, 758 Teilnehmer-Mails gegen Odoo 18
@@ -2477,13 +2477,25 @@ stilllegen; alle offenen Verknuepfungen fuer die spaetere Kontaktmigration dokum
 | Events | Liste/Suche/Berichte | Kategorie- und Mindestzahlspalte, Statusfilter, Gruppierung Status, Pivot/Graph | OK | itk_events_compat | Browser 35/0 |
 | Events | Daten | 122 Veranstaltungen (121 aktiv, 1 archiviert), 2 Kategorien, 170 Mailplaner (stillgelegt) | OK | events_migration.py | Feldgleichheit je Datensatz gegen Odoo 11 |
 | Events | Kontakte/Teilnehmer | 0 Kontakte angelegt, 0 Teilnehmer migriert, Beziehungen leer | OK (Auftrag) | - | Kontrollzaehlung |
-| Events | Nachverknuepfung | `docs/o11-o18-events-nachverknuepfung.csv` (1.126 Zeilen, nur Kennungen) | OK | events_migration.py | Zeilen je Typ gezaehlt |
+| Events | Nachverknuepfung | `docs/o11-o18-events-nachverknuepfung-lokal.csv` und `-vm.csv` (je 1.126 Zeilen, nur Kennungen) | OK | events_migration.py | Zeilen je Typ gezaehlt |
 | Events | Mailversand | Cron stillgelegt, alle Planer `mail_done = True` | OK | itk_events_compat | Cron aktiv=False |
-| Events | Rechte | Gruppen ueber Login abgebildet; Odoo-18-Rechte weichen von Odoo 11 ab (dokumentiert) | KLAERUNG NOETIG | - | Rechteprobe mit 2 Testbenutzern |
+| Events | Rechte | Odoo-18-Rechte bleiben (Entscheidung Anna 30.10.2026): Benutzer lesen/anlegen/bearbeiten, kein Loeschen; Loeschen und Administration nur Manager | OK | Gruppen ueber Login abgebildet | Rechteprobe mit 2 Testbenutzern, lokal und VM |
 
-Offen: Rechteangleichung (Odoo 18 erlaubt Event-Benutzern Schreiben/Anlegen, Odoo 11 nicht);
-Kontakt- und Teilnehmermigration sowie Reaktivierung des Mailversands nach dem Bereich
-Kontakte/Personen.
+**Abnahme 30.10.2026 (lokal und VM):** `verify_s138_events.py` je 61 OK / 0 FEHLER,
+`browser_events_abnahme.py` je 35 OK / 0 FEHLER, `events_labels_de.py` je 0 offen,
+Rechteprobe je bestanden, zweiter Migrationslauf je 0 Neuanlagen (idempotent).
+Regression auf dem finalen Stand: Personal 54/0, Projekt 20/0, Verkauf/Abo 881 OK / 0 FEHL;
+Urlaub/Zeiterfassung weichen nur wegen des Produktivzuwachses in Odoo 11 ab (197 statt 196
+Anwesenheiten, Zeile 12691 neu) - dokumentiert, nicht durch Events verursacht.
+
+Kein Mailversand moeglich: Cron stillgelegt, alle 170 Planer `mail_done = True`,
+0 Teilnehmer, keine `event.mail.registration`-Zeile. Keine personenbezogenen Daten:
+`res.partner` unveraendert (lokal 96 aktiv, VM 89 aktiv), `event.registration = 0`,
+Veranstalter und Ort bei allen 122 Veranstaltungen leer.
+
+Nachzuziehen (eigener Bereich): Kontakt-/Teilnehmermigration, Nachverknuepfung ueber
+`x_o11_organizer_id`/`x_o11_address_id` und `docs/o11-o18-events-nachverknuepfung-lokal.csv`
+bzw. `-vm.csv`, danach Reaktivierung des Mailversands.
 
 ## 7. Testreihenfolge (Aufgabe 4) — Vorschlag
 

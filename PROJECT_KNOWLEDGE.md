@@ -9466,3 +9466,9 @@ Regression: Personal 54/0, Projekt 20/0; Urlaub/Anwesenheiten und Zeiterfassung 
 Ursache ist ausschliesslich der Produktivzuwachs in Odoo 11 seit Session 137
 (197 statt 196 Anwesenheiten, Zeile 12691 neu; Stundensummen entsprechend), nicht der
 Bereich Events.
+
+Abschluss 30.10.2026: VM-Abnahme je 61/0 (Struktur) und 35/0 (Browser), Rechteprobe auf
+beiden Instanzen bestanden, zweiter Migrationslauf je 0 Neuanlagen. Entscheidung Anna:
+Odoo-18-Rechte bleiben (Event-Benutzer lesen/anlegen/bearbeiten, kein Loeschen; Loeschen
+und Administration nur Manager) - kein Rueckbau auf die engeren Odoo-11-Rechte.
+Status: EVENTS ABGENOMMEN und GESPERRT. Nachzug nur ueber den Bereich Kontakte/Personen.
