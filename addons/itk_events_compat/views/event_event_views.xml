@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ================================================================
+         Formular Veranstaltung
+         Odoo 11: Kopf mit Status, erwarteten Teilnehmern, Online-Event,
+         Kategorie, Beginn/Ende, Zeitzone, Mindestzahl, Platzbegrenzung,
+         Hoechstzahl; Reiter "Email Schedule"; Chatter.
+         Odoo 18: Phase statt Status, kein Online-Kennzeichen, keine
+         Mindestzahl. Beides wird ergaenzt; die Odoo-18-Felder bleiben
+         vollstaendig erhalten.
+         ================================================================ -->
+    <record id="view_event_form_itk_events" model="ir.ui.view">
+        <field name="name">event.event.form.itk.events</field>
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_form"/>
+        <field name="priority">90</field>
+        <field name="arch" type="xml">
+            <xpath expr="//header/field[@name='stage_id']" position="attributes">
+                <attribute name="string">Status</attribute>
+            </xpath>
+            <xpath expr="//field[@name='event_type_id']" position="attributes">
+                <attribute name="string">Kategorie</attribute>
+            </xpath>
+            <xpath expr="//field[@name='event_type_id']" position="after">
+                <field name="x_is_online"/>
+            </xpath>
+            <xpath expr="//field[@name='badge_format']" position="before">
+                <field name="x_seats_min"/>
+            </xpath>
+            <!-- Odoo 11 nennt die Platzbegrenzung "Max. Teilnehmeranzahl" -->
+            <xpath expr="//label[@for='seats_limited']" position="attributes">
+                <attribute name="string">Max. Teilnehmeranzahl</attribute>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Odoo-11-Angaben" name="itk_o11_angaben">
+                    <group>
+                        <group string="Herkunft">
+                            <field name="x_o11_id"/>
+                            <field name="x_o11_state"/>
+                            <field name="x_o11_registrations"/>
+                        </group>
+                        <group string="Nachverknüpfung Kontakte">
+                            <field name="x_o11_organizer_id"/>
+                            <field name="x_o11_address_id"/>
+                        </group>
+                    </group>
+                    <div class="text-muted">
+                        Die Kontakt- und Teilnehmerdaten aus Odoo 11 werden erst mit dem
+                        Bereich Kontakte/Personen übernommen. Veranstalter und Ort bleiben
+                        deshalb leer; die Odoo-11-Kontakt-IDs dienen der späteren
+                        Nachverknüpfung.
+                    </div>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- ================================================================
+         Liste Veranstaltungen
+         Odoo 11: Name, Kategorie, Beginn, Ende, Reservierungen,
+         Mindestzahl, Hoechstzahl, Verantwortlich, Status.
+         Odoo 18: Kategorie fehlte in der Liste, Status hiess "Phase".
+         ================================================================ -->
+    <record id="view_event_tree_itk_events" model="ir.ui.view">
+        <field name="name">event.event.list.itk.events</field>
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_tree"/>
+        <field name="priority">90</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="string">Veranstaltungsname</attribute>
+            </xpath>
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="event_type_id" string="Kategorie" optional="show"/>
+            </xpath>
+            <xpath expr="//field[@name='date_begin']" position="attributes">
+                <attribute name="string">Startdatum</attribute>
+            </xpath>
+            <xpath expr="//field[@name='date_end']" position="attributes">
+                <attribute name="string">Enddatum</attribute>
+            </xpath>
+            <xpath expr="//field[@name='seats_max']" position="attributes">
+                <attribute name="string">Max. Teilnehmeranzahl</attribute>
+                <attribute name="optional">show</attribute>
+            </xpath>
+            <xpath expr="//field[@name='seats_max']" position="after">
+                <field name="x_seats_min" optional="show"/>
+            </xpath>
+            <xpath expr="//field[@name='seats_reserved']" position="attributes">
+                <attribute name="string">Reservierungen</attribute>
+                <attribute name="optional">show</attribute>
+            </xpath>
+            <xpath expr="//field[@name='user_id']" position="attributes">
+                <attribute name="string">Verantwortlich</attribute>
+            </xpath>
+            <xpath expr="//field[@name='stage_id']" position="attributes">
+                <attribute name="string">Status</attribute>
+                <attribute name="optional">show</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- ================================================================
+         Suche Veranstaltungen
+         Odoo 11: Filter "Nicht bestaetigt", "Bestaetigt", "Meine Events",
+         "Kommende", "Archiviert"; Gruppe "Status".
+         "Meine Events", "Kommende" und "Archiviert" sind in Odoo 18
+         vorhanden; die Statusfilter werden ergaenzt.
+         Die Phasen sind ueber ihre Reihenfolge adressiert, weil die
+         Datensatz-IDs der Phasen installationsabhaengig sind.
+         ================================================================ -->
+    <record id="view_event_search_itk_events" model="ir.ui.view">
+        <field name="name">event.event.search.itk.events</field>
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_search"/>
+        <field name="priority">90</field>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='myevents']" position="after">
+                <separator/>
+                <filter string="Nicht bestätigt" name="itk_stage_unconfirmed"
+                        domain="[('stage_id.sequence', '=', 1)]"/>
+                <filter string="Bestätigt" name="itk_stage_confirmed"
+                        domain="[('stage_id.sequence', '=', 2)]"/>
+                <filter string="Erledigt" name="itk_stage_done"
+                        domain="[('stage_id.sequence', '=', 5)]"/>
+                <filter string="Abgebrochen" name="itk_stage_cancelled"
+                        domain="[('stage_id.sequence', '=', 6)]"/>
+            </xpath>
+            <xpath expr="//filter[@name='stage_id']" position="attributes">
+                <attribute name="string">Status</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- ================================================================
+         Berichtswesen: Pivot und Graph auf Veranstaltungen
+         Odoo 11 hatte "Berichtswesen > Events" (Pivot und Graph).
+         Odoo 18 hat nur die Teilnehmer-Analyse; die Auswertung der
+         Veranstaltungen wird deshalb ergaenzt.
+         ================================================================ -->
+    <record id="view_event_pivot_itk_events" model="ir.ui.view">
+        <field name="name">event.event.pivot.itk.events</field>
+        <field name="model">event.event</field>
+        <field name="arch" type="xml">
+            <!-- Nur gespeicherte Felder als Masszahl: die Odoo-18-Zaehler
+                 seats_reserved/seats_taken sind nicht gespeichert und im
+                 Pivot nicht auswertbar. -->
+            <pivot string="Events" sample="1">
+                <field name="event_type_id" type="row"/>
+                <field name="stage_id" type="col"/>
+                <field name="seats_max" type="measure"/>
+                <field name="x_seats_min" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_event_graph_itk_events" model="ir.ui.view">
+        <field name="name">event.event.graph.itk.events</field>
+        <field name="model">event.event</field>
+        <field name="arch" type="xml">
+            <graph string="Events" type="bar" sample="1">
+                <field name="stage_id"/>
+                <field name="seats_max" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="action_event_report_itk_events" model="ir.actions.act_window">
+        <field name="name">Events</field>
+        <field name="res_model">event.event</field>
+        <field name="view_mode">pivot,graph,list,form</field>
+        <field name="help">Auswertung der Veranstaltungen nach Kategorie und Status.</field>
+    </record>
+
+</odoo>

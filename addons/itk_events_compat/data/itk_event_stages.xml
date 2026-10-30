@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ================================================================
+         Odoo-11-Status auf die Odoo-18-Phasen abbilden
+         Odoo 11 fuehrt an der Veranstaltung ein Statusfeld mit
+         "Nicht bestaetigt" (draft), "Bestaetigt" (confirm),
+         "Erledigt" (done) und "Abgebrochen" (cancel).
+         Odoo 18 kennt kein Statusfeld, sondern Phasen (event.stage).
+         Die vier Odoo-11-Bezeichnungen werden deshalb auf die
+         vorhandenen Phasen gesetzt; "Angekuendigt" bleibt als
+         Odoo-18-Zusatz ohne Odoo-11-Entsprechung erhalten.
+         Die Reihenfolge (sequence) wird mitgeschrieben, weil die
+         Suchfilter auf die Reihenfolge der Phasen pruefen.
+         ================================================================ -->
+
+    <record id="event.event_stage_new" model="event.stage">
+        <field name="name">Nicht bestätigt</field>
+        <field name="sequence">1</field>
+    </record>
+
+    <record id="event.event_stage_booked" model="event.stage">
+        <field name="name">Bestätigt</field>
+        <field name="sequence">2</field>
+    </record>
+
+    <record id="event.event_stage_announced" model="event.stage">
+        <field name="name">Angekündigt</field>
+        <field name="sequence">3</field>
+        <field name="description">Die Veranstaltung wurde öffentlich angekündigt (Odoo-18-Zusatz, in Odoo 11 nicht vorhanden).</field>
+    </record>
+
+    <record id="event.event_stage_done" model="event.stage">
+        <field name="name">Erledigt</field>
+        <field name="sequence">5</field>
+    </record>
+
+    <record id="event.event_stage_cancelled" model="event.stage">
+        <field name="name">Abgebrochen</field>
+        <field name="sequence">6</field>
+    </record>
+
+</odoo>

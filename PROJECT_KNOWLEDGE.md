@@ -9409,3 +9409,60 @@ SESSION 137 - 28.10.2026 - Bereich ANWESENHEITEN UND URLAUBSANTRAEGE: ABGENOMMEN
    Uebergabe `docs/uebergabe-session-137.md`.
 
 Status: Anwesenheiten und Urlaubsantraege ABGENOMMEN und GESPERRT (28.10.2026).
+
+## Session 138 (28.10.2026): Bereich EVENTS - Struktur und nicht personenbezogene Daten
+
+Auftrag Anna: Events vollstaendig aufbauen und vergleichen, Datenmigration aber OHNE
+Kontakte, Personen, Teilnehmer und E-Mail-Adressen (die kommen spaeter als eigener Bereich
+Kontakte/Personen). Odoo 11 bleibt read-only.
+
+1. Bestandsaufnahme Odoo 11 (read-only): 122 Veranstaltungen (121 aktiv, 1 archiviert),
+   760 Teilnehmer, 2 Anlasskategorien, 5 Kategorie-Mailplaner, 170 Mailplaner,
+   758 Teilnehmer-Mailprotokolle, 0 Fragen, 2.969 Nachrichten (99 Prozent Systemnotizen),
+   6 Teilnehmerausweis-PDFs, 29 referenzierte Kontakte, 6 beteiligte Benutzer.
+   Kernbefund: Odoo 18 hatte den Bereich **gar nicht** installiert (event, website_event,
+   mass_mailing_event alle uninstalled).
+2. Vergleichsdokument `docs/o11-o18-events-vergleich.md` (Menues, Ansichten, Feldmapping,
+   Status, Beziehungen, Mailplaner, Rechte, Filter, Entscheidungspunkte E1-E10).
+3. Umsetzung: `event` 18.0.1.9 + `website_event` 18.0.1.4 installiert; neues Modul
+   `itk_events_compat` 18.0.1.0.3 (Menues im Odoo-11-Wortlaut, Statusphasen
+   Nicht bestaetigt/Bestaetigt/Angekuedigt/Erledigt/Abgebrochen, Felder x_is_online,
+   x_seats_min, x_o11_* -Referenzen, Listen-/Such-/Pivot-/Graph-Ansichten,
+   Cron-Schutz).
+4. Datenmigration `scripts/events_migration.py` (Trockenlauf Standard): 2 Kategorien,
+   122 Veranstaltungen, 170 Mailplaner (alle `mail_done = True`), 760 Anmeldungen nur als
+   Zaehlwert `x_o11_registrations`. Kontrollzahlen: Bestaetigt 100, Abgebrochen 15,
+   Erledigt 7, Europe/Berlin 122, veroeffentlicht 101, Platzbegrenzung 116,
+   Summe Mindestzahl 552. Zweiter Lauf: 0 Neuanlagen.
+5. Harte Lehren:
+   - Odoo 18 setzt Veranstalter und Ort per Default auf den Firmenkontakt; ohne
+     ausdrueckliches `organizer_id/address_id = False` entsteht eine falsche Beziehung.
+   - `event.type` traegt uebersetzbare Namen: der Wert "Physical Event" erscheint auf
+     Deutsch als "Physisches Event" (Uebersetzung greift auf den gespeicherten Wert).
+   - Ein Write auf `event_type_id` loest die Neuberechnung der Mailplaner aus und legt die
+     Odoo-18-Standardplaner neu an; unveraenderte Kategorie deshalb nicht schreiben und
+     ueberzaehlige Standardplaner entfernen.
+   - Der Autovacuum-Lauf (`_gc_mark_events_done`) schiebt jede abgelaufene Veranstaltung in
+     die Endphase und ueberschrieb 100 uebernommene Status; im ITK-Modul so erweitert, dass
+     Datensaetze mit Odoo-11-Referenz unangetastet bleiben (Nachweis: Autovacuum-Lauf
+     aendert 100/15/7 nicht).
+   - Pivot/Graph koennen nur gespeicherte Felder als Masszahl nutzen: seats_reserved und
+     seats_taken sind in Odoo 18 `store=False` (Absturz "Hoppla"), daher seats_max und
+     x_seats_min als Masse.
+   - Beim Anlegen von Testbenutzern entstehen automatisch Kontakte; die Rechteprobe raeumt
+     sie jetzt mit auf (sonst schlaegt die Pruefung "kein Kontaktzuwachs" an).
+6. Nachweise lokal: `verify_s138_events.py` 61 OK / 0 FEHLER, `browser_events_abnahme.py`
+   35 OK / 0 FEHLER (Kanban-Statusspalten, Listenspalten, Filterangebot, Formular,
+   Odoo-11-Angaben, Anlasskategorien, Pivot). Rechteprobe: Benutzer lesen/schreiben/anlegen,
+   kein Loeschen; Manager alles.
+7. Offen bzw. dokumentiert: Rechte weichen vom Odoo-11-Stand ab (KLAERUNG NOETIG);
+   Veranstalter/Ort bleiben leer bis zur Kontaktmigration; Mailversand bleibt aus
+   (`scripts/events_cron_schalten.py` schaltet ihn spaeter ein).
+8. Nachverknuepfung: `docs/o11-o18-events-nachverknuepfung.csv` mit 122 Veranstaltungen,
+   122 Veranstaltern, 122 Orten und 760 Teilnehmern - nur Kennungen und fachliche
+   Schluessel, keine Namen und keine E-Mail-Adressen.
+
+Regression: Personal 54/0, Projekt 20/0; Urlaub/Anwesenheiten und Zeiterfassung weichen ab,
+Ursache ist ausschliesslich der Produktivzuwachs in Odoo 11 seit Session 137
+(197 statt 196 Anwesenheiten, Zeile 12691 neu; Stundensummen entsprechend), nicht der
+Bereich Events.
