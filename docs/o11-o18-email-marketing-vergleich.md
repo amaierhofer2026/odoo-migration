@@ -229,3 +229,81 @@ und Kontakt-IDs in der CSV, spaeter mit der Kontaktmigration nachziehen.
 | Empfaenger-Domains | 157 Mailings ohne Liste | enthalten Feldbezuege, keine Daten - Domain-Text bleibt am Mailing |
 | `contact_ab_pc` | - | Odoo-18-A/B-Test hat andere Felder |
 | Vorlage "Massen-Email" | 1 | Inhalt steckt in `body_html` der Mailings |
+
+---
+
+## 10. Umsetzung (Session 138, 30.10.2026) - Entscheidungen von Anna
+
+| Punkt | Entscheidung | Umsetzung |
+|---|---|---|
+| M1 Kampagnen | Variante **B**: eigenes ITK-Modell mit Stufen | `itk.mailing.campaign` + `itk.mailing.campaign.stage` + `itk.mailing.tag` im Modul `itk_mass_mailing_compat`; 9 Kampagnen, 3 Stufen, 1 Tag uebernommen |
+| M2 Statistik | historische Kennzahlen erhalten, klar getrennt | eigene Felder `x_o11_*` je Mailing und je Kampagne; Odoo-18-Kennzahlen bleiben unveraendert (aus `mailing.trace`) |
+| M3 geplante Entwuerfe | als Entwurf ohne Sendetermin | `schedule_date` bleibt leer, Odoo-11-Termin nur in `x_o11_schedule_date` (3 Datensaetze) |
+| M4 Demodaten | entfernen | 1 Demo-Mailing, 1 Demo-Liste, 1 Demo-Kontakt, 4 Demo-Traces entfernt |
+| M5 `website_mass_mailing` | installieren, nur Funktion | Modul 18.0.1.0 installiert; keine Abonnenten uebernommen |
+| M6 `mass_mailing_event` | bleibt, keine Daten | unveraendert, 0 Teilnehmer |
+| M7 Opt-out/Blacklist | nur dokumentieren | siehe Abschnitt 11; keine Adresse angelegt |
+
+### 10.1 Datenmigration
+
+| Objekt | Odoo 11 | Odoo 18 nach Migration |
+|---|---|---|
+| Kampagnenstufen | 3 | 3 (Ausfuehrungsplan, Design, Gesendet) |
+| Kampagnen | 9 | 9, alle mit Odoo-11-Referenz und Kennzahlen |
+| Kampagnen-Tags | 1 | 1 ("Campaign Tag 1") |
+| Mailinglisten | 8 | 8 (reine Struktur, 0 Mitglieder) |
+| Mailings | 161 | **147** (130 gesendet, 17 Entwurf; 14 archiviert) |
+| davon mit Kampagne | 135 | 126 der uebernommenen |
+| Kennzahlen | 50.871 gesendet, 19.295 geoeffnet, 9.900 fehlgeschlagen | Summen identisch in `x_o11_*` |
+| **nicht migriert** | 14 Mailings ohne Empfaengermodell | dokumentiert (Odoo 18: `mailing_model_id` ist Pflichtfeld) |
+| Kontakte / Empfaenger | 13.501 | **0** |
+| Traces / Versandprotokolle | 50.871 | **0** |
+| Opt-out | 32 | **0** (nur dokumentiert) |
+
+Zweiter Lauf: 0 Neuanlagen, 147 Aktualisierungen (idempotent).
+
+Nachverknuepfung (nur Kennungen, keine Personen):
+`docs/o11-o18-email-marketing-nachverknuepfung-lokal.csv` und `-vm.csv`
+(Typen: mailing, liste, kampagne).
+
+### 10.2 Technische Versandsperre (getestet)
+
+1. **Modul-Sperre:** `action_send_mail`, `action_launch`, `action_put_in_queue`,
+   `action_schedule`, `action_set_sending` und ein Statuswechsel auf `in_queue`/`sending`
+   sind fuer Mailings mit `x_o11_id` gesperrt (UserError
+   "Historische Mailings aus Odoo 11 duerfen nicht erneut versendet werden").
+   Getestet fuer je ein gesendetes und ein Entwurfs-Mailing.
+2. **Kein Sendetermin:** `schedule_date` bei allen 147 leer, `schedule_type = now`,
+   kein Mailing in `in_queue`/`sending`.
+3. **Crons:** "Mail: Email Queue Manager", "Mail Marketing: Process queue",
+   "Event: Mail Scheduler" und weitere waehrend des Laufs deaktiviert und danach auf
+   ihren vorherigen Zustand zurueckgesetzt.
+4. **Nachweis:** `mail.mail` 3.359 vor und nach dem Lauf, `mailing.trace` 0,
+   keine neue Warteschlangenzeile.
+
+### 10.3 Pruefungen (lokal)
+
+| Pruefung | Ergebnis |
+|---|---|
+| `verify_s138_marketing.py --instanz lokal` | **37 OK / 0 FEHLER** |
+| `browser_marketing_abnahme.py --instanz lokal` | **20 OK / 0 FEHLER** |
+| `marketing_labels_de.py --instanz lokal` | 0 offen |
+| `marketing_rechte.py --instanz lokal` | Benutzer liest/anlegt/bearbeitet/loescht (Odoo-18-Recht); Testdaten entfernt, Bestand 147/9/3 unveraendert |
+| Regression Events / Personal / Projekt | 61/0, 54/0, 20/0 |
+
+## 11. Opt-out und Blacklist - Regel fuer die spaetere Uebernahme (M7)
+
+- **Bestand Odoo 11:** 32 von 13.501 Listeneintraegen mit `opt_out = True`
+  (Feld am Kontakt `mail.mass_mailing.contact`, kein eigenes Blacklist-Modell in Odoo 11).
+- **Herkunft:** `mail.mass_mailing.contact` mit `opt_out = True`, verteilt auf die
+  Mailinglisten (Mitgliedschaft ueber `list_ids`). Die Kontakt-IDs stehen in der
+  Nachverknuepfungsliste; Adressen wurden nicht uebernommen.
+- **Technische Regel fuer die spaetere Kontaktmigration:**
+  1. Kontakt ueber den fachlichen Schluessel (E-Mail, normalisiert) zuordnen.
+  2. Bei `opt_out = True` in Odoo 11: in Odoo 18 `mailing.contact.opt_out = True`,
+     `opt_out_datetime` aus dem Odoo-11-Austrittsdatum (`unsubscription_date`, soweit
+     gesetzt) und einen Abmeldegrund (`mailing.subscription.optout`) setzen.
+  3. Zusaetzlich `mail.blacklist` mit derselben Adresse fuehren (Odoo 18 sperrt den Versand
+     damit auch fuer andere Mailings).
+  4. Gegenprobe: Anzahl Opt-outs in Odoo 18 == 32, keine Adresse doppelt.
+- Bis dahin gilt: **keine Blacklist-Adresse, kein Kontakt, kein Listeneintrag in Odoo 18**.

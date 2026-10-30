@@ -2497,6 +2497,32 @@ Nachzuziehen (eigener Bereich): Kontakt-/Teilnehmermigration, Nachverknuepfung u
 `x_o11_organizer_id`/`x_o11_address_id` und `docs/o11-o18-events-nachverknuepfung-lokal.csv`
 bzw. `-vm.csv`, danach Reaktivierung des Mailversands.
 
+### 6.19 E-Mail-Marketing (Modul mass_mailing) - **ABGENOMMEN und GESPERRT**, 30.10.2026 (Session 138)
+
+**Vergleich und Umsetzung:** `docs/o11-o18-email-marketing-vergleich.md` (Odoo 11 read-only:
+161 Mailings, 8 Listen, 13.501 Kontakte mit 32 Opt-outs, 9 Kampagnen, 3 Stufen, 1 Tag).
+
+**Entscheidungen (Anna):** M1 eigenes Kampagnenmodell mit Stufen (Variante B), M2 historische
+Kennzahlen getrennt fuehren, M3 Entwuerfe ohne Sendetermin, M4 Demodaten entfernen,
+M5 website_mass_mailing installieren, M6 mass_mailing_event belassen, M7 Opt-out nur
+dokumentieren.
+
+| Bereich | Funktion/Feld | Istzustand | Status | Anpassung | getestet |
+|---|---|---|---|---|---|
+| Marketing | Module | mass_mailing 18.0.2.7, Themes 18.0.1.2, website_mass_mailing 18.0.1.0, mass_mailing_event 18.0.1.0, itk_mass_mailing_compat 18.0.1.1.0 | OK | Installation | Modulstand geprueft |
+| Marketing | Menues | Massenmailings, Kampagnen, Konfiguration > Kampagnenstufen/Kampagnen-Tags | OK | itk_mass_mailing_compat | Browser 20/0 |
+| Marketing | Kampagnen | 9 Kampagnen mit 3 Stufen und 1 Tag, Kennzahlen | OK | eigenes Modell | Browser 20/0, verify 37/0 |
+| Marketing | Mailings | 147 uebernommen (130 gesendet, 17 Entwurf), 126 mit Kampagne | OK | marketing_migration.py | Feldgleichheit je Datensatz |
+| Marketing | Kennzahlen | 50.871 gesendet, 19.295 geoeffnet, 9.900 fehlgeschlagen als `x_o11_*` | OK | eigene Felder | Summenvergleich |
+| Marketing | Versandsperre | Senden/Planen/Warteschlange fuer historische Mailings gesperrt | OK | Modul-Sperre + Cron-Stilllegung | 5 Methoden getestet, mail.mail unveraendert |
+| Marketing | Kontakte/Empfaenger | 0 Kontakte, 0 Traces, 0 Abonnements, 0 Blacklist-Adressen | OK (Auftrag) | - | Kontrollzaehlung |
+| Marketing | Opt-out | 32 Opt-outs nur dokumentiert, Regel fuer spaeter festgehalten | OK | Doku Abschnitt 11 | - |
+| Marketing | Rechte | Benutzer liest/anlegt/bearbeitet/loescht (Odoo-18-Standard) | OK | Odoo-18-Gruppe | Rechteprobe mit Testbenutzer |
+
+Nicht migriert: 14 Mailings ohne Empfaengermodell (Odoo 18 verlangt `mailing_model_id`).
+Nachzuziehen mit der Kontaktmigration: Kontakte, Listenmitglieder, Traces, Opt-outs,
+Blacklist, danach Versandfreigabe.
+
 ## 7. Testreihenfolge (Aufgabe 4) — Vorschlag
 
 Reihenfolge mit Priorität (fachlich motiviert: erst Darstellung/Sprache, dann Stammdaten, dann Geschäftsdaten, dann Ausgabe/Infrastruktur):

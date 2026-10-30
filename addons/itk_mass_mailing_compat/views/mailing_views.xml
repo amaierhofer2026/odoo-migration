@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ================================================================
+         Mailing: Odoo-11-Angaben und historische Kennzahlen
+         Odoo 11 zeigte in der Liste Bezeichnung, Gesendet, Zugestellt,
+         Geoeffnet, Geantwortet und die Kampagne. Odoo 18 berechnet seine
+         Kennzahlen aus mailing.trace; die Odoo-11-Werte bleiben in
+         eigenen, nur lesbaren Feldern sichtbar.
+         ================================================================ -->
+    <record id="view_mailing_form_itk_marketing" model="ir.ui.view">
+        <field name="name">mailing.mailing.form.itk.marketing</field>
+        <field name="model">mailing.mailing</field>
+        <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_form"/>
+        <field name="priority">90</field>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group string="Odoo-11-Angaben" name="itk_o11_angaben">
+                    <group>
+                        <field name="x_o11_name"/>
+                        <field name="itk_campaign_id"/>
+                        <field name="x_o11_schedule_date"/>
+                        <field name="x_o11_source"/>
+                        <field name="x_o11_id"/>
+                    </group>
+                    <group string="Historische Kennzahlen (Odoo 11)">
+                        <field name="x_o11_sent"/>
+                        <field name="x_o11_delivered"/>
+                        <field name="x_o11_opened"/>
+                        <field name="x_o11_replied"/>
+                        <field name="x_o11_bounced"/>
+                        <field name="x_o11_failed"/>
+                        <field name="x_o11_total"/>
+                        <field name="x_o11_contact_ab_pc"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_mailing_list_itk_marketing" model="ir.ui.view">
+        <field name="name">mailing.mailing.list.itk.marketing</field>
+        <field name="model">mailing.mailing</field>
+        <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_tree"/>
+        <field name="priority">90</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='subject']" position="before">
+                <field name="x_o11_name" string="Bezeichnung (Odoo 11)" optional="show"/>
+            </xpath>
+            <xpath expr="//field[@name='subject']" position="after">
+                <field name="itk_campaign_id" optional="show"/>
+            </xpath>
+            <xpath expr="//field[@name='state']" position="before">
+                <field name="x_o11_sent" optional="show"/>
+                <field name="x_o11_delivered" optional="show"/>
+                <field name="x_o11_opened" optional="show"/>
+                <field name="x_o11_replied" optional="show"/>
+                <field name="x_o11_failed" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_mailing_search_itk_marketing" model="ir.ui.view">
+        <field name="name">mailing.mailing.search.itk.marketing</field>
+        <field name="model">mailing.mailing</field>
+        <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_search"/>
+        <field name="priority">90</field>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <field name="itk_campaign_id"/>
+                <field name="x_o11_name"/>
+                <separator/>
+                <filter string="Aus Odoo 11 übernommen" name="itk_historisch"
+                        domain="[('x_o11_id', '!=', False)]"/>
+                <filter string="Odoo-11-Entwürfe" name="itk_o11_entwurf"
+                        domain="[('x_o11_id', '!=', False), ('state', '=', 'draft')]"/>
+                <group expand="0" string="Gruppieren nach">
+                    <filter string="Kampagne (Odoo 11)" name="group_itk_campaign"
+                            context="{'group_by': 'itk_campaign_id'}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

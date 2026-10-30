@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ================================================================
+         Menues im Odoo-11-Wortlaut
+         Odoo 11: E-Mail-Marketing > Mailings > Massenmailings
+         Odoo 18: E-Mail-Marketing > Mailings
+         Der Listenpunkt heisst wie in Odoo 11 "Massenmailings"; die
+         Odoo-18-Bereiche (Mailinglisten, Berichtswesen, Konfiguration)
+         bleiben vollstaendig erhalten. Kampagnen und Kampagnenstufen
+         kommen als Odoo-11-Funktion dazu.
+         ================================================================ -->
+
+    <record id="mass_mailing.mass_mailing_menu" model="ir.ui.menu">
+        <field name="name">Massenmailings</field>
+    </record>
+
+    <menuitem id="menu_itk_mailing_campaign"
+              name="Kampagnen"
+              parent="mass_mailing.mass_mailing_menu_root"
+              action="action_itk_mailing_campaign"
+              sequence="5"/>
+
+    <menuitem id="menu_itk_mailing_campaign_stage"
+              name="Kampagnenstufen"
+              parent="mass_mailing.mass_mailing_configuration"
+              action="action_itk_mailing_campaign_stage"
+              sequence="20"/>
+
+    <menuitem id="menu_itk_mailing_tag"
+              name="Kampagnen-Tags"
+              parent="mass_mailing.mass_mailing_configuration"
+              action="action_itk_mailing_tag"
+              sequence="21"/>
+
+</odoo>
