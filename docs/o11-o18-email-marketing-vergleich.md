@@ -307,3 +307,22 @@ Nachverknuepfung (nur Kennungen, keine Personen):
      damit auch fuer andere Mailings).
   4. Gegenprobe: Anzahl Opt-outs in Odoo 18 == 32, keine Adresse doppelt.
 - Bis dahin gilt: **keine Blacklist-Adresse, kein Kontakt, kein Listeneintrag in Odoo 18**.
+
+### 10.4 VM-Abnahme (30.10.2026)
+
+| Pruefung | VM |
+|---|---|
+| Module | mass_mailing 18.0.2.7, Themes 18.0.1.2, website_mass_mailing 18.0.1.0, mass_mailing_event 18.0.1.0, itk_mass_mailing_compat 18.0.1.1.0 |
+| `verify_s138_marketing.py` | **37 OK / 0 FEHLER** |
+| `browser_marketing_abnahme.py` | **20 OK / 0 FEHLER** |
+| `marketing_labels_de.py` | 0 offen |
+| `marketing_rechte.py` | bestanden (Testdaten entfernt, Bestand 147/9/3 unveraendert) |
+| Migration erster Lauf | 147 Mailings, 9 Kampagnen, 3 Stufen, 1 Tag, 8 Listen; Demo-Daten entfernt |
+| Migration zweiter Lauf | 0 Neuanlagen, 147 Aktualisierungen (idempotent) |
+| `mail.mail` vorher/nachher | 2.237 / 2.237 (keine neue Warteschlangenzeile) |
+| `mailing.trace` | 0 |
+| Kontrollzahl Kontakte | 89 aktiv (unveraendert) |
+| Regression Events / Personal / Projekt | 61/0, 54/0, 20/0 |
+| Nachverknuepfungsliste | `docs/o11-o18-email-marketing-nachverknuepfung-vm.csv` |
+
+**Status: E-MAIL-MARKETING ABGENOMMEN und GESPERRT (30.10.2026).**
