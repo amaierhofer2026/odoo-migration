@@ -1,0 +1,1127 @@
+typ;o11_id;o18_id;schluessel;partner_o11_id;hinweis
+veranstaltung;1;1;gemeindecloud Webinar | 2020-11-16 08:00:00;;
+veranstalter;1;1;gemeindecloud Webinar;1;Kontaktmigration ausstehend
+ort;1;1;gemeindecloud Webinar;1;Kontaktmigration ausstehend
+veranstaltung;2;2;"Webinar ""Gemeindecloud.at"" | 2020-12-10 08:00:00";;
+veranstalter;2;2;"Webinar ""Gemeindecloud.at""";1;Kontaktmigration ausstehend
+ort;2;2;"Webinar ""Gemeindecloud.at""";1;Kontaktmigration ausstehend
+veranstaltung;4;3;Webinar Intrakommuna | 2020-11-23 09:00:00;;
+veranstalter;4;3;Webinar Intrakommuna;1;Kontaktmigration ausstehend
+ort;4;3;Webinar Intrakommuna;1;Kontaktmigration ausstehend
+veranstaltung;7;4;Dummy | 2020-11-24 09:04:55;;
+veranstalter;7;4;Dummy;1;Kontaktmigration ausstehend
+ort;7;4;Dummy;1;Kontaktmigration ausstehend
+veranstaltung;8;5;"Webinar ""Gemeindecloud"" | 2021-02-09 08:00:00";;
+veranstalter;8;5;"Webinar ""Gemeindecloud""";1;Kontaktmigration ausstehend
+ort;8;5;"Webinar ""Gemeindecloud""";1;Kontaktmigration ausstehend
+veranstaltung;9;6;"Webinar ""Gemeindecloud"" | 2021-03-09 08:00:00";;
+veranstalter;9;6;"Webinar ""Gemeindecloud""";1;Kontaktmigration ausstehend
+ort;9;6;"Webinar ""Gemeindecloud""";1;Kontaktmigration ausstehend
+veranstaltung;10;7;"Webinar ""Gemeindecloud"" | 2021-04-13 07:00:00";;
+veranstalter;10;7;"Webinar ""Gemeindecloud""";1;Kontaktmigration ausstehend
+ort;10;7;"Webinar ""Gemeindecloud""";1;Kontaktmigration ausstehend
+veranstaltung;11;8;Daten und Dokumente digital Verwalten | 2024-02-13 13:00:00;;
+veranstalter;11;8;Daten und Dokumente digital Verwalten;1;Kontaktmigration ausstehend
+ort;11;8;Daten und Dokumente digital Verwalten;1;Kontaktmigration ausstehend
+veranstaltung;12;9;Webinar - Vorstellung Communex | 2024-03-27 13:00:00;;
+veranstalter;12;9;Webinar - Vorstellung Communex;1;Kontaktmigration ausstehend
+ort;12;9;Webinar - Vorstellung Communex;1;Kontaktmigration ausstehend
+veranstaltung;13;10;"Webinar ""Intrakommuna"" | 2021-02-16 08:00:00";;
+veranstalter;13;10;"Webinar ""Intrakommuna""";1;Kontaktmigration ausstehend
+ort;13;10;"Webinar ""Intrakommuna""";1;Kontaktmigration ausstehend
+veranstaltung;14;11;"Webinar ""Intrakommuna"" | 2021-03-16 08:00:00";;
+veranstalter;14;11;"Webinar ""Intrakommuna""";1;Kontaktmigration ausstehend
+ort;14;11;"Webinar ""Intrakommuna""";1;Kontaktmigration ausstehend
+veranstaltung;15;12;"Webinar ""Intrakommuna"" | 2021-04-20 07:00:00";;
+veranstalter;15;12;"Webinar ""Intrakommuna""";1;Kontaktmigration ausstehend
+ort;15;12;"Webinar ""Intrakommuna""";1;Kontaktmigration ausstehend
+veranstaltung;16;13;"Webinar ""Intrakommuna"" | 2021-05-18 07:00:00";;
+veranstalter;16;13;"Webinar ""Intrakommuna""";1;Kontaktmigration ausstehend
+ort;16;13;"Webinar ""Intrakommuna""";1;Kontaktmigration ausstehend
+veranstaltung;17;14;"Webinar ""Intrakommuna"" | 2021-06-15 07:00:00";;
+veranstalter;17;14;"Webinar ""Intrakommuna""";1;Kontaktmigration ausstehend
+ort;17;14;"Webinar ""Intrakommuna""";1;Kontaktmigration ausstehend
+veranstaltung;18;15;"Webinar ""Bürgeranliegenmanagement"" | 2021-02-23 08:00:00";;
+veranstalter;18;15;"Webinar ""Bürgeranliegenmanagement""";1;Kontaktmigration ausstehend
+ort;18;15;"Webinar ""Bürgeranliegenmanagement""";1;Kontaktmigration ausstehend
+veranstaltung;19;16;"Webinar ""Bürgeranliegenmanagement"" | 2021-03-23 08:00:00";;
+veranstalter;19;16;"Webinar ""Bürgeranliegenmanagement""";1;Kontaktmigration ausstehend
+ort;19;16;"Webinar ""Bürgeranliegenmanagement""";1;Kontaktmigration ausstehend
+veranstaltung;20;17;"Webinar ""Bürgeranliegenmanagement"" | 2021-04-27 07:00:00";;
+veranstalter;20;17;"Webinar ""Bürgeranliegenmanagement""";1;Kontaktmigration ausstehend
+ort;20;17;"Webinar ""Bürgeranliegenmanagement""";1;Kontaktmigration ausstehend
+veranstaltung;21;18;"Webinar ""Bürgeranliegenmanagement"" | 2021-05-25 07:00:00";;
+veranstalter;21;18;"Webinar ""Bürgeranliegenmanagement""";1;Kontaktmigration ausstehend
+ort;21;18;"Webinar ""Bürgeranliegenmanagement""";1;Kontaktmigration ausstehend
+veranstaltung;22;19;"Webinar ""Bürgeranliegenmanagement"" | 2021-06-22 07:00:00";;
+veranstalter;22;19;"Webinar ""Bürgeranliegenmanagement""";1;Kontaktmigration ausstehend
+ort;22;19;"Webinar ""Bürgeranliegenmanagement""";1;Kontaktmigration ausstehend
+veranstaltung;23;20;"Webinar ""amtsweg.gv.at"" | 2021-03-09 08:00:00";;
+veranstalter;23;20;"Webinar ""amtsweg.gv.at""";1;Kontaktmigration ausstehend
+ort;23;20;"Webinar ""amtsweg.gv.at""";1;Kontaktmigration ausstehend
+veranstaltung;24;21;"Webinar ""amtsweg.gv.at"" | 2021-04-13 07:00:00";;
+veranstalter;24;21;"Webinar ""amtsweg.gv.at""";1;Kontaktmigration ausstehend
+ort;24;21;"Webinar ""amtsweg.gv.at""";1;Kontaktmigration ausstehend
+veranstaltung;25;22;"Webinar ""amtsweg.gv.at"" | 2021-05-04 07:00:00";;
+veranstalter;25;22;"Webinar ""amtsweg.gv.at""";1;Kontaktmigration ausstehend
+ort;25;22;"Webinar ""amtsweg.gv.at""";1;Kontaktmigration ausstehend
+veranstaltung;26;23;"Webinar ""Gemeindecloud"" mit Archiv | 2021-05-18 07:00:00";;
+veranstalter;26;23;"Webinar ""Gemeindecloud"" mit Archiv";1;Kontaktmigration ausstehend
+ort;26;23;"Webinar ""Gemeindecloud"" mit Archiv";1;Kontaktmigration ausstehend
+veranstaltung;27;24;"Webinar ""Gemeindecloud"" mit Archiv | 2021-06-08 07:00:00";;
+veranstalter;27;24;"Webinar ""Gemeindecloud"" mit Archiv";1;Kontaktmigration ausstehend
+ort;27;24;"Webinar ""Gemeindecloud"" mit Archiv";1;Kontaktmigration ausstehend
+veranstaltung;28;25;Hinweisgeber-Portal Vorstellung | 2021-11-25 08:30:00;;
+veranstalter;28;25;Hinweisgeber-Portal Vorstellung;1;Kontaktmigration ausstehend
+ort;28;25;Hinweisgeber-Portal Vorstellung;1;Kontaktmigration ausstehend
+veranstaltung;29;26;Hinweisgeber-Portal Vorstellung | 2021-11-25 12:30:00;;
+veranstalter;29;26;Hinweisgeber-Portal Vorstellung;1;Kontaktmigration ausstehend
+ort;29;26;Hinweisgeber-Portal Vorstellung;1;Kontaktmigration ausstehend
+veranstaltung;30;27;Hinweisgeber-Portal Vorstellung | 2024-01-31 09:00:00;;
+veranstalter;30;27;Hinweisgeber-Portal Vorstellung;1;Kontaktmigration ausstehend
+ort;30;27;Hinweisgeber-Portal Vorstellung;1;Kontaktmigration ausstehend
+veranstaltung;31;28;Hinweisgeber-Portal Vorstellung | 2021-11-29 12:30:00;;
+veranstalter;31;28;Hinweisgeber-Portal Vorstellung;1;Kontaktmigration ausstehend
+ort;31;28;Hinweisgeber-Portal Vorstellung;1;Kontaktmigration ausstehend
+veranstaltung;32;29;Test | 2021-11-27 09:50:04;;
+veranstalter;32;29;Test;1;Kontaktmigration ausstehend
+ort;32;29;Test;1;Kontaktmigration ausstehend
+veranstaltung;33;30;Hinweisgeber-Portal Vorstellung | 2021-11-29 14:30:00;;
+veranstalter;33;30;Hinweisgeber-Portal Vorstellung;1;Kontaktmigration ausstehend
+ort;33;30;Hinweisgeber-Portal Vorstellung;1;Kontaktmigration ausstehend
+veranstaltung;34;31;test | 2021-11-27 09:00:00;;
+veranstalter;34;31;test;1;Kontaktmigration ausstehend
+ort;34;31;test;1;Kontaktmigration ausstehend
+veranstaltung;35;32;Hinweisgeber-Portal Vorstellung für Interessenten | 2021-12-02 09:00:00;;
+veranstalter;35;32;Hinweisgeber-Portal Vorstellung für Interessenten;1;Kontaktmigration ausstehend
+ort;35;32;Hinweisgeber-Portal Vorstellung für Interessenten;1;Kontaktmigration ausstehend
+veranstaltung;36;33;Hinweisgeber-Portal Vorstellung für Interessenten | 2021-12-03 08:00:00;;
+veranstalter;36;33;Hinweisgeber-Portal Vorstellung für Interessenten;1;Kontaktmigration ausstehend
+ort;36;33;Hinweisgeber-Portal Vorstellung für Interessenten;1;Kontaktmigration ausstehend
+veranstaltung;37;34;Hinweisgeber-Portal Vorstellung für Interessenten | 2021-12-16 13:00:00;;
+veranstalter;37;34;Hinweisgeber-Portal Vorstellung für Interessenten;1;Kontaktmigration ausstehend
+ort;37;34;Hinweisgeber-Portal Vorstellung für Interessenten;1;Kontaktmigration ausstehend
+veranstaltung;39;35;Hinweisgeber-Portal Vorstellung für Interessenten | 2021-12-21 09:00:00;;
+veranstalter;39;35;Hinweisgeber-Portal Vorstellung für Interessenten;1;Kontaktmigration ausstehend
+ort;39;35;Hinweisgeber-Portal Vorstellung für Interessenten;1;Kontaktmigration ausstehend
+veranstaltung;40;36;Hinweisgeber-Portal Vorstellung für Interessenten | 2021-12-22 09:00:00;;
+veranstalter;40;36;Hinweisgeber-Portal Vorstellung für Interessenten;1;Kontaktmigration ausstehend
+ort;40;36;Hinweisgeber-Portal Vorstellung für Interessenten;1;Kontaktmigration ausstehend
+veranstaltung;41;37;"Workshop ""Whistleblower Richtlinie"" | 2022-03-29 08:00:00";;
+veranstalter;41;37;"Workshop ""Whistleblower Richtlinie""";1;Kontaktmigration ausstehend
+ort;41;37;"Workshop ""Whistleblower Richtlinie""";1;Kontaktmigration ausstehend
+veranstaltung;42;38;Hinweisgeber Portal - Vorstellung | 2022-05-04 08:00:00;;
+veranstalter;42;38;Hinweisgeber Portal - Vorstellung;1;Kontaktmigration ausstehend
+ort;42;38;Hinweisgeber Portal - Vorstellung;1;Kontaktmigration ausstehend
+veranstaltung;44;39;Gemeindecloud Workshop | 2022-05-24 08:00:00;;
+veranstalter;44;39;Gemeindecloud Workshop;1;Kontaktmigration ausstehend
+ort;44;39;Gemeindecloud Workshop;1;Kontaktmigration ausstehend
+veranstaltung;45;40;Hinweisgeber Portal - Vorstellung | 2022-06-01 08:00:00;;
+veranstalter;45;40;Hinweisgeber Portal - Vorstellung;1;Kontaktmigration ausstehend
+ort;45;40;Hinweisgeber Portal - Vorstellung;1;Kontaktmigration ausstehend
+veranstaltung;46;41;"Vorstellung ""Geschäftsprozesse"" | 2022-06-21 08:00:00";;
+veranstalter;46;41;"Vorstellung ""Geschäftsprozesse""";1;Kontaktmigration ausstehend
+ort;46;41;"Vorstellung ""Geschäftsprozesse""";1;Kontaktmigration ausstehend
+veranstaltung;47;42;Hinweisgeber Portal - Vorstellung | 2022-10-18 08:00:00;;
+veranstalter;47;42;Hinweisgeber Portal - Vorstellung;1;Kontaktmigration ausstehend
+ort;47;42;Hinweisgeber Portal - Vorstellung;1;Kontaktmigration ausstehend
+veranstaltung;48;43;Kostenlose Online-Seminarreihe „Digitale Medienkompetenz“ für Mitarbeiter*innen von Städtebund-Mitgliedsstädten - Terminblock 1 | 2023-03-09 13:00:00;;
+veranstalter;48;43;Kostenlose Online-Seminarreihe „Digitale Medienkompetenz“ für Mitarbeiter*innen von Städtebund-Mitgliedsstädten - Terminblock 1;1;Kontaktmigration ausstehend
+ort;48;43;Kostenlose Online-Seminarreihe „Digitale Medienkompetenz“ für Mitarbeiter*innen von Städtebund-Mitgliedsstädten - Terminblock 1;1;Kontaktmigration ausstehend
+veranstaltung;49;44;Kostenlose Online-Seminarreihe „Digitale Medienkompetenz“ für Mitarbeiter*innen von Städtebund-Mitgliedsstädten - Terminblock 2 | 2023-04-12 12:00:00;;
+veranstalter;49;44;Kostenlose Online-Seminarreihe „Digitale Medienkompetenz“ für Mitarbeiter*innen von Städtebund-Mitgliedsstädten - Terminblock 2;1;Kontaktmigration ausstehend
+ort;49;44;Kostenlose Online-Seminarreihe „Digitale Medienkompetenz“ für Mitarbeiter*innen von Städtebund-Mitgliedsstädten - Terminblock 2;1;Kontaktmigration ausstehend
+veranstaltung;50;45;Kostenlose Online-Seminarreihe „Digitale Medienkompetenz“ für Mitarbeiter*innen von Städtebund-Mitgliedsstädten - Terminblock 3 | 2023-05-02 12:00:00;;
+veranstalter;50;45;Kostenlose Online-Seminarreihe „Digitale Medienkompetenz“ für Mitarbeiter*innen von Städtebund-Mitgliedsstädten - Terminblock 3;1;Kontaktmigration ausstehend
+ort;50;45;Kostenlose Online-Seminarreihe „Digitale Medienkompetenz“ für Mitarbeiter*innen von Städtebund-Mitgliedsstädten - Terminblock 3;1;Kontaktmigration ausstehend
+veranstaltung;51;46;Hinweisportal Vorstellung | 2023-03-21 13:00:00;;
+veranstalter;51;46;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+ort;51;46;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+veranstaltung;52;47;OGD-Publikationsservice - Webinar (Vorstellung des Service) | 2023-04-03 12:00:00;;
+veranstalter;52;47;OGD-Publikationsservice - Webinar (Vorstellung des Service);1;Kontaktmigration ausstehend
+ort;52;47;OGD-Publikationsservice - Webinar (Vorstellung des Service);1;Kontaktmigration ausstehend
+veranstaltung;53;48;Hinweisportal Vorstellung | 2023-06-13 08:00:00;;
+veranstalter;53;48;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+ort;53;48;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+veranstaltung;54;49;Webinar - OGD-Publikationsservice | 2023-03-21 09:30:00;;
+veranstalter;54;49;Webinar - OGD-Publikationsservice;1;Kontaktmigration ausstehend
+ort;54;49;Webinar - OGD-Publikationsservice;1;Kontaktmigration ausstehend
+veranstaltung;55;50;OGD-Publikationsservice - Webinar (Vorstellung des Service) | 2023-03-30 08:00:00;;
+veranstalter;55;50;OGD-Publikationsservice - Webinar (Vorstellung des Service);1;Kontaktmigration ausstehend
+ort;55;50;OGD-Publikationsservice - Webinar (Vorstellung des Service);1;Kontaktmigration ausstehend
+veranstaltung;56;51;Test | 2023-03-22 10:00:00;;
+veranstalter;56;51;Test;1;Kontaktmigration ausstehend
+ort;56;51;Test;1;Kontaktmigration ausstehend
+veranstaltung;57;52;Gemeindecloud Webinar | 2023-04-04 12:00:00;;
+veranstalter;57;52;Gemeindecloud Webinar;1;Kontaktmigration ausstehend
+ort;57;52;Gemeindecloud Webinar;1;Kontaktmigration ausstehend
+veranstaltung;58;53;Gemeindecloud Webinar | 2023-05-11 09:00:00;;
+veranstalter;58;53;Gemeindecloud Webinar;1;Kontaktmigration ausstehend
+ort;58;53;Gemeindecloud Webinar;1;Kontaktmigration ausstehend
+veranstaltung;59;54;Gemeindecloud Webinar | 2023-04-26 08:00:00;;
+veranstalter;59;54;Gemeindecloud Webinar;1;Kontaktmigration ausstehend
+ort;59;54;Gemeindecloud Webinar;1;Kontaktmigration ausstehend
+veranstaltung;60;55;Gemeindecloud Webinar | 2023-05-02 11:00:00;;
+veranstalter;60;55;Gemeindecloud Webinar;1;Kontaktmigration ausstehend
+ort;60;55;Gemeindecloud Webinar;1;Kontaktmigration ausstehend
+veranstaltung;61;56;Gemeindecloud Webinar | 2023-05-09 12:00:00;;
+veranstalter;61;56;Gemeindecloud Webinar;1;Kontaktmigration ausstehend
+ort;61;56;Gemeindecloud Webinar;1;Kontaktmigration ausstehend
+veranstaltung;62;57;Gemeindecloud Webinar | 2023-05-03 08:00:00;;
+veranstalter;62;57;Gemeindecloud Webinar;1;Kontaktmigration ausstehend
+ort;62;57;Gemeindecloud Webinar;1;Kontaktmigration ausstehend
+veranstaltung;63;58;OGD-Publikationsservice - Webinar (Vorstellung des Service) | 2023-04-05 08:00:00;;
+veranstalter;63;58;OGD-Publikationsservice - Webinar (Vorstellung des Service);1;Kontaktmigration ausstehend
+ort;63;58;OGD-Publikationsservice - Webinar (Vorstellung des Service);1;Kontaktmigration ausstehend
+veranstaltung;64;59;OGD-Publikationsservice - Webinar (Vorstellung des Service) | 2023-04-11 11:00:00;;
+veranstalter;64;59;OGD-Publikationsservice - Webinar (Vorstellung des Service);1;Kontaktmigration ausstehend
+ort;64;59;OGD-Publikationsservice - Webinar (Vorstellung des Service);1;Kontaktmigration ausstehend
+veranstaltung;65;60;OGD-Publikationsservice - Webinar (Vorstellung des Service) | 2023-04-13 09:00:00;;
+veranstalter;65;60;OGD-Publikationsservice - Webinar (Vorstellung des Service);1;Kontaktmigration ausstehend
+ort;65;60;OGD-Publikationsservice - Webinar (Vorstellung des Service);1;Kontaktmigration ausstehend
+veranstaltung;66;61;OGD-Publikationsservice - Webinar (Vorstellung des Service) | 2023-04-19 08:00:00;;
+veranstalter;66;61;OGD-Publikationsservice - Webinar (Vorstellung des Service);1;Kontaktmigration ausstehend
+ort;66;61;OGD-Publikationsservice - Webinar (Vorstellung des Service);1;Kontaktmigration ausstehend
+veranstaltung;67;62;Gemeindecloud Webinar (test) | 2023-04-07 08:00:00;;
+veranstalter;67;62;Gemeindecloud Webinar (test);1;Kontaktmigration ausstehend
+ort;67;62;Gemeindecloud Webinar (test);1;Kontaktmigration ausstehend
+veranstaltung;68;63;Hinweisportal - Einladung zur Umsetzung | 2023-05-03 08:00:00;;
+veranstalter;68;63;Hinweisportal - Einladung zur Umsetzung;1;Kontaktmigration ausstehend
+ort;68;63;Hinweisportal - Einladung zur Umsetzung;1;Kontaktmigration ausstehend
+veranstaltung;69;64;Hinweisportal - Einladung zur Umsetzung | 2023-04-25 11:00:00;;
+veranstalter;69;64;Hinweisportal - Einladung zur Umsetzung;1;Kontaktmigration ausstehend
+ort;69;64;Hinweisportal - Einladung zur Umsetzung;1;Kontaktmigration ausstehend
+veranstaltung;70;65;OGD-Publikationsservice - Webinar (Vorstellung des Service) | 2023-05-09 13:00:00;;
+veranstalter;70;65;OGD-Publikationsservice - Webinar (Vorstellung des Service);1;Kontaktmigration ausstehend
+ort;70;65;OGD-Publikationsservice - Webinar (Vorstellung des Service);1;Kontaktmigration ausstehend
+veranstaltung;71;66;OGD-Publikationsservice - Webinar (Vorstellung des Service) | 2023-05-15 11:00:00;;
+veranstalter;71;66;OGD-Publikationsservice - Webinar (Vorstellung des Service);1;Kontaktmigration ausstehend
+ort;71;66;OGD-Publikationsservice - Webinar (Vorstellung des Service);1;Kontaktmigration ausstehend
+veranstaltung;72;67;Hinweisportal - Einladung zur Umsetzung | 2023-05-09 08:00:00;;
+veranstalter;72;67;Hinweisportal - Einladung zur Umsetzung;1;Kontaktmigration ausstehend
+ort;72;67;Hinweisportal - Einladung zur Umsetzung;1;Kontaktmigration ausstehend
+veranstaltung;73;68;Hinweisportal - Einladung zur Umsetzung | 2023-05-16 12:00:00;;
+veranstalter;73;68;Hinweisportal - Einladung zur Umsetzung;1;Kontaktmigration ausstehend
+ort;73;68;Hinweisportal - Einladung zur Umsetzung;1;Kontaktmigration ausstehend
+veranstaltung;74;69;Hinweisportal Vorstellung | 2023-06-21 12:00:00;;
+veranstalter;74;69;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+ort;74;69;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+veranstaltung;75;70;Hinweisportal Vorstellung | 2023-05-31 09:00:00;;
+veranstalter;75;70;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+ort;75;70;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+veranstaltung;76;71;Hinweisportal Vorstellung | 2023-06-28 08:00:00;;
+veranstalter;76;71;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+ort;76;71;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+veranstaltung;77;72;Hinweisportal Vorstellung | 2023-07-05 08:00:00;;
+veranstalter;77;72;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+ort;77;72;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+veranstaltung;78;73;Hinweisportal Vorstellung | 2023-07-11 08:00:00;;
+veranstalter;78;73;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+ort;78;73;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+veranstaltung;79;74;Hinweisportal Vorstellung für Interessenten | 2023-09-18 11:00:00;;
+veranstalter;79;74;Hinweisportal Vorstellung für Interessenten;1;Kontaktmigration ausstehend
+ort;79;74;Hinweisportal Vorstellung für Interessenten;1;Kontaktmigration ausstehend
+veranstaltung;80;75;Hinweisportal Vorstellung für Interessenten | 2023-12-13 08:00:00;;
+veranstalter;80;75;Hinweisportal Vorstellung für Interessenten;1;Kontaktmigration ausstehend
+ort;80;75;Hinweisportal Vorstellung für Interessenten;1;Kontaktmigration ausstehend
+veranstaltung;81;76;Hinweisportal Vorstellung für Interessenten | 2023-09-12 08:00:00;;
+veranstalter;81;76;Hinweisportal Vorstellung für Interessenten;1;Kontaktmigration ausstehend
+ort;81;76;Hinweisportal Vorstellung für Interessenten;1;Kontaktmigration ausstehend
+veranstaltung;82;77;Webinar - OGD-Publikationsservice | 2023-08-29 11:00:00;;
+veranstalter;82;77;Webinar - OGD-Publikationsservice;1;Kontaktmigration ausstehend
+ort;82;77;Webinar - OGD-Publikationsservice;1;Kontaktmigration ausstehend
+veranstaltung;83;78;Webinar - OGD-Publikationsservice | 2023-08-08 07:00:00;;
+veranstalter;83;78;Webinar - OGD-Publikationsservice;1;Kontaktmigration ausstehend
+ort;83;78;Webinar - OGD-Publikationsservice;1;Kontaktmigration ausstehend
+veranstaltung;84;79;Webinar - OGD-Publikationsservice | 2023-08-16 08:00:00;;
+veranstalter;84;79;Webinar - OGD-Publikationsservice;1;Kontaktmigration ausstehend
+ort;84;79;Webinar - OGD-Publikationsservice;1;Kontaktmigration ausstehend
+veranstaltung;85;80;Info.Sicher (Städtebund) – Start 7.11. (Module 2 bis 4: 14.11., 21.11.,28.11. jeweils 14:00-16:30) | 2023-11-07 13:00:00;;
+veranstalter;85;80;Info.Sicher (Städtebund) – Start 7.11. (Module 2 bis 4: 14.11., 21.11.,28.11. jeweils 14:00-16:30);11049;Kontaktmigration ausstehend
+ort;85;80;Info.Sicher (Städtebund) – Start 7.11. (Module 2 bis 4: 14.11., 21.11.,28.11. jeweils 14:00-16:30);11049;Kontaktmigration ausstehend
+veranstaltung;86;81;Hinweisportal Vorstellung | 2023-10-17 08:00:00;;
+veranstalter;86;81;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+ort;86;81;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+veranstaltung;87;82;Hinweisportal Vorstellung | 2023-11-23 09:00:00;;
+veranstalter;87;82;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+ort;87;82;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+veranstaltung;88;83;Hinweisportal Vorstellung | 2024-01-03 09:00:00;;
+veranstalter;88;83;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+ort;88;83;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+veranstaltung;89;84;Hinweisportal Vorstellung | 2023-10-25 08:00:00;;
+veranstalter;89;84;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+ort;89;84;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+veranstaltung;90;85;Hinweisportal Vorstellung | 2023-10-31 09:00:00;;
+veranstalter;90;85;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+ort;90;85;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+veranstaltung;91;86;Digitale Zusammenarbeit - wie geht das? | 2024-05-07 12:00:00;;
+veranstalter;91;86;Digitale Zusammenarbeit - wie geht das?;1;Kontaktmigration ausstehend
+ort;91;86;Digitale Zusammenarbeit - wie geht das?;1;Kontaktmigration ausstehend
+veranstaltung;92;87;Hinweisportal Vorstellung | 2023-11-09 12:00:00;;
+veranstalter;92;87;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+ort;92;87;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+veranstaltung;93;88;Hinweisportal Vorstellung | 2023-11-07 14:00:00;;
+veranstalter;93;88;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+ort;93;88;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+veranstaltung;94;89;Hinweisportal Vorstellung | 2023-11-15 09:00:00;;
+veranstalter;94;89;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+ort;94;89;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+veranstaltung;95;90;Hinweisportal Vorstellung | 2023-11-21 12:00:00;;
+veranstalter;95;90;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+ort;95;90;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+veranstaltung;96;91;Hinweisportal Vorstellung | 2023-11-28 12:00:00;;
+veranstalter;96;91;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+ort;96;91;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+veranstaltung;97;92;Hinweisportal Vorstellung | 2023-11-30 09:00:00;;
+veranstalter;97;92;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+ort;97;92;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+veranstaltung;99;93;Webinar - Digitalisierung der Kundenschnittstelle – Online-Formularservices vom kommunalen Marktführer | 2023-12-13 09:00:00;;
+veranstalter;99;93;Webinar - Digitalisierung der Kundenschnittstelle – Online-Formularservices vom kommunalen Marktführer;1;Kontaktmigration ausstehend
+ort;99;93;Webinar - Digitalisierung der Kundenschnittstelle – Online-Formularservices vom kommunalen Marktführer;1;Kontaktmigration ausstehend
+veranstaltung;100;94;Webinar - Digitalisierung der Kundenschnittstelle – Online-Formularservices vom kommunalen Marktführer | 2023-12-19 13:00:00;;
+veranstalter;100;94;Webinar - Digitalisierung der Kundenschnittstelle – Online-Formularservices vom kommunalen Marktführer;1;Kontaktmigration ausstehend
+ort;100;94;Webinar - Digitalisierung der Kundenschnittstelle – Online-Formularservices vom kommunalen Marktführer;1;Kontaktmigration ausstehend
+veranstaltung;101;95;Hinweisportal Vorstellung für Interessenten | 2023-12-06 08:00:00;;
+veranstalter;101;95;Hinweisportal Vorstellung für Interessenten;1;Kontaktmigration ausstehend
+ort;101;95;Hinweisportal Vorstellung für Interessenten;1;Kontaktmigration ausstehend
+veranstaltung;102;96;Hinweisportal Vorstellung | 2024-01-09 13:00:00;;
+veranstalter;102;96;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+ort;102;96;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+veranstaltung;103;97;Hinweisportal Vorstellung | 2024-01-11 09:00:00;;
+veranstalter;103;97;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+ort;103;97;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+veranstaltung;104;98;Hinweisportal Vorstellung | 2024-01-17 13:00:00;;
+veranstalter;104;98;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+ort;104;98;Hinweisportal Vorstellung;1;Kontaktmigration ausstehend
+veranstaltung;105;99;Hinweisgeber-Portal Vorstellung | 2024-02-06 13:00:00;;
+veranstalter;105;99;Hinweisgeber-Portal Vorstellung;1;Kontaktmigration ausstehend
+ort;105;99;Hinweisgeber-Portal Vorstellung;1;Kontaktmigration ausstehend
+veranstaltung;106;100;Hinweisgeber-Portal Vorstellung | 2024-02-14 09:00:00;;
+veranstalter;106;100;Hinweisgeber-Portal Vorstellung;1;Kontaktmigration ausstehend
+ort;106;100;Hinweisgeber-Portal Vorstellung;1;Kontaktmigration ausstehend
+veranstaltung;107;101;Hinweisgeber-Portal Vorstellung | 2024-02-22 09:00:00;;
+veranstalter;107;101;Hinweisgeber-Portal Vorstellung;1;Kontaktmigration ausstehend
+ort;107;101;Hinweisgeber-Portal Vorstellung;1;Kontaktmigration ausstehend
+veranstaltung;108;102;Hinweisgeber-Portal Vorstellung | 2024-01-31 09:00:00;;
+veranstalter;108;102;Hinweisgeber-Portal Vorstellung;1;Kontaktmigration ausstehend
+ort;108;102;Hinweisgeber-Portal Vorstellung;1;Kontaktmigration ausstehend
+veranstaltung;109;103;Kundenschnittstelle Digitalisieren am Beispiel Vertragsmanagement | 2024-02-20 09:00:00;;
+veranstalter;109;103;Kundenschnittstelle Digitalisieren am Beispiel Vertragsmanagement;1;Kontaktmigration ausstehend
+ort;109;103;Kundenschnittstelle Digitalisieren am Beispiel Vertragsmanagement;1;Kontaktmigration ausstehend
+veranstaltung;110;104;The New Way Of Work/ Kollaborations- und Wissensplattform | 2024-02-15 09:00:00;;
+veranstalter;110;104;The New Way Of Work/ Kollaborations- und Wissensplattform;1;Kontaktmigration ausstehend
+ort;110;104;The New Way Of Work/ Kollaborations- und Wissensplattform;1;Kontaktmigration ausstehend
+veranstaltung;111;105;Daten und Dokumente digital Verwalten | 2024-02-27 09:00:00;;
+veranstalter;111;105;Daten und Dokumente digital Verwalten;1;Kontaktmigration ausstehend
+ort;111;105;Daten und Dokumente digital Verwalten;1;Kontaktmigration ausstehend
+veranstaltung;112;106;Kundenschnittstelle Digitalisieren am Beispiel Vertragsmanagement | 2024-02-28 12:00:00;;
+veranstalter;112;106;Kundenschnittstelle Digitalisieren am Beispiel Vertragsmanagement;1;Kontaktmigration ausstehend
+ort;112;106;Kundenschnittstelle Digitalisieren am Beispiel Vertragsmanagement;1;Kontaktmigration ausstehend
+veranstaltung;113;107;The New Way Of Work/ Kollaborations- und Wissensplattform | 2024-02-29 08:00:00;;
+veranstalter;113;107;The New Way Of Work/ Kollaborations- und Wissensplattform;1;Kontaktmigration ausstehend
+ort;113;107;The New Way Of Work/ Kollaborations- und Wissensplattform;1;Kontaktmigration ausstehend
+veranstaltung;114;108;"Webinar ""Gemeindecloud"" - Funktionsumfang | 2024-03-14 12:00:00";;
+veranstalter;114;108;"Webinar ""Gemeindecloud"" - Funktionsumfang";1;Kontaktmigration ausstehend
+ort;114;108;"Webinar ""Gemeindecloud"" - Funktionsumfang";1;Kontaktmigration ausstehend
+veranstaltung;115;109;"Webinar ""Gemeindecloud"" - Funktionsumfang | 2024-03-19 08:00:00";;
+veranstalter;115;109;"Webinar ""Gemeindecloud"" - Funktionsumfang";1;Kontaktmigration ausstehend
+ort;115;109;"Webinar ""Gemeindecloud"" - Funktionsumfang";1;Kontaktmigration ausstehend
+veranstaltung;116;110;"Webinar ""Gemeindecloud"" - Funktionsumfang | 2024-03-21 10:00:00";;
+veranstalter;116;110;"Webinar ""Gemeindecloud"" - Funktionsumfang";1;Kontaktmigration ausstehend
+ort;116;110;"Webinar ""Gemeindecloud"" - Funktionsumfang";1;Kontaktmigration ausstehend
+veranstaltung;117;111;Webinar - Vorstellung Vertragsmanager | 2024-04-03 08:00:00;;
+veranstalter;117;111;Webinar - Vorstellung Vertragsmanager;1;Kontaktmigration ausstehend
+ort;117;111;Webinar - Vorstellung Vertragsmanager;1;Kontaktmigration ausstehend
+veranstaltung;118;112; Webinar - Vorstellung Vertragsmanager | 2024-03-26 09:00:00;;
+veranstalter;118;112; Webinar - Vorstellung Vertragsmanager;1;Kontaktmigration ausstehend
+ort;118;112; Webinar - Vorstellung Vertragsmanager;1;Kontaktmigration ausstehend
+veranstaltung;119;113; Webinar - Vorstellung Vertragsmanager | 2024-03-21 08:00:00;;
+veranstalter;119;113; Webinar - Vorstellung Vertragsmanager;1;Kontaktmigration ausstehend
+ort;119;113; Webinar - Vorstellung Vertragsmanager;1;Kontaktmigration ausstehend
+veranstaltung;120;114;Webinar - Vorstellung Communex | 2024-04-04 12:00:00;;
+veranstalter;120;114;Webinar - Vorstellung Communex;1;Kontaktmigration ausstehend
+ort;120;114;Webinar - Vorstellung Communex;1;Kontaktmigration ausstehend
+veranstaltung;121;115;Webinar - Vorstellung Communex | 2024-04-09 08:00:00;;
+veranstalter;121;115;Webinar - Vorstellung Communex;1;Kontaktmigration ausstehend
+ort;121;115;Webinar - Vorstellung Communex;1;Kontaktmigration ausstehend
+veranstaltung;122;116;Webinar - Vorstellung Communex | 2024-03-27 13:00:00;;
+veranstalter;122;116;Webinar - Vorstellung Communex;1;Kontaktmigration ausstehend
+ort;122;116;Webinar - Vorstellung Communex;1;Kontaktmigration ausstehend
+veranstaltung;123;117;Digitale Zusammenarbeit - wie geht das? | 2024-05-08 08:00:00;;
+veranstalter;123;117;Digitale Zusammenarbeit - wie geht das?;1;Kontaktmigration ausstehend
+ort;123;117;Digitale Zusammenarbeit - wie geht das?;1;Kontaktmigration ausstehend
+veranstaltung;124;118;Digitale Zusammenarbeit - wie geht das? | 2024-05-14 09:00:00;;
+veranstalter;124;118;Digitale Zusammenarbeit - wie geht das?;1;Kontaktmigration ausstehend
+ort;124;118;Digitale Zusammenarbeit - wie geht das?;1;Kontaktmigration ausstehend
+veranstaltung;125;119;Digitale Zusammenarbeit - wie geht das? | 2024-05-16 07:00:00;;
+veranstalter;125;119;Digitale Zusammenarbeit - wie geht das?;1;Kontaktmigration ausstehend
+ort;125;119;Digitale Zusammenarbeit - wie geht das?;1;Kontaktmigration ausstehend
+veranstaltung;126;120;opendesk Webinar 1 | 2026-03-19 12:00:00;;
+veranstalter;126;120;opendesk Webinar 1;1;Kontaktmigration ausstehend
+ort;126;120;opendesk Webinar 1;1;Kontaktmigration ausstehend
+veranstaltung;128;121;opendesk Webinar 2 | 2026-03-23 12:00:00;;
+veranstalter;128;121;opendesk Webinar 2;1;Kontaktmigration ausstehend
+ort;128;121;opendesk Webinar 2;1;Kontaktmigration ausstehend
+veranstaltung;129;122;test123 | 2026-03-20 14:52:47;;
+veranstalter;129;122;test123;1;Kontaktmigration ausstehend
+ort;129;122;test123;1;Kontaktmigration ausstehend
+teilnehmer;3;;1|open|2020-11-17 13:25:23;10468;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;5;;1|open|2020-11-17 13:46:40;10468;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;6;;1|done|2020-11-17 13:48:41;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;7;;1|open|2020-11-17 13:54:06;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;9;;4|draft|2020-11-19 10:18:30;10575;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;10;;4|draft|2020-11-19 10:18:30;10575;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;13;;2|open|2020-11-24 07:13:49;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;14;;2|open|2020-11-24 07:17:03;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;15;;2|open|2020-11-24 07:18:03;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;16;;2|open|2020-11-24 09:39:44;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;17;;2|open|2020-11-24 13:04:55;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;18;;2|open|2020-11-24 13:04:55;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;19;;2|open|2020-11-25 10:04:36;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;20;;2|open|2020-11-27 13:37:23;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;21;;2|open|2020-11-27 14:01:06;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;22;;2|open|2020-11-27 14:01:06;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;23;;2|open|2020-11-30 12:15:16;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;24;;2|open|2020-11-30 14:44:35;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;25;;2|open|2020-12-09 08:53:13;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;26;;13|open|2021-02-02 13:43:39;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;27;;8|done|2021-02-03 05:57:26;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;28;;18|cancel|2021-02-03 06:00:49;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;29;;9|open|2021-02-03 06:02:55;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;30;;14|open|2021-02-03 06:03:54;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;31;;9|open|2021-02-03 07:01:39;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;32;;9|open|2021-02-03 08:04:23;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;33;;9|open|2021-02-03 08:09:47;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;34;;8|done|2021-02-03 11:08:52;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;35;;13|open|2021-02-03 11:10:50;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;36;;18|cancel|2021-02-03 11:11:54;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;37;;9|open|2021-02-03 13:28:34;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;38;;14|open|2021-02-03 13:29:14;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;39;;19|cancel|2021-02-03 13:30:17;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;40;;8|done|2021-02-04 05:39:11;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;41;;9|open|2021-02-05 09:56:50;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;42;;8|done|2021-02-08 06:27:59;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;43;;8|done|2021-02-08 11:04:33;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;44;;9|open|2021-02-08 13:40:03;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;45;;9|open|2021-02-09 05:55:18;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;46;;9|open|2021-02-09 10:41:14;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;47;;9|open|2021-02-09 11:03:28;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;48;;9|open|2021-02-09 13:27:43;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;49;;13|open|2021-02-09 13:28:09;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;50;;18|cancel|2021-02-09 13:28:25;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;51;;15|open|2021-02-11 09:31:30;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;52;;15|open|2021-02-11 09:31:30;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;53;;9|open|2021-02-13 09:41:34;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;54;;13|open|2021-02-15 09:10:07;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;55;;9|open|2021-02-22 12:32:55;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;56;;14|open|2021-02-22 12:34:03;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;57;;14|open|2021-02-22 12:41:08;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;58;;23|open|2021-02-24 14:44:52;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;59;;24|open|2021-02-24 15:22:44;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;60;;24|open|2021-02-25 05:28:30;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;61;;24|open|2021-02-25 05:36:10;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;62;;24|open|2021-02-25 05:59:15;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;63;;23|open|2021-02-25 06:10:14;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;64;;23|open|2021-02-25 06:39:39;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;65;;24|open|2021-02-25 06:44:44;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;66;;23|open|2021-02-25 06:47:00;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;67;;24|open|2021-02-25 07:11:05;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;68;;24|open|2021-02-25 07:15:45;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;69;;23|open|2021-02-25 07:18:55;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;70;;23|open|2021-02-25 07:23:20;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;71;;23|open|2021-02-25 07:30:46;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;72;;23|open|2021-02-25 08:00:39;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;73;;23|open|2021-02-25 08:00:39;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;74;;24|open|2021-02-25 08:06:32;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;75;;24|open|2021-02-25 08:06:32;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;76;;24|open|2021-02-25 08:18:11;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;77;;25|open|2021-02-25 08:27:35;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;78;;23|open|2021-02-25 08:30:11;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;79;;25|open|2021-02-25 08:38:53;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;80;;25|open|2021-02-25 08:54:51;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;81;;25|open|2021-02-25 08:55:46;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;82;;25|open|2021-02-25 08:59:15;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;83;;25|open|2021-02-25 09:08:51;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;84;;20|cancel|2021-02-25 09:09:14;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;85;;25|open|2021-02-25 09:19:13;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;86;;25|open|2021-02-25 09:20:03;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;87;;25|open|2021-02-25 09:37:59;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;88;;19|cancel|2021-02-25 09:50:47;10575;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;89;;19|cancel|2021-02-25 09:52:07;10575;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;90;;25|open|2021-02-25 09:55:03;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;91;;23|open|2021-02-25 10:26:08;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;92;;23|open|2021-02-25 11:04:46;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;93;;23|open|2021-02-25 11:31:38;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;94;;23|open|2021-02-25 11:51:15;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;95;;23|open|2021-02-25 11:55:50;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;96;;24|open|2021-02-25 12:03:53;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;97;;24|open|2021-02-25 12:14:22;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;98;;24|open|2021-02-25 12:15:01;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;99;;25|open|2021-02-25 12:18:07;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;100;;25|open|2021-02-25 12:18:07;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;101;;24|open|2021-02-25 12:19:49;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;102;;24|open|2021-02-25 12:21:16;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;103;;25|open|2021-02-25 12:32:01;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;104;;25|open|2021-02-25 12:57:32;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;109;;25|open|2021-02-25 12:59:16;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;111;;23|open|2021-02-26 07:13:07;10721;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;112;;23|open|2021-02-26 07:13:21;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;113;;23|open|2021-02-26 07:19:29;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;114;;23|open|2021-02-26 07:25:51;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;115;;23|open|2021-02-26 07:31:38;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;116;;24|open|2021-02-26 07:32:45;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;117;;23|open|2021-02-26 07:41:02;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;118;;25|open|2021-02-26 07:41:26;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;119;;23|open|2021-02-26 07:54:25;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;120;;24|open|2021-02-26 08:12:12;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;121;;23|open|2021-02-26 08:14:25;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;122;;23|open|2021-02-26 08:24:05;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;123;;23|open|2021-02-26 08:34:00;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;124;;23|open|2021-02-26 08:47:09;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;125;;23|open|2021-02-26 08:54:29;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;126;;23|open|2021-02-26 08:55:04;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;127;;23|open|2021-02-26 08:56:07;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;128;;23|open|2021-02-26 09:00:23;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;129;;24|open|2021-02-26 09:08:56;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;130;;24|open|2021-02-26 09:19:21;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;131;;25|open|2021-02-26 09:25:46;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;132;;24|open|2021-02-26 09:37:41;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;133;;25|open|2021-02-26 09:43:12;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;134;;24|open|2021-02-26 09:50:12;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;135;;24|open|2021-02-26 09:54:18;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;136;;24|open|2021-02-26 10:00:31;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;137;;25|open|2021-02-26 10:20:15;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;138;;24|open|2021-02-26 10:20:40;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;139;;24|open|2021-02-26 10:20:40;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;140;;24|open|2021-02-26 11:44:38;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;141;;25|open|2021-03-01 06:50:18;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;142;;25|open|2021-03-01 06:50:18;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;143;;24|open|2021-03-01 06:53:56;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;144;;24|open|2021-03-01 07:41:11;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;145;;24|open|2021-03-01 07:49:02;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;146;;24|open|2021-03-01 08:42:33;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;148;;25|open|2021-03-01 09:02:52;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;149;;25|open|2021-03-01 10:28:24;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;150;;25|open|2021-03-01 10:35:38;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;151;;25|open|2021-03-01 11:12:08;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;152;;25|open|2021-03-01 12:38:07;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;153;;25|open|2021-03-01 12:38:07;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;154;;25|open|2021-03-01 12:57:06;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;155;;25|open|2021-03-01 13:20:04;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;156;;25|open|2021-03-01 13:34:50;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;157;;23|open|2021-03-02 09:42:38;7344;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;158;;23|open|2021-03-02 09:45:12;7344;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;159;;23|open|2021-03-03 08:19:35;;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;160;;24|open|2021-03-03 08:22:58;10668;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;161;;25|open|2021-03-03 09:11:51;6569;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;162;;24|open|2021-03-05 10:01:56;7074;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;163;;9|open|2021-03-08 09:13:23;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;164;;24|open|2021-03-09 09:00:17;10616;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;165;;24|open|2021-03-09 09:46:25;6655;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;166;;11|cancel|2021-03-09 13:25:33;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;167;;24|open|2021-03-11 06:43:50;6818;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;168;;25|open|2021-03-11 07:31:46;6068;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;169;;24|open|2021-03-11 09:50:42;6685;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;170;;24|open|2021-03-12 06:42:36;6833;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;171;;24|open|2021-03-12 06:43:07;6833;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;172;;14|open|2021-03-14 18:21:27;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;173;;24|open|2021-03-15 06:27:00;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;174;;24|open|2021-03-15 06:58:48;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;175;;14|open|2021-03-15 13:41:29;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;176;;10|open|2021-03-22 07:38:01;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;177;;20|cancel|2021-03-22 08:47:46;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;178;;10|open|2021-03-24 06:53:51;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;179;;10|open|2021-03-24 09:10:15;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;180;;10|open|2021-03-24 12:36:49;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;181;;10|open|2021-03-24 12:36:49;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;182;;11|cancel|2021-03-24 12:51:34;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;183;;10|open|2021-03-24 13:13:29;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;184;;10|open|2021-03-24 13:22:18;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;185;;10|open|2021-03-24 14:53:40;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;186;;11|cancel|2021-03-24 15:21:20;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;187;;10|open|2021-03-25 07:15:24;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;188;;10|open|2021-03-25 08:36:44;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;189;;16|cancel|2021-03-25 16:40:07;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;190;;15|open|2021-03-26 07:55:00;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;191;;20|cancel|2021-03-30 16:59:59;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;192;;11|cancel|2021-03-31 06:38:41;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;193;;15|open|2021-04-13 08:40:25;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;194;;15|open|2021-04-13 08:40:57;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;195;;15|open|2021-04-13 08:41:25;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;196;;20|cancel|2021-04-15 06:09:17;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;197;;20|cancel|2021-04-15 13:50:29;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;198;;20|cancel|2021-04-15 13:51:17;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;199;;25|open|2021-04-21 08:10:40;7000;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;200;;25|open|2021-04-21 08:11:31;6301;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;201;;25|open|2021-04-23 06:11:34;6986;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;202;;21|cancel|2021-04-27 08:04:04;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;203;;21|cancel|2021-04-29 07:31:56;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;204;;16|cancel|2021-05-10 09:20:23;10575;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;205;;11|cancel|2021-05-11 06:01:55;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;206;;11|cancel|2021-05-11 06:38:18;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;207;;26|open|2021-05-11 08:30:06;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;208;;26|open|2021-05-11 12:50:05;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;209;;27|open|2021-05-14 07:50:22;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;210;;27|open|2021-05-14 07:50:22;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;211;;26|open|2021-05-17 07:49:34;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;212;;26|open|2021-05-17 15:17:36;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;213;;27|open|2021-05-19 11:54:08;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;214;;27|open|2021-06-07 07:46:24;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;215;;28|cancel|2021-11-11 10:06:25;10736;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;216;;28|cancel|2021-11-11 10:27:15;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;217;;29|cancel|2021-11-11 12:36:38;10736;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;218;;30|cancel|2021-11-16 06:58:49;10736;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;219;;28|open|2021-11-16 09:28:09;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;220;;29|open|2021-11-16 09:31:50;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;221;;28|open|2021-11-16 09:36:37;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;222;;28|open|2021-11-16 09:37:40;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;223;;28|open|2021-11-16 09:39:28;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;224;;28|open|2021-11-16 09:49:37;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;225;;29|open|2021-11-16 09:55:04;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;226;;29|open|2021-11-16 09:55:04;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;227;;31|open|2021-11-16 09:56:11;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;228;;31|cancel|2021-11-16 09:56:16;10468;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;229;;32|cancel|2021-11-16 10:04:01;10575;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;230;;32|cancel|2021-11-16 10:04:08;10468;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;231;;28|open|2021-11-16 10:13:57;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;232;;28|open|2021-11-16 10:13:57;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;233;;32|cancel|2021-11-16 10:30:52;10575;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;234;;28|open|2021-11-16 10:34:06;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;235;;31|open|2021-11-16 10:41:51;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;236;;32|cancel|2021-11-16 10:47:57;10468;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;237;;28|open|2021-11-16 10:49:54;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;238;;32|cancel|2021-11-16 10:51:25;10468;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;239;;28|open|2021-11-16 10:56:37;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;240;;28|open|2021-11-16 11:48:09;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;241;;28|open|2021-11-16 11:53:30;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;242;;32|cancel|2021-11-16 12:01:23;10575;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;243;;29|cancel|2021-11-16 12:09:48;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;244;;29|open|2021-11-16 12:09:48;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;245;;29|open|2021-11-16 12:09:48;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;246;;31|cancel|2021-11-16 12:19:31;10468;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;247;;28|open|2021-11-16 12:21:56;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;248;;29|open|2021-11-16 12:22:24;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;249;;28|open|2021-11-16 12:29:52;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;250;;28|open|2021-11-16 12:46:12;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;251;;31|open|2021-11-16 14:54:58;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;252;;29|open|2021-11-16 14:56:04;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;253;;28|open|2021-11-16 15:05:07;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;254;;28|open|2021-11-16 15:05:28;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;255;;31|open|2021-11-16 15:56:49;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;256;;31|open|2021-11-16 17:02:42;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;257;;31|open|2021-11-16 17:02:42;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;258;;28|open|2021-11-17 07:17:48;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;259;;28|open|2021-11-17 07:24:21;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;260;;28|open|2021-11-17 08:02:56;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;261;;31|open|2021-11-17 08:09:21;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;262;;31|open|2021-11-17 08:24:08;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;263;;28|open|2021-11-17 08:25:11;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;264;;31|open|2021-11-17 09:10:40;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;265;;31|open|2021-11-17 10:45:56;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;266;;31|open|2021-11-17 10:45:56;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;267;;29|open|2021-11-17 10:47:07;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;268;;31|open|2021-11-17 13:21:13;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;269;;28|open|2021-11-17 15:19:37;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;270;;28|open|2021-11-18 09:30:27;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;271;;28|open|2021-11-18 10:10:46;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;272;;28|open|2021-11-18 10:11:33;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;273;;31|open|2021-11-18 10:21:33;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;274;;29|open|2021-11-18 10:27:15;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;275;;29|open|2021-11-18 10:27:15;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;276;;29|cancel|2021-11-18 10:27:15;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;277;;29|cancel|2021-11-18 10:29:51;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;278;;29|cancel|2021-11-18 10:29:51;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;279;;29|open|2021-11-18 10:29:51;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;280;;31|open|2021-11-18 15:16:20;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;281;;31|open|2021-11-18 15:16:20;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;282;;31|open|2021-11-18 15:16:20;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;283;;29|open|2021-11-22 07:39:52;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;284;;29|open|2021-11-22 08:28:27;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;285;;31|open|2021-11-22 14:45:40;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;286;;33|open|2021-11-23 09:25:17;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;287;;29|open|2021-11-23 09:40:06;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;288;;29|open|2021-11-23 10:27:24;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;289;;29|open|2021-11-23 10:27:24;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;290;;31|open|2021-11-23 11:15:28;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;291;;29|open|2021-11-24 08:37:15;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;292;;33|open|2021-11-24 09:40:04;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;293;;31|open|2021-11-24 09:48:53;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;294;;31|open|2021-11-24 09:48:53;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;295;;29|open|2021-11-24 10:16:44;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;296;;31|open|2021-11-24 10:54:12;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;297;;31|open|2021-11-24 10:59:59;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;298;;31|open|2021-11-24 12:01:32;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;299;;33|open|2021-11-24 12:31:17;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;300;;29|open|2021-11-24 12:40:22;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;301;;33|open|2021-11-24 13:05:48;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;302;;33|open|2021-11-25 07:19:25;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;303;;29|open|2021-11-25 09:53:13;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;304;;36|open|2021-11-25 12:16:36;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;305;;36|open|2021-11-25 12:16:36;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;306;;31|cancel|2021-11-29 06:07:38;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;307;;31|open|2021-11-29 07:06:46;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;308;;35|open|2021-11-29 08:26:03;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;309;;35|open|2021-11-29 08:37:57;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;310;;33|open|2021-11-29 10:13:34;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;311;;33|open|2021-11-29 10:15:40;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;312;;33|cancel|2021-11-29 10:16:10;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;313;;33|cancel|2021-11-29 10:27:44;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;314;;33|open|2021-11-29 11:02:19;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;315;;36|open|2021-11-29 11:06:54;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;316;;36|open|2021-11-29 11:57:00;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;317;;36|open|2021-11-29 12:43:03;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;318;;33|open|2021-11-29 14:29:36;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;319;;36|open|2021-11-30 05:14:52;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;320;;36|open|2021-11-30 10:33:09;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;321;;36|cancel|2021-12-01 13:32:07;10575;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;322;;35|open|2021-12-02 09:01:08;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;323;;36|open|2021-12-02 09:35:40;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;324;;39|open|2021-12-20 09:06:45;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;325;;39|open|2021-12-20 09:06:45;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;326;;40|open|2021-12-20 09:27:51;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;327;;39|open|2021-12-20 10:16:46;10736;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;328;;40|open|2021-12-20 10:17:18;10736;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;329;;40|open|2021-12-20 13:48:05;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;330;;39|open|2021-12-20 14:26:43;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;331;;40|open|2021-12-20 16:20:09;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;332;;40|open|2021-12-21 08:53:39;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;333;;39|open|2021-12-21 09:01:56;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;334;;40|open|2021-12-21 14:24:22;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;335;;42|cancel|2022-04-07 18:07:08;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;336;;42|cancel|2022-04-07 18:11:00;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;337;;42|cancel|2022-04-08 05:58:26;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;338;;45|open|2022-05-16 07:35:07;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;339;;45|open|2022-05-16 08:02:23;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;340;;45|open|2022-05-16 08:22:47;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;341;;45|open|2022-05-16 08:45:16;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;342;;45|open|2022-05-16 08:54:14;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;343;;45|open|2022-05-16 08:55:19;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;344;;45|open|2022-05-16 08:55:19;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;345;;45|open|2022-05-18 13:13:35;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;346;;45|open|2022-05-19 09:58:54;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;347;;45|open|2022-05-25 08:40:57;10764;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;348;;45|open|2022-05-25 08:45:11;9617;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;349;;45|open|2022-05-25 09:13:55;;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;350;;45|open|2022-05-25 09:17:03;10766;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;351;;46|open|2022-05-30 07:58:43;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;352;;45|open|2022-05-30 09:20:14;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;353;;45|open|2022-05-30 12:30:28;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;354;;45|open|2022-05-31 07:47:40;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;355;;45|open|2022-06-01 07:45:09;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;356;;45|open|2022-06-01 07:55:05;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;357;;46|open|2022-06-02 05:01:15;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;358;;46|open|2022-06-02 16:23:57;10767;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;359;;46|open|2022-06-02 16:25:55;10768;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;360;;46|open|2022-06-02 16:26:56;10769;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;361;;46|open|2022-06-02 16:27:59;10736;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;362;;46|open|2022-06-02 16:32:21;10736;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;363;;46|open|2022-06-03 10:33:48;10770;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;364;;46|open|2022-06-03 10:35:35;10772;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;365;;46|open|2022-06-03 12:17:55;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;366;;46|open|2022-06-07 11:57:11;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;367;;46|cancel|2022-06-11 08:57:02;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;368;;46|cancel|2022-06-11 08:57:54;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;369;;46|open|2022-06-14 09:58:49;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;370;;46|open|2022-06-20 08:59:52;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;371;;47|open|2022-10-10 08:46:54;10736;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;372;;47|open|2022-10-10 11:16:16;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;373;;47|open|2022-10-10 12:54:21;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;374;;47|open|2022-10-11 09:26:47;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;375;;47|open|2022-10-11 13:47:23;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;376;;47|open|2022-10-11 13:47:58;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;377;;47|open|2022-10-12 08:58:39;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;378;;47|open|2022-10-18 05:46:21;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;379;;48|open|2023-02-20 13:05:52;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;380;;48|open|2023-02-21 08:45:59;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;381;;49|open|2023-02-21 09:30:10;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;382;;48|open|2023-02-21 09:33:03;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;383;;48|open|2023-02-21 10:50:08;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;384;;48|open|2023-02-22 06:05:00;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;386;;48|open|2023-02-23 11:39:16;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;387;;49|open|2023-02-23 11:39:33;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;388;;49|open|2023-02-23 11:39:58;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;389;;50|open|2023-02-23 11:40:14;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;390;;49|open|2023-02-23 11:46:35;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;391;;49|open|2023-02-23 13:01:36;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;392;;49|open|2023-02-23 13:01:36;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;393;;49|open|2023-02-23 15:36:39;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;394;;48|open|2023-02-24 07:42:29;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;395;;48|open|2023-02-24 08:17:45;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;396;;48|open|2023-02-24 08:17:45;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;397;;49|open|2023-02-24 09:19:50;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;398;;49|open|2023-02-24 09:19:50;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;399;;50|open|2023-02-24 09:30:54;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;400;;48|open|2023-02-24 10:11:32;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;401;;49|open|2023-02-24 10:47:55;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;402;;50|open|2023-02-27 08:22:37;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;403;;50|open|2023-02-27 08:22:37;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;404;;48|open|2023-02-28 10:53:30;10736;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;405;;50|open|2023-02-28 13:26:24;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;406;;50|open|2023-02-28 13:52:47;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;407;;50|open|2023-03-08 10:35:56;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;408;;49|open|2023-03-08 15:07:44;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;409;;50|open|2023-03-09 07:19:02;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;410;;50|cancel|2023-03-09 09:20:15;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;411;;49|open|2023-03-09 09:55:28;10736;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;412;;50|open|2023-03-09 09:56:21;10736;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;413;;54|open|2023-03-09 11:22:12;10736;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;414;;55|open|2023-03-09 11:22:39;10736;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;415;;49|open|2023-03-10 09:50:22;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;416;;49|open|2023-03-10 10:49:27;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;417;;51|open|2023-03-13 07:12:57;10736;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;418;;52|open|2023-03-13 07:13:13;10736;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;419;;53|cancel|2023-03-13 07:13:47;10736;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;420;;54|cancel|2023-03-13 08:04:07;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;421;;54|open|2023-03-13 08:06:38;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;422;;49|open|2023-03-13 12:50:22;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;423;;49|open|2023-03-13 14:22:34;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;424;;54|open|2023-03-13 14:54:30;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;425;;54|open|2023-03-13 16:06:43;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;426;;54|open|2023-03-14 06:13:38;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;427;;53|cancel|2023-03-14 07:00:07;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;428;;55|open|2023-03-14 07:01:11;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;429;;55|open|2023-03-14 07:13:11;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;430;;54|open|2023-03-14 07:49:06;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;431;;49|open|2023-03-14 08:17:09;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;432;;53|cancel|2023-03-14 09:10:36;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;433;;55|open|2023-03-14 09:11:44;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;434;;54|open|2023-03-14 10:33:40;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;435;;54|open|2023-03-14 13:45:23;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;436;;54|open|2023-03-15 07:01:01;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;437;;54|open|2023-03-15 08:06:16;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;438;;55|open|2023-03-16 06:12:51;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;439;;55|open|2023-03-16 07:29:27;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;440;;54|open|2023-03-16 14:38:11;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;441;;52|open|2023-03-17 07:11:41;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;442;;52|open|2023-03-17 07:11:41;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;443;;51|open|2023-03-17 07:38:01;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;444;;50|open|2023-03-17 10:59:51;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;445;;54|open|2023-03-20 13:37:32;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;446;;56|open|2023-03-21 09:19:13;10736;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;447;;55|open|2023-03-21 12:06:43;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;448;;49|open|2023-03-21 14:41:31;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;449;;53|cancel|2023-03-22 08:32:54;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;450;;55|open|2023-03-22 14:00:03;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;451;;55|open|2023-03-22 14:00:03;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;452;;55|open|2023-03-22 14:00:03;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;453;;52|cancel|2023-03-22 16:55:46;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;454;;52|open|2023-03-23 07:58:53;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;455;;53|cancel|2023-03-23 10:04:25;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;456;;50|open|2023-03-23 11:38:44;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;457;;53|cancel|2023-03-23 12:40:41;10736;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;458;;57|open|2023-03-24 08:09:43;10736;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;459;;59|open|2023-03-24 08:09:56;10736;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;460;;58|cancel|2023-03-24 08:10:08;10736;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;461;;58|open|2023-03-24 08:10:23;10736;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;462;;60|open|2023-03-24 08:10:34;10736;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;463;;62|open|2023-03-24 08:10:45;10736;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;464;;61|open|2023-03-24 08:10:57;10736;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;465;;55|open|2023-03-24 09:57:46;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;466;;53|cancel|2023-03-27 07:21:22;10845;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;467;;55|open|2023-03-28 10:23:37;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;468;;55|open|2023-03-30 07:56:50;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;469;;55|open|2023-03-30 08:03:28;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;470;;63|open|2023-03-30 11:09:58;10736;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;471;;64|open|2023-03-30 11:11:24;10736;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;472;;65|open|2023-03-30 11:14:20;10736;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;473;;63|open|2023-03-30 12:08:45;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;474;;57|open|2023-03-30 12:59:53;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;475;;63|open|2023-03-30 13:28:31;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;476;;64|open|2023-03-30 18:45:12;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;477;;64|open|2023-03-31 08:44:29;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;478;;64|open|2023-04-03 10:56:24;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;479;;66|cancel|2023-04-03 12:32:38;10736;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;480;;66|open|2023-04-03 12:33:18;10736;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;481;;49|open|2023-04-03 13:20:30;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;482;;57|open|2023-04-03 14:17:11;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;483;;66|open|2023-04-04 06:14:54;10736;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;484;;50|open|2023-04-04 07:18:21;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;485;;49|open|2023-04-04 11:55:38;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;486;;49|open|2023-04-05 06:21:44;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;487;;64|open|2023-04-05 07:45:49;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;488;;50|open|2023-04-05 12:35:25;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;489;;67|open|2023-04-05 13:31:02;10736;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;490;;50|open|2023-04-07 06:49:35;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;491;;50|open|2023-04-11 12:21:09;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;492;;50|open|2023-04-11 12:21:30;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;493;;50|open|2023-04-12 11:18:16;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;494;;50|open|2023-04-12 12:06:46;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;495;;50|open|2023-04-13 07:25:04;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;496;;50|open|2023-04-13 09:33:54;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;497;;50|open|2023-04-13 10:58:51;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;498;;50|open|2023-04-13 10:58:51;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;499;;50|open|2023-04-13 10:58:51;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;500;;50|open|2023-04-13 10:58:51;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;501;;50|open|2023-04-13 10:58:51;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;502;;50|open|2023-04-13 10:58:51;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;503;;50|open|2023-04-13 11:06:17;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;504;;50|open|2023-04-13 11:11:20;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;505;;68|open|2023-04-13 11:19:31;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;506;;66|open|2023-04-17 05:11:42;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;507;;66|open|2023-04-17 05:51:25;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;508;;66|cancel|2023-04-17 06:38:38;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;509;;66|open|2023-04-17 06:40:18;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;510;;66|open|2023-04-17 06:46:51;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;511;;66|open|2023-04-17 07:27:51;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;512;;66|open|2023-04-17 07:35:01;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;513;;66|open|2023-04-17 09:09:36;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;514;;70|open|2023-04-17 12:41:22;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;515;;66|open|2023-04-18 05:06:47;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;516;;66|open|2023-04-18 06:25:31;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;517;;69|open|2023-04-18 11:06:16;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;518;;66|open|2023-04-18 13:17:20;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;519;;69|open|2023-04-19 04:17:00;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;520;;66|open|2023-04-19 05:13:49;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;521;;69|open|2023-04-19 06:02:27;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;522;;66|open|2023-04-19 07:18:57;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;523;;60|open|2023-04-19 11:36:17;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;524;;69|open|2023-04-19 11:43:52;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;525;;59|open|2023-04-19 12:14:42;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;526;;59|open|2023-04-19 13:07:13;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;527;;59|open|2023-04-19 14:50:40;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;528;;62|open|2023-04-20 05:19:57;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;529;;60|open|2023-04-20 06:00:59;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;530;;59|open|2023-04-20 06:11:08;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;531;;59|open|2023-04-20 06:11:08;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;532;;60|open|2023-04-20 06:41:16;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;533;;59|open|2023-04-20 07:22:14;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;534;;70|open|2023-04-20 07:27:53;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;535;;69|open|2023-04-20 07:48:37;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;536;;59|open|2023-04-20 07:53:13;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;537;;62|open|2023-04-20 08:28:06;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;538;;72|cancel|2023-04-20 08:30:09;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;539;;69|open|2023-04-20 12:16:02;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;540;;69|cancel|2023-04-20 12:16:02;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;541;;62|cancel|2023-04-20 12:30:56;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;542;;60|open|2023-04-20 14:13:46;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;543;;62|open|2023-04-21 06:13:49;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;544;;59|open|2023-04-21 06:30:42;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;545;;59|open|2023-04-21 07:33:49;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;546;;68|open|2023-04-21 08:15:41;10736;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;547;;60|open|2023-04-21 09:57:56;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;548;;50|open|2023-04-24 05:41:04;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;549;;60|open|2023-04-24 06:30:12;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;550;;72|cancel|2023-04-24 06:33:43;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;551;;68|open|2023-04-24 07:12:50;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;552;;69|open|2023-04-24 14:38:30;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;553;;59|open|2023-04-25 07:02:44;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;554;;68|open|2023-04-25 07:04:28;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;555;;70|open|2023-04-25 08:40:27;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;556;;70|cancel|2023-04-25 08:40:27;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;557;;69|open|2023-04-25 11:00:56;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;558;;59|open|2023-04-25 11:26:01;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;559;;59|open|2023-04-25 11:59:51;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;560;;59|open|2023-04-26 07:59:11;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;561;;62|open|2023-04-26 10:24:39;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;562;;62|open|2023-04-26 10:24:39;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;563;;61|open|2023-04-27 06:59:11;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;564;;62|open|2023-04-27 08:09:48;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;565;;72|cancel|2023-04-27 08:10:13;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;566;;61|open|2023-04-27 08:16:56;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;567;;60|open|2023-04-27 09:59:27;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;568;;62|open|2023-04-27 10:48:12;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;569;;58|open|2023-04-28 06:44:51;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;570;;62|open|2023-04-28 09:05:55;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;571;;72|cancel|2023-04-28 09:08:56;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;572;;70|cancel|2023-04-28 09:11:48;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;573;;61|open|2023-04-28 12:57:58;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;574;;58|open|2023-05-02 09:48:27;10736;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;575;;68|open|2023-05-02 10:45:48;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;576;;68|open|2023-05-03 06:30:19;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;577;;70|open|2023-05-03 11:05:23;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;578;;70|open|2023-05-03 11:26:53;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;579;;58|open|2023-05-04 07:14:15;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;580;;71|open|2023-05-04 08:33:46;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;581;;70|cancel|2023-05-04 08:56:15;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;582;;70|cancel|2023-05-04 08:56:15;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;583;;70|open|2023-05-04 10:53:34;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;584;;61|cancel|2023-05-04 11:04:52;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;585;;61|open|2023-05-04 11:07:31;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;586;;73|open|2023-05-04 12:43:25;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;587;;73|open|2023-05-04 12:43:25;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;588;;71|open|2023-05-05 06:36:26;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;589;;70|open|2023-05-05 07:42:25;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;590;;71|open|2023-05-05 08:02:34;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;591;;61|open|2023-05-08 11:41:49;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;592;;61|open|2023-05-08 11:50:39;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;593;;71|open|2023-05-08 11:55:39;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;594;;58|open|2023-05-08 13:14:46;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;595;;70|open|2023-05-08 13:41:59;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;596;;58|open|2023-05-08 13:43:00;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;597;;72|cancel|2023-05-09 06:51:53;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;598;;73|open|2023-05-09 10:24:39;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;599;;73|open|2023-05-09 10:24:39;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;600;;71|open|2023-05-09 11:00:37;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;601;;61|open|2023-05-09 11:40:52;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;602;;58|open|2023-05-09 12:13:55;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;603;;58|open|2023-05-09 12:47:22;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;604;;71|open|2023-05-09 12:48:21;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;605;;70|open|2023-05-09 12:52:26;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;606;;58|open|2023-05-10 13:38:48;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;607;;71|open|2023-05-15 08:00:48;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;608;;73|cancel|2023-05-15 12:48:33;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;609;;73|open|2023-05-15 12:57:33;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;610;;75|cancel|2023-05-24 06:19:12;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;611;;75|cancel|2023-05-30 09:29:19;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;612;;75|cancel|2023-05-30 13:08:44;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;613;;74|open|2023-05-30 15:51:23;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;614;;53|cancel|2023-06-12 13:04:47;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;615;;74|open|2023-06-14 13:42:23;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;616;;74|open|2023-06-21 11:40:02;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;617;;76|open|2023-06-23 13:42:19;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;618;;77|cancel|2023-06-27 06:06:20;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;619;;77|cancel|2023-06-27 06:06:20;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;620;;78|cancel|2023-07-10 09:08:30;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;621;;83|done|2023-08-03 06:54:51;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;622;;83|open|2023-08-04 08:11:45;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;623;;83|open|2023-08-04 08:12:16;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;624;;83|cancel|2023-08-04 08:12:31;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;625;;84|open|2023-08-04 08:16:13;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;626;;83|done|2023-08-04 08:43:41;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;627;;83|done|2023-08-04 09:42:59;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;628;;81|cancel|2023-08-07 04:49:41;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;629;;83|open|2023-08-07 08:16:48;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;630;;81|cancel|2023-08-07 08:17:20;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;631;;84|done|2023-08-08 11:05:02;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;632;;84|done|2023-08-08 12:18:33;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;633;;82|done|2023-08-08 12:39:40;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;635;;84|done|2023-08-09 06:41:10;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;636;;84|done|2023-08-09 08:04:56;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;637;;82|done|2023-08-10 07:59:22;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;638;;82|cancel|2023-08-10 08:01:16;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;639;;82|done|2023-08-14 07:06:51;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;640;;82|done|2023-08-16 06:43:43;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;641;;82|done|2023-08-21 06:52:23;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;642;;81|open|2023-09-05 07:05:40;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;643;;81|open|2023-09-05 07:05:40;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;644;;81|open|2023-09-05 07:06:31;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;645;;81|open|2023-09-05 09:36:58;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;646;;81|open|2023-09-05 10:39:53;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;647;;79|done|2023-09-13 10:37:17;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;648;;79|done|2023-09-13 10:37:17;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;649;;79|done|2023-09-13 10:37:17;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;650;;79|done|2023-09-14 09:32:43;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;651;;85|draft|2023-10-09 07:27:25;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;652;;85|draft|2023-10-09 08:06:42;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;653;;86|open|2023-10-14 12:23:21;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;654;;89|open|2023-10-20 08:33:57;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;655;;90|cancel|2023-10-20 10:55:00;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;656;;91|cancel|2023-10-24 09:13:34;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;657;;85|draft|2023-10-24 09:21:06;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;658;;85|draft|2023-10-24 09:23:07;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;659;;85|draft|2023-10-25 05:55:12;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;660;;85|draft|2023-10-25 05:55:12;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;661;;85|draft|2023-10-25 05:55:12;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;662;;85|draft|2023-10-25 05:55:12;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;663;;89|open|2023-10-25 07:34:16;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;664;;90|cancel|2023-10-25 14:25:23;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;665;;93|open|2023-10-27 09:29:29;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;666;;93|open|2023-10-27 09:29:29;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;667;;93|open|2023-11-06 10:23:15;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;668;;92|open|2023-11-07 10:54:09;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;669;;95|open|2023-11-15 06:09:12;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;670;;87|open|2023-11-17 10:35:18;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;671;;96|open|2023-11-23 07:19:47;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;672;;97|open|2023-11-29 14:01:20;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;673;;97|open|2023-11-29 14:01:20;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;674;;97|open|2023-11-29 14:01:20;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;675;;97|open|2023-11-29 14:01:20;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;676;;97|open|2023-11-29 14:01:20;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;677;;101|open|2023-12-06 08:06:31;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;678;;101|open|2023-12-12 18:53:09;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;679;;88|open|2023-12-19 09:16:38;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;680;;102|open|2023-12-19 15:00:15;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;681;;104|open|2023-12-19 15:03:09;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;682;;88|open|2023-12-23 10:01:45;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;683;;88|open|2024-01-02 09:55:01;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;684;;88|open|2024-01-02 10:07:51;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;685;;88|open|2024-01-02 12:33:11;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;686;;88|open|2024-01-02 12:43:58;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;687;;88|open|2024-01-02 13:20:25;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;688;;104|open|2024-01-07 11:02:39;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;689;;102|open|2024-01-08 07:10:40;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;690;;103|open|2024-01-11 08:56:48;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;691;;104|open|2024-01-17 08:47:55;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;692;;108|open|2024-01-23 16:33:53;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;693;;108|open|2024-01-24 08:59:17;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;694;;106|open|2024-01-25 08:18:56;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;695;;106|open|2024-01-25 10:12:12;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;696;;108|open|2024-01-25 12:14:16;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;697;;108|open|2024-01-25 12:14:16;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;698;;108|open|2024-01-29 09:40:45;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;699;;109|open|2024-01-31 08:20:05;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;700;;108|open|2024-01-31 09:23:05;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;701;;109|open|2024-02-01 05:32:53;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;702;;11|open|2024-02-01 05:33:14;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;703;;109|open|2024-02-01 07:41:49;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;704;;106|open|2024-02-01 07:42:58;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;705;;11|open|2024-02-02 08:38:29;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;706;;110|open|2024-02-02 08:39:38;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;707;;105|open|2024-02-05 07:46:50;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;708;;106|open|2024-02-09 09:16:32;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;709;;106|open|2024-02-13 14:33:41;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;710;;110|open|2024-02-13 14:34:04;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;711;;107|cancel|2024-02-14 10:37:57;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;712;;109|open|2024-02-15 08:43:34;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;713;;111|cancel|2024-02-20 06:42:45;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;714;;111|open|2024-02-20 06:47:10;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;715;;113|cancel|2024-02-20 06:50:11;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;716;;112|cancel|2024-02-20 06:51:16;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;717;;116|open|2024-03-12 13:43:56;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;718;;114|cancel|2024-03-12 14:25:07;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;719;;114|open|2024-03-12 14:32:13;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;720;;115|open|2024-03-12 14:32:23;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;721;;115|open|2024-03-12 14:32:23;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;722;;116|done|2024-03-12 14:43:17;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;723;;115|open|2024-03-12 14:53:33;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;724;;114|open|2024-03-12 19:20:04;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;725;;115|open|2024-03-13 05:06:24;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;726;;115|open|2024-03-13 06:55:17;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;727;;114|open|2024-03-13 07:09:42;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;728;;115|open|2024-03-13 07:23:30;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;729;;116|done|2024-03-13 10:15:31;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;730;;115|open|2024-03-13 17:07:43;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;731;;115|open|2024-03-14 09:06:33;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;732;;114|cancel|2024-03-14 09:25:01;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;733;;114|open|2024-03-14 09:26:56;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;734;;116|done|2024-03-14 09:28:41;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;735;;115|open|2024-03-14 12:31:31;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;736;;116|open|2024-03-15 07:01:19;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;737;;115|open|2024-03-15 07:26:25;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;738;;118|open|2024-03-15 07:27:36;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;739;;119|cancel|2024-03-15 08:04:48;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;740;;116|open|2024-03-15 08:05:59;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;741;;116|done|2024-03-19 08:43:23;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;742;;117|open|2024-03-20 12:56:50;10736;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;743;;120|open|2024-03-20 14:09:35;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;744;;120|open|2024-03-20 14:11:34;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;745;;122|open|2024-03-21 06:42:54;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;746;;117|open|2024-03-26 13:21:33;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;747;;117|open|2024-03-27 07:21:19;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;748;;123|open|2024-04-30 09:22:32;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;750;;128|open|2026-03-11 12:25:47;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;751;;126|open|2026-03-11 12:29:18;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;752;;128|open|2026-03-11 12:42:06;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;753;;128|open|2026-03-11 13:02:03;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;754;;128|open|2026-03-11 13:34:56;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;755;;128|open|2026-03-11 13:44:52;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;756;;126|open|2026-03-11 13:47:34;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;757;;126|open|2026-03-11 14:03:19;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;758;;128|open|2026-03-11 14:19:05;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;760;;128|open|2026-03-12 11:36:51;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;761;;126|open|2026-03-12 11:57:47;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;762;;126|open|2026-03-12 12:03:22;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;763;;128|open|2026-03-12 12:05:22;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;765;;128|open|2026-03-12 14:34:28;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;766;;128|open|2026-03-12 14:34:28;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;767;;128|open|2026-03-12 14:34:28;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;768;;126|open|2026-03-13 07:16:54;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;769;;126|open|2026-03-13 07:16:54;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;770;;126|open|2026-03-13 07:16:54;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;771;;128|open|2026-03-13 10:11:53;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;772;;126|open|2026-03-13 13:21:53;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;773;;126|open|2026-03-17 06:17:29;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;774;;128|open|2026-03-17 10:06:03;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;775;;126|open|2026-03-17 12:15:56;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;776;;128|open|2026-03-17 13:47:31;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)
+teilnehmer;778;;129|cancel|2026-03-19 14:37:57;5;Personendaten nicht migriert (Kontakt- und Personendatenmigration ausstehend)

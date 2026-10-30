@@ -10,6 +10,25 @@ Migration aller Odoo-Module von **Version 11 nach Version 18** für ITK (IT Komm
 - Saubere Git-Historie, jeder Schritt nachvollziehbar
 - Odoo 18 läuft in Docker (Windows, erreichbar unter `localhost:8069`)
 
+## Status: Bereich Events migriert (nicht personenbezogen)
+
+**EVENTS: STRUKTUR UND NICHT PERSONENBEZOGENE DATEN MIGRIERT** (28.10.2026, Session 138).
+Der Bereich war in Odoo 18 nicht vorhanden; `event` 18.0.1.9 und `website_event` 18.0.1.4
+wurden installiert, das neue Modul `itk_events_compat` 18.0.1.0.3 stellt Menues, Statusphasen,
+Felder und Berichte im Odoo-11-Wortlaut her.
+
+Uebernommen: 2 Anlasskategorien, 122 Veranstaltungen (121 aktiv, 1 archiviert) mit Beginn,
+Ende, Zeitzone, Status, Kategorie, Platzlogik, Online-Kennzeichen, Veroeffentlichungsstatus
+und 170 historischen Mailplanern (alle stillgelegt).
+
+Bewusst NICHT uebernommen (Auftrag Anna): Kontakte, Unternehmen, Personen, Ansprechpartner,
+Teilnehmer, E-Mail-Adressen und Partnerverknuepfungen. Veranstalter und Ort bleiben leer; die
+Odoo-11-Kontakt-IDs sind fuer die spaetere Nachverknuepfung gespeichert
+(`docs/o11-o18-events-nachverknuepfung.csv`).
+
+Nachweise lokal: Strukturpruefung 61 OK / 0 FEHLER, Browserabnahme 35 OK / 0 FEHLER.
+Vergleich und Begruendung: `docs/o11-o18-events-vergleich.md`, Checkliste Abschnitt 6.18.
+
 ## Status: Bereich Verkauf abgeschlossen
 
 **VERKAUF FUNKTIONAL VOLLSTAENDIG UND MIGRATIONSVORBEREITET** (29.09.2026, Session 121,

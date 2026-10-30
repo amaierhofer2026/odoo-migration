@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ================================================================
+         Schutz vor erneutem Mailversand aus historischen Mailplanern
+         Odoo 18 sendet ueber den Cron "Event: Mail Scheduler" jede
+         Zeile event.mail.registration mit mail_sent = False und einem
+         Termin in der Vergangenheit; "after_sub"-Planer werden bei
+         jeder Anmeldung ausgewertet.
+         Fuer die Events-Migration werden keine Kontakt- und
+         Teilnehmerdaten uebernommen; Mailversand ist damit nicht in
+         Verwendung. Der Cron wird deshalb stillgelegt.
+         Wieder aktivieren, sobald der Bereich Kontakte/Teilnehmer
+         migriert ist:
+         scripts/events_cron_schalten.py mit der Option "aktiv" je Instanz.
+         ================================================================ -->
+
+    <record id="event.event_mail_scheduler" model="ir.cron">
+        <field name="active" eval="False"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ================================================================
+         Anlasskategorie (event.type)
+         Odoo 11 nennt das Objekt "Anlasskategorie" und das Feld "name"
+         ebenso. Odoo 18 nennt es "Veranstaltungsvorlage". Der sichtbare
+         Wortlaut wird auf Odoo 11 gesetzt; die Odoo-18-Zusatzfelder
+         (Stichwoerter, Tickets, Fragen) bleiben erhalten.
+         ================================================================ -->
+    <record id="view_event_type_form_itk_events" model="ir.ui.view">
+        <field name="name">event.type.form.itk.events</field>
+        <field name="model">event.type</field>
+        <field name="inherit_id" ref="event.view_event_type_form"/>
+        <field name="priority">90</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="string">Anlasskategorie</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_event_type_tree_itk_events" model="ir.ui.view">
+        <field name="name">event.type.list.itk.events</field>
+        <field name="model">event.type</field>
+        <field name="inherit_id" ref="event.view_event_type_tree"/>
+        <field name="priority">90</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="string">Anlasskategorie</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
