@@ -10,6 +10,15 @@ Migration aller Odoo-Module von **Version 11 nach Version 18** für ITK (IT Komm
 - Saubere Git-Historie, jeder Schritt nachvollziehbar
 - Odoo 18 läuft in Docker (Windows, erreichbar unter `localhost:8069`)
 
+## Status: Bereiche Events und E-Mail-Marketing abgenommen
+
+**E-MAIL-MARKETING: ABGENOMMEN UND GESPERRT** (30.10.2026, Session 138). Neues Modul
+`itk_mass_mailing_compat` 18.0.1.1.0 (Mailingkampagnen mit Stufen, Kampagnen-Tags,
+historische Kennzahlen, Versandsperre fuer historische Mailings). Uebernommen: 3 Stufen,
+9 Kampagnen, 1 Tag, 8 Mailinglisten (ohne Mitglieder), 147 Mailings (130 gesendet,
+17 Entwurf). Keine Kontakte, Empfaenger, E-Mail-Adressen oder Versandprotokolle.
+Nachweise: Strukturpruefung 37/0, Browserabnahme 20/0, Rechteprobe bestanden.
+
 ## Status: Bereich Events migriert (nicht personenbezogen)
 
 **EVENTS: ABGENOMMEN UND GESPERRT** (30.10.2026, Session 138) - Struktur und nicht personenbezogene Daten migriert, lokal und VM abgenommen.

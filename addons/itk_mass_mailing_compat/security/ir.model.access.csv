@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_itk_mailing_campaign_user,itk.mailing.campaign user,model_itk_mailing_campaign,mass_mailing.group_mass_mailing_user,1,1,1,1
+access_itk_mailing_campaign_stage_user,itk.mailing.campaign.stage user,model_itk_mailing_campaign_stage,mass_mailing.group_mass_mailing_user,1,1,1,1
+access_itk_mailing_tag_user,itk.mailing.tag user,model_itk_mailing_tag,mass_mailing.group_mass_mailing_user,1,1,1,1

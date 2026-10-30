@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ================================================================
+         Mailingkampagnen und Stufen (Odoo 11: mail.mass_mailing.campaign
+         mit Kampagnenstufe "Ausfuehrungsplan / Design / Gesendet").
+         Odoo 18 kennt diese Modelle nicht; sie werden hier nachgebaut.
+         ================================================================ -->
+
+    <record id="view_itk_campaign_list" model="ir.ui.view">
+        <field name="name">itk.mailing.campaign.list</field>
+        <field name="model">itk.mailing.campaign</field>
+        <field name="arch" type="xml">
+            <list string="Mailingkampagnen">
+                <field name="name"/>
+                <field name="stage_id"/>
+                <field name="user_id" widget="many2one_avatar_user"/>
+                <field name="tag_ids" widget="many2many_tags"/>
+                <field name="mailing_count"/>
+                <field name="x_o11_sent" optional="show"/>
+                <field name="x_o11_delivered" optional="show"/>
+                <field name="x_o11_opened" optional="show"/>
+                <field name="x_o11_replied" optional="show"/>
+                <field name="x_o11_bounced" optional="show"/>
+                <field name="x_o11_received_ratio" optional="show"/>
+                <field name="x_o11_opened_ratio" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_itk_campaign_form" model="ir.ui.view">
+        <field name="name">itk.mailing.campaign.form</field>
+        <field name="model">itk.mailing.campaign</field>
+        <field name="arch" type="xml">
+            <form string="Mailingkampagne">
+                <sheet>
+                    <widget name="web_ribbon" title="Archiviert" bg_color="text-bg-danger" invisible="active"/>
+                    <div class="oe_title">
+                        <label for="name" string="Kampagne"/>
+                        <h1><field name="name" placeholder="z. B. Informationsfreiheitsgesetz (IFG)"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="stage_id"/>
+                            <field name="user_id"/>
+                            <field name="tag_ids" widget="many2many_tags"/>
+                        </group>
+                        <group>
+                            <field name="active" invisible="1"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="x_o11_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Mailings" name="mailings">
+                            <field name="mailing_ids">
+                                <list>
+                                    <field name="x_o11_name" string="Bezeichnung"/>
+                                    <field name="subject"/>
+                                    <field name="state"/>
+                                    <field name="sent_date"/>
+                                    <field name="x_o11_sent"/>
+                                    <field name="x_o11_opened"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Historische Kennzahlen (Odoo 11)" name="kennzahlen">
+                            <group>
+                                <group string="Versand">
+                                    <field name="x_o11_total_mailings"/>
+                                    <field name="x_o11_sent"/>
+                                    <field name="x_o11_delivered"/>
+                                    <field name="x_o11_bounced"/>
+                                </group>
+                                <group string="Reaktion">
+                                    <field name="x_o11_opened"/>
+                                    <field name="x_o11_replied"/>
+                                    <field name="x_o11_received_ratio"/>
+                                    <field name="x_o11_opened_ratio"/>
+                                    <field name="x_o11_replied_ratio"/>
+                                    <field name="x_o11_clicks_ratio"/>
+                                </group>
+                            </group>
+                            <group>
+                                <field name="x_o11_sent_date"/>
+                                <field name="x_o11_unique_ab_testing"/>
+                            </group>
+                            <div class="text-muted">
+                                Werte aus Odoo 11. Odoo 18 berechnet eigene Kennzahlen aus den
+                                Versandprotokollen (mailing.trace); diese sind hier bewusst
+                                getrennt geführt.
+                            </div>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_itk_campaign_kanban" model="ir.ui.view">
+        <field name="name">itk.mailing.campaign.kanban</field>
+        <field name="model">itk.mailing.campaign</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="stage_id" class="o_kanban_small_column">
+                <field name="name"/>
+                <field name="stage_id"/>
+                <templates>
+                    <t t-name="card">
+                        <field name="name" class="fw-bold"/>
+                        <div class="text-muted">
+                            <field name="mailing_count"/> Mailings
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_itk_campaign_search" model="ir.ui.view">
+        <field name="name">itk.mailing.campaign.search</field>
+        <field name="model">itk.mailing.campaign</field>
+        <field name="arch" type="xml">
+            <search string="Mailingkampagnen">
+                <field name="name"/>
+                <field name="user_id"/>
+                <field name="tag_ids"/>
+                <filter string="Meine Kampagnen" name="meine" domain="[('user_id', '=', uid)]"/>
+                <filter string="Archiviert" name="archiviert" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Gruppieren nach">
+                    <filter string="Stufe" name="group_stage" context="{'group_by': 'stage_id'}"/>
+                    <filter string="Verantwortlich" name="group_user" context="{'group_by': 'user_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_itk_mailing_campaign" model="ir.actions.act_window">
+        <field name="name">Kampagnen</field>
+        <field name="res_model">itk.mailing.campaign</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="help">Mailingkampagnen mit Stufen, wie in Odoo 11 geführt.</field>
+    </record>
+
+    <!-- Kampagnenstufen -->
+    <record id="view_itk_campaign_stage_list" model="ir.ui.view">
+        <field name="name">itk.mailing.campaign.stage.list</field>
+        <field name="model">itk.mailing.campaign.stage</field>
+        <field name="arch" type="xml">
+            <list string="Kampagnenstufen" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_itk_campaign_stage_form" model="ir.ui.view">
+        <field name="name">itk.mailing.campaign.stage.form</field>
+        <field name="model">itk.mailing.campaign.stage</field>
+        <field name="arch" type="xml">
+            <form string="Kampagnenstufe">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="sequence"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_itk_mailing_campaign_stage" model="ir.actions.act_window">
+        <field name="name">Kampagnenstufen</field>
+        <field name="res_model">itk.mailing.campaign.stage</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Kampagnen-Tags -->
+    <record id="view_itk_mailing_tag_list" model="ir.ui.view">
+        <field name="name">itk.mailing.tag.list</field>
+        <field name="model">itk.mailing.tag</field>
+        <field name="arch" type="xml">
+            <list string="Kampagnen-Tags" editable="bottom">
+                <field name="name"/>
+                <field name="color" widget="color_picker"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_itk_mailing_tag_form" model="ir.ui.view">
+        <field name="name">itk.mailing.tag.form</field>
+        <field name="model">itk.mailing.tag</field>
+        <field name="arch" type="xml">
+            <form string="Kampagnen-Tag">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="color" widget="color_picker"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_itk_mailing_tag" model="ir.actions.act_window">
+        <field name="name">Kampagnen-Tags</field>
+        <field name="res_model">itk.mailing.tag</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

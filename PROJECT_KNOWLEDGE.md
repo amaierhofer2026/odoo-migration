@@ -9482,3 +9482,45 @@ kein Kampagnen-/Stufenmodell und derzeit nur Demodaten. Vergleich und sieben
 Entscheidungspunkte (M1 Kampagnenabbildung, M2 Statistik, M3 geplante Entwuerfe,
 M4 Demodaten, M5 website_mass_mailing, M6 mass_mailing_event, M7 Opt-out):
 docs/o11-o18-email-marketing-vergleich.md. Keine Daten uebernommen.
+
+## Session 138b (30.10.2026): Bereich E-MAIL-MARKETING - Struktur, Kampagnen und Migration
+
+Auftrag Anna mit Entscheidungen M1-M7: eigenes Kampagnenmodell mit Stufen (B), historische
+Kennzahlen getrennt fuehren, Entwuerfe ohne Sendetermin, Demodaten entfernen,
+website_mass_mailing installieren, mass_mailing_event belassen, Opt-out nur dokumentieren.
+Odoo 11 blieb read-only; keine Kontakte, Personen, E-Mail-Adressen, Empfaenger oder Traces.
+
+1. Bestand Odoo 11: 161 Mailings (130 gesendet, 31 Entwurf), 8 Mailinglisten, 13.501
+   Listeneintraege mit 32 Opt-outs, 9 Kampagnen mit 3 Stufen, 1 Tag; Summen 50.871 gesendet,
+   19.295 geoeffnet, 9.900 fehlgeschlagen. Odoo 18 hatte nur Demodaten und kein
+   Kampagnenmodell.
+2. Neues Modul `itk_mass_mailing_compat` 18.0.1.1.0: `itk.mailing.campaign`,
+   `itk.mailing.campaign.stage`, `itk.mailing.tag`, Felder `x_o11_*` an Mailing und Kampagne,
+   Menues (Massenmailings/Kampagnen/Kampagnenstufen/Kampagnen-Tags), Listen-/Such-/Kanban-
+   Ansichten und eine harte Versandsperre fuer historische Mailings.
+3. Migration `scripts/marketing_migration.py`: 3 Stufen, 9 Kampagnen, 1 Tag, 8 Listen,
+   147 Mailings (130 gesendet, 17 Entwurf), 170+ Kennzahlenfelder; 14 Mailings bewusst nicht
+   (kein Empfaengermodell in Odoo 11, in Odoo 18 Pflichtfeld). Demo-Daten entfernt
+   (1 Mailing, 1 Liste, 1 Kontakt, 4 Traces). Zweiter Lauf: 0 Neuanlagen.
+4. Harte Lehren:
+   - `mailing.mailing` hat kein Betrefffeld in Odoo 11 - der Name IST der Betreff; Odoo 18
+     verlangt `subject`, `email_from`, `mailing_model_id`, `source_id`, `schedule_type`.
+   - Odoo 18 erzeugt utm.sources automatisch aus dem Betreff ("... (Mass Mailing erstellt am
+     ...)") und laeuft bei gleichen Betreffen in die Eindeutigkeitspruefung. Alle Mailings
+     bekommen deshalb EINE Quelle "Odoo 11"; der Odoo-11-Quellenname steht in `x_o11_source`,
+     unbenutzte Auto-Quellen wurden entfernt (10 Quellen uebrig).
+   - Odoo-18-Kennzahlen (sent/opened/...) sind `store=False` und nicht schreibbar; die
+     Odoo-11-Werte brauchen eigene Felder.
+   - Die Mailing-Aktion filtert per Default auf "mir zugewiesen" - im Browser erst die
+     Facette entfernen, sonst misst man 0 Datensaetze.
+5. Pruefungen lokal: `verify_s138_marketing.py` 37/0, `browser_marketing_abnahme.py` 20/0,
+   `marketing_labels_de.py` 0 offen, `marketing_rechte.py` bestanden (Testdaten entfernt,
+   Bestand 147/9/3 unveraendert). Regression: Events 61/0, Personal 54/0, Projekt 20/0,
+   Verkauf 881/0.
+6. Versandsperre nachgewiesen: fuenf Methoden (senden, planen, Warteschlange, Launch,
+   Statuswechsel) werfen UserError; `schedule_date` bei allen leer; Crons waehrend des Laufs
+   aus; `mail.mail` 3.359 vor und nach dem Lauf, 0 Traces.
+7. Status: E-MAIL-MARKETING ABGENOMMEN und GESPERRT. Nachzug nur mit der Kontaktmigration
+   (Kontakte, Listenmitglieder, Traces, Opt-outs/Blacklist, danach Versandfreigabe).
+
+
