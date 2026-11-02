@@ -2523,6 +2523,41 @@ Nicht migriert: 14 Mailings ohne Empfaengermodell (Odoo 18 verlangt `mailing_mod
 Nachzuziehen mit der Kontaktmigration: Kontakte, Listenmitglieder, Traces, Opt-outs,
 Blacklist, danach Versandfreigabe.
 
+### 6.20 Bereichsuebersicht: noch NICHT strukturell bearbeitet (Stand 02.11.2026, Session 139)
+
+Read-only gegen Odoo 11 (`ITK_V1_a`) erhoben. Nur Bereiche, deren Struktur noch **nicht**
+gegen Odoo 11 verglichen und angepasst wurde. Abgenommene/gesperrte und strukturell
+bearbeitete Bereiche sind bewusst nicht enthalten.
+
+| Bereich | Odoo-11-Module | Bestand Odoo 11 | Bestand Odoo 18 | Status |
+|---|---|---|---|---|
+| **Umfragen / Survey** | `survey`, `survey_crm` | 2 Umfragen (1 Test, 1 "Staedtebund Academy - Welche Kurse"), 2 Fragen, **73 Teilnahmen** | `survey` nicht installiert | nicht bearbeitet |
+| **Website / Webinhalte** | `website`, `website_form`, `website_links`, `website_rating`, `website_odoo_debranding` | **17 Seiten** (FAQ Gemeindecloud/Ebox, FAQ IFG-Portal Partner/Kunden, FAQ Anonymisierungs-Portal, Kurse, Wie bestelle ich einen Kurs, Kontakt), 11 Menues | 4 Seiten, 8 Menues (Demodaten) | nicht bearbeitet |
+| **Lager / Bestand** | `stock`, `stock_account`, `sale_stock` | **262 Lagerbelege** (231 offen "assigned", 31 storniert, 0 erledigt), 342 Buchungen, 13 Lagerorte, 1 Lager, 0 Bestandsmengen | 0 Belege, 10 Lagerorte | nicht bearbeitet (fachlich ohne Vollzuege) |
+| **Valorisierung** | `itk_valorisierung` | 10 Valorisierungshinweise 2019-2026, 33 Kostenstellen (`account.analytic.account`) | Modul nicht vorhanden | nicht bearbeitet |
+| **Massenbearbeitung** | `mass_editing` | **20 Massenaktions-Objekte** (Preisliste, Abo-Status, Zahlungsbedingungen, Rechnung-/Leistungsdatum, Tag-Zuweisung, Lead-Quelle, Interessent-Status, Valorisierungstext) | Modul nicht vorhanden | nicht bearbeitet |
+
+Ohne Handlungsbedarf (0 Datensaetze in Odoo 11):
+
+| Bereich | Modul | Bestand | Bewertung |
+|---|---|---|---|
+| Einkauf | `purchase` | 0 Bestellungen, 0 Positionen | nur Menue, keine Daten |
+| Reklamationen | `bi_crm_claim` | 0 Reklamationen (3 Kategorien, 4 Stufen) | bereits als "tote Menues" dokumentiert (6.15) |
+
+Nicht als eigener Bereich zu behandeln:
+
+| Objekt | Befund | Zuordnung |
+|---|---|---|
+| `calendar.event` 471 Termine (2019-2026) | alle Eintraege sind Abwesenheits-/Urlaubsbloecke aus `hr_holidays` ("<Name> mit Abwesenheitstyp ...") | Anwesenheiten/Urlaub - **abgenommen und gesperrt** |
+| `website_support` 1.254 Tickets, 935 Nachrichten, 19/20 Kategorien, 6 Status, 4 Prioritaeten, 57 Schliessgruende, 1 SLA | Struktur in Session 132 auf OCA-Helpdesk abgebildet | Helpdesk - **abgenommen und gesperrt**, Datenmigration dokumentierte Abhaengigkeit |
+| `account.payment` 6.045, `account.invoice` 6.339, `survey_crm`-Leads 6.970 | Geld- und Leaddaten | Abrechnung (migrationsbereit) bzw. CRM/Kontakte (Datenmigration offen) |
+
+**Kontakte/Kundenverwaltung:** Struktur bearbeitet und migrationsbereit (6.1-6.10).
+**Datenmigration bewusst offen** (Entscheidung Anna, 02.11.2026) - sie wird als eigener,
+kontrollierter Schritt spaeter durchgefuehrt. Die Nachverknuepfungen aus Events
+(Veranstalter/Orte/Teilnehmer) und E-Mail-Marketing (Listenmitglieder, Opt-outs) sowie die
+zwei fehlenden Projektkunden bleiben bis dahin dokumentierte Abhaengigkeiten.
+
 ## 7. Testreihenfolge (Aufgabe 4) — Vorschlag
 
 Reihenfolge mit Priorität (fachlich motiviert: erst Darstellung/Sprache, dann Stammdaten, dann Geschäftsdaten, dann Ausgabe/Infrastruktur):
