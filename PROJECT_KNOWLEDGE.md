@@ -9483,6 +9483,26 @@ Entscheidungspunkte (M1 Kampagnenabbildung, M2 Statistik, M3 geplante Entwuerfe,
 M4 Demodaten, M5 website_mass_mailing, M6 mass_mailing_event, M7 Opt-out):
 docs/o11-o18-email-marketing-vergleich.md. Keine Daten uebernommen.
 
+## Session 139 (02.11.2026): Abschluss Events/E-Mail-Marketing und Bereichsuebersicht
+
+1. Events und E-Mail-Marketing endgueltig **ABGENOMMEN und GESPERRT** (Doku, Checkliste 6.18/6.19,
+   Endpruefungen 61/0 und 37/0 lokal und VM, Browser 35/0 und 20/0, Dreistand `603c8e4`).
+2. Zwei Werkzeugbefunde behoben: `marketing_migration.py` stellt Mail-Crons jetzt im
+   `try/finally` wieder her (ein abgebrochener Lauf hatte sie lokal ausgelassen), und die
+   Marketingpruefung trennt harte Stammdaten von den in Odoo 11 **berechneten** Kennzahlen
+   (`total`/`sent`/`opened`/`failed` sind `store=False`; Mailing 3 und 6 rechnet Odoo 11
+   inzwischen anders, `mail.mail` dort = 0). Kein Migrationsfehler, als HINWEIS dokumentiert.
+3. Kontakte/Kundenverwaltung: Struktur migrationsbereit, **Datenmigration bewusst offen**
+   (Entscheidung Anna). Nachverknuepfungen aus Events/Marketing bleiben dokumentierte
+   Abhaengigkeiten, kein automatischer Start der Kontaktmigration.
+4. Neue Bereichsuebersicht (Checkliste 6.20) auf Basis read-only Erhebung: noch nicht
+   strukturell bearbeitet sind Massenbearbeitung (`mass_editing`, 20 Aktionen),
+   Website (17 Seiten, 11 Menues), Umfragen (`survey`, 73 Teilnahmen), Valorisierung
+   (`itk_valorisierung`, 10 Hinweise, 33 Kostenstellen) und Lager (262 Belege, 0 erledigt).
+   Einkauf und Reklamationen ohne Daten; Kalender ist Anwesenheitsdarstellung,
+   Helpdesk-Daten gehoeren zum gesperrten Bereich.
+5. Uebergabe fuer die neue Session: `docs/uebergabe-session-139.md`.
+
 ## Session 138b (30.10.2026): Bereich E-MAIL-MARKETING - Struktur, Kampagnen und Migration
 
 Auftrag Anna mit Entscheidungen M1-M7: eigenes Kampagnenmodell mit Stufen (B), historische
