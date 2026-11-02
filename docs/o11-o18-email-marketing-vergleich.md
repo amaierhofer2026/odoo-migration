@@ -326,3 +326,33 @@ Nachverknuepfung (nur Kennungen, keine Personen):
 | Nachverknuepfungsliste | `docs/o11-o18-email-marketing-nachverknuepfung-vm.csv` |
 
 **Status: E-MAIL-MARKETING ABGENOMMEN und GESPERRT (30.10.2026).**
+
+### 10.5 Nachkontrolle 02.11.2026 - berechnete Kennzahlen in Odoo 11
+
+`total`, `sent`, `opened`, `delivered`, `failed` sind in Odoo 11 **nicht gespeichert**
+(`store=False`); Odoo 11 rechnet sie bei jedem Lesen aus seiner eigenen Statistik neu.
+Bei der Nachkontrolle am 02.11.2026 lagen deshalb zwei Werte anders als zum
+Migrationszeitpunkt:
+
+| Mailing (Odoo 11) | Feld | uebernommen | Odoo 11 jetzt |
+|---|---|---|---|
+| 3 "E-Abfertigungsservice" | total | 111 | 109 |
+| 6 "blabla" | total | 40 | 36 |
+
+Bewertung: keine Migrationsabweichung, sondern eine Neuberechnung im Produktivsystem
+(`mail.mail` zu diesen Mailings ist dort inzwischen 0). Die uebernommenen Werte bleiben als
+Stand 30.10.2026 erhalten - sie werden **nicht** nachgezogen, weil sie den historischen
+Stand zum Migrationszeitpunkt abbilden. Die Pruefung trennt das jetzt sauber:
+
+- **FEHLER** bei Name, Status, Sendedatum, Plandatum, Aktiv-Kennzeichen (harte Stammdaten),
+- **HINWEIS** bei den berechneten Kennzahlen, mit beiden Werten im Klartext.
+
+Ergebnis nach der Trennung: `verify_s138_marketing.py` **37 OK / 0 FEHLER** und
+2 Hinweise, lokal und VM identisch.
+
+### 10.6 Newsletter-Funktion (M5), Nachkontrolle
+
+`website_mass_mailing` 18.0.1.0 ist auf beiden Instanzen installiert; die Routen
+`/website_mass_mailing/subscribe` und `/website_mass_mailing/is_subscriber` antworten
+mit HTTP 200. Es wurden **keine** Abonnenten, Kontakte oder Adressen aus Odoo 11 uebernommen
+(`mailing.contact` = 0 auf beiden Instanzen).

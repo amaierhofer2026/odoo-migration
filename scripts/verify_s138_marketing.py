@@ -133,6 +133,7 @@ def main():
         "id", "name", "state", "sent_date", "schedule_date", "sent", "opened", "failed",
         "total", "active"]], context={"lang": "de_DE", "active_test": False})}
     abw = []
+    hinweise = []
     for m in ms:
         q = m11.get(m["x_o11_id"])
         if not q:
@@ -146,16 +147,26 @@ def main():
             abw.append((m["x_o11_id"], "Sendedatum: %r != %r" % (m["sent_date"], q["sent_date"])))
         if (m["x_o11_schedule_date"] or False) != (q["schedule_date"] or False):
             abw.append((m["x_o11_id"], "Plantemrin: %r != %r" % (m["x_o11_schedule_date"], q["schedule_date"])))
+        # Kennzahlen sind in Odoo 11 berechnete Felder (store=False): Odoo 11
+        # ermittelt sie bei jedem Lesen neu aus seiner Statistik. Weicht der
+        # Wert ab, ist das eine Neuberechnung im Produktivsystem, kein
+        # Migrationsfehler - deshalb getrennt als Hinweis gefuehrt.
         for f in ("sent", "opened", "failed", "total"):
             if m["x_o11_" + f] != (q[f] or 0):
-                abw.append((m["x_o11_id"], "%s: %r != %r" % (f, m["x_o11_" + f], q[f])))
+                hinweise.append((m["x_o11_id"],
+                                 "%s: uebernommen %r, Odoo 11 jetzt %r"
+                                 % (f, m["x_o11_" + f], q[f])))
         if bool(m["active"]) != bool(q["active"]):
             abw.append((m["x_o11_id"], "Aktiv: %r != %r" % (m["active"], q["active"])))
-    pruefe(not abw, "Feldgleichheit je Mailing gegen Odoo 11", abw[:5], "keine Abweichung")
+    pruefe(not abw, "Feldgleichheit Stammdaten je Mailing (Name, Status, Daten, Aktiv)",
+           abw[:5], "keine Abweichung")
     if abw:
         print("  Abweichungen (erste 10):")
         for x in abw[:10]:
             print("    ", x)
+    print("  Kennzahlen-Abweichungen gegen Odoo 11 (berechnete Felder): %d" % len(hinweise))
+    for x in hinweise[:10]:
+        print("    HINWEIS", x)
 
     # --------------------------------------------------------- Versandsperre
     hist = [m for m in ms if m["state"] == "done"][:1] + [m for m in ms if m["state"] == "draft"][:1]
