@@ -2535,7 +2535,13 @@ bearbeitete Bereiche sind bewusst nicht enthalten.
 | **Website / Webinhalte** | `website`, `website_form`, `website_links`, `website_rating`, `website_odoo_debranding` | **17 Seiten** (FAQ Gemeindecloud/Ebox, FAQ IFG-Portal Partner/Kunden, FAQ Anonymisierungs-Portal, Kurse, Wie bestelle ich einen Kurs, Kontakt), 11 Menues | 4 Seiten, 8 Menues (Demodaten) | nicht bearbeitet |
 | **Lager / Bestand** | `stock`, `stock_account`, `sale_stock` | **262 Lagerbelege** (231 offen "assigned", 31 storniert, 0 erledigt), 342 Buchungen, 13 Lagerorte, 1 Lager, 0 Bestandsmengen | 0 Belege, 10 Lagerorte | nicht bearbeitet (fachlich ohne Vollzuege) |
 | **Valorisierung** | `itk_valorisierung` | 10 Valorisierungshinweise 2019-2026, 33 Kostenstellen (`account.analytic.account`) | Modul nicht vorhanden | nicht bearbeitet |
-| **Massenbearbeitung** | `mass_editing` | **20 Massenaktions-Objekte** (Preisliste, Abo-Status, Zahlungsbedingungen, Rechnung-/Leistungsdatum, Tag-Zuweisung, Lead-Quelle, Interessent-Status, Valorisierungstext) | Modul nicht vorhanden | nicht bearbeitet |
+| **Massenbearbeitung** | `mass_editing` | **20 Massenaktions-Objekte** (Preisliste, Abo-Status, Zahlungsbedingungen, Rechnung-/Leistungsdatum, Tag-Zuweisung, Lead-Quelle, Interessent-Status, Valorisierungstext) | `server_action_mass_edit` 18.0.1.1.3 mit **21 Aktionen** (20 aus Odoo 11 plus eine Dublette) | in Bearbeitung seit Session 140: Vergleich dokumentiert (`docs/o11-o18-vergleich-massenbearbeitung.md`), Entscheidungspunkte K1-K6 offen |
+
+**Nachtrag 02.11.2026 (Session 140), Korrektur:** die Zeile "Massenbearbeitung" fuehrte in Odoo 18
+"Modul nicht vorhanden". Das war veraltet. Gemessen sind `server_action_mass_edit` 18.0.1.1.3
+installiert, 21 Massenbearbeitungs-Aktionen vorhanden (IDs 1303 bis 1323), alle 20 Odoo-11-Zielfelder
+vorhanden. Offener Fehler: "Angebot zu Auftrag" (1307) ist nicht bedienbar, weil Odoo 18
+`sale.order.state` als `readonly` fuehrt (Einzelheiten im Bereichsdokument, F1 und K2).
 
 Ohne Handlungsbedarf (0 Datensaetze in Odoo 11):
 
