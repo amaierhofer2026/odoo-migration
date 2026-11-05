@@ -2523,6 +2523,67 @@ Nicht migriert: 14 Mailings ohne Empfaengermodell (Odoo 18 verlangt `mailing_mod
 Nachzuziehen mit der Kontaktmigration: Kontakte, Listenmitglieder, Traces, Opt-outs,
 Blacklist, danach Versandfreigabe.
 
+### 6.21 Massenbearbeitung (Modul `mass_editing` -> `server_action_mass_edit`) - **ABGENOMMEN und GESPERRT**, 05.11.2026 (Session 140)
+
+Dokumente: `docs/o11-o18-vergleich-massenbearbeitung.md` (Vergleich und Umsetzung).
+Odoo 11 wurde ausschliesslich lesend erhoben (20 `mass.object`-Objekte, 20 Sidebar-Aktionen,
+Menue `Einstellungen/Massenverarbeitung`, Rechte: Konfiguration nur Administration).
+
+```
+Umsetzung (Entscheidungen K1-K6, 02.11.2026)
+K1  Dublette entfernt: Server-Aktion 1303 "Massenbearbeitung Kontakte" geloescht,
+    es bleibt "Tag-Zuweisung" (1319) wie in Odoo 11.
+K2  "Angebot zu Auftrag" wieder bedienbar: der OCA-Assistent verwirft beim Aufbau der
+    Dialogfelder das Merkmal readonly (wie Odoo 11). Damit ist sale.order.state im
+    Dialog waehlbar; geschrieben wird nur das Feld (kein action_confirm).
+    Belege: Odoo 11 hat kein write() auf sale.order (nur SaleOrderLine), also reiner
+    Feld-Write; Odoo 18 action_confirm wuerde zusaetzlich date_order setzen, ueber
+    itk_sale_management confirmation_date und ueber sale_stock Lieferungen
+    (_action_launch_stock_rule), sale_project Projekte, sale_purchase Bestellungen
+    ausloesen. Odoo 11: 2.342 Auftraege mit Status Verkaufsauftrag, alle mit
+    Bestaetigungsdatum, keiner ohne.
+K3  "Abo-Status aendern" bleibt wie Odoo 11 (direkter Feld-Write, dokumentierte
+    Abweichung von der Odoo-18-Standardbedienung).
+K4  Bindung der Automatisierungs-Aktion "Execute Code" am Lead entfernt; die
+    Automatisierung "Interessent zur Verrechnung bereit" bleibt unveraendert aktiv.
+K5  Neues Modul `itk_massenbearbeitung` 18.0.1.0.0: Menue Einstellungen >
+    Massenverarbeitung mit Liste der Massenbearbeitungs-Aktionen (Domain state=mass_edit).
+K6  Kurze Objektnamen beibehalten (kein Praefix "Massenverarbeitung (...)").
+
+Technische Zusatzanpassungen (Modul server_action_mass_edit 18.0.1.1.4)
+T1  Stichwortfelder im Dialog als Tags (widget_option many2many_tags) statt Unterliste.
+T2  "Hinzufuegen" bei many2many schreibt Verknuepfungen (4,id); vorher blieb die
+    Aktion wirkungslos (die ID-Liste wurde roh geschrieben).
+
+Abnahme (echter Chrome, je Aktion markieren, Dialog, Wert setzen, Anwenden, Ruecknahme)
+  lokal: 265 OK / 0 FEHL ueber 20 Aktionen
+  VM:    265 OK / 0 FEHL ueber 20 Aktionen (identische Werte, siehe Tabelle im Dokument)
+  Rechte lokal 10 OK / 0 FEHL, Rechte VM 12 OK / 0 FEHL:
+    Aktion im Menue "Aktion" sichtbar ohne Einstellungsrechte, Dialog bedienbar,
+    Zaehlanzeige korrekt, Konfigurationsliste gesperrt ("keinen Zugriff auf
+    Datensaetze Serveraktion"), Schreiben auf Server-Aktion verweigert.
+  Regression lokal und VM: Events 61/0, E-Mail-Marketing 37/0, Personal 54/0,
+    Projekt 20/0, Verkauf auf Referenzniveau, Zeiterfassung 54/0, Abo 19/0,
+    Helpdesk 35/0, Abrechnung 42/2 (2 dokumentierte Entfaelle property_stock_*),
+    Kundenverwaltung 40/1 (Versionserwartung itk_crm veraltet),
+    Anwesenheiten mit den dokumentierten Odoo-11-Abweichungen (116 Home-Office-Zeilen
+    statt 120, 1.221,72 statt 1.228,23 Stunden).
+  Testdaten: Test-Leads, Test-Stichwort und Testbenutzer samt Kontakt entfernt
+  (Nachweis: 0 Treffer auf "TEST S140" / "S140 Massentest" lokal und VM).
+  Keine Schreibzugriffe auf hr.leave, hr.attendance, account.analytic.line,
+  project.task seit Sitzungsbeginn (Anwesenheiten/Zeiterfassung unberuehrt).
+
+Bewusste Abweichungen
+  - Statusfelder (Angebot, Abo) werden direkt geschrieben, ohne Odoo-18-Folgelogik.
+  - Preislistenwechsel auf bestaetigten Auftraegen blockt Odoo 18 (Standardmeldung),
+    Odoo 11 erlaubte ihn; bleibt als Odoo-18-Standardverhalten.
+  - Stichwortfelder als Tags statt Unterliste (T1).
+  - Im Aktionsmenue stehen die Massenaktionen ohne Odoo-11-Praefix.
+
+Offen (ausserhalb dieses Bereichs): Datenmigration. Es wurden keine fachlichen Daten
+migriert; die Massenbearbeitung ist ein Struktur- und Funktionsbereich.
+```
+
 ### 6.20 Bereichsuebersicht: noch NICHT strukturell bearbeitet (Stand 02.11.2026, Session 139)
 
 Read-only gegen Odoo 11 (`ITK_V1_a`) erhoben. Nur Bereiche, deren Struktur noch **nicht**
@@ -2535,7 +2596,13 @@ bearbeitete Bereiche sind bewusst nicht enthalten.
 | **Website / Webinhalte** | `website`, `website_form`, `website_links`, `website_rating`, `website_odoo_debranding` | **17 Seiten** (FAQ Gemeindecloud/Ebox, FAQ IFG-Portal Partner/Kunden, FAQ Anonymisierungs-Portal, Kurse, Wie bestelle ich einen Kurs, Kontakt), 11 Menues | 4 Seiten, 8 Menues (Demodaten) | nicht bearbeitet |
 | **Lager / Bestand** | `stock`, `stock_account`, `sale_stock` | **262 Lagerbelege** (231 offen "assigned", 31 storniert, 0 erledigt), 342 Buchungen, 13 Lagerorte, 1 Lager, 0 Bestandsmengen | 0 Belege, 10 Lagerorte | nicht bearbeitet (fachlich ohne Vollzuege) |
 | **Valorisierung** | `itk_valorisierung` | 10 Valorisierungshinweise 2019-2026, 33 Kostenstellen (`account.analytic.account`) | Modul nicht vorhanden | nicht bearbeitet |
-| **Massenbearbeitung** | `mass_editing` | **20 Massenaktions-Objekte** (Preisliste, Abo-Status, Zahlungsbedingungen, Rechnung-/Leistungsdatum, Tag-Zuweisung, Lead-Quelle, Interessent-Status, Valorisierungstext) | Modul nicht vorhanden | nicht bearbeitet |
+| **Massenbearbeitung** | `mass_editing` | **20 Massenaktions-Objekte** (Preisliste, Abo-Status, Zahlungsbedingungen, Rechnung-/Leistungsdatum, Tag-Zuweisung, Lead-Quelle, Interessent-Status, Valorisierungstext) | `server_action_mass_edit` **18.0.1.1.4** mit **20 Aktionen** (1:1 zu Odoo 11) + Menue `Einstellungen/Massenverarbeitung` (`itk_massenbearbeitung` 18.0.1.0.0) | **ABGESCHLOSSEN / ABGENOMMEN und GESPERRT** (05.11.2026, Session 140) |
+
+**Nachtrag 02.11.2026 (Session 140), Korrektur:** die Zeile "Massenbearbeitung" fuehrte in Odoo 18
+"Modul nicht vorhanden". Das war veraltet. Gemessen sind `server_action_mass_edit` 18.0.1.1.3
+installiert, 21 Massenbearbeitungs-Aktionen vorhanden (IDs 1303 bis 1323), alle 20 Odoo-11-Zielfelder
+vorhanden. Offener Fehler: "Angebot zu Auftrag" (1307) ist nicht bedienbar, weil Odoo 18
+`sale.order.state` als `readonly` fuehrt (Einzelheiten im Bereichsdokument, F1 und K2).
 
 Ohne Handlungsbedarf (0 Datensaetze in Odoo 11):
 

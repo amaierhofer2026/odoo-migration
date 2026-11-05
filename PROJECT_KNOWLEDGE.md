@@ -9544,3 +9544,71 @@ Odoo 11 blieb read-only; keine Kontakte, Personen, E-Mail-Adressen, Empfaenger o
    (Kontakte, Listenmitglieder, Traces, Opt-outs/Blacklist, danach Versandfreigabe).
 
 
+
+---
+
+### Session 140: Massenbearbeitung (mass_editing -> server_action_mass_edit) ABGENOMMEN und GESPERRT
+
+**Datum:** 05.11.2026
+**Bereich:** Massenbearbeitung, Checkliste 6.21, Dokument `docs/o11-o18-vergleich-massenbearbeitung.md`
+
+#### Ausgangslage (read-only gegen Odoo 11 erhoben)
+- `mass_editing` 11.0.1.0.1, **20 mass.object-Objekte** mit je einer Sidebar-Aktion,
+  Konfigurationsmenue `Einstellungen/Massenverarbeitung`, Rechte: lesen alle internen Benutzer,
+  schreiben nur Administration; Dialogoptionen `Set/Remove/Add` (englisch), kein Standardwert.
+- In Odoo 18 war `server_action_mass_edit` 18.0.1.1.3 bereits installiert, mit **21** Aktionen -
+  eine Dublette (1303 "Massenbearbeitung Kontakte" und 1319 "Tag-Zuweisung", beide Stichwoerter).
+
+#### Umsetzung (Entscheidungen von Anna, 02.11.2026)
+1. **K1** Dublette 1303 entfernt -> wieder 20 Aktionen wie Odoo 11.
+2. **K2** "Angebot zu Auftrag" war nicht bedienbar: Odoo 18 fuehrt `sale.order.state` als
+   `readonly`, der OCA-Assistent uebernimmt das Merkmal (Odoo 11 verwarf es). Fix im Assistenten
+   (`field_info.pop("readonly")`), also reiner Feld-Write **ohne** `action_confirm`.
+   Belege: Odoo 11 hat kein `write()` auf `sale.order`; `action_confirm` in Odoo 18 wuerde
+   `date_order` setzen, ueber `itk_sale_management` `confirmation_date` schreiben und ueber
+   `sale_stock`/`sale_project`/`sale_purchase` Lieferungen, Projekte und Bestellungen anlegen.
+3. **K3** "Abo-Status aendern" bleibt direkter Feld-Write (bewusste Abweichung, dokumentiert).
+4. **K4** Bindung der Automatisierungs-Aktion "Execute Code" am Lead entfernt (war in Odoo 11 nicht
+   sichtbar); die Automatisierung selbst bleibt aktiv und unveraendert.
+5. **K5** neues Modul `itk_massenbearbeitung` 18.0.1.0.0: Menue Einstellungen > Massenverarbeitung,
+   Liste gefiltert auf `state=mass_edit`, Vorbelegung beim Anlegen.
+6. **K6** kurze Objektnamen, kein Odoo-11-Praefix.
+
+#### Technische Lehren
+- **`readonly` im dynamischen Dialog:** Der OCA-Assistent baut die Felder in `fields_get` aus
+  `fields_get()` des Zielmodells; `readonly` wandert ungefiltert ins Dialogfeld, das Feld ist dann
+  leer und nicht bedienbar. Odoo 11 (mass_editing) hat es verworfen - fuer Paritaet muss es raus.
+- **many2many im Dialog:** ohne `widget_option` rendert Odoo 18 eine Unterliste mit eigenem Dialog;
+  mit `widget_option = many2many_tags` ist es ein Stichwortfeld (T1). Der Modus "Hinzufuegen"
+  schrieb die ID-Liste roh und blieb wirkungslos - korrekt sind Befehle `(4, id)` (T2, inkl.
+  Behandlung der vom Client gelieferten `[[4, id]]`-Listen).
+- **Datapoint-IDs im DOM sind keine Datensatz-IDs:** `data-id="datapoint_N"` ist eine interne
+  Nummer. Die echten IDs stehen im Kontext des Dialogs (`active_ids` im RPC-Aufruf); Abnahme muss
+  sie von dort lesen, sonst prueft und repariert man die falschen Datensaetze.
+- **Anzeigenamen sind sprachabhaengig:** RPC-`read` ohne `context={'lang':'de_DE'}` liefert
+  "15 Days" statt "15 Tage"; Vergleiche gegen UI-Werte brauchen den Sprachkontext.
+- **`product.product.categ_id` ist ein nicht gespeichertes related-Feld:** es erscheint in keinem
+  Feld-Schnappschuss; Pruefung und Ruecknahme muessen direkt ueber das Feld gehen.
+- **Berechnete Folgefelder:** `is_manually_modified`, `date`, `invoice_date_due` werden durch die
+  Aktion mitgezogen. Sie sind keine Folgeprozesse, muessen aber in der Ruecknahme behandelt werden
+  (zweiter Durchgang, `invoice_date_due` ist schreibbar).
+- **res.users legt einen Kontakt an:** Testbenutzer erzeugen `res.partner`-Zeilen, die beim Loeschen
+  des Benutzers bleiben. Ohne Aufraeumen schlaegt `verify_s138_events` an ("kein Kontakt seit der
+  Migration angelegt").
+
+#### Abnahme
+- Browserabnahme je Aktion angewendet und zurueckgenommen: **lokal 265 OK / 0 FEHL**, **VM 265 OK / 0 FEHL**
+  (20 Aktionen, 2 Datensaetze je Aktion, Feld-Diff per RPC, Ausgangswerte wiederhergestellt).
+- Rechte: lokal 10/0, VM 12/0 (Aktion sichtbar, Dialog bedienbar, Konfiguration gesperrt,
+  Schreiben auf Server-Aktion verweigert, Testbenutzer und Testkontakt entfernt).
+- Regression lokal und VM: Events 61/0, Marketing 37/0, Personal 54/0, Projekt 20/0,
+  Verkauf Referenzniveau, Zeiterfassung 54/0, Abo 19/0, Helpdesk 35/0. Abrechnung 42/2 und
+  Kundenverwaltung 40/1 sind dokumentierte Entfaelle bzw. veraltete Versionserwartungen;
+  Anwesenheiten zeigt die dokumentierten Odoo-11-Abweichungen. Keine Schreibzugriffe auf
+  hr.leave, hr.attendance, account.analytic.line, project.task seit Sitzungsbeginn.
+- Keine fachlichen Daten migriert; Odoo 11 ausschliesslich lesend benutzt.
+
+#### Status
+**MASSENBEARBEITUNG ABGENOMMEN und GESPERRT.** Aenderungen an diesem Bereich nur noch mit
+ausdruecklichem Auftrag; er laeuft ab jetzt in der Regression mit (`apply_massenbearbeitung.py
+--pruefen`, `verify`-Lauf der Nachbargebiete).

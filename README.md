@@ -10,6 +10,18 @@ Migration aller Odoo-Module von **Version 11 nach Version 18** für ITK (IT Komm
 - Saubere Git-Historie, jeder Schritt nachvollziehbar
 - Odoo 18 läuft in Docker (Windows, erreichbar unter `localhost:8069`)
 
+## Status: Massenbearbeitung abgenommen (Session 140)
+
+**MASSENBEARBEITUNG: ABGENOMMEN UND GESPERRT** (05.11.2026, Session 140). Odoo 11 hatte 20
+Massenaktions-Objekte (`mass_editing`); Odoo 18 fuehrt sie als Server-Aktionen
+(`server_action_mass_edit`, jetzt 18.0.1.1.4). Umgesetzt: Dublette entfernt (wieder 20 Aktionen),
+"Angebot zu Auftrag" wieder bedienbar (readonly wie Odoo 11, ohne `action_confirm`), Bindung der
+Automatisierungs-Aktion "Execute Code" entfernt, neues Modul `itk_massenbearbeitung` 18.0.1.0.0
+mit Menue Einstellungen > Massenverarbeitung, Stichwortfelder im Dialog als Tags.
+Nachweise: Browserabnahme 265/0 lokal und VM (20 Aktionen angewendet und zurueckgenommen),
+Rechte 10/0 lokal und 12/0 VM, Regression aller gesperrten Bereiche unveraendert.
+Dokument: `docs/o11-o18-vergleich-massenbearbeitung.md`.
+
 ## Status: Bereiche Events und E-Mail-Marketing abgenommen
 
 **E-MAIL-MARKETING: ABGENOMMEN UND GESPERRT** (30.10.2026, Session 138). Neues Modul
