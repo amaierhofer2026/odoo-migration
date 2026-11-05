@@ -300,3 +300,155 @@ keine Odoo-18-Standardlogik ueberschrieben.
 - Die 21 Aktionen bleiben bestehen, solange K1 bis K6 nicht entschieden sind.
 - Die gesperrten Bereiche (Projekt, Personal, Zeiterfassung, Anwesenheiten, Verkauf, Abonnements,
   Helpdesk, Events, E-Mail-Marketing) wurden nicht angefasst und laufen nur in der Regression mit.
+
+---
+
+## 9 Umsetzung (Session 140, Entscheidungen K1 bis K6 vom 02.11.2026)
+
+### 9.1 Aenderungen
+
+| Punkt | Umsetzung | Ort |
+|---|---|---|
+| K1 | Dublette entfernt: Server-Aktion 1303 "Massenbearbeitung Kontakte" geloescht, "Tag-Zuweisung" (1319) bleibt | `scripts/apply_massenbearbeitung.py` |
+| K2 | OCA-Assistent verwirft beim Aufbau der Dialogfelder das Merkmal `readonly` (wie Odoo 11); Statusfelder sind damit waehlbar | `addons/server_action_mass_edit/wizard/mass_editing_wizard.py` |
+| K3 | keine Aenderung; "Abo-Status aendern" schreibt den Status direkt (dokumentierte Abweichung) | - |
+| K4 | Bindung der Automatisierungs-Aktion "Execute Code" am Lead entfernt; Automatisierung bleibt aktiv | `scripts/apply_massenbearbeitung.py` |
+| K5 | Modul `itk_massenbearbeitung` 18.0.1.0.0: Menue Einstellungen > Massenverarbeitung, gefilterte Liste (Domain `state=mass_edit`), Anlegen mit Vorbelegung `state=mass_edit` | `addons/itk_massenbearbeitung/` |
+| K6 | kurze Objektnamen beibehalten | - |
+| T1 | Stichwortfelder im Dialog als Tags (`widget_option` = `many2many_tags`) statt Unterliste | `apply_massenbearbeitung.py` (Zeilen von 1319, 1322) |
+| T2 | "Hinzufuegen" bei many2many schreibt Verknuepfungen `(4,id)`; vorher blieb die Aktion wirkungslos | `mass_editing_wizard.py` |
+
+Modulstand: `server_action_mass_edit` 18.0.1.1.3 auf **18.0.1.1.4** (zwei ITK-Anpassungen, im Quelltext
+kommentiert).
+
+### 9.2 Warum kein `action_confirm` (K2)
+
+Anna hat Variante (b) freigegeben: die Odoo-11-Funktion soll wieder bedienbar sein, ohne zusaetzliche
+Geschaeftslogik. Belege:
+
+| Frage | Messung |
+|---|---|
+| Was hat Odoo 11 geaendert? | `sale.order` hat in Odoo 11 **kein eigenes `write()`** (nur `SaleOrderLine.write`); die Massenbearbeitung schreibt ausschliesslich das konfigurierte Feld |
+| Wie sah der Odoo-11-Zustand der Daten aus? | 2.342 Auftraege mit `state = sale`, **alle** mit `confirmation_date`, **keiner** ohne |
+| Was wuerde `action_confirm()` in Odoo 18 zusaetzlich tun? | `write(_prepare_confirmation_values())` = `state` + `date_order` (jetzt); `itk_sale_management` ergaenzt `confirmation_date`; danach `_action_confirm()`: `sale_stock` -> `_action_launch_stock_rule()` (Lieferungen), `sale_project` -> Projekte/Aufgaben, `sale_purchase` -> Bestellungen |
+| Installierte Module mit `_action_confirm` | `sale_stock`, `sale_project`, `sale_purchase`, `stock`, `project` (mrp, repair, delivery nicht installiert) |
+
+Ergebnis: Die Massenbearbeitung schreibt nur `state`. Im Test wurde geprueft, dass `date_order`,
+`confirmation_date` und die Zahl der `stock.picking` unveraendert bleiben.
+
+### 9.3 Fehler F1 und seine Behebung
+
+| Nachweis | Odoo 11 | Odoo 18 vorher | Odoo 18 nachher |
+|---|---|---|---|
+| Felder-Dict des Dialogs fuer `sale.order.state` | ohne `readonly`, 5 Auswahlwerte | `readonly=True`, Feld leer | ohne `readonly`, 4 Auswahlwerte |
+| Bedienbarkeit im Browser | gegeben | nicht gegeben | gegeben |
+
+Odoo 18 kennt den Odoo-11-Zustand "Gesperrt" (done) nicht mehr; die Auswahl zeigt Angebot,
+Angebot gesendet, Verkaufsauftrag, Storniert.
+
+---
+
+## 10 Browserabnahme (echter Chrome, jede Aktion angewendet und zurueckgenommen)
+
+Je Aktion: Liste oeffnen, zwei Datensaetze markieren, Aktion im Menue "Aktion" waehlen, Dialog
+pruefen (Titel, Optionen, Zaehlanzeige, Feldtyp), Modus und Wert setzen, "Anwenden", per RPC
+Feld-Diff pruefen, Ausgangswerte zurueckschreiben und nachpruefen.
+
+Ergebnis lokal und VM: **je 265 OK / 0 FEHL ueber 20 Aktionen**.
+
+| Odoo-11-Aktion | Odoo-18-Aktion | Status | getestetes Verhalten | bewusste Abweichung |
+|---|---|---|---|---|
+| Zuweisung Preisliste NÖ | Zuweisung Preisliste NÖ | OK | 2 Datensätze; Wert Preisliste 2026 + Valorisierung; Dialog zeigt Preisliste 2026 + Valorisierung (EUR); Schreibvorgang belegt; Ausgangswerte wiederhergestellt | nein |
+| Zuweisung zu Preisliste | Zuweisung zu Preisliste | OK | 2 Datensätze; Wert Preisliste 2026 + Valorisierung; Dialog zeigt Preisliste 2026 + Valorisierung (EUR); geschrieben: pricelist_id; Ausgangswerte wiederhergestellt | nein |
+| Reccuring Total | Recurring Total | OK | 2 Datensätze; Wert 2; Dialog zeigt 2,00; geschrieben: quantity; Ausgangswerte wiederhergestellt | nein |
+| Angebot zu Auftrag | Angebot zu Auftrag | OK | 2 Datensätze; Wert Verkaufsauftrag; Dialog zeigt Verkaufsauftrag; geschrieben: state; Ausgangswerte wiederhergestellt | ja (Status direkter Feld-Write wie Odoo 11, kein action_confirm) |
+| Status Kunde | Status Kunde | OK | 2 Datensätze; Wert Bestandskunde; Dialog zeigt Bestandskunde; geschrieben: status_of_partner_id; Ausgangswerte wiederhergestellt | nein |
+| Zahlungsbedingungen setzen | Zahlungsbedingungen setzen | OK | 2 Datensätze; Wert 15 Tage; Dialog zeigt 15 Tage; geschrieben: payment_term_id; Ausgangswerte wiederhergestellt | nein |
+| Startdatum des nächsten Leistungszeitraumes | Startdatum des nächsten Leistungszeitraumes | OK | 2 Datensätze; Wert 01.12.2026; Dialog zeigt 01.12.2026; geschrieben: recurring_next_date; Ausgangswerte wiederhergestellt | nein |
+| Abo-Status ändern | Abo-Status ändern | OK | 2 Datensätze; Wert Zu erneuern; Dialog zeigt Zu erneuern; geschrieben: state; Ausgangswerte wiederhergestellt | ja (Status direkter Feld-Write wie Odoo 11) |
+| Produktkategorie zuweisen | Produktkategorie zuweisen | OK | 2 Datensätze; Wert Expenses; Dialog zeigt All / Expenses; Schreibvorgang belegt; Ausgangswerte wiederhergestellt | nein |
+| Valorisierungstext ändern | Valorisierungstext ändern | OK | 2 Datensätze; Wert VAL-OK; Dialog zeigt VAL-OK; geschrieben: is_manually_modified, valorisierung_id; berechnete Folgefelder mitgefuehrt; Ausgangswerte wiederhergestellt | nein |
+| Zahlungsbedingungen setzen Abrechnung | Zahlungsbedingungen setzen Abrechnung | OK | 2 Datensätze; Wert 15 Tage; Dialog zeigt 15 Tage; geschrieben: invoice_date_due, invoice_payment_term_id, is_manually_modified; berechnete Folgefelder mitgefuehrt; Ausgangswerte wiederhergestellt | nein |
+| Rechnungsdatum Abrechnung | Rechnungsdatum Abrechnung | OK | 2 Datensätze; Wert 01.12.2026; Dialog zeigt 01.12.2026; geschrieben: date, invoice_date, is_manually_modified; berechnete Folgefelder mitgefuehrt; Ausgangswerte wiederhergestellt | nein |
+| Datum der nächsten Rechnung | Datum der nächsten Rechnung | OK | 2 Datensätze; Wert 01.12.2026; Dialog zeigt 01.12.2026; geschrieben: recurring_next_date; Ausgangswerte wiederhergestellt | nein |
+| Massenverarbeitung Leistungszeitraum setzen | Leistungszeitraum setzen | OK | 2 Datensätze; Wert Test S140; Dialog zeigt Test S140; geschrieben: is_manually_modified, sale_order_benefit_period; berechnete Folgefelder mitgefuehrt; Ausgangswerte wiederhergestellt | nein |
+| Massenverarbeitung Projektkategorie setzen | Projektkategorie setzen | OK | 2 Datensätze; Wert amtsweg.gv.at - BUNDESLAND STANDARD; Dialog zeigt amtsweg.gv.at - BUNDESLAND STANDARD; geschrieben: is_manually_modified, projectcategory_id; berechnete Folgefelder mitgefuehrt; Ausgangswerte wiederhergestellt | nein |
+| Tag-Zuweisung | Tag-Zuweisung | OK | 2 Datensätze; Wert AFS; Dialog zeigt AFS; geschrieben: category_id; Ausgangswerte wiederhergestellt | nein (Stichwortfeld als Tags statt Unterliste) |
+| Produktinteresse setzen | Produktinteresse setzen | OK | 2 Datensätze; Wert IFG; Dialog zeigt IFG; geschrieben: x_Produktinteresse; Ausgangswerte wiederhergestellt | nein |
+| Lead Quelle setzen | Lead Quelle setzen | OK | 2 Datensätze; Wert Recherchierte Adressen April 2025; Dialog zeigt Recherchierte Adressen April 2025; geschrieben: x_Lead_Quelle; Ausgangswerte wiederhergestellt | nein |
+| Interessent Stichwort setzen | Interessent Stichwort setzen | OK | 2 Datensätze; Wert TEST S140; Dialog zeigt TEST S140; geschrieben: tag_ids; Ausgangswerte wiederhergestellt | nein (Stichwortfeld als Tags statt Unterliste) |
+| Interessent Lead Status setzen | Interessent Lead Status setzen | OK | 2 Datensätze; Wert Lead kontaktiert; Dialog zeigt Lead kontaktiert; geschrieben: x_lead_status; Ausgangswerte wiederhergestellt | nein |
+
+Gesamt: 20 Aktionen geprueft am 2026-11-05T14:23:47
+
+
+---
+
+## 11 Rechtepruefung
+
+Testbenutzer ohne Einstellungsrechte (`base.group_user` + `base.group_partner_manager`),
+angelegt und nach der Pruefung samt Kontakt wieder entfernt.
+
+| Pruefung | lokal | VM |
+|---|---|---|
+| Aktion im Menue "Aktion" sichtbar | OK | OK |
+| Dublette nicht mehr im Menue | OK | OK |
+| Dialog bedienbar, Optionen Nicht aendern/Setzen/Entfernen/Hinzufuegen | OK | OK |
+| Zaehlanzeige nennt die markierten Datensaetze | OK | OK |
+| Menue Einstellungen > Massenverarbeitung gesperrt | OK ("Sie haben keinen Zugriff auf Datensaetze Serveraktion") | OK (gleiche Meldung) |
+| Schreiben auf eine Server-Aktion verweigert | OK | OK |
+| Assistent fuer den Benutzer lesbar | OK | OK |
+| Testbenutzer und Testkontakt entfernt | OK | OK |
+
+Ergebnis: **lokal 10 OK / 0 FEHL, VM 12 OK / 0 FEHL** (VM mit zwei zusaetzlichen Pruefungen zur
+Menueaktion, deren ID je Datenbank aufgeloest wird).
+
+Zusatzbefund: ein Benutzer ohne Schreibrecht auf `res.partner` bekommt die Aktion sauber verweigert
+(Meldung im Server-Log: "Forbidden server action 'Tag-Zuweisung' ... does not have access to
+res.partner"). Das ist Odoo-Standardverhalten und bleibt.
+
+---
+
+## 12 Regression
+
+| Pruefung | lokal | VM |
+|---|---|---|
+| Events (`verify_s138_events`) | 61 OK / 0 | 61 OK / 0 |
+| E-Mail-Marketing (`verify_s138_marketing`) | 37 OK / 0 | 37 OK / 0 |
+| Personal (`verify_personal`) | 54 OK / 0 | 54 OK / 0 |
+| Projekt (`verify_s135_projekt`) | 20 OK / 0 | 20 OK / 0 |
+| Verkauf (`abschluss_verkauf_regression`) | Referenzniveau, keine Abweichung | Referenzniveau |
+| Zeiterfassung (`verify_s135_zeiterfassung`) | 54 OK / 0 | 54 OK / 0 |
+| Abonnements (`verify_s118_abo`) | 19 OK / 0 | 19 OK / 0 |
+| Helpdesk (`verify_s112_support_ticket`) | 35 OK / 0 | 35 OK / 0 |
+| Abrechnung (`verify_s108_abrechnung`) | 42 OK / 2 | 42 OK / 2 |
+| Kundenverwaltung (`verify_s115_kundenverwaltung`) | 40 OK / 1 | 40 OK / 1 |
+| Anwesenheiten (`verify_s137_anwesenheiten`) | dokumentierte Abweichungen | dokumentierte Abweichungen |
+
+Die roten Punkte sind **keine Regressionen dieses Bereichs**, sondern dokumentierte Abweichungen
+gegen die Odoo-11-Referenz beziehungsweise veraltete Erwartungen in den Pruefskripten:
+
+- Abrechnung: `property_stock_customer` / `property_stock_supplier` entfallen in Odoo 18
+  (in PROJECT_KNOWLEDGE als "entfallen" gefuehrt; das Pruefskript zaehlt sie als FEHL).
+- Kundenverwaltung: das Skript erwartet `itk_crm` 18.0.1.5.7, installiert ist 18.0.1.5.10
+  (Stand nach dem Helpdesk-Bereich).
+- Anwesenheiten: 116 Home-Office-Zeilen und 1.221,72 Stunden sind die **dokumentierten** Werte
+  (Checkliste und `docs/o11-o18-zeiterfassung-abnahme.md` nennen 116 Zeilen, 1.226 und 4.362
+  Zeilen auf archivierten Projekten/Aufgaben); das Skript vergleicht gegen die Odoo-11-Werte.
+
+Beleg fuer die Unberuehrtheit: seit Sitzungsbeginn (02.11.2026 13:00) gibt es **keine**
+Schreibzugriffe auf `hr.leave` (0), `hr.attendance` (0), `account.analytic.line` (0) und
+`project.task` (0). Geschrieben wurden nur die Modelle der Testprobe (Kontakte, Auftraege, Abos,
+Rechnungen, Produkte, Leads - jeweils mit Ruecknahme).
+
+---
+
+## 13 Bewusste Abweichungen
+
+| Abweichung | Begruendung |
+|---|---|
+| "Angebot zu Auftrag" und "Abo-Status aendern" schreiben den Status direkt | Odoo-11-Verhalten; `action_confirm` wuerde Bestelldatum und Folgebelege erzeugen (K2) |
+| Preislistenwechsel auf bestaetigten Auftraegen wird von Odoo 18 abgelehnt | Odoo-18-Standardschutz, wird nicht ueberschrieben |
+| Stichwortfelder erscheinen im Dialog als Tags statt als Unterliste | Bedienbarkeit (T1); Odoo 11 zeigte im selben Dialog eine Liste mit eigenem Dialog |
+| Massenaktionen ohne Praefix "Massenverarbeitung (...)" | K6, kuerzere Namen, das Menue Massenverarbeitung stellt den Zusammenhang her |
+| Konfiguration unter Einstellungen > Massenverarbeitung statt (wie Odoo 11) zusaetzlich unter Technisch | K5: Odoo 18 fuehrt die Aktionen als Server-Aktionen; das Menue bietet die gefilterte Sicht |

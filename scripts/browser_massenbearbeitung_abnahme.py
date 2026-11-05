@@ -200,6 +200,27 @@ def main():
     ergebnis = {"instanz": a.instanz, "stand": datetime.datetime.now().isoformat(timespec="seconds"),
                 "aktionen": []}
 
+    # Listen-URLs je Instanz aus den echten Aktionen ableiten (IDs sind je Datenbank verschieden)
+    LISTEN = {
+        KONTAKTE: ("res.partner", "Kontakte"),
+        ANGEBOTE: ("sale.order", "Angebote"),
+        ABOS: ("sale.subscription", "Abonnements"),
+        ABOBUCHUNGEN: ("sale.subscription.line", "Abonnement-Einträge"),
+        RECHNUNGEN: ("account.move", "Ausgangsrechnungen"),
+        PRODUKTE: ("product.product", "Produktvarianten"),
+        LEADS: ("crm.lead", "Leads"),
+    }
+    kandidaten = {}
+    for platzhalter, (modell, name) in LISTEN.items():
+        treffer = k.kw("ir.actions.act_window", "search_read",
+                       [[("res_model", "=", modell), ("view_mode", "like", "list")],
+                        ["id", "name", "view_mode"]], context=DE) or []
+        # Namensgleiche Aktionen zuerst, danach alle weiteren mit Listenansicht
+        sortiert = ([x for x in treffer if x["name"] == name]
+                    + [x for x in treffer if x["name"] != name])
+        kandidaten[platzhalter] = [x["id"] for x in sortiert][:4]
+    url_je_liste = {}
+
     # Testdaten fuer die Lead-Aktionen: zwei temporaere Leads (werden entfernt)
     lead_ids = k.kw("crm.lead", "create", [[
         {"name": "TEST S140 Massenbearbeitung A", "type": "lead"},
@@ -222,6 +243,21 @@ def main():
             netz = []
             seite.on("request", lambda r: netz.append({"url": r.url, "post": (r.post_data or "")[:1500]})
                      if "call_kw" in r.url else None)
+
+            print("Pruefe Listen-URLs je Aktion ...")
+            for platzhalter, ids in kandidaten.items():
+                gefunden = platzhalter
+                for aktion_id in ids:
+                    pfad = "/odoo/action-%d?view_type=list" % aktion_id
+                    try:
+                        seite.goto(url + pfad, wait_until="domcontentloaded", timeout=90000)
+                        seite.wait_for_selector(".o_list_view", timeout=20000)
+                        gefunden = pfad
+                        break
+                    except Exception:  # noqa: BLE001
+                        continue
+                url_je_liste[platzhalter] = gefunden
+            print("Listen-URLs:", url_je_liste)
 
             def liste_laden(pfad, filter_text=None):
                 seite.goto(url + pfad, wait_until="domcontentloaded", timeout=120000)
@@ -265,6 +301,7 @@ def main():
             for cfg in AKTIONEN:
                 if a.nur and str(cfg["id"]) != str(a.nur):
                     continue
+                cfg = dict(cfg, url=url_je_liste.get(cfg["url"], cfg["url"]))
                 print("\n--- %s (id %s, %s.%s)" % (cfg["name"], cfg["id"], cfg["model"], cfg["feld"]))
                 eintrag = {"id": cfg["id"], "name": cfg["name"], "model": cfg["model"], "feld": cfg["feld"]}
                 try:
@@ -429,8 +466,26 @@ def main():
                                 k.kw(cfg["model"], "write", [[rid], {cfg["feld"]: alt_id}])
                                 zurueck += 1
                     nach_kontrolle = schnappschuss(k, cfg["model"], ziel)
-                    rest = [u for u in unterscheide(vorher_original, nach_kontrolle)
-                            if u["feld"] not in berechnet]
+                    attr = k.kw(cfg["model"], "fields_get", [[], ["readonly"]]) or {}
+
+                    def offene_diffs():
+                        return [u for u in unterscheide(vorher_original, nach_kontrolle)
+                                if not attr.get(u["feld"], {}).get("readonly", True)]
+
+                    # Nacharbeit: alle schreibbaren Felder mit Abweichung auf den Ausgangswert
+                    for _durchgang in range(2):
+                        offen = offene_diffs()
+                        if not offen:
+                            break
+                        je_satz = {}
+                        for u in offen:
+                            je_satz.setdefault(u["id"], {})[u["feld"]] = u["alt"]
+                        for rid, werte in je_satz.items():
+                            k.kw(cfg["model"], "write", [[rid], werte])
+                            zurueck += 1
+                        time.sleep(1.5)
+                        nach_kontrolle = schnappschuss(k, cfg["model"], ziel)
+                    rest = offene_diffs()
                     eintrag["ruecknahme"] = {"datensaetze": zurueck, "rest": rest}
                     pruefe(not rest, "Ausgangswerte wiederhergestellt", rest)
                 except Exception as exc:  # noqa: BLE001

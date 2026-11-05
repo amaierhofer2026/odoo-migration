@@ -163,8 +163,14 @@ def main():
                     break
             time.sleep(1)
 
-            # Konfiguration darf nicht erreichbar sein
-            seite.goto(url + "/odoo/action-1624", wait_until="domcontentloaded", timeout=90000)
+            # Konfiguration darf nicht erreichbar sein (Aktions-ID je Instanz aufloesen)
+            xmlid = moment.kw("ir.model.data", "search_read",
+                              [[("module", "=", "itk_massenbearbeitung"),
+                                ("name", "=", "action_itk_massenbearbeitung")], ["res_id"]])
+            aktion_id = xmlid[0]["res_id"] if xmlid else 0
+            pruefe(bool(aktion_id), "Menueaktion Massenverarbeitung gefunden", aktion_id)
+            seite.goto(url + "/odoo/action-%s" % aktion_id, wait_until="domcontentloaded",
+                       timeout=90000)
             time.sleep(4)
             inhalt = seite.inner_text("body")
             pruefe("Zugriff" in inhalt or "Access" in inhalt or "nicht erlaubt" in inhalt
@@ -193,7 +199,7 @@ def main():
     finally:
         # res.users legt beim Anlegen einen Kontakt an; der bleibt beim Loeschen des
         # Benutzers bestehen und muss mit entfernt werden (keine Testreste).
-        partner = moment.kw("res.users", "read", [[benutzer], ["partner_id"]])[0]["partner_id"]
+        partner = moment.kw("res.users", "read", [[benutzer[0]], ["partner_id"]])[0]["partner_id"]
         moment.kw("res.users", "unlink", [benutzer])
         if partner:
             moment.kw("res.partner", "unlink", [[partner[0]]])
