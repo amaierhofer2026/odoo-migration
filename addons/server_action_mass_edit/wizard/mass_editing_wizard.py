@@ -256,6 +256,14 @@ class MassEditingWizard(models.TransientModel):
                 self.env[server_action.model_id.model], field, fields_info[field.name]
             )
             field_info["relation_field"] = False
+            # ITK-Anpassung 02.11.2026 (Session 140, Entscheidung Anna K2):
+            # Odoo 11 (mass_editing) hat beim Aufbau der Dialogfelder das Merkmal readonly
+            # verworfen; dadurch waren auch Felder wie sale.order.state (im Modell readonly)
+            # im Massenbearbeitungsdialog waehlbar. Das OCA-Modul fuer Odoo 18 uebernimmt
+            # readonly unveraendert, das Feld erscheint dann leer und ist nicht bedienbar
+            # (Befund F1). Hier wie Odoo 11 behandeln: readonly entfernen. Der Schreibvorgang
+            # bleibt ein reiner Feld-Write ohne Bestaetigungs-/Folgelogik.
+            field_info.pop("readonly", None)
             if not line.apply_domain and "domain" in field_info:
                 field_info["domain"] = "[]"
             res.update(self._prepare_fields(line, field, field_info))
@@ -307,7 +315,25 @@ class MassEditingWizard(models.TransientModel):
                                 values.update({split_key: [(5, 0, [])]})
 
                         elif val == "add":
-                            values.update({split_key: vals.get(split_key, False)})
+                            # ITK-Anpassung 02.11.2026 (Session 140): bei many2many wurde die
+                            # Liste der IDs roh geschrieben, was keine Verknuepfung erzeugt.
+                            # "Hinzufuegen" muss die vorhandenen Verknuepfungen ergaenzen (4,id).
+                            ziel = self.env[server_action.model_id.model]._fields.get(split_key)
+                            werte = vals.get(split_key, False)
+                            if ziel is not None and ziel.type == "many2many" and isinstance(werte, list):
+                                befehle = []
+                                for wert in werte:
+                                    if isinstance(wert, (list, tuple)):
+                                        if (len(wert) == 2 and isinstance(wert[0], int)
+                                                and isinstance(wert[1], str)):
+                                            befehle.append((4, wert[0]))
+                                        else:
+                                            befehle.append(tuple(wert))
+                                    else:
+                                        befehle.append((4, wert))
+                                values.update({split_key: befehle})
+                            else:
+                                values.update({split_key: werte})
 
                 if values:
                     self._exec_write(server_action, values)
