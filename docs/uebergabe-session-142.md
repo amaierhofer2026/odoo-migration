@@ -82,6 +82,21 @@ Zahlen:
 - Externe Konfigurationspunkte fuer Website: Produktivdomain (derzeit
   `https://www.it-kommunal.at`), `mail.catchall.domain`, reCAPTCHA-Schluessel.
 
+## 5a Neue verbindliche Projektregel (Anna, 12.11.2026)
+
+Die Datenmigration gehoert vollstaendig zum Modulabschluss; jedes Modul braucht ein
+dauerhaftes, reproduzierbares Migrationsskript unter `scripts/migration/<bereich>_migration.py`
+(Trockenlauf Standard, Schreiblauf nur mit `--ausfuehren --ich-habe-freigabe`, idempotent,
+Mapping-Export, Zusammenfassung gelesen/angelegt/aktualisiert/uebersprungen/nicht zuordenbar/Fehler).
+
+- Regel + acht Abschlusskriterien: `docs/MIGRATIONSREGEL.md`
+- Inventur vorhandener Skripte und offener Bereiche: `docs/migrationsskripte-inventur.md`
+- Website-Skript (abgenommen): `scripts/migration/website_migration.py`,
+  Doku `docs/migration/website_migration.md`
+- Offen ohne Skript (nur dokumentiert, nicht geaendert): Verkauf, Abonnements, Helpdesk
+  (bewusst kein Ticket-Transfer), Massenbearbeitung (Struktur, kein Datenbestand),
+  Kontakte/CRM, Umfragen, Valorisierung, Lager.
+
 ## 6 Werkzeuge
 
 | Datei | Zweck |

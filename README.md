@@ -27,6 +27,15 @@ alle veroeffentlichten Seiten HTTP 200 und unveroeffentlichte 404, Browserabnahm
 (Startseite, Kurse mit 49 Aufklappern, FAQ-Partner mobil, Cookie-OK) und auf der VM.
 Dokument: `docs/o11-o18-website-abnahme.md`.
 
+## Verbindliche Projektregel: Migration je Modul
+
+Seit 12.11.2026 (Freigabe Anna Maierhofer) gilt: Die Datenmigration gehoert vollstaendig zum
+Modulabschluss, und jedes Modul braucht ein dauerhaftes, reproduzierbares Migrationsskript unter
+`scripts/migration/<bereich>_migration.py` (Standard = Trockenlauf, Schreiblauf nur mit
+`--ausfuehren --ich-habe-freigabe`, idempotent, Mapping-Export, Zusammenfassung). Die acht
+Abschlusskriterien und die Skript-Pflichten stehen in `docs/MIGRATIONSREGEL.md`.
+Vorhandene Skripte und offene Bereiche: `docs/migrationsskripte-inventur.md`.
+
 ## Status: Massenbearbeitung abgenommen (Session 140)
 
 **MASSENBEARBEITUNG: ABGENOMMEN UND GESPERRT** (05.11.2026, Session 140). Odoo 11 hatte 20
