@@ -3079,4 +3079,5 @@ Liste und Formular lokal und VM. Details: `docs/o11-o18-steuern-mapping.md`, Abs
 | Website | Demo-Daten | Konfigurator-Startseite entfernt, Standard-Startseite als Vorlage entkoppelt, Demo-Menuepunkt entfernt; Besucher/Seitenansichten der VM geschuetzt | OK | migrate_website.py | Zaehlungen vor/nach |
 | Website | Idempotenz | Wiederholungslaeufe 0 Neuanlagen, 0 Aktualisierungen, 0 neue Klicks | OK | migrate_website.py | 5 Laeufe lokal, 2 VM |
 | Website | Rechte | keine Rechteaenderung; Rollenlogik geprueft, Testbenutzer entfernt | OK | pruefe_website_rechte.py | 17/0 lokal, 17/0 VM |
+| Website | Migrationsskript | `scripts/migration/website_migration.py`: Trockenlauf Standard, Schreiblauf nur mit `--ausfuehren --ich-habe-freigabe`, idempotent, Mapping-Export, Zusammenfassung | OK | neu (Session 142) | Trockenlauf lokal + VM: 0 angelegt, 0 Fehler |
 | Website | Regression | Events 61/0, Marketing 37/0, Personal 54/0, Projekt 20/0, Verkauf ohne Abweichung, Massenbearbeitung 7/0 | OK | - | lokal UND VM |
