@@ -9716,6 +9716,24 @@ meldeten 0 Neuanlagen, 0 Arch-Aktualisierungen, 0 neue Klicks.
 - Menue-Namen muessen in Quelle + de_DE + en_US geschrieben werden (sonst bleibt "Veranstaltungen"
   statt "Webinare" stehen) - bekannte Falle aus Session 114.
 
+#### Abnahme VM (im selben Lauf)
+- Modul `itk_website` installiert, Migration gelaufen: 9 Seiten, 9 Menues neu + 1 vorhanden,
+  Anhang, 837 Tracker, 563 Klicks, 14 Kampagnen + 2 vorhanden, 130 Quellen + 90 vorhanden.
+- Idempotenzlauf VM: 0 Neuanlagen, 0 Aktualisierungen, 0 neue Klicks.
+- HTTP VM identisch zu lokal (200/404, Akkordeons 54/4/6/33/14, keine Artefakte,
+  Cookie deutsch, Copyright, kein Demo-Telefon/-Mail, Logo), Browser VM: Startseite und
+  `/kurse` mit 54 Aufklappern, `/r/wFy` -> 301 mit UTM.
+- Rechte VM: 17 OK / 0 Fehler, Testbenutzer und Testpartner entfernt.
+- Regression lokal UND VM: Events 61/0, Marketing 37/0, Personal 54/0, Projekt 20/0,
+  Verkauf ohne Abweichung, Massenbearbeitung 7/0.
+
+#### Nebeneffekte (dokumentiert)
+- VM-Zugriffsstatistik (7.205 Besucher / 7.271 Seitenansichten) ist echte Zugriffsstatistik
+  und bleibt erhalten (Demo-Grenze 50 im Skript). Durch das Entfernen der doppelten
+  Konfigurator-Startseite sanken die an ihr haengenden Seitenansichten von 7.271 auf 204.
+- Testaufrufe von `/r/wFy` erzeugen echte Klicks; Ueberschuss ueber dem Odoo-11-Sollwert wird
+  vom Skript entfernt (beide Instanzen: 563).
+
 #### Status
-Lokal umgesetzt, migriert und abgenommen; VM-Deploy und VM-Abnahme im selben Lauf.
-Einstieg fuer die naechste Sitzung: `docs/uebergabe-session-142.md`.
+**ABGENOMMEN UND GESPERRT** (12.11.2026). Lokal und VM abgenommen, Regression gruen,
+Dreistand hergestellt. Einstieg fuer die naechste Sitzung: `docs/uebergabe-session-142.md`.

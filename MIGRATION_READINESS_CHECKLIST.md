@@ -2593,7 +2593,7 @@ bearbeitete Bereiche sind bewusst nicht enthalten.
 | Bereich | Odoo-11-Module | Bestand Odoo 11 | Bestand Odoo 18 | Status |
 |---|---|---|---|---|
 | **Umfragen / Survey** | `survey`, `survey_crm` | 2 Umfragen (1 Test, 1 "Staedtebund Academy - Welche Kurse"), 2 Fragen, **73 Teilnahmen** | `survey` nicht installiert | nicht bearbeitet |
-| **Website / Webinhalte** | `website`, `website_form`, `website_links`, `website_rating`, `website_odoo_debranding` | **17 Seiten** (FAQ Gemeindecloud/Ebox, FAQ IFG-Portal Partner/Kunden, FAQ Anonymisierungs-Portal, Kurse, Wie bestelle ich einen Kurs, Kontakt), 11 Menues | 4 Seiten, 8 Menues (Demodaten) | nicht bearbeitet |
+| **Website / Webinhalte** | `website`, `website_form`, `website_links`, `website_rating`, `website_odoo_debranding` | **17 Seiten** (FAQ Gemeindecloud/Ebox, FAQ IFG-Portal Partner/Kunden, FAQ Anonymisierungs-Portal, Kurse, Wie bestelle ich einen Kurs, Kontakt), 11 Menues | 4 Seiten, 8 Menues (Demodaten) | **Bestandsaufnahme fertig (11.11.2026, Session 141)**, Entscheidungen E1-E14 offen |
 | **Lager / Bestand** | `stock`, `stock_account`, `sale_stock` | **262 Lagerbelege** (231 offen "assigned", 31 storniert, 0 erledigt), 342 Buchungen, 13 Lagerorte, 1 Lager, 0 Bestandsmengen | 0 Belege, 10 Lagerorte | nicht bearbeitet (fachlich ohne Vollzuege) |
 | **Valorisierung** | `itk_valorisierung` | 10 Valorisierungshinweise 2019-2026, 33 Kostenstellen (`account.analytic.account`) | Modul nicht vorhanden | nicht bearbeitet |
 | **Massenbearbeitung** | `mass_editing` | **20 Massenaktions-Objekte** (Preisliste, Abo-Status, Zahlungsbedingungen, Rechnung-/Leistungsdatum, Tag-Zuweisung, Lead-Quelle, Interessent-Status, Valorisierungstext) | `server_action_mass_edit` **18.0.1.1.4** mit **20 Aktionen** (1:1 zu Odoo 11) + Menue `Einstellungen/Massenverarbeitung` (`itk_massenbearbeitung` 18.0.1.0.0) | **ABGESCHLOSSEN / ABGENOMMEN und GESPERRT** (05.11.2026, Session 140) |
@@ -3054,3 +3054,29 @@ Liste und Formular lokal und VM. Details: `docs/o11-o18-steuern-mapping.md`, Abs
 | Personal | Anwesenheiten | 192 | OK | hr_migration.py | Zaehlung |
 | Personal | Kategorie-Anspruch O11 ID 7 | nicht uebertragbar, dokumentiert | NICHT RELEVANT | - | get_days-Nachweis |
 | Personal | 0-Tage-Ansprueche | 2 Datensaetze, SQL-Constraint | NICHT RELEVANT | - | dokumentiert |
+
+### Website / Webinhalte (Session 142, 12.11.2026) - ABGENOMMEN UND GESPERRT
+
+> Entscheidungen E1-E14 umgesetzt, Datenmigration durchgefuehrt, lokal und VM abgenommen.
+> Dokument: `docs/o11-o18-website-abnahme.md`. Werkzeuge: `scripts/website_markup.py`,
+> `scripts/migrate_website.py`, `scripts/pruefe_website_rechte.py`, Modul `itk_website`.
+
+| Bereich | Funktion/Feld | Istzustand | Status | Anpassung | getestet |
+|---|---|---|---|---|---|
+| Website | Seiteninhalte (Markup) | Bootstrap 3 automatisch auf Bootstrap 5 umgeschrieben (261 Akkordeons, 1.590 font-Tags, 5 Offsets, 14 Floats, 47 page-header, 2 Jumbotron) | OK | website_markup.py | 0 Restmuster je Seite |
+| Website | Doppelt escapte Zeichen | 3.482 x `&nbsp;` und 66 x `&` bereinigt | OK | website_markup.py | 0 sichtbare Artefakte in 7 Seiten |
+| Website | FAQ-Aufklapper | 261 Aufklapper als Bootstrap-5-Akkordeon, bedienbar | OK | website_markup.py | Browser lokal 49/54 Knoepfe, Klick oeffnet |
+| Website | Startseite | Odoo-18-Layout (Karten, Grid), Inhalte/Links aus Odoo 11 | OK | website_homepage_o18.html | Browser lokal + VM |
+| Website | Seitenauswahl | 9 uebernommen (7 veroeffentlicht, 2 unveroeffentlicht wie Odoo 11) | OK | migrate_website.py | HTTP 200/404 je Seite |
+| Website | Menues | 10 Punkte unter "Top Menue", Punkt 7 intern, 7/10 bei Besuchern unsichtbar | OK | migrate_website.py | Browser + Rechtepruefung |
+| Website | Einstellungen | Name "ITK Portal", Twitter `@IT_Kommunal`, CRM-Team "Vertriebskanaele (Intern)", Favicon, Kopf-Logo; Domain unveraendert | OK | migrate_website.py | RPC + Browser |
+| Website | Link-Tracker | 837 Tracker, 563 Klicks (ohne IP), 16 Kampagnen, 9 Medien, 220 Quellen; Kurz-URLs unveraendert | OK | migrate_website.py | `/r/wFy` -> 301 mit UTM lokal + VM |
+| Website | Bilder/Medien | 1 Anhang (Seite 17), 3 Base64-Bilder, Hintergrundbild identisch | OK | migrate_website.py | Bild im Browser geladen |
+| Website | Formulare | Odoo 11 hatte 0 Formulare; Kontaktformular ueber Odoo-18-Standard `/contactus` | NICHT RELEVANT | - | Seitenpruefung |
+| Website | Cookie-Hinweis | deutsch, aktiv, OK setzt Session, blockiert nichts | OK | itk_website | Browser lokal + VM |
+| Website | Fusszeile/Kopf | Odoo-Demotexte (Telefon/Mail/Demospalten) ersetzt, Copyright IT-Kommunal | OK | itk_website | Browser lokal + VM |
+| Website | Backend-Wortlaute | "Site" -> "Webseite", "Analytics" -> "Analysen" | OK | itk_website | Menue gelesen |
+| Website | Demo-Daten | Konfigurator-Startseite entfernt, Standard-Startseite als Vorlage entkoppelt, Demo-Menuepunkt entfernt; Besucher/Seitenansichten der VM geschuetzt | OK | migrate_website.py | Zaehlungen vor/nach |
+| Website | Idempotenz | Wiederholungslaeufe 0 Neuanlagen, 0 Aktualisierungen, 0 neue Klicks | OK | migrate_website.py | 5 Laeufe lokal, 2 VM |
+| Website | Rechte | keine Rechteaenderung; Rollenlogik geprueft, Testbenutzer entfernt | OK | pruefe_website_rechte.py | 17/0 lokal, 17/0 VM |
+| Website | Regression | Events 61/0, Marketing 37/0, Personal 54/0, Projekt 20/0, Verkauf ohne Abweichung, Massenbearbeitung 7/0 | OK | - | lokal UND VM |

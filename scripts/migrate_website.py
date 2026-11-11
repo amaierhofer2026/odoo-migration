@@ -712,6 +712,25 @@ def schritt_tracker(o11, o18cl, lauf: Lauf) -> None:
         lauf.zaehle("tracker", "neu")
         klicks_nachziehen(t, link_id)
 
+    # Abnahmeklicks nicht in die Migration hineinrechnen: hat ein Link mehr
+    # Klick-Datensaetze als in Odoo 11, werden die neuesten entfernt (Soll = Odoo 11).
+    zuviel = []
+    for t in o11["tracker"]:
+        link_id = code_zu_link.get(t["code"])
+        if not link_id:
+            continue
+        soll = t["count"] or 0
+        if klicks18.get(link_id, 0) > soll:
+            ids = o18cl.kw("link.tracker.click", "search",
+                           [[["link_id", "=", link_id]]], order="id desc")
+            zuviel.extend(ids[:klicks18[link_id] - soll])
+    if zuviel:
+        lauf.zeile("tracker", "%d zusaetzliche Klick-Datensaetze entfernen (Soll = Odoo 11)"
+                   % len(zuviel))
+        if lauf.schreiben:
+            o18cl.kw("link.tracker.click", "unlink", [zuviel])
+        lauf.zaehle("tracker", "klicks_ueberschuss_entfernt", len(zuviel))
+
     # Stichprobe Kurz-URLs
     for muster in ("wFy",):
         ids = o18cl.kw("link.tracker.code", "search", [[["code", "=", muster]]])

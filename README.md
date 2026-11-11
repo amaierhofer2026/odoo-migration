@@ -10,6 +10,23 @@ Migration aller Odoo-Module von **Version 11 nach Version 18** für ITK (IT Komm
 - Saubere Git-Historie, jeder Schritt nachvollziehbar
 - Odoo 18 läuft in Docker (Windows, erreichbar unter `localhost:8069`)
 
+## Status: Website/Webinhalte abgenommen (Session 142)
+
+**WEBSITE/WEBINHALTE: ABGENOMMEN UND GESPERRT** (12.11.2026, Session 142). Entscheidungen
+E1-E14 umgesetzt: Markup automatisch von Bootstrap 3 auf Bootstrap 5 umgeschrieben
+(261 FAQ-Aufklapper als Akkordeon, 1.590 `<font>`-Tags, 3.482 doppelt escapte `&nbsp;`),
+Startseite gestalterisch neu im Odoo-18-Layout mit den Inhalten aus Odoo 11, 9 Seiten
+uebernommen (davon 2 unveroeffentlicht wie in Odoo 11), 10 Menuepunkte unter "Top Menue"
+(Punkt 7 intern statt 404, Punkt 7 und 10 bei Besuchern automatisch unsichtbar),
+837 Link-Tracker mit 563 Klicks (Klick-Einzelatze ohne IP/Datenschutzbezug, Kurz-URLs
+unveraendert), Einstellungen (Name "ITK Portal", Twitter `@IT_Kommunal`, CRM-Standardteam
+"Vertriebskanaele (Intern)", Favicon, Kopf-Logo), Cookie-Hinweis deutsch, Odoo-Demo-Fusszeile
+und Demo-Kontaktblock im Kopf ersetzt. Neues Modul `itk_website` 18.0.1.0.0.
+Nachweise: Idempotenz 0 Neuanlagen im Wiederholungslauf, Rechtepruefung 17/0,
+alle veroeffentlichten Seiten HTTP 200 und unveroeffentlichte 404, Browserabnahme lokal
+(Startseite, Kurse mit 49 Aufklappern, FAQ-Partner mobil, Cookie-OK) und auf der VM.
+Dokument: `docs/o11-o18-website-abnahme.md`.
+
 ## Status: Massenbearbeitung abgenommen (Session 140)
 
 **MASSENBEARBEITUNG: ABGENOMMEN UND GESPERRT** (05.11.2026, Session 140). Odoo 11 hatte 20
@@ -691,3 +708,11 @@ Bereich Personal umgesetzt und migriert: Modul `itk_hr` 18.0.1.0.1 (Ansichten, L
 Rechte), Datenmigration 25 Mitarbeiter, 8 Arbeitszeitmodelle, 2 Arbeitsorte, 25 Urlaubsarten,
 65 Urlaubsansprueche, 482 Urlaubsantraege, 192 Anwesenheiten. Details:
 `docs/o11-o18-strukturvergleich-personal.md`, `docs/o11-o18-personal-migration.md`.
+
+## Stand Session 141 (11.11.2026) - Website / Webinhalte
+
+Read-only Bestandsaufnahme des Bereichs Website/Webinhalte (Odoo 11: 17 Seiten, 11 Menues,
+837 Link-Tracker mit 563 Klicks; Odoo 18: 4 Demo-Seiten, 8 Menues). Neue Projektregel:
+Datenmigration gehoert ab jetzt zum jeweiligen Modul. Technisches Hauptrisiko: Bootstrap-3-Markup
+der Seiten gegen Bootstrap 5 in Odoo 18. 14 Entscheidungspunkte offen. Details:
+`docs/o11-o18-vergleich-website.md`, `docs/uebergabe-session-141.md`.
