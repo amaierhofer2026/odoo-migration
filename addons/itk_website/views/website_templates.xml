@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- E12: Cookie-Hinweis bleibt aktiv (Modul website_cookie_notice), nur deutsch beschriftet.
+         Der Hinweis steht als Balken ueber dem Kopfbereich und blockiert keine Funktion. -->
+    <template id="cookie_notice_deutsch" inherit_id="website_cookie_notice.message"
+              name="Cookie-Hinweis Deutsch" priority="20">
+        <xpath expr="//div[@id='website_cookie_notice']//div[hasclass('col-sm-10')]" position="replace">
+            <div class="col-sm-10">Diese Website verwendet Cookies. Mit der weiteren Nutzung dieser Website
+                stimmen Sie der Verwendung von Cookies zu.</div>
+        </xpath>
+        <xpath expr="//div[@id='website_cookie_notice']//a[@id='cookie_ok_btn']" position="attributes">
+            <attribute name="title">Cookies akzeptieren</attribute>
+        </xpath>
+    </template>
+
+    <!-- Odoo 18 bringt einen Kopfbereich-Kontaktblock mit Musterdaten mit
+         (Telefon +1 555-555-5556, info@yourcompany.example.com). Odoo 11 hatte
+         keinen solchen Block; erfundene Kontaktdaten duerfen nicht stehen bleiben.
+         Die Ansicht wird deaktiviert (Feld active); das wird bei jedem Setup
+         erneut gesetzt, weil ein website-Upgrade sie zuruecksetzt. -->
+    <record id="website.header_text_element" model="ir.ui.view">
+        <field name="active" eval="False"/>
+    </record>
+
+    <!-- Fusszeile: Odoo-18-Mustertexte (About us, +1 555-555-5556, info@yourcompany.example.com,
+         Platzhalter-Links) durch die Odoo-11-Fusszeile ersetzen.
+         Beleg Odoo 11: die Fusszeile enthaelt nur "Copyright (c) IT-Kommunal GmbH". -->
+    <template id="footer_itk" inherit_id="website.layout" name="ITK Fusszeile" priority="20">
+        <xpath expr="//div[@id='footer']" position="replace">
+            <div id="footer" class="oe_structure oe_structure_solo" t-ignore="true" t-if="not no_footer">
+                <section class="s_text_block pt24 pb16" data-snippet="s_text_block" data-name="Text">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <p class="mb-0">
+                                    <span class="o_footer_copyright_name me-2">Copyright © IT-Kommunal GmbH</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>

@@ -9612,3 +9612,110 @@ Odoo 11 blieb read-only; keine Kontakte, Personen, E-Mail-Adressen, Empfaenger o
 **MASSENBEARBEITUNG ABGENOMMEN und GESPERRT.** Aenderungen an diesem Bereich nur noch mit
 ausdruecklichem Auftrag; er laeuft ab jetzt in der Regression mit (`apply_massenbearbeitung.py
 --pruefen`, `verify`-Lauf der Nachbargebiete).
+
+## Session 141 (11.11.2026): Bereich WEBSITE / WEBINHALTE - read-only Bestandsaufnahme
+
+#### Auftrag
+Erste Sitzung des Website-Bereichs. Neu von Anna: **Datenmigration gehoert ab jetzt zum jeweiligen
+Modul** - ein Bereich ist erst abgenommen, wenn auch die fachlichen Daten migriert und geprueft sind
+(Details in `docs/uebergabe-session-141.md`, Abschnitt 2). Bis zur Entscheidung ueber die
+Entscheidungspunkte wurde ausschliesslich gelesen.
+
+#### Erhebung (read-only)
+- Odoo 11 Prod `ITK_V1_a` per JSON-RPC (`search_read`/`read`/`fields_get`) plus oeffentliche
+  HTTP-GETs der Live-Seiten; Odoo 18 lokal und VM per RPC. Kein Testdatensatz, kein Commit.
+- Werkzeug: `scripts/analyse_o11_website.py` (`--json`, `--seiten-arch`).
+- Dokument: `docs/o11-o18-vergleich-website.md` (Module, Menues, Seiten, Formulare, Felder,
+  Ansichten, Rechte, Automatisierungen, Beziehungen, Wortlaute, Odoo-18-Zusatzfunktionen,
+  Datenmigrationsvorschlag, Entscheidungspunkte E1-E14).
+
+#### Befunde
+- Odoo 11: 17 Seiten (10 veroeffentlicht, 7 nicht), 11 Menues, 217.092 Zeichen Seitentext,
+  261 FAQ-Aufklapper, 837 Link-Tracker-Eintraege mit 563 Klicks, 0 Bewertungen, 0 SEO-Texte,
+  Shop installiert aber 0 veroeffentlichte Produkte, 1 Bild-Anhang (id 54092).
+- Odoo 18 lokal = VM: 4 Demo-Seiten (zwei mit URL `/`), 8 Menues aus 2 Wurzelmenues,
+  0 Link-Tracker, 3 Demo-Besucher, 8 Demo-Seitenansichten; `website_sale` nicht installiert,
+  `website_rating` existiert nicht mehr, `website_form` in `website` aufgegangen,
+  `website_support` durch `helpdesk_mgmt` ersetzt (gesperrt).
+- Zwei Odoo-11-Menuepunkte laufen live auf HTTP 404 (nicht veroeffentlichte Zielseiten);
+  die Kontaktseite ist nur unter `/mailto:office@it-kommunal.at` erreichbar, `/contactus` ist 404.
+- Doppelt escapte Zeichen: 3.482-mal sichtbares "&nbsp;", 66-mal "&amp;" (auch heute in Odoo 11).
+- `website.domain` steht in Odoo 11 auf `localhost`, Sitemap-Basis ist die IP 93.189.27.136.
+- **Technisches Hauptrisiko:** Seiteninhalte sind Bootstrap 3; Odoo 18 hat Bootstrap 5
+  (`bootstrap.css` ohne `panel-group`/`jumbotron`, `website/views` nur `data-bs-toggle`).
+  1:1 uebernommen bleiben FAQ-Antworten zugeklappt und nicht bedienbar, Spaltenversatz und
+  Jumbotron-Bloecke verlieren die Gestaltung. Odoo-11-Bausteine `s_big_message`,
+  `s_feature_grid`, `s_button`, `s_panel` fehlen in Odoo 18.
+
+#### Status
+**BESTANDSAUFNAHME FERTIG, ENTSCHEIDUNGEN OFFEN.** 14 Entscheidungspunkte (E1-E14) liegen Anna
+vor; nichts an Odoo 11 oder Odoo 18 geaendert, kein Commit erzeugt. Einstieg fuer die naechste
+Sitzung: `docs/uebergabe-session-141.md`.
+
+---
+
+## Session 142 (11./12.11.2026) - Bereich Website/Webinhalte: Umsetzung, Datenmigration, Abnahme
+
+Auftrag: Entscheidungen E1-E14 von Anna umsetzen, Website-Daten aus Odoo 11 migrieren,
+Abnahme lokal und VM, Bereich sperren. Details: `docs/o11-o18-website-abnahme.md`.
+
+#### Umgesetzt
+- **Modul `itk_website` 18.0.1.0.0** (neu): Cookie-Hinweis deutsch (E12), ITK-Fusszeile
+  "Copyright (c) IT-Kommunal GmbH" statt Odoo-Demo-Fusszeile, Odoo-Demo-Kontaktblock im Kopf
+  deaktiviert, Backend-Wortlaute "Site" -> "Webseite" und "Analytics" -> "Analysen" (E13,
+  Quelle + de_DE + en_US, bei jedem Setup erneut).
+- **`scripts/website_markup.py`** (neu): Markup-Konverter Odoo 11 (Bootstrap 3) -> Odoo 18
+  (Bootstrap 5), nur Standardbibliothek (`xml.etree.ElementTree`, weil lxml im aktiven Python
+  kein `etree` hat). 261 FAQ-Aufklapper -> BS5-Akkordeon, 1.590 `<font>` -> `<span>`,
+  3.482 x `&nbsp;` + 66 x `&` entdoppelt, 5 Spalten-Offsets, 14 Floats, 47 `page-header`,
+  174 leere Editor-Reste, 0 Restmuster je Seite.
+- **`scripts/migrate_website.py`** (neu): Trockenlauf/Schreiblauf mit Schreibschutz-Klasse,
+  `--nur`, `--abnahme`. Schritte: Anhang, Demo-Daten, Seiten, Menues, Einstellungen, Tracker.
+- **`scripts/website_homepage_o18.html`** (neu): Startseite im Odoo-18-Layout (Karten,
+  Bootstrap-Grid, Inhalt und Links aus Odoo 11; Kontaktbutton auf `/contactus`).
+- **`scripts/pruefe_website_rechte.py`** (neu): Rechtepruefung mit zwei temporaeren Benutzern
+  inkl. vollstaendigem Aufraeumen (Benutzer UND automatisch erzeugte Partner).
+
+#### Zahlen
+- Seiten: Odoo 11 17 (10 veroeffentlicht) -> 9 uebernommen (7 veroeffentlicht,
+  2 unveroeffentlicht wie Odoo 11: FAQs Gemeindecloud, FAQs IFG Kunden). Odoo 18 danach
+  12 Seiten (9 + Contact Us + Thanks + unveroeffentlichte Standard-Startseite `/homepage-vorlage`).
+- Menues: 10 Punkte unter Wurzel "Top Menü" wie Odoo 11; Punkt 7 zeigt jetzt auf die interne
+  Seite; Punkt 7 und 10 sind fuer Besucher unsichtbar, weil ihre Zielseiten unveroeffentlicht
+  sind (8 Punkte sichtbar, kein 404).
+- Link-Tracker: 837 Tracker, 563 Klicks (Klick-Einzelsaetze ohne IP und ohne Mailbezug),
+  16 Kampagnen, 9 Medien, 220 Quellen; Kurz-URL-Codes unveraendert, `/r/wFy` funktioniert.
+- Einstellungen: Name "ITK Portal", Twitter `@IT_Kommunal`, CRM-Standardteam
+  "Vertriebskanaele (Intern)", Favicon und Kopf-Logo aus Odoo 11; Domain unveraendert.
+- Demo entfernt: Konfigurator-Startseite, Demo-Besucher/-Seitenansichten, Demo-Kontaktblock,
+  Demo-Fusszeile. `website.main_menu` bleibt (Odoo-Standarddatum, nicht loeschbar).
+
+#### Idempotenz
+Schluessel: Seite = View-Key, Menue = URL unter der Wurzel, Tracker = Kurz-URL-Code,
+Anhang = Name + Groesse, Klicks = Sollzahl je Link. Fuenf Laeufe lokal; die letzten beiden
+meldeten 0 Neuanlagen, 0 Arch-Aktualisierungen, 0 neue Klicks.
+
+#### Abnahme
+- Trockenlauf schreibfrei (Vor/Nach-Snapshot von 10 Modellen identisch).
+- Alle veroeffentlichten Seiten HTTP 200, unveroeffentlichte HTTP 404; keine sichtbaren
+  `&nbsp;`/`&amp;`-Artefakte mehr.
+- Browser lokal (echter Chrome): Startseite, `/kurse` (49 Akkordeon-Knoepfe, Aufklapper oeffnet),
+  `/faqs-ifg-portal-partner` mobil (398 px), Cookie-OK setzt Session, Kopfzeile mit 8 Punkten.
+- Rechte lokal: 17 OK / 0 Fehler, Testbenutzer und Testpartner vollstaendig entfernt
+  (14 Benutzer, 96 Partner vorher = nachher).
+
+#### Fehler in dieser Sitzung (dokumentiert, behoben)
+- Erster Trockenlauf schrieb durch einen ungeschuetzten `write` auf die Odoo-Standard-Startseite;
+  Ursprungszustand exakt wiederhergestellt, danach Schreibschutz-Klasse im Skript (Trockenlauf
+  bricht bei Schreibaufruf ab) und Snapshot-Beweis.
+- `arch_db` wird von Odoo anders serialisiert zurueckgegeben -> Idempotenz-Vergleich muss
+  normalisieren (parse + tostring), sonst 8 falsche "Aktualisierungen" je Lauf.
+- `--nur seiten` schrieb die alte Odoo-11-Anhang-id zurueck -> Anhang wird jetzt immer aufgeloest.
+- `--nur menues` loeschte die Menue-Seiten-Verknuepfung (Sichtbarkeit!) -> Zielseite wird jetzt
+  im Menue-Schritt selbst ueber den View-Key aufgeloest.
+- Menue-Namen muessen in Quelle + de_DE + en_US geschrieben werden (sonst bleibt "Veranstaltungen"
+  statt "Webinare" stehen) - bekannte Falle aus Session 114.
+
+#### Status
+Lokal umgesetzt, migriert und abgenommen; VM-Deploy und VM-Abnahme im selben Lauf.
+Einstieg fuer die naechste Sitzung: `docs/uebergabe-session-142.md`.
