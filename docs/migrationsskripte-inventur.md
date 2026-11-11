@@ -21,10 +21,13 @@ den Ist-Zustand und die Luecken.
 | Massenbearbeitung | nein (kein Datentransfer) | - | nicht erforderlich: 20 Massenaktionen sind Struktur, kein Datenbestand | entfaellt | entfaellt | nein | ABGENOMMEN |
 | Helpdesk | nein (bewusst) | - | nein, bewusste Entscheidung: keine historischen Tickets | entfaellt | entfaellt | nein | ABGENOMMEN (ohne Datentransfer) |
 | **Website / Webinhalte** | **ja** | **`scripts/migration/website_migration.py`** (Logik `scripts/migrate_website.py`) | **ja** (9 Seiten, 10 Menues, 837 Tracker, 563 Klicks, 1 Anhang) | **ja** (lokal + VM, 0 Aenderungen) | **ja** (Wiederholungslauf 0 Neuanlagen) | nein (Klicks ohne IP/Mailbezug) | **ABGENOMMEN** |
+| **Kontakte/Partner** | **ja (neu, 12.11.2026)** | `scripts/migration/kontakte_migration.py` | **ja** (123 Tags, 169 Anreden, 6.020 Kontakte, 32 nicht zuordenbar) | **ja** | **ja** (2. Lauf 0 Neuanlagen) | verarbeitet personenbezogene Daten; Skript/Mapping/Doku nur IDs und Zaehlwerte | MIGRIERT |
+| **Produkte** | **ja (neu, 12.11.2026)** | `scripts/migration/produkte_migration.py` | **ja** (31 Kategorien, 658 Vorlagen, 657 Varianten) | **ja** | **ja** (2. Lauf 0 Neuanlagen) | nein | MIGRIERT |
+| **Preislisten** | **ja (neu, 12.11.2026)** | `scripts/migration/preislisten_migration.py` | **ja** (50 Listen, 1.875 Regeln, 1 nicht zuordenbar) | **ja** | **ja** (2. Lauf 0 Neuanlagen) | nein | MIGRIERT |
 | **Verkauf** | **ja (neu, 12.11.2026)** | **`scripts/migration/verkauf_migration.py`** | **NEIN - 2.512 von 2.514 Auftraegen fehlen in Odoo 18** | **ja** (lokal + VM) | entfaellt bis zum Datenlauf | nein (Skript/Mapping ohne Kunden- und Personendaten) | **OFFEN (Datenmigration)** |
 | **Abonnements** | **ja (neu, 12.11.2026)** | **`scripts/migration/abonnement_migration.py`** | **NEIN - 1.777 von 1.788 Abos fehlen in Odoo 18** | **ja** (lokal + VM) | entfaellt bis zum Datenlauf | nein (Skript/Mapping ohne Kunden- und Personendaten) | **OFFEN (Datenmigration)** |
 | Abrechnung | ja (Testmigration) | `scripts/testmigration_abrechnung.py` | nein (BLOCKER: Kontenstammdaten 8400/3400 fehlen im Odoo-18-Kontenrahmen) | ja | teilweise (Testlauf mit Aufraeumen) | nein | OFFEN |
-| Kontakte / CRM | nein | - (nur `scripts/o11_o18_mapping.py`, Pruefskripte) | nein (personenbezogen, eigener Auftrag noetig) | entfaellt | entfaellt | - | OFFEN |
+| Kontakte / CRM (CRM-Teil) | nein | - | CRM-Objekte (Leads, Teams) noch offen; Kontakte selbst sind migriert | entfaellt | entfaellt | - | OFFEN |
 | Umfragen (Survey) | nein | - | nein (Odoo 11: 2 Umfragen, 73 Teilnahmen) | entfaellt | entfaellt | - | OFFEN |
 | Valorisierung | nein | - | nein | entfaellt | entfaellt | - | OFFEN |
 | Lager / Bestand | nein | - | nein | entfaellt | entfaellt | - | OFFEN |
