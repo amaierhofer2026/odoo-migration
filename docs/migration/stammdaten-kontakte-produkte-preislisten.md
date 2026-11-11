@@ -123,6 +123,21 @@ Regelverteilung Odoo 11: 1.473 Produktvorlage, 268 Variante, 107 Kategorie, 28 g
 
 Wiederholte Laeufe sind idempotent, weil jeder Datensatz ueber `itk_o11_id` erkannt wird.
 
+## 3a Migrationsergebnis VM (12.11.2026)
+
+| Lauf | Ergebnis |
+|---|---|
+| Kontakte VM | 123 Tags, 126 Anreden, 6.020 Kontakte; 6 ref-Konflikte geloest; 32 ohne Namen; 0 Fehler |
+| Kontakte VM, 2. Lauf | **0 Neuanlagen**, 6.020 erkannt, 0 Fehler |
+| Produkte VM | 31 Kategorien, 658 Vorlagen, 657 Varianten; 0 Fehler |
+| Produkte VM, 2. Lauf | **0 Neuanlagen**, 0 Fehler |
+| Preislisten VM | 50 Listen, 1.875 Regeln, 1 nicht zuordenbar; 0 Fehler |
+| Preislisten VM, 2. Lauf | **0 Neuanlagen**, 1.875 erkannt, 0 Fehler |
+
+Lokal und VM sind damit deckungsgleich (6.020 Kontakte, 123 Tags, 169 Anreden,
+31 Kategorien, 658 Vorlagen, 657 Varianten, 50 Listen, 1.875 Regeln, je 1 Regel ohne
+Produktbezug).
+
 ## 4 Reproduzierbare Skripte
 
 | Bereich | Skript | Trockenlauf | Schreiben |
