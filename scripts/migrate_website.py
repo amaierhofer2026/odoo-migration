@@ -523,15 +523,26 @@ def schritt_demo(o11, o18cl, lauf: Lauf, website_id: int) -> None:
             o18cl.kw("website.menu", "unlink", [[m["id"]]])
         lauf.zaehle("demo", "wurzelmenue_entfernt")
 
-    # 5c) Demo-Besucher und Demo-Seitenansichten
+    # 5c) Demo-Besucher und Demo-Seitenansichten.
+    #     Schutz: die Test-VM hat echte Zugriffsstatistik (mehrere tausend Besucher).
+    #     Geloescht wird nur ein kleiner, eindeutig als Demo/Test erkennbarer Bestand.
+    DEMO_GRENZE = 50
     for modell, schluessel in (("website.visitor", "besucher_entfernt"),
                                ("website.track", "seitenansichten_entfernt")):
         ids = o18cl.kw(modell, "search", [[]])
-        if ids:
-            lauf.zeile("demo", "%s entfernen: %d Datensaetze %s" % (modell, len(ids), ids))
-            if lauf.schreiben:
-                o18cl.kw(modell, "unlink", [ids])
-            lauf.zaehle("demo", schluessel, len(ids))
+        if not ids:
+            continue
+        if len(ids) > DEMO_GRENZE:
+            lauf.zeile("demo", "%s: %d Datensaetze - das ist echte Zugriffsstatistik, "
+                               "wird NICHT geloescht (Demo-Grenze %d)"
+                       % (modell, len(ids), DEMO_GRENZE))
+            lauf.zaehle("demo", schluessel + "_geschuetzt", len(ids))
+            continue
+        lauf.zeile("demo", "%s entfernen: %d Datensaetze (ids %s)"
+                   % (modell, len(ids), ids[:10]))
+        if lauf.schreiben:
+            o18cl.kw(modell, "unlink", [ids])
+        lauf.zaehle("demo", schluessel, len(ids))
 
 
 # ---------------------------------------------------------------------------
