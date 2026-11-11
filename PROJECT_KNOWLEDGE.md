@@ -9737,3 +9737,12 @@ meldeten 0 Neuanlagen, 0 Arch-Aktualisierungen, 0 neue Klicks.
 #### Status
 **ABGENOMMEN UND GESPERRT** (12.11.2026). Lokal und VM abgenommen, Regression gruen,
 Dreistand hergestellt. Einstieg fuer die naechste Sitzung: `docs/uebergabe-session-142.md`.
+
+#### Nachtrag 12.11.2026: Migrationsregel und Skript-Inventur
+Verbindliche Regel `docs/MIGRATIONSREGEL.md` (Freigabe 11.11.2026) und Inventur
+`docs/migrationsskripte-inventur.md` angelegt. Fuer Verkauf und Abonnements je ein
+Skript unter `scripts/migration/` erstellt und **nur im Trockenlauf** ausgefuehrt:
+Auftraege 2.514 gelesen / 2 erkannt / 2.512 fehlend; Abos 1.788 / 11 / 1.777 fehlend
+(lokal und VM gleich). Damit ist belegt, dass diese zwei Bereiche zwar strukturell
+abgenommen, aber datenmaessig nicht migriert sind (Odoo-18-Bestand = Testdaten).
+Produktive Laeufe nicht ausgefuehrt; Schreibpfade ohne Stammdatenzuordnung gesperrt.

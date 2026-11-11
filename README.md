@@ -29,7 +29,7 @@ Dokument: `docs/o11-o18-website-abnahme.md`.
 
 ## Verbindliche Projektregel: Migration je Modul
 
-Seit 12.11.2026 (Freigabe Anna Maierhofer) gilt: Die Datenmigration gehoert vollstaendig zum
+Seit 11.11.2026 (Freigabe Anna Maierhofer) gilt: Die Datenmigration gehoert vollstaendig zum
 Modulabschluss, und jedes Modul braucht ein dauerhaftes, reproduzierbares Migrationsskript unter
 `scripts/migration/<bereich>_migration.py` (Standard = Trockenlauf, Schreiblauf nur mit
 `--ausfuehren --ich-habe-freigabe`, idempotent, Mapping-Export, Zusammenfassung). Die acht
