@@ -1,6 +1,6 @@
 # Verbindliche Projektregel: Datenmigration gehoert zum Modulabschluss
 
-Freigabe: Anna Maierhofer, 12.11.2026 (Session 142). Gilt fuer alle noch nicht
+Freigabe: Anna Maierhofer, 11.11.2026 (Session 142). Gilt fuer alle noch nicht
 abgeschlossenen Module. Bereits ABGENOMMENE UND GESPERRTE Module bleiben unveraendert.
 
 ## 1 Abschlusskriterien je Modul

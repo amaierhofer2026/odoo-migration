@@ -82,7 +82,7 @@ Zahlen:
 - Externe Konfigurationspunkte fuer Website: Produktivdomain (derzeit
   `https://www.it-kommunal.at`), `mail.catchall.domain`, reCAPTCHA-Schluessel.
 
-## 5a Neue verbindliche Projektregel (Anna, 12.11.2026)
+## 5a Neue verbindliche Projektregel (Anna, 11.11.2026)
 
 Die Datenmigration gehoert vollstaendig zum Modulabschluss; jedes Modul braucht ein
 dauerhaftes, reproduzierbares Migrationsskript unter `scripts/migration/<bereich>_migration.py`
@@ -118,3 +118,26 @@ python scripts/pruefe_website_rechte.py --instanz lokal
 
 Website ist gesperrt: keine Aenderungen an Seiten, Menues, Trackern, Einstellungen oder
 `itk_website` ohne neuen Auftrag von Anna.
+
+## 8 Nachtrag (12.11.2026): Befund Verkauf und Abonnements
+
+Auftrag von Anna: Inventur vervollstaendigen und fuer Verkauf/Abonnements je ein
+reproduzierbares Skript erstellen, ohne abgenommene Daten zu veraendern.
+
+Neu:
+- `scripts/migration/verkauf_migration.py` + `docs/migration/verkauf_migration.md`
+- `scripts/migration/abonnement_migration.py` + `docs/migration/abonnement_migration.md`
+- `docs/migrationsskripte-inventur.md` mit der vollstaendigen Status-Tabelle
+
+**Ergebnis der Trockenlaeufe (lokal = VM):**
+- Auftraege: 2.514 in Odoo 11 gelesen, 2 in Odoo 18 erkannt, **2.512 fehlen**;
+  Kunde fehlt bei 2.509, Produkt bei 2.501.
+- Abos: 1.788 gelesen, 11 erkannt, **1.777 fehlen**; Preisliste fehlt bei 1.777,
+  Partner bei 1.775, Vorlage bei 1.777.
+
+Damit ist belegt: Verkauf und Abonnements sind **strukturell** abgenommen, die
+**Datenmigration wurde nie durchgefuehrt**; der Odoo-18-Bestand besteht aus
+Abnahme-/Testdatensaetzen. Beide Bereiche stehen in der Inventur auf
+OFFEN (Datenmigration). Produktive Laeufe wurden NICHT ausgefuehrt; die Schreibpfade
+brechen ohne gepruefte Stammdatenzuordnung ab. Naechster Schritt: Freigabe fuer die
+Stammdaten (Kunden, Produkte, Preislisten, Abo-Vorlagen) und danach Datenlauf.
