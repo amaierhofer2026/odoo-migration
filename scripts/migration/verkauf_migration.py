@@ -77,7 +77,7 @@ def main() -> int:
         auftraege = auftraege[:args.grenze]
     zeilen = o11.kw("sale.order.line", "search_read", [[]],
                     fields=["id", "order_id", "product_id", "name", "product_uom_qty",
-                            "price_unit", "discount", "price_subtotal", "taxes_id",
+                            "price_unit", "discount", "price_subtotal", "tax_id",
                             "product_uom", "sequence"],
                     order="id", limit=20000, context={"active_test": False})
 
@@ -204,6 +204,38 @@ def main() -> int:
                                 "o18_id": -a["id"], "state": a["state"],
                                 "zeilen": len(order_zeilen)})
 
+    # 2) Steuerkorrektur bei bereits migrierten Auftraegen
+    # Die Zeilensteuer wird jetzt aus Odoo 11 (Feld tax_id) uebernommen. Frueher
+    # migrierte Auftraege erbten die Produktsteuer; abweichende Zeilen werden korrigiert.
+    stat["steuer_korrigiert"] = 0
+    if args.ausfuehren and bestand:
+        for a in auftraege:
+            o18_id = bestand.get(a["id"])
+            if not o18_id:
+                continue
+            soll = {}
+            for z in zeilen_je_auftrag.get(a["id"], []):
+                ids = steuer_map(z.get("tax_id"))
+                if ids:
+                    soll[round(z["product_uom_qty"] or 0, 4), round(z["price_unit"] or 0, 4)] = ids
+            if not soll:
+                continue
+            order = ziel.kw("sale.order", "read", [[o18_id], ["order_line"]])
+            line_ids = order[0]["order_line"]
+            if not line_ids:
+                continue
+            for zline in ziel.kw("sale.order.line", "read",
+                                 [line_ids, ["product_uom_qty", "price_unit", "tax_id"]]):
+                key = (round(zline["product_uom_qty"] or 0, 4), round(zline["price_unit"] or 0, 4))
+                if key in soll and sorted(zline["tax_id"]) != sorted(soll[key]):
+                    try:
+                        ziel.kw("sale.order.line", "write",
+                                [[zline["id"]], {"tax_id": [(6, 0, soll[key])]}])
+                        stat["steuer_korrigiert"] += 1
+                    except Exception as e:
+                        stat["fehler"] += 1
+                        print("  FEHLER Steuerkorrektur Zeile %s: %s" % (zline["id"], str(e)[-150:]))
+
     breite = "{:<40}{:>10}"
     print(breite.format("Objekt", "Anzahl"))
     print("-" * 50)
@@ -214,6 +246,7 @@ def main() -> int:
                  ("Zeilen neu angelegt", stat["zeilen_neu"]),
                  ("Auftraege ohne zuordenbaren Kunden", stat["ohne_partner"]),
                  ("Zeilen ohne zuordenbares Produkt", stat["ohne_produkt"]),
+                 ("Zeilensteuer korrigiert", stat.get("steuer_korrigiert", 0)),
                  ("Testauftraege bereinigt", stat["testdaten"]),
                  ("nicht zuordenbar", stat["ohne_partner"] + stat["ohne_produkt"]),
                  ("Fehler", stat["fehler"])):

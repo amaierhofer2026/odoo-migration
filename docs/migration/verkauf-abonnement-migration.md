@@ -46,9 +46,24 @@ oder Zeilenebene vorhanden, `discount` = 0). Odoo 18 berechnet die Kopfsumme imm
 Zeilen. Die migrierten Zeilen sind also unveraendert; die Differenz entsteht ausschliesslich
 aus den in Odoo 11 veralteten Kopfwerten.
 
-**Entscheidung offen:** Kopfwerte aus Odoo 11 uebernehmen (waere in Odoo 18 nur manuell
-moeglich und wuerde die automatische Berechnung aushebeln) oder die korrekte Zeilensumme
-gelten lassen.
+**Entscheidung (Anna, 12.11.2026):** In Odoo 18 gilt die aus den migrierten Zeilen
+berechnete Summe. Die Odoo-11-Kopfwerte werden NICHT uebernommen und die Odoo-18-
+Berechnungslogik wird nicht ausser Kraft gesetzt. Die 94 Faelle sind als dokumentierte
+Datenabweichung protokolliert (CSV-Export ausserhalb des Repositories, 94 Zeilen).
+
+**Nachweis der Zeilenuebernahme** (`scripts/migration/verkauf_abgleich.py`, read-only):
+
+| Pruefung | Ergebnis |
+|---|---|
+| Auftraege | 2.519 = 2.519 |
+| Auftragszeilen | 4.079 = 4.079 |
+| Zeilen mit Abweichung Menge/Preis/Rabatt | **0** |
+| Auftraege mit abweichender Zeilenzahl | **0** |
+| Auftraege ohne Zeilen (auch in Odoo 11 ohne Positionen) | 12 |
+| Zeilen mit abweichendem Steuersatz | 9 (werden nachgezogen) |
+
+Mengen, Einzelpreise und Rabatte sind also zeilengenau identisch; die Differenz entsteht
+ausschliesslich aus den veralteten Kopfwerten.
 
 ## 3 Steuerzuordnung (geklaert)
 
@@ -98,8 +113,21 @@ nicht veraendert. Pruefung der Referenzen:
 Die 7 gebuchten Rechnungen (2021-2022, u. a. `R-22633`, `R-21774`, `R-21684`, drei
 Bankbelege `BNK1/...`) haengen an 4 dieser Kontakte. Es handelt sich um
 **Rechnungsadressen** von Firmen, deren `name` in Odoo 11 leer ist und deren Anzeigename
-nur den Firmennamen des Elternkontakts zeigt. Diese Falle werden vor dem Abrechnungslauf
-gesondert vorgelegt; es wird kein Platzhalterkontakt erfunden.
+nur den Firmennamen des Elternkontakts zeigt.
+
+Pruefung der Zuordnung (12.11.2026):
+
+| Rechnungsadresse (o11) | Typ | Elternkontakt (o11) | Elternkontakt in Odoo 18 | Rechnungen | Bewertung |
+|---|---|---|---|---|---|
+| 9798 | Firma | 7863 | ja | BNK1/2022/0373, R-22633 | **eindeutig** |
+| 10323 | Firma | 5963 | ja | BNK1/2022/0753, BNK1/2021/0707, R-21684 | **eindeutig** |
+| 10737 | Person (Rechnungsadresse) | 6433 | ja | R-21774 | **eindeutig** |
+| 10326 | Person | **kein Elternkontakt** | - | BNK1/2022/0417 | **nicht eindeutig** |
+
+6 der 7 Rechnungen koennen damit ueber den bestehenden Firmen-/Elternkontakt zugeordnet
+werden; die Odoo-11-Referenz der Rechnungsadresse wird dabei dokumentiert. Die Rechnung
+`BNK1/2022/0417` wird vor dem Rechnungs-Schreiblauf separat aufgelistet - kein Platzhalter,
+keine Erfindung. Odoo 11 bleibt unveraendert.
 
 ## 7 Skripte (reproduzierbar, im Repository)
 
