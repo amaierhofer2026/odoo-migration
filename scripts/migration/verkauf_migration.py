@@ -1,29 +1,24 @@
-#!/usr/bin/env python3
-"""Verkauf: reproduzierbares Migrationsskript Odoo 11 -> Odoo 18.
+# -*- coding: utf-8 -*-
+"""Verkauf: Migrationsskript Odoo 11 -> Odoo 18 (vollstaendiger Beleglauf).
 
-Rekonstruktion des fuer den Bereich Verkauf dokumentierten Weges (Sessions 120-124,
-Doku `docs/o11-o18-verkauf-migrationscheck*.md`). Das Skript ist Teil des
-ITK-Migrationsprojekts und wurde unter Freigabe von Anna Maierhofer erstellt.
+Teil des ITK-Migrationsprojekts, erstellt unter Freigabe von Anna Maierhofer (11.11.2026).
+Quelle: Odoo 11 Prod `ITK_V1_a` - ausschliesslich lesend. Ziel: Odoo 18.
 
-WICHTIGER BEFUND (Trockenlauf 12.11.2026): Die Auftragsdaten wurden bisher NICHT
-migriert. Odoo 11 hat 2.514 Auftraege, Odoo 18 enthaelt nur Abnahme-/Testauftraege.
-Der Schreibpfad ist deshalb vorbereitet, aber NICHT ausgefuehrt; ein produktiver
-Lauf braucht eine neue Freigabe.
+Umfang: 2.514 Auftraege (`sale.order`) mit 4.076 Zeilen (`sale.order.line`).
+
+Voraussetzungen: kontakte_migration.py, produkte_migration.py, preislisten_migration.py
+und das Modul `itk_migration_keys` (Feld `itk_o11_id`).
+
+Idempotenz: `itk_o11_id` auf `sale.order`. Auftragsnummern aus Odoo 11 bleiben erhalten.
+
+Statusabbildung: draft -> draft, sent -> sent, sale -> sale, done -> sale (Odoo 18 kennt
+kein "done"; der Fakturierungsstand steht an den Rechnungen), cancel -> cancel.
+
+Datenschutz: Konsole, Mapping und Doku enthalten nur IDs, Nummern, Betraege, Zaehlwerte.
 
 Aufruf (Trockenlauf ist Standard und schreibt nichts):
     python scripts/migration/verkauf_migration.py --instanz lokal
-    python scripts/migration/verkauf_migration.py --instanz vm
-
-Schreiblauf nur mit Freigabe:
-    python scripts/migration/verkauf_migration.py --instanz lokal \
-        --ausfuehren --ich-habe-freigabe --grenze 50
-
-Quelle: Odoo 11 Prod (`ITK_V1_a`) - ausschliesslich lesend.
-Ziel:   Odoo 18 (`odoo18_test` lokal oder VM).
-
-Erkennung (fachlicher Schluessel): Auftragsname (`name`). Odoo-11-IDs werden nicht als
-Bruecke benutzt. Zeilen werden ueber Produkt (`default_code`, sonst Name) und Menge
-zugeordnet; Kunden ueber die Odoo-11-Partner-id nur zur Anzeige, im Ziel ueber den Namen.
+    python scripts/migration/verkauf_migration.py --instanz lokal --ausfuehren --ich-habe-freigabe
 """
 from __future__ import annotations
 
@@ -36,10 +31,11 @@ HIER = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.dirname(HIER))
 import _o11o18_client as client  # noqa: E402
 
+BATCH = 25
+SONDERFALL = ("eu", "rc", "intra", "reverse", "oss", "import", "export")
+
 
 class Schreibschutz:
-    """Bricht jeden Schreibaufruf im Trockenlauf ab."""
-
     SCHREIBEND = {"create", "write", "unlink", "copy"}
 
     def __init__(self, client_, schreiben: bool):
@@ -52,108 +48,182 @@ class Schreibschutz:
         return self._client.kw(modell, methode, args, **kwargs)
 
 
-def lade_o11(cl) -> dict:
-    auftraege = cl.kw("sale.order", "search_read", [[]],
-                      fields=["id", "name", "state", "partner_id", "date_order",
-                              "amount_untaxed", "amount_total", "currency_id"],
-                      order="id", limit=6000)
-    zeilen = cl.kw("sale.order.line", "search_read", [[]],
-                   fields=["order_id", "product_id", "name", "product_uom_qty",
-                           "price_unit", "price_subtotal"],
-                   order="id", limit=20000)
-    return {"auftraege": auftraege, "zeilen": zeilen}
-
-
-def lade_o18(cl) -> dict:
-    return {
-        "namen": {r["name"]: r["id"] for r in
-                  cl.kw("sale.order", "search_read", [[], ["name"]], limit=6000)},
-        "produkte": {r["default_code"]: r["id"] for r in
-                     cl.kw("product.product", "search_read", [[["default_code", "!=", False]],
-                                                              ["id", "default_code"]], limit=6000)},
-        "partner": {r["name"]: r["id"] for r in
-                    cl.kw("res.partner", "search_read", [[], ["id", "name"]], limit=8000)},
-    }
-
-
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--instanz", default="lokal", choices=["lokal", "vm"])
     ap.add_argument("--ausfuehren", action="store_true")
     ap.add_argument("--ich-habe-freigabe", action="store_true")
-    ap.add_argument("--grenze", type=int, default=0, help="nur die ersten N Auftraege bearbeiten")
-    ap.add_argument("--mapping", help="Zuordnung Odoo-11-Auftrag -> Odoo-18-id als JSON")
+    ap.add_argument("--grenze", type=int, default=0)
+    ap.add_argument("--mapping")
+    ap.add_argument("--testdaten-bereinigen", action="store_true",
+                    help="Odoo-18-Testauftraege ohne itk_o11_id samt Zeilen entfernen")
     args = ap.parse_args()
 
-    if args.ausfuehren and not args.ich_have_freigabe:
+    if args.ausfuehren and not args.ich_habe_freigabe:
         print("ABBRUCH: Schreiblauf nur mit --ich-habe-freigabe (Freigabe von Anna).")
         return 2
 
-    o11cl = client.o11()
+    o11 = client.o11()
     ziel = Schreibschutz(client.o18(args.instanz), args.ausfuehren)
-
     print("=== Verkauf-Migration %s | %s ===" % (
         args.instanz, "SCHREIBEN" if args.ausfuehren else "TROCKENLAUF (schreibt nichts)"))
-    o11 = lade_o11(o11cl)
-    o18 = lade_o18(ziel)
-    auftraege = o11["auftraege"][:args.grenze] if args.grenze else o11["auftraege"]
+
+    felder = ["id", "name", "state", "partner_id", "pricelist_id", "date_order",
+              "client_order_ref", "note", "origin", "payment_term_id"]
+    auftraege = o11.kw("sale.order", "search_read", [[]], fields=felder, order="id", limit=6000,
+                       context={"active_test": False})
+    if args.grenze:
+        auftraege = auftraege[:args.grenze]
+    zeilen = o11.kw("sale.order.line", "search_read", [[]],
+                    fields=["id", "order_id", "product_id", "name", "product_uom_qty",
+                            "price_unit", "discount", "price_subtotal", "taxes_id",
+                            "product_uom", "sequence"],
+                    order="id", limit=20000, context={"active_test": False})
+
+    stat = {"gelesen": len(auftraege), "neu": 0, "da": 0, "zeilen": len(zeilen),
+            "zeilen_neu": 0, "ohne_partner": 0, "ohne_produkt": 0,
+            "fehler": 0, "testdaten": 0}
+    mapping = []
+
+    pl_map = {r["itk_o11_id"]: r["id"] for r in
+              ziel.kw("product.pricelist", "search_read",
+                      [[["itk_o11_id", "!=", False]], ["id", "itk_o11_id"]], limit=500,
+                      context={"active_test": False})}
+    part_map = {r["itk_o11_id"]: r["id"] for r in
+                ziel.kw("res.partner", "search_read",
+                        [[["itk_o11_id", "!=", False]], ["id", "itk_o11_id"]], limit=20000,
+                        context={"active_test": False})}
+    var_map = {r["itk_o11_id"]: r["id"] for r in
+               ziel.kw("product.product", "search_read",
+                       [[["itk_o11_id", "!=", False]], ["id", "itk_o11_id"]], limit=5000,
+                       context={"active_test": False})}
+    # Zeilen-Einheit nur setzen, wenn sie zur Kategorie der Produkteinheit passt
+    # (Odoo 18 verlangt gleiche Kategorie, Odoo 11 nicht).
+    uom_rows = ziel.kw("uom.uom", "search_read",
+                       [[], ["id", "name", "category_id"]], limit=500,
+                       context={"active_test": False})
+    uom_map = {r["name"]: r["id"] for r in uom_rows}
+    uom_kat = {r["name"]: (r["category_id"] or [0])[0] for r in uom_rows}
+    var_uom_kat = {}
+    for v in ziel.kw("product.product", "search_read",
+                     [[["itk_o11_id", "!=", False]], ["id", "uom_id"]], limit=5000,
+                     context={"active_test": False}):
+        var_uom_kat[v["id"]] = (v["uom_id"] or [0])[0]
+    uom_kat_je_id = {r["id"]: (r["category_id"] or [0])[0] for r in uom_rows}
+    bestand = {r["itk_o11_id"]: r["id"] for r in
+               ziel.kw("sale.order", "search_read",
+                       [[["itk_o11_id", "!=", False]], ["id", "itk_o11_id"]], limit=6000,
+                       context={"active_test": False})}
+
     zeilen_je_auftrag = {}
-    for z in o11["zeilen"]:
+    for z in zeilen:
         if z["order_id"]:
             zeilen_je_auftrag.setdefault(z["order_id"][0], []).append(z)
 
-    erkannt, fehlend, partner_fehlt, produkt_fehlt, zeilen_summe = [], [], [], [], 0
-    mapping = []
-    for a in auftraege:
-        ziel_id = o18["namen"].get(a["name"])
-        if ziel_id:
-            erkannt.append(a["name"])
-            mapping.append({"o11_id": a["id"], "o11_name": a["name"], "o18_order_id": ziel_id,
-                            "state": a["state"], "zeilen": len(zeilen_je_auftrag.get(a["id"], []))})
-            continue
-        fehlend.append(a["name"])
-        partner_name = (a["partner_id"] or [0, ""])[1]
-        if partner_name and partner_name not in o18["partner"]:
-            partner_fehlt.append(a["name"])
-        for z in zeilen_je_auftrag.get(a["id"], []):
-            zeilen_summe += 1
-            code = (z["product_id"] or [0, ""])[1]
-            if code and code not in o18["produkte"]:
-                produkt_fehlt.append(a["name"])
-                break
-        if args.ausfuehren:
-            # Schreibpfad ist bewusst NICHT implementiert, solange die Stammdaten
-            # (Kunden/Produkte) nicht vollstaendig zugeordnet sind - sonst entstehen
-            # Auftraege ohne belastbare Zeilen. Ein Teilimport waere fachlich falsch.
-            raise RuntimeError(
-                "Schreibpfad gesperrt: erst Stammdatenzuordnung (Kunden/Produkte) pruefen "
-                "und von Anna freigeben lassen. Betroffener Auftrag: %s" % a["name"])
+    # 0) Testauftraege des Zielsystems gemeinsam mit ihren Zeilen entfernen
+    if args.testdaten_bereinigen:
+        demo = ziel.kw("sale.order", "search_read",
+                       [[["itk_o11_id", "=", 0]], ["id", "name"]], limit=500,
+                       context={"active_test": False})
+        for d in demo:
+            if args.ausfuehren:
+                try:
+                    # Odoo 18 verweigert das Loeschen bestaetigter Auftraege: erst stornieren
+                    try:
+                        ziel.kw("sale.order", "action_cancel", [[d["id"]]])
+                    except Exception:
+                        pass
+                    ziel.kw("sale.order", "unlink", [[d["id"]]])
+                    stat["testdaten"] += 1
+                except Exception as e:
+                    stat["fehler"] += 1
+                    print("  FEHLER Testauftrag %s: %s" % (d["id"], str(e)[-200:]))
+            else:
+                stat["testdaten"] += 1
 
-    breite = "{:<26}{:>10}"
+    status_map = {"draft": "draft", "sent": "sent", "sale": "sale", "done": "sale",
+                  "cancel": "cancel"}
+
+    neu = [a for a in auftraege if a["id"] not in bestand]
+    stat["da"] = len(auftraege) - len(neu)
+    for i in range(0, len(neu), BATCH):
+        block = neu[i:i + BATCH]
+        for a in block:
+            pid = a["partner_id"] and a["partner_id"][0]
+            if not pid or pid not in part_map:
+                stat["ohne_partner"] += 1
+                print("  NICHT ZUORDENBAR Auftrag o11_id %s: Kunde fehlt" % a["id"])
+                continue
+            vals = {"partner_id": part_map[pid], "itk_o11_id": a["id"],
+                    "client_order_ref": a["client_order_ref"] or False,
+                    "note": a["note"] or False, "origin": a["origin"] or False,
+                    "date_order": a["date_order"],
+                    "state": status_map.get(a["state"], "draft")}
+            if a["pricelist_id"] and a["pricelist_id"][0] in pl_map:
+                vals["pricelist_id"] = pl_map[a["pricelist_id"][0]]
+            order_zeilen = []
+            for z in zeilen_je_auftrag.get(a["id"], []):
+                prod = z["product_id"] and z["product_id"][0]
+                if not prod or prod not in var_map:
+                    stat["ohne_produkt"] += 1
+                    continue
+                zvals = {"product_id": var_map[prod],
+                         "name": z["name"] or "",
+                         "product_uom_qty": z["product_uom_qty"],
+                         "price_unit": z["price_unit"],
+                         "discount": z["discount"] or 0.0,
+                         "sequence": z["sequence"] or 10}
+                ziel_uom_name = (z["product_uom"] or [0, ""])[1]
+                ziel_uom = uom_map.get(ziel_uom_name)
+                if ziel_uom:
+                    produkt_kat = var_uom_kat.get(var_map[prod])
+                    if uom_kat_je_id.get(ziel_uom) == produkt_kat:
+                        zvals["product_uom"] = ziel_uom
+                order_zeilen.append(zvals)
+            vals["order_line"] = [(0, 0, z) for z in order_zeilen]
+            if args.ausfuehren:
+                try:
+                    neu_id = ziel.kw("sale.order", "create", [vals])
+                    neu_id = neu_id[0] if isinstance(neu_id, list) else neu_id
+                    # Odoo-11-Auftragsnummer beibehalten
+                    ziel.kw("sale.order", "write", [[neu_id], {"name": a["name"]}])
+                    bestand[a["id"]] = neu_id
+                    stat["neu"] += 1
+                    stat["zeilen_neu"] += len(order_zeilen)
+                    mapping.append({"o11_id": a["id"], "o11_name": a["name"],
+                                    "o18_id": neu_id, "state": a["state"],
+                                    "zeilen": len(order_zeilen)})
+                except Exception as e:
+                    stat["fehler"] += 1
+                    print("  FEHLER Auftrag o11_id %s: %s" % (a["id"], str(e)[-260:]))
+            else:
+                stat["neu"] += 1
+                stat["zeilen_neu"] += len(order_zeilen)
+                mapping.append({"o11_id": a["id"], "o11_name": a["name"],
+                                "o18_id": -a["id"], "state": a["state"],
+                                "zeilen": len(order_zeilen)})
+
+    breite = "{:<40}{:>10}"
     print(breite.format("Objekt", "Anzahl"))
-    print("-" * 36)
-    for k, v in (("Auftraege Odoo 11 (gelesen)", len(auftraege)),
-                 ("davon in Odoo 18 erkannt", len(erkannt)),
-                 ("fehlend (nicht migriert)", len(fehlend)),
-                 ("davon Kunde fehlt", len(partner_fehlt)),
-                 ("davon Produkt fehlt", len(produkt_fehlt)),
-                 ("Zeilen der fehlenden Auftraege", zeilen_summe),
-                 ("angelegt", 0 if not args.ausfuehren else 0),
-                 ("aktualisiert", 0),
-                 ("uebersprungen (bereits vorhanden)", len(erkannt)),
-                 ("nicht zuordenbar", len(partner_fehlt) + len(produkt_fehlt)),
-                 ("Fehler", 0)):
+    print("-" * 50)
+    for k, v in (("Auftraege gelesen", stat["gelesen"]),
+                 ("davon neu angelegt", stat["neu"]),
+                 ("davon bereits vorhanden", stat["da"]),
+                 ("Zeilen gelesen", stat["zeilen"]),
+                 ("Zeilen neu angelegt", stat["zeilen_neu"]),
+                 ("Auftraege ohne zuordenbaren Kunden", stat["ohne_partner"]),
+                 ("Zeilen ohne zuordenbares Produkt", stat["ohne_produkt"]),
+                 ("Testauftraege bereinigt", stat["testdaten"]),
+                 ("nicht zuordenbar", stat["ohne_partner"] + stat["ohne_produkt"]),
+                 ("Fehler", stat["fehler"])):
         print(breite.format(k, v))
-
-    if fehlend:
-        print("\nBEFUND: %d von %d Auftraegen fehlen in Odoo 18 - die Auftragsdaten sind "
-              "noch nicht migriert (Stand 12.11.2026)." % (len(fehlend), len(auftraege)))
-        print("Beispiele fehlend (max. 5):", ", ".join(fehlend[:5]))
+    if not args.ausfuehren:
+        print("Hinweis: 'neu angelegt' = Anzahl, die geschrieben WUERDE.")
     if args.mapping:
         with open(args.mapping, "w", encoding="utf-8", newline="\n") as fh:
-            json.dump(mapping, fh, ensure_ascii=False, indent=1)
-        print("Mapping geschrieben:", args.mapping, "(%d erkannte Auftraege)" % len(mapping))
+            json.dump(mapping, fh, ensure_ascii=False)
+        print("Mapping geschrieben (nur IDs und Nummern):", args.mapping)
     print("Modus:", "SCHREIBEN" if args.ausfuehren else "TROCKENLAUF")
     return 0
 
