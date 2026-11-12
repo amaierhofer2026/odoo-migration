@@ -111,6 +111,44 @@ def main() -> int:
                      context={"active_test": False}):
         var_uom_kat[v["id"]] = (v["uom_id"] or [0])[0]
     uom_kat_je_id = {r["id"]: (r["category_id"] or [0])[0] for r in uom_rows}
+
+    # Steuern ueber Satz + Verwendungsart + Repartition-Konto zuordnen (wie bei Produkten)
+    steuern18 = ziel.kw("account.tax", "search_read",
+                        [[], ["id", "name", "amount", "type_tax_use",
+                              "invoice_repartition_line_ids"]], limit=600,
+                        context={"active_test": False})
+    for t in steuern18:
+        ids_rep = t.get("invoice_repartition_line_ids") or []
+        konten = []
+        if ids_rep:
+            for zr in ziel.kw("account.tax.repartition.line", "read",
+                              [ids_rep, ["repartition_type", "account_id"]]):
+                if zr["repartition_type"] == "tax" and zr["account_id"]:
+                    konten.append(zr["account_id"][1])
+        t["_konten"] = konten
+    steuern11 = {t["id"]: t for t in
+                 o11.kw("account.tax", "search_read",
+                        [[], ["id", "name", "amount", "type_tax_use"]], limit=600,
+                        context={"active_test": False})}
+
+    def steuer_map(tax_ids11):
+        ergebnis = []
+        for tid in tax_ids11 or []:
+            rec = steuern11.get(tid)
+            if not rec:
+                continue
+            kandidaten = [t for t in steuern18
+                          if abs((t["amount"] or 0) - (rec["amount"] or 0)) < 0.001
+                          and t["type_tax_use"] == rec["type_tax_use"]
+                          and not any(x in (t["name"] or "").lower() for x in SONDERFALL)]
+            satz = "%g" % (rec["amount"] or 0)
+            passend = [t for t in kandidaten
+                       if any(satz in (k or "").lower() for k in t.get("_konten", []))]
+            pool = passend or kandidaten
+            if pool:
+                ergebnis.append(min(pool, key=lambda t: (len(t["name"] or ""), t["id"]))["id"])
+        return ergebnis
+
     bestand = {r["itk_o11_id"]: r["id"] for r in
                ziel.kw("sale.order", "search_read",
                        [[["itk_o11_id", "!=", False]], ["id", "itk_o11_id"]], limit=6000,
@@ -215,9 +253,10 @@ def main() -> int:
                 continue
             soll = {}
             for z in zeilen_je_auftrag.get(a["id"], []):
+                # Auch eine leere Odoo-11-Zeilensteuer ist eine Aussage: die Zeile traegt
+                # dann keine Steuer. Odoo 18 wuerde sonst die Produktsteuer erben.
                 ids = steuer_map(z.get("tax_id"))
-                if ids:
-                    soll[round(z["product_uom_qty"] or 0, 4), round(z["price_unit"] or 0, 4)] = ids
+                soll[round(z["product_uom_qty"] or 0, 4), round(z["price_unit"] or 0, 4)] = ids
             if not soll:
                 continue
             order = ziel.kw("sale.order", "read", [[o18_id], ["order_line"]])
