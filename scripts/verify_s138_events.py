@@ -190,13 +190,16 @@ def main():
            "keine Teilnehmer migriert",
            k.kw("event.registration", "search_count", [[]], context={"active_test": False}), 0)
     # Kein Kontaktzuwachs: kein Kontakt darf nach der ersten uebernommenen
-    # Veranstaltung entstanden sein (die Migration legt keine Kontakte an).
+    # Die Events-Migration selbst legt keine Kontakte an. Kontakte aus der spaeteren
+    # Kontaktmigration (Session 142) sind zulaessig und tragen itk_o11_id; nur Kontakte
+    # OHNE Odoo-11-Bezug waeren ein Nebeneffekt der Events-Migration.
     partner = k.kw("res.partner", "search_count", [[]], context={"active_test": False})
     erstes_event = min(e.get("create_date") or "9999-12-31" for e in
                        k.kw("event.event", "search_read", [[], ["create_date"]], context={"active_test": False}))
     neue_kontakte = k.kw("res.partner", "search_count",
-                         [[("create_date", ">=", erstes_event)]], context={"active_test": False})
-    pruefe(neue_kontakte == 0, "kein Kontakt seit der Migration angelegt",
+                         [[("create_date", ">=", erstes_event), ("itk_o11_id", "=", 0)]],
+                         context={"active_test": False})
+    pruefe(neue_kontakte == 0, "kein Kontakt ohne Odoo-11-Bezug seit der Migration angelegt",
            neue_kontakte, 0)
     print("  res.partner gesamt (aktiv/inaktiv): %s / %s  (ab %s keine neuen)"
           % (partner, k.kw("res.partner", "search_count", [[]]), erstes_event))
