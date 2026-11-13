@@ -191,3 +191,27 @@ inkonsistent und wurden neu erzeugt (ir.attachment `/web/assets/%` geloescht, Ne
 Beide Instanzen sind wieder erreichbar (HTTP 200), alle Daten unversehrt.
 **Offen: der Branch ist noch nicht auf `main` gemergt** - ohne Merge ist der Dreistand
 nicht herstellbar.
+
+
+## 12 Abschlusspruefung auf dem finalen Stand (12.11.2026, Commit 47fdc75)
+
+| Pruefung | Lokal | VM |
+|---|---|---|
+| Auftraege | 2.519 | 2.519 |
+| Auftragszeilen | 4.079 | 4.079 |
+| Abweichungen Menge/Preis/Rabatt/Steuer | 0 | 0 |
+| Kopfsummen-Faelle (dokumentiert) | 94 | 94 |
+| Abonnements | 1.786 | 1.786 |
+| Abozeilen | 2.456 | 2.456 |
+| Kontakte / Tags / Anreden | 6.020 / 123 / 169 | 6.020 / 123 / 169 |
+| Produkte / Varianten / Kategorien | 662 / 657 / 31 | 662 / 657 / 31 |
+| Preislisten / Regeln | 50 / 1.876 | 50 / 1.876 |
+| Idempotenz (2. Lauf) | 0 Neuanlagen | 0 Neuanlagen |
+| Regression Personal / Projekt / Events / Marketing | 54 / 20 / 61 / 37 OK, 0 Fehler | 54 / 20 / 61 / 37 OK, 0 Fehler |
+
+**Dreistand:** lokal = GitHub = VM = `47fdc751e2dc2e825804822125d2730fb57520df`,
+Arbeitsbaeume sauber.
+
+**Testdaten:** 12 Auftraege, 25 Produkte und 32 Rechnungen ohne Odoo-11-Bezug
+identifiziert (`docs/migration/testdaten-analyse.md`). Nicht geloescht, weil 7 dieser
+Rechnungen gebucht sind und ein Eingriff in den abgenommenen Buchhaltungsbereich waere.
