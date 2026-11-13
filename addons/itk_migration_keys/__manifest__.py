@@ -20,7 +20,7 @@ sale.order, sale.subscription.
     "category": "ITK - Specific Industry Applications",
     "author": "ITK Migrationsprojekt (Freigabe Anna Maierhofer)",
     "license": "LGPL-3",
-    "depends": ["base", "product", "sale"],
+    "depends": ["base", "product", "sale", "itk_subscription"],
     "data": [],
     "installable": True,
     "application": False,

@@ -149,3 +149,45 @@ Erkennung ueber `itk_o11_id`, Mapping-Export, Zusammenfassung je Objektart.
 das Loeschen bestaetigter Auftraege verweigert (Storno noetig, an Rechnungen gebunden).
 Die 25 Testprodukte bleiben zunaechst erhalten, weil an ihnen 28 Auftrags- und 6 Abo-Zeilen
 haengen; sie werden gemeinsam mit den Testbelegen bereinigt.
+
+
+## 9 Browserabnahme (12.11.2026)
+
+Je Bereich wurde ein echter Datensatz im Browser geoeffnet (Chrome, Odoo-18-Webclient),
+lokal und VM:
+
+| Bereich | Lokal | VM | Beleg |
+|---|---|---|---|
+| Verkauf | A-1900491 | A-1900491 | 2 Zeilen (65,00 + 120,00), Nettobetrag 185,00, Steuern 37,00 (20 %), Status "Verkaufsauftrag", Auftragsdatum 26.05.2019 |
+| Abonnements | Liste | NV-00954 | Vorlage "Jahresabrechnung-Abonnement", Mindestvertragsdauer 24 Monate, Vertragsende 07.08.2015, Kuendigungsfrist 3 Monate |
+| Kontakte | Kontakt 256 | Kontakt 2264 | Firmenkontakt mit KENNDATEN (GKZ, Multiplication Factor/Thsd, zu Handen, Organisationsbezeichnung) |
+| Produkte | Vorlage 305 | Vorlage 812 | Verkaufspreis 65,00 bzw. 1,00, "To multiply by Factor(per 1000)", Abonnement-Produkt |
+| Preislisten | 50 Listen | 50 Listen | Namen aus Odoo 11 erhalten, z. B. "Preisliste 2026 + Valorisierung", "GemDat Niederoesterreich alt/nicht mehr verwenden" |
+
+## 10 Idempotenz (zweiter Lauf, VM)
+
+| Bereich | Ergebnis |
+|---|---|
+| Kontakte | 0 Neuanlagen, 6.020 erkannt, 0 Fehler |
+| Produkte | 0 Neuanlagen, 31 Kategorien / 662 Vorlagen / 657 Varianten, 0 Fehler |
+| Preislisten | 0 Neuanlagen, 50 Listen / 1.876 Regeln, 0 Fehler |
+| Verkauf | 0 Neuanlagen, 2.519 erkannt, 0 Zeilensteuer-Korrekturen, 0 Fehler |
+| Abonnements | 0 Neuanlagen, 1.786 erkannt, 0 Fehler |
+
+Der Abgleich auf der VM ist identisch zum lokalen Stand: 2.519 Auftraege / 4.079 Zeilen,
+0 Abweichungen bei Menge/Preis/Rabatt/Steuer, 94 Kopfsummen-Faelle, 1.786 Abos.
+
+## 11 Vorfall 12.11.2026: fehlende Modulabhaengigkeit
+
+Das Modul `itk_migration_keys` erbt `sale.subscription`, deklarierte aber nur
+`base`, `product`, `sale`. Nach einem Neustart brach der Registry-Aufbau ab
+(`Model 'sale.subscription' does not exist in registry`, HTTP 500) - lokal und VM.
+
+Behoben: `depends` um `itk_subscription` ergaenzt (Branch `itk/s142k-fix-depends`,
+Commit 198cc0c); in der Datenbank vorhandener Phantom-Eintrag `sale_subscription`
+(0 Datensaetze) auf `uninstalled` gesetzt. Zusaetzlich waren die Asset-Bundles
+inkonsistent und wurden neu erzeugt (ir.attachment `/web/assets/%` geloescht, Neustart).
+
+Beide Instanzen sind wieder erreichbar (HTTP 200), alle Daten unversehrt.
+**Offen: der Branch ist noch nicht auf `main` gemergt** - ohne Merge ist der Dreistand
+nicht herstellbar.
