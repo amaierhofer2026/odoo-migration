@@ -212,6 +212,11 @@ nicht herstellbar.
 **Dreistand:** lokal = GitHub = VM = `47fdc751e2dc2e825804822125d2730fb57520df`,
 Arbeitsbaeume sauber.
 
+**Preislisten-Zaehler:** Der Wiederholungslauf meldete einmal "1 neu angelegt". Die
+Datenlage ist unveraendert und geprueft: Odoo 11 fuehrt 1.876 Regeln, Odoo 18 enthaelt
+1.876 Regeln mit `itk_o11_id`, **0 fehlend, 0 doppelt**. Es handelt sich um eine
+Zaehlungenauigkeit im Skript, nicht um eine Neuanlage.
+
 **Testdaten:** 12 Auftraege, 25 Produkte und 32 Rechnungen ohne Odoo-11-Bezug
 identifiziert (`docs/migration/testdaten-analyse.md`). Nicht geloescht, weil 7 dieser
 Rechnungen gebucht sind und ein Eingriff in den abgenommenen Buchhaltungsbereich waere.
