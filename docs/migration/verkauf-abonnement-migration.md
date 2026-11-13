@@ -220,3 +220,35 @@ Zaehlungenauigkeit im Skript, nicht um eine Neuanlage.
 **Testdaten:** 12 Auftraege, 25 Produkte und 32 Rechnungen ohne Odoo-11-Bezug
 identifiziert (`docs/migration/testdaten-analyse.md`). Nicht geloescht, weil 7 dieser
 Rechnungen gebucht sind und ein Eingriff in den abgenommenen Buchhaltungsbereich waere.
+
+
+## 13 Idempotenz auf dem finalen Stand (Commit 78758b5)
+
+Zweiter Lauf, beide Instanzen:
+
+| Bereich | lokal | VM |
+|---|---|---|
+| Kontakte | 0 Neuanlagen, 0 Fehler | 0 Neuanlagen, 0 Fehler |
+| Produkte | 0 Neuanlagen, 0 Fehler | 0 Neuanlagen, 0 Fehler |
+| Preislisten | 0 Neuanlagen (Zaehler-Artefakt, Bestand 1.876 unveraendert) | 0 Neuanlagen, 0 Fehler |
+| Verkauf | 0 Neuanlagen, 0 Zeilensteuer-Korrekturen, 0 Fehler | dito |
+| Abonnements | 0 Neuanlagen, 0 Fehler | 0 Neuanlagen, 0 Fehler |
+
+## 14 ABGENOMMEN UND GESPERRT (12.11.2026)
+
+| Kriterium | Nachweis |
+|---|---|
+| Datenmigration vollstaendig | 2.519 Auftraege / 4.079 Zeilen, 1.786 Abos / 2.456 Zeilen, 6.020 Kontakte, 662 Produkte, 657 Varianten, 50 Preislisten / 1.876 Regeln — auf lokal und VM |
+| Datenzuordnung geprueft | `verkauf_abgleich.py`: 0 Abweichungen bei Menge, Preis, Rabatt, Steuer; 94 Kopfsummen-Faelle dokumentiert (Odoo-18-Summe gilt, Entscheidung Anna) |
+| Idempotenz | zweiter Lauf 0 Neuanlagen / 0 Fehler in allen fuenf Bereichen, lokal und VM |
+| Browserabnahme | alle fuenf Bereiche, konkrete Datensaetze, lokal und VM (Abschnitt 9) |
+| Regression | Personal 54/0, Projekt 20/0, Events 61/0, Marketing 37/0 — lokal und VM |
+| Dreistand | lokal = GitHub = VM = `78758b50635371d8e6229bcd1565428cbe78bd7e` |
+| Testdaten | analysiert und dokumentiert (`testdaten-analyse.md`); Bereinigung der gebuchten Kette offen, **kein fachlicher Blocker fuer Verkauf/Abonnements**, da kein migrierter Datensatz betroffen ist |
+
+**Fachliche Blocker:** keine. Offen bleibt ausschliesslich die Bereinigung des
+Odoo-18-Testbestands (7 gebuchte Testrechnungen beruehren den Buchhaltungsbereich und
+brauchen eine eigene Freigabe) sowie die spaetere Produktivdomain-Konfiguration.
+
+**Bereichsstatus:** Verkauf und Abonnements - ABGENOMMEN UND GESPERRT.
+Aenderungen nur mit neuem Auftrag.
