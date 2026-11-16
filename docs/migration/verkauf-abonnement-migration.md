@@ -252,3 +252,52 @@ brauchen eine eigene Freigabe) sowie die spaetere Produktivdomain-Konfiguration.
 
 **Bereichsstatus:** Verkauf und Abonnements - ABGENOMMEN UND GESPERRT.
 Aenderungen nur mit neuem Auftrag.
+
+
+## 15 Testbestand Odoo 18 - bewusst zurueckgestellt, kein Blocker
+
+**Entscheidung Anna (12.11.2026):** Die Testdatenkette wird vorerst **nicht** geloescht.
+Insbesondere die gebuchten Rechnungen werden weder storniert noch geloescht.
+
+### Welche Testdaten vorhanden sind
+
+| Objekt | Anzahl | Merkmal |
+|---|---|---|
+| Testauftraege | 12 | Nummern `S000xx` / `S002xx`, einer als `A-1900011` |
+| Testprodukte | 25 | Namen mit "Test", "T-Abo", "TX", "Produkt A/B/C", zwei `Amtsweg.gv.at`-Kopien, zwei Installationsprodukte |
+| Rechnungen mit Testprodukten | 32 | 25 Entwurf, 7 gebucht |
+| Testkunden | alle beteiligten | Partner ohne `itk_o11_id` |
+
+### Kein Odoo-11-Bezug
+
+Kein Datensatz der Kette traegt ein `itk_o11_id`. Es ist damit **kein migrierter
+Bestand betroffen** - weder Kunde, noch Produkt, noch Auftrag, noch Rechnung.
+
+### Abhaengigkeiten
+
+- 12 Testauftraege verwenden 10 der 25 Testprodukte (Zeilen).
+- 0 Abozeilen verwenden Testprodukte.
+- 32 Rechnungen verwenden Testprodukte: 25 Entwuerfe und Journalbuchungen
+  (22.09.-10.11.2026) sowie 7 gebuchte Jahresrechnungen `RE/2020/0001` bis `RE/2026/0002`
+  (105,38-194,40 EUR, Rechnungsdaten rueckdatiert 2020-2026, angelegt 24.07.2026).
+- Die 12 Testauftraege selbst haben **keine** Rechnungen (`invoice_ids` = 0); die
+  Rechnungsbeziehungen laufen ueber die gemeinsamen Testprodukte.
+- Sonderfall `A-1900011`: existiert doppelt - ID 247 mit `itk_o11_id=964` (migriert) und
+  ID 198 ohne Kennung (Testkopie vom 24.07.2026, inhaltlich identisch).
+
+### Welche gebucht sind
+
+**7 Rechnungen** (`state = posted`): `RE/2020/0001`, `RE/2021/0001`, `RE/2022/0001`,
+`RE/2023/0001`, `RE/2024/0001`, `RE/2025/0001`, `RE/2026/0002`.
+Sie liegen in einem abgenommenen Buchhaltungsbereich; ein Storno waere ein Eingriff dort.
+
+### Bewertung
+
+Die Bereinigung ist **bewusst zurueckgestellt**. Sie ist **kein Blocker** fuer die
+fachliche Migration von Verkauf und Abonnements, weil kein migrierter Datensatz betroffen
+ist und alle Fachzahlen (2.519 Auftraege, 4.079 Zeilen, 1.786 Abos, 2.456 Zeilen) ohne
+diesen Bestand vollstaendig und geprueft sind.
+
+Eine Bereinigung erfolgt nur mit eigener ausdruecklicher Freigabe, dann in dieser
+Reihenfolge: 25 Entwurfsrechnungen -> 12 Testauftraege -> 7 gebuchte Rechnungen
+(nur mit Buchhaltungs-Freigabe) -> 25 Testprodukte.
