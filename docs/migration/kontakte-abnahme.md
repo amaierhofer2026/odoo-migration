@@ -133,11 +133,19 @@ Der Korrekturlauf auf der VM hat dieselben Fehler behoben: **398** Adress-/Funkt
 Firmenkontakt mit KENNDATEN und Smart-Buttons, Ansprechpartner mit Nachname/Vorname und
 Elternbezug - alle Ansichten oeffnen und rendern.
 
-**Einschraenkung (offen):** Filter und Gruppierung konnten in der UI nicht abschliessend
-durchgeklickt werden - das Filtermenue war im Testbrowser nicht erreichbar, die
-Gruppierungs-URL lieferte eine leere Ansicht (vermutlich Asset-/Sessionproblem des
-Testbrowsers). Die Suche selbst ist belegt (2 Treffer). Die Filter-/Gruppierungspruefung
-gilt als **offener Punkt**.
+**Filter und Gruppierung - Datenfunktion belegt, UI-Klick offen:**
+
+| Nachweis | Ergebnis |
+|---|---|
+| Filter "Firmen" (`is_company=True`) | 2.390 Treffer |
+| Filter "Archiviert" | 619 Treffer |
+| Gruppierung nach Land | Austria 5.808, Germany 6, ohne Land 105 |
+| Gruppierung Firma/Person (migriert) | 2.380 Firmen, 3.443 Personen |
+
+Die Suche ist im Browser belegt (2 Treffer). Der Klick auf das Filter-/Gruppierungsmenue
+gelang nicht: der Such-Dropdown-Button oeffnet im Testbrowser kein Menue, und die
+Gruppierungs-URL lieferte eine leere Ansicht. Das ist ein Werkzeugproblem des
+Testbrowsers, nicht der Instanz - bleibt aber als **offener Punkt** dokumentiert.
 
 ## 8 Regression
 
