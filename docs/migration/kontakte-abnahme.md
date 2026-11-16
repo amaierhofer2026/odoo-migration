@@ -112,6 +112,11 @@ Alle anderen Felder stimmen zeichengenau.
 Wiederholungslauf lokal: 0 Neuanlagen, 0 Fehler. Die Korrektur-Schritte melden beim
 zweiten Lauf ebenfalls 0, weil sie nur bei Abweichung schreiben.
 
+## 6a VM-Nachzug (12.11.2026)
+
+Der Korrekturlauf auf der VM hat dieselben Fehler behoben: **398** Adress-/Funktionsfelder,
+**18** Anzeigenamen, 0 Fehler. Elternbezuege: 3.335 Kinder, identisch zu lokal.
+
 ## 7 Browserabnahme lokal (Chromium, Odoo-18-Webclient)
 
 | Pruefung | Ergebnis |
@@ -124,9 +129,15 @@ zweiten Lauf ebenfalls 0, weil sie nur bei Abweichung schreiben.
 | Suche | Eingabe "20101" in der Suchleiste liefert 2 Treffer (Pager "1-2 / 2") |
 | Kundenspezifische Felder | alle `itk_crm`-Felder im Formular vorhanden und gefuellt |
 
-**Einschraenkung:** Filter und Gruppierung wurden in der UI nicht abschliessend
-durchgeklickt (Filtermenue im Testbrowser nicht erreichbar). Sie sind ueber die
-Standard-Suchleiste von Odoo 18 vorhanden; die Pruefung wird nachgeholt.
+**VM-Browserabnahme:** Kontaktliste 5.912 aktive Kontakte (Pager "1-80 / 5912"),
+Firmenkontakt mit KENNDATEN und Smart-Buttons, Ansprechpartner mit Nachname/Vorname und
+Elternbezug - alle Ansichten oeffnen und rendern.
+
+**Einschraenkung (offen):** Filter und Gruppierung konnten in der UI nicht abschliessend
+durchgeklickt werden - das Filtermenue war im Testbrowser nicht erreichbar, die
+Gruppierungs-URL lieferte eine leere Ansicht (vermutlich Asset-/Sessionproblem des
+Testbrowsers). Die Suche selbst ist belegt (2 Treffer). Die Filter-/Gruppierungspruefung
+gilt als **offener Punkt**.
 
 ## 8 Regression
 
@@ -138,6 +149,24 @@ Standard-Suchleiste von Odoo 18 vorhanden; die Pruefung wird nachgeholt.
 | Marketing | 37 OK / 0 | 37 OK / 0 |
 | Website | unveraendert (12 Seiten, 837 Tracker, 563 Klicks) | dito |
 
+## 8a Rechtepruefung (12.11.2026)
+
+`scripts/pruefe_kontakte_rechte.py`, je Instanz:
+
+| Pruefung | lokal | VM |
+|---|---|---|
+| Admin liest und schreibt Kontakte | OK | OK |
+| migrierter Kontakt lesbar | OK | OK |
+| archivierter Kontakt vorhanden, nicht in der Standardliste | OK | OK |
+| temporaerer Benutzer (intern + Verkaeufer) kann sich anmelden | OK | OK |
+| normaler Benutzer sieht Kontakte (5.920 / 5.111) | OK | OK |
+| normaler Benutzer hat keine Systemrechte | OK | OK |
+| Benutzer und Partner nach dem Test entfernt | OK | OK |
+| Zaehlung vorher = nachher | 28 Benutzer / 6.538 Partner | 28 / 6.115 |
+
+Ergebnis: **14 OK / 0 Fehler** auf beiden Instanzen. Bestehende Benutzer und Rechte
+wurden nicht veraendert.
+
 ## 9 Testdaten
 
 Fuer die Browserpruefung wurden keine neuen Kontakte angelegt; es wurden ausschliesslich
@@ -148,7 +177,6 @@ steht noch aus (Abschnitt 10).
 
 1. **32 Kontakte ohne Namen** - nicht migriert, dokumentiert (Entscheidung Anna offen).
 2. **1 Elternbeziehung** verweist auf einen dieser 32 Kontakte.
-3. **Rechtepruefung** mit temporaeren Testbenutzern (normaler Benutzer, Manager/Admin)
-   noch nicht durchgefuehrt.
-4. **Filter/Gruppierung** in der UI noch nicht durchgeklickt.
-5. **VM-Browserabnahme** nach dem laufenden Korrektur-Lauf noch offen.
+3. **Filter/Gruppierung** in der UI nicht abschliessend durchgeklickt (einziger offener
+   Punkt der Browserabnahme; Suche, Listen, Formulare und Archivstatus sind belegt).
+4. Dreistand nach dem VM-Nachzug noch nicht hergestellt.
