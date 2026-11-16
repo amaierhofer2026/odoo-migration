@@ -273,7 +273,20 @@ def main() -> int:
 
     ids_partner = {p["id"] for p in partner_namentlich}
     top = [p for p in partner_namentlich if not p["parent_id"] or p["parent_id"][0] not in ids_partner]
-    kinder = [p for p in partner_namentlich if p["parent_id"] and p["parent_id"][0] in ids_partner]
+    # Kinder in Hierarchietiefe sortieren: ein Kontakt darf erst nach seinem Elternkontakt
+    # angelegt werden, sonst geht parent_id verloren (Session 142: 423 Faelle).
+    rest = [p for p in partner_namentlich if p["parent_id"] and p["parent_id"][0] in ids_partner]
+    kinder, erledigt = [], {p["id"] for p in top} | {p["id"] for p in partner_namentlich
+                                                   if p["id"] not in {x["id"] for x in rest}}
+    while rest:
+        for p in list(rest):
+            if p["parent_id"][0] in erledigt:
+                kinder.append(p); erledigt.add(p["id"]); rest.remove(p)
+        if not rest:
+            break
+        if not any(p["parent_id"][0] in erledigt for p in rest):
+            kinder.extend(rest)      # Zyklus oder fehlender Elternkontakt: Rest am Ende
+            break
     stat["ohne_parent"] = len(top)
 
     for gruppe in (top, kinder):
@@ -301,6 +314,103 @@ def main() -> int:
         if p["id"] in bestand["partner"]:
             mapping["partner"].append({"o11_id": p["id"], "o18_id": bestand["partner"][p["id"]]})
 
+    # 3) parent_id bei bereits migrierten Kontakten nachziehen
+    # Fruehere Laeufe haben Kontakte in Batch-Reihenfolge angelegt; lag der Elternkontakt
+    # in einem spaeteren Batch, blieb parent_id leer. Der Nachzieh-Schritt setzt die
+    # Beziehung aus Odoo 11 nach, sofern der Elternkontakt eindeutig zugeordnet ist.
+    stat["parent_korrigiert"] = 0
+    if args.ausfuehren and bestand["partner"]:
+        for p in partner_namentlich:
+            if not p["parent_id"]:
+                continue
+            o18_id = bestand["partner"].get(p["id"])
+            eltern_o18 = bestand["partner"].get(p["parent_id"][0])
+            if not o18_id or not eltern_o18:
+                continue
+            akt = ziel.kw("res.partner", "read", [[o18_id],
+                          ["parent_id", "street", "street2", "zip", "city", "function", "vat"]],
+                          context={"active_test": False})[0]
+            if not akt["parent_id"]:
+                try:
+                    # Adressfelder erneut schreiben: beim Setzen des Elternkontakts kopiert
+                    # Odoo 18 die Adresse des Parents ueber die des Kindes (342 Stadt-,
+                    # 80 Strassen-, 27 PLZ-Faelle in Session 142). Die Odoo-11-Werte des
+                    # Kindes gelten.
+                    ziel.kw("res.partner", "write", [[o18_id], {
+                        "parent_id": eltern_o18,
+                        "street": p["street"] or False,
+                        "street2": p["street2"] or False,
+                        "zip": p["zip"] or False,
+                        "city": p["city"] or False,
+                        "function": p["function"] or False,
+                        "vat": (p["vat"] or "").strip() or False,
+                    }], context={"active_test": False, "no_vat_validation": True})
+                    stat["parent_korrigiert"] += 1
+                except Exception as e:
+                    stat["fehler"] += 1
+                    print("  FEHLER parent_id o11_id %s: %s" % (p["id"], str(e)[:120]))
+
+    # 4) Adress- und Funktionsfelder nachziehen (Vergleich gegen Odoo 11)
+    # Odoo 18 ueberschreibt beim Anlegen von Kindern die Adresse mit der des
+    # Elternkontakts. Betroffen: 342 Stadt-, 80 Strassen-, 27 PLZ-Faelle sowie
+    # 304 Funktions- und 32 USt-Felder (Session 142, Nachmessung).
+    stat["adresse_korrigiert"] = 0
+    if args.ausfuehren and bestand["partner"]:
+        ids_alle18 = [bestand["partner"][p["id"]] for p in partner_namentlich
+                      if p["id"] in bestand["partner"]]
+        vergleich = {}
+        for i in range(0, len(ids_alle18), 300):
+            for r in ziel.kw("res.partner", "read",
+                             [ids_alle18[i:i + 300], ["id", "street", "street2", "zip",
+                                                      "city", "function", "vat"]],
+                             context={"active_test": False}):
+                vergleich[r["id"]] = r
+        for p in partner_namentlich:
+            o18_id = bestand["partner"].get(p["id"])
+            if not o18_id or o18_id not in vergleich:
+                continue
+            ist = vergleich[o18_id]
+            korr = {}
+            for feld in ("street", "street2", "zip", "city", "function", "vat"):
+                soll = (p.get(feld) or "")
+                soll = soll.strip() if isinstance(soll, str) else soll
+                haben = (ist.get(feld) or "")
+                haben = haben.strip() if isinstance(haben, str) else haben
+                if soll != haben:
+                    korr[feld] = soll or False
+            if korr:
+                try:
+                    ziel.kw("res.partner", "write", [[o18_id], korr],
+                            context={"active_test": False, "no_vat_validation": True})
+                    stat["adresse_korrigiert"] += 1
+                except Exception as e:
+                    stat["fehler"] += 1
+                    print("  FEHLER Adresskorrektur o11_id %s: %s" % (p["id"], str(e)[:120]))
+
+    # 5) Anzeigename nachziehen
+    # partner_firstname berechnet `name` aus firstname/lastname. Bei 18 Kontakten wich
+    # der angezeigte Name dadurch von Odoo 11 ab (gleiche Woerter, andere Reihenfolge).
+    # Odoo 11 kannte keine Trennung; der vollstaendige Odoo-11-Name wird daher als
+    # lastname gefuehrt (firstname leer) - damit ist die Anzeige identisch.
+    stat["name_korrigiert"] = 0
+    if args.ausfuehren and bestand["partner"]:
+        for p in partner_namentlich:
+            o18_id = bestand["partner"].get(p["id"])
+            if not o18_id:
+                continue
+            soll = (p["name"] or "").strip()
+            ist = ziel.kw("res.partner", "read", [[o18_id], ["name"]],
+                          context={"active_test": False})[0]["name"]
+            if (ist or "").strip() != soll:
+                try:
+                    vals = {"lastname": soll, "firstname": False} if not p["is_company"] else {"name": soll}
+                    ziel.kw("res.partner", "write", [[o18_id], vals],
+                            context={"active_test": False})
+                    stat["name_korrigiert"] += 1
+                except Exception as e:
+                    stat["fehler"] += 1
+                    print("  FEHLER Name o11_id %s: %s" % (p["id"], str(e)[:120]))
+
     breite = "{:<34}{:>10}"
     print(breite.format("Objekt", "Anzahl"))
     print("-" * 44)
@@ -316,6 +426,9 @@ def main() -> int:
                  ("davon bereits vorhanden", stat["partner_da"]),
                  ("aktualisiert", stat["partner_aktualisiert"]),
                  ("uebersprungen (unveraendert)", stat["uebersprungen"]),
+                 ("parent_id nachgezogen", stat.get("parent_korrigiert", 0)),
+                 ("Adress-/Funktionsfelder korrigiert", stat.get("adresse_korrigiert", 0)),
+                 ("Anzeigename korrigiert", stat.get("name_korrigiert", 0)),
                  ("nicht zuordenbar", stat.get("nicht_zuordenbar", 0)),
                  ("davon ohne Namen (Odoo-18-Pflichtfeld)", stat.get("ohne_namen", 0)),
                  ("Fehler", stat["fehler"])):
