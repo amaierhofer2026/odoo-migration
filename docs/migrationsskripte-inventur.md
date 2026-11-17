@@ -32,43 +32,44 @@ den Ist-Zustand und die Luecken.
 | Valorisierung | nein | - | nein | entfaellt | entfaellt | - | OFFEN |
 | Lager / Bestand | nein | - | nein | entfaellt | entfaellt | - | OFFEN |
 
-## Befund vom 12.11.2026 (wichtig)
+## Stand 12.11.2026 (Ende Session 144)
 
-Die Trockenlaeufe der beiden neuen Skripte zeigen: **Verkauf und Abonnements sind
-strukturell abgenommen, aber datenmaessig nie migriert worden.**
+Der urspruengliche Befund "Verkauf und Abonnements nie migriert" (2.512 Auftraege und
+1.777 Abos fehlend) ist **aufgeholt und abgenommen**:
 
-| Objekt | Odoo 11 | in Odoo 18 erkannt | fehlend |
+| Objekt | Odoo 11 | Odoo 18 | Status |
 |---|---|---|---|
-| Auftraege (`sale.order`) | 2.514 | 2 | **2.512** |
-| Abonnements (`sale.subscription`) | 1.788 | 11 | **1.777** |
+| Auftraege | 2.523 (davon 2.519 migriert) | 2.519 + 13 Testauftraege | ABGENOMMEN |
+| Auftragszeilen | 4.079 | 4.079 | 0 Abweichungen Menge/Preis/Rabatt/Steuer |
+| Abonnements | 1.786 | 1.786 | ABGENOMMEN |
+| Abozeilen | 2.456 | 2.456 | ABGENOMMEN |
+| Kontakte | 6.054 | 6.022 | 32 ohne Namen bewusst nicht, ABGENOMMEN |
+| Produkte | 662 | 662 | MIGRIERT (Abnahme offen) |
+| Preislisten | 50 / 1.876 Regeln | 50 / 1.876 | MIGRIERT (Abnahme offen) |
 
-Zusaetzlich fehlen die Voraussetzungen fuer einen belastbaren Datenlauf:
-- Kunden: bei 2.509 der fehlenden Auftraege ist der Kunde in Odoo 18 nicht vorhanden.
-- Produkte: bei 2.501 der fehlenden Auftraege fehlt das Produkt (Zuordnung ueber `default_code`).
-- Abos: Preisliste bei 1.777, Partner bei 1.775, Vorlage bei 1.777 nicht zuordenbar.
+Datenqualitaet Kontakte: 0 Dubletten nach Bereinigung von 86 Odoo-11-IDs mit 2-7 Kopien
+(415 Kopien entfernt, Beziehungen umgehaengt), 0 verlorene Elternbezuege, als
+Feldabweichung nur 24 `vat`-Formatfaelle (Odoo normalisiert USt-ID-Formate).
 
-Der Odoo-18-Bestand dieser beiden Bereiche besteht aus Abnahme- und Testdatensaetzen
-(z. B. `S00001`, `TEST Abnahme cancel`), nicht aus migrierten Fachdaten.
+## Naechste Bereiche (Empfehlung fuer Session 145)
 
-**Konsequenz:** Beide Bereiche erfuellen Punkt 2 der Projektregel (vollstaendige
-Datenmigration) nicht. In dieser Uebersicht stehen sie deshalb auf OFFEN (Datenmigration);
-ueber den bestehenden Sperrvermerk entscheidet Anna.
-
-## Offene Module ohne Skript (Empfehlung)
-
-1. Kontakte/CRM: eigenes Skript nach dem Muster `scripts/migration/crm_migration.py`
-   erst mit ausdruecklicher Freigabe (personenbezogene Daten).
-2. Abrechnung: `scripts/migration/abrechnung_migration.py`, sobald die Kontenstammdaten
-   8400/3400 entschieden sind.
-3. Umfragen, Valorisierung, Lager: jeweils neues Skript unter `scripts/migration/` von
-   Beginn an, inklusive Trockenlauf und Idempotenzpruefung.
+1. **Produkte und Preislisten abnehmen** - Daten sind migriert und idempotent, es fehlen
+   nur Browserabnahme, Rechte und Sperrvermerk.
+2. **CRM (Leads, Teams)** - Skript `scripts/migration/crm_migration.py` neu, mit
+   ausdruecklicher Freigabe (personenbezogene Daten).
+3. **Abrechnung** - Kontenstammdaten sind entschieden (8400 -> 4000, 3400 -> 5010),
+   `scripts/testmigration_abrechnung.py` zum produktiven Migrationsskript ausbauen.
+4. **Umfragen, Valorisierung, Lager** - jeweils neues Skript unter `scripts/migration/`
+   von Beginn an, inklusive Trockenlauf und Idempotenzpruefung.
 
 ## Konventionen (Kurzfassung)
 
 - Skripte unter `scripts/migration/<bereich>_migration.py`.
 - Standard = Trockenlauf; Schreiblauf nur mit `--ausfuehren --ich-habe-freigabe`.
-- Erkennung ueber fachliche Schluessel (Name, Code, Key, URL), nie ueber Odoo-11-IDs
-  als Bruecke.
+- Erkennung ueber das technische Feld `itk_o11_id` (Modul `itk_migration_keys`,
+  unsichtbar, nur Zahlen) - ergaenzend zu fachlichen Schluesseln (Code, Key, URL).
+  Wichtig: `active_test=False` beim Bestandslesen, sonst werden archivierte Datensaetze
+  nicht erkannt und bei jedem Lauf neu angelegt (Ursache der 86 Dubletten).
 - Zusammenfassung je Lauf: gelesen / angelegt / aktualisiert / uebersprungen /
   nicht zuordenbar / Fehler.
 - Doku je Skript unter `docs/migration/<bereich>_migration.md`.
