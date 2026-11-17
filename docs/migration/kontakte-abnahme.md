@@ -232,7 +232,7 @@ bezieht sich auf den Stand des jeweiligen Laufs.
 | Datenmigration | 6.054 Odoo-11-Kontakte, 6.022 migriert (32 ohne Namen bewusst nicht), lokal und VM identisch |
 | Datenzuordnung | `kontakte_abgleich.py`: 0 Elternverluste, 0 Feldabweichungen ausser 24 `vat`-Formatfaellen (Satzzeichen/Gross-Kleinschreibung) |
 | Dubletten | 86 Odoo-11-IDs mit 2-7 Kopien bereinigt (415 entfernt, Beziehungen umgehaengt); 0 Dubletten auf beiden Instanzen |
-| Idempotenz | zweiter Lauf 0 Neuanlagen, 0 Korrekturen, 0 Fehler |
+| Idempotenz | zweiter Lauf 0 Neuanlagen, 0 Korrekturen, 0 Dubletten, 0 Fehler - **lokal und VM** (VM-Beleg nach dem `vat`-Fix: 6.022 erkannt) |
 | Browserabnahme | lokal und VM: Liste, Firmenkontakt, Ansprechpartner, archivierter Kontakt, Suche, Filter "Unternehmen" (2.390 / 2.393), Filter "Archiviert" (204 / 203), Gruppierung Land (105/6 bzw. 98/9), Gruppierung Unternehmen (2.581 / 2.572) |
 | Rechte | 14 OK / 0 Fehler lokal und VM; temporaerer Benutzer angelegt und vollstaendig entfernt |
 | Regression | Personal 54/0, Projekt 20/0, Events 61/0, Marketing 37/0 - lokal und VM |
