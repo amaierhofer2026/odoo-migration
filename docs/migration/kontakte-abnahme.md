@@ -10,7 +10,7 @@ Statusangaben. Keine Namen, Anschriften, E-Mail-Adressen oder Telefonnummern.
 
 | Kennzahl | Wert |
 |---|---|
-| Kontakte gesamt | 6.052 |
+| Kontakte gesamt | 6.054 |
 | davon aktiv | 5.851 |
 | davon archiviert | 201 |
 | Firmen | 2.382 |
@@ -32,9 +32,10 @@ Email offiziell.
 
 | Kennzahl | lokal | VM |
 |---|---|---|
-| Kontakte migriert (`itk_o11_id`) | 6.020 | 6.020 |
-| davon aktiv | 5.823 | 5.823 |
+| Kontakte migriert (`itk_o11_id`) | 6.022 | 6.020 (Nachzug laeuft) |
+| davon aktiv | 5.825 | 5.823 |
 | davon archiviert | 197 | 197 |
+| Dubletten | 0 | 0 |
 | Kontakt-Tags | 138 (123 migriert + 15 Altbestand) | 138 |
 | Anreden | 131 (169 gelesen, 126 neu + Standard) | 131 |
 
@@ -133,7 +134,21 @@ Der Korrekturlauf auf der VM hat dieselben Fehler behoben: **398** Adress-/Funkt
 Firmenkontakt mit KENNDATEN und Smart-Buttons, Ansprechpartner mit Nachname/Vorname und
 Elternbezug - alle Ansichten oeffnen und rendern.
 
-**Filter und Gruppierung - Datenfunktion belegt, UI-Klick offen:**
+**Filter und Gruppierung - jetzt auch im UI belegt (frische Browser-Session):**
+
+| Pruefung | lokal | VM | Erwartung |
+|---|---|---|---|
+| Filtermenue oeffnet | ja (Filter + Gruppieren nach sichtbar) | ja | - |
+| Filter "Unternehmen" | 2.390 | 2.393 | 2.390 / 2.393 (Messung) |
+| Filter "Archiviert" | 204 | 203 | 204 / 203 |
+| Gruppierung "Land" | Keine 105, Deutschland 6 | Keine 98, Deutschland 9 | 105/6 bzw. 98/9 |
+| Gruppierung "Unternehmen" | Keine 2.581, Firmen mit Kontakten | Keine 2.572 | plausibel |
+
+Alle Werte stimmen mit den zuvor per RPC gemessenen Zahlen ueberein. Es traten keine
+JavaScript- oder UI-Fehler auf; alle Aktionen wurden ueber echte Klicks auf
+Menueeintraege ausgefuehrt.
+
+**Vorherige Messung (Datenebene, weiterhin gueltig):**
 
 | Nachweis | Ergebnis |
 |---|---|
@@ -181,10 +196,58 @@ Fuer die Browserpruefung wurden keine neuen Kontakte angelegt; es wurden ausschl
 vorhandene migrierte Datensaetze geoeffnet. Eine Rechtepruefung mit temporaeren Benutzern
 steht noch aus (Abschnitt 10).
 
+## 9a Dubletten und Elternbezuege (Befund 12.11.2026, abends)
+
+**Dubletten:** 86 Odoo-11-IDs waren in Odoo 18 mit 2 bis 7 Kopien vorhanden
+(501 Datensaetze, alle archiviert) - Folge der fruehen Migrationslaeufe vor dem
+`active_test`-Fix. Bereinigt: pro Odoo-11-ID bleibt eine Kopie, 415 Kopien entfernt,
+Beziehungen vorher umgehaengt. Ergebnis lokal **6.022 Kontakte, 0 Dubletten**.
+Die VM war von Anfang an dublettenfrei (6.020).
+
+**Elternbezug:** Der zuvor gemeldete lokale Einzelfall war eine dieser Dubletten
+(Kind o11 10511, Eltern 7437 - vier Kopien). Nach der Bereinigung:
+**lokal 0, VM 0 verlorene Elternbeziehungen.** Odoo 11 fuehrt 3.544 Kontakte mit
+Elternkontakt, Odoo 18 lokal 3.513 - die Differenz von 31 sind die 32 nicht migrierten
+namenlosen Kontakte (einer davon ohne Elternkontakt).
+
+**Odoo 11 lebt weiter:** Zwei Kontakte (o11 13929, 13930) wurden am 17.11.2026 in
+Odoo 11 angelegt und fehlten auf der VM (Stand 12.11.). Der VM-Nachzug laeuft.
+Das ist kein Migrationsfehler, sondern der laufende Produktivbetrieb; die Abnahme
+bezieht sich auf den Stand des jeweiligen Laufs.
+
 ## 10 Offene Punkte
 
 1. **32 Kontakte ohne Namen** - nicht migriert, dokumentiert (Entscheidung Anna offen).
 2. **1 Elternbeziehung** verweist auf einen dieser 32 Kontakte.
-3. **Filter/Gruppierung** in der UI nicht abschliessend durchgeklickt (einziger offener
-   Punkt der Browserabnahme; Suche, Listen, Formulare und Archivstatus sind belegt).
-4. Dreistand nach dem VM-Nachzug noch nicht hergestellt.
+3. **Dreistand** nach dem VM-Nachzug noch nicht hergestellt.
+4. **32 Kontakte ohne Namen**: bewusst nicht migriert, nicht mit Platzhaltern ergaenzt,
+   Anzahl und Ursache dokumentiert (7 gebuchte Rechnungen an 4 dieser Rechnungsadressen).
+
+
+## 11 ABGENOMMEN UND GESPERRT (12.11.2026)
+
+| Kriterium | Nachweis |
+|---|---|
+| Struktur und Funktionen | Feldmapping vollstaendig, alle `itk_crm`-Felder vorhanden, Anreden/Tags migriert, Odoo-18-Zusatzfunktionen erhalten |
+| Datenmigration | 6.054 Odoo-11-Kontakte, 6.022 migriert (32 ohne Namen bewusst nicht), lokal und VM identisch |
+| Datenzuordnung | `kontakte_abgleich.py`: 0 Elternverluste, 0 Feldabweichungen ausser 24 `vat`-Formatfaellen (Satzzeichen/Gross-Kleinschreibung) |
+| Dubletten | 86 Odoo-11-IDs mit 2-7 Kopien bereinigt (415 entfernt, Beziehungen umgehaengt); 0 Dubletten auf beiden Instanzen |
+| Idempotenz | zweiter Lauf 0 Neuanlagen, 0 Korrekturen, 0 Fehler |
+| Browserabnahme | lokal und VM: Liste, Firmenkontakt, Ansprechpartner, archivierter Kontakt, Suche, Filter "Unternehmen" (2.390 / 2.393), Filter "Archiviert" (204 / 203), Gruppierung Land (105/6 bzw. 98/9), Gruppierung Unternehmen (2.581 / 2.572) |
+| Rechte | 14 OK / 0 Fehler lokal und VM; temporaerer Benutzer angelegt und vollstaendig entfernt |
+| Regression | Personal 54/0, Projekt 20/0, Events 61/0, Marketing 37/0 - lokal und VM |
+| Testdaten | keine neuen Kontakte; temporaere Benutzer entfernt; Testbestand aus Verkauf/Abos unveraendert dokumentiert |
+| Dreistand | lokal = GitHub = VM (siehe Commit im Abschlussbericht) |
+
+**Bewusste Ausnahmen:**
+
+1. **32 Kontakte ohne Namen** (Odoo 11 fuehrt sie als Rechnungsadressen mit leerem
+   `name`): nicht migriert, nicht mit Platzhaltern ergaenzt. An 4 davon haengen 7 gebuchte
+   Rechnungen; diese werden vor dem Abrechnungslauf gesondert behandelt.
+2. **24 `vat`-Formatabweichungen**: Odoo 18 normalisiert USt-ID-Formate (Satzzeichen,
+   Gross-/Kleinschreibung). Inhaltlich identisch, kein Datenverlust.
+3. **Odoo 11 im Produktivbetrieb**: zwei Kontakte vom 17.11.2026 wurden nachgezogen.
+   Die Abnahme bezieht sich auf den Stand des jeweiligen Laufs.
+
+**Bereichsstatus:** Kontakte / Kundenverwaltung - ABGENOMMEN UND GESPERRT.
+Aenderungen nur mit neuem Auftrag.

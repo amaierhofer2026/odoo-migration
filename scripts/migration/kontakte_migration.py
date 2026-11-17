@@ -371,7 +371,7 @@ def main() -> int:
                 continue
             ist = vergleich[o18_id]
             korr = {}
-            for feld in ("street", "street2", "zip", "city", "function", "vat"):
+            for feld in ("street", "street2", "zip", "city", "function"):
                 soll = (p.get(feld) or "")
                 soll = soll.strip() if isinstance(soll, str) else soll
                 haben = (ist.get(feld) or "")
@@ -381,7 +381,7 @@ def main() -> int:
             if korr:
                 try:
                     ziel.kw("res.partner", "write", [[o18_id], korr],
-                            context={"active_test": False, "no_vat_validation": True})
+                            context={"active_test": False})
                     stat["adresse_korrigiert"] += 1
                 except Exception as e:
                     stat["fehler"] += 1
@@ -411,6 +411,56 @@ def main() -> int:
                     stat["fehler"] += 1
                     print("  FEHLER Name o11_id %s: %s" % (p["id"], str(e)[:120]))
 
+    # 6) Dubletten bereinigen
+    # Fruehe Laeufe (vor dem active_test-Fix) haben archivierte Kontakte mehrfach
+    # angelegt: 86 Odoo-11-IDs mit 2 bis 7 Kopien (501 Datensaetze, alle archiviert).
+    # Je Odoo-11-ID bleibt genau eine Kopie erhalten; Beziehungen werden vorher
+    # auf die Behalte-Kopie umgehaengt.
+    stat["dubletten_entfernt"] = 0
+    stat["beziehungen_umgehaengt"] = 0
+    if args.ausfuehren and bestand["partner"]:
+        alle = ziel.kw("res.partner", "search_read",
+                       [[["itk_o11_id", "!=", False]], ["id", "itk_o11_id", "active",
+                                                         "parent_id"]], limit=20000,
+                       context={"active_test": False})
+        gruppen = {}
+        for r in alle:
+            gruppen.setdefault(r["itk_o11_id"], []).append(r)
+        for o11_id, kopien in gruppen.items():
+            if len(kopien) < 2:
+                continue
+            # Behalten: bevorzugt aktiv, dann mit Elternbezug, dann kleinste ID
+            kopien.sort(key=lambda x: (0 if x["active"] else 1,
+                                       0 if x["parent_id"] else 1, x["id"]))
+            behalten, weg = kopien[0], kopien[1:]
+            if not behalten["parent_id"]:
+                eltern11 = next((p["parent_id"][0] for p in partner_namentlich
+                                 if p["id"] == o11_id), None)
+                eltern18 = bestand["partner"].get(eltern11) if eltern11 else None
+                if eltern18:
+                    ziel.kw("res.partner", "write", [[behalten["id"]], {"parent_id": eltern18}],
+                            context={"active_test": False})
+            for k in weg:
+                try:
+                    # Beziehungen zuerst umhaengen
+                    for modell in ("sale.order", "sale.subscription", "project.task",
+                                   "event.registration", "account.move"):
+                        try:
+                            treffer = ziel.kw(modell, "search_count", [[["partner_id", "=", k["id"]]]])
+                            if treffer:
+                                ids = ziel.kw(modell, "search", [[["partner_id", "=", k["id"]]]],
+                                              limit=500)
+                                ziel.kw(modell, "write", [ids, {"partner_id": behalten["id"]}])
+                                stat["beziehungen_umgehaengt"] += treffer
+                        except Exception:
+                            pass
+                    ziel.kw("res.partner", "unlink", [[k["id"]]],
+                            context={"active_test": False})
+                    stat["dubletten_entfernt"] += 1
+                except Exception as e:
+                    stat["fehler"] += 1
+                    print("  FEHLER Dublette id %s: %s" % (k["id"], str(e)[:120]))
+
     breite = "{:<34}{:>10}"
     print(breite.format("Objekt", "Anzahl"))
     print("-" * 44)
@@ -429,6 +479,8 @@ def main() -> int:
                  ("parent_id nachgezogen", stat.get("parent_korrigiert", 0)),
                  ("Adress-/Funktionsfelder korrigiert", stat.get("adresse_korrigiert", 0)),
                  ("Anzeigename korrigiert", stat.get("name_korrigiert", 0)),
+                 ("Dubletten entfernt", stat.get("dubletten_entfernt", 0)),
+                 ("Beziehungen umgehaengt", stat.get("beziehungen_umgehaengt", 0)),
                  ("nicht zuordenbar", stat.get("nicht_zuordenbar", 0)),
                  ("davon ohne Namen (Odoo-18-Pflichtfeld)", stat.get("ohne_namen", 0)),
                  ("Fehler", stat["fehler"])):
