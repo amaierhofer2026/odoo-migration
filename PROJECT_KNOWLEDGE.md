@@ -9746,3 +9746,30 @@ Auftraege 2.514 gelesen / 2 erkannt / 2.512 fehlend; Abos 1.788 / 11 / 1.777 feh
 (lokal und VM gleich). Damit ist belegt, dass diese zwei Bereiche zwar strukturell
 abgenommen, aber datenmaessig nicht migriert sind (Odoo-18-Bestand = Testdaten).
 Produktive Laeufe nicht ausgefuehrt; Schreibpfade ohne Stammdatenzuordnung gesperrt.
+
+
+## CRM / Verkaufschancen (abgenommen 18.11.2026)
+
+- **Bereich gesperrt.** 6.995 Vorgaenge (6.610 Interessenten, 385 Verkaufschancen,
+  21 archiviert), 44 Stichwoerter, 5 Gruende, 32 Aktivitaeten, 1.321 fachliche
+  Chatter-Nachrichten, 204 Anhaenge (67,9 MB), Umsatz 1.195.320,35 EUR.
+  Idempotent (0/0/6.995), Abgleich lokal und VM deckungsgleich.
+- **Odoo 11 waechst weiter.** Zwischen zwei Messungen kam ein Interessent dazu.
+  Vor jeder Abnahme neu messen.
+- **Verkaeuferzuordnung** laeuft ueber `BENUTZER_MAPPING` im Migrationsskript, nie ueber
+  Datenbank-IDs. Der Odoo-11-Benutzer "Maierhofer Anna" ist das bestehende Odoo-18-Konto
+  "Administrator" (Login anna.maierhofer@it-kommunal.at). In Odoo 18 existiert
+  zusaetzlich ein Konto "Maierhofer Anna" - es ist **nicht** das Ziel. Ein Sammelkonto
+  ohne Person (ACO-Market) wurde als inaktiver historischer Benutzer angelegt.
+- **Chatter und Anhaenge**: fachliche Nachrichten (mit Text) und alle Anhaenge sind
+  migriert; reine Systemmeldungen ohne Text bleiben in Odoo 11. UTM-Quellen und
+  -Kampagnen sind unbenutzt (0 von 6.995) und nicht migriert, das Medium "Website" schon.
+- **"Verrechnet" gilt in Odoo 18 als gewonnen** (Odoo 11 zaehlte ueber Wahrscheinlichkeit
+  100; 192 der 195 gewonnenen Vorgaenge stehen in "Verrechnet").
+- **RPC ueber VPN nur blockweise.** Einzelabrufe je Datensatz wirken wie ein Haenger
+  (6.994 Aufrufe = 45 Minuten, blockweise 2,5 Minuten). `ITK_STACKDUMP=1` hilft beim
+  Lokalisieren.
+- **Menue-/Feldlabels versioniert im Modul fuehren** (`noupdate=False`). Nur einmalig
+  per Skript gesetzte Labels driften zwischen lokal und VM auseinander.
+- **Bekannte Werkzeuggrenzen der Abnahmeskripte** stehen in
+  `docs/o11-o18-vergleich-crm.md`, Abschnitt 7a - nicht als Produktfehler werten.
