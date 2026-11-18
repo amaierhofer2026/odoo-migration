@@ -57,6 +57,12 @@ Schreiben nur mit `--ausfuehren --ich-habe-freigabe`)
 
 ## Was noch fehlt
 
+0. **Menuebezeichnungen (erledigt 18.11.2026).** Die Labels "Support Tickets" und
+   "Arbeitszeittabelle" stehen versioniert in `addons/itk_helpdesk_compat/views/menus.xml`
+   (`noupdate=False`). Die VM hatte den Odoo-Standard, weil der Datensatz dort aus einem
+   frueheren Modulstand stammte; nach Modul-Upgrade und einmaligem Setzen sind die Menues
+   auf beiden Instanzen identisch (Übersicht, Tickets, Support Tickets, Arbeitszeittabelle,
+   Berichtswesen, Konfiguration) und bleiben es nach erneutem Upgrade.
 1. Regression der gesperrten Bereiche **auf der VM** (`scripts/regression_gesperrte_bereiche.py
    --instanz vm`, elf Bereiche, rund eine Stunde).
 2. Nach dem naechsten Commit: VM auf den neuen `main` ziehen; die Skript-Korrekturen dieser
@@ -104,3 +110,18 @@ Schreiben nur mit `--ausfuehren --ich-habe-freigabe`)
   "Chance gewonnen"). Fachliche Nachrichten sind vollstaendig uebertragen.
 - `utm.source` (220 Datensaetze) und `utm.campaign` (16): 0 von 6.994 Vorgaengen nutzen
   sie. Das genutzte Medium "Website" (25 Vorgaenge) ist migriert.
+
+## Nachtrag 18.11.2026 (Abschlussrunde)
+
+Odoo 11 ist waehrend der Sitzung weitergewachsen: 6.995 Vorgaenge (ein neuer Interessent),
+3.480 Nachrichten. Der neue Datensatz wurde auf lokal und VM nachgezogen
+(1 angelegt, 0 aktualisiert, 6.994 uebersprungen).
+
+Endstand lokal = VM, Abgleich deckungsgleich:
+6.995 gesamt (6.974 aktiv, 21 archiviert), 6.610 Interessenten, 385 Verkaufschancen,
+28 ohne Verkaeufer (wie Odoo 11), 6.605 ohne Partner, 32 Aktivitaeten,
+Umsatz 1.195.320,35 EUR, 1.321 von 1.321 fachlichen Nachrichten, 204 Anhaenge.
+Einzige Abweichung: 3 Vorgaenge ohne Stufe stehen auf "Neu" (dokumentierte Mappingregel).
+
+Idempotenzlauf lokal und VM: 0 angelegt, 0 aktualisiert, 6.995 uebersprungen,
+0 Fehler, 0 Dubletten.
