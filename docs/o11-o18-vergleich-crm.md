@@ -184,3 +184,49 @@ uebertragen; 150 davon tragen Anhaenge. Technisch nicht uebertragbar war keine.
   deshalb in Odoo 11. Die ITK-Auswahlfelder `x_Lead_Quelle`, `x_Produktinteresse`
   und `x_lead_status` tragen die eigentliche Kanalinformation und sind vollstaendig
   migriert (24 / 10 / 12 Auswahlwerte, alle Werte erhalten).
+
+## 7a Regression der gesperrten Bereiche (lokal, 18.11.2026)
+
+Werkzeug: `scripts/regression_gesperrte_bereiche.py --instanz lokal`
+Gesamtergebnis: **725 OK / 9 FEHL** ueber elf Bereiche. Kein Fehlschlag ist ein
+Produktfehler; alle neun sind Werkzeuggrenzen und unten einzeln belegt.
+
+| Bereich | Ergebnis |
+|---|---|
+| Kontakte/Kundenverwaltung | 32 OK / 4 FEHL |
+| Verkauf | 239 OK / 4 FEHL |
+| Helpdesk | 58 OK / 1 FEHL |
+| Abonnements, Projekt, Personal, Zeiterfassung, Anwesenheiten/Urlaub, Events, E-Mail-Marketing, Massenbearbeitung | bestanden (0 FEHL) |
+
+**Kontakte (4).** Das Pruefskript oeffnet den ersten `crm.lead` und sucht dort die
+Beschriftungen des Interessentenformulars. Der erste Datensatz ist nach der Migration
+eine Verkaufschance; dort heisst die Zusatzseite "Zusaetzliche Informationen" und der
+Vertriebskanal liegt auf dieser Seite. Browserbeleg (`formular_lokal_interessent.png`,
+`formular_lokal_verkaufschance.png`): im Interessentenformular sind "Vertriebskanal",
+"Weitere Informationen", "Stichwoerter", "Verkäufer", "Produktinteresse", "Lead Status"
+und "Lead Quelle" sichtbar; in der Verkaufschance sind dieselben Felder sichtbar,
+"Vertriebskanal" auf dem Reiter "Zusaetzliche Informationen" (Odoo-18-Standard).
+"Bundesland" ist in beiden Formularen der Platzhalter des Feldes `state_id` - genau wie
+in Odoo 11, wo es ebenfalls nur `placeholder="Bundesland"` war. Der Suchtext "Bundesland"
+erscheint daher nur, solange kein Wert gewaehlt ist; das Feld selbst ist vorhanden.
+
+**Verkauf (4).** `browser_verkauf_kalender.py` vergleicht die im Kalender sichtbaren
+Auftraege mit denen des angezeigten Monats. Die Monatsansicht zeigt die Randwoche mit
+(26.-31.10.2026 in der ersten Novemberwoche), deshalb erscheinen dort Auftraege mit
+Oktober-Auftragsdatum (A-2600339 bis A-2600341, alle 27.10.2026). Das ist die
+Kalenderdarstellung, nicht ein falsches Datum. `browser_verkauf_bericht_kanaele.py`
+entnimmt dem Pivot den groessten Zahlenwert (`max(werte)`) statt der Summe; der Pivot
+selbst zeigt die richtige Gesamtsumme 356.617,85 EUR (Sollwert nicht storniert).
+Beides Werkzeugfehler.
+
+**Helpdesk (1).** Statuswechsel auf "on Hold" scheitert an der eingeklappten Stufe
+(`fold`, wie in Odoo 11 konfiguriert). Bereits bei der Helpdesk-Abnahme als
+Werkzeuggrenze dokumentiert (`docs/o11-o18-helpdesk-abnahme.md`, Punkt 2); die Stufe ist
+im Formularfeld "Status" waehlbar.
+
+**Bewusste Strukturabweichung.** In Odoo 11 stand der Vertriebskanal bei
+Verkaufschancen im Hauptbereich (Gruppe "Diverse"), in Odoo 18 steht er auf der Seite
+"Zusaetzliche Informationen". Die Funktion ist vorhanden und nutzbar; die Odoo-18-Ansicht
+wird nicht ueberschrieben.
+
+Offen in dieser Sitzung: derselbe Regressionslauf gegen die VM.

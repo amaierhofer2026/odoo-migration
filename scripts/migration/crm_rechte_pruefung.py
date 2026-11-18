@@ -25,10 +25,23 @@ import _o11o18_client as client  # noqa: E402
 CTX = {"lang": "de_DE"}
 
 # (Login-Praefix, Anzeige, Gruppen-XML-IDs)
+# Erwartung je Rolle (Odoo-18-Standard, keine Rechteausweitung):
+#   CRM-Benutzer  : "Nur eigene Dokumente" -> fremde Vorgaenge NICHT sichtbar,
+#                   Loeschen nicht erlaubt (Salesman hat kein unlink-Recht)
+#   Verkaufsleiter: alle Vorgaenge sichtbar, darf loeschen
+#   Administrator : wie Verkaufsleiter, zusaetzlich Systemrechte
 ROLLEN = [
-    ("user", "CRM-Benutzer", ["sales_team.group_sale_salesman"]),
-    ("manager", "Verkaufsleiter", ["sales_team.group_sale_manager"]),
-    ("admin", "Administrator", ["base.group_system"]),
+    ("user", "CRM-Benutzer", ["sales_team.group_sale_salesman"],
+     {"loeschen": False, "fremde": False}),
+    ("manager", "Verkaufsleiter", ["sales_team.group_sale_manager"],
+     {"loeschen": True, "fremde": True}),
+    # Das reale Administratorkonto ist Systemadmin UND Verkaufsadministrator
+    # (Verkauf/Administrator, Verkauf/Alle Dokumente, Administration/Einstellungen).
+    # base.group_system allein hat in Odoo 18 keinen CRM-Zugriff - das ist Standard
+    # und kein Rechtefehler.
+    ("admin", "Administrator",
+     ["base.group_system", "sales_team.group_sale_manager", "sales_team.group_sale_salesman"],
+     {"loeschen": True, "fremde": True}),
 ]
 
 
@@ -76,7 +89,7 @@ def main() -> int:
 
     angelegt, konten = [], []
     try:
-        for praefix, label, xmlids in ROLLEN:
+        for praefix, label, xmlids, erwartung in ROLLEN:
             pwd = "Itk!%s" % secrets.token_urlsafe(12)
             login = "itk_s145_%s@example.invalid" % praefix
             uid = o18.kw("res.users", "create", [{
@@ -123,16 +136,21 @@ def main() -> int:
                     pruefe(False, "%s darf archivieren" % label)
                 try:
                     eigen.kw("crm.lead", "unlink", [[neu_id]], context=CTX)
-                    pruefe(True, "%s darf loeschen" % label)
+                    geloescht = True
                 except Exception:  # noqa: BLE001
-                    pruefe(False, "%s darf loeschen" % label)
+                    geloescht = False
                     o18.kw("crm.lead", "unlink", [[neu_id]])
+                pruefe(geloescht == erwartung["loeschen"],
+                       "%s loeschen: erwartet %s, ist %s"
+                       % (label, erwartung["loeschen"], geloescht))
 
             if fremd:
                 try:
                     sichtbar = eigen.kw("crm.lead", "search_count",
                                         [[("id", "=", fremd[0]["id"])]], context=CTX)
-                    pruefe(sichtbar == 1, "%s sieht fremde Verkaufschance" % label)
+                    pruefe((sichtbar == 1) == erwartung["fremde"],
+                           "%s fremde Verkaufschance sichtbar: erwartet %s, ist %s"
+                           % (label, erwartung["fremde"], sichtbar == 1))
                 except Exception as exc:  # noqa: BLE001
                     pruefe(False, "%s sieht fremde Verkaufschance (%s)"
                            % (label, str(exc)[:60]))

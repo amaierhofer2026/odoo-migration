@@ -167,10 +167,21 @@ def ziel_laden(o18):
     """Liest den vorhandenen Odoo-18-Bestand inklusive archivierter Datensaetze."""
     ctx = {"lang": "de_DE", "active_test": False}
 
-    def ids_map(modell, limit=20000):
-        rows = o18.kw(modell, "search_read", [[["itk_o11_id", "!=", False]], ["id", "itk_o11_id"]],
-                      context=ctx, limit=limit)
-        return {r["itk_o11_id"]: r["id"] for r in rows}
+    def ids_map(modell, limit=20000, block=2000):
+        """Liest itk_o11_id -> id blockweise.
+
+        Ein einzelner Abruf ueber zigtausend Datensaetze laeuft ueber VPN in einen
+        Timeout ohne jede Fortschrittsmeldung; blockweise bleibt es reproduzierbar.
+        """
+        ids = o18.kw(modell, "search", [[["itk_o11_id", "!=", False]]],
+                     context=ctx, limit=limit)
+        ergebnis = {}
+        for i in range(0, len(ids), block):
+            for r in o18.kw(modell, "read", [ids[i:i + block], ["id", "itk_o11_id"]],
+                            context=ctx):
+                if r.get("itk_o11_id"):
+                    ergebnis[r["itk_o11_id"]] = r["id"]
+        return ergebnis
 
     d = {
         "lead": ids_map("crm.lead"),
@@ -203,7 +214,9 @@ def ziel_laden(o18):
     for r in o18.kw("mail.activity.type", "search_read", [[], ["id", "name"]], context=ctx,
                     limit=300):
         d["activity_type_name"].setdefault(r["name"], []).append(r["id"])
+    print("    Stammdaten gelesen", flush=True)
     d["partner"] = ids_map("res.partner", limit=30000)
+    print("    Partner gelesen: %d" % len(d["partner"]), flush=True)
     d["state_name"] = {r["name"]: r["id"] for r in
                        o18.kw("res.country.state", "search_read",
                               [[("country_id.code", "=", "AT")], ["id", "name"]],
@@ -365,10 +378,17 @@ def _zeitstempel_nachziehen(ziel, o11_leads, uid_map, stat, fehler, block=300):
     der Schritt ist damit idempotent.
     """
     soll = {r["id"]: r for r in o11_leads}
-    ids = ziel.kw("crm.lead", "search_read", [[["itk_o11_id", "!=", False]],
-                                              ["id", "itk_o11_id", "create_date", "write_date",
-                                               "date_open", "create_uid", "write_uid"]],
-                  context={"lang": "de_DE", "active_test": False}, limit=30000)
+    # Blockweise lesen: ein search_read ueber alle Vorgaenge laeuft ueber VPN
+    # minutenlang ohne Ausgabe (und ohne Timeout-Grenze).
+    ctx = {"lang": "de_DE", "active_test": False}
+    alle_ids = ziel.kw("crm.lead", "search", [[["itk_o11_id", "!=", False]]],
+                       context=ctx, limit=30000)
+    ids = []
+    for i in range(0, len(alle_ids), 500):
+        ids += ziel.kw("crm.lead", "read",
+                       [alle_ids[i:i + 500], ["id", "itk_o11_id", "create_date", "write_date",
+                                              "date_open", "create_uid", "write_uid"]],
+                       context=ctx)
     zu_fix = []
     for r in ids:
         q = soll.get(r["itk_o11_id"])
@@ -424,6 +444,12 @@ def main() -> int:
         print("ABBRUCH: Schreiblauf nur mit --ich-habe-freigabe (Freigabe von Anna).")
         return 2
 
+    # Diagnose: ITK_STACKDUMP=1 druckt alle 120 s den Stack (haengende RPC-Calls
+    # ueber VPN sind sonst nicht von normaler Laufzeit zu unterscheiden).
+    if os.environ.get("ITK_STACKDUMP"):
+        import faulthandler
+        faulthandler.dump_traceback_later(120, repeat=True)
+
     o11 = client.o11()
     ziel = Schreibschutz(client.o18(args.instanz), args.ausfuehren)
     print("=== CRM-Migration %s | %s ===" % (
@@ -433,10 +459,15 @@ def main() -> int:
     print("Odoo 11 gelesen: %d Vorgaenge, %d Stufen, %d Teams, %d Stichwoerter, %d Gruende, "
           "%d Aktivitaeten" % (len(q["leads"]), len(q["stages"]), len(q["teams"]),
                                len(q["tags"]), len(q["lost"]), len(q["activities"])))
+    print("  lade Zielbestand ...", flush=True)
     z = ziel_laden(ziel)
+    print("  Zielbestand: %d Vorgaenge, %d Partner, %d Stichwoerter zugeordnet"
+          % (len(z["lead"]), len(z["partner"]), len(z["tag"])), flush=True)
     # Erlaubte Auswahlwerte der ITK-Felder: Odoo 11 enthaelt Altwerte, die in der
     # Auswahl nicht mehr definiert sind (z. B. x_Lead_Quelle 'web_iinform').
+    print("  lese Auswahlwerte ...", flush=True)
     f18 = ziel.kw("crm.lead", "fields_get", [[], ["selection"]], context=CTX18)
+    print("  Auswahlwerte gelesen", flush=True)
     erlaubt = {}
     for feld in ("x_Anrede_Lead", "x_Lead_Quelle", "x_Produktinteresse", "x_lead_status"):
         erlaubt[feld] = {wert for wert, _ in (f18.get(feld, {}).get("selection") or [])}
@@ -449,6 +480,27 @@ def main() -> int:
     sonderfaelle = []
     mapping = {"stammdaten": [], "vorgaenge": []}
     gelesen = len(q["leads"])
+
+    # Ist-Werte aller bereits migrierten Vorgaenge EINMAL blockweise laden.
+    # Ein read je Vorgang (6.994 Aufrufe) braucht ueber VPN rund 45 Minuten und
+    # wirkt wie ein Haenger; blockweise sind es ~30 Sekunden.
+    VERGLEICHSFELDER = [
+        "name", "type", "priority", "probability", "expected_revenue", "contact_name",
+        "email_from", "phone", "mobile", "function", "street", "street2", "zip", "city",
+        "website", "description", "date_deadline", "date_closed", "partner_id", "stage_id",
+        "user_id", "team_id", "lost_reason_id", "medium_id", "state_id", "country_id",
+        "title", "tag_ids", "x_Anrede_Lead", "x_Lead_Quelle", "x_Produktinteresse",
+        "x_lead_status",
+    ]
+    ist_cache = {}
+    if args.ausfuehren and z["lead"]:
+        print("  lade Ist-Werte ...", flush=True)
+        ziel_ids = list(z["lead"].values())
+        for i in range(0, len(ziel_ids), 200):
+            for r in ziel.kw("crm.lead", "read", [ziel_ids[i:i + 200], VERGLEICHSFELDER],
+                             context={"lang": "de_DE", "active_test": False}):
+                ist_cache[r["id"]] = r
+        print("  Ist-Werte geladen: %d" % len(ist_cache), flush=True)
 
     # ---------------------------------------------------------------- Stammdaten
     if args.stammdaten == "ja":
@@ -773,8 +825,10 @@ def main() -> int:
                 lesen = [f for f in vals
                          if f not in ("create_date", "write_date", "create_uid", "write_uid",
                                       "itk_o11_id")]
-                ist = ziel.kw("crm.lead", "read", [[zid], lesen],
-                              context={"lang": "de_DE", "active_test": False})[0]
+                ist = ist_cache.get(zid)
+                if ist is None:
+                    ist = ziel.kw("crm.lead", "read", [[zid], lesen],
+                                  context={"lang": "de_DE", "active_test": False})[0]
                 diff = {}
                 beziehungen = ("stage_id", "user_id", "team_id", "partner_id", "lost_reason_id",
                                "medium_id", "state_id", "country_id", "title")
