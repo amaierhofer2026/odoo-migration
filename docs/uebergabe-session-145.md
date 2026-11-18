@@ -1,7 +1,11 @@
 # Uebergabe Session 145 - CRM / Verkaufschancen
 
-Stand: 18.11.2026. Branch `feature/crm-migration-s145` ist als PR #274 nach `main`
-gemergt (main = 2c93ce7). Die VM laeuft auf diesem Stand.
+**Status: CRM / Verkaufschancen = ABGENOMMEN UND GESPERRT (18.11.2026).**
+Ab hier keine Aenderungen mehr an diesem Bereich.
+
+Dreistand: `fe5b3341a2c6cbae4213fe167ab67c05a11b0b20`, Baum
+`5252a6003b807d7dc3838d002ec2594372f5aa93`, lokal = GitHub main = VM,
+beide Arbeitsbaeume sauber. PRs #274 bis #277 gemergt.
 
 ## Was fertig und belegt ist
 
@@ -125,3 +129,35 @@ Einzige Abweichung: 3 Vorgaenge ohne Stufe stehen auf "Neu" (dokumentierte Mappi
 
 Idempotenzlauf lokal und VM: 0 angelegt, 0 aktualisiert, 6.995 uebersprungen,
 0 Fehler, 0 Dubletten.
+
+## Fuer die naechste Session
+
+Der Bereich CRM ist gesperrt. Naechstes Modul auf Zuruf von Anna; hier keine
+Vorentscheidung treffen.
+
+**Was beim Arbeiten an anderen Modulen zu beachten ist**
+
+- Odoo 11 ist produktiv und waechst: zwischen zwei Messungen kamen ein Interessent
+  und eine Nachricht dazu (6.994 -> 6.995). Vor jeder Abnahme frisch messen, nie
+  alte Zahlen uebernehmen.
+- RPC-Abrufe ueber VPN immer blockweise (`search` + `read` in 500er/2000er-Bloecken).
+  Einzelabrufe je Datensatz und Riesen-`search_read` wirken wie ein Haenger:
+  6.994 Einzelabrufe brauchten 45 Minuten, blockweise 2,5 Minuten.
+  `ITK_STACKDUMP=1` druckt bei Bedarf alle 120 s den Stack.
+- Label-Aenderungen, die nur per einmaligem Skriptlauf gesetzt werden, driften
+  zwischen lokal und VM auseinander (so geschehen bei "Support Tickets" und
+  "Arbeitszeittabelle"). Immer als versionierte XML-Daten mit `noupdate=False`
+  im Modul hinterlegen und nach dem Upgrade auf beiden Instanzen vergleichen.
+- Bei Pruefskripten Erwartungen je Rolle/Typ explizit definieren. Drei Fehlschlaege
+  in dieser Sitzung waren falsch herum formulierte Erwartungen, nicht Produktfehler.
+- Bekannte Werkzeuggrenzen (nicht als Produktfehler werten):
+  Formularpruefung nimmt den ersten `crm.lead`; Kalender-Monatsansicht zeigt die
+  Randwoche mit; Pivot-Pruefung vergleicht `max()` statt der Summe; "on Hold" ist
+  im Helpdesk eingeklappt; Graph-Ansicht rendert ueber VPN nicht immer rechtzeitig.
+- Abnahme erst nach Deploy + Upgrade + echtem Browserbild; DOM-Sichtbarkeit genuegt nicht.
+
+**Offene technische Punkte, die nicht zu CRM gehoeren** (aus der Checkliste, Stand vor
+dieser Sitzung, nicht nachgeprueft): SMTP nicht konfiguriert; `itk_projectcategory`
+DB-Version 18.0.0.1 < Repo; `tree`->`list`-Upgrades bei `itk_sale_management`,
+`itk_reports`, `itk_translation`; Berechtigungen der 18 Benutzer nicht einzeln geprueft;
+`mail.catchall.domain` und recaptcha-Schluessel fehlen extern.
