@@ -229,4 +229,16 @@ Verkaufschancen im Hauptbereich (Gruppe "Diverse"), in Odoo 18 steht er auf der 
 "Zusaetzliche Informationen". Die Funktion ist vorhanden und nutzbar; die Odoo-18-Ansicht
 wird nicht ueberschrieben.
 
-Offen in dieser Sitzung: derselbe Regressionslauf gegen die VM.
+**Endstand nach dem letzten Modul-Upgrade (sequenziell, ohne Parallelbetrieb):**
+
+| Instanz | Regression | Browser | Rechte |
+|---|---|---|---|
+| lokal | 725 OK / 9 FEHL | 55 OK / 0 FEHL | 22 OK / 0 FEHL |
+| VM | 724 OK / 10 FEHL | 55 OK / 0 FEHL | 22 OK / 0 FEHL |
+
+Die VM hat einen Fehlschlag mehr: `browser_verkauf_ansichten.py` meldet
+"Ansicht 'Graph' geoeffnet" als nicht erreicht. Die Graph-Ansicht fuer `sale.order`
+existiert auf beiden Instanzen (je ein `ir.ui.view` vom Typ `graph`); der Browser hat
+sie ueber VPN nicht rechtzeitig gerendert. Ladezeitgrenze, kein Produktfehler.
+Helpdesk liegt auf der VM jetzt bei 58 OK / 1 FEHL - die drei Menue-Fehlschlaege der
+Vorrunde sind mit der Label-Korrektur entfallen.
