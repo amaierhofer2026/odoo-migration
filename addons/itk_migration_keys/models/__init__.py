@@ -1,2 +1,3 @@
 # -*- coding: utf-8 -*-
 from . import migration_keys
+from . import zeitstempel
