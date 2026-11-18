@@ -3093,13 +3093,13 @@ Liste und Formular lokal und VM. Details: `docs/o11-o18-steuern-mapping.md`, Abs
 | Datenmengen | Abgleich lokal und VM deckungsgleich, Umsatz 1.195.320,35 EUR | erledigt |
 | Migrationsskript | `scripts/migration/crm_migration.py`, `crm_abgleich.py`, `crm_rechte_pruefung.py`, `regression_gesperrte_bereiche.py` | erledigt |
 | Idempotenz | 0 angelegt, 0 aktualisiert, 6.995 uebersprungen, 0 Fehler, 0 Dubletten (lokal und VM) | erledigt |
-| Browser lokal | 55 OK / 0 FEHL | erledigt |
-| Browser VM | 55 OK / 0 FEHL | erledigt |
+| Browser lokal | 55 OK / 0 FEHL nach letztem Upgrade | erledigt |
+| Browser VM | 55 OK / 0 FEHL nach letztem Upgrade | erledigt |
 | Rechte | 22 OK / 0 FEHL je Instanz, Rollen CRM-Benutzer/Verkaufsleiter/Administrator | erledigt |
-| Regression | 11 Bereiche lokal und VM; Fehlschlaege als Werkzeuggrenzen belegt (Abschnitt 7a) | erledigt |
+| Regression | lokal 725 OK / 9 FEHL, VM 724 OK / 10 FEHL; alle als Werkzeuggrenzen belegt (Abschnitt 7a) | erledigt |
 | Testdaten | entfernt, Bestand unveraendert | erledigt |
 | Dokumentation | `docs/o11-o18-vergleich-crm.md`, `docs/migration/crm_migration.md`, Uebergabe 145 | erledigt |
-| Dreistand | lokal = GitHub main = VM, Arbeitsbaeume sauber | offen bis Commit |
+| Dreistand | lokal = GitHub main = VM = 8f25efb, Arbeitsbaeume sauber | erledigt |
 
 Verkaeuferzuordnung: 0 offen. Odoo-11-Benutzer 87 (Maierhofer Anna) -> bestehendes Konto
 Administrator (8 Vorgaenge, Konto unveraendert), Benutzer 20 -> Breiteneder Lorenz (137),
