@@ -86,9 +86,12 @@
                 <xpath expr="//field[@name='function']" position="before">
                     <field name="x_Anrede_Lead"/>
                 </xpath>
-                <!-- Neue Gruppe 'Lead Classification' nach der lead_priority-Gruppe -->
+                <!-- Neue Gruppe 'Lead Classification' nach der lead_priority-Gruppe.
+                     Session 145: in Odoo 11 steht die Gruppe in BEIDEN Formularen
+                     (Interessent und Verkaufschance), deshalb keine Einschraenkung
+                     auf type == 'lead' mehr. -->
                 <xpath expr="//group[@name='lead_priority']" position="after">
-                    <group string="Lead Classification" invisible="type == 'opportunity'">
+                    <group string="Lead Classification">
                         <field name="x_lead_status"/>
                         <field name="x_Produktinteresse"/>
                         <field name="x_Lead_Quelle"/>

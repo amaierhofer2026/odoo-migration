@@ -18,35 +18,62 @@ _CUSTOM_FIELDS = {
     'x_Lead_Quelle': (
         'Lead Quelle',
         [
-            'Excel Leads (230317)',
-            'Versand Hinweis (230307)',
-            'Webinar VKÖ/VÖWG (230306)',
-            'Webinar OGD (230321)',
-            'Versand Hinweis Intern (230411/230419/230502/230620)',
-            'Versand Intrakommuna (2307)',
-            'Versand Online Formulare (231206)',
-            'IFG Webinare (2025-02-05/02-19/03-12/03-26/04-24/05-27/06-11/07-22/07-31)',
-            'Recherchierte Adressen April 2025',
-            'Anonym-Portal (2025-04-23/05-15)',
-            'ITK & VÖWG Webinar (2025-06-24)',
+            ('leads_excel_230317', 'Excel Leads (230317)'),
+            ('mail_hinweis_1', 'Versand Hinweis (230307)'),
+            ('web_vkoe_1', 'Webinar VKÖ/VÖWG (230306)'),
+            ('mail_OGDWebinar_1', 'Webinar OGD (230321)'),
+            ('web_hinweis_in_230411', 'Versand Hinweis Intern (230411)'),
+            ('web_hinweis_in_230419', 'Versand Hinweis Intern (230419)'),
+            ('web_hinweis_in_230502', 'Versand Hinweis Intern (230502)'),
+            ('web_hinweis_in_230620', 'Versand Hinweis Intern (230620)'),
+            ('web_intrakommuna_in_2307', 'Versand Intrakommuna (2307)'),
+            ('web_onlineformulare_in_2312', 'Versand Online Formulare (231206)'),
+            ('ifg_webinar_2025_02_05', 'IFG Webinar 2025-02-05'),
+            ('ifg_post_aussendung_2025_01_21', 'IFG Post-Aussendung 2025-01-21'),
+            ('ifg_webinar_2025_02_19', 'IFG Webinar 2025-02-19'),
+            ('ifg_webinar_2025_03_12', 'IFG Webinar 2025-03-12'),
+            ('ifg_webinar_2025_03_26', 'IFG Webinar 2025-03-26'),
+            ('recherchierte_adressen_04_2025', 'Recherchierte Adressen April 2025'),
+            ('anonym_portal_webinar_2025_04_23', 'Anonym-Portal 2025-04-23'),
+            ('ifg_webinar_2025_04_24', 'IFG Webinar 2025-04-24'),
+            ('anonym_portal_webinar_2025_05_15', 'Anonym-Portal 2025-05-15'),
+            ('ifg_webinar_2025_05_27', 'IFG Webinar 2025-05-27'),
+            ('ifg_webinar_2025_06_11', 'IFG Webinar 2025-06-11'),
+            ('itk_voewg_2025_06_24', 'ITK & VÖWG Webinar 2025-06-24'),
+            ('ifg_webinar_2025_07_22', 'IFG Webinar 2025-07-22'),
+            ('ifg_webinar_2025_07_31', 'IFG Webinar 2025-07-31'),
         ],
     ),
     'x_Produktinteresse': (
         'Produktinteresse',
         [
-            'OGD Publikationsservice', 'Hinweisportal', 'Acta Nova', 'Communex',
-            'Online Formulare', 'Gemeindecloud', 'Sonstiges', 'Verwaltungsmanager',
-            'IFG', 'Anonym-Portal',
+            ('ogd', 'OGD Publikationsservice'),
+            ('hinweisgeber', 'Hinweisportal'),
+            ('rubicon', 'Acta Nova'),
+            ('intrakommuna', 'Communex'),
+            ('formulare', 'Online Formulare'),
+            ('gemeindecloud', 'Gemeindecloud'),
+            ('sonstiges', 'Sonstiges'),
+            ('verwaltungsmanager', 'Verwaltungsmanager'),
+            ('ifg', 'IFG'),
+            ('anonym_portal', 'Anonym-Portal'),
         ],
     ),
     'x_lead_status': (
         'Lead Status',
         [
-            'Lead angelegt', 'Lead aufbereitet', 'Lead kontaktiert',
-            'Nicht erreicht / Rückruf', 'On-Hold', 'Lead verloren',
-            'VK-Chance vorhanden', 'Event/Webinar angemeldet', 'Bereits Kunde',
-            'Termin vereinbart', 'Event/Webinar teilgenommen',
-            'Webinar teilgenommen bzw. angemeldet',
+            ('angelegt', 'Lead angelegt'),
+            ('aufbereitet', 'Lead aufbereitet'),
+            ('kontaktiert', 'Lead kontaktiert'),
+            ('rückruf', 'Nicht erreicht / Rückruf'),
+            ('onhold', 'On-Hold'),
+            ('leadverloren', 'Lead verloren'),
+            ('opp_vorhanden', 'VK-Chance vorhanden'),
+            ('event_angemeldet', 'Event/Webinar angemeldet'),
+            ('kunde', 'Bereits Kunde'),
+            ('termin', 'Termin vereinbart'),
+            ('event_teilngenommen', 'Event/Webinar teilgenommen'),
+            ('event_teilgenommen_angemeldet', 'Webinar teilgenommen bzw. angemeldet'),
         ],
     ),
 }
@@ -61,22 +88,30 @@ _STAGES = {
     'itk_crm.stage_angebot_ausgesendet': ('Angebot ausgesendet', 4, False, False),
     'itk_crm.stage_positive_rueckmeldung': ('Positive Rückmeldung', 5, False, False),
     'crm.stage_lead4': ('Erfolgreich', 6, False, True),
-    'itk_crm.stage_verloren': ('Verloren', 7, True, False),
+    'itk_crm.stage_verloren': ('Verloren', 7, False, False),
     'itk_crm.stage_zur_verrechnung': ('Zur Verrechnung bereit', 8, False, False),
-    'itk_crm.stage_verrechnet': ('Verrechnet', 9, True, False),
+    # Session 145: Odoo 11 fuehrt "Verrechnet" NICHT zugeklappt und zaehlt die
+    # Stufe ueber die Wahrscheinlichkeit 100 als gewonnen (192 der 195
+    # gewonnenen Chancen stehen dort). Odoo 18 entscheidet ueber is_won ->
+    # "Verrechnet" ist gewonnen, damit "Gewonnen" dieselbe Bedeutung hat.
+    'itk_crm.stage_verrechnet': ('Verrechnet', 9, False, True),
 }
 
-# Vertriebskanaele aus Odoo 11 Prod, die tatsaechlich Verkaufschancen enthalten (Session 114).
-# (Name in Odoo 11, Name des Odoo-18-Teams, Login des Teamleiters in Odoo 11 oder None)
-# Nicht enthalten: "Suche / Liste" (0 Chancen in Odoo 11) - kein Nachbau unbenutzter Teams.
+# Vertriebskanaele aus Odoo 11 Prod (Session 114/145).
+# (Name in Odoo 11, Name des Odoo-18-Teams, Login des Teamleiters, alte Odoo-18-Namen)
+# "Suche / Liste" war in Session 114 als "0 Chancen" aussortiert - das galt nur
+# fuer Verkaufschancen. Es haengen 633 INTERESSENTEN daran, deshalb ab Session 145
+# enthalten. "Webseite" heisst in Odoo 18 standardmaessig "Website" und wird
+# umbenannt statt doppelt angelegt.
 _TEAMS_11 = [
-    ('Vertriebskanäle (Intern)', 'Vertriebskanäle (Intern)', None),
-    ('Interne Weitergabe', 'Interne Weitergabe', None),
-    ('Persönlicher Kontakt', 'Persönlicher Kontakt', 'christiane.breit@it-kommunal.at'),
-    ('Webinar', 'Webinar', 'christiane.breit@it-kommunal.at'),
-    ('Telefon', 'Telefon', 'christiane.breit@it-kommunal.at'),
-    ('Newsletter', 'Newsletter', 'christiane.breit@it-kommunal.at'),
-    ('Webseite', 'Website', None),
+    ('Vertriebskanäle (Intern)', 'Vertriebskanäle (Intern)', None, ()),
+    ('Interne Weitergabe', 'Interne Weitergabe', None, ()),
+    ('Persönlicher Kontakt', 'Persönlicher Kontakt', 'christiane.breit@it-kommunal.at', ()),
+    ('Webinar', 'Webinar', 'christiane.breit@it-kommunal.at', ()),
+    ('Telefon', 'Telefon', 'christiane.breit@it-kommunal.at', ()),
+    ('Newsletter', 'Newsletter', 'christiane.breit@it-kommunal.at', ()),
+    ('Suche / Liste', 'Suche / Liste', None, ()),
+    ('Webseite', 'Webseite', None, ('Website',)),
 ]
 
 
@@ -85,6 +120,7 @@ def setup_all(env):
     _logger.info("itk_crm setup_runtime: Struktur-Setup startet...")
     _setup_custom_fields(env)
     _setup_stage_labels(env)
+    _setup_lead_classification(env)
     _setup_app_name(env)
     _setup_crm_menus(env)
     _setup_lost_reasons(env)
@@ -99,23 +135,30 @@ def setup_all(env):
 
 def _setup_custom_fields(env):
     """crm.lead: x_Lead_Quelle/x_Produktinteresse/x_lead_status char->selection
-    (idempotent). x_Anrede_Lead ist ein Modelfeld (models.py)."""
+    (idempotent). x_Anrede_Lead ist ein Modelfeld (models.py).
+
+    Seit Session 145 werden die technischen Schluessel aus Odoo 11 uebernommen
+    (z. B. 'kunde' -> 'Bereits Kunde' statt Schluessel = Anzeigetext). Nur so sind
+    die Odoo-11-Werte direkt migrierbar und die 24 Lead-Quellen bleiben getrennt.
+    """
     cr = env.cr
     Field = env['ir.model.fields']
     for fname, (label, options) in _CUSTOM_FIELDS.items():
         field = Field.search([('model', '=', 'crm.lead'), ('name', '=', fname)], limit=1)
         if not field:
+            _logger.warning("itk_crm: Custom field %s fehlt - Selection nicht gesetzt", fname)
             continue
         cr.execute(
             "UPDATE ir_model_fields SET ttype='selection' WHERE id=%s", (field.id,))
         cr.execute("DELETE FROM ir_model_fields_selection WHERE field_id=%s", (field.id,))
-        for seq, opt in enumerate(options, 1):
+        for seq, (wert, anzeige) in enumerate(options, 1):
             cr.execute(
                 "INSERT INTO ir_model_fields_selection (field_id, sequence, value, name) "
                 "VALUES (%s, %s, %s, %s::jsonb)",
-                (field.id, seq, opt, json.dumps({'en_US': opt, 'de_DE': opt})),
+                (field.id, seq, wert, json.dumps({'en_US': anzeige, 'de_DE': anzeige})),
             )
-        _logger.info("itk_crm: Custom field %s -> selection (%d Werte)", fname, len(options))
+        _logger.info("itk_crm: Custom field %s -> selection (%d Werte, Odoo-11-Schluessel)",
+                     fname, len(options))
 
 
 def _setup_stage_labels(env):
@@ -135,31 +178,70 @@ def _setup_stage_labels(env):
 def _setup_crm_teams(env):
     """Vertriebskanaele aus Odoo 11 als Odoo-18-Teams vorbereiten (idempotent).
 
-    Es werden nur Teams angelegt, die in Odoo 11 tatsaechlich Verkaufschancen
-    enthalten. Teamleiter werden gesetzt, wenn der Odoo-11-Benutzer in Odoo 18
-    existiert. Verkaufschancen werden NICHT zugeordnet (reine Stammdaten).
+    Legt fehlende Teams an, benennt Odoo-18-Standardteams auf den Odoo-11-Namen um
+    (z. B. "Website" -> "Webseite") und setzt die Teamleiter. use_leads wird wie in
+    Odoo 11 gesetzt: dort fuehrten alle Kanaele Interessenten. Verkaufschancen
+    werden NICHT zugeordnet (reine Stammdaten).
     """
     Team = env['crm.team'].sudo()
     Users = env['res.users'].sudo()
-    angelegt, aktiviert, leiter = [], [], []
-    for name_11, name_18, login in _TEAMS_11:
+    angelegt, umbenannt, aktiviert, leiter = [], [], [], []
+    for name_11, name_18, login, altnamen in _TEAMS_11:
         team = Team.with_context(active_test=False).search([('name', '=', name_18)], limit=1)
+        if not team:
+            for alt in altnamen:
+                team = Team.with_context(active_test=False).search([('name', '=', alt)], limit=1)
+                if team:
+                    team.write({'name': name_18})
+                    team.with_context(lang='de_DE').write({'name': name_18})
+                    team.with_context(lang='en_US').write({'name': name_18})
+                    umbenannt.append('%s -> %s' % (alt, name_18))
+                    break
         if not team:
             team = Team.create({'name': name_18})
             angelegt.append(name_18)
         elif not team.active:
             team.active = True
             aktiviert.append(name_18)
+        # Odoo 11: alle Kanaele fuehren Interessenten; nur "Webseite" ist reiner
+        # Website-Kanal ohne Pipeline (use_opportunities=False).
+        soll_leads = name_18 != 'Webseite'
+        soll_opp = name_18 != 'Webseite'
+        if team.use_leads != soll_leads or team.use_opportunities != soll_opp:
+            team.write({'use_leads': soll_leads, 'use_opportunities': soll_opp})
+            _logger.info("itk_crm: Team %s -> use_leads=%s use_opportunities=%s",
+                         name_18, soll_leads, soll_opp)
         if login:
             user = Users.with_context(active_test=False).search([('login', '=', login)], limit=1)
             if user and team.user_id != user:
                 team.user_id = user
                 leiter.append('%s -> %s' % (name_18, login))
-    if angelegt or aktiviert or leiter:
-        _logger.info("itk_crm: Teams vorbereitet (angelegt: %s | aktiviert: %s | Leiter: %s)",
-                     angelegt or '-', aktiviert or '-', leiter or '-')
+    if angelegt or umbenannt or aktiviert or leiter:
+        _logger.info("itk_crm: Teams vorbereitet (angelegt: %s | umbenannt: %s | aktiviert: %s | Leiter: %s)",
+                     angelegt or '-', umbenannt or '-', aktiviert or '-', leiter or '-')
     else:
         _logger.info("itk_crm: Teams bereits vollstaendig (keine Aenderung)")
+
+
+def _setup_lead_classification(env):
+    """ITK-Felder im Formular fuer Interessenten UND Verkaufschancen (idempotent).
+
+    Die Ansicht crm.lead.form.inherit.itk ist Moduldaten mit noupdate=1; eine
+    Korrektur der XML-Datei greift auf bestehenden Datenbanken deshalb nicht.
+    Odoo 11 zeigt x_lead_status, x_Produktinteresse und x_Lead_Quelle in beiden
+    Formularen - die Odoo-18-Ansicht blendete sie fuer Verkaufschancen aus.
+    """
+    View = env['ir.ui.view'].sudo()
+    view = View.with_context(active_test=False).search(
+        [('name', '=', 'crm.lead.form.inherit.itk')], limit=1)
+    if not view:
+        _logger.warning("itk_crm: Ansicht crm.lead.form.inherit.itk fehlt")
+        return
+    if 'invisible="type == \'opportunity\'"' not in (view.arch_db or ""):
+        return
+    neu = (view.arch_db or "").replace(' invisible="type == \'opportunity\'"', "")
+    view.write({'arch_db': neu})
+    _logger.info("itk_crm: Lead Classification in beiden Formularen sichtbar gemacht")
 
 
 def _setup_app_name(env):
@@ -301,22 +383,39 @@ def _setup_neue_aktivitaet_menu(env):
 
 
 def _setup_lost_reasons(env):
-    """Ensure Odoo-11-compatible Lost Reasons exist (idempotent)."""
-    LostReason = env['crm.lost.reason']
+    """Ablehnungsgruende wie in Odoo 11 - Name in Quelle, de_DE und en_US (idempotent).
 
-    # ID 2: "We don't have people/skills" → "Im Moment keinen Bedarf"
-    existing = LostReason.with_context(lang='en_US').search(
-        [('name', '=', "We don't have people/skills")], limit=1)
-    if existing:
-        existing.write({'name': 'Im Moment keinen Bedarf'})
-        _logger.info("itk_crm: Lost Reason 'Im Moment keinen Bedarf' renamed")
-    else:
-        _logger.info("itk_crm: Lost Reason 'We don't have people/skills' not found — may already be renamed")
+    Odoo 11 fuehrt fuenf Gruende. Der Odoo-18-Standard "Im Moment keinen Bedarf"
+    stand bisher nur im en_US-Slot, sichtbar war der Odoo-18-Satz "Wir haben kein
+    Personal/keine Qualifikationen". Deshalb werden alle fuenf Namen in allen drei
+    Slots geschrieben; die beiden Odoo-18-Zusatzgruende bleiben unangetastet.
+    """
+    LostReason = env['crm.lost.reason'].sudo()
 
-    for name in ('Bedarf zu gering', 'Später kontaktieren', 'Mitbewerb'):
-        if not LostReason.search([('name', '=', name)]):
-            LostReason.create({'name': name})
-            _logger.info("itk_crm: Created Lost Reason '%s'", name)
+    def _alle_slots(rec, name):
+        rec.write({'name': name})
+        rec.with_context(lang='de_DE').write({'name': name})
+        rec.with_context(lang='en_US').write({'name': name})
+
+    # Odoo-11-ID -> Name; der Odoo-18-Standardsatz (Personal/Qualifikationen)
+    # wird auf den Odoo-11-Wortlaut umbenannt, nicht geloescht.
+    gruende = {
+        'Zu teuer': ('Zu teuer', "Too expensive"),
+        'Im Moment keinen Bedarf': ('Im Moment keinen Bedarf', "We don't have people/skills"),
+        'Bedarf zu gering': ('Bedarf zu gering', None),
+        'Später kontaktieren': ('Später kontaktieren', None),
+        'Mitbewerb': ('Mitbewerb', None),
+    }
+    for name, (de, alt_en) in gruende.items():
+        rec = LostReason.with_context(active_test=False, lang='en_US').search(
+            [('name', '=', name)], limit=1)
+        if not rec and alt_en:
+            rec = LostReason.with_context(active_test=False, lang='en_US').search(
+                [('name', '=', alt_en)], limit=1)
+        if not rec:
+            rec = LostReason.create({'name': de})
+            _logger.info("itk_crm: Ablehnungsgrund '%s' angelegt", de)
+        _alle_slots(rec, de)
 
 
 def _setup_automated_action(env):
@@ -571,6 +670,29 @@ def _setup_activity_types(env):
             _logger.info("itk_crm: de_DE-Name Typ %s bereits 'Anrufen' — ok",
                          call_type.id)
 
+    # Session 145: Aktivitaetstypen, die nur in Odoo 11 existieren (Kundenverwaltung).
+    # Der Typ "zu Verloren" wird von den migrierten Aktivitaeten referenziert, die
+    # uebrigen sind Fachtypen der ITK-Arbeitsweise. "test" (Odoo 11) entfaellt.
+    _ITK_AKTIVITAETSTYPEN = [
+        ('Support', False, 'default'),
+        ('Formularerstellung', 'Erstellung Formulare für Gemeinden/GV', 'default'),
+        ('Amtssignatur Verlängerung', False, 'default'),
+        ('Bereinigungsroutine', False, 'default'),
+        ('zu Verloren', False, 'default'),
+    ]
+    for name, summary, category in _ITK_AKTIVITAETSTYPEN:
+        typ = ActivityType.with_context(active_test=False, lang='en_US').search(
+            [('name', '=', name)], limit=1)
+        if not typ:
+            typ = ActivityType.create({
+                'name': name, 'summary': summary or False, 'category': category})
+            _logger.info("itk_crm: Aktivitaetstyp '%s' angelegt", name)
+        # Quelle und beide Sprachslots einzeln schreiben. Ein dict-Write direkt nach
+        # create() landet als Zeichenkette im en_US-Slot (in Session 145 beobachtet).
+        typ.write({'name': name})
+        typ.with_context(lang='de_DE').write({'name': name})
+        typ.with_context(lang='en_US').write({'name': name})
+
     _logger.info("itk_crm: Aktivitaetstypen-Setup abgeschlossen")
 
 
@@ -594,6 +716,8 @@ _LABELS_MENUES = {
     # xmlid: deutscher Wortlaut aus Odoo 11
     'crm.menu_crm_lead_categ': 'Lead Tags',
     'crm.menu_crm_lost_reason': 'Ablehnungsgründe',
+    # Odoo 11: Berichtswesen/Interessenten (Odoo 18: "Leads")
+    'crm.crm_opportunity_report_menu_lead': 'Interessenten',
 }
 
 # Odoo 11 hatte im Berichtswesen den Menuepunkt "Vertriebskänale" (Kanban der

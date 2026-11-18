@@ -14,14 +14,19 @@ und enthaelt keine personenbezogenen Daten - nur eine Zahl.
 
 Betroffene Modelle: res.partner, res.partner.category, product.template,
 product.product, product.category, product.pricelist, product.pricelist.item,
-sale.order, sale.subscription.
+sale.order, sale.subscription sowie seit Session 145 die CRM-Objekte
+crm.lead, crm.stage, crm.team, crm.tag, crm.lost.reason, utm.source,
+utm.campaign, utm.medium, mail.activity.type sowie mail.message und
+ir.attachment (Anker fuer Chatter- und Anhangmigration).
 """,
-    "version": "18.0.1.0.0",
+    "version": "18.0.1.1.3",
     "category": "ITK - Specific Industry Applications",
     "author": "ITK Migrationsprojekt (Freigabe Anna Maierhofer)",
     "license": "LGPL-3",
-    "depends": ["base", "product", "sale", "itk_subscription"],
-    "data": [],
+    "depends": ["base", "product", "sale", "itk_subscription", "crm", "utm", "mail"],
+    "data": [
+        "security/ir.model.access.csv",
+    ],
     "installable": True,
     "application": False,
     "auto_install": False,
