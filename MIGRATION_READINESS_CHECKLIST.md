@@ -3114,7 +3114,7 @@ Benutzer 80 (Sammelkonto) -> inaktiver historischer Benutzer (1), 6.821 ueber Lo
 | Odoo-11-Funktionalitaet | Menues, Listen, Kanban, Filter, Gruppierung, Formular, Ergebnisseite, oeffentliche Umfrage im Browser belegt | erledigt |
 | Datenmigration | 2 Umfragen, 2 Abschnitte, 2 Fragen, 2 Vorgaben, 72 Teilnahmen, 71 Antworten (lokal und VM) | erledigt |
 | Beziehungen | Umfrage -> Seite/Frage/Teilnahme -> Antwort je Datensatz geprueft, 0 Abweichungen | erledigt |
-| Datenmengen | Abgleich je Instanz 409 Pruefungen OK, 0 Abweichungen; Antworttexte ueber Laenge und SHA-1 | erledigt |
+| Datenmengen | Abgleich 409 Pruefungen je Instanz; Antworttexte ueber Laenge und SHA-1. Seit 19.11. vier Abweichungen, weil Odoo 11 die Teilnahme 1624 geloescht hat (Odoo 18 behaelt sie bewusst als Historie, siehe Vergleichsdokument 7.6) | erledigt |
 | Migrationsskript | `scripts/migration/survey_migration.py`, `survey_abgleich.py`, `survey_rechte_pruefung.py`, `scripts/browser_survey_abnahme.py` | erledigt |
 | Idempotenz | 0 angelegt, 0 aktualisiert, 151 uebersprungen, 0 Fehler, 0 Dubletten (lokal und VM) | erledigt |
 | Browser lokal | 44 OK / 0 FEHL | erledigt |

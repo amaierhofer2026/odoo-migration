@@ -76,3 +76,15 @@ VM 721 OK / 13 FEHL:
 Die Rechteanpassung betrifft ausschliesslich die Modelle `survey.user_input` und
 `survey.user_input.line`; an Kontakten, Verkauf, Helpdesk, Personal und E-Mail-Marketing
 wurde nichts geaendert. Keine Regression durch diese Sitzung.
+
+## Live-Drift in Odoo 11 (19.11.2026)
+
+Odoo 11 hat nach der Migration die Teilnahme **1624** geloescht (angefangene Teilnahme an
+der Testumfrage, `state = new`, keine Antwortzeile). Odoo 11: 71 Teilnahmen. Odoo 18 lokal
+und VM: 72, weil der Datensatz als Historie erhalten bleibt - geloescht wird nur auf
+Freigabe.
+
+Der Abgleich meldet deshalb vier Abweichungen (Anzahl, Statusverteilung, Teilnahmen
+Umfrage 1, Zeitspanne); alle anderen Pruefungen bleiben deckungsgleich. Wenn der Datensatz
+auch in Odoo 18 verschwinden soll: `survey.user_input` mit `itk_o11_id = 1624` loeschen -
+eine Zeile je Instanz, danach Abgleich 409/0.

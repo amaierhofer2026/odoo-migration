@@ -437,3 +437,19 @@ Zweiter Lauf VM: 0 angelegt, 0 aktualisiert, 151 übersprungen, 0 Fehler, 0 Dubl
 Abgleich VM: 409 Prüfungen OK, 0 Abweichungen. Browser VM: 44 OK / 0 FEHL.
 Rechte VM: 17 OK / 0 FEHL.
 
+### 7.6 Live-Drift in Odoo 11 nach der Migration (19.11.2026)
+
+Odoo 11 ist produktiv. Zwischen Migration (18.11.) und Abschlusspruefung (19.11.) wurde
+dort die Teilnahme **ID 1624** geloescht: eine angefangene Teilnahme ohne Antwortzeile an
+der Testumfrage "Wird Odoo noch was?" (`state = new`, angelegt am 18.11.2026 um 13:16).
+Odoo 11 fuehrt jetzt 71 Teilnahmen, Umfrage 1 hat dort keine Teilnahme mehr.
+
+Odoo 18 (lokal und VM) behaelt den Datensatz als Historie: 72 Teilnahmen, davon eine
+`new` ohne Antwortzeile. Er wurde bewusst **nicht** geloescht - Daten werden in diesem
+Projekt nur auf ausdrueckliche Freigabe entfernt.
+
+Folge fuer den Abgleich: Er meldet genau diese vier Punkte als Abweichung (Anzahl,
+Statusverteilung, Teilnahmen je Umfrage 1, Zeitspanne). Alles andere bleibt deckungsgleich.
+Die Migration selbst ist davon nicht betroffen - der Datensatz war zum Migrationszeitpunkt
+in Odoo 11 vorhanden.
+
