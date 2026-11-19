@@ -221,10 +221,10 @@ Rechte Odoo 11:
 
 | Odoo 11 | Odoo 18 | Status | Entscheidung |
 |---|---|---|---|
-| `group_survey_user` (45 Benutzer) | "Umfragen / Benutzer" (599, 5 Benutzer inkl. technischer Konten) | anders modelliert | siehe 5.2 |
-| `group_survey_manager` (42 Benutzer) | "Umfragen / Administrator" (600, 2 Benutzer) | anders modelliert | nicht automatisch zuweisen |
+| `group_survey_user` (45 Benutzer) | "Umfragen / Benutzer" (599, 5 Benutzer inkl. technischer Konten) | anders modelliert | Rechte wie Odoo 11 über `itk_survey_security` (5.2) |
+| `group_survey_manager` (42 Benutzer) | "Umfragen / Administrator" (600, 2 Benutzer) | anders modelliert | unverändert, sieht alle Antworten |
 | Umfrage lesen nur wenn `stage_id.closed = False` | keine Einschraenkung (nur aktiv/archiviert) | anders | akzeptierte Abweichung (keine geschlossene Umfrage im Bestand) |
-| Teilnahmen nur eigene (Record Rule) | alle Teilnahmen der Umfrage, ausser "eingeschraenkte Benutzer" | **weiter gefasst** | siehe 5.2, offene Entscheidung |
+| Teilnahmen nur eigene (Record Rule) | alle Teilnahmen der Umfrage, ausser "eingeschraenkte Benutzer" | **weiter gefasst** | durch `itk_survey_security` auf Odoo-11-Verhalten zurückgeführt (5.2) |
 | Anonymes Ausfuellen (public) | `access_mode = public` | 1:1 vorhanden | keine Aenderung |
 
 ## 4 Datenmigration
@@ -277,23 +277,46 @@ Bearbeitung), es geht kein Datensatz und keine Sichtbarkeit verloren.
 Falls die Stufe sichtbar bleiben soll, waere ein ITK-Zusatzfeld (nur Anzeige und
 Gruppierung) moeglich - dafuer ist eine ausdrueckliche Entscheidung notwendig.
 
-### 5.2 Sichtbarkeit fremder Antworten (offene Entscheidung)
+### 5.2 Sichtbarkeit fremder Antworten (geloest am 19.11.2026, Session 147)
 
 - Odoo 11: normale Umfrage-Benutzer sehen **nur ihre eigenen** Antworten
   (Record Rule `create_uid = user` bzw. `partner_id = user.partner_id`).
-- Odoo 18: Benutzer der Gruppe "Umfragen / Benutzer" sehen **alle** Antworten
-  einer Umfrage; eingeschraenkt wird nur ueber das Feld "eingeschraenkte Benutzer"
+- Odoo 18 (Standard): Benutzer der Gruppe "Umfragen / Benutzer" sehen **alle**
+  Antworten; eingeschraenkt wird nur ueber das Feld "eingeschraenkte Benutzer"
   je Umfrage.
 
-Betroffen ist aktuell **ein** echter Benutzer (Wuerrer Florian) plus technische
-Konten; die Gruppe ist also nicht breit vergeben. Es wurde **nichts geaendert**:
-keine Rechteausweitung und keine Rechteruecknahme. Eine Record Rule "nur eigene
-Antworten" waere in Odoo 18 technisch fragil, weil Gruppenregeln mit ODER
-kombiniert werden und eine globale Regel auch Manager einschraenken wuerde.
+**Entscheidung (Anna Maierhofer, 19.11.2026):** Das Odoo-11-Prinzip bleibt erhalten.
+Normale Umfrage-Benutzer sehen nur ihre eigenen Teilnahmen und Antworten, Manager und
+Administratoren weiterhin alle.
 
-Moegliche Entscheidungen: (A) Odoo-18-Standard belassen und dokumentieren,
-(B) Gruppe beim betroffenen Benutzer entfernen, (C) eigenes Modul mit
-angepasster Regel. Vor der Abnahme ist hier eine Entscheidung notwendig.
+**Umsetzung:** Modul `itk_survey_security` 18.0.1.0.0 (nur Rechtekonfiguration, keine
+Felder, keine Daten). Es ueberschreibt die beiden Gruppenregeln des Moduls `survey` fuer
+`survey.user_input` und `survey.user_input.line` mit derselben XML-ID:
+
+| Regel | neue Domain |
+|---|---|
+| `survey.survey_user_input_rule_survey_user` | Umfragetyp wie bisher UND (`create_uid = user` ODER `partner_id = user.partner_id`) |
+| `survey.survey_user_input_line_rule_survey_user` | Umfragetyp wie bisher UND (`user_input_id.create_uid = user` ODER `user_input_id.partner_id = user.partner_id`) |
+
+Warum dieser Weg:
+
+- Die Regeln stehen im Modul `survey` in einem Block `noupdate="1"`; ein Upgrade von
+  `survey` setzt sie nicht zurueck, ein Upgrade von `itk_survey_security` schreibt sie
+  erneut. Die Konfiguration liegt damit im Repository, nicht in einem einmaligen Eingriff.
+- Eine **zusaetzliche** Gruppenregel wuerde nicht wirken, weil Odoo Gruppenregeln mit
+  ODER kombiniert - die bestehende Officer-Regel wuerde die Einschraenkung aushebeln.
+- Eine **globale** Regel wuerde auch Manager und Administrator einschraenken; das ist
+  ausgeschlossen.
+- Die Manager-Regeln (`survey_user_input_rule_survey_manager`,
+  `survey_user_input_line_rule_survey_manager`) bleiben unveraendert. Wer zusaetzlich in
+  "Umfragen / Administrator" ist, sieht ueber die ODER-Verknuepfung weiterhin alles. Das
+  Administratorkonto ist unberuehrt.
+- Oeffentliche Umfragen (Ausfuellen ohne Anmeldung) laufen ueber den Controller mit
+  erhoehten Rechten und sind nicht betroffen.
+
+Geprueft mit `scripts/migration/survey_rechte_pruefung.py` (28 Pruefungen je Instanz) und
+`scripts/browser_survey_rechte.py` (echter Chrome, eigene und fremde Teilnahme,
+direkte URL auf eine fremde Antwort).
 
 ### 5.3 Weitere nicht uebernommene Punkte
 
@@ -367,19 +390,21 @@ Befunde (keine Fehlschläge):
 - Die Spalte "Fragen" ist in der Umfrageliste über die Spaltenauswahl zuschaltbar.
 - Fragen werden im Formular über den Dialog "Abschnitte und Fragen erstellen" angelegt.
 
-### 7.4 Rechteprüfung lokal
+### 7.4 Rechteprüfung (nach der Rechteanpassung)
 
-`scripts/migration/survey_rechte_pruefung.py --instanz lokal`: **17 OK / 0 FEHL**.
+`scripts/migration/survey_rechte_pruefung.py`: **28 OK / 0 FEHL** je Instanz.
 
-| Rolle | Umfragen lesen | fremde Teilnahmen | anlegen/bearbeiten/löschen |
-|---|---|---|---|
-| Interner Benutzer ohne Umfragegruppe | nein (0 sichtbar) | nein | nein |
-| Umfragen / Benutzer | ja (2) | **ja (72)** | ja |
-| Umfragen / Administrator | ja (2) | ja (72) | ja |
+| Rolle | Umfragen lesen | eigene Teilnahme | fremde Teilnahmen | Verwalten |
+|---|---|---|---|---|
+| Interner Benutzer ohne Umfragegruppe | nein | nein | nein | nein |
+| Umfragen / Benutzer | ja (2) | ja (genau 1 sichtbar) | nein (Suche, direkter Zugriff und Schreiben verweigert) | ja |
+| Umfragen / Administrator | ja (2) | ja | ja (72 migrierte plus Testteilnahmen) | ja |
 
-Die zweite Zeile ist die in Abschnitt 5.2 beschriebene Abweichung zu Odoo 11: dort sah
-ein normaler Umfrage-Benutzer nur seine eigenen Antworten. Es wurde **nichts geändert**;
-die Entscheidung steht aus.
+`scripts/browser_survey_rechte.py`: **6 OK / 0 FEHL** je Instanz. Ein normaler
+Umfrage-Benutzer sieht in der Teilnahmenliste genau die eigene Teilnahme; die direkte URL
+auf eine fremde Teilnahme endet im Odoo-Zugriffsfehler ("Es sieht so aus, als wären Sie
+über einige streng geheime Datensätze gestolpert"). Der Administrator sieht alle
+Teilnahmen und öffnet die fremde Antwort.
 
 ### 7.5 Datenmigration VM
 

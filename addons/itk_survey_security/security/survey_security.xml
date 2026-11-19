@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        Odoo 11: normale Umfrage-Benutzer sehen nur ihre eigenen Teilnahmen und
+        Antworten (create_uid = user oder partner_id = user.partner_id).
+
+        Die beiden Regeln werden mit der XML-ID des Moduls survey ueberschrieben.
+        Der Datensatz liegt dort in einem Block noupdate="1", ein Upgrade von survey
+        setzt ihn also nicht zurueck - ein Upgrade dieses Moduls schreibt ihn erneut.
+        Die Manager-Regeln (Gruppe "Umfragen / Administrator") bleiben unveraendert:
+        Odoo kombiniert Gruppenregeln mit ODER, Manager sehen weiterhin alles.
+    -->
+
+    <record id="survey.survey_user_input_rule_survey_user" model="ir.rule">
+        <field name="name">Survey user input: officer: eigene Teilnahmen (ITK, wie Odoo 11)</field>
+        <field name="model_id" ref="survey.model_survey_user_input"/>
+        <field name="groups" eval="[(4, ref('survey.group_survey_user'))]"/>
+        <field name="domain_force">[
+            ('survey_id.survey_type', 'in', ('assessment', 'custom', 'live_session', 'survey')),
+            '|', ('create_uid', '=', user.id),
+                 ('partner_id', '=', user.partner_id.id)
+        ]</field>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="survey.survey_user_input_line_rule_survey_user" model="ir.rule">
+        <field name="name">Survey user input line: officer: eigene Antworten (ITK, wie Odoo 11)</field>
+        <field name="model_id" ref="survey.model_survey_user_input_line"/>
+        <field name="groups" eval="[(4, ref('survey.group_survey_user'))]"/>
+        <field name="domain_force">[
+            ('survey_id.survey_type', 'in', ('assessment', 'custom', 'live_session', 'survey')),
+            '|', ('user_input_id.create_uid', '=', user.id),
+                 ('user_input_id.partner_id', '=', user.partner_id.id)
+        ]</field>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+</odoo>

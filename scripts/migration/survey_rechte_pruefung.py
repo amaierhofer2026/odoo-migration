@@ -1,19 +1,20 @@
 # -*- coding: utf-8 -*-
-"""Rechtepruefung Umfragen / Survey mit drei Rollen (Session 146).
+"""Rechtepruefung Umfragen / Survey (Session 147, nach der Rechteanpassung).
 
-Legt drei temporaere Benutzer an (ohne Umfragegruppe, "Umfragen / Benutzer",
-"Umfragen / Administrator"), meldet sich ALS JEWEILS DIESER BENUTZER an und
-prueft Lesen/Anlegen/Bearbeiten/Loeschen sowie die Sichtbarkeit fremder
-Teilnahmen. Danach werden Benutzer und automatisch angelegte Kontakte entfernt.
+Prueft das Odoo-11-Prinzip: normale Umfrage-Benutzer sehen nur ihre eigenen
+Teilnahmen und Antworten, Manager und Administratoren sehen alles.
 
-Erwartungen (Odoo-18-Standard, keine Rechteausweitung durch die Migration):
+Ablauf je Rolle: temporaeren Benutzer anlegen, als dieser anmelden, eigene
+Teilnahme erzeugen, eigene sehen, fremde nicht sehen, direkter Zugriff auf eine
+fremde Teilnahme (wie eine URL auf den Datensatz), Schreibversuch auf fremde
+Daten, fremde Antwortzeile, Gesamtzahl. Danach alle Testdaten entfernen.
+
+Erwartungen (nach der Rechteanpassung, Modul itk_survey_security):
 
   ohne Gruppe      : kein Zugriff auf Umfragen oder Teilnahmen (AccessError)
-  Umfragen/Benutzer: lesen, anlegen, bearbeiten, loeschen von Umfragen UND
-                     Teilnahmen; sieht ALLE Teilnahmen (Dokumentierte Abweichung
-                     zu Odoo 11, dort nur eigene - siehe
-                     docs/o11-o18-vergleich-survey.md, Abschnitt 5.2)
-  Umfragen/Admin   : wie Benutzer, zusaetzlich alles ohne Einschraenkung
+  Umfragen/Benutzer: Umfragen lesen/verwalten wie bisher, Teilnahmen und Antworten
+                     NUR die eigenen (create_uid = user bzw. partner_id-Prinzip)
+  Umfragen/Admin   : sieht alle Teilnahmen und Antworten (Manager-Regel, ODER)
 
 Aufruf:
     python scripts/migration/survey_rechte_pruefung.py --instanz lokal
@@ -36,12 +37,12 @@ CTX_ALLE = {"lang": "de_DE", "active_test": False}
 # (Login-Praefix, Anzeige, Gruppen-XML-IDs, Erwartung)
 ROLLEN = [
     ("ohne", "Interner Benutzer ohne Umfragegruppe", ["base.group_user"],
-     {"lesen": False, "anlegen": False, "fremde": False, "loeschen": False}),
+     {"lesen": False, "eigene": False, "fremde": False, "anlegen": False, "verwalten": False}),
     ("user", "Umfragen / Benutzer", ["base.group_user", "survey.group_survey_user"],
-     {"lesen": True, "anlegen": True, "fremde": True, "loeschen": True}),
+     {"lesen": True, "eigene": True, "fremde": False, "anlegen": True, "verwalten": True}),
     ("admin", "Umfragen / Administrator",
      ["base.group_user", "survey.group_survey_manager", "survey.group_survey_user"],
-     {"lesen": True, "anlegen": True, "fremde": True, "loeschen": True}),
+     {"lesen": True, "eigene": True, "fremde": True, "anlegen": True, "verwalten": True}),
 ]
 
 
@@ -80,17 +81,25 @@ def main() -> int:
     vorher = {m: o18.kw(m, "search_count", [[]], context=CTX_ALLE)
               for m in ("survey.survey", "survey.user_input", "res.partner")}
     print("Ausgangsstand: %s" % vorher)
-    fremde_inputs = o18.kw("survey.user_input", "search_count",
-                           [[("create_uid", "not in", [1])]], context=CTX_ALLE)
 
-    angelegt, konten = [], []
-    neu_umfrage = None
+    # Fremde Teilnahme = migrierte Teilnahme (gehoert dem Administrator)
+    fremd = o18.kw("survey.user_input", "search", [[("itk_o11_id", "!=", False)]],
+                   context=CTX_ALLE, limit=1)
+    fremd_id = fremd[0] if fremd else None
+    fremde_zeile = None
+    if fremd_id:
+        z = o18.kw("survey.user_input.line", "search", [[("user_input_id", "=", fremd_id)]],
+                   context=CTX_ALLE, limit=1)
+        fremde_zeile = z[0] if z else None
+    print("Fremde Teilnahme (Administrator): %s, Antwortzeile: %s" % (fremd_id, fremde_zeile))
+
+    angelegt, konten, eigene_inputs = [], [], []
     try:
         for praefix, label, xmlids, erwartung in ROLLEN:
             pwd = "Itk!%s" % secrets.token_urlsafe(12)
-            login = "itk_s146_%s@example.invalid" % praefix
+            login = "itk_s147_%s@example.invalid" % praefix
             uid = o18.kw("res.users", "create", [{
-                "name": "ITK Test %s (S146)" % label,
+                "name": "ITK Test %s (S147)" % label,
                 "login": login,
                 "email": login,
                 "password": pwd,
@@ -104,10 +113,11 @@ def main() -> int:
             except Exception as exc:  # noqa: BLE001
                 pruefe(False, "%s kann sich anmelden (%s)" % (label, str(exc)[:80]))
                 continue
+            eigen_ctx = {"lang": "de_DE"}
 
-            # Lesen
+            # 1 Umfragen lesen
             try:
-                n = eigen.kw("survey.survey", "search_count", [[]], context=CTX)
+                n = eigen.kw("survey.survey", "search_count", [[]], context=eigen_ctx)
                 lesen = True
             except Exception:  # noqa: BLE001
                 n, lesen = 0, False
@@ -115,79 +125,131 @@ def main() -> int:
                    "%s Umfragen lesen: erwartet %s, ist %s (%d sichtbar)"
                    % (label, erwartung["lesen"], lesen, n))
 
-            # Teilnahmen lesen und fremde Antworten
+            # 2 Eigene Teilnahme anlegen und sehen
+            eigene_id = None
+            anlegen_ok = False
             try:
-                n_in = eigen.kw("survey.user_input", "search_count", [[]], context=CTX)
-                sichtbar = eigen.kw("survey.user_input", "search_count",
-                                    [[("itk_o11_id", "!=", False)]], context=CTX)
-                sieht_fremd = sichtbar > 0
-            except Exception:  # noqa: BLE001
-                n_in, sieht_fremd, sichtbar = 0, False, 0
-            pruefe(sieht_fremd == erwartung["fremde"],
-                   "%s sieht fremde Teilnahmen: erwartet %s, ist %s "
-                   "(%d migrierte Teilnahmen sichtbar, %d insgesamt)"
-                   % (label, erwartung["fremde"], sieht_fremd, sichtbar, n_in))
-
-            # Anlegen
-            neu_id, anlegen_ok = None, False
-            try:
-                r = eigen.kw("survey.survey", "create", [[{
-                    "title": "RECHTETEST S146 %s" % label, "survey_type": "survey"}]],
-                    context=CTX)
-                neu_id = r[0] if isinstance(r, list) else r
+                r = eigen.kw("survey.user_input", "create",
+                             [{"survey_id": 1, "state": "new"}], context=eigen_ctx)
+                eigene_id = r[0] if isinstance(r, list) else r
                 anlegen_ok = True
+                eigene_inputs.append(eigene_id)
             except Exception:  # noqa: BLE001
                 pass
             pruefe(anlegen_ok == erwartung["anlegen"],
-                   "%s Umfrage anlegen: erwartet %s, ist %s"
+                   "%s eigene Teilnahme anlegen: erwartet %s, ist %s"
                    % (label, erwartung["anlegen"], anlegen_ok))
-
-            if neu_id:
-                if not neu_umfrage:
-                    neu_umfrage = neu_id
+            if eigene_id:
                 try:
-                    eigen.kw("survey.survey", "write", [[neu_id], {"title": "RECHTETEST S146 x"}],
-                             context=CTX)
+                    eigene_sichtbar = eigen.kw("survey.user_input", "search_count",
+                                               [[("id", "=", eigene_id)]],
+                                               context=eigen_ctx) == 1
+                except Exception:  # noqa: BLE001
+                    eigene_sichtbar = False
+                pruefe(eigene_sichtbar == erwartung["eigene"],
+                       "%s sieht die eigene Teilnahme: erwartet %s, ist %s"
+                       % (label, erwartung["eigene"], eigene_sichtbar))
+
+            if fremd_id:
+                # 3 Fremde Teilnahme in der Suche
+                try:
+                    n_fremd = eigen.kw("survey.user_input", "search_count",
+                                       [[("id", "=", fremd_id)]], context=eigen_ctx)
+                except Exception:  # noqa: BLE001
+                    n_fremd = 0
+                pruefe((n_fremd == 1) == erwartung["fremde"],
+                       "%s sieht fremde Teilnahme in der Suche: erwartet %s, ist %s"
+                       % (label, erwartung["fremde"], n_fremd == 1))
+
+                # 4 Direkter Zugriff (wie eine URL auf den fremden Datensatz)
+                try:
+                    zugriff = bool(eigen.kw("survey.user_input", "read",
+                                            [[fremd_id], ["id"]], context=eigen_ctx))
+                except Exception:  # noqa: BLE001
+                    zugriff = False
+                pruefe(zugriff == erwartung["fremde"],
+                       "%s direkter Zugriff auf fremde Teilnahme: erwartet %s, ist %s"
+                       % (label, erwartung["fremde"], zugriff))
+
+                # 5 Schreiben auf fremde Daten
+                try:
+                    schreiben = bool(eigen.kw("survey.user_input", "write",
+                                              [[fremd_id], {"deadline": False}],
+                                              context=eigen_ctx))
+                except Exception:  # noqa: BLE001
+                    schreiben = False
+                pruefe(schreiben == erwartung["fremde"],
+                       "%s darf fremde Teilnahme bearbeiten: erwartet %s, ist %s"
+                       % (label, erwartung["fremde"], schreiben))
+
+            # 6 Fremde Antwortzeile
+            if fremde_zeile:
+                try:
+                    z_ok = bool(eigen.kw("survey.user_input.line", "read",
+                                         [[fremde_zeile], ["id"]], context=eigen_ctx))
+                except Exception:  # noqa: BLE001
+                    z_ok = False
+                pruefe(z_ok == erwartung["fremde"],
+                       "%s sieht fremde Antwortzeile: erwartet %s, ist %s"
+                       % (label, erwartung["fremde"], z_ok))
+
+            # 7 Gesamtzahl sichtbarer Teilnahmen
+            try:
+                gesamt = eigen.kw("survey.user_input", "search_count", [[]],
+                                  context=eigen_ctx)
+            except Exception:  # noqa: BLE001
+                gesamt = -1
+            if erwartung["fremde"]:
+                pruefe(gesamt >= vorher["survey.user_input"],
+                       "%s sieht alle Teilnahmen (%d, davon %d migriert)"
+                       % (label, gesamt, vorher["survey.user_input"]))
+            else:
+                pruefe(gesamt <= 1, "%s sieht hoechstens die eigene Teilnahme (%d)"
+                       % (label, gesamt))
+
+            # 8 Umfragen verwalten (Anlegen/Bearbeiten/Loeschen) - unveraendert
+            neu_id, verwalten_ok = None, False
+            try:
+                r = eigen.kw("survey.survey", "create", [[{
+                    "title": "RECHTETEST S147 %s" % label, "survey_type": "survey"}]],
+                    context=eigen_ctx)
+                neu_id = r[0] if isinstance(r, list) else r
+                verwalten_ok = True
+            except Exception:  # noqa: BLE001
+                verwalten_ok = False
+            pruefe(verwalten_ok == erwartung["verwalten"],
+                   "%s Umfrage anlegen: erwartet %s, ist %s"
+                   % (label, erwartung["verwalten"], verwalten_ok))
+            if neu_id:
+                try:
+                    eigen.kw("survey.survey", "write",
+                             [[neu_id], {"title": "RECHTETEST S147 x"}], context=eigen_ctx)
                     pruefe(True, "%s darf Umfrage bearbeiten" % label)
                 except Exception:  # noqa: BLE001
                     pruefe(False, "%s darf Umfrage bearbeiten" % label)
-                geloescht = False
                 try:
-                    eigen.kw("survey.survey", "unlink", [[neu_id]], context=CTX)
-                    geloescht = True
-                    neu_umfrage = None
+                    eigen.kw("survey.survey", "unlink", [[neu_id]], context=eigen_ctx)
+                    pruefe(True, "%s darf Umfrage loeschen" % label)
                 except Exception:  # noqa: BLE001
-                    pass
-                pruefe(geloescht == erwartung["loeschen"],
-                       "%s Umfrage loeschen: erwartet %s, ist %s"
-                       % (label, erwartung["loeschen"], geloescht))
-
-            # Konfiguration (Stufen gibt es in Odoo 18 nicht; Vorgaben schon)
-            try:
-                ids = eigen.kw("survey.question", "search", [[]], context=CTX, limit=1)
-                if ids:
-                    eigen.kw("survey.question", "write", [ids, {"sequence": 1}], context=CTX)
-                    pruefe(True, "%s darf Fragen bearbeiten" % label)
-                else:
-                    pruefe(erwartung["lesen"], "%s Fragenzugriff: erwartet wie Lesen" % label)
-            except Exception:  # noqa: BLE001
-                pruefe(not erwartung["lesen"], "%s darf Fragen nicht bearbeiten" % label)
+                    pruefe(False, "%s darf Umfrage loeschen" % label)
     finally:
         for uid in angelegt:
             info = o18.kw("res.users", "read", [[uid], ["partner_id"]], context=CTX)
             if info and info[0].get("partner_id"):
                 konten.append(info[0]["partner_id"][0])
+        if eigene_inputs:
+            o18.kw("survey.user_input", "unlink", [eigene_inputs])
         if angelegt:
             o18.kw("res.users", "unlink", [angelegt])
         if konten:
             o18.kw("res.partner", "unlink", [konten])
         rest = o18.kw("survey.survey", "search",
-                      [[("title", "like", "RECHTETEST S146")]], context=CTX_ALLE)
+                      [[("title", "like", "RECHTETEST S147")]], context=CTX_ALLE)
         if rest:
             o18.kw("survey.survey", "unlink", [rest])
         nachher = {m: o18.kw(m, "search_count", [[]], context=CTX_ALLE)
                    for m in ("survey.survey", "survey.user_input", "res.partner")}
-        print("\nAufraeumen: Testbenutzer und Kontakte entfernt")
+        print("\nAufraeumen: Testbenutzer, Testteilnahmen und Kontakte entfernt")
         print("Endstand: %s" % nachher)
         pruefe(nachher == vorher, "Keine Testdaten zurueckgeblieben")
 
