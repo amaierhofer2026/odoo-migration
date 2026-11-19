@@ -23,6 +23,8 @@ Freigabe. Teil des ITK-Migrationsprojekts, ausgeführt unter Freigabe von Anna M
   `survey.user_input` und `survey.user_input.line` sowie den Zeitstempel-Importweg
   für diese Modelle bereit.
 - Modul `survey` (Odoo 18.0.3.7) muss installiert sein – es ist auf lokal und VM installiert.
+- Modul `itk_survey_security` (18.0.1.0.0) setzt die Sichtbarkeit der Antworten auf das
+  Odoo-11-Prinzip zurück (normale Benutzer sehen nur eigene Teilnahmen, Manager alles).
 
 ## Trockenlauf (Standard, schreibt nichts)
 
