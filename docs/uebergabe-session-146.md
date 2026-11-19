@@ -61,8 +61,8 @@ Dokumentation, Branch/Push/PR/Merge, VM nachziehen.
 3. **Entscheidung K1 (Stufen)**: Odoo 18 hat kein Stufenmodell. Vorschlag: Odoo-18-Standard
    belassen (Geschlossen = archiviert), dokumentiert. Kein Feld nachgebaut.
 4. **Entscheidung K2 (Rechte)**: In Odoo 11 sah ein normaler Umfrage-Benutzer nur eigene
-   Antworten, in Odoo 18 sieht "Umfragen / Benutzer" alle (betroffen: 1 echter Benutzer).
-   Nichts geaendert; drei Optionen im Vergleichsdokument (Abschnitt 5.2).
+   Antworten, in Odoo 18 sah "Umfragen / Benutzer" alle. **Geloest in Session 147** durch
+   das Modul `itk_survey_security` - siehe `docs/uebergabe-session-147.md`.
 5. **Erledigt:** Checkliste, PROJECT_KNOWLEDGE, README und diese Datei stehen auf
    "ABGENOMMEN UND GESPERRT"; der Dreistand ist nachgewiesen.
 
