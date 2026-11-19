@@ -158,3 +158,13 @@ class ItkValorisierung(models.Model):
     """Valorisierungshinweise (Odoo 11: itk_valorisierung.valorisierung)."""
     _inherit = "itk_valorisierung.valorisierung"
     itk_o11_id = fields.Integer(string="Odoo-11-ID", index=True, copy=False)
+
+# --- Rechnungen / Belege (Session 148, Nachlauf Valorisierung) -------------
+class AccountMove(models.Model):
+    """Rechnungen und Belege (Odoo 11: account.invoice).
+
+    Der Anker wird fuer den Nachlauf der Valorisierungs-Rechnungsbeziehungen
+    benoetigt und ist Voraussetzung fuer die Rechnungsmigration.
+    """
+    _inherit = "account.move"
+    itk_o11_id = fields.Integer(string="Odoo-11-ID", index=True, copy=False)

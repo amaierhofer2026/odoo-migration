@@ -3188,7 +3188,9 @@ Personal wurde in dieser Sitzung nicht veraendert.
 | Rechtepruefung | 11 OK / 0 je Instanz, drei Rollen, Testbenutzer und Kontakte entfernt, Bestand vorher = nachher | erledigt |
 | Browser lokal | 15 OK / 0 (Liste, Spalten, Formular mit Text, Suche "2024" = 3, Filter/Gruppierung, Anlegen, Rechnungsfeld, Testdaten entfernt) | erledigt |
 | Browser VM | 15 OK / 0 (Liste 11 Eintraege, Texte sichtbar, Suche '2024' = 3, Anlegen, Rechnungsfeld), Screenshot gesichtet | erledigt |
-| Rechnungsverknuepfung | 4.216 Odoo-11-Rechnungen mit Hinweis; Rechnungen nicht migriert -> Nachzug mit der Abrechnung; Skript meldet offene Faelle bei jedem Lauf | dokumentierte Abhaengigkeit |
+| Rechnungsverknuepfung | 4.216 Odoo-11-Rechnungen mit Hinweis; Rechnungen nicht migriert -> **offene externe Abhaengigkeit Abrechnung**, Nachlauf im Skript vorhanden (`--nachlauf-rechnungen`) und mit 5 Rechnungen getestet (1 korrekt, 4 gesetzt, Korrektur, 0 Verteilungsabweichungen, 2. Lauf 0 zu setzen) | dokumentierte Abhaengigkeit |
+| Anker `account.move` | `itk_o11_id` neu eingefuehrt (`itk_migration_keys` 18.0.1.4.0, unsichtbar, Index) - Voraussetzung fuer den Nachlauf und die Rechnungsmigration | erledigt |
+| Testdatensatz VAL-OK | technischer Odoo-18-Testdatensatz ohne Odoo-11-Gegenstueck; kein fachlicher Bestand, kann vom Nachlauf nie als Ziel verwendet werden, wird mit den Testrechnungen der Abrechnungsrunde entfernt | dokumentiert |
 | Testdatensatz "VAL-OK" | kein Odoo-11-Gegenstueck, von 3 Testrechnungen genutzt - nicht geloescht, dokumentiert | dokumentiert |
 | Migrationsskript | Trockenlauf Standard, `--ausfuehren --ich-habe-freigabe`, Schreibschutz-Wrapper, Mapping-Export ausserhalb des Repos | erledigt |
 | Doku | Vergleich, Migrationstechnik, Inventur, PROJECT_KNOWLEDGE, README, Uebergabe 148 | erledigt |
@@ -3197,3 +3199,29 @@ Personal wurde in dieser Sitzung nicht veraendert.
 | Gesperrte Bereiche | nicht veraendert (Survey, CRM, Abrechnung, Projekt, Personal, Helpdesk, Events, Marketing, Website, Massenbearbeitung, Verkauf, Abonnements, Kontakte) | erledigt |
 | Dreistand | lokal = GitHub main = VM, Arbeitsbaeume sauber | erledigt |
 | STATUS | **VALORISIERUNG = ABGENOMMEN UND GESPERRT** (19.11.2026) | abgenommen |
+
+### Offene externe Abhaengigkeit Abrechnung (verbindlich, 19.11.2026)
+
+Die 10 Valorisierungshinweise sind vollstaendig migriert, abgeglichen und abgenommen.
+**Nicht** migriert sind die 4.216 Rechnungsbeziehungen, weil die Rechnungen selbst noch
+nicht in Odoo 18 sind. Das ist kein Mangel der Valorisierung, sondern eine externe
+Abhaengigkeit.
+
+**Verbindlich:** Nach Abschluss der Abrechnungsmigration sind alle
+Valorisierungs-Rechnungsbeziehungen automatisch nachzuziehen und erneut zu pruefen:
+
+```
+python scripts/migration/valorisierung_migration.py --instanz lokal|vm --nachlauf-rechnungen
+python scripts/migration/valorisierung_migration.py --instanz lokal|vm --nachlauf-rechnungen --ausfuehren --ich-habe-freigabe
+python scripts/migration/valorisierung_abgleich.py --instanz lokal|vm
+```
+
+Der Nachlauf findet alle Odoo-11-Rechnungen mit Hinweis, ermittelt die migrierte
+Odoo-18-Rechnung ueber `account.move.itk_o11_id`, setzt nur abweichende Beziehungen
+(idempotent), meldet nicht zuordenbare Faelle mit technischen IDs und prueft Anzahl und
+Verteilung je Hinweis gegen Odoo 11. Erwartetes Ergebnis nach dem Nachlauf: 4.216
+verbundene Rechnungen, 0 nicht zuordenbar, 0 Verteilungsabweichungen, Abgleich ohne
+Abweichung.
+
+Bis dahin gilt: **VALORISIERUNG (Stammdaten) = ABGENOMMEN UND GESPERRT**, mit einer
+offenen externen Abhaengigkeit, die nach der Abrechnung zwingend nachzuprufen ist.

@@ -9886,4 +9886,26 @@ Produktive Laeufe nicht ausgefuehrt; Schreibpfade ohne Stammdatenzuordnung gespe
   Dieselben neun Fehlschlaege wie bisher (Kontakte 4, Verkauf 4, Helpdesk 1), alle als
   Werkzeuggrenzen belegt; die VM hat im Verkauf 11 Pruefungen weniger (kleinere Datenlage).
   Keine Regression durch Valorisierung.
+- **Nachlauf Rechnungsverknuepfung (verbindliche externe Abhaengigkeit):** Der
+  Rechnungsbezug ist mit `--nachlauf-rechnungen` im selben Skript umgesetzt (Trockenlauf
+  Standard, Schreiben nur mit Freigabe). Er ordnet ueber `account.move.itk_o11_id` zu,
+  setzt nur abweichende Beziehungen, meldet nicht zuordenbare Rechnungen mit technischen
+  IDs und prueft Anzahl und Verteilung je Hinweis gegen Odoo 11. Getestet mit 5 echten
+  Odoo-11-Rechnungen und 5 vorhandenen Odoo-18-Testrechnungen (danach zurueckgenommen):
+  1 korrekt / 4 gesetzt / 0 Verteilungsabweichungen, zweiter Lauf idempotent. Der Anker
+  `itk_o11_id` auf `account.move` wurde dafuer eingefuehrt (`itk_migration_keys`
+  18.0.1.4.0) - er ist ohnehin Voraussetzung der Rechnungsmigration.
+- **Der Abgleich unterscheidet jetzt drei Zustaende:** bestanden, Abweichung und "OFFEN
+  (nicht pruefbar)". Solange keine Rechnung migriert ist, wird die Rechnungsverknuepfung
+  als offene externe Abhaengigkeit ausgewiesen und nicht als bestanden gezaehlt.
+- **Werkzeugfehler, behoben:** Die Rechtepruefung schrieb `seq = 0` auf den **ersten
+  echten** Hinweis und veraenderte damit dessen `write_date`. Sie legt jetzt ein eigenes
+  Schreibziel an und raeumt es ab. Zweiter Fehler: der Zeitstempel-Vergleich prueft nur
+  `create_date` und Ersteller - `write_date` fehlte und damit auch die Reparatur. Beides
+  behoben, Abgleich danach 64 OK / 0 Abweichungen.
+- **Testdatensatz "VAL-OK"** ist kein Odoo-11-Bestand, sondern ein technischer
+  Odoo-18-Testdatensatz (kein Anker, kein Text). Er wird mit den Testrechnungen der
+  Abrechnungsrunde entfernt und kann vom Nachlauf nie als Ziel gewaehlt werden. Vor
+  Produktivstart muss `itk_valorisierung_valorisierung` keine Saetze ohne `itk_o11_id`
+  enthalten.
 - Doku: `docs/o11-o18-vergleich-valorisierung.md`, `docs/migration/valorisierung_migration.md`.
