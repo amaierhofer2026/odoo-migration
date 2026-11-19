@@ -79,7 +79,7 @@ Feldabweichung nur 24 `vat`-Formatfaelle (Odoo normalisiert USt-ID-Formate).
 | Skript | Zweck | Modus | Stand |
 |---|---|---|---|
 | `scripts/migration/valorisierung_migration.py` | 10 Valorisierungshinweise: Beschreibungstext, Anker `itk_o11_id`, Zeitstempel; Rechnungsbezug pruefen und offene Faelle melden | Trockenlauf Standard, `--ausfuehren --ich-habe-freigabe` | lokal 0/0/10/0/0 |
-| `scripts/migration/valorisierung_abgleich.py` | feldweiser Abgleich O11 <-> O18 (Code, Text per Pruefsumme, Nummernfolge, Daten, Ersteller, Textsumme) | nur lesend | 65 OK / 0 Abweichungen (lokal) |
+| `scripts/migration/valorisierung_abgleich.py` | feldweiser Abgleich O11 <-> O18 (Code, Text per Pruefsumme, Nummernfolge, Daten, Ersteller, Textsumme) sowie fachliche Rechnungspruefung, sobald Rechnungen einen Anker haben | nur lesend | 64 OK / 0 Abweichungen / 1 offene Abhaengigkeit (lokal und VM) |
 | `scripts/migration/valorisierung_rechte_pruefung.py` | drei Rollen (ohne ITK-Gruppe, User, Manager) lesen/schreiben/anlegen/loeschen, Aufraeumen | schreibend (temporaer) | 11 OK / 0 (lokal) |
 | `scripts/browser_valorisierung_daten_abnahme.py` | Browserabnahme nach Migration: Liste, Formular, Suche, Filter, Anlegen, Rechnungsfeld | echter Chrome | 15 OK / 0 (lokal) |
 | `scripts/browser_valorisierung_abnahme.py` | Strukturabnahme aus Session 129 (unveraendert weitergenutzt) | echter Chrome | Bestand |

@@ -3182,7 +3182,7 @@ Personal wurde in dieser Sitzung nicht veraendert.
 | Vergleich Odoo 18 | Struktur 1:1 vorhanden; Texte fehlten (0 von 10), Anker fehlte, Rechte zu weit, Testdatensatz "VAL-OK" ohne Gegenstueck | erledigt |
 | Datenmigration | 10 Beschreibungstexte, `itk_o11_id`, Erstell-/Bearbeitungsdatum und Ersteller nachgezogen | erledigt |
 | Idempotenz | 2. und 3. Lauf: 0 angelegt, 0 aktualisiert, 10 uebersprungen, 0 Fehler, 0 Dubletten | erledigt |
-| Datenabgleich | 65 Pruefungen OK / 0 Abweichungen (Code, Text per SHA1-Pruefsumme, Nummernfolge, Daten, Ersteller, Textsumme 1.462) | erledigt |
+| Datenabgleich | 64 Pruefungen OK / 0 Abweichungen, 1 offene Abhaengigkeit (Code, Text per SHA1-Pruefsumme, Nummernfolge, Daten, Ersteller, Textsumme 1.462) | erledigt |
 | Benutzerzuordnung | Odoo-11-`admin` -> bestehendes Konto Administrator (Regel wie CRM), 9 Saetze ueber Login (martina.waiss@...) | erledigt |
 | Rechte Odoo 18 | ITK/User nur lesen, ITK/Manager alles; Regel ohne Gruppe entfernt; Administrator unveraendert | erledigt |
 | Rechtepruefung | 11 OK / 0 je Instanz, drei Rollen, Testbenutzer und Kontakte entfernt, Bestand vorher = nachher | erledigt |
