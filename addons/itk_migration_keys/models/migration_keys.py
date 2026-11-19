@@ -152,3 +152,9 @@ class SurveyUserInputLine(models.Model):
     _inherit = "survey.user_input.line"
     itk_o11_id = fields.Integer(string="Odoo-11-ID", index=True, copy=False)
 
+
+# --- Valorisierung (Session 148) -------------------------------------------
+class ItkValorisierung(models.Model):
+    """Valorisierungshinweise (Odoo 11: itk_valorisierung.valorisierung)."""
+    _inherit = "itk_valorisierung.valorisierung"
+    itk_o11_id = fields.Integer(string="Odoo-11-ID", index=True, copy=False)

@@ -9813,3 +9813,64 @@ Produktive Laeufe nicht ausgefuehrt; Schreibpfade ohne Stammdatenzuordnung gespe
   `itk_migration_keys` 18.0.1.2.1. Doku: `docs/o11-o18-vergleich-survey.md`,
   `docs/migration/survey_migration.md`, Uebergabe 146.
 
+
+## Session 148 (19.11.2026) - Bereich VALORISIERUNG: Vergleich, Rechte, Datenmigration, Abnahme
+
+- **Bestand Odoo 11 (read-only, frisch gemessen):** Modul `itk_valorisierung`, Modell
+  `itk_valorisierung.valorisierung` mit `name` (Code), `description` (Beschreibung),
+  `seq` (Nummernfolge), `_order = seq asc`. **10 Hinweise** (2019 bis 2026), alle mit
+  Text (1.462 Zeichen gesamt), alle `seq = 0`, kein `active`-Feld. **Keine** berechneten
+  Felder, **keine** Crons oder Automationen, **keine** eigenen Record Rules.
+  Rechnungsbezug: `account.invoice.valorisierung_id` an **4.216 von 6.378** Rechnungen
+  (4.208 Ausgangsrechnungen, 8 Gutschriften; 4.211 bezahlt, 4 offen, 1 Entwurf).
+  Verteilung nach Jahr: 2019 = 1, 2020 = 460, 2021 = 534, 2022 = 553, 2023 = 644,
+  2024 = 639, "2024 Acta Nova" = 8, "2024 gerundet" = 30, 2025 = 697, 2026 = 650.
+  Die Prozentsaetze stehen **nur im Text** - es gibt kein Prozent- oder Betragsfeld,
+  also auch keine Berechnungslogik zu migrieren.
+- **Odoo 18 vorher:** Modul `itk_valorisierung` 18.0.1.3.0 mit denselben Feldern,
+  Ansichten, Menue (Abrechnung > Konfiguration > Valorisierung) und dem Feld
+  `valorisierung_id` auf `account.move` (Rechnungsformular, Gruppe nach `notice`).
+  Die 10 Saetze existierten als Modul-Daten (`valorisierung_o11_<id>`, `noupdate="1"`),
+  aber **ohne Beschreibungstext**; dazu ein Testdatensatz "VAL-OK" (kein Odoo-11-
+  Gegenstueck), der von 3 Testrechnungen der Abrechnungsrunde verwendet wird.
+- **Rechte waren zu weit:** eine Access-Regel auf `base.group_user` mit allen Rechten,
+  zusaetzlich eine in der Datenbank manuell angelegte Regel **ohne Gruppe und ohne
+  XML-ID** (ebenfalls alle Rechte). Odoo 11 erlaubte Lesen nur fuer
+  `itk_group_user`, Aenderungen nur fuer `itk_group_manager`. Neu:
+  `security/ir.model.access.csv` fuehrt zwei Regeln (User nur lesen, Manager alles);
+  die Regel ohne Gruppe wurde entfernt. Modul 18.0.1.4.0. Administrator ist Mitglied
+  beider Gruppen und bleibt unveraendert.
+- **Migration:** `scripts/migration/valorisierung_migration.py` (Trockenlauf Standard,
+  Schreiben nur mit `--ausfuehren --ich-habe-freigabe`, Schreibschutz-Wrapper, Mapping-
+  Export ausserhalb des Repos). Zuordnung ueber `itk_o11_id` -> XML-ID
+  `valorisierung_o11_<id>` -> Name (getrimmt, nur bei genau einem Treffer). Es wird
+  nichts neu angelegt, solange die Modul-Daten vorhanden sind; geschrieben werden nur
+  abweichende Felder. Ergebnis lokal: 1. Lauf 10 aktualisiert, 2. und 3. Lauf
+  **0/0/10/0/0**. Zeitstempel: 10 Zeilen nachgezogen, danach 0.
+- **Benutzerregel:** Odoo-11-`admin` (Anzeigename "Administrator") hat in Odoo 18 keinen
+  Login `admin`; Zuordnung auf das bestehende Konto `anna.maierhofer@...`
+  (dieselbe Regel wie im CRM). Ohne die Regel landete der Ersteller bei "OdooBot" (uid 1).
+- **`itk.migration.zeitstempel` fuehrt eine Whitelist** (`ERLAUBTE_MODELLE` in
+  `addons/itk_migration_keys/models/zeitstempel.py`). Ein neues Modell muss dort
+  eingetragen werden, sonst schlaegt der Zeitstempel-Schritt mit "Modell nicht erlaubt"
+  fehl - die uebrigen Felder sind dann schon geschrieben. Modul 18.0.1.3.1.
+- **`account.move` fuehrt (noch) keinen Migrationsanker.** Skripte duerfen `itk_o11_id`
+  dort nicht voraussetzen, sondern muessen das Feld per `fields_get` pruefen.
+- **Rechnungsverknuepfung bewusst offen (keine Luecke dieser Runde):** Die 4.216
+  Rechnungen mit Hinweis sind nicht migriert (Bereich Abrechnung in Arbeit), deshalb ist
+  `account.move.valorisierung_id` nicht befuellbar. Festlegung: Stammdaten jetzt
+  vollstaendig, Rechnungsverknuepfung mit der Rechnungsmigration; das Skript meldet die
+  offenen Faelle bei jedem Lauf neu.
+- **Abgleich:** `scripts/migration/valorisierung_abgleich.py` prueft je Hinweis Code,
+  Nummernfolge, Beschreibung per SHA1-Pruefsumme, Erstellungs-/Bearbeitungsdatum,
+  Erstellerzuordnung und die Summe der Textlaengen (1.462). Ergebnis lokal
+  **65 OK / 0 Abweichungen**.
+- **Rechte-Nachweis:** `scripts/migration/valorisierung_rechte_pruefung.py` legt
+  temporaere Benutzer in drei Rollen an, prueft lesen/schreiben/anlegen/loeschen und
+  raeumt sie ab (Bestand vorher = nachher). Ergebnis lokal **11 OK / 0**.
+- **Browser:** `scripts/browser_valorisierung_daten_abnahme.py` (echter Chrome) prueft
+  Liste, Spalten, Formular mit Text, Suche, Filter/Gruppierung, Anlegen/Bearbeiten,
+  Feld "Valorisation Text" im Rechnungsformular und raeumt den Testsatz ab.
+  Lokal **15 OK / 0**. Werkzeuggrenze: `inner_text` liest Textarea-Werte nicht - die
+  Pruefung muss `input_value()` verwenden (kein Produktfehler).
+- Doku: `docs/o11-o18-vergleich-valorisierung.md`, `docs/migration/valorisierung_migration.md`.
