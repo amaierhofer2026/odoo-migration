@@ -114,3 +114,41 @@ class MailActivity(models.Model):
     _inherit = "mail.activity"
     itk_o11_activity_id = fields.Integer(string="Odoo-11-Aktivitaets-ID", index=True,
                                          copy=False)
+
+
+# --- Umfragen / Survey (Session 146) ---------------------------------------
+# Eine Odoo-11-Umfrage besteht aus Seiten (survey.page), Fragen (survey.question),
+# Antwortvorgaben (survey.label), Teilnahmen (survey.user_input) und Antwortzeilen
+# (survey.user_input_line). Odoo 18 fuehrt Seiten als Frage mit is_page=True und
+# Antwortvorgaben als survey.question.answer - jeder Datensatz braucht deshalb
+# seinen eigenen Anker, damit ein zweiter Lauf nichts doppelt anlegt.
+
+
+class SurveySurvey(models.Model):
+    _inherit = "survey.survey"
+    itk_o11_id = fields.Integer(string="Odoo-11-ID", index=True, copy=False)
+
+
+class SurveyQuestion(models.Model):
+    """Traegt Seiten (O11 survey.page) und Fragen (O11 survey.question)."""
+    _inherit = "survey.question"
+    itk_o11_id = fields.Integer(string="Odoo-11-ID", index=True, copy=False)
+
+
+class SurveyQuestionAnswer(models.Model):
+    """Entspricht survey.label aus Odoo 11."""
+    _inherit = "survey.question.answer"
+    itk_o11_id = fields.Integer(string="Odoo-11-ID", index=True, copy=False)
+
+
+class SurveyUserInput(models.Model):
+    """Teilnahme an einer Umfrage."""
+    _inherit = "survey.user_input"
+    itk_o11_id = fields.Integer(string="Odoo-11-ID", index=True, copy=False)
+
+
+class SurveyUserInputLine(models.Model):
+    """Einzelantwort."""
+    _inherit = "survey.user_input.line"
+    itk_o11_id = fields.Integer(string="Odoo-11-ID", index=True, copy=False)
+

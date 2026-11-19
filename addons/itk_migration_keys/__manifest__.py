@@ -18,12 +18,15 @@ sale.order, sale.subscription sowie seit Session 145 die CRM-Objekte
 crm.lead, crm.stage, crm.team, crm.tag, crm.lost.reason, utm.source,
 utm.campaign, utm.medium, mail.activity.type sowie mail.message und
 ir.attachment (Anker fuer Chatter- und Anhangmigration).
+Seit Session 146 zusaetzlich die Umfrage-Objekte survey.survey, survey.question
+(Seiten und Fragen), survey.question.answer, survey.user_input und
+survey.user_input.line.
 """,
-    "version": "18.0.1.1.3",
+    "version": "18.0.1.2.1",
     "category": "ITK - Specific Industry Applications",
     "author": "ITK Migrationsprojekt (Freigabe Anna Maierhofer)",
     "license": "LGPL-3",
-    "depends": ["base", "product", "sale", "itk_subscription", "crm", "utm", "mail"],
+    "depends": ["base", "product", "sale", "itk_subscription", "crm", "utm", "mail", "survey"],
     "data": [
         "security/ir.model.access.csv",
     ],

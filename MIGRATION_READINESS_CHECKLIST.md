@@ -2592,7 +2592,7 @@ bearbeitete Bereiche sind bewusst nicht enthalten.
 
 | Bereich | Odoo-11-Module | Bestand Odoo 11 | Bestand Odoo 18 | Status |
 |---|---|---|---|---|
-| **Umfragen / Survey** | `survey`, `survey_crm` | 2 Umfragen (1 Test, 1 "Staedtebund Academy - Welche Kurse"), 2 Fragen, **73 Teilnahmen** | `survey` nicht installiert | nicht bearbeitet |
+| **Umfragen / Survey** | `survey`, `survey_crm` | 2 Umfragen (1 Test, 1 "Staedtebund Academy - Welche Kurse"), 2 Seiten, 2 Fragen, 2 Antwortvorgaben, **72 Teilnahmen**, 71 Antworten | `survey` 18.0.3.7 mit 2 Umfragen, 2 Abschnitten, 2 Fragen, 2 Vorgaben, 72 Teilnahmen, 71 Antworten | **MIGRIERT lokal, VM-Abnahme offen** (18.11.2026, Session 146) |
 | **Website / Webinhalte** | `website`, `website_form`, `website_links`, `website_rating`, `website_odoo_debranding` | **17 Seiten** (FAQ Gemeindecloud/Ebox, FAQ IFG-Portal Partner/Kunden, FAQ Anonymisierungs-Portal, Kurse, Wie bestelle ich einen Kurs, Kontakt), 11 Menues | 4 Seiten, 8 Menues (Demodaten) | **Bestandsaufnahme fertig (11.11.2026, Session 141)**, Entscheidungen E1-E14 offen |
 | **Lager / Bestand** | `stock`, `stock_account`, `sale_stock` | **262 Lagerbelege** (231 offen "assigned", 31 storniert, 0 erledigt), 342 Buchungen, 13 Lagerorte, 1 Lager, 0 Bestandsmengen | 0 Belege, 10 Lagerorte | nicht bearbeitet (fachlich ohne Vollzuege) |
 | **Valorisierung** | `itk_valorisierung` | 10 Valorisierungshinweise 2019-2026, 33 Kostenstellen (`account.analytic.account`) | Modul nicht vorhanden | nicht bearbeitet |
@@ -3105,3 +3105,34 @@ Verkaeuferzuordnung: 0 offen. Odoo-11-Benutzer 87 (Maierhofer Anna) -> bestehend
 Administrator (8 Vorgaenge, Konto unveraendert), Benutzer 20 -> Breiteneder Lorenz (137),
 Benutzer 80 (Sammelkonto) -> inaktiver historischer Benutzer (1), 6.821 ueber Login,
 4 ueber Anzeigename. 28 Vorgaenge hatten schon in Odoo 11 keinen Verkaeufer.
+
+## Umfragen / Survey - Abschluss 18.11.2026 (Session 146)
+
+| Punkt | Nachweis | Stand |
+|---|---|---|
+| Struktur/Funktion | Odoo 18 `survey` 18.0.3.7 war bereits installiert; Seiten als Abschnitte (`survey.question.is_page`), Vorgaben als `survey.question.answer`, Fragetyp `textbox` -> `text_box` | erledigt |
+| Odoo-11-Funktionalitaet | Menues, Listen, Kanban, Filter, Gruppierung, Formular, Ergebnisseite, oeffentliche Umfrage im Browser belegt | erledigt |
+| Datenmigration | 2 Umfragen, 2 Abschnitte, 2 Fragen, 2 Vorgaben, 72 Teilnahmen, 71 Antworten | erledigt (lokal) |
+| Beziehungen | Umfrage -> Seite/Frage/Teilnahme -> Antwort je Datensatz geprueft, 0 Abweichungen | erledigt (lokal) |
+| Datenmengen | Abgleich 409 Pruefungen OK, 0 Abweichungen; Antworttexte ueber Laenge und SHA-1 | erledigt (lokal) |
+| Migrationsskript | `scripts/migration/survey_migration.py`, `survey_abgleich.py`, `survey_rechte_pruefung.py`, `scripts/browser_survey_abnahme.py` | erledigt |
+| Idempotenz | 0 angelegt, 0 aktualisiert, 151 uebersprungen, 0 Fehler, 0 Dubletten | erledigt (lokal) |
+| Browser lokal | 44 OK / 0 FEHL | erledigt |
+| Browser VM | offen (Nachzug) | offen |
+| Rechte | 17 OK / 0 FEHL je Instanz; Abweichung zu Odoo 11 dokumentiert (fremde Antworten sichtbar) | erledigt (lokal), Entscheidung offen |
+| Regression | lokal: siehe Laufprotokoll; VM: offen | offen |
+| Testdaten | entfernt, Bestand unveraendert (2/4/2/72/71) | erledigt |
+| Dokumentation | `docs/o11-o18-vergleich-survey.md`, `docs/migration/survey_migration.md`, Uebergabe 146 | erledigt |
+| Dreistand | lokal = GitHub main = VM: offen bis VM-Nachzug | offen |
+
+**Bewusst akzeptierte Abweichungen:** Odoo-11-Stufen (Entwurf / In Bearbeitung /
+Geschlossen / Dauerhaft) entfallen, weil Odoo 18 kein Stufenmodell fuehrt; "Geschlossen"
+wird zu "archiviert". Kein Statusfeld nachgebaut.
+**Offene Entscheidung:** Sichtbarkeit fremder Antworten fuer "Umfragen / Benutzer"
+(Odoo 11: nur eigene). Es wurde nichts geaendert.
+**Technischer Befund:** `survey.question.create` ist in `survey` 18.0.3.7 ohne
+`@api.model_create_multi` definiert und per RPC nicht aufrufbar
+(`TypeError: create() missing 1 required positional argument: 'vals_list'`). Die
+Oberflaeche legt Fragen ueber den Dialog an - im Browser belegt. Das Migrationsskript
+nutzt denselben Weg (O2M `question_and_page_ids`).
+
