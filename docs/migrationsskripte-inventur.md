@@ -28,7 +28,7 @@ den Ist-Zustand und die Luecken.
 | **Abonnements** | **ja** | **`scripts/migration/abonnement_migration.py`** | **ja** (1.786 Abos / 2.456 Zeilen) | **ja** | **ja** (zweiter Lauf 0 Neuanlagen, lokal + VM) | nein | **ABGENOMMEN** |
 | Abrechnung | ja (Testmigration) | `scripts/testmigration_abrechnung.py` | nein (BLOCKER: Kontenstammdaten 8400/3400 fehlen im Odoo-18-Kontenrahmen) | ja | teilweise (Testlauf mit Aufraeumen) | nein | OFFEN |
 | Kontakte / CRM (CRM-Teil) | nein | - | CRM-Objekte (Leads, Teams) noch offen; Kontakte selbst sind migriert | entfaellt | entfaellt | - | OFFEN |
-| Umfragen (Survey) | nein | - | nein (Odoo 11: 2 Umfragen, 73 Teilnahmen) | entfaellt | entfaellt | - | OFFEN |
+| **Umfragen (Survey)** | **ja (neu, 18.11.2026)** | `scripts/migration/survey_migration.py` + `survey_abgleich.py` + `survey_rechte_pruefung.py` | **ja** (2 Umfragen, 2 Abschnitte, 2 Fragen, 2 Vorgaben, 72 Teilnahmen, 71 Antworten) | **ja** | **ja** (2. Lauf 0 Neuanlagen) | verarbeitet Antworttexte; Skript/Mapping/Doku nur IDs, Mengen, Laengen | **MIGRIERT (lokal)** |
 | Valorisierung | nein | - | nein | entfaellt | entfaellt | - | OFFEN |
 | Lager / Bestand | nein | - | nein | entfaellt | entfaellt | - | OFFEN |
 
