@@ -80,8 +80,8 @@ nicht verändert.
 
 Zeitstempel: 10 Zeilen nachgezogen, danach 1 Zeile (Hinweis 1, Ersteller `admin`), danach 0.
 
-Abgleich (`scripts/migration/valorisierung_abgleich.py --instanz lokal`): **65 Prüfungen
-OK, 0 Abweichungen**, darunter je Hinweis Code, Nummernfolge, Beschreibung (Prüfsumme),
+Abgleich (`scripts/migration/valorisierung_abgleich.py --instanz lokal`): **64 Prüfungen
+OK, 0 Abweichungen, 1 offene externe Abhängigkeit** (Rechnungsverknüpfung, Abschnitt 14), darunter je Hinweis Code, Nummernfolge, Beschreibung (Prüfsumme),
 Erstellungsdatum, Bearbeitungsdatum und Erstellerzuordnung sowie die Summe der
 Textlängen (1.462 Zeichen).
 
@@ -150,7 +150,7 @@ Rechnungs- oder Kundendaten - und liegt ausserhalb des Repositories.
 | Trockenlauf | 10 zu aktualisieren, 0 nicht zuordenbar, 4.216 Rechnungen offen |
 | 1. Schreiblauf | 10 aktualisiert, 10 Zeitstempel nachgezogen, 0 Fehler |
 | 2. Lauf (Idempotenz) | 0 angelegt, 0 aktualisiert, 10 übersprungen, 0 Zeitstempel, 0 Fehler, 0 Dubletten |
-| Abgleich | **65 Prüfungen OK, 0 Abweichungen** |
+| Abgleich | **64 Prüfungen OK, 0 Abweichungen, 1 offene Abhängigkeit** (Rechnungsverknüpfung) |
 | Rechteprüfung | nach Bereinigung **11 OK / 0** |
 | Browserabnahme | **15 OK / 0**, Bestand 11 → 11 |
 | Bestand | 11 Hinweise (10 Odoo-11-Sätze + Testdatensatz "VAL-OK", von 1 Testrechnung genutzt) |

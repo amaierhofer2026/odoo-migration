@@ -33,7 +33,7 @@
    ausgehebelt hatte.
 4. **Datenmigration**: 10 Beschreibungstexte, Anker `itk_o11_id`, Erstell-/Bearbeitungs-
    datum und Ersteller. `itk_migration_keys` 18.0.1.3.1 (Anker + Zeitstempel-Whitelist).
-5. **Nachweise lokal und VM**: Abgleich je 65 OK / 0, Rechte je 11 OK / 0,
+5. **Nachweise lokal und VM**: Abgleich je 64 OK / 0 (1 offene Abhaengigkeit), Rechte je 11 OK / 0,
    Browser je 15 OK / 0, Idempotenz je 0/0/10/0/0.
 6. **Dokumentation**: Vergleichsdokument, `docs/migration/valorisierung_migration.md`,
    `docs/migrationsskripte-inventur.md`, `MIGRATION_READINESS_CHECKLIST.md`,
