@@ -79,6 +79,7 @@ def main() -> int:
     print("Ausgangsstand: %s" % vorher)
 
     angelegt, konten, neue_saetze = [], [], []
+    schreibziel = None
     try:
         for praefix, label, xmlids, erwartung in ROLLEN:
             pwd = "Itk!%s" % secrets.token_urlsafe(12)
@@ -105,12 +106,20 @@ def main() -> int:
                    "%s darf lesen: erwartet %s, ist %s (%d sichtbar)"
                    % (label, erwartung["lesen"], lesen, n))
 
-            # Schreiben auf einem bestehenden Satz
-            ziel = o18.kw(MODELL, "search", [[["itk_o11_id", "!=", False]]],
-                          context=CTX_ALLE, limit=1)
-            if ziel:
+            # Schreiben nur auf einem eigenen Testdatensatz - niemals auf migrierten
+            # Daten (sonst aendert sich dort write_date/write_uid).
+            if not schreibziel:
                 try:
-                    eigen.kw(MODELL, "write", [ziel, {"seq": 0}], context=CTX)
+                    r = o18.kw(MODELL, "create",
+                               [[{"name": "RECHTETEST S148 Schreibziel"}]], context=CTX)
+                    schreibziel = r[0] if isinstance(r, list) else r
+                    neue_saetze.append(schreibziel)
+                except Exception as exc:  # noqa: BLE001
+                    pruefe(False, "Schreibziel konnte nicht angelegt werden (%s)"
+                           % str(exc)[:80])
+            if schreibziel:
+                try:
+                    eigen.kw(MODELL, "write", [[schreibziel], {"seq": 0}], context=CTX)
                     schreiben = True
                 except Exception:  # noqa: BLE001
                     schreiben = False

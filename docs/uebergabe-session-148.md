@@ -39,23 +39,48 @@
    `docs/migrationsskripte-inventur.md`, `MIGRATION_READINESS_CHECKLIST.md`,
    `PROJECT_KNOWLEDGE.md`, `README.md`, diese Übergabe.
 
-## 3 Offene Abhängigkeit (kein Blocker dieser Runde)
+## 3 OFFENE EXTERNE ABHÄNGIGKEIT ABRECHNUNG (verbindlich)
 
 **Rechnungsverknüpfung:** 4.216 Odoo-11-Rechnungen tragen einen Valorisierungshinweis.
 Die Rechnungen sind in Odoo 18 nicht migriert (Bereich Abrechnung in Arbeit), deshalb ist
 `account.move.valorisierung_id` nicht befüllbar. `account.move` führt außerdem noch
 keinen Migrationsanker `itk_o11_id`.
 
-Nachzug mit der Rechnungsmigration:
-1. `itk_o11_id` auf `account.move` einführen (Modul `itk_migration_keys`).
-2. `valorisierung_migration.py --instanz ... --ausfuehren --ich-habe-freigabe` erneut
-   laufen lassen - es ordnet Rechnungen mit Anker automatisch zu und meldet den Rest.
-3. Abgleich erneut: die Prüfung "Rechnungsverknüpfung vollständig" ist derzeit bewusst
-   tolerant, solange der Anker fehlt.
+**Nach Abschluss der Abrechnungsmigration sind alle Valorisierungs-Rechnungsbeziehungen
+automatisch nachzuziehen und erneut zu prüfen. Das ist verbindlich, nicht optional.**
 
-**Testdatensatz "VAL-OK"** (kein Odoo-11-Gegenstück) bleibt stehen, weil ihn
-Testrechnungen der Abrechnungsrunde verwenden (lokal 3, VM 1). Mit diesen Testrechnungen
-entfernen, nicht vorher.
+Der Nachlauf ist bereits implementiert und getestet:
+
+```
+python scripts/migration/valorisierung_migration.py --instanz lokal|vm --nachlauf-rechnungen
+python scripts/migration/valorisierung_migration.py --instanz lokal|vm --nachlauf-rechnungen --ausfuehren --ich-habe-freigabe
+python scripts/migration/valorisierung_abgleich.py --instanz lokal|vm
+```
+
+Was der Nachlauf tut: liest alle Odoo-11-Rechnungen mit Hinweis, ermittelt die migrierte
+Odoo-18-Rechnung über `account.move.itk_o11_id`, setzt nur abweichende Beziehungen
+(idempotent), meldet nicht zuordenbare Fälle mit technischen IDs und prüft danach Anzahl
+und Verteilung je Hinweis gegen Odoo 11.
+
+Voraussetzung ist erfüllt: `account.move.itk_o11_id` ist seit `itk_migration_keys`
+18.0.1.4.0 vorhanden.
+
+Werkzeugtest am 19.11.2026 (lokal, mit 5 echten Odoo-11-Rechnungen und 5 vorhandenen
+Odoo-18-Testrechnungen, danach vollständig zurückgenommen): Trockenlauf 1 korrekt / 4 zu
+setzen / 4.211 nicht zuordenbar; Schreiblauf 4 gesetzt, Nachprüfung 0
+Verteilungsabweichungen; zweiter Lauf 0 zu setzen (idempotent). Bestand vorher = nachher.
+
+Erwartetes Ergebnis nach dem echten Nachlauf: 4.216 verbundene Rechnungen, 0 nicht
+zuordenbar, 0 Verteilungsabweichungen, Abgleich ohne Abweichung.
+
+**Testdatensatz "VAL-OK"** ist ein rein technischer Odoo-18-Testdatensatz, **kein
+fachlicher Odoo-11-Bestand** (kein `itk_o11_id`, kein Text, kein Gegenstück in Odoo 11).
+Er bleibt vorerst stehen, weil ihn Testrechnungen der Abrechnungsrunde verwenden (lokal
+1, 66, 67; VM 1) - mit diesen entfernen, nicht vorher. In der Produktionsmigration wird er
+nicht angelegt (das Modul liefert nur die zehn `valorisierung_o11_*`-Daten), und der
+Nachlauf kann ihn nie als Ziel wählen, weil Ziele ausschließlich über `itk_o11_id`
+bestimmt werden. Prüfung vor Produktivstart:
+`select count(*) from itk_valorisierung_valorisierung where itk_o11_id is null;` muss 0 sein.
 
 ## 4 Werkzeuge
 

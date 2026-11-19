@@ -23,11 +23,11 @@ Seit Session 146 zusaetzlich die Umfrage-Objekte survey.survey, survey.question
 survey.user_input.line sowie seit Session 148 der
 Valorisierungshinweis (itk_valorisierung.valorisierung).
 """,
-    "version": "18.0.1.3.1",
+    "version": "18.0.1.4.0",
     "category": "ITK - Specific Industry Applications",
     "author": "ITK Migrationsprojekt (Freigabe Anna Maierhofer)",
     "license": "LGPL-3",
-    "depends": ["base", "product", "sale", "itk_subscription", "crm", "utm", "mail", "survey",
+    "depends": ["base", "account", "product", "sale", "itk_subscription", "crm", "utm", "mail", "survey",
                 "itk_valorisierung"],
     "data": [
         "security/ir.model.access.csv",

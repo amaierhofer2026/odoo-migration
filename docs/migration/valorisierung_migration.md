@@ -180,3 +180,87 @@ genau die zwei Modulregeln (User lesen, Manager alles); die Rechteprüfung best�
 | Nummernfolge durchgehend 0 | Odoo-11-Bestand, unverändert übernommen; damit keine fachliche Sortierung, wie in Odoo 11 |
 | Schreibweisen der Codes gemischt ("VALORISIERUNGSHINWEIS 2019", "Valorisierungshinweis 2025", "VALORISIERUNGHINWEIS 2024 Acta Nova") | Odoo-11-Original, inklusive Tippfehler ohne "S" und Leerzeichen am Ende; bewusst nicht normalisiert |
 | Odoo-18-Suchfilter und Gruppierungen | Standardfunktionen, stören die Odoo-11-Funktion nicht |
+
+## 14 Nachlauf der Rechnungsverknüpfung (verbindlich nach der Abrechnungsmigration)
+
+**Offene externe Abhängigkeit Abrechnung.** Die 4.216 Odoo-11-Rechnungen mit
+Valorisierungshinweis sind in Odoo 18 noch nicht vorhanden, weil der Bereich Abrechnung
+nicht migriert ist. Die Stammdaten der Valorisierung sind vollständig migriert und
+abgenommen; die Rechnungsbeziehungen werden **nach Abschluss der Abrechnungsmigration**
+nachgezogen und erneut geprüft. Das ist keine Kür, sondern Pflichtteil des Abschlusses
+dieses Bereichs.
+
+Der Nachlauf ist im selben Skript enthalten und mehrfach ausführbar:
+
+```
+# Trockenlauf: zeigt nur, was gesetzt würde, und schreibt nichts
+python scripts/migration/valorisierung_migration.py --instanz lokal --nachlauf-rechnungen
+
+# Schreiblauf
+python scripts/migration/valorisierung_migration.py --instanz lokal \
+  --nachlauf-rechnungen --ausfuehren --ich-habe-freigabe
+```
+
+Ablauf:
+
+1. Liest alle Odoo-11-Rechnungen mit `valorisierung_id` (nur lesend, blockweise).
+2. Ermittelt je Rechnung die Odoo-18-Rechnung über `account.move.itk_o11_id`.
+3. Bestimmt den Zielhinweis über `itk_valorisierung.valorisierung.itk_o11_id`.
+4. Setzt `account.move.valorisierung_id` **nur** dort, wo der Wert abweicht; bereits
+   korrekte Beziehungen bleiben unverändert (idempotent, zweiter Lauf: 0 zu setzen).
+5. Meldet nicht zuordenbare Rechnungen mit Anzahl und technischen Odoo-11-IDs
+   (keine Inhalte, keine Personendaten) und Rechnungen ohne migrierten Zielhinweis.
+6. Prüft danach Anzahl und Verteilung je Hinweis gegen Odoo 11 (`soll`/`ist`), meldet
+   jede Abweichung.
+
+Voraussetzung: `account.move` trägt den Anker `itk_o11_id`. Er ist seit
+`itk_migration_keys` 18.0.1.4.0 vorhanden (Feld `Odoo-11-ID`, unsichtbar). Solange keine
+Rechnung migriert ist, endet der Nachlauf mit der Meldung "Anker vorhanden, aber keine
+migrierte Rechnung" und der Zahl der offenen Verknüpfungen - ohne Fehler.
+
+Der Abgleich (`valorisierung_abgleich.py`) prüft die Rechnungsbeziehungen fachlich, sobald
+Rechnungen mit Anker existieren: je Odoo-11-Rechnung muss der Zielhinweis übereinstimmen.
+Ohne migrierte Rechnungen meldet er eine Zeile "OFFEN (nicht prüfbar)" und zählt sie nicht
+als bestanden.
+
+## 15 Nachweis des Nachlaufs (Werkzeugtest 19.11.2026, lokal)
+
+Getestet mit fünf echten Odoo-11-Rechnungen und fünf vorhandenen Odoo-18-Testrechnungen;
+die Testrechnungen erhielten vorübergehend den passenden Anker, danach wurde der
+Ausgangszustand wiederhergestellt.
+
+| Schritt | Ergebnis |
+|---|---|
+| Trockenlauf | 5 Rechnungen mit Anker: 1 bereits korrekt, 4 zu setzen (1 Korrektur), 4.211 nicht zuordenbar |
+| Schreiblauf | 4 Beziehungen gesetzt, Nachprüfung: 5 Hinweise betroffen, 0 Abweichungen |
+| 2. Lauf | 0 zu setzen, 5 korrekt, 0 Abweichungen (Idempotenz) |
+| Rücknahme | Anker entfernt, Rechnungen im Ausgangszustand; Bestand 7 → 3 Rechnungen mit Hinweis, VAL-OK wieder 3 |
+
+Damit sind Setzen, Überspringen, Korrigieren, Nicht-Zuordnen und die Nachprüfung belegt.
+
+## 16 Technischer Testdatensatz "VAL-OK"
+
+`VAL-OK` ist **kein Odoo-11-Bestand**. Der Satz wurde in Odoo 18 von Hand angelegt
+(kein Odoo-11-Gegenstück, kein `itk_o11_id`, kein Beschreibungstext) und wird derzeit von
+drei Testrechnungen (lokal: 1, 66, 67) bzw. einer Testrechnung (VM: 1) der
+Abrechnungsrunde verwendet.
+
+Verbindlich:
+
+- Er wird **nicht** als fachlicher Hinweis migriert und in der Produktionsmigration
+  **nicht angelegt** (das Modul `itk_valorisierung` liefert nur die zehn
+  `valorisierung_o11_*`-Daten).
+- Er kann durch den Nachlauf **nie** als Ziel verwendet werden, weil das Ziel
+  ausschließlich über `itk_o11_id` bestimmt wird.
+- Er wird zusammen mit den Testrechnungen der Abrechnungsrunde entfernt, nicht vorher
+  (sonst bleiben die Testrechnungen mit einer toten Referenz zurück).
+- Vor dem Produktivstart prüfen:
+  `select count(*) from itk_valorisierung_valorisierung where itk_o11_id is null;`
+  muss 0 sein.
+
+## 17 Fehler in dieser Runde und Behebung
+
+| Fehler | Ursache | Behebung |
+|---|---|---|
+| Bearbeitungsdatum von Hinweis 2 verändert (2026-11-19) | die Rechteprüfung schrieb `seq = 0` auf den **ersten echten** Satz statt auf einen Testdatensatz | Prüfung legt ein eigenes Schreibziel an und räumt es ab; Zeitstempel über den Migrationslauf wiederhergestellt (Nachweis: Abgleich 64/0) |
+| Zeitstempel-Reparatur griff nicht | der Vergleich prüfte nur `create_date` und Ersteller, nicht `write_date` | `write_date` in den Vergleich aufgenommen |

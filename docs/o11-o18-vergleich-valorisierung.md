@@ -135,7 +135,7 @@ Vorgehen:
 
 ## 5 Abweichungen und Abhängigkeiten
 
-### 5.1 Rechnungsverknüpfung (offene Abhängigkeit, keine Lücke dieser Runde)
+### 5.1 Rechnungsverknüpfung (offene externe Abhängigkeit Abrechnung, verbindlich)
 
 4.216 Odoo-11-Rechnungen tragen einen Valorisierungshinweis. Die Rechnungen selbst sind
 in Odoo 18 noch nicht migriert (Bereich Abrechnung ist in Arbeit: Kontenstammdaten
@@ -148,6 +148,14 @@ Migrationsskript wertet sie bei jedem Lauf erneut aus und meldet die offenen Fä
 
 Es wird nichts geraten: Rechnungen ohne migrierte Entsprechung werden gezählt, nicht
 zugeordnet.
+
+**Verbindlich:** Nach Abschluss der Abrechnungsmigration müssen alle
+Valorisierungs-Rechnungsbeziehungen automatisch nachgezogen und erneut geprüft werden.
+Dafür ist der Nachlauf `--nachlauf-rechnungen` im Migrationsskript vorgesehen
+(Dokumentation Abschnitt 14): er liest die Odoo-11-Bezüge, ordnet über
+`account.move.itk_o11_id` zu, setzt nur abweichende Beziehungen, meldet nicht zuordenbare
+Fälle und prüft Anzahl und Verteilung je Hinweis. Der Abgleich prüft die Beziehungen
+fachlich nach. Der Werkzeugtest ist in Abschnitt 15 der Migrationsdokumentation belegt.
 
 ### 5.2 Rechte (angeglichen)
 

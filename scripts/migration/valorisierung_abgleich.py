@@ -129,22 +129,55 @@ def main() -> int:
                           [[["valorisierung_id", "!=", False]]], context=CTX11)
     anker18 = "itk_o11_id" in o18.kw("account.move", "fields_get", [[], ["type"]])
     verbunden18 = 0
+    falsch18 = []
+    ids = []
     if anker18:
+        bezug11 = {}
+        ids11 = o11.kw("account.invoice", "search", [[["valorisierung_id", "!=", False]]],
+                       context=CTX11, limit=200000)
+        for i in range(0, len(ids11), 1000):
+            for r in o11.kw("account.invoice", "read", [ids11[i:i + 1000], ["id",
+                                                                            "valorisierung_id"]],
+                            context=CTX11):
+                bezug11[r["id"]] = m2o(r["valorisierung_id"])
+        ziel_valo = {v["itk_o11_id"]: v["id"] for v in
+                     o18.kw(MODELL, "search_read", [[["itk_o11_id", "!=", False]],
+                                                    ["id", "itk_o11_id"]],
+                            context=CTX18, limit=1000)}
         ids = o18.kw("account.move", "search", [[["itk_o11_id", "!=", False]]], context=CTX18,
-                     limit=50000)
+                     limit=200000)
         for i in range(0, len(ids), 1000):
-            for r in o18.kw("account.move", "read", [ids[i:i + 1000], ["valorisierung_id"]],
+            for r in o18.kw("account.move", "read",
+                            [ids[i:i + 1000], ["id", "itk_o11_id", "valorisierung_id"]],
                             context=CTX18):
-                if m2o(r.get("valorisierung_id")):
+                o11_id = r["itk_o11_id"]
+                if o11_id not in bezug11:
+                    if m2o(r.get("valorisierung_id")):
+                        falsch18.append((o11_id, "Odoo-11-Rechnung ohne Hinweis"))
+                    continue
+                if m2o(r.get("valorisierung_id")) == ziel_valo.get(bezug11[o11_id]):
                     verbunden18 += 1
+                else:
+                    falsch18.append((o11_id, "falscher oder fehlender Hinweis"))
     print("  Rechnungen mit Hinweis: Odoo 11 = %d, in Odoo 18 verbunden = %d (Anker: %s)"
           % (rechnungen11, verbunden18, anker18))
-    pruefe(not anker18 or verbunden18 == rechnungen11,
-           "Rechnungsverknuepfung vollstaendig oder Anker fehlt (offene Abhaengigkeit "
-           "Abrechnung)")
-    if not anker18:
-        print("       Hinweis: account.move fuehrt keinen Migrationsanker; die "
-              "Rechnungsverknuepfung wird mit der Abrechnung nachgezogen.")
+    offen = 0
+    if anker18 and not ids:
+        offen += 1
+        print("  OFFEN  Rechnungsverknuepfung nicht pruefbar: Anker vorhanden, aber keine "
+              "migrierte Rechnung. Externe Abhaengigkeit Abrechnung (%d Verknuepfungen)."
+              % rechnungen11)
+    elif anker18:
+        pruefe(not falsch18 and verbunden18 == rechnungen11,
+               "Rechnungsverknuepfung fachlich vollstaendig (%d von %d, %d Abweichungen)"
+               % (verbunden18, rechnungen11, len(falsch18)))
+        for o11_id, grund in falsch18[:10]:
+            print("       Abweichung Rechnung O11 %s: %s" % (o11_id, grund))
+    else:
+        print("  OFFENE EXTERNE ABHAENGIGKEIT ABRECHNUNG: %d Rechnungsverknuepfungen "
+              "koennen erst nach der Rechnungsmigration gesetzt werden. Nachlauf: "
+              "valorisierung_migration.py --nachlauf-rechnungen (Trockenlauf) bzw. "
+              "mit --ausfuehren --ich-habe-freigabe.")
 
     # ------------------------------------------------------------- Sonderfall
     ohne_anker = o18.kw(MODELL, "search_count", [[["itk_o11_id", "=", False]]],
@@ -156,6 +189,7 @@ def main() -> int:
     print("--- Ergebnis ---")
     print("Pruefungen OK ............... %d" % ok)
     print("Abweichungen ................ %d" % fehler)
+    print("Offene externe Abhaengigkeiten %d (Rechnungsverknuepfung Abrechnung)" % offen)
     return 0 if not fehler else 1
 
 

@@ -130,6 +130,164 @@ def ziel_laden(o18):
     return d
 
 
+def rechnungen_nachziehen(o11, ziel, ausfuehren, stat, fehler, sonderfaelle, mapping):
+    """Nachlauf: Valorisierungs-Rechnungsbeziehungen aus Odoo 11 nachziehen.
+
+    Verbindliche externe Abhaengigkeit: Die 4.216 Odoo-11-Rechnungen mit
+    Valorisierungshinweis koennen erst zugeordnet werden, wenn der Bereich Abrechnung
+    migriert ist und ``account.move`` den Anker ``itk_o11_id`` traegt. Dieser Nachlauf
+    ist dafuer vorgesehen und mehrfach ausfuehrbar:
+
+    1. liest alle Odoo-11-Rechnungen mit Hinweis (nur lesend),
+    2. ermittelt die Odoo-18-Rechnung ueber ``account.move.itk_o11_id``,
+    3. setzt ``valorisierung_id`` auf den Satz mit passendem ``itk_o11_id``,
+    4. laesst bereits korrekte Beziehungen unveraendert (idempotent),
+    5. meldet nicht zuordenbare Rechnungen einzeln (technische IDs, keine Inhalte),
+    6. prueft danach Anzahl und Verteilung gegen Odoo 11.
+
+    Der technische Testdatensatz "VAL-OK" (ohne ``itk_o11_id``) kann nie Ziel sein,
+    weil das Ziel ausschliesslich ueber den Odoo-11-Anker bestimmt wird.
+    """
+    print("\n=== Nachlauf Rechnungsverknuepfung ===")
+    anker_da = "itk_o11_id" in ziel.kw("account.move", "fields_get",
+                                       [[], ["type"]])
+    if not anker_da:
+        print("  account.move fuehrt noch keinen Anker itk_o11_id - der Bereich "
+              "Abrechnung ist nicht migriert.")
+        print("  Offen: %d Rechnungsverknuepfungen. Nach der Abrechnungsmigration "
+              "diesen Lauf mit --nachlauf-rechnungen erneut starten."
+              % stat.get("rechnungen_mit_hinweis", 0))
+        stat["rechnung_offen"] = stat.get("rechnungen_mit_hinweis", 0)
+        sonderfaelle.append({"art": "rechnung_nachlauf",
+                             "grund": "Anker itk_o11_id auf account.move fehlt",
+                             "offen": stat.get("rechnung_offen")})
+        return
+
+    # 1) Odoo 11: Rechnungen mit Hinweis lesen (nur lesend)
+    ids11 = o11.kw("account.invoice", "search", [[["valorisierung_id", "!=", False]]],
+                   context=CTX11, limit=200000)
+    bezug11 = {}
+    for i in range(0, len(ids11), 1000):
+        for r in o11.kw("account.invoice", "read",
+                        [ids11[i:i + 1000], ["id", "valorisierung_id"]], context=CTX11):
+            bezug11[r["id"]] = m2o(r["valorisierung_id"])
+    print("  Odoo 11: %d Rechnungen mit Hinweis" % len(bezug11))
+
+    # 2) Zielsaetze je Odoo-11-Id
+    ziel_valo = {}
+    for v in ziel.kw(MODELL, "search_read", [[["itk_o11_id", "!=", False]],
+                                            ["id", "itk_o11_id"]], context=CTX18, limit=1000):
+        ziel_valo[v["itk_o11_id"]] = v["id"]
+
+    # 3) Odoo 18: Rechnungen mit Anker
+    ids18 = ziel.kw("account.move", "search", [[["itk_o11_id", "!=", False]]],
+                    context=CTX18, limit=200000)
+    rechnung18 = {}
+    for i in range(0, len(ids18), 1000):
+        for r in ziel.kw("account.move", "read",
+                         [ids18[i:i + 1000], ["id", "itk_o11_id", "valorisierung_id"]],
+                         context=CTX18):
+            rechnung18[r["itk_o11_id"]] = r
+    print("  Odoo 18: %d Rechnungen mit Anker" % len(rechnung18))
+
+    # 4) Zuordnung bestimmen
+    setzen = {}          # ziel_valorisierung -> [move_ids]
+    korrigieren = {}
+    korrekt = nicht_zuordenbar = ohne_zielsatz = 0
+    beispiele = []
+    for o11_id, valo11 in bezug11.items():
+        r = rechnung18.get(o11_id)
+        if not r:
+            nicht_zuordenbar += 1
+            if len(beispiele) < 20:
+                beispiele.append(o11_id)
+            continue
+        zv = ziel_valo.get(valo11)
+        if not zv:
+            ohne_zielsatz += 1
+            continue
+        ist = m2o(r.get("valorisierung_id"))
+        if ist == zv:
+            korrekt += 1
+            continue
+        setzen.setdefault(zv, []).append(r["id"])
+        if ist:
+            korrigieren[zv] = korrigieren.get(zv, 0) + 1
+
+    zu_setzen = sum(len(v) for v in setzen.values())
+    print("  bereits korrekt: %d | zu setzen: %d (davon Korrektur: %d) | "
+          "nicht zuordenbar: %d | ohne Zielhinweis: %d"
+          % (korrekt, zu_setzen, sum(korrigieren.values()), nicht_zuordenbar, ohne_zielsatz))
+    stat["rechnung_korrekt"] = korrekt
+    stat["rechnung_zu_setzen"] = zu_setzen
+    stat["rechnung_korrigiert"] = sum(korrigieren.values())
+    stat["rechnung_nicht_zuordenbar"] = nicht_zuordenbar
+    stat["rechnung_ohne_zielsatz"] = ohne_zielsatz
+
+    if nicht_zuordenbar:
+        sonderfaelle.append({"art": "rechnung_nicht_zuordenbar",
+                             "anzahl": nicht_zuordenbar,
+                             "o11_ids_beispiele": beispiele})
+        print("  Nicht zuordenbar (keine Odoo-18-Rechnung mit diesem Anker): %d, "
+              "technische Beispiele: %s" % (nicht_zuordenbar, beispiele[:5]))
+    if ohne_zielsatz:
+        sonderfaelle.append({"art": "rechnung_ohne_zielsatz", "anzahl": ohne_zielsatz})
+        print("  Ohne Zielhinweis in Odoo 18 (Hinweis nicht migriert): %d" % ohne_zielsatz)
+
+    # 5) Schreiben (nur geaenderte Beziehungen)
+    if ausfuehren and zu_setzen:
+        for zv, moves in setzen.items():
+            for i in range(0, len(moves), 500):
+                try:
+                    ziel.kw("account.move", "write",
+                            [moves[i:i + 500], {"valorisierung_id": zv}], context=CTX18)
+                    stat["rechnung_gesetzt"] += len(moves[i:i + 500])
+                except Exception as exc:  # noqa: BLE001
+                    stat["fehler"] += 1
+                    fehler.append({"art": "rechnung_write", "valorisierung": ziel_valo.get(zv),
+                                   "anzahl": len(moves[i:i + 500]), "fehler": str(exc)[:300]})
+        print("  gesetzt: %d Rechnungsbeziehungen" % stat["rechnung_gesetzt"])
+    elif zu_setzen:
+        print("  Trockenlauf: %d Beziehungen wuerden gesetzt." % zu_setzen)
+
+    # 6) Nachpruefung gegen Odoo 11 (Anzahl und Verteilung)
+    if not ausfuehren:
+        print("  --- Nachpruefung uebersprungen (Trockenlauf schreibt nichts) ---")
+        stat["rechnung_abweichungen"] = 0
+        return
+    print("  --- Nachpruefung ---")
+    soll_verteilung = Counter()
+    for o11_id, valo11 in bezug11.items():
+        if o11_id in rechnung18:
+            soll_verteilung[ziel_valo.get(valo11)] += 1
+    ist_verteilung = Counter()
+    ids_mit_anker = ziel.kw("account.move", "search", [[["itk_o11_id", "!=", False]]],
+                            context=CTX18, limit=200000)
+    for i in range(0, len(ids_mit_anker), 2000):
+        for g in ziel.kw("account.move", "read_group",
+                         [[["id", "in", ids_mit_anker[i:i + 2000]],
+                           ["valorisierung_id", "!=", False]],
+                          ["valorisierung_id"], ["valorisierung_id"]], context=CTX18):
+            ist_verteilung[m2o(g.get("valorisierung_id"))] += g.get("valorisierung_id_count", 0)
+    abweichungen = []
+    for vz, soll in soll_verteilung.items():
+        ist = ist_verteilung.get(vz, 0)
+        if ist != soll:
+            abweichungen.append({"valorisierung": vz, "soll": soll, "ist": ist})
+    stat["rechnung_abweichungen"] = len(abweichungen)
+    print("  Verteilung: %d Hinweise betroffen, %d Abweichungen"
+          % (len(soll_verteilung), len(abweichungen)))
+    for a in abweichungen[:10]:
+        print("    Hinweis %s: soll %d, ist %d" % (a["valorisierung"], a["soll"], a["ist"]))
+    if abweichungen:
+        sonderfaelle.append({"art": "rechnung_verteilung", "abweichungen": abweichungen[:20]})
+    mapping["rechnungen_nachlauf"] = {
+        "o11_mit_hinweis": len(bezug11), "o18_mit_anker": len(rechnung18),
+        "korrekt": korrekt, "zu_setzen": zu_setzen, "nicht_zuordenbar": nicht_zuordenbar,
+        "ohne_zielsatz": ohne_zielsatz, "abweichungen": abweichungen[:20],
+        "o11_ids_nicht_zuordenbar": beispiele}
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -138,6 +296,9 @@ def main() -> int:
                     help="Schreiblauf (Standard ist Trockenlauf)")
     ap.add_argument("--ich-habe-freigabe", action="store_true",
                     help="Bestaetigt die Freigabe durch Anna Maierhofer")
+    ap.add_argument("--nachlauf-rechnungen", action="store_true",
+                    help="Nachlauf der Rechnungsverknuepfungen (nach der "
+                         "Abrechnungsmigration; erwartet itk_o11_id auf account.move)")
     ap.add_argument("--mapping", help="Pfad fuer den Mapping-Export (ausserhalb des Repos)")
     args = ap.parse_args()
 
@@ -246,22 +407,29 @@ def main() -> int:
 
     # ------------------------------------------------------ Rechnungsbezug
     print("\n--- Rechnungsverknuepfung ---")
-    offen = 0
-    for o11_id, r in z["rechnungen"].items():
-        if o11_id in q["nutzung"]:
-            if m2o(r.get("valorisierung_id")):
-                stat["rechnung_verbunden"] += 1
-            else:
-                offen += 1
-    offen += q["rechnungen_mit_hinweis"] - sum(
-        1 for o11_id in z["rechnungen"] if o11_id in q["nutzung"])
-    stat["rechnung_offen"] = offen
-    print("  Odoo 11: %d Rechnungen mit Hinweis; Odoo 18: %d migrierte Rechnungen, "
-          "%d davon verbunden, %d offen" % (q["rechnungen_mit_hinweis"], len(z["rechnungen"]),
-                                            stat["rechnung_verbunden"], offen))
-    if offen:
-        sonderfaelle.append({"art": "rechnung", "grund": "Rechnungen nicht migriert",
-                             "offen": offen})
+    stat["rechnungen_mit_hinweis"] = q["rechnungen_mit_hinweis"]
+    if args.nachlauf_rechnungen:
+        rechnungen_nachziehen(o11, ziel, args.ausfuehren, stat, fehler, sonderfaelle, mapping)
+    else:
+        offen = 0
+        for o11_id, r in z["rechnungen"].items():
+            if o11_id in q["nutzung"]:
+                if m2o(r.get("valorisierung_id")):
+                    stat["rechnung_verbunden"] += 1
+                else:
+                    offen += 1
+        offen += q["rechnungen_mit_hinweis"] - sum(
+            1 for o11_id in z["rechnungen"] if o11_id in q["nutzung"])
+        stat["rechnung_offen"] = offen
+        print("  Odoo 11: %d Rechnungen mit Hinweis; Odoo 18: %d migrierte Rechnungen, "
+              "%d davon verbunden, %d offen" % (q["rechnungen_mit_hinweis"],
+                                                len(z["rechnungen"]),
+                                                stat["rechnung_verbunden"], offen))
+        if offen:
+            print("  OFFENE EXTERNE ABHAENGIGKEIT: Rechnungen sind nicht migriert. "
+                  "Nachlauf mit --nachlauf-rechnungen (siehe Doku Abschnitt 14).")
+            sonderfaelle.append({"art": "rechnung", "grund": "Rechnungen nicht migriert",
+                                 "offen": offen})
 
     # ------------------------------------------------------------ Zeitstempel
     if args.ausfuehren:
@@ -282,8 +450,10 @@ def main() -> int:
             else:
                 ziel_uid = (z["user_login"].get(login)
                             or z["user_name"].get(uid_q.get("name")))
-            if (r["create_date"] or "")[:19] != (s["create_date"] or "")[:19] or \
-                    (ziel_uid and m2o(r["create_uid"]) != ziel_uid):
+            # write_date mitpruefen: sonst bleiben fremde Schreibzugriffe unentdeckt.
+            if ((r["create_date"] or "")[:19] != (s["create_date"] or "")[:19]
+                    or (r["write_date"] or "")[:19] != (s["write_date"] or "")[:19]
+                    or (ziel_uid and m2o(r["create_uid"]) != ziel_uid)):
                 zeilen.append([r["id"], (s["create_date"] or "")[:19],
                                (s["write_date"] or "")[:19], None, ziel_uid,
                                ziel_uid])
@@ -326,6 +496,11 @@ def main() -> int:
         print("wuerde aktualisieren ........ %d" % stat["wuerde_aktualisieren"])
     print("Rechnungen mit Hinweis (O11)  %d, in Odoo 18 offen: %d"
           % (q["rechnungen_mit_hinweis"], stat["rechnung_offen"]))
+    if args.nachlauf_rechnungen:
+        print("Nachlauf: korrekt/gesetzt/nicht zuordenbar %d / %d / %d, "
+              "Verteilungsabweichungen %d"
+              % (stat["rechnung_korrekt"], stat["rechnung_gesetzt"],
+                 stat["rechnung_nicht_zuordenbar"], stat["rechnung_abweichungen"]))
     if args.ausfuehren:
         print("Bestand nachher ............. %d Hinweise" % stat["bestand_nachher"])
     if fehler:
