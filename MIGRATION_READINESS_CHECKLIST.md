@@ -3165,3 +3165,35 @@ Personal wurde in dieser Sitzung nicht veraendert.
 | Umsetzung | `itk_survey_security` 18.0.1.0.0 (Record Rules im Repository, kein einmaliger Eingriff) | erledigt |
 | Dreistand | lokal = GitHub main = VM | erledigt |
 
+
+## Valorisierung - Abschluss 19.11.2026 (Session 148) - ABGENOMMEN UND GESPERRT
+
+> Vergleich: `docs/o11-o18-vergleich-valorisierung.md`. Technik:
+> `docs/migration/valorisierung_migration.md`. Skripte:
+> `scripts/migration/valorisierung_migration.py`, `valorisierung_abgleich.py`,
+> `valorisierung_rechte_pruefung.py`, `scripts/browser_valorisierung_daten_abnahme.py`.
+
+| Punkt | Nachweis | Stand |
+|---|---|---|
+| Odoo-11-Bestand (read-only) | Modul `itk_valorisierung`, Modell mit `name`/`description`/`seq`; 10 Hinweise, alle mit Text (1.462 Zeichen), alle `seq = 0`, kein `active`-Feld | erledigt |
+| Berechnungen | keine berechneten Felder, keine Crons, keine Automationen; Prozentsaetze stehen nur im Text | erledigt |
+| Rechnungsbezug Odoo 11 | 4.216 von 6.378 Rechnungen (4.208 Ausgangsrechnungen, 8 Gutschriften; 4.211 bezahlt, 4 offen, 1 Entwurf) | erledigt |
+| Menue, Ansichten, Rechte Odoo 11 | Abrechnung > Konfiguration > Valorisierung, Liste/Formular mit Code/Beschreibung/Nummernfolge, Feld "Valorisation Text" nach `notice`; ITK/User lesen, ITK/Manager alles; keine Record Rules | erledigt |
+| Vergleich Odoo 18 | Struktur 1:1 vorhanden; Texte fehlten (0 von 10), Anker fehlte, Rechte zu weit, Testdatensatz "VAL-OK" ohne Gegenstueck | erledigt |
+| Datenmigration | 10 Beschreibungstexte, `itk_o11_id`, Erstell-/Bearbeitungsdatum und Ersteller nachgezogen | erledigt |
+| Idempotenz | 2. und 3. Lauf: 0 angelegt, 0 aktualisiert, 10 uebersprungen, 0 Fehler, 0 Dubletten | erledigt |
+| Datenabgleich | 65 Pruefungen OK / 0 Abweichungen (Code, Text per SHA1-Pruefsumme, Nummernfolge, Daten, Ersteller, Textsumme 1.462) | erledigt |
+| Benutzerzuordnung | Odoo-11-`admin` -> bestehendes Konto Administrator (Regel wie CRM), 9 Saetze ueber Login (martina.waiss@...) | erledigt |
+| Rechte Odoo 18 | ITK/User nur lesen, ITK/Manager alles; Regel ohne Gruppe entfernt; Administrator unveraendert | erledigt |
+| Rechtepruefung | 11 OK / 0 je Instanz, drei Rollen, Testbenutzer und Kontakte entfernt, Bestand vorher = nachher | erledigt |
+| Browser lokal | 15 OK / 0 (Liste, Spalten, Formular mit Text, Suche "2024" = 3, Filter/Gruppierung, Anlegen, Rechnungsfeld, Testdaten entfernt) | erledigt |
+| Browser VM | 15 OK / 0 (Liste 11 Eintraege, Texte sichtbar, Suche '2024' = 3, Anlegen, Rechnungsfeld), Screenshot gesichtet | erledigt |
+| Rechnungsverknuepfung | 4.216 Odoo-11-Rechnungen mit Hinweis; Rechnungen nicht migriert -> Nachzug mit der Abrechnung; Skript meldet offene Faelle bei jedem Lauf | dokumentierte Abhaengigkeit |
+| Testdatensatz "VAL-OK" | kein Odoo-11-Gegenstueck, von 3 Testrechnungen genutzt - nicht geloescht, dokumentiert | dokumentiert |
+| Migrationsskript | Trockenlauf Standard, `--ausfuehren --ich-habe-freigabe`, Schreibschutz-Wrapper, Mapping-Export ausserhalb des Repos | erledigt |
+| Doku | Vergleich, Migrationstechnik, Inventur, PROJECT_KNOWLEDGE, README, Uebergabe 148 | erledigt |
+| Regression lokal | 725 OK / 9 FEHL - unveraendert zur Referenz aus Session 145/147; Fehlschlaege Kontakte 4, Verkauf 4, Helpdesk 1 (bekannte Werkzeuggrenzen: Reiter-/Textsuche im Formular, Monatsfilter im Verkaufs-Pivot, Statuslabel "on Hold") | erledigt |
+| Regression VM | 714 OK / 9 FEHL - dieselben drei Bereiche und dieselben neun Fehlschlaege wie lokal; 11 Pruefungen weniger im Verkauf durch die kleinere VM-Datenlage (228 statt 239 OK) | erledigt |
+| Gesperrte Bereiche | nicht veraendert (Survey, CRM, Abrechnung, Projekt, Personal, Helpdesk, Events, Marketing, Website, Massenbearbeitung, Verkauf, Abonnements, Kontakte) | erledigt |
+| Dreistand | lokal = GitHub main = VM, Arbeitsbaeume sauber | erledigt |
+| STATUS | **VALORISIERUNG = ABGENOMMEN UND GESPERRT** (19.11.2026) | abgenommen |

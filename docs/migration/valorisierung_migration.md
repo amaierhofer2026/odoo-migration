@@ -140,3 +140,43 @@ Die Hinweistexte sind fachliche Stammdaten ohne Personenbezug (Prozentsätze und
 Indexbasis). Rechnungs-, Kunden- und Benutzerdaten werden nur gezählt, nie ausgegeben.
 Der Mapping-Export enthält technische IDs, Namen der Hinweise und Textlängen - keine
 Rechnungs- oder Kundendaten - und liegt ausserhalb des Repositories.
+
+## 11 Ergebnisse VM (19.11.2026)
+
+| Schritt | Ergebnis |
+|---|---|
+| `git pull` auf `main` | 8541043, Arbeitsbaum sauber |
+| Upgrade `itk_valorisierung`, `itk_migration_keys` | ohne Fehler |
+| Trockenlauf | 10 zu aktualisieren, 0 nicht zuordenbar, 4.216 Rechnungen offen |
+| 1. Schreiblauf | 10 aktualisiert, 10 Zeitstempel nachgezogen, 0 Fehler |
+| 2. Lauf (Idempotenz) | 0 angelegt, 0 aktualisiert, 10 übersprungen, 0 Zeitstempel, 0 Fehler, 0 Dubletten |
+| Abgleich | **65 Prüfungen OK, 0 Abweichungen** |
+| Rechteprüfung | nach Bereinigung **11 OK / 0** |
+| Browserabnahme | **15 OK / 0**, Bestand 11 → 11 |
+| Bestand | 11 Hinweise (10 Odoo-11-Sätze + Testdatensatz "VAL-OK", von 1 Testrechnung genutzt) |
+
+## 12 Rechte-Altbestand auf der VM
+
+Die VM führte dieselbe Access-Regel ohne Gruppe und ohne Modul-XML-ID (id 1541) wie die
+lokale Instanz. Sie stammt nicht aus dem Repository (die CSV enthält nur die zwei
+Gruppenregeln) und hebelt die Gruppenrechte aus. Bereinigung jetzt reproduzierbar:
+
+```
+python scripts/migration/valorisierung_rechte_bereinigen.py --instanz vm            # Trockenlauf
+python scripts/migration/valorisierung_rechte_bereinigen.py --instanz vm --ausfuehren --ich-habe-freigabe
+```
+
+Das Skript entfernt ausschließlich Regeln ohne Gruppe **und** ohne XML-ID, ist idempotent
+und zeigt vorher/nachher alle Regeln mit Gruppe und Rechten. Nach der Bereinigung bleiben
+genau die zwei Modulregeln (User lesen, Manager alles); die Rechteprüfung bestätigt
+11 OK / 0 auf der VM.
+
+## 13 Bewusst akzeptierte Abweichungen
+
+| Abweichung | Begründung |
+|---|---|
+| Rechnungsverknüpfung 0 von 4.216 | Rechnungen nicht migriert; Nachzug mit der Abrechnung (Abschnitt 6) |
+| Testdatensatz "VAL-OK" bleibt | von 1 (VM) bzw. 3 (lokal) Testrechnungen der Abrechnungsrunde genutzt; Löschen würde Testrechnungen verwaisen lassen - nach der Abrechnungsmigration mit diesen entfernen |
+| Nummernfolge durchgehend 0 | Odoo-11-Bestand, unverändert übernommen; damit keine fachliche Sortierung, wie in Odoo 11 |
+| Schreibweisen der Codes gemischt ("VALORISIERUNGSHINWEIS 2019", "Valorisierungshinweis 2025", "VALORISIERUNGHINWEIS 2024 Acta Nova") | Odoo-11-Original, inklusive Tippfehler ohne "S" und Leerzeichen am Ende; bewusst nicht normalisiert |
+| Odoo-18-Suchfilter und Gruppierungen | Standardfunktionen, stören die Odoo-11-Funktion nicht |

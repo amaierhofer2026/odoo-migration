@@ -9873,4 +9873,17 @@ Produktive Laeufe nicht ausgefuehrt; Schreibpfade ohne Stammdatenzuordnung gespe
   Feld "Valorisation Text" im Rechnungsformular und raeumt den Testsatz ab.
   Lokal **15 OK / 0**. Werkzeuggrenze: `inner_text` liest Textarea-Werte nicht - die
   Pruefung muss `input_value()` verwenden (kein Produktfehler).
+- **Rechte-Altbestand auf beiden Instanzen:** Die DB fuehrte zusaetzlich eine Access-Regel
+  auf dem Valorisierungsmodell **ohne Gruppe und ohne XML-ID** (id 1541, alle Rechte). Da
+  Odoo Rechte mit ODER verknuepft, hob sie die Gruppenregeln auf - auf der VM fiel das in
+  der Rechtepruefung als 6 OK / 7 FEHL auf, lokal nur deshalb nicht, weil die Regel dort
+  in derselben Sitzung entfernt worden war. Bereinigung jetzt per Skript
+  `scripts/migration/valorisierung_rechte_bereinigen.py` (Trockenlauf Standard, entfernt
+  nur Regeln ohne Gruppe **und** ohne XML-ID); danach 11 OK / 0 auf beiden Instanzen.
+  **Lehre:** Rechtepruefungen immer auf beiden Instanzen fahren, bevor ein Bereich als
+  abgenommen gilt.
+- **Regression:** lokal 725 OK / 9 FEHL (unveraendert zur Referenz), VM 714 OK / 9 FEHL.
+  Dieselben neun Fehlschlaege wie bisher (Kontakte 4, Verkauf 4, Helpdesk 1), alle als
+  Werkzeuggrenzen belegt; die VM hat im Verkauf 11 Pruefungen weniger (kleinere Datenlage).
+  Keine Regression durch Valorisierung.
 - Doku: `docs/o11-o18-vergleich-valorisierung.md`, `docs/migration/valorisierung_migration.md`.
