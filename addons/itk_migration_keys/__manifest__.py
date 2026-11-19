@@ -20,13 +20,15 @@ utm.campaign, utm.medium, mail.activity.type sowie mail.message und
 ir.attachment (Anker fuer Chatter- und Anhangmigration).
 Seit Session 146 zusaetzlich die Umfrage-Objekte survey.survey, survey.question
 (Seiten und Fragen), survey.question.answer, survey.user_input und
-survey.user_input.line.
+survey.user_input.line sowie seit Session 148 der
+Valorisierungshinweis (itk_valorisierung.valorisierung).
 """,
-    "version": "18.0.1.2.1",
+    "version": "18.0.1.3.1",
     "category": "ITK - Specific Industry Applications",
     "author": "ITK Migrationsprojekt (Freigabe Anna Maierhofer)",
     "license": "LGPL-3",
-    "depends": ["base", "product", "sale", "itk_subscription", "crm", "utm", "mail", "survey"],
+    "depends": ["base", "product", "sale", "itk_subscription", "crm", "utm", "mail", "survey",
+                "itk_valorisierung"],
     "data": [
         "security/ir.model.access.csv",
     ],

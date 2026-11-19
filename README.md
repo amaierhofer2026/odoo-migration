@@ -733,3 +733,11 @@ Read-only Bestandsaufnahme des Bereichs Website/Webinhalte (Odoo 11: 17 Seiten, 
 Datenmigration gehoert ab jetzt zum jeweiligen Modul. Technisches Hauptrisiko: Bootstrap-3-Markup
 der Seiten gegen Bootstrap 5 in Odoo 18. 14 Entscheidungspunkte offen. Details:
 `docs/o11-o18-vergleich-website.md`, `docs/uebergabe-session-141.md`.
+
+### Valorisierung (Session 148)
+
+- Vergleich: `docs/o11-o18-vergleich-valorisierung.md`
+- Migration: `docs/migration/valorisierung_migration.md`, Skript
+  `scripts/migration/valorisierung_migration.py`
+- Rechte: `addons/itk_valorisierung/security/ir.model.access.csv`
+  (User nur lesen, Manager alles), Modul 18.0.1.4.0

@@ -22,6 +22,7 @@ ERLAUBTE_MODELLE = {
     "survey.question.answer": ("survey_question_answer", ()),
     "survey.user_input": ("survey_user_input", ()),
     "survey.user_input.line": ("survey_user_input_line", ()),
+    "itk_valorisierung.valorisierung": ("itk_valorisierung_valorisierung", ()),
 }
 
 

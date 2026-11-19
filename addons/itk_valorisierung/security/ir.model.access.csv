@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_itk_valorisierung_user,itk_valorisierung.valorisierung.user,model_itk_valorisierung_valorisierung,base.group_user,1,1,1,1
+access_itk_valorisierung_user,itk_valorisierung.valorisierung.user,model_itk_valorisierung_valorisierung,itk_crm.itk_group_user,1,0,0,0
+access_itk_valorisierung_manager,itk_valorisierung.valorisierung.manager,model_itk_valorisierung_valorisierung,itk_crm.itk_group_manager,1,1,1,1
