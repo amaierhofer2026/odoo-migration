@@ -9794,11 +9794,15 @@ Produktive Laeufe nicht ausgefuehrt; Schreibpfade ohne Stammdatenzuordnung gespe
   Anlegen ausdruecklich nachziehen, sonst zeigt die oeffentliche Seite die Frage nicht.
 - **Relationsvergleich:** `read()` liefert Many2one als `[id, name]`; ohne Reduktion auf die
   ID meldet der Idempotenzvergleich jedes Feld als Abweichung.
-- **Rechte:** Odoo 11 liess normale Umfrage-Benutzer nur eigene Antworten sehen (Record
-  Rule `create_uid`), Odoo 18 zeigt der Gruppe "Umfragen / Benutzer" alle Antworten
-  (Einschraenkung nur ueber "eingeschraenkte Benutzer"). Betroffen ist ein echter Benutzer.
-  Nichts geaendert - Entscheidung offen (Optionen in `docs/o11-o18-vergleich-survey.md`,
-  Abschnitt 5.2).
+- **Rechte (angepasst 19.11.2026, Session 147):** Odoo 11 liess normale Umfrage-Benutzer
+  nur eigene Antworten sehen, Odoo 18 zeigte der Gruppe "Umfragen / Benutzer" alle. Das
+  Modul `itk_survey_security` 18.0.1.0.0 ueberschreibt die beiden Gruppenregeln von
+  `survey` (`survey.user_input`, `survey.user_input.line`) mit derselben XML-ID auf
+  `create_uid`/`partner_id`; die Manager-Regeln bleiben, Administratoren sehen alles.
+  Eine zusaetzliche Gruppenregel wuerde nicht wirken (Odoo verknuepft Gruppenregeln mit
+  ODER), eine globale Regel wuerde Manager einschraenken. Die survey-Regeln liegen in
+  einem Block `noupdate="1"` und werden von einem survey-Upgrade nicht zurueckgesetzt.
+  Nachweis: 28 Rechtepruefungen und 6 Browserpruefungen je Instanz.
 - **Ergebnis:** 151 Datensaetze je Instanz, zweiter Lauf 0/0/151, Abgleich je 409 Pruefungen
   ohne Abweichung, Browser je 44 OK, Rechte je 17 OK. Regression lokal 725 OK / 9 FEHL
   (unveraendert zu Session 145), VM 723 OK / 11 FEHL (dieselben neun plus zwei

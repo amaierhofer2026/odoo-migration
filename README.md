@@ -211,9 +211,9 @@ Prüfwerkzeug: `python scripts/vm_abnahme_check.py` · Detailregel: `docs/arbeit
   2 Fragen, 2 Vorgaben, 72 Teilnahmen und 71 Antworten aus Odoo 11 uebernommen; zweiter
   Lauf 0/0/151, Abgleich je 409 Pruefungen ohne Abweichung, Browser und Rechte je
   Instanz ohne Fehlschlag, Regression unveraendert (lokal 725/9). Skripte unter
-  `scripts/migration/survey_*`, Doku `docs/o11-o18-vergleich-survey.md`. Offene
-  Entscheidung: Sichtbarkeit fremder Antworten fuer "Umfragen / Benutzer" (nichts
-  geaendert, dokumentiert).
+  `scripts/migration/survey_*`, Doku `docs/o11-o18-vergleich-survey.md`. Rechte wie
+  Odoo 11 ueber `itk_survey_security` 18.0.1.0.0: normale Benutzer sehen nur eigene
+  Antworten, Manager und Administratoren alles (28 + 6 Pruefungen je Instanz).
 
 - **Abschlusscheck Bereich Abrechnung (Session 129, 07.10.2026) - IN ARBEIT, ein fachlicher BLOCKER offen:** Gesamtpruefung aller Menuepunkte unter Abrechnung/Verkauf/Einkauf. 32 Menuepunkte samt Ansichtsarten gegen Odoo 11 verglichen, Feldabdeckung 273 belegte Felder / 0 Luecken, Feldbeschriftungen lokal und VM je 155 Paare / 0 Abweichungen, Pflichtfelder und Constraints ohne Befund. Trockenlauf lokal und VM identisch (72 Planpositionen, 23 offen, kein Abbruch), kontrollierter Testlauf auf der VM mit 202 Datensaetzen und **94 bestanden / 0 Abweichungen**, Browser-Gesamtdurchgang lokal und VM mit je 32 Menuepunkten und **0 Unterschieden** zwischen den Instanzen, Produktmenues je 41 OK / 0 FEHL. Danach Testdaten entfernt, Bestand lokal und VM vorher == nachher. Drei Werkzeugbefunde behoben (Baseline des Unversehrtheitsnachweises, dynamische Kategorie-Stichprobe, "nicht anwendbar" statt FEHL ohne Testbeleg). **BLOCKER: Kontenstammdaten / fachliche Zuordnung vor Produktivmigration erforderlich** - 8400 "Erloese 19% USt" und 3400 "Wareneingang 19% Vorsteuer" sind nur globale Firmenvorgaben und im Ziel nicht vorhanden; es wird nichts angelegt oder geraten. Siehe `docs/o11-o18-abrechnung-abschlussmatrix.md`, Abschnitt 13. **Abrechnung bleibt IN ARBEIT; die finale Freigabe gibt Anna selbst.**
 

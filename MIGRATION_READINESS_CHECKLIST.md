@@ -3119,7 +3119,7 @@ Benutzer 80 (Sammelkonto) -> inaktiver historischer Benutzer (1), 6.821 ueber Lo
 | Idempotenz | 0 angelegt, 0 aktualisiert, 151 uebersprungen, 0 Fehler, 0 Dubletten (lokal und VM) | erledigt |
 | Browser lokal | 44 OK / 0 FEHL | erledigt |
 | Browser VM | 44 OK / 0 FEHL | erledigt |
-| Rechte | 17 OK / 0 FEHL je Instanz; Abweichung zu Odoo 11 dokumentiert (fremde Antworten sichtbar) | erledigt, Entscheidung offen |
+| Rechte | 28 OK / 0 FEHL (Rollen) und 6 OK / 0 FEHL (Browser) je Instanz: normale Benutzer sehen nur eigene Teilnahmen, Manager/Administrator alles | erledigt |
 | Regression | lokal 725 OK / 9 FEHL, VM 723 OK / 11 FEHL - alle elf Werkzeuggrenzen, keine Regression durch Survey | erledigt |
 | Testdaten | entfernt, Bestand unveraendert (2/4/2/72/71) | erledigt |
 | Dokumentation | `docs/o11-o18-vergleich-survey.md`, `docs/migration/survey_migration.md`, Uebergabe 146 | erledigt |
@@ -3128,8 +3128,10 @@ Benutzer 80 (Sammelkonto) -> inaktiver historischer Benutzer (1), 6.821 ueber Lo
 **Bewusst akzeptierte Abweichungen:** Odoo-11-Stufen (Entwurf / In Bearbeitung /
 Geschlossen / Dauerhaft) entfallen, weil Odoo 18 kein Stufenmodell fuehrt; "Geschlossen"
 wird zu "archiviert". Kein Statusfeld nachgebaut.
-**Offene Entscheidung:** Sichtbarkeit fremder Antworten fuer "Umfragen / Benutzer"
-(Odoo 11: nur eigene). Es wurde nichts geaendert.
+**Entschieden und umgesetzt (19.11.2026, Session 147):** Sichtbarkeit fremder Antworten
+fuer "Umfragen / Benutzer" ist auf das Odoo-11-Prinzip zurueckgefuehrt - eigene Teilnahmen
+ja, fremde nein; Manager und Administrator sehen weiterhin alles. Modul
+`itk_survey_security` 18.0.1.0.0 (Record Rules im Repository, keine Felder, keine Daten).
 **Technischer Befund:** `survey.question.create` ist in `survey` 18.0.3.7 ohne
 `@api.model_create_multi` definiert und per RPC nicht aufrufbar
 (`TypeError: create() missing 1 required positional argument: 'vals_list'`). Die
@@ -3148,4 +3150,18 @@ sichtbar (Screenshot `%LOCALAPPDATA%\Temp\personal_vm_mitarbeiter6.png`, RPC:
 `hr.employee` 6 mit `job_title` gesetzt). Die Abweichung zu Session 145 ist damit ein
 Pruef-/Timing-Effekt des Regressionsskripts, kein Daten- oder Ansichtsfehler; der Bereich
 Personal wurde in dieser Sitzung nicht veraendert.
+
+### Nachtrag 19.11.2026 (Session 147): Rechteanpassung
+
+| Punkt | Nachweis | Stand |
+|---|---|---|
+| Normale Benutzer sehen eigene Antworten | `survey_rechte_pruefung.py`: eigene Teilnahme angelegt und sichtbar | erledigt |
+| Fremde Antworten nicht sichtbar | Suche 0 Treffer, direkter `read` verweigert, Schreiben verweigert | erledigt |
+| Direkte URL auf fremde Antwort | `browser_survey_rechte.py`: Odoo-Zugriffsfehler im echten Chrome | erledigt |
+| Manager/Administrator sehen alles | 72 migrierte Teilnahmen plus Testteilnahmen sichtbar, fremde Antwort oeffnet | erledigt |
+| Anlegen/Bearbeiten unveraendert | `browser_survey_abnahme.py` 44 OK / 0 FEHL je Instanz | erledigt |
+| Keine Rechteausweitung | Nur Einschraenkung der Gruppe "Umfragen / Benutzer"; Administratorrechte unberuehrt | erledigt |
+| Regression | lokal 725 OK / 9 FEHL (unveraendert), VM 721 OK / 13 FEHL: Kontakte 4, Verkauf 5, Helpdesk 1 und E-Mail-Marketing 3 - alle als Werkzeuggrenzen belegt | erledigt |
+| Umsetzung | `itk_survey_security` 18.0.1.0.0 (Record Rules im Repository, kein einmaliger Eingriff) | erledigt |
+| Dreistand | lokal = GitHub main = VM | erledigt |
 
