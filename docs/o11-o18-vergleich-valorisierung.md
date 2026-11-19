@@ -98,7 +98,7 @@ Verteilung der Rechnungen auf die Hinweise: 2019 = 1, 2020 = 460, 2021 = 534, 20
 | Aktion "Valorisation Text" | "Valorisierungs Text" | anders benannt | auf Odoo-11-Wortlaut angleichen |
 | Liste und Formular mit Code/Beschreibung/Nummernfolge | gleich | 1:1 | keine Änderung |
 | Suche/Filter/Gruppierung | Odoo-18-Standard (Suchfeld, Filter, Gruppieren nach) | Zusatz | bleibt erhalten |
-| Rechte: `itk_group_user` nur lesen, `itk_group_manager` alles | eine Regel für alle internen Benutzer mit allen Rechten | **weiter gefasst** | auf Odoo-11-Rechte zurückführen |
+| Rechte: `itk_group_user` nur lesen, `itk_group_manager` alles | eine Regel für alle internen Benutzer mit allen Rechten, zusätzlich eine Regel ohne Gruppe (Altbestand in der DB) | **weiter gefasst** | zurückgeführt: zwei Regeln je Gruppe, Altbestand entfernt (`valorisierung_rechte_bereinigen.py`) |
 | Keine Record Rules | keine | 1:1 | keine |
 
 ### 3.4 Nicht vorhanden (bewusst nicht nachgebaut)
@@ -162,7 +162,17 @@ Der Satz existiert nur in Odoo 18 (kein Odoo-11-Gegenstück, kein Text) und wird
 Testrechnungen der Abrechnungsrunde verwendet. Er gehört nicht zum echten Bestand; sein
 Umgang wird dokumentiert (Entfernen nur, wenn keine Rechnung ihn nutzt).
 
-## 6 Akzeptierte Abweichungen
+## 6 Datenqualität in den Codes
+
+Die Codes sind in Odoo 11 uneinheitlich geschrieben und werdenzeichengenau übernommen:
+"VALORISIERUNGSHINWEIS 2019" bis 2023 in Großbuchstaben, "Valorisierungshinweis 2024"
+bis 2026 in gemischter Schreibweise, "VALORISIERUNGHINWEIS 2024 Acta Nova" zusätzlich mit
+Tippfehler (fehlendes "S") und einem Leerzeichen am Ende. Es wird nichts normalisiert -
+die Codes sind fachliche Schlüssel und stehen so auf Rechnungen und in Auswertungen.
+Die Nummernfolge ist in allen zehn Sätzen 0, also gibt es keine fachliche Sortierung
+(wie in Odoo 11).
+
+## 7 Akzeptierte Abweichungen
 
 | Abweichung | Begründung |
 |---|---|
