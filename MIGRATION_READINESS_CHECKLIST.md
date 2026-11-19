@@ -2592,7 +2592,7 @@ bearbeitete Bereiche sind bewusst nicht enthalten.
 
 | Bereich | Odoo-11-Module | Bestand Odoo 11 | Bestand Odoo 18 | Status |
 |---|---|---|---|---|
-| **Umfragen / Survey** | `survey`, `survey_crm` | 2 Umfragen (1 Test, 1 "Staedtebund Academy - Welche Kurse"), 2 Seiten, 2 Fragen, 2 Antwortvorgaben, **72 Teilnahmen**, 71 Antworten | `survey` 18.0.3.7 mit 2 Umfragen, 2 Abschnitten, 2 Fragen, 2 Vorgaben, 72 Teilnahmen, 71 Antworten | **MIGRIERT lokal, VM-Abnahme offen** (18.11.2026, Session 146) |
+| **Umfragen / Survey** | `survey`, `survey_crm` | 2 Umfragen (1 Test, 1 "Staedtebund Academy - Welche Kurse"), 2 Seiten, 2 Fragen, 2 Antwortvorgaben, **72 Teilnahmen**, 71 Antworten | `survey` 18.0.3.7 mit 2 Umfragen, 2 Abschnitten, 2 Fragen, 2 Vorgaben, 72 Teilnahmen, 71 Antworten | **ABGENOMMEN und GESPERRT** (18.11.2026, Session 146) |
 | **Website / Webinhalte** | `website`, `website_form`, `website_links`, `website_rating`, `website_odoo_debranding` | **17 Seiten** (FAQ Gemeindecloud/Ebox, FAQ IFG-Portal Partner/Kunden, FAQ Anonymisierungs-Portal, Kurse, Wie bestelle ich einen Kurs, Kontakt), 11 Menues | 4 Seiten, 8 Menues (Demodaten) | **Bestandsaufnahme fertig (11.11.2026, Session 141)**, Entscheidungen E1-E14 offen |
 | **Lager / Bestand** | `stock`, `stock_account`, `sale_stock` | **262 Lagerbelege** (231 offen "assigned", 31 storniert, 0 erledigt), 342 Buchungen, 13 Lagerorte, 1 Lager, 0 Bestandsmengen | 0 Belege, 10 Lagerorte | nicht bearbeitet (fachlich ohne Vollzuege) |
 | **Valorisierung** | `itk_valorisierung` | 10 Valorisierungshinweise 2019-2026, 33 Kostenstellen (`account.analytic.account`) | Modul nicht vorhanden | nicht bearbeitet |
@@ -3112,18 +3112,18 @@ Benutzer 80 (Sammelkonto) -> inaktiver historischer Benutzer (1), 6.821 ueber Lo
 |---|---|---|
 | Struktur/Funktion | Odoo 18 `survey` 18.0.3.7 war bereits installiert; Seiten als Abschnitte (`survey.question.is_page`), Vorgaben als `survey.question.answer`, Fragetyp `textbox` -> `text_box` | erledigt |
 | Odoo-11-Funktionalitaet | Menues, Listen, Kanban, Filter, Gruppierung, Formular, Ergebnisseite, oeffentliche Umfrage im Browser belegt | erledigt |
-| Datenmigration | 2 Umfragen, 2 Abschnitte, 2 Fragen, 2 Vorgaben, 72 Teilnahmen, 71 Antworten | erledigt (lokal) |
-| Beziehungen | Umfrage -> Seite/Frage/Teilnahme -> Antwort je Datensatz geprueft, 0 Abweichungen | erledigt (lokal) |
-| Datenmengen | Abgleich 409 Pruefungen OK, 0 Abweichungen; Antworttexte ueber Laenge und SHA-1 | erledigt (lokal) |
+| Datenmigration | 2 Umfragen, 2 Abschnitte, 2 Fragen, 2 Vorgaben, 72 Teilnahmen, 71 Antworten (lokal und VM) | erledigt |
+| Beziehungen | Umfrage -> Seite/Frage/Teilnahme -> Antwort je Datensatz geprueft, 0 Abweichungen | erledigt |
+| Datenmengen | Abgleich je Instanz 409 Pruefungen OK, 0 Abweichungen; Antworttexte ueber Laenge und SHA-1 | erledigt |
 | Migrationsskript | `scripts/migration/survey_migration.py`, `survey_abgleich.py`, `survey_rechte_pruefung.py`, `scripts/browser_survey_abnahme.py` | erledigt |
-| Idempotenz | 0 angelegt, 0 aktualisiert, 151 uebersprungen, 0 Fehler, 0 Dubletten | erledigt (lokal) |
+| Idempotenz | 0 angelegt, 0 aktualisiert, 151 uebersprungen, 0 Fehler, 0 Dubletten (lokal und VM) | erledigt |
 | Browser lokal | 44 OK / 0 FEHL | erledigt |
-| Browser VM | offen (Nachzug) | offen |
-| Rechte | 17 OK / 0 FEHL je Instanz; Abweichung zu Odoo 11 dokumentiert (fremde Antworten sichtbar) | erledigt (lokal), Entscheidung offen |
-| Regression | lokal: siehe Laufprotokoll; VM: offen | offen |
+| Browser VM | 44 OK / 0 FEHL | erledigt |
+| Rechte | 17 OK / 0 FEHL je Instanz; Abweichung zu Odoo 11 dokumentiert (fremde Antworten sichtbar) | erledigt, Entscheidung offen |
+| Regression | lokal 725 OK / 9 FEHL, VM 723 OK / 11 FEHL - alle elf Werkzeuggrenzen, keine Regression durch Survey | erledigt |
 | Testdaten | entfernt, Bestand unveraendert (2/4/2/72/71) | erledigt |
 | Dokumentation | `docs/o11-o18-vergleich-survey.md`, `docs/migration/survey_migration.md`, Uebergabe 146 | erledigt |
-| Dreistand | lokal = GitHub main = VM: offen bis VM-Nachzug | offen |
+| Dreistand | lokal = GitHub main = VM | erledigt |
 
 **Bewusst akzeptierte Abweichungen:** Odoo-11-Stufen (Entwurf / In Bearbeitung /
 Geschlossen / Dauerhaft) entfallen, weil Odoo 18 kein Stufenmodell fuehrt; "Geschlossen"
@@ -3135,4 +3135,17 @@ wird zu "archiviert". Kein Statusfeld nachgebaut.
 (`TypeError: create() missing 1 required positional argument: 'vals_list'`). Die
 Oberflaeche legt Fragen ueber den Dialog an - im Browser belegt. Das Migrationsskript
 nutzt denselben Weg (O2M `question_and_page_ids`).
+
+**Regression im Detail.** Lokal 725 OK / 9 FEHL, identisch zu Session 145:
+Kontakte 4 (Formularpruefung oeffnet eine Verkaufschance statt eines Interessenten),
+Verkauf 4 (Kalender zeigt die Randwoche des Monats, Pivot vergleicht `max()` statt der
+Summe), Helpdesk 1 ("on Hold" ist eingeklappt). VM 723 OK / 11 FEHL: dieselben neun plus
+zwei im Bereich Personal (20 OK / 2 FEHL statt 22 / 0 am 18.11.). Beide sind
+Werkzeuggrenzen: das Skript sucht die Stellenbezeichnung als eigenen Kopfknoten und
+erkennt die Formulargruppen ueber `.o_group_name`; im echten Browser sind Stellenbezeichnung
+("Geschaeftsfuehrer" unter dem Namen), Kontaktinformationen, Position und alle Reiter
+sichtbar (Screenshot `%LOCALAPPDATA%\Temp\personal_vm_mitarbeiter6.png`, RPC:
+`hr.employee` 6 mit `job_title` gesetzt). Die Abweichung zu Session 145 ist damit ein
+Pruef-/Timing-Effekt des Regressionsskripts, kein Daten- oder Ansichtsfehler; der Bereich
+Personal wurde in dieser Sitzung nicht veraendert.
 

@@ -399,6 +399,19 @@ def _frage_anlegen(ziel, sid, vals, ist_seite, stat, fehler, schluessel, mapping
         fehler.append({"art": art, "o11_id": vals["itk_o11_id"],
                        "fehler": "nach dem Anlegen nicht auffindbar"})
         return None
+    # Odoo verwirft beim Anlegen ueber die O2M je nach Instanz das Feld ``page_id``
+    # (und setzt bei Seiten eine eigene Sequenz). Beides wird deshalb nach dem
+    # Anlegen ausdruecklich gesetzt - sonst haengen Fragen ohne Abschnitt in der
+    # Umfrage und die oeffentliche Seite zeigt sie nicht an.
+    nachziehen = {"sequence": vals.get("sequence") or 0}
+    if not ist_seite:
+        nachziehen["page_id"] = vals.get("page_id") or False
+    try:
+        ziel.kw("survey.question", "write", [[ids[0]], nachziehen])
+    except Exception as exc:  # noqa: BLE001
+        stat["fehler"] += 1
+        fehler.append({"art": art, "o11_id": vals["itk_o11_id"],
+                       "fehler": "Abschnitt/Reihenfolge nicht setzbar: %s" % str(exc)[:200]})
     schluessel[vals["itk_o11_id"]] = ids[0]
     stat["angelegt"] += 1
     mapping["daten"].append({"art": art, "o11_id": vals["itk_o11_id"], "o18_id": ids[0],
@@ -491,7 +504,7 @@ def _zeitstempel(ziel, modell, quelle, uid_map, stat, fehler, seite=None):
             # Datums- oder Benutzerwerte werden nachgezogen.
             if ist[0] != soll[0] or ist[1] != soll[1] or (soll[2] and ist[2] != soll[2]) \
                     or (soll[3] and ist[3] != soll[3]):
-                zeilen.append([r["itk_o11_id"], soll[0] or None, soll[1] or None, None,
+                zeilen.append([r["id"], soll[0] or None, soll[1] or None, None,
                                soll[2], soll[3]])
     if not zeilen:
         return 0

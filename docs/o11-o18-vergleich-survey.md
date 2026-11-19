@@ -381,3 +381,34 @@ Die zweite Zeile ist die in Abschnitt 5.2 beschriebene Abweichung zu Odoo 11: do
 ein normaler Umfrage-Benutzer nur seine eigenen Antworten. Es wurde **nichts geändert**;
 die Entscheidung steht aus.
 
+### 7.5 Datenmigration VM
+
+Derselbe Skriptstand, dieselbe Quelle. Auf der VM traten zwei Effekte auf, die auf
+lokal nicht sichtbar waren und im Skript behoben wurden:
+
+1. **Abschnittszuordnung beim Anlegen über die O2M.** Odoo verwarf beim Create über
+   `question_and_page_ids` das Feld `page_id` und setzte für Abschnitte eine eigene
+   Sequenz. Folge: Die Frage hing ohne Abschnitt, und die öffentliche Umfrageseite zeigte
+   den Abschnitt ohne Frage. Das Skript setzt `page_id` und `sequence` nach dem Anlegen
+   ausdrücklich nach.
+2. **Zeitstempel über die Ziel-ID.** Der Nachzug schreibt über `id` (nicht über
+   `itk_o11_id`), weil Odoo-11-Seite 1 und -Frage 1 dieselbe ID tragen. Mit dem falschen
+   Schlüssel trafen nur Zufallstreffer; auf der VM blieben 71 Teilnahmen auf dem
+   Einspieldatum. Nach dem Fix wurden 72 Teilnahmen, 71 Antworten und 2 Fragen
+   nachgezogen.
+
+Nach dem Fix, auf beiden Instanzen:
+
+| Objekt | Odoo 11 | Odoo 18 VM | angelegt | Idempotenzlauf |
+|---|---|---|---|---|
+| Umfragen | 2 | 2 | 2 | 0 neu |
+| Seiten (Abschnitte) | 2 | 2 | 2 | 0 neu |
+| Fragen | 2 | 2 | 2 | 0 neu |
+| Antwortvorgaben | 2 | 2 | 2 | 0 neu |
+| Teilnahmen | 72 | 72 | 72 | 0 neu |
+| Antworten | 71 | 71 | 71 | 0 neu |
+
+Zweiter Lauf VM: 0 angelegt, 0 aktualisiert, 151 übersprungen, 0 Fehler, 0 Dubletten.
+Abgleich VM: 409 Prüfungen OK, 0 Abweichungen. Browser VM: 44 OK / 0 FEHL.
+Rechte VM: 17 OK / 0 FEHL.
+

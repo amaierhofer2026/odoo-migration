@@ -9773,3 +9773,39 @@ Produktive Laeufe nicht ausgefuehrt; Schreibpfade ohne Stammdatenzuordnung gespe
   per Skript gesetzte Labels driften zwischen lokal und VM auseinander.
 - **Bekannte Werkzeuggrenzen der Abnahmeskripte** stehen in
   `docs/o11-o18-vergleich-crm.md`, Abschnitt 7a - nicht als Produktfehler werten.
+
+
+## Umfragen / Survey (abgenommen und gesperrt 18.11.2026, Session 146)
+
+- **Bestand:** 2 Umfragen (1 Testumfrage "Wird Odoo noch was?", 1 offene
+  "Staedtebund Academy"), 2 Seiten, 2 Fragen (simple_choice, textbox), 2 Antwortvorgaben,
+  72 Teilnahmen (71 abgeschlossen, 1 angefangen), 71 Freitextantworten. Kein Partner-,
+  E-Mail- oder Fristbezug, keine Punkte. Odoo 18 `survey` 18.0.3.7 war bereits installiert.
+- **Modellunterschiede:** Seiten sind in Odoo 18 Fragen mit `is_page=True`, Antwortvorgaben
+  sind `survey.question.answer`, `textbox` heisst `text_box`. Ein Stufenmodell gibt es nicht
+  mehr (Regel: "Geschlossen" -> archiviert, kein Feld nachgebaut).
+- **Odoo-11-Seite 1 und -Frage 1 haben dieselbe ID.** Zuordnung und Zeitstempel-Import
+  muessen Seiten und Fragen trennen (`is_page`, `spalte="id"`); sonst ueberschreiben sie
+  sich und der Nachzug trifft nur Zufallstreffer.
+- **`survey.question.create` ist in 18.0.3.7 ohne `@api.model_create_multi`** und per RPC
+  nicht aufrufbar (`TypeError: ... 'vals_list'`). Fragen werden ueber die O2M
+  `question_and_page_ids` angelegt - derselbe Weg wie der Dialog "Abschnitte und Fragen
+  erstellen". Dabei verwirft Odoo `page_id` und setzt eigene Sequenzen: beides nach dem
+  Anlegen ausdruecklich nachziehen, sonst zeigt die oeffentliche Seite die Frage nicht.
+- **Relationsvergleich:** `read()` liefert Many2one als `[id, name]`; ohne Reduktion auf die
+  ID meldet der Idempotenzvergleich jedes Feld als Abweichung.
+- **Rechte:** Odoo 11 liess normale Umfrage-Benutzer nur eigene Antworten sehen (Record
+  Rule `create_uid`), Odoo 18 zeigt der Gruppe "Umfragen / Benutzer" alle Antworten
+  (Einschraenkung nur ueber "eingeschraenkte Benutzer"). Betroffen ist ein echter Benutzer.
+  Nichts geaendert - Entscheidung offen (Optionen in `docs/o11-o18-vergleich-survey.md`,
+  Abschnitt 5.2).
+- **Ergebnis:** 151 Datensaetze je Instanz, zweiter Lauf 0/0/151, Abgleich je 409 Pruefungen
+  ohne Abweichung, Browser je 44 OK, Rechte je 17 OK. Regression lokal 725 OK / 9 FEHL
+  (unveraendert zu Session 145), VM 723 OK / 11 FEHL (dieselben neun plus zwei
+  Personal-Werkzeuggrenzen, mit Screenshot belegt). Testdaten entfernt, Dreistand
+  lokal = GitHub main = VM.
+- Skripte: `scripts/migration/survey_migration.py`, `survey_abgleich.py`,
+  `survey_rechte_pruefung.py`, `scripts/browser_survey_abnahme.py`; Anker in
+  `itk_migration_keys` 18.0.1.2.1. Doku: `docs/o11-o18-vergleich-survey.md`,
+  `docs/migration/survey_migration.md`, Uebergabe 146.
+
