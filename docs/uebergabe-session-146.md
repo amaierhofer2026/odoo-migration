@@ -1,7 +1,8 @@
 # Uebergabe Session 146 - Umfragen / Survey
 
-**Status: Umfragen / Survey = MIGRIERT (lokal), VM-Abnahme offen.**
-Nicht gesperrt, solange die VM nicht belegt ist.
+**Status: Umfragen / Survey = ABGENOMMEN UND GESPERRT (18.11.2026).**
+Ab hier keine Aenderungen mehr an diesem Bereich.
+Dreistand: lokal = GitHub main = VM, Arbeitsbaeume sauber (Commit siehe Historie).
 
 ## Auftrag dieser Sitzung
 
@@ -51,16 +52,19 @@ Dokumentation, Branch/Push/PR/Merge, VM nachziehen.
 
 ## Offene Punkte
 
-1. **VM-Nachzug**: `itk_migration_keys` 18.0.1.2.1 installieren, Migration schreiben,
-   Idempotenz, Abgleich, Browser (44 Pruefungen), Rechte. Erst danach sperren.
-2. **Regression der gesperrten Bereiche** lokal (laeuft) und auf der VM.
+1. **VM-Nachzug erledigt**: `itk_migration_keys` 18.0.1.2.1 installiert, Migration
+   geschrieben, Idempotenz 0/0/151, Abgleich 409/0, Browser 44/0, Rechte 17/0.
+2. **Regression der gesperrten Bereiche**: lokal 725 OK / 9 FEHL (unveraendert zu
+   Session 145). VM 723 OK / 11 FEHL: dieselben neun Werkzeuggrenzen plus zwei im Bereich
+   Personal (Selektor erwartet die Stellenbezeichnung als eigenen Kopfknoten und Gruppen
+   ueber `.o_group_name`); im Browser ist das Formular vollstaendig, mit Screenshot belegt.
 3. **Entscheidung K1 (Stufen)**: Odoo 18 hat kein Stufenmodell. Vorschlag: Odoo-18-Standard
    belassen (Geschlossen = archiviert), dokumentiert. Kein Feld nachgebaut.
 4. **Entscheidung K2 (Rechte)**: In Odoo 11 sah ein normaler Umfrage-Benutzer nur eigene
    Antworten, in Odoo 18 sieht "Umfragen / Benutzer" alle (betroffen: 1 echter Benutzer).
    Nichts geaendert; drei Optionen im Vergleichsdokument (Abschnitt 5.2).
-5. Nach dem VM-Beleg: Checkliste, PROJECT_KNOWLEDGE, README und diese Datei auf
-   "ABGENOMMEN UND GESPERRT" setzen und den Dreistand nachweisen.
+5. **Erledigt:** Checkliste, PROJECT_KNOWLEDGE, README und diese Datei stehen auf
+   "ABGENOMMEN UND GESPERRT"; der Dreistand ist nachgewiesen.
 
 ## Technische Befunde
 
@@ -83,14 +87,18 @@ Dokumentation, Branch/Push/PR/Merge, VM nachziehen.
 
 | Kennzahl | Odoo 11 | Odoo 18 lokal | Odoo 18 VM |
 |---|---|---|---|
-| Umfragen | 2 | 2 | offen |
-| Seiten/Abschnitte | 2 | 2 | offen |
-| Fragen | 2 | 2 | offen |
-| Antwortvorgaben | 2 | 2 | offen |
-| Teilnahmen | 72 (71 done, 1 new) | 72 (71 done, 1 new) | offen |
-| Antworten | 71 | 71 | offen |
-| davon Freitext | 71 | 71 | offen |
-| Punkte gesamt | 0,00 | 0,00 | offen |
+| Umfragen | 2 | 2 | 2 |
+| Seiten/Abschnitte | 2 | 2 | 2 |
+| Fragen | 2 | 2 | 2 |
+| Antwortvorgaben | 2 | 2 | 2 |
+| Teilnahmen | 72 (71 done, 1 new) | 72 (71 done, 1 new) | 72 (71 done, 1 new) |
+| Antworten | 71 | 71 | 71 |
+| davon Freitext | 71 | 71 | 71 |
+| Punkte gesamt | 0,00 | 0,00 | 0,00 |
+| Abgleich | - | 409 OK / 0 | 409 OK / 0 |
+| Browser | - | 44 OK / 0 | 44 OK / 0 |
+| Rechte | - | 17 OK / 0 | 17 OK / 0 |
+| Idempotenz (2. Lauf) | - | 0/0/151/0/0 | 0/0/151/0/0 |
 
 ## Fuer die naechste Sitzung
 
@@ -103,3 +111,19 @@ Beim Arbeiten an anderen Bereichen beachten:
   Migrationsanker); Zeitstempel-Import nur fuer Modelle aus der Whitelist.
 - Browserabnahme: Cookie-Hinweis wegklicken, Ansichtswechsel ueber die Knoepfe
   (URL-Parameter `view_type` greift nicht immer), Titel-Felder koennen `textarea` sein.
+
+## Nachtrag: was der VM-Lauf zusaetzlich aufgedeckt hat
+
+Zwei Fehler im Migrationsskript, die lokal nicht sichtbar waren und auf der VM zu
+falschen Daten fuehrten (beide behoben, beide Instanzen neu geprueft):
+
+1. Odoo verwirft beim Anlegen ueber `question_and_page_ids` das Feld `page_id` und setzt
+   fuer Abschnitte eine eigene Sequenz. Die Folge war eine Umfrage, deren oeffentliche
+   Seite den Abschnitt ohne Frage anzeigte. Das Skript setzt `page_id` und `sequence`
+   nach dem Anlegen ausdruecklich.
+2. Der Zeitstempel-Nachzug schrieb ueber `id`, uebergeben wurde aber die Odoo-11-ID -
+   auf der VM blieben 71 Teilnahmen auf dem Einspieldatum. Nach dem Fix wurden 72
+   Teilnahmen, 71 Antworten und 2 Fragen nachgezogen.
+
+Lehre fuer weitere Bereiche: Migrationslaeufe auf **beiden** Instanzen verifizieren;
+ein lokal gruener Abgleich deckt Anlege-Eigenheiten des Zielmodells nicht ab.
