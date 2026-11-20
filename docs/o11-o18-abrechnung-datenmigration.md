@@ -178,3 +178,32 @@ Kontakten der dokumentierten Lücke.
 - Rechteprüfung lokal: **6 OK / 0 FEHL**. Interner Benutzer ohne Abrechnungsgruppe sieht
   keine Rechnungen; Abrechnungsbenutzer und -manager lesen und bearbeiten; Administrator
   unverändert.
+
+## 8 Ergebnisse VM (19.11.2026)
+
+Die VM wurde nach `main` (Commit `a5cdf4e`, PR #289) gezogen, `itk_migration_keys`
+aktualisiert und die Migration in derselben Reihenfolge gefahren.
+
+| Schritt | Ergebnis VM |
+|---|---|
+| Rechnungen | 6.325 angelegt, 6.321 gebucht, 229 Gutschriften, 53 nicht zuordenbar, **0 Fehler** |
+| Summen | netto 9.965.048,68 / Steuer 1.979.619,16 / brutto 11.944.667,84 - identisch zu lokal |
+| Zahlungen | 6.049 angelegt, 6.029 ausgeglichen, 42 nicht zuordenbar, 20 transiente Fehler (im Ausgleichslauf behoben) |
+| Ausgleich | 27 nachgebucht, 241 Ersatzzahlungen, 0 Fehler |
+| Endstand | **6.275 bezahlt / 49 offen / 1 teilweise**, offener Rest **124.623,32** - identisch zu lokal |
+| Abgleich | **15 Prüfungen OK / 0 Abweichungen** |
+| Valorisierungs-Nachlauf | 4.214 korrekt, 0 zu setzen, 2 nicht zuordenbar, **0 Verteilungsabweichungen** |
+| Browser | **11 OK / 0** |
+| Rechte | **6 OK / 0** |
+
+Lokal und VM sind damit deckungsgleich: gleiche Anzahl, gleiche Nummern, gleiche Summen,
+gleicher Zahlungsstatus, gleicher offener Rest.
+
+## 9 Offene Punkte nach dieser Runde
+
+| Punkt | Stand |
+|---|---|
+| Anhänge (9.407 Dateien, 805 MB) | nicht migriert; Schalter `--anhaenge pdf|alle` vorhanden, Entscheidung Anna offen |
+| 53 Belege an 12 namenlosen Kontakten | nicht migriert (195.316,90 brutto); Voraussetzung wäre die Anlage der Kontakte im gesperrten Bereich |
+| 2 Valorisierungsbeziehungen | hängen an diesen 53 Belegen |
+| Teilverrechnungen R-25700 / R-25543 | 670,56 nicht ausgeglichen (Odoo 11 teilverrechnet, Zahlungsbeleg fehlt) |

@@ -9956,5 +9956,16 @@ Produktive Laeufe nicht ausgefuehrt; Schreibpfade ohne Stammdatenzuordnung gespe
 - **Valorisierungs-Nachlauf:** 4.214 von 4.216 Beziehungen gesetzt und geprueft, 2 in der
   Luecke, **0 Verteilungsabweichungen**. Damit ist die externe Abhaengigkeit Abrechnung
   fuer die Valorisierung erfuellt.
+- **VM-Ergebnisse (identisch zu lokal):** 6.325 Belege, 6.321 gebucht, 229 Gutschriften,
+  6.275 bezahlt / 49 offen / 1 teilweise, offener Rest 124.623,32, Summen gleich, Abgleich
+  15/0, Valorisierungs-Nachlauf 4.214/0/2 mit 0 Verteilungsabweichungen, Browser 11/0,
+  Rechte 6/0.
+- **Regression:** lokal 725 OK / 9 FEHL (Referenz), VM 722 OK / 11 FEHL. Die VM zeigte im
+  ersten Durchlauf Zeitueberschreitungen (Projekt, Personal, Abonnements 0 OK, Events und
+  E-Mail-Marketing mit Fehlern); die Wiederholung mit `--timeout 120` bzw. einzeln brachte
+  35/0, 20/0, 25/0 und 239/4 im Verkauf. Verbleibend: Personal 2 FEHL (Ladezeit
+  "Formular geoeffnet", in Session 147 mit Screenshot als Werkzeuggrenze belegt).
+  **Lehre: nach einer Massenmigration ist die VM kurzzeitig ueberlastet - Regression
+  erst nach kurzer Pause oder mit groesserem Timeout fahren.**
 - Doku: `docs/o11-o18-abrechnung-datenmigration.md`,
-  `docs/migration/abrechnung_migration.md`.
+  `docs/migration/abrechnung_migration.md`, `docs/uebergabe-session-149.md`.
