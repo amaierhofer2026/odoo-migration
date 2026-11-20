@@ -3194,8 +3194,8 @@ Personal wurde in dieser Sitzung nicht veraendert.
 | Testdatensatz "VAL-OK" | kein Odoo-11-Gegenstueck, von 3 Testrechnungen genutzt - nicht geloescht, dokumentiert | dokumentiert |
 | Migrationsskript | Trockenlauf Standard, `--ausfuehren --ich-habe-freigabe`, Schreibschutz-Wrapper, Mapping-Export ausserhalb des Repos | erledigt |
 | Doku | Vergleich, Migrationstechnik, Inventur, PROJECT_KNOWLEDGE, README, Uebergabe 148 | erledigt |
-| Regression lokal | 725 OK / 9 FEHL - unveraendert zur Referenz aus Session 145/147; Fehlschlaege Kontakte 4, Verkauf 4, Helpdesk 1 (bekannte Werkzeuggrenzen: Reiter-/Textsuche im Formular, Monatsfilter im Verkaufs-Pivot, Statuslabel "on Hold") | erledigt |
-| Regression VM | 714 OK / 9 FEHL - dieselben drei Bereiche und dieselben neun Fehlschlaege wie lokal; 11 Pruefungen weniger im Verkauf durch die kleinere VM-Datenlage (228 statt 239 OK) | erledigt |
+| Regression lokal | 725 OK / 9 FEHL im Alleinlauf - unveraendert zur Referenz aus Session 145/147; nach dem Nachlauf (Anker auf account.move) erneut bestaetigt; Fehlschlaege Kontakte 4, Verkauf 4, Helpdesk 1 (bekannte Werkzeuggrenzen: Reiter-/Textsuche im Formular, Monatsfilter im Verkaufs-Pivot, Statuslabel "on Hold") | erledigt |
+| Regression VM | 725 OK / 9 FEHL im Alleinlauf - identisch zu lokal (Kontakte 4, Verkauf 4, Helpdesk 1). Nach dem Nachlauf erneut gemessen. Parallele Laeufe lokal+VM erzeugen Werkzeugabbrueche (Verkauf 153/177, Projekt VM 11/6, E-Mail-Marketing VM 17/3) - als Werkzeuggrenze belegt, im Alleinlauf nicht reproduzierbar | erledigt |
 | Gesperrte Bereiche | nicht veraendert (Survey, CRM, Abrechnung, Projekt, Personal, Helpdesk, Events, Marketing, Website, Massenbearbeitung, Verkauf, Abonnements, Kontakte) | erledigt |
 | Dreistand | lokal = GitHub main = VM, Arbeitsbaeume sauber | erledigt |
 | STATUS | **VALORISIERUNG = ABGENOMMEN UND GESPERRT** (19.11.2026) | abgenommen |

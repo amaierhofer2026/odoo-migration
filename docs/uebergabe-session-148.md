@@ -119,8 +119,8 @@ bestimmt werden. Prüfung vor Produktivstart:
 | Valorisierungshinweise Odoo 11 / Odoo 18 | 10 / 11 (10 migriert + "VAL-OK") |
 | Textzeichen gesamt | 1.462 |
 | Rechnungen mit Hinweis Odoo 11 / verbunden in Odoo 18 | 4.216 / 0 (offen) |
-| Regression lokal | 725 OK / 9 FEHL (Referenz unverändert seit Session 145) |
-| Regression VM | 714 OK / 9 FEHL (dieselben neun Werkzeuggrenzen wie lokal) |
+| Regression lokal | 725 OK / 9 FEHL (Referenz unverändert seit Session 145, im Alleinlauf) |
+| Regression VM | 725 OK / 9 FEHL im Alleinlauf (identisch zu lokal) |
 | Dreistand | `8541043` |
 
 ## 7 Nächster Schritt (nicht automatisch beginnen)
