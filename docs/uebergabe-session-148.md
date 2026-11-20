@@ -39,15 +39,17 @@
    `docs/migrationsskripte-inventur.md`, `MIGRATION_READINESS_CHECKLIST.md`,
    `PROJECT_KNOWLEDGE.md`, `README.md`, diese Übergabe.
 
-## 3 OFFENE EXTERNE ABHÄNGIGKEIT ABRECHNUNG (verbindlich)
+## 3 EXTERNE ABHÄNGIGKEIT ABRECHNUNG - ERLEDIGT am 19.11.2026 (Session 149)
 
 **Rechnungsverknüpfung:** 4.216 Odoo-11-Rechnungen tragen einen Valorisierungshinweis.
 Die Rechnungen sind in Odoo 18 nicht migriert (Bereich Abrechnung in Arbeit), deshalb ist
 `account.move.valorisierung_id` nicht befüllbar. `account.move` führt außerdem noch
 keinen Migrationsanker `itk_o11_id`.
 
-**Nach Abschluss der Abrechnungsmigration sind alle Valorisierungs-Rechnungsbeziehungen
-automatisch nachzuziehen und erneut zu prüfen. Das ist verbindlich, nicht optional.**
+**ERLEDIGT:** Der Nachlauf wurde nach der Rechnungsmigration auf lokal und VM ausgefuehrt:
+4.214 von 4.216 Beziehungen gesetzt und geprueft, 0 Verteilungsabweichungen. Die zwei
+offenen Beziehungen gehoeren zu den 53 nicht migrierten Belegen (namenlose Kontakte).
+Details: `docs/uebergabe-session-149.md`.
 
 Der Nachlauf ist bereits implementiert und getestet:
 

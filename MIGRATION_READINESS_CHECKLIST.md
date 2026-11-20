@@ -3223,8 +3223,13 @@ Verteilung je Hinweis gegen Odoo 11. Erwartetes Ergebnis nach dem Nachlauf: 4.21
 verbundene Rechnungen, 0 nicht zuordenbar, 0 Verteilungsabweichungen, Abgleich ohne
 Abweichung.
 
-Bis dahin gilt: **VALORISIERUNG (Stammdaten) = ABGENOMMEN UND GESPERRT**, mit einer
-offenen externen Abhaengigkeit, die nach der Abrechnung zwingend nachzuprufen ist.
+**Nachtrag 19.11.2026 (Session 149): externe Abhaengigkeit Abrechnung = ERLEDIGT.**
+
+Nach der Rechnungsmigration wurde der Nachlauf auf beiden Instanzen ausgefuehrt:
+**4.214 von 4.216 Rechnungsbeziehungen gesetzt und geprueft, 0 Verteilungsabweichungen,
+0 Fehler.** Die zwei fehlenden Beziehungen haengen an den 53 Belegen, die wegen der 12
+namenlosen Kontakte nicht migriert wurden (dokumentierte Luecke der Abrechnung).
+Damit gilt: **VALORISIERUNG = ABGENOMMEN UND GESPERRT, Nachlauf erledigt.**
 
 ## Abrechnung / Rechnungen - Datenmigration 19.11.2026 (Session 149)
 
@@ -3249,8 +3254,17 @@ offenen externen Abhaengigkeit, die nach der Abrechnung zwingend nachzuprufen is
 | Valorisierungs-Nachlauf | 4.214 korrekt, 0 zu setzen, 2 nicht zuordenbar (in der Luecke), 0 Verteilungsabweichungen | erledigt |
 | Browser lokal | 11 OK / 0 (Liste, Filter, historische Rechnung, Positionen, Steuer, Konto 4000, Suche, Gruppierung, Valorisierung) | erledigt |
 | Rechte lokal | 6 OK / 0; Odoo-11-Verkaufsrechte auf Rechnungen (`account_invoice salesman`) existieren in Odoo 18 nicht mehr - Standardaenderung, dokumentiert | erledigt |
-| Browser VM | folgt | offen |
-| Rechte VM | folgt | offen |
-| Regression | folgt | offen |
+| Browser VM | 11 OK / 0 (Liste, Filter, R-25949, Positionen, Steuer, Suche, Gruppierung, Valorisierung), Screenshot gesichtet | erledigt |
+| Rechte VM | 6 OK / 0, Testbenutzer entfernt, Bestand vorher = nachher | erledigt |
+| Regression lokal | **725 OK / 9 FEHL** - unveraendert zur Referenz (Kontakte 4, Verkauf 4, Helpdesk 1); trotz 6.325 neuer Belege keine neue Abweichung | erledigt |
+| Regression VM | **722 OK / 11 FEHL** nach Wiederholung der zeitueberschrittenen Bereiche: Kontakte 4, Verkauf 4, Helpdesk 1 (bekannt) plus Personal 2 (Ladezeit "Formular geoeffnet", in Session 147 mit Screenshot als Werkzeuggrenze belegt); Projekt 25 statt 26, Abonnements und Zeiterfassung ohne Testfall | erledigt |
 | Anhaenge | 9.407 Dateien (805 MB) nicht migriert; Schalter `--anhaenge` vorhanden, Entscheidung Anna offen | offen |
-| STATUS | in Arbeit bis VM-Nachweise und Regression vorliegen | IN ARBEIT |
+| Dreistand | lokal = GitHub main = VM, Arbeitsbaeume sauber | erledigt |
+| STATUS | **ABRECHNUNG / RECHNUNGEN = ABGENOMMEN UND GESPERRT** | abgenommen |
+
+Offene Punkte, die die Abnahme nicht blockieren (bewusst dokumentiert):
+
+- Anhaenge (9.407 Dateien, 805 MB) nicht migriert - Schalter `--anhaenge` vorhanden, Entscheidung Anna offen.
+- 53 Belege an 12 namenlosen Kontakten (195.316,90 brutto) nicht migriert - die Kontakte wurden bei der Kontakte-Abnahme bewusst ohne Namen belassen.
+- 2 Valorisierungsbeziehungen haengen an diesen 53 Belegen.
+- Teilverrechnungen R-25700 / R-25543: 670,56 in Odoo 11 teilverrechnet, ohne Zahlungsbeleg. |
