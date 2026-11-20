@@ -9882,10 +9882,15 @@ Produktive Laeufe nicht ausgefuehrt; Schreibpfade ohne Stammdatenzuordnung gespe
   nur Regeln ohne Gruppe **und** ohne XML-ID); danach 11 OK / 0 auf beiden Instanzen.
   **Lehre:** Rechtepruefungen immer auf beiden Instanzen fahren, bevor ein Bereich als
   abgenommen gilt.
-- **Regression:** lokal 725 OK / 9 FEHL (unveraendert zur Referenz), VM 714 OK / 9 FEHL.
-  Dieselben neun Fehlschlaege wie bisher (Kontakte 4, Verkauf 4, Helpdesk 1), alle als
-  Werkzeuggrenzen belegt; die VM hat im Verkauf 11 Pruefungen weniger (kleinere Datenlage).
-  Keine Regression durch Valorisierung.
+- **Regression:** lokal 725 OK / 9 FEHL und VM 725 OK / 9 FEHL (jeweils im **Alleinlauf**),
+  dieselben neun Fehlschlaege (Kontakte 4, Verkauf 4, Helpdesk 1) - bekannte
+  Werkzeuggrenzen, keine Regression durch Valorisierung. Auch nach dem Nachlauf (Anker
+  `itk_o11_id` auf `account.move`) erneut bestaetigt.
+  **Werkzeuggrenze, wichtig:** Parallele Regressionen lokal und VM zerstoeren die
+  Messung - beobachtet: Verkauf 153 statt 239 OK ("ABBRUCH: kein Ergebnis erkennbar"),
+  Projekt VM 11/6 mit "Aufgabenliste geoeffnet" FEHL, E-Mail-Marketing VM 17/3. Im
+  Alleinlauf alle wieder 0 Fehl. Regressionen immer sequenziell fahren und nicht mit
+  langen Sleeps im selben Turn abwarten (der Turn beendet die Prozesse mit Exit -15).
 - **Nachlauf Rechnungsverknuepfung (verbindliche externe Abhaengigkeit):** Der
   Rechnungsbezug ist mit `--nachlauf-rechnungen` im selben Skript umgesetzt (Trockenlauf
   Standard, Schreiben nur mit Freigabe). Er ordnet ueber `account.move.itk_o11_id` zu,
