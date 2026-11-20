@@ -83,3 +83,13 @@ Feldabweichung nur 24 `vat`-Formatfaelle (Odoo normalisiert USt-ID-Formate).
 | `scripts/migration/valorisierung_rechte_pruefung.py` | drei Rollen (ohne ITK-Gruppe, User, Manager) lesen/schreiben/anlegen/loeschen, Aufraeumen | schreibend (temporaer) | 11 OK / 0 (lokal) |
 | `scripts/browser_valorisierung_daten_abnahme.py` | Browserabnahme nach Migration: Liste, Formular, Suche, Filter, Anlegen, Rechnungsfeld | echter Chrome | 15 OK / 0 (lokal) |
 | `scripts/browser_valorisierung_abnahme.py` | Strukturabnahme aus Session 129 (unveraendert weitergenutzt) | echter Chrome | Bestand |
+
+## Session 149 (19.11.2026): Abrechnung / Rechnungen
+
+| Skript | Zweck | Modus | Stand |
+|---|---|---|---|
+| `scripts/migration/abrechnung_migration.py` | Rechnungen und Gutschriften (6.325), Zeilen, Nummern, Steuer, Valorisierung; Schalter `--zahlungen`, `--anhaenge`, `--gutschrift-journal` | Trockenlauf Standard, `--ausfuehren --ich-habe-freigabe` | lokal 6.325 / Idempotenz 0/6.325/0/0 |
+| `scripts/migration/abrechnung_zahlungsausgleich.py` | Zahlungen buchen, Ausgleich der bezahlten Belege, Ersatzzahlungen fuer Belege ohne Beleg | schreibend mit Freigabe | lokal 6.275 bezahlt, 0 Fehler |
+| `scripts/migration/abrechnung_abgleich.py` | Anzahl, Typen, Status, Nummern, Summen, Zeilen, Partner, Valorisierung, offener Rest | nur lesend | 15 OK / 0 Abweichungen (lokal) |
+| `scripts/migration/abrechnung_rechte_pruefung.py` | drei Rollen plus Odoo-11-Regelvergleich | schreibend (temporaer) | 6 OK / 0 (lokal) |
+| `scripts/browser_abrechnung_daten_abnahme.py` | Liste, Filter, historische Rechnung, Positionen, Suche, Gruppierung, Valorisierung | echter Chrome | 11 OK / 0 (lokal) |
