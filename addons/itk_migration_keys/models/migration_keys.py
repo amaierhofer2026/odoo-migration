@@ -168,3 +168,10 @@ class AccountMove(models.Model):
     """
     _inherit = "account.move"
     itk_o11_id = fields.Integer(string="Odoo-11-ID", index=True, copy=False)
+
+
+# --- Zahlungen (Session 149) ----------------------------------------------
+class AccountPayment(models.Model):
+    """Zahlungen (Odoo 11: account.payment)."""
+    _inherit = "account.payment"
+    itk_o11_id = fields.Integer(string="Odoo-11-ID", index=True, copy=False)

@@ -3225,3 +3225,32 @@ Abweichung.
 
 Bis dahin gilt: **VALORISIERUNG (Stammdaten) = ABGENOMMEN UND GESPERRT**, mit einer
 offenen externen Abhaengigkeit, die nach der Abrechnung zwingend nachzuprufen ist.
+
+## Abrechnung / Rechnungen - Datenmigration 19.11.2026 (Session 149)
+
+> Vergleich und Mapping: `docs/o11-o18-abrechnung-datenmigration.md`.
+> Technik: `docs/migration/abrechnung_migration.md`. Skripte:
+> `scripts/migration/abrechnung_migration.py`, `abrechnung_zahlungsausgleich.py`,
+> `abrechnung_abgleich.py`, `abrechnung_rechte_pruefung.py`,
+> `scripts/browser_abrechnung_daten_abnahme.py`.
+
+| Punkt | Nachweis | Stand |
+|---|---|---|
+| Odoo-11-Bestand (read-only, live) | 6.378 Belege (6.139 Ausgangsrechnungen, 239 Gutschriften, keine Eingangsbelege), 4 Entwurf / 48 offen / 6.326 bezahlt / 0 storniert, 10.157 Zeilen, 6.091 Zahlungen, 9.407 Anhaenge | erledigt |
+| Summen Odoo 11 | netto 10.127.812,76 / Steuer 2.012.116,35 / brutto 12.139.929,11; offener Rest 138.320,55 | erledigt |
+| Buchungslogik | Rechnungen mit `state='posted'` direkt geschrieben, kein `action_post`: keine Nummernvergabe, keine Mails, keine Automatismen, keine externen Aufrufe | erledigt |
+| Datenmigration | 6.325 Belege angelegt (6.096 Rechnungen, 229 Gutschriften), 10.075 Zeilen, Nummern 1:1 erhalten | erledigt |
+| Dokumentierte Luecke | 53 Belege (195.316,90 brutto) an 12 namenlosen Kontakten, die bei der Kontakte-Abnahme bewusst nicht migriert wurden | dokumentiert |
+| Sonderfall doppelte Nummer | R-25001 als Rechnung und Gutschrift: Gutschriften im eigenen Journal "Gutschriften" (GUTS) | erledigt |
+| Zahlungen | 6.091 Zahlungen als Zahlungsbelege angelegt und ausgeglichen; 227 Faelle ohne Odoo-11-Beleg mit Herkunftsvermerk im Memo | erledigt |
+| Idempotenz | zweiter Lauf: 0 angelegt, 6.325 uebersprungen, 0 Fehler, 0 Dubletten | erledigt |
+| Finanzabgleich | Summe netto 0,00 Differenz; Steuer/Brutto 55,63 = bekannte Odoo-11-Kopf-/Zeilendifferenz; offener Rest 1.616,76 erklaert | erledigt |
+| Datenabgleich | 15 Pruefungen OK / 0 Abweichungen (Anzahl, Typen, Status, Nummern, Summen, Zeilen, Partner, Valorisierung, Rest) | erledigt |
+| Valorisierungs-Nachlauf | 4.214 korrekt, 0 zu setzen, 2 nicht zuordenbar (in der Luecke), 0 Verteilungsabweichungen | erledigt |
+| Browser lokal | 11 OK / 0 (Liste, Filter, historische Rechnung, Positionen, Steuer, Konto 4000, Suche, Gruppierung, Valorisierung) | erledigt |
+| Rechte lokal | 6 OK / 0; Odoo-11-Verkaufsrechte auf Rechnungen (`account_invoice salesman`) existieren in Odoo 18 nicht mehr - Standardaenderung, dokumentiert | erledigt |
+| Browser VM | folgt | offen |
+| Rechte VM | folgt | offen |
+| Regression | folgt | offen |
+| Anhaenge | 9.407 Dateien (805 MB) nicht migriert; Schalter `--anhaenge` vorhanden, Entscheidung Anna offen | offen |
+| STATUS | in Arbeit bis VM-Nachweise und Regression vorliegen | IN ARBEIT |

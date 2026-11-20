@@ -9914,3 +9914,47 @@ Produktive Laeufe nicht ausgefuehrt; Schreibpfade ohne Stammdatenzuordnung gespe
   Produktivstart muss `itk_valorisierung_valorisierung` keine Saetze ohne `itk_o11_id`
   enthalten.
 - Doku: `docs/o11-o18-vergleich-valorisierung.md`, `docs/migration/valorisierung_migration.md`.
+
+## Session 149 (19.11.2026) - Bereich ABRECHNUNG / RECHNUNGEN: Datenmigration
+
+- **Bestand Odoo 11 (live, read-only):** 6.378 Belege - 6.139 Ausgangsrechnungen und 239
+  Gutschriften, **keine** Eingangsbelege. Status: 4 Entwurf, 48 offen, 6.326 bezahlt, 0
+  storniert. 10.157 Zeilen (1-2 je Beleg), 6.091 Zahlungen (10.931.018,24). Summen netto
+  10.127.812,76 / Steuer 2.012.116,35 / brutto 12.139.929,11, offener Rest 138.320,55.
+  Alle Zeilen liegen auf Konto 8400, einzige Steuer ist "20% Umsatzsteuer".
+- **Buchungsweg:** Rechnungen werden mit `state='posted'` **direkt** geschrieben, nicht
+  ueber `action_post`. Damit keine Nummernvergabe, keine Mails, keine Automatismen und
+  keine externen Aufrufe. Historische Nummern (`R-JJNNNN`) bleiben unveraendert.
+- **Odoo-18-Pflichtfeld `date`:** Entwuerfe ohne Rechnungsdatum (4 Belege) brauchen das
+  Odoo-11-Erstellungsdatum als Buchungsdatum, sonst ValidationError "Feld: Date".
+- **Doppelte Nummer R-25001** (Rechnung 27.593,52 und Gutschrift 1.474,76): Gutschriften
+  laufen im eigenen Journal "Gutschriften" (Code GUTS). Sonst verletzt die Nummer die
+  Eindeutigkeit je Journal.
+- **Zahlungsstatus ist der harte Teil.** 226 von 6.326 bezahlten Rechnungen haben in
+  Odoo 11 **keinen Zahlungsbeleg** (als bezahlt markiert) - ohne Ausgleich zeigen sie
+  offene Betraege und die Debitorenbilanz waere um 1,06 Mio zu hoch. Loesung: Zahlung im
+  Bankjournal mit Memo "Odoo 11: als bezahlt markiert, ohne Zahlungsbeleg".
+- **Gutschriften brauchen `payment_type='outbound'`.** Mit `inbound` schlaegt der
+  Ausgleich fehl (Gutschrift steht im Haben der Forderung).
+- **Forderungskonto je Partner:** Odoo 18 bucht EU-Partner auf 2100, Inland auf 2000. Die
+  Zahlung nutzt immer das Partnerkonto; fuer den Ausgleich muss sie auf das Konto der
+  Rechnung umgehaengt werden, sonst "Buchungen stammen nicht von demselben Konto".
+- **Rechnung und Gutschrift NICHT gegeneinander verrechnen.** Das setzt in Odoo 18 den
+  Status `reversed` und die Oberflaeche zeigt "STORNIERT" - obwohl die Rechnung in Odoo 11
+  bezahlt ist. Der Versuch wurde zurueckgenommen (`remove_move_reconcile`) und durch
+  Zahlungen ersetzt. **Lehre: nach jedem Ausgleich den Belegstatus im Browser pruefen.**
+- **Odoo-18-Zahlungsstatus heisst nicht `posted`:** `account.payment` kennt draft /
+  in_process / paid / canceled. Ein Filter auf `state != 'posted'` markiert alle Zahlungen
+  als "nicht gebucht" - das hat einen Reparaturlauf in die Irre gefuehrt.
+- **`account.move.line.reconcile`** arbeitet nur innerhalb desselben Kontos und derselben
+  Waehrung; Teilbetraege muessen einzeln ausgeglichen werden.
+- **Ergebnis lokal:** 6.325 Belege (53 dokumentierte Luecke an 12 namenlosen Kontakten,
+  195.316,90 brutto), 10.075 Zeilen, 6.275 bezahlt / 46 offen / 4 Entwurf, Summe netto
+  exakt gleich, Steuer/Brutto 55,63 = bekannte Odoo-11-Kopf-/Zeilendifferenz, offener Rest
+  1.616,76 vollstaendig erklaert (946,20 Entwuerfe + 670,56 Teilverrechnungen).
+  Abgleich 15/0, Browser 11/0, Rechte 6/0, Idempotenz 0/6.325/0/0.
+- **Valorisierungs-Nachlauf:** 4.214 von 4.216 Beziehungen gesetzt und geprueft, 2 in der
+  Luecke, **0 Verteilungsabweichungen**. Damit ist die externe Abhaengigkeit Abrechnung
+  fuer die Valorisierung erfuellt.
+- Doku: `docs/o11-o18-abrechnung-datenmigration.md`,
+  `docs/migration/abrechnung_migration.md`.
